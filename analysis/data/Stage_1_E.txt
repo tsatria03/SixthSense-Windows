@@ -1,0 +1,411 @@
+====================================================================================================
+@interface Stage_1_E : ?0x0   // instanceSize=0x288 start=0x99
+-- IVARS (145) --
+  +0x99   getGroundMapData             c
+  +0x9a   getSoundMapData              c
+  +0x9c   stage                        @"MakeMaps"
+  +0xa0   walk_sound_number            i
+  +0xa4   walkXFlag                    c
+  +0xa8   breathCount                  i
+  +0xac   brearhFlag                   c
+  +0xb0   breathTimer                  @"NSTimer"
+  +0xb4   breathNumber                 i
+  +0xb8   first                        c
+  +0xbc   shotMonster                  i
+  +0xc0   shotFlag                     c
+  +0xc4   MotionSamplingTimer          @"NSTimer"
+  +0xc8   posX                         f
+  +0xcc   posY                         f
+  +0xd0   screatchX                    f
+  +0xd4   screatchY                    f
+  +0xd8   gamePlayer                   @"PlayerControl"
+  +0xdc   shakeMonsterTimer            @"NSTimer"
+  +0xe0   shakeCount                   i
+  +0xe4   shakeFlag                    i
+  +0xe8   shakeMonsterNumber           i
+  +0xec   step                         c
+  +0xf0   gameState                    i
+  +0xf4   tapOrGesture                 c
+  +0xf8   tapCount                     i
+  +0xfc   tapTimer                     @"NSTimer"
+  +0x100  pauseFlag                    c
+  +0x101  killZombiesFlag              c
+  +0x102  headshotFlag                 c
+  +0x103  scoreFlag                    c
+  +0x104  goldFlag                     c
+  +0x105  topScoreFlag                 c
+  +0x106  rankFlag                     c
+  +0x107  continueFlag                 c
+  +0x108  restartFlag                  c
+  +0x109  gotostageselectFlag          c
+  +0x10c  selectMenu                   i
+  +0x110  stopWalkingFlag              c
+  +0x114  shotAngle                    f
+  +0x118  weaponSource                 [8@"WeaponControl"]
+  +0x138  reloadShotGunTimer           @"NSTimer"
+  +0x13c  shotgunShot                  c
+  +0x13d  isShake                      c
+  +0x13e  missionCompletSounding       c
+  +0x140  LVCount                      i
+  +0x144  monster_num                  i
+  +0x148  monsterHPGain                f
+  +0x14c  LVUP                         i
+  +0x150  bBOSS                        c
+  +0x154  gameMode                     i
+  +0x158  isTutorial                   c
+  +0x159  speaking                     c
+  +0x15c  tutorialTimer                @"NSTimer"
+  +0x160  tutorialOne                  c
+  +0x161  tutorialTwo                  c
+  +0x162  tutorialThree                c
+  +0x163  tutorialFour                 c
+  +0x164  tutorialFive                 c
+  +0x165  tutorialFiveHalf             c
+  +0x166  tutorialSix                  c
+  +0x167  tutorialSeven                c
+  +0x168  tutorialEight                c
+  +0x169  tutorialNine                 c
+  +0x16c  checkTutorialTimer           @"NSTimer"
+  +0x170  oneFlag                      c
+  +0x171  twoFlag                      c
+  +0x172  threeFlag                    c
+  +0x173  fourFlag                     c
+  +0x174  fiveFlag                     c
+  +0x175  fiveHalfFlag                 c
+  +0x176  sixFlag                      c
+  +0x177  sevenFlag                    c
+  +0x178  eightFlag                    c
+  +0x179  nineFlag                     c
+  +0x17a  noAtt                        c
+  +0x17c  memMonsterBuffer             @"NSMutableArray"
+  +0x180  bMem                         c
+  +0x181  bStop                        c
+  +0x184  reqTimer                     @"NSTimer"
+  +0x188  reqOK                        c
+  +0x189  timerEnd                     c
+  +0x18c  urlCon                       @"NSURLConnection"
+  +0x190  rawData                      @"NSMutableData"
+  +0x194  GirlMonsterNumber            i
+  +0x198  isTutorialEnd                i
+  +0x19c  DieFlag                      c
+  +0x1a0  reloadWeaponNumber           i
+  +0x1a4  targetMonsterCountLabel      @"UILabel"
+  +0x1a8  hpHeartImageView1            @"UIImageView"
+  +0x1ac  hpHeartImageView2            @"UIImageView"
+  +0x1b0  hpHeartImageView3            @"UIImageView"
+  +0x1b4  killZombiesLabel             @"UILabel"
+  +0x1b8  HeadShotLabel                @"UILabel"
+  +0x1bc  ScoreLabel                   @"UILabel"
+  +0x1c0  GoldLabel                    @"UILabel"
+  +0x1c4  backgroundImageView          @"UIImageView"
+  +0x1c8  gunChangeButton              @"UIButton"
+  +0x1cc  bloodImageView               @"UIImageView"
+  +0x1d0  bulletLabel                  @"UILabel"
+  +0x1d4  StopPlayButton               @"UIButton"
+  +0x1d8  startContainView             @"UIView"
+  +0x1dc  mapLodingImageView           @"UIImageView"
+  +0x1e0  dieAndStopContainView        @"UIView"
+  +0x1e4  continueButton               @"UIButton"
+  +0x1e8  gameReplayButton             @"UIButton"
+  +0x1ec  GameEndButton                @"UIButton"
+  +0x1f0  mapLodingLabel               @"UILabel"
+  +0x1f4  groundMapData                @"NSString"
+  +0x1f8  soundMapData                 @"NSString"
+  +0x1fc  actionMapData                @"NSString"
+  +0x200  playerPlot                   @"NSMutableArray"
+  +0x204  MonsterBuffer                @"NSMutableArray"
+  +0x208  monsterArray                 @"NSArray"
+  +0x20c  _RankLabel                   @"UILabel"
+  +0x210  _hpHeartImageView4           @"UIImageView"
+  +0x214  _scratch1                    @"UIImageView"
+  +0x218  _scratch2                    @"UIImageView"
+  +0x21c  _scratch3                    @"UIImageView"
+  +0x220  _scratch4                    @"UIImageView"
+  +0x224  _lodingImageView             @"UIImageView"
+  +0x228  _shaking1imageView           @"UIImageView"
+  +0x22c  _arrow6imageView             @"UIImageView"
+  +0x230  _touch3imageView             @"UIImageView"
+  +0x234  _touch2imageView             @"UIImageView"
+  +0x238  _round10                     @"UIImageView"
+  +0x23c  _round9                      @"UIImageView"
+  +0x240  _fingerImageView             @"UIImageView"
+  +0x244  _round7                      @"UIImageView"
+  +0x248  _round8                      @"UIImageView"
+  +0x24c  _round6                      @"UIImageView"
+  +0x250  _round5                      @"UIImageView"
+  +0x254  _scratch5                    @"UIImageView"
+  +0x258  _round4                      @"UIImageView"
+  +0x25c  _mainBGimageView             @"UIImageView"
+  +0x260  _round3                      @"UIImageView"
+  +0x264  _round1                      @"UIImageView"
+  +0x268  _round2                      @"UIImageView"
+  +0x26c  _arrow3imageView             @"UIImageView"
+  +0x270  _arrow1imageView             @"UIImageView"
+  +0x274  _MainTitleImageView          @"UIImageView"
+  +0x278  _arrow2imageView             @"UIImageView"
+  +0x27c  _arrow5imageView             @"UIImageView"
+  +0x280  _TopScoreLabel               @"UILabel"
+  +0x284  _arrow4imageView             @"UIImageView"
+-- METHODS (262) --
+  - 0x0002c4d1  initWithNibName:bundle:                            @16@0:4@8@12
+  - 0x0002c589  interruptRestart                                   v8@0:4
+  - 0x0002c5bd  audioRestart                                       v8@0:4
+  - 0x0002c6c5  interruptStop                                      v8@0:4
+  - 0x0002c6d9  didReceiveMemoryWarning                            v8@0:4
+  - 0x0002c759  viewDidAppear:                                     v12@0:4c8
+  - 0x0002c785  viewDidLoad                                        v8@0:4
+  - 0x0002d4fd  lodingBar01                                        v8@0:4
+  - 0x0002d551  lodingBar02                                        v8@0:4
+  - 0x0002d5a5  lodingBar03                                        v8@0:4
+  - 0x0002d5f9  lodingBar04                                        v8@0:4
+  - 0x0002d64d  changeGameMode                                     v8@0:4
+  - 0x0002d6f1  buttonSelectImage                                  v8@0:4
+  - 0x0002d8d5  blindModeOff                                       v8@0:4
+  - 0x0002d9f1  blindModeSelectedMenu                              v8@0:4
+  - 0x0002dad9  viewWillAppear:                                    v12@0:4c8
+  - 0x0002db61  viewWillDisappear:                                 v12@0:4c8
+  - 0x0002dbbd  MapInitInBundle                                    v8@0:4
+  - 0x0002e145  MapInit                                            v8@0:4
+  - 0x0002e2c1  viewDidUnload                                      v8@0:4
+  - 0x0002e78d  shouldAutorotateToInterfaceOrientation:            c12@0:4i8
+  - 0x0002e799  dealloc                                            v8@0:4
+  - 0x0002ec71  doubleTapChangeWeapon:                             v12@0:4@8
+  - 0x0002ec85  threeTapChangeWeapon:                              v12@0:4@8
+  - 0x0002ec99  MovingShot:                                        v12@0:4@8
+  - 0x0002fdd9  tapSelect:                                         v12@0:4@8
+  - 0x0002fec9  tapCount                                           v8@0:4
+  - 0x00030019  StopElseSpeak                                      v8@0:4
+  - 0x00030169  selectTapPointSoundStart                           v8@0:4
+  - 0x00031279  mapPlotSound                                       v8@0:4
+  - 0x00031429  soundFunction:yPlot:data:addSound:                 v24@0:4i8i12@16i20
+  - 0x00031819  timerLeft                                          v8@0:4
+  - 0x0003182d  MainControl                                        v8@0:4
+  - 0x000322e1  ChangeLevel:                                       v12@0:4@8
+  - 0x000323d9  checkShakeMode                                     v8@0:4
+  - 0x000324f9  shakeCheck:                                        v12@0:4@8
+  - 0x00032565  headerShot                                         v8@0:4
+  - 0x000325c1  stopHeadShot                                       v8@0:4
+  - 0x000325e1  breath:                                            v12@0:4@8
+  - 0x0003261d  updateTopscoreRank                                 v8@0:4
+  - 0x00032761  missionFailTell:                                   v12@0:4@8
+  - 0x00032c11  MissionSuccessTell                                 v8@0:4
+  - 0x00032fe1  GameEndAction:                                     v12@0:4@8
+  - 0x000330ed  gameReplayAction:                                  v12@0:4@8
+  - 0x00033941  continueAction:                                    v12@0:4@8
+  - 0x00033bed  tutorialEnd:                                       v12@0:4@8
+  - 0x00033d41  tutorialEndGameStart:                              v12@0:4@8
+  - 0x00033df9  StopPlayAction:                                    v12@0:4@8
+  - 0x00034745  spaekMenu                                          v8@0:4
+  - 0x00034779  SuccessOrFailMission                               v8@0:4
+  - 0x00035009  weaponInit                                         v8@0:4
+  - 0x00035139  weaponDealloc                                      v8@0:4
+  - 0x0003516d  GunReloadAction:                                   v12@0:4@8
+  - 0x0003534d  reloadShotgun                                      v8@0:4
+  - 0x000356a5  stopShotGunReload:                                 v12@0:4@8
+  - 0x00035709  startWeapon                                        v8@0:4
+  - 0x00035a09  gunChangeAction:                                   v12@0:4@8
+  - 0x00035ef1  reloadGun:                                         v12@0:4@8
+  - 0x00036039  stopShot:                                          v12@0:4@8
+  - 0x0003604d  checkBoosDie                                       c8@0:4
+  - 0x00036101  MakeMonster:                                       v12@0:4i8
+  - 0x00036459  checkMonsterArray:                                 i12@0:4i8
+  - 0x00036525  MonsterInit:                                       v12@0:4i8
+  - 0x000392fd  MonsterDamageKnife                                 v8@0:4
+  - 0x00039e01  MonsterKillCount:                                  v12@0:4@8
+  - 0x0003a0d9  MonsterDamage                                      v8@0:4
+  - 0x0003ab89  monsterHitHeadFind                                 @8@0:4
+  - 0x0003ae85  MonsterDie:                                        v12@0:4i8
+  - 0x0003af59  MonsterStop                                        v8@0:4
+  - 0x0003afcd  MonsterReStart                                     v8@0:4
+  - 0x0003b041  MonsterAttPlayer                                   v8@0:4
+  - 0x0003b6f9  NonShaking                                         v8@0:4
+  - 0x0003b95d  shakingFind                                        v8@0:4
+  - 0x0003bc45  playerDamage:                                      v12@0:4@8
+  - 0x0003bc75  playerDie:                                         v12@0:4@8
+  - 0x0003bd3d  MonsterDealloc                                     v8@0:4
+  - 0x0003bde1  ReadNumberOfZombies                                v8@0:4
+  - 0x0003be8d  ReadNumberOfHeadshot                               v8@0:4
+  - 0x0003bf39  ReadScore                                          v8@0:4
+  - 0x0003c215  ReadTopScore                                       v8@0:4
+  - 0x0003c301  ReadRank                                           v8@0:4
+  - 0x0003c405  ReadObtainedGold                                   v8@0:4
+  - 0x0003c669  HPImageCount                                       v8@0:4
+  - 0x0003c84d  accelerometer:didAccelerate:                       v16@0:4@8@12
+  - 0x0003c8bd  scratch1Pos                                        v8@0:4
+  - 0x0003c9f5  scratch2Pos                                        v8@0:4
+  - 0x0003cb3d  scratch3Pos                                        v8@0:4
+  - 0x0003cc89  scratch4Pos                                        v8@0:4
+  - 0x0003cdc1  scratch5Pos                                        v8@0:4
+  - 0x0003cf0d  tutorialSoundStop                                  v8@0:4
+  - 0x0003cfa1  CheckTutorial                                      v8@0:4
+  - 0x0003d0a9  tutorialHiddenView                                 v8@0:4
+  - 0x0003d1c5  NextTutorial                                       v8@0:4
+  - 0x0003d365  tutorialOne                                        v8@0:4
+  - 0x0003d451  tutorialOneSoundStop                               v8@0:4
+  - 0x0003d489  tutorialOneEnd                                     v8@0:4
+  - 0x0003d599  tutorialOneRestart                                 v8@0:4
+  - 0x0003d5f1  tutorialOneRestartFinger                           v8@0:4
+  - 0x0003d639  tutorialTwo                                        v8@0:4
+  - 0x0003d755  tutorialTwoSoundStop                               v8@0:4
+  - 0x0003d791  tutorialTwoEnd                                     v8@0:4
+  - 0x0003d8a1  tutorialTwoRestart                                 v8@0:4
+  - 0x0003d8f9  tutorialTwoRestartFinger                           v8@0:4
+  - 0x0003d941  tutorialThree                                      v8@0:4
+  - 0x0003da5d  tutorialThreeSoundStop                             v8@0:4
+  - 0x0003da99  tutorialThreeEnd                                   v8@0:4
+  - 0x0003dba9  tutorialThreeRestart                               v8@0:4
+  - 0x0003dc01  tutorialThreeRestartFinger                         v8@0:4
+  - 0x0003dc49  tutorialFour                                       v8@0:4
+  - 0x0003dd65  tutorialFourSoundStop                              v8@0:4
+  - 0x0003dda1  tutorialFourEnd                                    v8@0:4
+  - 0x0003deb1  tutorialFourRestart                                v8@0:4
+  - 0x0003df09  tutorialFourRestartFinger                          v8@0:4
+  - 0x0003df51  tutorialFive                                       v8@0:4
+  - 0x0003e06d  tutorialFiveSoundStop                              v8@0:4
+  - 0x0003e0a9  tutorialFiveEnd                                    v8@0:4
+  - 0x0003e1b9  tutorialFiveRestart                                v8@0:4
+  - 0x0003e211  tutorialFiveRestartFinger                          v8@0:4
+  - 0x0003e259  tutorialFiveHalf                                   v8@0:4
+  - 0x0003e375  tutorialFiveHalfSoundStop                          v8@0:4
+  - 0x0003e3b1  tutorialFiveHalfEnd                                v8@0:4
+  - 0x0003e4c1  tutorialFiveHalfRestart                            v8@0:4
+  - 0x0003e519  tutorialFiveHalfRestartFinger                      v8@0:4
+  - 0x0003e561  tutorialSix                                        v8@0:4
+  - 0x0003e67d  tutorialSixSoundStop                               v8@0:4
+  - 0x0003e6a1  tutorialSixEnd                                     v8@0:4
+  - 0x0003e7b1  tutorialSixRestart                                 v8@0:4
+  - 0x0003e809  tutorialSixRestartFinger                           v8@0:4
+  - 0x0003e851  tutorialSeven                                      v8@0:4
+  - 0x0003e9ad  tutorialSevenSoundStop                             v8@0:4
+  - 0x0003e9cd  tutorialSevenRestart                               v8@0:4
+  - 0x0003ea25  tutorialEight                                      v8@0:4
+  - 0x0003eabd  tutorialEightSoundStop                             v8@0:4
+  - 0x0003eb05  tutorialEightRestart                               v8@0:4
+  - 0x0003eb5d  tutorialNine                                       v8@0:4
+  - 0x0003ec89  tutorialNineSoundStop                              v8@0:4
+  - 0x0003eca9  tutorialNineRestart                                v8@0:4
+  - 0x0003ed01  sendScore:                                         v12@0:4i8
+  - 0x0003efed  reqTimerMethod:                                    v12@0:4@8
+  - 0x0003f089  connection:didReceiveResponse:                     v16@0:4@8@12
+  - 0x0003f2f1  connection:didReceiveData:                         v16@0:4@8@12
+  - 0x0003f31d  connection:didFailWithError:                       v16@0:4@8@12
+  - 0x0003f44d  connectionDidFinishLoading:                        v12@0:4@8
+  - 0x0003f6ed  getKey:key:                                        @16@0:4@8@12
+  - 0x0003f735  targetMonsterCountLabel                            @8@0:4
+  - 0x0003f745  setTargetMonsterCountLabel:                        v12@0:4@8
+  - 0x0003f769  hpHeartImageView1                                  @8@0:4
+  - 0x0003f779  setHpHeartImageView1:                              v12@0:4@8
+  - 0x0003f79d  hpHeartImageView2                                  @8@0:4
+  - 0x0003f7ad  setHpHeartImageView2:                              v12@0:4@8
+  - 0x0003f7d1  hpHeartImageView3                                  @8@0:4
+  - 0x0003f7e1  setHpHeartImageView3:                              v12@0:4@8
+  - 0x0003f805  killZombiesLabel                                   @8@0:4
+  - 0x0003f815  setKillZombiesLabel:                               v12@0:4@8
+  - 0x0003f839  HeadShotLabel                                      @8@0:4
+  - 0x0003f849  setHeadShotLabel:                                  v12@0:4@8
+  - 0x0003f86d  ScoreLabel                                         @8@0:4
+  - 0x0003f87d  setScoreLabel:                                     v12@0:4@8
+  - 0x0003f8a1  GoldLabel                                          @8@0:4
+  - 0x0003f8b1  setGoldLabel:                                      v12@0:4@8
+  - 0x0003f8d5  backgroundImageView                                @8@0:4
+  - 0x0003f8e5  setBackgroundImageView:                            v12@0:4@8
+  - 0x0003f909  gunChangeButton                                    @8@0:4
+  - 0x0003f919  setGunChangeButton:                                v12@0:4@8
+  - 0x0003f93d  bloodImageView                                     @8@0:4
+  - 0x0003f94d  setBloodImageView:                                 v12@0:4@8
+  - 0x0003f971  bulletLabel                                        @8@0:4
+  - 0x0003f981  setBulletLabel:                                    v12@0:4@8
+  - 0x0003f9a5  StopPlayButton                                     @8@0:4
+  - 0x0003f9b5  setStopPlayButton:                                 v12@0:4@8
+  - 0x0003f9d9  startContainView                                   @8@0:4
+  - 0x0003f9e9  setStartContainView:                               v12@0:4@8
+  - 0x0003fa0d  mapLodingImageView                                 @8@0:4
+  - 0x0003fa1d  setMapLodingImageView:                             v12@0:4@8
+  - 0x0003fa41  dieAndStopContainView                              @8@0:4
+  - 0x0003fa51  setDieAndStopContainView:                          v12@0:4@8
+  - 0x0003fa75  continueButton                                     @8@0:4
+  - 0x0003fa85  setContinueButton:                                 v12@0:4@8
+  - 0x0003faa9  gameReplayButton                                   @8@0:4
+  - 0x0003fab9  setGameReplayButton:                               v12@0:4@8
+  - 0x0003fadd  GameEndButton                                      @8@0:4
+  - 0x0003faed  setGameEndButton:                                  v12@0:4@8
+  - 0x0003fb11  mapLodingLabel                                     @8@0:4
+  - 0x0003fb21  setMapLodingLabel:                                 v12@0:4@8
+  - 0x0003fb45  urlCon                                             @8@0:4
+  - 0x0003fb55  setUrlCon:                                         v12@0:4@8
+  - 0x0003fb79  rawData                                            @8@0:4
+  - 0x0003fb89  setRawData:                                        v12@0:4@8
+  - 0x0003fbad  groundMapData                                      @8@0:4
+  - 0x0003fbbd  setGroundMapData:                                  v12@0:4@8
+  - 0x0003fbe1  soundMapData                                       @8@0:4
+  - 0x0003fbf1  setSoundMapData:                                   v12@0:4@8
+  - 0x0003fc15  actionMapData                                      @8@0:4
+  - 0x0003fc25  setActionMapData:                                  v12@0:4@8
+  - 0x0003fc49  playerPlot                                         @8@0:4
+  - 0x0003fc59  setPlayerPlot:                                     v12@0:4@8
+  - 0x0003fc7d  MonsterBuffer                                      @8@0:4
+  - 0x0003fc8d  setMonsterBuffer:                                  v12@0:4@8
+  - 0x0003fcb1  monsterArray                                       @8@0:4
+  - 0x0003fcc1  setMonsterArray:                                   v12@0:4@8
+  - 0x0003fce5  RankLabel                                          @8@0:4
+  - 0x0003fcf5  setRankLabel:                                      v12@0:4@8
+  - 0x0003fd19  hpHeartImageView4                                  @8@0:4
+  - 0x0003fd29  setHpHeartImageView4:                              v12@0:4@8
+  - 0x0003fd4d  scratch1                                           @8@0:4
+  - 0x0003fd5d  setScratch1:                                       v12@0:4@8
+  - 0x0003fd81  scratch2                                           @8@0:4
+  - 0x0003fd91  setScratch2:                                       v12@0:4@8
+  - 0x0003fdb5  scratch3                                           @8@0:4
+  - 0x0003fdc5  setScratch3:                                       v12@0:4@8
+  - 0x0003fde9  scratch4                                           @8@0:4
+  - 0x0003fdf9  setScratch4:                                       v12@0:4@8
+  - 0x0003fe1d  lodingImageView                                    @8@0:4
+  - 0x0003fe2d  setLodingImageView:                                v12@0:4@8
+  - 0x0003fe51  shaking1imageView                                  @8@0:4
+  - 0x0003fe61  setShaking1imageView:                              v12@0:4@8
+  - 0x0003fe85  arrow6imageView                                    @8@0:4
+  - 0x0003fe95  setArrow6imageView:                                v12@0:4@8
+  - 0x0003feb9  touch3imageView                                    @8@0:4
+  - 0x0003fec9  setTouch3imageView:                                v12@0:4@8
+  - 0x0003feed  touch2imageView                                    @8@0:4
+  - 0x0003fefd  setTouch2imageView:                                v12@0:4@8
+  - 0x0003ff21  round10                                            @8@0:4
+  - 0x0003ff31  setRound10:                                        v12@0:4@8
+  - 0x0003ff55  round9                                             @8@0:4
+  - 0x0003ff65  setRound9:                                         v12@0:4@8
+  - 0x0003ff89  fingerImageView                                    @8@0:4
+  - 0x0003ff99  setFingerImageView:                                v12@0:4@8
+  - 0x0003ffbd  round7                                             @8@0:4
+  - 0x0003ffcd  setRound7:                                         v12@0:4@8
+  - 0x0003fff1  round8                                             @8@0:4
+  - 0x00040001  setRound8:                                         v12@0:4@8
+  - 0x00040025  round6                                             @8@0:4
+  - 0x00040035  setRound6:                                         v12@0:4@8
+  - 0x00040059  round5                                             @8@0:4
+  - 0x00040069  setRound5:                                         v12@0:4@8
+  - 0x0004008d  scratch5                                           @8@0:4
+  - 0x0004009d  setScratch5:                                       v12@0:4@8
+  - 0x000400c1  round4                                             @8@0:4
+  - 0x000400d1  setRound4:                                         v12@0:4@8
+  - 0x000400f5  mainBGimageView                                    @8@0:4
+  - 0x00040105  setMainBGimageView:                                v12@0:4@8
+  - 0x00040129  round3                                             @8@0:4
+  - 0x00040139  setRound3:                                         v12@0:4@8
+  - 0x0004015d  round1                                             @8@0:4
+  - 0x0004016d  setRound1:                                         v12@0:4@8
+  - 0x00040191  round2                                             @8@0:4
+  - 0x000401a1  setRound2:                                         v12@0:4@8
+  - 0x000401c5  arrow3imageView                                    @8@0:4
+  - 0x000401d5  setArrow3imageView:                                v12@0:4@8
+  - 0x000401f9  arrow1imageView                                    @8@0:4
+  - 0x00040209  setArrow1imageView:                                v12@0:4@8
+  - 0x0004022d  MainTitleImageView                                 @8@0:4
+  - 0x0004023d  setMainTitleImageView:                             v12@0:4@8
+  - 0x00040261  arrow2imageView                                    @8@0:4
+  - 0x00040271  setArrow2imageView:                                v12@0:4@8
+  - 0x00040295  arrow5imageView                                    @8@0:4
+  - 0x000402a5  setArrow5imageView:                                v12@0:4@8
+  - 0x000402c9  TopScoreLabel                                      @8@0:4
+  - 0x000402d9  setTopScoreLabel:                                  v12@0:4@8
+  - 0x000402fd  arrow4imageView                                    @8@0:4
+  - 0x0004030d  setArrow4imageView:                                v12@0:4@8

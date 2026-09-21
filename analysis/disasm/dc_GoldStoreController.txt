@@ -1,0 +1,2435 @@
+
+//// -[GoldStoreController initWithNibName:bundle:]  0x1ef58..0x1f0c4  @16@0:4@8@12
+  1ef5a  add r7, sp, #0xc
+  1ef60  sub sp, #0x10
+  1ef74  r1 = SEL(initWithNibName:bundle:)
+  1ef7a  r1 = SEL(initWithNibName:bundle:)
+  1ef7e  add r0, sp, #8
+  1ef80  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  1ef86  cmp r4, 0
+  1ef88  beq L_1f0ba
+  1ef9c  r0 = SEL(defaultCenter)
+  1ef9e  r8 = NSNotificationCenter
+  1efa0  r6 = SEL(defaultCenter)
+  1efa2  r0 = NSNotificationCenter
+  1efa8  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1efb0  fp = 0
+  1efc0  r1 = SEL(addObserver:selector:name:object:)
+  1efc2  r2 = SEL(buyGoldItem1Complet)
+  1efc8  r5 = SEL(addObserver:selector:name:object:)
+  1efce  r3 = SEL(buyGoldItem1Complet)
+  1efd2  sl = CFSTR('buyGoldItem1Complet')
+  1efda  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyGoldItem1Complet))
+  1efde  r0 = NSNotificationCenter
+  1efe4  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1eff6  r1 = SEL(buyGoldItem2Complet)
+  1effc  sl = CFSTR('buyGoldItem2Complet')
+  1f002  r3 = SEL(buyGoldItem2Complet)
+  1f006  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyGoldItem2Complet))
+  1f00a  r0 = NSNotificationCenter
+  1f010  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1f022  r1 = SEL(buyGoldItem3Complet)
+  1f028  sl = CFSTR('buyGoldItem3Complet')
+  1f02e  r3 = SEL(buyGoldItem3Complet)
+  1f032  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyGoldItem3Complet))
+  1f036  r0 = NSNotificationCenter
+  1f03c  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1f04e  r1 = SEL(buyGoldItem4Complet)
+  1f054  sl = CFSTR('buyGoldItem4Complet')
+  1f05a  r3 = SEL(buyGoldItem4Complet)
+  1f05e  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyGoldItem4Complet))
+  1f062  r0 = NSNotificationCenter
+  1f068  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1f07a  r1 = SEL(buyItemError)
+  1f080  sl = CFSTR('buyItemError')
+  1f086  r3 = SEL(buyItemError)
+  1f08a  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyItemError))
+  1f08e  r0 = NSNotificationCenter
+  1f094  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1f0a6  r1 = SEL(TurnOnVoiceOver)
+  1f0ac  sl = CFSTR('TurnOnVoiceOver')
+  1f0b2  r3 = SEL(TurnOnVoiceOver)
+  1f0b6  r0 = [r0 addObserver:selector:name:object:](?, SEL(TurnOnVoiceOver))
+L_1f0ba:
+  1f0bc  add sp, #0x10
+  1f0c2  return
+
+//// -[GoldStoreController TurnOnVoiceOver]  0x1f0c4..0x1f460  v8@0:4
+  1f0c6  add r7, sp, #0xc
+  1f0cc  sub sp, #0x14
+  1f0d0  call sub_3ccc
+  1f0de  r0 = SEL(mode)
+  1f0e0  r1 = SEL(mode)
+  1f0e4  r0 = [r0 mode](?, ?)
+  1f0f4  r1 = IVOFF(selectMenu)
+  1f0f6  r1 = IVOFF(selectMenu)
+  1f0f8  beq L_1f280
+  1f100  r2 = 1
+  1f106  self->selectMenu = 1
+  1f10a  r0 = SEL(blindModeSelectedMenu)
+  1f10c  r1 = SEL(blindModeSelectedMenu)
+  1f110  r0 = [r0 blindModeSelectedMenu](1, ?)
+  1f11c  r0 = SEL(StopElseSpeak)
+  1f11e  r1 = SEL(StopElseSpeak)
+  1f122  r0 = [r0 StopElseSpeak](?, ?)
+  1f136  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1f138  r2 = 21
+  1f13a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1f13c  r0 = 0
+  1f148  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  1f15c  r0 = SEL(currentDevice)
+  1f15e  r2 = UIDevice
+  1f160  r1 = SEL(currentDevice)
+  1f162  r0 = UIDevice
+  1f164  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1f170  r1 = SEL(systemVersion)
+  1f172  r1 = SEL(systemVersion)
+  1f174  r0 = [r0 systemVersion](?, ?)
+  1f180  r1 = SEL(floatValue)
+  1f182  r1 = SEL(floatValue)
+  1f184  r0 = [r0 floatValue](?, ?)
+  1f188  vmov.f32 d0, #5.000000e+00
+  1f18c  vmov d1, r0, r0
+  1f190  vcmpe.f32 s2, s0
+  1f194  vmrs apsr_nzcv, fpscr
+  1f198  blt L_1f410
+  1f1ac  r0 = SEL(alloc)
+  1f1ae  r2 = UIPanGestureRecognizer
+  1f1b0  r1 = SEL(alloc)
+  1f1b2  r0 = UIPanGestureRecognizer
+  1f1b6  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  1f1ca  r1 = SEL(initWithTarget:action:)
+  1f1cc  r2 = SEL(Menu:)
+  1f1ce  fp = SEL(initWithTarget:action:)
+  1f1d2  r3 = SEL(Menu:)
+  1f1d8  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  1f1e4  r1 = SEL(autorelease)
+  1f1e6  r5 = SEL(autorelease)
+  1f1ea  r0 = [r0 autorelease](?, ?)
+  1f1f8  r2 = 1
+  1f1fa  r0 = SEL(setEnabled:)
+  1f1fc  r1 = SEL(setEnabled:)
+  1f200  r0 = [r0 setEnabled:](1, ?)
+  1f20e  r0 = SEL(setDelegate:)
+  1f210  r1 = SEL(setDelegate:)
+  1f214  r0 = [r0 setDelegate:](?, ?)
+  1f220  r0 = SEL(view)
+  1f222  r4 = SEL(view)
+  1f228  r0 = [r0 view](?, ?)
+  1f236  r1 = SEL(addGestureRecognizer:)
+  1f238  r6 = SEL(addGestureRecognizer:)
+  1f23c  r0 = [r0 addGestureRecognizer:](?, ?)
+  1f24a  r0 = UITapGestureRecognizer
+  1f24c  r0 = UITapGestureRecognizer
+  1f24e  r0 = [UITapGestureRecognizer ??](?, ?)
+  1f25c  r1 = SEL(tapSelect:)
+  1f25e  r3 = SEL(tapSelect:)
+  1f262  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  1f268  r0 = [r0 autorelease](?, ?)
+  1f272  r0 = [r0 view](?, ?)
+L_1f27a:
+  1f27a  r0 = [r0 addGestureRecognizer:](?, ?)
+  1f27e  b L_1f410
+L_1f280:
+  1f284  r2 = 0
+  1f28e  r0 = SEL(blindModeSelectedMenu)
+  1f290  r1 = SEL(blindModeSelectedMenu)
+  1f294  r0 = [r0 blindModeSelectedMenu](0, ?)
+  1f2a8  r0 = SEL(currentDevice)
+  1f2aa  r2 = UIDevice
+  1f2ac  r1 = SEL(currentDevice)
+  1f2ae  r0 = UIDevice
+  1f2b0  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1f2bc  r1 = SEL(systemVersion)
+  1f2be  r1 = SEL(systemVersion)
+  1f2c0  r0 = [r0 systemVersion](?, ?)
+  1f2cc  r1 = SEL(floatValue)
+  1f2ce  r1 = SEL(floatValue)
+  1f2d0  r0 = [r0 floatValue](?, ?)
+  1f2d4  vmov.f32 d0, #5.000000e+00
+  1f2d8  vmov d1, r0, r0
+  1f2dc  vcmpe.f32 s2, s0
+  1f2e0  vmrs apsr_nzcv, fpscr
+  1f2e4  blt L_1f410
+  1f2f0  r0 = SEL(view)
+  1f2f2  fp = SEL(view)
+  1f2fa  r0 = [r0 view](?, ?)
+  1f306  r1 = SEL(gestureRecognizers)
+  1f308  r6 = SEL(gestureRecognizers)
+  1f30c  r0 = [r0 gestureRecognizers](?, ?)
+  1f318  r1 = SEL(count)
+  1f31a  r4 = SEL(count)
+  1f31e  r0 = [r0 count](?, ?)
+  1f322  cmp r0, 0
+  1f324  beq L_1f410
+  1f32a  r0 = [r0 view](?, ?)
+  1f330  r0 = [r0 gestureRecognizers](?, ?)
+  1f336  r0 = [r0 count](?, ?)
+  1f340  r0 = [r0 view](?, ?)
+  1f346  r0 = [r0 gestureRecognizers](?, ?)
+  1f34a  cmp r5, 2
+  1f34c  blo L_1f3ba
+  1f352  r2 = 1
+  1f358  r1 = SEL(objectAtIndex:)
+  1f35a  r4 = SEL(objectAtIndex:)
+  1f35e  r0 = [r0 objectAtIndex:](1, ?)
+  1f368  r0 = [r0 view](?, ?)
+  1f36e  r0 = [r0 gestureRecognizers](?, ?)
+  1f374  r2 = 0
+  1f376  r0 = [r0 objectAtIndex:](0, ?)
+  1f384  r2 = 0
+  1f386  r0 = SEL(setEnabled:)
+  1f388  r1 = SEL(setEnabled:)
+  1f38c  r0 = [r0 setEnabled:](0, ?)
+  1f394  r0 = [r0 view](?, ?)
+  1f3a2  r1 = SEL(removeGestureRecognizer:)
+  1f3a4  r4 = SEL(removeGestureRecognizer:)
+  1f3a8  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1f3b0  r0 = [r0 view](?, ?)
+  1f3b8  b L_1f27a
+L_1f3ba:
+  1f3bc  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1f3c0  cbz r0 -> L_1f410
+  1f3c6  r0 = [r0 view](?, ?)
+  1f3cc  r0 = [r0 ??](?, ?)
+  1f3d4  r2 = 0
+  1f3da  r1 = SEL(objectAtIndex:)
+  1f3dc  r1 = SEL(objectAtIndex:)
+  1f3de  r0 = [r0 objectAtIndex:](0, ?)
+  1f3ec  r2 = 0
+  1f3ee  r0 = SEL(setEnabled:)
+  1f3f0  r1 = SEL(setEnabled:)
+  1f3f4  r0 = [r0 setEnabled:](0, ?)
+  1f3fc  r0 = [r0 view](?, ?)
+  1f40a  r1 = SEL(removeGestureRecognizer:)
+  1f40c  r1 = SEL(removeGestureRecognizer:)
+  1f40e  b L_1f27a
+L_1f410:
+  1f418  r0 = SEL(view)
+  1f41a  r1 = SEL(view)
+  1f41e  r0 = [r0 view](?, ?)
+  1f42a  r1 = SEL(gestureRecognizers)
+  1f42c  r1 = SEL(gestureRecognizers)
+  1f42e  r0 = [r0 gestureRecognizers](?, ?)
+  1f43a  r1 = SEL(count)
+  1f43c  r1 = SEL(count)
+  1f43e  r0 = [r0 count](?, ?)
+  1f44a  r0 = SEL(buttonSelectImage)
+  1f44c  r1 = SEL(buttonSelectImage)
+  1f450  add sp, #0x14
+  1f45a  b L_a90d0
+
+//// -[GoldStoreController didReceiveMemoryWarning]  0x1f460..0x1f48c  v8@0:4
+  1f464  sub sp, #8
+  1f478  r1 = SEL(didReceiveMemoryWarning)
+  1f47e  r1 = SEL(didReceiveMemoryWarning)
+  1f484  r0 = [r0 didReceiveMemoryWarning](0xdb0cc/f1.25728e-39, ?) SUPER
+  1f488  add sp, #8
+  1f48a  return
+
+//// -[GoldStoreController viewWillAppear:]  0x1f48c..0x1f4b8  v12@0:4c8
+  1f490  sub sp, #8
+  1f4a4  r1 = SEL(viewWillAppear:)
+  1f4aa  r1 = SEL(viewWillAppear:)
+  1f4b0  r0 = [r0 viewWillAppear:](?, 0xdb0cc/f1.25728e-39) SUPER
+  1f4b4  add sp, #8
+  1f4b6  return
+
+//// -[GoldStoreController viewDidLoad]  0x1f4b8..0x1f810  v8@0:4
+  1f4ba  add r7, sp, #0xc
+  1f4c0  sub sp, #0x18
+  1f4d6  r0 = SEL(viewDidLoad)
+  1f4e0  r1 = SEL(viewDidLoad)
+  1f4e2  add r0, sp, #0x10
+  1f4e4  r0 = [r0 viewDidLoad](?, ?) SUPER
+  1f4f0  r0 = SEL(maskView)
+  1f4f2  r5 = SEL(maskView)
+  1f4f8  r0 = [r0 maskView](?, ?)
+  1f504  r1 = SEL(layer)
+  1f506  r6 = SEL(layer)
+  1f50a  r0 = [r0 layer](?, ?)
+  1f512  r2 = 0
+  1f51c  r1 = SEL(setCornerRadius:)
+  1f51e  r1 = SEL(setCornerRadius:)
+  1f520  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  1f528  r0 = [r0 maskView](?, ?)
+  1f52e  r0 = [r0 layer](?, ?)
+  1f536  r2 = 1
+  1f53c  r1 = SEL(setMasksToBounds:)
+  1f53e  r1 = SEL(setMasksToBounds:)
+  1f540  r0 = [r0 setMasksToBounds:](1, ?)
+  1f548  r0 = [r0 maskView](?, ?)
+  1f550  r2 = 1
+  1f556  r1 = SEL(setHidden:)
+  1f558  r1 = SEL(setHidden:)
+  1f55a  r0 = [r0 setHidden:](1, ?)
+  1f55e  call sub_3ccc
+  1f56c  r0 = SEL(buttonSelectImage)
+  1f56e  r1 = SEL(buttonSelectImage)
+  1f572  r0 = [r0 buttonSelectImage](?, ?)
+  1f586  r0 = SEL(currentDevice)
+  1f588  r2 = UIDevice
+  1f58a  r1 = SEL(currentDevice)
+  1f58c  r0 = UIDevice
+  1f58e  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1f59a  r1 = SEL(systemVersion)
+  1f59c  r1 = SEL(systemVersion)
+  1f59e  r0 = [r0 systemVersion](?, ?)
+  1f5aa  r1 = SEL(floatValue)
+  1f5ac  r1 = SEL(floatValue)
+  1f5ae  r0 = [r0 floatValue](?, ?)
+  1f5b2  vmov.f32 d0, #5.000000e+00
+  1f5b6  vmov d1, r0, r0
+  1f5ba  vcmpe.f32 s2, s0
+  1f5be  vmrs apsr_nzcv, fpscr
+  1f5c2  bge L_1f5c8
+  1f5c6  b L_1f6ce
+L_1f5c8:
+  1f5d0  r0 = SEL(mode)
+  1f5d2  r4 = SEL(mode)
+  1f5d8  r0 = [r0 mode](?, ?)
+  1f5e2  r0 = [r0 mode](?, ?)
+  1f5e8  cmp r0, 1
+  1f5ea  bne L_1f6ce
+  1f5fc  r0 = SEL(alloc)
+  1f5fe  r2 = UIPanGestureRecognizer
+  1f600  r1 = SEL(alloc)
+  1f602  r0 = UIPanGestureRecognizer
+  1f606  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  1f61a  r1 = SEL(initWithTarget:action:)
+  1f61c  r2 = SEL(Menu:)
+  1f61e  r4 = SEL(initWithTarget:action:)
+  1f620  r3 = SEL(Menu:)
+  1f626  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  1f632  r1 = SEL(autorelease)
+  1f634  r6 = SEL(autorelease)
+  1f638  r0 = [r0 autorelease](?, ?)
+  1f646  r2 = 1
+  1f648  r0 = SEL(setEnabled:)
+  1f64a  r1 = SEL(setEnabled:)
+  1f64e  r0 = [r0 setEnabled:](1, ?)
+  1f65c  r0 = SEL(setDelegate:)
+  1f65e  r1 = SEL(setDelegate:)
+  1f662  r0 = [r0 setDelegate:](?, ?)
+  1f66e  r0 = SEL(view)
+  1f670  r5 = SEL(view)
+  1f676  r0 = [r0 view](?, ?)
+  1f684  r1 = SEL(addGestureRecognizer:)
+  1f686  r8 = SEL(addGestureRecognizer:)
+  1f68c  r0 = [r0 addGestureRecognizer:](?, ?)
+  1f69a  r0 = UITapGestureRecognizer
+  1f69c  r0 = UITapGestureRecognizer
+  1f69e  r0 = [UITapGestureRecognizer ??](?, ?)
+  1f6ac  r1 = SEL(tapSelect:)
+  1f6ae  r3 = SEL(tapSelect:)
+  1f6b2  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  1f6b8  r0 = [r0 autorelease](?, ?)
+  1f6c2  r0 = [r0 view](?, ?)
+  1f6ca  r0 = [r0 addGestureRecognizer:](?, ?)
+L_1f6ce:
+  1f6d6  r0 = SEL(goldLabel)
+  1f6d8  r1 = SEL(goldLabel)
+  1f6dc  r0 = [r0 goldLabel](?, ?)
+  1f6f6  r0 = SEL(haveGold)
+  1f6f8  r1 = NSString
+  1f6fa  r5 = SEL(haveGold)
+  1f6fe  r4 = NSString
+  1f702  r0 = [r0 haveGold](?, ?)
+  1f714  r0 = SEL(stringWithFormat:)
+  1f71a  r2 = CFSTR('%d')
+  1f71c  r6 = SEL(stringWithFormat:)
+  1f722  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  1f730  r0 = SEL(setText:)
+  1f732  r1 = SEL(setText:)
+  1f736  r0 = [r0 setText:](?, ?)
+  1f742  r0 = SEL(round2)
+  1f744  r1 = SEL(round2)
+  1f748  r0 = [r0 round2](?, ?)
+  1f758  r0 = NSString
+  1f75a  r4 = NSString
+  1f75e  r0 = [r0 haveGold](?, ?)
+  1f76e  r2 = CFSTR('obtained Gold %d')
+  1f772  r0 = [NSString stringWithFormat:](CFSTR('obtained Gold %d'), ?)
+  1f780  r0 = SEL(setAccessibilityLabel:)
+  1f782  r1 = SEL(setAccessibilityLabel:)
+  1f786  r0 = [r0 setAccessibilityLabel:](?, ?)
+  1f792  r0 = SEL(mode)
+  1f794  r1 = SEL(mode)
+  1f798  r0 = [r0 mode](?, ?)
+  1f79e  cmp r0, 1
+  1f7a0  bne L_1f7f4
+  1f7a6  r2 = 1
+  1f7b0  r0 = IVOFF(selectMenu)
+  1f7b6  r1 = SEL(blindModeSelectedMenu)
+  1f7b8  r0 = IVOFF(selectMenu)
+  1f7ba  r1 = SEL(blindModeSelectedMenu)
+  1f7bc  self->selectMenu = 1
+  1f7c2  r0 = [r0 blindModeSelectedMenu](1, ?)
+  1f7ca  r3 = 0
+  1f7d8  r0 = SEL(performSelector:withObject:afterDelay:)
+  1f7da  r2 = SEL(startRead)
+  1f7e0  r1 = SEL(performSelector:withObject:afterDelay:)
+  1f7e2  r0 = 0
+  1f7e4  r2 = SEL(startRead)
+  1f7ec  r3 = 0
+  1f7ee  r0 = [r0 performSelector:withObject:afterDelay:](SEL(startRead), 0)
+  1f7f2  b L_1f806
+L_1f7f4:
+  1f7fc  r0 = SEL(blindModeSelectedMenu)
+  1f7fe  r1 = SEL(blindModeSelectedMenu)
+  1f802  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_1f806:
+  1f806  add sp, #0x18
+  1f80c  return
+
+//// -[GoldStoreController startRead]  0x1f810..0x1f85c  v8@0:4
+  1f812  add r7, sp, #8
+  1f814  sub sp, #0x10
+  1f818  call sub_3ccc
+  1f826  r0 = SEL(StopElseSpeak)
+  1f828  r1 = SEL(StopElseSpeak)
+  1f82c  r0 = [r0 StopElseSpeak](?, ?)
+  1f840  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1f842  r2 = 13
+  1f844  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1f846  r0 = 0
+  1f852  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  1f856  add sp, #0x10
+  1f858  return
+
+//// -[GoldStoreController buttonSelectImage]  0x1f85c..0x1fbd0  v8@0:4
+  1f85e  add r7, sp, #0xc
+  1f864  sub sp, #0x1c
+  1f870  r0 = SEL(goBackButton)
+  1f872  r1 = SEL(goBackButton)
+  1f87a  r0 = [r0 ??](?, ?)
+  1f890  r0 = SEL(imageNamed:)
+  1f892  r2 = UIImage
+  1f894  r1 = SEL(imageNamed:)
+  1f89a  r0 = UIImage
+  1f8a6  r2 = CFSTR('z_btn_back_act.png')
+  1f8a8  r0 = [UIImage ??](CFSTR('z_btn_back_act.png'), ?)
+  1f8b6  r3 = 0
+  1f8b8  r0 = SEL(setBackgroundImage:forState:)
+  1f8ba  r1 = SEL(setBackgroundImage:forState:)
+  1f8c2  r0 = [r0 ??](?, 0)
+  1f8ca  r0 = [r0 ??](?, ?)
+  1f8d0  r0 = UIImage
+  1f8de  r2 = CFSTR('z_btn_back_inact.png')
+  1f8e0  r0 = [UIImage ??](CFSTR('z_btn_back_inact.png'), ?)
+  1f8ea  r3 = 1
+  1f8ec  r0 = [r0 ??](?, 1)
+  1f8f4  r0 = [r0 ??](?, ?)
+  1f900  r1 = SEL(setAccessibilityLabel:)
+  1f902  r1 = SEL(setAccessibilityLabel:)
+  1f90e  r2 = CFSTR('back')
+  1f910  r0 = [r0 ??](CFSTR('back'), ?)
+  1f91c  r0 = SEL(goldPack1Button)
+  1f91e  r6 = SEL(goldPack1Button)
+  1f926  r0 = [r0 ??](?, ?)
+  1f92c  r0 = UIImage
+  1f93a  r2 = CFSTR('5_shop_gold_btn1_inact.png')
+  1f93c  r0 = [UIImage ??](CFSTR('5_shop_gold_btn1_inact.png'), ?)
+  1f946  r3 = 0
+  1f948  r0 = [r0 ??](?, 0)
+  1f950  r0 = [r0 ??](?, ?)
+  1f956  r0 = UIImage
+  1f964  r2 = CFSTR('5_shop_gold_btn1_act.png')
+  1f966  r0 = [UIImage ??](CFSTR('5_shop_gold_btn1_act.png'), ?)
+  1f970  r3 = 1
+  1f972  r0 = [r0 ??](?, 1)
+  1f97a  r0 = [r0 ??](?, ?)
+  1f988  r2 = CFSTR('50,000 Golds $1.99')
+  1f98a  r0 = [r0 ??](CFSTR('50,000 Golds $1.99'), ?)
+  1f996  r0 = SEL(glodPack2Button)
+  1f998  r6 = SEL(glodPack2Button)
+  1f9a0  r0 = [r0 ??](?, ?)
+  1f9a6  r0 = UIImage
+  1f9b4  r2 = CFSTR('5_shop_gold_btn2_inact.png')
+  1f9b6  r0 = [UIImage ??](CFSTR('5_shop_gold_btn2_inact.png'), ?)
+  1f9c0  r3 = 0
+  1f9c2  r0 = [r0 ??](?, 0)
+  1f9ca  r0 = [r0 ??](?, ?)
+  1f9d0  r0 = UIImage
+  1f9de  r2 = CFSTR('5_shop_gold_btn2_act.png')
+  1f9e0  r0 = [UIImage ??](CFSTR('5_shop_gold_btn2_act.png'), ?)
+  1f9ea  r3 = 1
+  1f9ec  r0 = [r0 ??](?, 1)
+  1f9f4  r0 = [r0 ??](?, ?)
+  1fa02  r2 = CFSTR('100,000 Golds $2.99')
+  1fa04  r0 = [r0 ??](CFSTR('100,000 Golds $2.99'), ?)
+  1fa10  r0 = SEL(goldPack3Button)
+  1fa12  r8 = SEL(goldPack3Button)
+  1fa1e  r0 = [r0 ??](?, ?)
+  1fa24  r0 = UIImage
+  1fa34  r2 = CFSTR('5_shop_gold_btn3_inact.png')
+  1fa38  r0 = [UIImage ??](CFSTR('5_shop_gold_btn3_inact.png'), ?)
+  1fa42  r3 = 0
+  1fa46  r0 = [r0 ??](?, 0)
+  1fa4e  r0 = [r0 ??](?, ?)
+  1fa54  r0 = UIImage
+  1fa60  r2 = CFSTR('5_shop_gold_btn3_act.png')
+  1fa62  r0 = [UIImage ??](CFSTR('5_shop_gold_btn3_act.png'), ?)
+  1fa6c  r3 = 1
+  1fa70  r0 = [r0 ??](?, 1)
+  1fa78  r0 = [r0 ??](?, ?)
+  1fa86  r2 = CFSTR('200,000 Golds $4.99')
+  1fa88  r0 = [r0 ??](CFSTR('200,000 Golds $4.99'), ?)
+  1fa94  r0 = SEL(goldPack4Button)
+  1fa96  r8 = SEL(goldPack4Button)
+  1fa9e  r0 = [r0 goldPack4Button](?, ?)
+  1faa6  r0 = UIImage
+  1fab2  r2 = CFSTR('5_shop_gold_btn4_inact.png')
+  1fab6  r0 = [UIImage ??](CFSTR('5_shop_gold_btn4_inact.png'), ?)
+  1fac0  r3 = 0
+  1fac2  r0 = [r0 ??](?, 0)
+  1faca  r0 = [r0 goldPack4Button](?, ?)
+  1fad0  r0 = UIImage
+  1fadc  r2 = CFSTR('5_shop_gold_btn4_act.png')
+  1fade  r0 = [UIImage ??](CFSTR('5_shop_gold_btn4_act.png'), ?)
+  1fae8  r3 = 1
+  1faec  r0 = [r0 ??](?, 1)
+  1faf4  r0 = [r0 goldPack4Button](?, ?)
+  1fb02  r2 = CFSTR('500,000 Golds $9.99')
+  1fb04  r0 = [r0 ??](CFSTR('500,000 Golds $9.99'), ?)
+  1fb08  call sub_3ccc
+  1fb14  r1 = SEL(mode)
+  1fb16  r1 = SEL(mode)
+  1fb18  r0 = [r0 mode](?, ?)
+  1fb22  r0 = [r0 ??](?, ?)
+  1fb2e  r1 = SEL(setEnabled:)
+  1fb30  r5 = SEL(setEnabled:)
+  1fb34  cmp r1, 1
+  1fb36  bne L_1fb7e
+  1fb3a  r2 = 0
+  1fb3c  r0 = [r0 setEnabled:](0, ?)
+  1fb44  r0 = [r0 ??](?, ?)
+  1fb4a  r2 = 0
+  1fb4c  r0 = [r0 setEnabled:](0, ?)
+  1fb54  r0 = [r0 ??](?, ?)
+  1fb5a  r2 = 0
+  1fb5c  r0 = [r0 setEnabled:](0, ?)
+  1fb64  r0 = [r0 ??](?, ?)
+  1fb6a  r2 = 0
+  1fb6c  r0 = [r0 setEnabled:](0, ?)
+  1fb74  r0 = [r0 goldPack4Button](?, ?)
+  1fb7a  r2 = 0
+  1fb7c  b L_1fbc2
+L_1fb7e:
+  1fb80  r2 = 1
+  1fb82  r0 = [r0 setEnabled:](1, ?)
+  1fb8a  r0 = [r0 ??](?, ?)
+  1fb90  r2 = 1
+  1fb92  r0 = [r0 setEnabled:](1, ?)
+  1fb9a  r0 = [r0 ??](?, ?)
+  1fba0  r2 = 1
+  1fba2  r0 = [r0 setEnabled:](1, ?)
+  1fbaa  r0 = [r0 ??](?, ?)
+  1fbb0  r2 = 1
+  1fbb2  r0 = [r0 setEnabled:](1, ?)
+  1fbba  r0 = [r0 goldPack4Button](?, ?)
+  1fbc0  r2 = 1
+L_1fbc2:
+  1fbc2  add sp, #0x1c
+  1fbcc  b L_a90d0
+
+//// -[GoldStoreController blindModeSelectedMenu]  0x1fbd0..0x1fcf8  v8@0:4
+  1fbd2  add r7, sp, #0xc
+  1fbd8  sub sp, #8
+  1fbe4  r0 = SEL(round1)
+  1fbe6  r1 = SEL(round1)
+  1fbec  r0 = [r0 ??](?, ?)
+  1fbf4  r2 = 1
+  1fbfa  r1 = SEL(setHidden:)
+  1fbfc  r4 = SEL(setHidden:)
+  1fc00  r0 = [r0 setHidden:](1, ?)
+  1fc0c  r0 = SEL(round2)
+  1fc0e  r1 = SEL(round2)
+  1fc14  r0 = [r0 ??](?, ?)
+  1fc1a  r2 = 1
+  1fc1c  r0 = [r0 setHidden:](1, ?)
+  1fc28  r0 = SEL(round3)
+  1fc2a  fp = SEL(round3)
+  1fc32  r0 = [r0 round3](?, ?)
+  1fc38  r2 = 1
+  1fc3a  r0 = [r0 setHidden:](1, ?)
+  1fc46  r0 = SEL(round4)
+  1fc48  r6 = SEL(round4)
+  1fc4e  r0 = [r0 round4](?, ?)
+  1fc54  r2 = 1
+  1fc56  r0 = [r0 setHidden:](1, ?)
+  1fc62  r0 = SEL(round5)
+  1fc64  r8 = SEL(round5)
+  1fc6c  r0 = [r0 round5](?, ?)
+  1fc72  r2 = 1
+  1fc74  r0 = [r0 setHidden:](1, ?)
+  1fc80  r0 = SEL(round6)
+  1fc82  sl = SEL(round6)
+  1fc8a  r0 = [r0 round6](?, ?)
+  1fc90  r2 = 1
+  1fc92  r0 = [r0 setHidden:](1, ?)
+  1fc9e  r0 = IVOFF(selectMenu)
+  1fca0  r0 = IVOFF(selectMenu)
+  1fca2  r0 = self->selectMenu
+  1fca4  subs r0, #1
+  1fca6  cmp r0, 5
+  1fca8  bls L_1fcb2
+  1fcaa  add sp, #8
+  1fcb0  return
+L_1fcb2:
+  1fcb6  lsls r3, r0, #0x18
+  1fcb8  lsrs r1, r1, #0x10
+  1fcba  asrs r7, r1, #8
+  1fcc0  b L_1fcde
+  1fcc6  b L_1fcde
+  1fccc  b L_1fcde
+  1fcd2  b L_1fcde
+  1fcd8  b L_1fcde
+L_1fcde:
+  1fcde  r0 = [r0 round6](?, ?)
+  1fce4  r2 = 0
+  1fce6  add sp, #8
+  1fcf0  b L_a90d0
+
+//// -[GoldStoreController tapSelect:]  0x1fcf8..0x1fde8  v12@0:4@8
+  1fcfa  add r7, sp, #8
+  1fcfc  sub sp, #0x18
+  1fd0a  r0 = SEL(view)
+  1fd0c  r1 = SEL(view)
+  1fd10  r0 = [r0 view](?, ?)
+  1fd16  cbz r5 -> L_1fd36
+  1fd22  r0 = SEL(locationInView:)
+  1fd24  r2 = SEL(locationInView:)
+  1fd26  add r0, sp, #0x10
+  1fd28  r0 = [r0 ??](SEL(locationInView:), ?)
+  1fd2c  vldr s2, [sp, #0x10]
+  1fd30  vldr s0, [sp, #0x14]
+  1fd34  b L_1fd44
+L_1fd36:
+  1fd36  vmov.i32 d0, #0
+  1fd3a  r0 = 0
+  1fd40  vmov.f32 s2, s0
+L_1fd44:
+  1fd48  d16 = 0.35
+  1fd50  ip = 0
+  1fd54  r0 = IVOFF(posX)
+  1fd56  vmov r2, r3, d16
+  1fd5a  r1 = IVOFF(posX)
+  1fd64  add r1, r4
+  1fd66  r0 = IVOFF(posY)
+  1fd68  vstr s2, [r1]
+  1fd6c  r1 = IVOFF(posY)
+  1fd76  add r1, r4
+  1fd78  r0 = IVOFF(tapCount)
+  1fd7a  vstr s0, [r1]
+  1fd82  r1 = IVOFF(tapCount)
+  1fd88  r5 = IVOFF(tapOrGesture)
+  1fd8a  r0 = self->tapCount
+  1fd94  adds r0, #1
+  1fd96  self->tapCount = r0
+  1fda4  r1 = IVOFF(tapOrGesture)
+  1fdaa  lr = NSTimer
+  1fdac  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  1fdae  sb = SEL(tapCount)
+  1fdb0  self->tapOrGesture = 0
+  1fdb4  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  1fdb6  r0 = NSTimer
+  1fdba  r5 = SEL(tapCount)
+  1fdc6  vorr d0, d0, d0
+  1fdca  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  1fdd6  r1 = IVOFF(tapTimer)
+  1fdd8  r1 = IVOFF(tapTimer)
+  1fdda  self->tapTimer = r0
+  1fddc  add sp, #0x18
+  1fdde  return
+  1fde6  subs r7, #0xd6
+
+//// -[GoldStoreController tapCount]  0x1fde8..0x1fea4  v8@0:4
+  1fdf4  add r7, sp, #8
+  1fdf6  r0 = IVOFF(tapCount)
+  1fdf8  r5 = IVOFF(tapCount)
+  1fdfa  r0 = self->tapCount
+  1fdfc  cmp self->tapCount, 2
+  1fdfe  bne L_1fe4c
+  1fe00  call sub_3ccc
+  1fe0c  r1 = SEL(bDevice)
+  1fe0e  r1 = SEL(bDevice)
+  1fe10  r0 = [r0 bDevice](?, ?)
+  1fe2a  r0 = IVOFF(selectMenu)
+  1fe2c  r0 = IVOFF(selectMenu)
+  1fe2e  r0 = self->selectMenu
+  1fe30  subs r0, #1
+  1fe32  cmp r0, 5
+  1fe34  bhi L_1fe9c
+  1fe3a  adds r1, #3
+  1fe3c  subs r5, r2, r4
+  1fe3e  r7 = 33
+  1fe48  r0 = SEL(goBackAction:)
+  1fe4a  b L_1fe92
+L_1fe4c:
+  1fe4c  cmp SEL(goBackAction:), 1
+  1fe4e  bne L_1fe9c
+  1fe58  r0 = SEL(selectTapPointSoundStart)
+  1fe5a  r1 = SEL(selectTapPointSoundStart)
+  1fe5e  r0 = [r0 selectTapPointSoundStart](?, ?)
+  1fe62  b L_1fe9c
+  1fe6c  r0 = SEL(goldPack1Action:)
+  1fe6e  b L_1fe92
+  1fe78  r0 = SEL(goldPack2Action:)
+  1fe7a  b L_1fe92
+  1fe84  r0 = SEL(goldPack3Action:)
+  1fe86  b L_1fe92
+  1fe90  r0 = SEL(goldPack4Action:)
+L_1fe92:
+  1fe92  r1 = SEL(goldPack4Action:)
+  1fe96  r2 = 0
+  1fe98  r0 = [r0 goldPack4Action:](0, ?)
+L_1fe9c:
+  1fe9c  r0 = 0
+  1fea0  return
+
+//// -[GoldStoreController viewDidUnload]  0x1fea4..0x20028  v8@0:4
+  1fea6  add r7, sp, #4
+  1fea8  sub sp, #8
+  1feb4  r2 = 0
+  1feb6  r0 = SEL(setGoBackButton:)
+  1feb8  r1 = SEL(setGoBackButton:)
+  1febc  r0 = [r0 setGoBackButton:](0, ?)
+  1fec4  r2 = 0
+  1feca  r0 = SEL(setGoldPack1Button:)
+  1fecc  r1 = SEL(setGoldPack1Button:)
+  1fed0  r0 = [r0 setGoldPack1Button:](0, ?)
+  1fed8  r2 = 0
+  1fede  r0 = SEL(setGlodPack2Button:)
+  1fee0  r1 = SEL(setGlodPack2Button:)
+  1fee4  r0 = [r0 setGlodPack2Button:](0, ?)
+  1feec  r2 = 0
+  1fef2  r0 = SEL(setGoldPack3Button:)
+  1fef4  r1 = SEL(setGoldPack3Button:)
+  1fef8  r0 = [r0 setGoldPack3Button:](0, ?)
+  1ff00  r2 = 0
+  1ff06  r0 = SEL(setGoldPack4Button:)
+  1ff08  r1 = SEL(setGoldPack4Button:)
+  1ff0c  r0 = [r0 setGoldPack4Button:](0, ?)
+  1ff14  r2 = 0
+  1ff1a  r0 = SEL(setGoldLabel:)
+  1ff1c  r1 = SEL(setGoldLabel:)
+  1ff20  r0 = [r0 setGoldLabel:](0, ?)
+  1ff28  r2 = 0
+  1ff2e  r0 = SEL(setRound1:)
+  1ff30  r1 = SEL(setRound1:)
+  1ff34  r0 = [r0 setRound1:](0, ?)
+  1ff3c  r2 = 0
+  1ff42  r0 = SEL(setRound2:)
+  1ff44  r1 = SEL(setRound2:)
+  1ff48  r0 = [r0 setRound2:](0, ?)
+  1ff50  r2 = 0
+  1ff56  r0 = SEL(setRound3:)
+  1ff58  r1 = SEL(setRound3:)
+  1ff5c  r0 = [r0 setRound3:](0, ?)
+  1ff64  r2 = 0
+  1ff6a  r0 = SEL(setRound4:)
+  1ff6c  r1 = SEL(setRound4:)
+  1ff70  r0 = [r0 setRound4:](0, ?)
+  1ff78  r2 = 0
+  1ff7e  r0 = SEL(setRound5:)
+  1ff80  r1 = SEL(setRound5:)
+  1ff84  r0 = [r0 setRound5:](0, ?)
+  1ff8c  r2 = 0
+  1ff92  r0 = SEL(setRound6:)
+  1ff94  r1 = SEL(setRound6:)
+  1ff98  r0 = [r0 setRound6:](0, ?)
+  1ffa0  r2 = 0
+  1ffa6  r0 = SEL(setRawData:)
+  1ffa8  r1 = SEL(setRawData:)
+  1ffac  r0 = [r0 setRawData:](0, ?)
+  1ffb4  r2 = 0
+  1ffba  r0 = SEL(setUrlCon:)
+  1ffbc  r1 = SEL(setUrlCon:)
+  1ffc0  r0 = [r0 setUrlCon:](0, ?)
+  1ffc8  r2 = 0
+  1ffce  r0 = SEL(setMaskView:)
+  1ffd0  r1 = SEL(setMaskView:)
+  1ffd4  r0 = [r0 setMaskView:](0, ?)
+  1ffdc  r2 = 0
+  1ffe2  r0 = SEL(setMaskLabel:)
+  1ffe4  r1 = SEL(setMaskLabel:)
+  1ffe8  r0 = [r0 setMaskLabel:](0, ?)
+  1fff0  r2 = 0
+  1fff6  r0 = SEL(setActivityIndicator:)
+  1fff8  r1 = SEL(setActivityIndicator:)
+  1fffc  r0 = [r0 setActivityIndicator:](0, ?)
+  20012  r0 = SEL(viewDidUnload)
+  2001a  r1 = SEL(viewDidUnload)
+  2001e  r0 = [r0 viewDidUnload](?, ?) SUPER
+  20022  add sp, #8
+  20024  return
+
+//// -[GoldStoreController shouldAutorotateToInterfaceOrientation:]  0x20028..0x20034  c12@0:4i8
+  20028  cmp r2, 1
+
+//// -[GoldStoreController dealloc]  0x20034..0x201c4  v8@0:4
+  20036  add r7, sp, #8
+  20038  sub sp, #8
+  20048  r0 = IVOFF(rawData)
+  2004e  r1 = SEL(release)
+  20050  r0 = IVOFF(rawData)
+  20052  r5 = SEL(release)
+  20054  r0 = self->rawData
+  20058  r0 = [self->rawData release](?, ?)
+  20066  r0 = IVOFF(urlCon)
+  20068  r0 = IVOFF(urlCon)
+  2006a  r0 = self->urlCon
+  2006c  r0 = [self->urlCon release](?, ?)
+  2007a  r0 = IVOFF(goBackButton)
+  2007c  r0 = IVOFF(goBackButton)
+  2007e  r0 = self->goBackButton
+  20080  r0 = [self->goBackButton release](?, ?)
+  2008e  r0 = IVOFF(goldPack1Button)
+  20090  r0 = IVOFF(goldPack1Button)
+  20092  r0 = self->goldPack1Button
+  20094  r0 = [self->goldPack1Button release](?, ?)
+  200a2  r0 = IVOFF(glodPack2Button)
+  200a4  r0 = IVOFF(glodPack2Button)
+  200a6  r0 = self->glodPack2Button
+  200a8  r0 = [self->glodPack2Button release](?, ?)
+  200b6  r0 = IVOFF(goldPack3Button)
+  200b8  r0 = IVOFF(goldPack3Button)
+  200ba  r0 = self->goldPack3Button
+  200bc  r0 = [self->goldPack3Button release](?, ?)
+  200ca  r0 = IVOFF(goldPack4Button)
+  200cc  r0 = IVOFF(goldPack4Button)
+  200ce  r0 = self->goldPack4Button
+  200d0  r0 = [self->goldPack4Button release](?, ?)
+  200de  r0 = IVOFF(_goldLabel)
+  200e0  r0 = IVOFF(_goldLabel)
+  200e2  r0 = self->_goldLabel
+  200e4  r0 = [self->_goldLabel release](?, ?)
+  200f2  r0 = IVOFF(_round1)
+  200f4  r0 = IVOFF(_round1)
+  200f6  r0 = self->_round1
+  200f8  r0 = [self->_round1 release](?, ?)
+  20106  r0 = IVOFF(_round2)
+  20108  r0 = IVOFF(_round2)
+  2010a  r0 = self->_round2
+  2010c  r0 = [self->_round2 release](?, ?)
+  2011a  r0 = IVOFF(_round3)
+  2011c  r0 = IVOFF(_round3)
+  2011e  r0 = self->_round3
+  20120  r0 = [self->_round3 release](?, ?)
+  2012e  r0 = IVOFF(_round4)
+  20130  r0 = IVOFF(_round4)
+  20132  r0 = self->_round4
+  20134  r0 = [self->_round4 release](?, ?)
+  20142  r0 = IVOFF(_round5)
+  20144  r0 = IVOFF(_round5)
+  20146  r0 = self->_round5
+  20148  r0 = [self->_round5 release](?, ?)
+  20156  r0 = IVOFF(_round6)
+  20158  r0 = IVOFF(_round6)
+  2015a  r0 = self->_round6
+  2015c  r0 = [self->_round6 release](?, ?)
+  2016a  r0 = IVOFF(_maskView)
+  2016c  r0 = IVOFF(_maskView)
+  2016e  r0 = self->_maskView
+  20170  r0 = [self->_maskView release](?, ?)
+  2017e  r0 = IVOFF(_maskLabel)
+  20180  r0 = IVOFF(_maskLabel)
+  20182  r0 = self->_maskLabel
+  20184  r0 = [self->_maskLabel release](?, ?)
+  20192  r0 = IVOFF(_activityIndicator)
+  20194  r0 = IVOFF(_activityIndicator)
+  20196  r0 = self->_activityIndicator
+  20198  r0 = [self->_activityIndicator release](?, ?)
+  201ae  r0 = SEL(dealloc)
+  201b6  r1 = SEL(dealloc)
+  201ba  r0 = [r0 dealloc](?, ?) SUPER
+  201be  add sp, #8
+  201c0  return
+
+//// -[GoldStoreController StopElseSpeak]  0x201c4..0x20274  v8@0:4
+  201c6  add r7, sp, #0xc
+  201c8  sub sp, #4
+  201cc  call sub_3ccc
+  201da  r2 = 13
+  201dc  r0 = SEL(stopSoundBufNumber:)
+  201de  r6 = SEL(stopSoundBufNumber:)
+  201e4  r0 = [r0 stopSoundBufNumber:](13, ?)
+  201ec  r2 = 233
+  201ee  r0 = [r0 stopSoundBufNumber:](233, ?)
+  201f6  r2 = 262
+  201fa  r0 = [r0 stopSoundBufNumber:](262, ?)
+  20206  r0 = [r0 stopSoundBufNumber:](263, ?)
+  2020e  r2 = 264
+  20212  r0 = [r0 stopSoundBufNumber:](264, ?)
+  2021e  r0 = [r0 stopSoundBufNumber:](265, ?)
+  2022a  r0 = [r0 stopSoundBufNumber:](261, ?)
+  20236  r0 = SEL(readStop)
+  20238  r1 = SEL(readStop)
+  2023c  r0 = [r0 readStop](?, ?)
+  20258  r0 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  2025a  r2 = SEL(readgold)
+  2025c  r6 = NSObject
+  2025e  r1 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  20260  r3 = SEL(readgold)
+  20262  r2 = 0
+  20264  r0 = NSObject
+  2026a  r0 = [NSObject cancelPreviousPerformRequestsWithTarget:selector:object:](?, SEL(readgold))
+  2026e  add sp, #4
+  20270  return
+
+//// -[GoldStoreController selectTapPointSoundStart]  0x20274..0x20c18  v8@0:4
+  20276  add r7, sp, #0xc
+  2027c  sub sp, #0x30
+  20280  call sub_3ccc
+  20296  r0 = SEL(mainScreen)
+  20298  r5 = UIScreen
+  2029a  r6 = SEL(mainScreen)
+  2029c  r0 = UIScreen
+  202a0  r0 = [UIScreen mainScreen](?, ?)
+  202a6  cmp r1, 0
+  202a8  beq L_202e2
+  202b2  r0 = SEL(bounds)
+  202b4  r2 = SEL(bounds)
+  202b6  add r0, sp, #0x20
+  202b8  r0 = [r0 ??](SEL(bounds), ?)
+  202bc  s0 = 320
+  202c0  vldr s2, [sp, #0x28]
+  202c4  vcmpe.f32 s2, s0
+  202c8  vmrs apsr_nzcv, fpscr
+  202cc  bne L_202ec
+  202ce  vldr s0, [sp, #0x2c]
+  202d2  s2 = 568
+  202d6  vcmpe.f32 s0, s2
+  202da  vmrs apsr_nzcv, fpscr
+  202de  beq L_20334
+  202e0  b L_202ec
+L_202e2:
+  202e2  vmov.i32 q8, #0
+  202e6  add r0, sp, #0x20
+  202e8  vst1.32 {d16, d17}, [r0]
+L_202ec:
+  202ec  r0 = UIScreen
+  202f0  r0 = [UIScreen mainScreen](?, ?)
+  202f6  cmp r1, 0
+  202f8  beq L_20416
+  20304  r0 = SEL(bounds)
+  20306  r2 = SEL(bounds)
+  20308  add r0, sp, #0x10
+  2030a  r0 = [r0 ??](SEL(bounds), ?)
+  2030e  s0 = 568
+  20312  vldr s2, [sp, #0x18]
+  20316  vcmpe.f32 s2, s0
+  2031a  vmrs apsr_nzcv, fpscr
+  2031e  bne L_20420
+  20322  vldr s0, [sp, #0x1c]
+  20326  s2 = 320
+  2032a  vcmpe.f32 s0, s2
+  2032e  vmrs apsr_nzcv, fpscr
+  20332  bne L_20420
+L_20334:
+  20338  s2 = 40
+  20344  r1 = IVOFF(posY)
+  2034a  r0 = IVOFF(tapOrGesture)
+  2034c  vmov.i32 d2, #0
+  20350  r1 = IVOFF(posY)
+  20352  r2 = 0
+  20354  r0 = IVOFF(tapOrGesture)
+  20356  add r1, r4
+  20358  vldr s0, [r1]
+  2035c  r1 = 0
+  2035e  r0 = self->tapOrGesture
+  20360  vcmpe.f32 s0, s2
+  20364  vmrs apsr_nzcv, fpscr
+  20368  vcmpe.f32 s0, s4
+  20370  vmrs apsr_nzcv, fpscr
+  20378  cmp self->tapOrGesture, 0
+  2037a  orr.w r1, r1, r2
+  2037e  beq L_206c4
+  20382  cmp r1, 0
+  20384  beq L_20570
+  20388  s2 = 54
+  2038c  vcmpe.f32 s0, s2
+  20390  vmrs apsr_nzcv, fpscr
+  20394  blt L_203a6
+  20396  s2 = 84
+  2039a  vcmpe.f32 s0, s2
+  2039e  vmrs apsr_nzcv, fpscr
+  203a2  bls L_207d0
+L_203a6:
+  203a6  s2 = 99
+  203aa  vcmpe.f32 s0, s2
+  203ae  vmrs apsr_nzcv, fpscr
+  203b2  blt L_203c4
+  203b4  s2 = 157
+  203b8  vcmpe.f32 s0, s2
+  203bc  vmrs apsr_nzcv, fpscr
+  203c0  bls L_2085c
+L_203c4:
+  203c4  s2 = 172
+  203c8  vcmpe.f32 s0, s2
+  203cc  vmrs apsr_nzcv, fpscr
+  203d0  blt L_203e2
+  203d2  s2 = 230
+  203d6  vcmpe.f32 s0, s2
+  203da  vmrs apsr_nzcv, fpscr
+  203de  bls L_2094c
+L_203e2:
+  203e2  s2 = 245
+  203e6  vcmpe.f32 s0, s2
+  203ea  vmrs apsr_nzcv, fpscr
+  203ee  blt L_20400
+  203f0  s2 = 303
+  203f4  vcmpe.f32 s0, s2
+  203f8  vmrs apsr_nzcv, fpscr
+  203fc  bls L_20a14
+L_20400:
+  20400  s2 = 318
+  20404  vcmpe.f32 s0, s2
+  20408  vmrs apsr_nzcv, fpscr
+  2040c  blt L_20b8e
+  20410  s2 = 376
+  20414  b L_20500
+L_20416:
+  20416  vmov.i32 q8, #0
+  2041a  add r0, sp, #0x10
+  2041c  vst1.32 {d16, d17}, [r0]
+L_20420:
+  20424  s2 = 40
+  20430  r1 = IVOFF(posY)
+  20436  r0 = IVOFF(tapOrGesture)
+  20438  vmov.i32 d2, #0
+  2043c  r1 = IVOFF(posY)
+  2043e  r2 = 0
+  20440  r0 = IVOFF(tapOrGesture)
+  20442  add r1, r4
+  20444  vldr s0, [r1]
+  20448  r1 = 0
+  2044a  r0 = self->tapOrGesture
+  2044c  vcmpe.f32 s0, s2
+  20450  vmrs apsr_nzcv, fpscr
+  20454  vcmpe.f32 s0, s4
+  2045c  vmrs apsr_nzcv, fpscr
+  20464  cmp self->tapOrGesture, 0
+  20466  orr.w r1, r1, r2
+  2046a  beq L_205d0
+  2046e  cmp r1, 0
+  20470  beq L_20570
+  20474  s2 = 54
+  20478  vcmpe.f32 s0, s2
+  2047c  vmrs apsr_nzcv, fpscr
+  20480  blt L_20492
+  20482  s2 = 84
+  20486  vcmpe.f32 s0, s2
+  2048a  vmrs apsr_nzcv, fpscr
+  2048e  bls L_207d0
+L_20492:
+  20492  s2 = 93
+  20496  vcmpe.f32 s0, s2
+  2049a  vmrs apsr_nzcv, fpscr
+  2049e  blt L_204b0
+  204a0  s2 = 151
+  204a4  vcmpe.f32 s0, s2
+  204a8  vmrs apsr_nzcv, fpscr
+  204ac  bls L_2085c
+L_204b0:
+  204b0  s2 = 161
+  204b4  vcmpe.f32 s0, s2
+  204b8  vmrs apsr_nzcv, fpscr
+  204bc  blt L_204ce
+  204be  s2 = 219
+  204c2  vcmpe.f32 s0, s2
+  204c6  vmrs apsr_nzcv, fpscr
+  204ca  bls L_2094c
+L_204ce:
+  204ce  s2 = 229
+  204d2  vcmpe.f32 s0, s2
+  204d6  vmrs apsr_nzcv, fpscr
+  204da  blt L_204ec
+  204dc  s2 = 287
+  204e0  vcmpe.f32 s0, s2
+  204e4  vmrs apsr_nzcv, fpscr
+  204e8  bls L_20a14
+L_204ec:
+  204ec  s2 = 297
+  204f0  vcmpe.f32 s0, s2
+  204f4  vmrs apsr_nzcv, fpscr
+  204f8  blt L_20b8e
+  204fc  s2 = 355
+L_20500:
+  20500  vcmpe.f32 s0, s2
+  20504  vmrs apsr_nzcv, fpscr
+  20508  bhi L_20b8e
+  20510  r2 = 6
+  2051a  r0 = IVOFF(selectMenu)
+  20520  r1 = IVOFF(gold500000_flag)
+  20522  r0 = IVOFF(selectMenu)
+  20524  self->selectMenu = 6
+  20526  r0 = IVOFF(gold500000_flag)
+  20528  r1 = self->gold500000_flag
+  2052a  cmp self->gold500000_flag, 0
+  2052c  bne L_20be4
+  20534  r2 = 1
+  2053a  self->gold500000_flag = 1
+  2053c  r1 = SEL(StopElseSpeak)
+  20540  r1 = SEL(StopElseSpeak)
+  20542  r0 = [r0 StopElseSpeak](1, ?)
+  20556  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2055c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  2055e  r0 = 0
+  2056a  r0 = [r0 playSound:Gain:Pos:z:reprats:](265, 0x3e4ccccd/f0.2)
+  2056e  b L_20be4
+L_20570:
+  2057c  r0 = IVOFF(selectMenu)
+  20582  r2 = IVOFF(back_flag)
+  20584  r1 = IVOFF(selectMenu)
+  20586  r0 = 1
+  20588  self->selectMenu = 1
+  2058a  r1 = IVOFF(back_flag)
+  2058c  r2 = self->back_flag
+  2058e  cmp self->back_flag, 0
+  20590  bne L_20be4
+  2059c  self->back_flag = 1
+  2059e  r2 = SEL(StopElseSpeak)
+  205a2  r1 = SEL(StopElseSpeak)
+  205a4  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  205b8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  205ba  r2 = 13
+  205bc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  205be  r0 = 0
+  205ca  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  205ce  b L_20be4
+L_205d0:
+  205d0  cmp r1, 0
+  205d2  beq L_20770
+  205d6  s2 = 54
+  205da  vcmpe.f32 s0, s2
+  205de  vmrs apsr_nzcv, fpscr
+  205e2  blt L_205f4
+  205e4  s2 = 84
+  205e8  vcmpe.f32 s0, s2
+  205ec  vmrs apsr_nzcv, fpscr
+  205f0  bls L_208c0
+L_205f4:
+  205f4  s2 = 93
+  205f8  vcmpe.f32 s0, s2
+  205fc  vmrs apsr_nzcv, fpscr
+  20600  blt L_20612
+  20602  s2 = 151
+  20606  vcmpe.f32 s0, s2
+  2060a  vmrs apsr_nzcv, fpscr
+  2060e  bls L_209b0
+L_20612:
+  20612  s2 = 161
+  20616  vcmpe.f32 s0, s2
+  2061a  vmrs apsr_nzcv, fpscr
+  2061e  blt L_20630
+  20620  s2 = 219
+  20624  vcmpe.f32 s0, s2
+  20628  vmrs apsr_nzcv, fpscr
+  2062c  bls L_20a78
+L_20630:
+  20630  s2 = 229
+  20634  vcmpe.f32 s0, s2
+  20638  vmrs apsr_nzcv, fpscr
+  2063c  blt L_2064e
+  2063e  s2 = 287
+  20642  vcmpe.f32 s0, s2
+  20646  vmrs apsr_nzcv, fpscr
+  2064a  bls L_20ada
+L_2064e:
+  20652  s2 = 297
+  2065a  r0 = IVOFF(selectMenu)
+  2065c  vcmpe.f32 s0, s2
+  20660  vmrs apsr_nzcv, fpscr
+  20664  r0 = IVOFF(selectMenu)
+  20666  blt L_2076a
+  2066a  s2 = 355
+  2066e  b L_2075e
+  20676  add r6, r1
+  2067e  rsbs r0, r3, #0
+  20682  cmp r0, UIScreen
+  20686  cmp r6, r0
+  20692  muls r6, r4, r6
+  20696  muls r5, r6, r5
+  206a6  cmp r2, r7
+  206b2  muls r3, r3, r3
+  206b6  muls r5, r4, r5
+L_206c4:
+  206c4  cmp r1, 0
+  206c6  beq L_20770
+  206c8  s2 = 54
+  206cc  vcmpe.f32 s0, s2
+  206d0  vmrs apsr_nzcv, fpscr
+  206d4  blt L_206e6
+  206d6  s2 = 84
+  206da  vcmpe.f32 s0, s2
+  206de  vmrs apsr_nzcv, fpscr
+  206e2  bls L_208c0
+L_206e6:
+  206e6  s2 = 99
+  206ea  vcmpe.f32 s0, s2
+  206ee  vmrs apsr_nzcv, fpscr
+  206f2  blt L_20704
+  206f4  s2 = 157
+  206f8  vcmpe.f32 s0, s2
+  206fc  vmrs apsr_nzcv, fpscr
+  20700  bls L_209b0
+L_20704:
+  20704  s2 = 172
+  20708  vcmpe.f32 s0, s2
+  2070c  vmrs apsr_nzcv, fpscr
+  20710  blt L_20722
+  20712  s2 = 230
+  20716  vcmpe.f32 s0, s2
+  2071a  vmrs apsr_nzcv, fpscr
+  2071e  bls L_20a78
+L_20722:
+  20722  s2 = 245
+  20726  vcmpe.f32 s0, s2
+  2072a  vmrs apsr_nzcv, fpscr
+  2072e  blt L_20740
+  20730  s2 = 303
+  20734  vcmpe.f32 s0, s2
+  20738  vmrs apsr_nzcv, fpscr
+  2073c  bls L_20ada
+L_20740:
+  20744  s2 = 318
+  2074c  r0 = IVOFF(selectMenu)
+  2074e  vcmpe.f32 s0, s2
+  20752  vmrs apsr_nzcv, fpscr
+  20756  r0 = IVOFF(selectMenu)
+  20758  blt L_2076a
+  2075a  s2 = 376
+L_2075e:
+  2075e  vcmpe.f32 s0, s2
+  20762  vmrs apsr_nzcv, fpscr
+  20766  bls L_20b3c
+L_2076a:
+  2076a  r1 = 0
+  2076c  self->selectMenu = 0
+  2076e  b L_20b8e
+L_20770:
+  2077c  r0 = IVOFF(selectMenu)
+  20782  r2 = IVOFF(back_flag)
+  20784  r1 = IVOFF(selectMenu)
+  20786  r0 = 1
+  20788  self->selectMenu = 1
+  2078a  r1 = IVOFF(back_flag)
+  2078c  r2 = self->back_flag
+  2078e  cmp self->back_flag, 0
+  20790  bne L_20b8e
+  2079c  self->back_flag = 1
+  2079e  r2 = SEL(StopElseSpeak)
+  207a2  r1 = SEL(StopElseSpeak)
+  207a4  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  207b8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  207ba  r2 = 13
+  207bc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  207be  r0 = 0
+  207ca  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  207ce  b L_20b8e
+L_207d0:
+  207d4  r2 = 2
+  207de  r0 = IVOFF(selectMenu)
+  207e4  r1 = IVOFF(tts_gold_flag)
+  207e6  r0 = IVOFF(selectMenu)
+  207e8  self->selectMenu = 2
+  207ea  r0 = IVOFF(tts_gold_flag)
+  207ec  r1 = self->tts_gold_flag
+  207ee  cmp self->tts_gold_flag, 0
+  207f0  bne L_20be4
+  207f8  r2 = 1
+  207fe  self->tts_gold_flag = 1
+  20800  r1 = SEL(StopElseSpeak)
+  20804  r1 = SEL(StopElseSpeak)
+  20806  r0 = [r0 StopElseSpeak](1, ?)
+  20816  r6 = 0
+  20818  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2081e  r2 = 233
+  20822  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  2082c  r0 = [r0 playSound:Gain:Pos:z:reprats:](233, 0x3e4ccccd/f0.2)
+  20834  r5 = 0
+  20842  r0 = SEL(performSelector:withObject:afterDelay:)
+  20844  r2 = SEL(readgold)
+  2084a  r1 = SEL(performSelector:withObject:afterDelay:)
+  2084e  r2 = SEL(readgold)
+  20850  r3 = 0
+  20856  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readgold), 0)
+  2085a  b L_20be4
+L_2085c:
+  20860  r2 = 3
+  2086a  r0 = IVOFF(selectMenu)
+  20870  r1 = IVOFF(gold50000_flag)
+  20872  r0 = IVOFF(selectMenu)
+  20874  self->selectMenu = 3
+  20876  r0 = IVOFF(gold50000_flag)
+  20878  r1 = self->gold50000_flag
+  2087a  cmp self->gold50000_flag, 0
+  2087c  bne L_20be4
+  20884  r2 = 1
+  2088a  self->gold50000_flag = 1
+  2088c  r1 = SEL(StopElseSpeak)
+  20890  r1 = SEL(StopElseSpeak)
+  20892  r0 = [r0 StopElseSpeak](1, ?)
+  208a6  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  208a8  r2 = 262
+  208ac  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  208ae  r0 = 0
+  208ba  r0 = [r0 playSound:Gain:Pos:z:reprats:](262, 0x3e4ccccd/f0.2)
+  208be  b L_20be4
+L_208c0:
+  208c4  r2 = 2
+  208ce  r0 = IVOFF(selectMenu)
+  208d4  r1 = IVOFF(tts_gold_flag)
+  208d6  r0 = IVOFF(selectMenu)
+  208d8  self->selectMenu = 2
+  208da  r0 = IVOFF(tts_gold_flag)
+  208dc  r1 = self->tts_gold_flag
+  208de  cmp self->tts_gold_flag, 0
+  208e0  bne L_20b8e
+  208e8  r2 = 1
+  208ee  self->tts_gold_flag = 1
+  208f0  r1 = SEL(StopElseSpeak)
+  208f4  r1 = SEL(StopElseSpeak)
+  208f6  r0 = [r0 StopElseSpeak](1, ?)
+  20906  r6 = 0
+  20908  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2090e  r2 = 233
+  20912  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  2091c  r0 = [r0 playSound:Gain:Pos:z:reprats:](233, 0x3e4ccccd/f0.2)
+  20924  r5 = 0
+  20932  r0 = SEL(performSelector:withObject:afterDelay:)
+  20934  r2 = SEL(readgold)
+  2093a  r1 = SEL(performSelector:withObject:afterDelay:)
+  2093e  r2 = SEL(readgold)
+  20940  r3 = 0
+  20946  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readgold), 0)
+  2094a  b L_20b8e
+L_2094c:
+  20950  r2 = 4
+  2095a  r0 = IVOFF(selectMenu)
+  20960  r1 = IVOFF(gold100000_flag)
+  20962  r0 = IVOFF(selectMenu)
+  20964  self->selectMenu = 4
+  20966  r0 = IVOFF(gold100000_flag)
+  20968  r1 = self->gold100000_flag
+  2096a  cmp self->gold100000_flag, 0
+  2096c  bne L_20be4
+  20974  r2 = 1
+  2097a  self->gold100000_flag = 1
+  2097c  r1 = SEL(StopElseSpeak)
+  20980  r1 = SEL(StopElseSpeak)
+  20982  r0 = [r0 StopElseSpeak](1, ?)
+  20996  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2099c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  2099e  r0 = 0
+  209aa  r0 = [r0 playSound:Gain:Pos:z:reprats:](263, 0x3e4ccccd/f0.2)
+  209ae  b L_20be4
+L_209b0:
+  209b4  r2 = 3
+  209be  r0 = IVOFF(selectMenu)
+  209c4  r1 = IVOFF(gold50000_flag)
+  209c6  r0 = IVOFF(selectMenu)
+  209c8  self->selectMenu = 3
+  209ca  r0 = IVOFF(gold50000_flag)
+  209cc  r1 = self->gold50000_flag
+  209ce  cmp self->gold50000_flag, 0
+  209d0  bne L_20b8e
+  209d8  r2 = 1
+  209de  self->gold50000_flag = 1
+  209e0  r1 = SEL(StopElseSpeak)
+  209e4  r1 = SEL(StopElseSpeak)
+  209e6  r0 = [r0 StopElseSpeak](1, ?)
+  209fa  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  209fc  r2 = 262
+  20a00  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20a02  r0 = 0
+  20a0e  r0 = [r0 playSound:Gain:Pos:z:reprats:](262, 0x3e4ccccd/f0.2)
+  20a12  b L_20b8e
+L_20a14:
+  20a18  r2 = 5
+  20a22  r0 = IVOFF(selectMenu)
+  20a28  r1 = IVOFF(gold200000_flag)
+  20a2a  r0 = IVOFF(selectMenu)
+  20a2c  self->selectMenu = 5
+  20a2e  r0 = IVOFF(gold200000_flag)
+  20a30  r1 = self->gold200000_flag
+  20a32  cmp self->gold200000_flag, 0
+  20a34  bne L_20be4
+  20a3c  r2 = 1
+  20a42  self->gold200000_flag = 1
+  20a44  r1 = SEL(StopElseSpeak)
+  20a48  r1 = SEL(StopElseSpeak)
+  20a4a  r0 = [r0 StopElseSpeak](1, ?)
+  20a5e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20a60  r2 = 264
+  20a64  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20a66  r0 = 0
+  20a72  r0 = [r0 playSound:Gain:Pos:z:reprats:](264, 0x3e4ccccd/f0.2)
+  20a76  b L_20be4
+L_20a78:
+  20a7c  r2 = 4
+  20a86  r0 = IVOFF(selectMenu)
+  20a8c  r1 = IVOFF(gold100000_flag)
+  20a8e  r0 = IVOFF(selectMenu)
+  20a90  self->selectMenu = 4
+  20a92  r0 = IVOFF(gold100000_flag)
+  20a94  r1 = self->gold100000_flag
+  20a96  cmp self->gold100000_flag, 0
+  20a98  bne L_20b8e
+  20a9e  r2 = 1
+  20aa4  self->gold100000_flag = 1
+  20aa6  r1 = SEL(StopElseSpeak)
+  20aaa  r1 = SEL(StopElseSpeak)
+  20aac  r0 = [r0 StopElseSpeak](1, ?)
+  20ac0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20ac6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20ac8  r0 = 0
+  20ad4  r0 = [r0 playSound:Gain:Pos:z:reprats:](263, 0x3e4ccccd/f0.2)
+  20ad8  b L_20b8e
+L_20ada:
+  20ade  r2 = 5
+  20ae8  r0 = IVOFF(selectMenu)
+  20aee  r1 = IVOFF(gold200000_flag)
+  20af0  r0 = IVOFF(selectMenu)
+  20af2  self->selectMenu = 5
+  20af4  r0 = IVOFF(gold200000_flag)
+  20af6  r1 = self->gold200000_flag
+  20af8  cmp self->gold200000_flag, 0
+  20afa  bne L_20b8e
+  20b00  r2 = 1
+  20b06  self->gold200000_flag = 1
+  20b08  r1 = SEL(StopElseSpeak)
+  20b0c  r1 = SEL(StopElseSpeak)
+  20b0e  r0 = [r0 StopElseSpeak](1, ?)
+  20b22  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20b24  r2 = 264
+  20b28  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20b2a  r0 = 0
+  20b36  r0 = [r0 playSound:Gain:Pos:z:reprats:](264, 0x3e4ccccd/f0.2)
+  20b3a  b L_20b8e
+L_20b3c:
+  20b40  r2 = 6
+  20b48  r1 = IVOFF(gold500000_flag)
+  20b4a  r0 = IVOFF(gold500000_flag)
+  20b4c  r1 = self->gold500000_flag
+  20b4e  cbnz self->gold500000_flag -> L_20b8e
+  20b54  r2 = 1
+  20b5a  self->gold500000_flag = 1
+  20b5c  r1 = SEL(StopElseSpeak)
+  20b60  r1 = SEL(StopElseSpeak)
+  20b62  r0 = [r0 StopElseSpeak](1, ?)
+  20b76  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20b7c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20b7e  r0 = 0
+  20b8a  r0 = [r0 playSound:Gain:Pos:z:reprats:](265, 0x3e4ccccd/f0.2)
+L_20b8e:
+  20b9a  r0 = IVOFF(back_flag)
+  20ba0  r2 = IVOFF(gold50000_flag)
+  20ba2  r1 = IVOFF(back_flag)
+  20ba4  r0 = 0
+  20ba6  self->back_flag = 0
+  20ba8  r1 = IVOFF(gold50000_flag)
+  20bb2  r2 = IVOFF(gold100000_flag)
+  20bb4  self->gold50000_flag = 0
+  20bb6  r1 = IVOFF(gold100000_flag)
+  20bc0  r2 = IVOFF(gold200000_flag)
+  20bc2  self->gold100000_flag = 0
+  20bc4  r1 = IVOFF(gold200000_flag)
+  20bce  r2 = IVOFF(gold500000_flag)
+  20bd0  self->gold200000_flag = 0
+  20bd2  r1 = IVOFF(gold500000_flag)
+  20bdc  r2 = IVOFF(tts_gold_flag)
+  20bde  self->gold500000_flag = 0
+  20be0  r1 = IVOFF(tts_gold_flag)
+  20be2  self->tts_gold_flag = 0
+L_20be4:
+  20bec  r0 = SEL(mode)
+  20bee  r1 = SEL(mode)
+  20bf2  r0 = [r0 mode](IVOFF(tts_gold_flag), ?)
+  20bf8  cmp r0, 1
+  20bfa  bne L_20c0e
+  20c04  r0 = SEL(blindModeSelectedMenu)
+  20c06  r1 = SEL(blindModeSelectedMenu)
+  20c0a  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_20c0e:
+  20c0e  add sp, #0x30
+  20c14  return
+
+//// -[GoldStoreController readgold]  0x20c18..0x20c50  v8@0:4
+  20c1a  add r7, sp, #4
+  20c1c  call sub_3ccc
+  20c2a  r0 = SEL(haveGold)
+  20c2c  r1 = SEL(haveGold)
+  20c30  r0 = [r0 haveGold](?, ?)
+  20c3e  r3 = 1
+  20c40  r0 = SEL(TTSNumber:type2:)
+  20c42  r1 = SEL(TTSNumber:type2:)
+  20c4a  b L_a90d0
+
+//// -[GoldStoreController Menu:]  0x20c50..0x20e84  v12@0:4@8
+  20c52  add r7, sp, #0xc
+  20c58  sub sp, #0x14
+  20c5e  call sub_3ccc
+  20c6a  r1 = SEL(mode)
+  20c6c  r1 = SEL(mode)
+  20c6e  r0 = [r0 mode](?, ?)
+  20c76  beq L_20e7a
+  20c82  r0 = SEL(view)
+  20c84  r6 = SEL(view)
+  20c8a  r0 = [r0 view](?, ?)
+  20c98  r0 = SEL(state)
+  20c9a  sl = SEL(state)
+  20ca2  r0 = [r0 state](?, ?)
+  20ca6  cmp r0, 1
+  20ca8  beq L_20cb8
+  20cae  r0 = [r0 state](?, ?)
+  20cb2  cmp r0, 2
+  20cb4  bne L_20dee
+L_20cb8:
+  20cbc  r0 = [r0 state](?, ?)
+  20cc0  cmp r0, 1
+  20cc2  bne L_20d34
+  20cc8  r0 = [r0 view](?, ?)
+  20cce  cbz r5 -> L_20cee
+  20cda  r0 = SEL(locationInView:)
+  20cdc  r2 = SEL(locationInView:)
+  20cde  add r0, sp, #0xc
+  20ce0  r0 = [r0 ??](SEL(locationInView:), ?)
+  20ce4  vldr s2, [sp, #0xc]
+  20ce8  vldr s0, [sp, #0x10]
+  20cec  b L_20cfc
+L_20cee:
+  20cee  vmov.i32 d0, #0
+  20cf2  r0 = 0
+  20cf8  vmov.f32 s2, s0
+L_20cfc:
+  20d04  r0 = IVOFF(posX)
+  20d06  r1 = IVOFF(posX)
+  20d10  add r1, r4
+  20d12  r0 = IVOFF(posY)
+  20d14  vstr s2, [r1]
+  20d18  r1 = IVOFF(posY)
+  20d22  r0 = IVOFF(tapOrGesture)
+  20d24  add r1, r4
+  20d26  r0 = IVOFF(tapOrGesture)
+  20d28  vstr s0, [r1]
+  20d2c  r1 = 1
+  20d2e  self->tapOrGesture = 1
+  20d30  vorr d0, d0, d0
+L_20d34:
+  20d3c  r0 = SEL(superview)
+  20d3e  r6 = SEL(superview)
+  20d44  r0 = [r0 superview](?, ?)
+  20d4a  cbz r5 -> L_20d6a
+  20d56  r0 = SEL(translationInView:)
+  20d58  r2 = SEL(translationInView:)
+  20d5a  add r0, sp, #4
+  20d5c  r0 = [r0 ??](SEL(translationInView:), ?)
+  20d60  vldr s2, [sp, #4]
+  20d64  vldr s0, [sp, #8]
+  20d68  b L_20d78
+L_20d6a:
+  20d6a  vmov.i32 d0, #0
+  20d6e  r0 = 0
+  20d72  vorr d1, d0, d0
+L_20d78:
+  20d80  r0 = IVOFF(posX)
+  20d82  r1 = IVOFF(posX)
+  20d8c  add r1, r4
+  20d8e  r0 = IVOFF(posY)
+  20d90  vldr s4, [r1]
+  20d94  r0 = IVOFF(posY)
+  20d96  vadd.f32 d1, d1, d2
+  20d9a  add r0, r4
+  20d9c  vstr s2, [r1]
+  20da2  vldr s2, [r0]
+  20da6  vadd.f32 d0, d0, d1
+  20daa  vstr s0, [r0]
+  20db0  vorr d0, d0, d0
+  20db4  r0 = [r0 superview](?, ?)
+  20dc4  r1 = _CGPointZero
+  20dca  r2 = SEL(setTranslation:inView:)
+  20dce  r3 = _CGPointZero
+  20dd2  r1 = SEL(setTranslation:inView:)
+  20dd8  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  20de4  r0 = SEL(selectTapPointSoundStart)
+  20de6  r1 = SEL(selectTapPointSoundStart)
+  20dea  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_20dee:
+  20df2  r0 = [r0 state](?, ?)
+  20df6  cmp r0, 3
+  20df8  bne L_20e7a
+  20e06  r0 = IVOFF(posX)
+  20e0c  r2 = IVOFF(posY)
+  20e0e  r1 = IVOFF(posX)
+  20e10  r0 = 0
+  20e12  self->posX = 0
+  20e14  r1 = IVOFF(posY)
+  20e1e  r2 = IVOFF(back_flag)
+  20e20  self->posY = 0
+  20e22  r1 = IVOFF(back_flag)
+  20e2c  r2 = IVOFF(gold50000_flag)
+  20e2e  self->back_flag = 0
+  20e30  r1 = IVOFF(gold50000_flag)
+  20e3a  r2 = IVOFF(gold100000_flag)
+  20e3c  self->gold50000_flag = 0
+  20e3e  r1 = IVOFF(gold100000_flag)
+  20e48  r2 = IVOFF(gold200000_flag)
+  20e4a  self->gold100000_flag = 0
+  20e4c  r1 = IVOFF(gold200000_flag)
+  20e56  r2 = IVOFF(gold500000_flag)
+  20e58  self->gold200000_flag = 0
+  20e5a  r1 = IVOFF(gold500000_flag)
+  20e64  r2 = IVOFF(tts_gold_flag)
+  20e66  self->gold500000_flag = 0
+  20e68  r1 = IVOFF(tts_gold_flag)
+  20e72  r2 = IVOFF(tapOrGesture)
+  20e74  self->tts_gold_flag = 0
+  20e76  r1 = IVOFF(tapOrGesture)
+  20e78  self->tapOrGesture = 0
+L_20e7a:
+  20e7a  add sp, #0x14
+  20e80  return
+
+//// -[GoldStoreController goBackAction:]  0x20e84..0x20ee0  v12@0:4@8
+  20e86  add r7, sp, #4
+  20e88  sub sp, #0x10
+  20e8c  call sub_3ccc
+  20e9c  r2 = 0
+  20e9e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20ea8  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20eae  r2 = 10
+  20eb0  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  20ebc  r0 = SEL(navigationController)
+  20ebe  r1 = SEL(navigationController)
+  20ec2  r0 = [r0 navigationController](?, ?)
+  20eca  r2 = 0
+  20ed0  r1 = SEL(popViewControllerAnimated:)
+  20ed2  r1 = SEL(popViewControllerAnimated:)
+  20ed4  add sp, #0x10
+  20eda  b L_a90d0
+
+//// -[GoldStoreController readInApp]  0x20ee0..0x20f44  v8@0:4
+  20ee2  add r7, sp, #8
+  20ee4  sub sp, #0x10
+  20ee8  call sub_3ccc
+  20ef6  r0 = SEL(mode)
+  20ef8  r1 = SEL(mode)
+  20efc  r0 = [r0 mode](?, ?)
+  20f02  cmp r0, 1
+  20f04  bne L_20f40
+  20f0e  r0 = SEL(StopElseSpeak)
+  20f10  r1 = SEL(StopElseSpeak)
+  20f14  r0 = [r0 StopElseSpeak](?, ?)
+  20f28  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20f2e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20f30  r0 = 0
+  20f3c  r0 = [r0 playSound:Gain:Pos:z:reprats:](261, 0x3e4ccccd/f0.2)
+L_20f40:
+  20f40  add sp, #0x10
+  20f42  return
+
+//// -[GoldStoreController goldPack1Action:]  0x20f44..0x20fe4  v12@0:4@8
+  20f46  add r7, sp, #0xc
+  20f48  sub sp, #0x10
+  20f4c  call sub_3ccc
+  20f5e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  20f60  r4 = 0
+  20f66  r2 = 10
+  20f68  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  20f74  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  20f7c  r3 = 0
+  20f8a  r0 = SEL(performSelector:withObject:afterDelay:)
+  20f8c  r2 = SEL(readInApp)
+  20f92  r1 = SEL(performSelector:withObject:afterDelay:)
+  20f96  r2 = SEL(readInApp)
+  20f9c  r3 = 0
+  20f9e  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  20fae  r0 = SEL(BuyItem:)
+  20fb4  r2 = CFSTR('SixthSense.Gold1')
+  20fb6  r1 = SEL(BuyItem:)
+  20fba  r0 = [r0 BuyItem:](CFSTR('SixthSense.Gold1'), ?)
+  20fc2  r2 = 1
+  20fcc  r0 = SEL(showWaiting:message:)
+  20fd2  r3 = CFSTR('Loading...')
+  20fd4  r1 = SEL(showWaiting:message:)
+  20fd8  add sp, #0x10
+  20fde  b L_a90d0
+
+//// -[GoldStoreController goldPack2Action:]  0x20fe4..0x21084  v12@0:4@8
+  20fe6  add r7, sp, #0xc
+  20fe8  sub sp, #0x10
+  20fec  call sub_3ccc
+  20ffe  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  21000  r4 = 0
+  21006  r2 = 10
+  21008  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  21014  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  2101c  r3 = 0
+  2102a  r0 = SEL(performSelector:withObject:afterDelay:)
+  2102c  r2 = SEL(readInApp)
+  21032  r1 = SEL(performSelector:withObject:afterDelay:)
+  21036  r2 = SEL(readInApp)
+  2103c  r3 = 0
+  2103e  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  2104e  r0 = SEL(BuyItem:)
+  21054  r2 = CFSTR('SixthSense.Gold2')
+  21056  r1 = SEL(BuyItem:)
+  2105a  r0 = [r0 BuyItem:](CFSTR('SixthSense.Gold2'), ?)
+  21062  r2 = 1
+  2106c  r0 = SEL(showWaiting:message:)
+  21072  r3 = CFSTR('Loading...')
+  21074  r1 = SEL(showWaiting:message:)
+  21078  add sp, #0x10
+  2107e  b L_a90d0
+
+//// -[GoldStoreController goldPack3Action:]  0x21084..0x21124  v12@0:4@8
+  21086  add r7, sp, #0xc
+  21088  sub sp, #0x10
+  2108c  call sub_3ccc
+  2109e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  210a0  r4 = 0
+  210a6  r2 = 10
+  210a8  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  210b4  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  210bc  r3 = 0
+  210ca  r0 = SEL(performSelector:withObject:afterDelay:)
+  210cc  r2 = SEL(readInApp)
+  210d2  r1 = SEL(performSelector:withObject:afterDelay:)
+  210d6  r2 = SEL(readInApp)
+  210dc  r3 = 0
+  210de  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  210ee  r0 = SEL(BuyItem:)
+  210f4  r2 = CFSTR('SixthSense.Gold3')
+  210f6  r1 = SEL(BuyItem:)
+  210fa  r0 = [r0 BuyItem:](CFSTR('SixthSense.Gold3'), ?)
+  21102  r2 = 1
+  2110c  r0 = SEL(showWaiting:message:)
+  21112  r3 = CFSTR('Loading...')
+  21114  r1 = SEL(showWaiting:message:)
+  21118  add sp, #0x10
+  2111e  b L_a90d0
+
+//// -[GoldStoreController goldPack4Action:]  0x21124..0x211c4  v12@0:4@8
+  21126  add r7, sp, #0xc
+  21128  sub sp, #0x10
+  2112c  call sub_3ccc
+  2113e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  21140  r4 = 0
+  21146  r2 = 10
+  21148  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  21154  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  2115c  r3 = 0
+  2116a  r0 = SEL(performSelector:withObject:afterDelay:)
+  2116c  r2 = SEL(readInApp)
+  21172  r1 = SEL(performSelector:withObject:afterDelay:)
+  21176  r2 = SEL(readInApp)
+  2117c  r3 = 0
+  2117e  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  2118e  r0 = SEL(BuyItem:)
+  21194  r2 = CFSTR('SixthSense.Gold4')
+  21196  r1 = SEL(BuyItem:)
+  2119a  r0 = [r0 BuyItem:](CFSTR('SixthSense.Gold4'), ?)
+  211a2  r2 = 1
+  211ac  r0 = SEL(showWaiting:message:)
+  211b2  r3 = CFSTR('Loading...')
+  211b4  r1 = SEL(showWaiting:message:)
+  211b8  add sp, #0x10
+  211be  b L_a90d0
+
+//// -[GoldStoreController buyGoldItem1Complet]  0x211c4..0x21380  v8@0:4
+  211c6  add r7, sp, #0xc
+  211cc  sub sp, #0x10
+  211d2  r2 = 0
+  211dc  r1 = SEL(showWaiting:message:)
+  211e2  r3 = CFSTR('Loading...')
+  211e4  r5 = 0
+  211e6  r1 = SEL(showWaiting:message:)
+  211ea  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  211ee  call sub_3ccc
+  21204  r0 = SEL(alloc)
+  21206  r2 = UIAlertView
+  21208  r1 = SEL(alloc)
+  2120a  r0 = UIAlertView
+  2120c  r0 = [UIAlertView alloc](UIAlertView, ?)
+  2121c  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  21226  r3 = CFSTR('Purchase has been completed.')
+  2122c  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  2122e  r2 = CFSTR('OK')
+  21234  r2 = 0
+  21238  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  21246  r0 = SEL(show)
+  21248  r1 = SEL(show)
+  2124c  r0 = [r0 show](?, ?)
+  21258  r0 = SEL(release)
+  2125a  r1 = SEL(release)
+  2125e  r0 = [r0 release](?, ?)
+  2126c  r0 = SEL(StopElseSpeak)
+  2126e  r1 = SEL(StopElseSpeak)
+  21272  r0 = [r0 StopElseSpeak](?, ?)
+  21284  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2128e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  21290  r2 = 260
+  2129a  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  212a8  r0 = SEL(goldLabel)
+  212aa  r1 = SEL(goldLabel)
+  212ae  r0 = [r0 goldLabel](?, ?)
+  212c4  r1 = NSString
+  212c6  r0 = SEL(haveGold)
+  212ca  r4 = NSString
+  212cc  r6 = SEL(haveGold)
+  212d2  r0 = [r0 haveGold](?, ?)
+  212e4  r0 = SEL(stringWithFormat:)
+  212ea  r2 = CFSTR('%d')
+  212ec  r5 = SEL(stringWithFormat:)
+  212f2  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  21300  r0 = SEL(setText:)
+  21302  r1 = SEL(setText:)
+  21306  r0 = [r0 setText:](?, ?)
+  21312  r0 = SEL(round2)
+  21314  r1 = SEL(round2)
+  21318  r0 = [r0 round2](?, ?)
+  21328  r0 = NSString
+  2132a  r4 = NSString
+  2132e  r0 = [r0 haveGold](?, ?)
+  2133e  r2 = CFSTR('obtained Gold %d')
+  21342  r0 = [NSString stringWithFormat:](CFSTR('obtained Gold %d'), ?)
+  21350  r0 = SEL(setAccessibilityLabel:)
+  21352  r1 = SEL(setAccessibilityLabel:)
+  21356  r0 = [r0 setAccessibilityLabel:](?, ?)
+  21366  r0 = SEL(sendBuyLog:)
+  2136c  r2 = CFSTR('gold0.99')
+  2136e  r1 = SEL(sendBuyLog:)
+  21372  add sp, #0x10
+  2137c  b L_a90d0
+
+//// -[GoldStoreController buyGoldItem2Complet]  0x21380..0x2153c  v8@0:4
+  21382  add r7, sp, #0xc
+  21388  sub sp, #0x10
+  2138e  r2 = 0
+  21398  r1 = SEL(showWaiting:message:)
+  2139e  r3 = CFSTR('Loading...')
+  213a0  r5 = 0
+  213a2  r1 = SEL(showWaiting:message:)
+  213a6  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  213aa  call sub_3ccc
+  213c0  r0 = SEL(alloc)
+  213c2  r2 = UIAlertView
+  213c4  r1 = SEL(alloc)
+  213c6  r0 = UIAlertView
+  213c8  r0 = [UIAlertView alloc](UIAlertView, ?)
+  213d8  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  213e2  r3 = CFSTR('Purchase has been completed.')
+  213e8  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  213ea  r2 = CFSTR('OK')
+  213f0  r2 = 0
+  213f4  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  21402  r0 = SEL(show)
+  21404  r1 = SEL(show)
+  21408  r0 = [r0 show](?, ?)
+  21414  r0 = SEL(release)
+  21416  r1 = SEL(release)
+  2141a  r0 = [r0 release](?, ?)
+  21428  r0 = SEL(StopElseSpeak)
+  2142a  r1 = SEL(StopElseSpeak)
+  2142e  r0 = [r0 StopElseSpeak](?, ?)
+  21440  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  2144a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  2144c  r2 = 260
+  21456  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  21464  r0 = SEL(goldLabel)
+  21466  r1 = SEL(goldLabel)
+  2146a  r0 = [r0 goldLabel](?, ?)
+  21480  r1 = NSString
+  21482  r0 = SEL(haveGold)
+  21486  r4 = NSString
+  21488  r6 = SEL(haveGold)
+  2148e  r0 = [r0 haveGold](?, ?)
+  214a0  r0 = SEL(stringWithFormat:)
+  214a6  r2 = CFSTR('%d')
+  214a8  r5 = SEL(stringWithFormat:)
+  214ae  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  214bc  r0 = SEL(setText:)
+  214be  r1 = SEL(setText:)
+  214c2  r0 = [r0 setText:](?, ?)
+  214ce  r0 = SEL(round2)
+  214d0  r1 = SEL(round2)
+  214d4  r0 = [r0 round2](?, ?)
+  214e4  r0 = NSString
+  214e6  r4 = NSString
+  214ea  r0 = [r0 haveGold](?, ?)
+  214fa  r2 = CFSTR('obtained Gold %d')
+  214fe  r0 = [NSString stringWithFormat:](CFSTR('obtained Gold %d'), ?)
+  2150c  r0 = SEL(setAccessibilityLabel:)
+  2150e  r1 = SEL(setAccessibilityLabel:)
+  21512  r0 = [r0 setAccessibilityLabel:](?, ?)
+  21522  r0 = SEL(sendBuyLog:)
+  21528  r2 = CFSTR('gold2.99')
+  2152a  r1 = SEL(sendBuyLog:)
+  2152e  add sp, #0x10
+  21538  b L_a90d0
+
+//// -[GoldStoreController buyGoldItem3Complet]  0x2153c..0x216f8  v8@0:4
+  2153e  add r7, sp, #0xc
+  21544  sub sp, #0x10
+  2154a  r2 = 0
+  21554  r1 = SEL(showWaiting:message:)
+  2155a  r3 = CFSTR('Loading...')
+  2155c  r5 = 0
+  2155e  r1 = SEL(showWaiting:message:)
+  21562  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  21566  call sub_3ccc
+  2157c  r0 = SEL(alloc)
+  2157e  r2 = UIAlertView
+  21580  r1 = SEL(alloc)
+  21582  r0 = UIAlertView
+  21584  r0 = [UIAlertView alloc](UIAlertView, ?)
+  21594  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  2159e  r3 = CFSTR('Purchase has been completed.')
+  215a4  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  215a6  r2 = CFSTR('OK')
+  215ac  r2 = 0
+  215b0  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  215be  r0 = SEL(show)
+  215c0  r1 = SEL(show)
+  215c4  r0 = [r0 show](?, ?)
+  215d0  r0 = SEL(release)
+  215d2  r1 = SEL(release)
+  215d6  r0 = [r0 release](?, ?)
+  215e4  r0 = SEL(StopElseSpeak)
+  215e6  r1 = SEL(StopElseSpeak)
+  215ea  r0 = [r0 StopElseSpeak](?, ?)
+  215fc  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  21606  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  21608  r2 = 260
+  21612  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  21620  r0 = SEL(goldLabel)
+  21622  r1 = SEL(goldLabel)
+  21626  r0 = [r0 goldLabel](?, ?)
+  2163c  r1 = NSString
+  2163e  r0 = SEL(haveGold)
+  21642  r4 = NSString
+  21644  r6 = SEL(haveGold)
+  2164a  r0 = [r0 haveGold](?, ?)
+  2165c  r0 = SEL(stringWithFormat:)
+  21662  r2 = CFSTR('%d')
+  21664  r5 = SEL(stringWithFormat:)
+  2166a  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  21678  r0 = SEL(setText:)
+  2167a  r1 = SEL(setText:)
+  2167e  r0 = [r0 setText:](?, ?)
+  2168a  r0 = SEL(round2)
+  2168c  r1 = SEL(round2)
+  21690  r0 = [r0 round2](?, ?)
+  216a0  r0 = NSString
+  216a2  r4 = NSString
+  216a6  r0 = [r0 haveGold](?, ?)
+  216b6  r2 = CFSTR('obtained Gold %d')
+  216ba  r0 = [NSString stringWithFormat:](CFSTR('obtained Gold %d'), ?)
+  216c8  r0 = SEL(setAccessibilityLabel:)
+  216ca  r1 = SEL(setAccessibilityLabel:)
+  216ce  r0 = [r0 setAccessibilityLabel:](?, ?)
+  216de  r0 = SEL(sendBuyLog:)
+  216e4  r2 = CFSTR('gold4.99')
+  216e6  r1 = SEL(sendBuyLog:)
+  216ea  add sp, #0x10
+  216f4  b L_a90d0
+
+//// -[GoldStoreController buyGoldItem4Complet]  0x216f8..0x218b4  v8@0:4
+  216fa  add r7, sp, #0xc
+  21700  sub sp, #0x10
+  21706  r2 = 0
+  21710  r1 = SEL(showWaiting:message:)
+  21716  r3 = CFSTR('Loading...')
+  21718  r5 = 0
+  2171a  r1 = SEL(showWaiting:message:)
+  2171e  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  21722  call sub_3ccc
+  21738  r0 = SEL(alloc)
+  2173a  r2 = UIAlertView
+  2173c  r1 = SEL(alloc)
+  2173e  r0 = UIAlertView
+  21740  r0 = [UIAlertView alloc](UIAlertView, ?)
+  21750  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  2175a  r3 = CFSTR('Purchase has been completed.')
+  21760  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  21762  r2 = CFSTR('OK')
+  21768  r2 = 0
+  2176c  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  2177a  r0 = SEL(show)
+  2177c  r1 = SEL(show)
+  21780  r0 = [r0 show](?, ?)
+  2178c  r0 = SEL(release)
+  2178e  r1 = SEL(release)
+  21792  r0 = [r0 release](?, ?)
+  217a0  r0 = SEL(StopElseSpeak)
+  217a2  r1 = SEL(StopElseSpeak)
+  217a6  r0 = [r0 StopElseSpeak](?, ?)
+  217b8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  217c2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  217c4  r2 = 260
+  217ce  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  217dc  r0 = SEL(goldLabel)
+  217de  r1 = SEL(goldLabel)
+  217e2  r0 = [r0 goldLabel](?, ?)
+  217f8  r1 = NSString
+  217fa  r0 = SEL(haveGold)
+  217fe  r4 = NSString
+  21800  r6 = SEL(haveGold)
+  21806  r0 = [r0 haveGold](?, ?)
+  21818  r0 = SEL(stringWithFormat:)
+  2181e  r2 = CFSTR('%d')
+  21820  r5 = SEL(stringWithFormat:)
+  21826  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  21834  r0 = SEL(setText:)
+  21836  r1 = SEL(setText:)
+  2183a  r0 = [r0 setText:](?, ?)
+  21846  r0 = SEL(round2)
+  21848  r1 = SEL(round2)
+  2184c  r0 = [r0 round2](?, ?)
+  2185c  r0 = NSString
+  2185e  r4 = NSString
+  21862  r0 = [r0 haveGold](?, ?)
+  21872  r2 = CFSTR('obtained Gold %d')
+  21876  r0 = [NSString stringWithFormat:](CFSTR('obtained Gold %d'), ?)
+  21884  r0 = SEL(setAccessibilityLabel:)
+  21886  r1 = SEL(setAccessibilityLabel:)
+  2188a  r0 = [r0 setAccessibilityLabel:](?, ?)
+  2189a  r0 = SEL(sendBuyLog:)
+  218a0  r2 = CFSTR('gold9.99')
+  218a2  r1 = SEL(sendBuyLog:)
+  218a6  add sp, #0x10
+  218b0  b L_a90d0
+
+//// -[GoldStoreController buyItemError]  0x218b4..0x218d0  v8@0:4
+  218b8  r2 = 0
+  218c2  r1 = SEL(showWaiting:message:)
+  218c8  r3 = CFSTR('Loading...')
+  218ca  r1 = SEL(showWaiting:message:)
+  218cc  b L_a90d0
+
+//// -[GoldStoreController sendBuyLog:]  0x218d0..0x21a7c  v12@0:4@8
+  218d2  add r7, sp, #0xc
+  218ea  r0 = SEL(stringWithFormat:)
+  218ec  r6 = NSString
+  218f0  r5 = SEL(stringWithFormat:)
+  218f2  r0 = NSString
+  218fc  r2 = CFSTR('http://www.evree.net/post_sale.php')
+  21900  r0 = [NSString stringWithFormat:](CFSTR('http://www.evree.net/post_sale.php'), ?)
+  21906  r0 = NSString
+  21914  r2 = CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY')
+  21916  r0 = [NSString stringWithFormat:](CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY'), ?)
+  2192c  r0 = NSData
+  2192e  r1 = SEL(UTF8String)
+  21930  r4 = NSData
+  21934  r1 = SEL(UTF8String)
+  21936  r0 = [r0 UTF8String](?, ?)
+  21944  r0 = SEL(length)
+  21946  r1 = SEL(length)
+  2194a  r0 = [r0 length](?, ?)
+  2195a  r0 = SEL(dataWithBytes:length:)
+  2195c  r1 = SEL(dataWithBytes:length:)
+  21960  r0 = [NSData dataWithBytes:length:](?, ?)
+  21976  r0 = SEL(alloc)
+  21978  r1 = NSMutableURLRequest
+  2197a  r6 = SEL(alloc)
+  2197c  r0 = NSMutableURLRequest
+  21980  r0 = [NSMutableURLRequest alloc](?, ?)
+  21996  r0 = SEL(URLWithString:)
+  21998  r2 = NSURL
+  2199a  r1 = SEL(URLWithString:)
+  2199c  r0 = NSURL
+  219a0  r0 = [NSURL URLWithString:](?, ?)
+  219ae  r0 = SEL(initWithURL:)
+  219b0  r1 = SEL(initWithURL:)
+  219b4  r0 = [r0 initWithURL:](?, ?)
+  219c6  r0 = SEL(setHTTPMethod:)
+  219cc  r2 = CFSTR('POST')
+  219ce  r1 = SEL(setHTTPMethod:)
+  219d2  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  219e0  r0 = SEL(setHTTPBody:)
+  219e2  r1 = SEL(setHTTPBody:)
+  219e6  r0 = [r0 setHTTPBody:](?, ?)
+  219f4  r0 = NSURLConnection
+  219f6  r0 = NSURLConnection
+  219f8  r0 = [NSURLConnection alloc](?, ?)
+  21a08  r1 = SEL(initWithRequest:delegate:)
+  21a0a  r1 = SEL(initWithRequest:delegate:)
+  21a0c  r0 = [r0 initWithRequest:delegate:](?, ?)
+  21a18  r1 = SEL(autorelease)
+  21a1a  r1 = SEL(autorelease)
+  21a1c  r0 = [r0 autorelease](?, ?)
+  21a2a  r0 = SEL(setUrlCon:)
+  21a2c  r1 = SEL(setUrlCon:)
+  21a30  r0 = [r0 setUrlCon:](?, ?)
+  21a44  r0 = SEL(sharedApplication)
+  21a46  r2 = UIApplication
+  21a48  r1 = SEL(sharedApplication)
+  21a4a  r0 = UIApplication
+  21a4c  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  21a54  r2 = 1
+  21a5a  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  21a5c  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  21a5e  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  21a6a  r0 = SEL(release)
+  21a6c  r1 = SEL(release)
+  21a78  b L_a90d0
+
+//// -[GoldStoreController connection:didReceiveResponse:]  0x21a7c..0x21ab8  v16@0:4@8@12
+  21a90  r0 = SEL(data)
+  21a92  r2 = NSMutableData
+  21a94  add r7, sp, #4
+  21a96  r1 = SEL(data)
+  21a98  r0 = NSMutableData
+  21a9a  r0 = [NSMutableData data](NSMutableData, ?)
+  21aa8  r0 = SEL(setRawData:)
+  21aaa  r1 = SEL(setRawData:)
+  21ab2  b L_a90d0
+
+//// -[GoldStoreController connection:didReceiveData:]  0x21ab8..0x21ae4  v16@0:4@8@12
+  21abe  add r7, sp, #4
+  21ac6  r1 = SEL(rawData)
+  21ac8  r1 = SEL(rawData)
+  21aca  r0 = [r0 rawData](?, ?)
+  21ad8  r1 = SEL(appendData:)
+  21ada  r1 = SEL(appendData:)
+  21ae0  b L_a90d0
+
+//// -[GoldStoreController connection:didFailWithError:]  0x21ae4..0x21bb8  v16@0:4@8@12
+  21ae6  add r7, sp, #8
+  21ae8  sub sp, #4
+  21afc  r0 = SEL(sharedApplication)
+  21afe  r2 = UIApplication
+  21b02  r1 = SEL(sharedApplication)
+  21b04  r0 = UIApplication
+  21b06  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  21b0e  r2 = 0
+  21b14  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  21b16  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  21b18  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  21b24  r0 = SEL(code)
+  21b26  r1 = SEL(code)
+  21b2a  r0 = [r0 code](?, ?)
+  21b2e  r1 = -1009
+  21b32  cmp r0, 4294966287
+  21b34  bne L_21b9c
+  21b42  r1 = _NSLocalizedDescriptionKey
+  21b4c  r2 = SEL(dictionaryWithObject:forKey:)
+  21b4e  r3 = _NSLocalizedDescriptionKey
+  21b54  r0 = NSDictionary
+  21b56  r1 = SEL(dictionaryWithObject:forKey:)
+  21b60  r0 = NSDictionary
+  21b64  r2 = CFSTR('No Connection Error')
+  21b66  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  21b7e  r1 = _NSCocoaErrorDomain
+  21b84  r3 = NSError
+  21b86  r2 = SEL(errorWithDomain:code:userInfo:)
+  21b88  r5 = _NSCocoaErrorDomain
+  21b8a  r3 = NSError
+  21b8c  r1 = SEL(errorWithDomain:code:userInfo:)
+  21b94  r3 = -1009
+  21b98  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_21b9c:
+  21ba0  r2 = 0
+  21ba6  r0 = SEL(setUrlCon:)
+  21ba8  r1 = SEL(setUrlCon:)
+  21bac  add sp, #4
+  21bb2  b L_a90d0
+
+//// -[GoldStoreController connectionDidFinishLoading:]  0x21bb8..0x21c40  v12@0:4@8
+  21bcc  r0 = SEL(alloc)
+  21bce  r2 = NSString
+  21bd0  add r7, sp, #8
+  21bd2  r1 = SEL(alloc)
+  21bd4  r0 = NSString
+  21bd6  r0 = [NSString alloc](NSString, ?)
+  21be4  r0 = SEL(rawData)
+  21be6  r1 = SEL(rawData)
+  21bea  r0 = [r0 rawData](?, ?)
+  21bf8  r3 = 4
+  21bfa  r0 = SEL(initWithData:encoding:)
+  21bfc  r1 = SEL(initWithData:encoding:)
+  21c00  r0 = [r0 initWithData:encoding:](?, 4)
+  21c0c  r1 = SEL(autorelease)
+  21c0e  r1 = SEL(autorelease)
+  21c10  r0 = [r0 autorelease](?, ?)
+  21c18  r2 = 0
+  21c1e  r0 = SEL(setRawData:)
+  21c20  r1 = SEL(setRawData:)
+  21c24  r0 = [r0 setRawData:](0, ?)
+  21c2c  r2 = 0
+  21c32  r0 = SEL(setUrlCon:)
+  21c34  r1 = SEL(setUrlCon:)
+  21c3c  b L_a90d0
+
+//// -[GoldStoreController showWaiting:message:]  0x21c40..0x21cf4  v16@0:4c8@12
+  21c42  add r7, sp, #0xc
+  21c54  r0 = SEL(maskView)
+  21c58  r6 = SEL(maskView)
+  21c5e  r0 = [r0 maskView](?, ?)
+  21c66  r2 = 0
+  21c6e  r1 = SEL(setHidden:)
+  21c70  cmp r5, 0
+  21c76  r1 = SEL(setHidden:)
+  21c78  r0 = [r0 setHidden:](?, ?)
+  21c84  r0 = SEL(maskLabel)
+  21c86  r1 = SEL(maskLabel)
+  21c8a  r0 = [r0 maskLabel](?, ?)
+  21c98  r1 = SEL(setText:)
+  21c9a  r1 = SEL(setText:)
+  21c9c  r0 = [r0 setText:](?, ?)
+  21ca4  r0 = [r0 maskView](?, ?)
+  21cb2  r1 = SEL(setAccessibilityLabel:)
+  21cb4  r1 = SEL(setAccessibilityLabel:)
+  21cb6  r0 = [r0 setAccessibilityLabel:](?, ?)
+  21cc2  r0 = SEL(activityIndicator)
+  21cc4  r1 = SEL(activityIndicator)
+  21cc8  r0 = [r0 activityIndicator](?, ?)
+  21ccc  cbz r5 -> L_21cda
+  21cd6  r1 = SEL(startAnimating)
+  21cd8  b L_21ce4
+L_21cda:
+  21ce2  r1 = SEL(stopAnimating)
+L_21ce4:
+  21ce4  r1 = SEL(stopAnimating)
+  21cee  b L_a90d0
+
+//// -[GoldStoreController goBackButton]  0x21cf4..0x21d04  @8@0:4
+  21cfc  r1 = IVOFF(goBackButton)
+  21cfe  r1 = IVOFF(goBackButton)
+  21d00  r0 = self->goBackButton
+
+//// -[GoldStoreController setGoBackButton:]  0x21d04..0x21d28  v12@0:4@8
+  21d08  sub sp, #8
+  21d14  r3 = 0
+  21d16  r2 = IVOFF(goBackButton)
+  21d1e  r2 = IVOFF(goBackButton)
+  21d20  call _objc_setProperty
+  21d24  add sp, #8
+  21d26  return
+
+//// -[GoldStoreController goldPack1Button]  0x21d28..0x21d38  @8@0:4
+  21d30  r1 = IVOFF(goldPack1Button)
+  21d32  r1 = IVOFF(goldPack1Button)
+  21d34  r0 = self->goldPack1Button
+
+//// -[GoldStoreController setGoldPack1Button:]  0x21d38..0x21d5c  v12@0:4@8
+  21d3c  sub sp, #8
+  21d48  r3 = 0
+  21d4a  r2 = IVOFF(goldPack1Button)
+  21d52  r2 = IVOFF(goldPack1Button)
+  21d54  call _objc_setProperty
+  21d58  add sp, #8
+  21d5a  return
+
+//// -[GoldStoreController glodPack2Button]  0x21d5c..0x21d6c  @8@0:4
+  21d64  r1 = IVOFF(glodPack2Button)
+  21d66  r1 = IVOFF(glodPack2Button)
+  21d68  r0 = self->glodPack2Button
+
+//// -[GoldStoreController setGlodPack2Button:]  0x21d6c..0x21d90  v12@0:4@8
+  21d70  sub sp, #8
+  21d7c  r3 = 0
+  21d7e  r2 = IVOFF(glodPack2Button)
+  21d86  r2 = IVOFF(glodPack2Button)
+  21d88  call _objc_setProperty
+  21d8c  add sp, #8
+  21d8e  return
+
+//// -[GoldStoreController goldPack3Button]  0x21d90..0x21da0  @8@0:4
+  21d98  r1 = IVOFF(goldPack3Button)
+  21d9a  r1 = IVOFF(goldPack3Button)
+  21d9c  r0 = self->goldPack3Button
+
+//// -[GoldStoreController setGoldPack3Button:]  0x21da0..0x21dc4  v12@0:4@8
+  21da4  sub sp, #8
+  21db0  r3 = 0
+  21db2  r2 = IVOFF(goldPack3Button)
+  21dba  r2 = IVOFF(goldPack3Button)
+  21dbc  call _objc_setProperty
+  21dc0  add sp, #8
+  21dc2  return
+
+//// -[GoldStoreController goldPack4Button]  0x21dc4..0x21dd4  @8@0:4
+  21dcc  r1 = IVOFF(goldPack4Button)
+  21dce  r1 = IVOFF(goldPack4Button)
+  21dd0  r0 = self->goldPack4Button
+
+//// -[GoldStoreController setGoldPack4Button:]  0x21dd4..0x21df8  v12@0:4@8
+  21dd8  sub sp, #8
+  21de4  r3 = 0
+  21de6  r2 = IVOFF(goldPack4Button)
+  21dee  r2 = IVOFF(goldPack4Button)
+  21df0  call _objc_setProperty
+  21df4  add sp, #8
+  21df6  return
+
+//// -[GoldStoreController urlCon]  0x21df8..0x21e08  @8@0:4
+  21e00  r1 = IVOFF(urlCon)
+  21e02  r1 = IVOFF(urlCon)
+  21e04  r0 = self->urlCon
+
+//// -[GoldStoreController setUrlCon:]  0x21e08..0x21e2c  v12@0:4@8
+  21e0c  sub sp, #8
+  21e18  r3 = 0
+  21e1a  r2 = IVOFF(urlCon)
+  21e22  r2 = IVOFF(urlCon)
+  21e24  call _objc_setProperty
+  21e28  add sp, #8
+  21e2a  return
+
+//// -[GoldStoreController rawData]  0x21e2c..0x21e3c  @8@0:4
+  21e34  r1 = IVOFF(rawData)
+  21e36  r1 = IVOFF(rawData)
+  21e38  r0 = self->rawData
+
+//// -[GoldStoreController setRawData:]  0x21e3c..0x21e60  v12@0:4@8
+  21e40  sub sp, #8
+  21e4c  r3 = 0
+  21e4e  r2 = IVOFF(rawData)
+  21e56  r2 = IVOFF(rawData)
+  21e58  call _objc_setProperty
+  21e5c  add sp, #8
+  21e5e  return
+
+//// -[GoldStoreController round5]  0x21e60..0x21e70  @8@0:4
+  21e68  r1 = IVOFF(_round5)
+  21e6a  r1 = IVOFF(_round5)
+  21e6c  r0 = self->_round5
+
+//// -[GoldStoreController setRound5:]  0x21e70..0x21e94  v12@0:4@8
+  21e74  sub sp, #8
+  21e80  r3 = 0
+  21e82  r2 = IVOFF(_round5)
+  21e8a  r2 = IVOFF(_round5)
+  21e8c  call _objc_setProperty
+  21e90  add sp, #8
+  21e92  return
+
+//// -[GoldStoreController maskLabel]  0x21e94..0x21ea4  @8@0:4
+  21e9c  r1 = IVOFF(_maskLabel)
+  21e9e  r1 = IVOFF(_maskLabel)
+  21ea0  r0 = self->_maskLabel
+
+//// -[GoldStoreController setMaskLabel:]  0x21ea4..0x21ec8  v12@0:4@8
+  21ea8  sub sp, #8
+  21eb4  r3 = 0
+  21eb6  r2 = IVOFF(_maskLabel)
+  21ebe  r2 = IVOFF(_maskLabel)
+  21ec0  call _objc_setProperty
+  21ec4  add sp, #8
+  21ec6  return
+
+//// -[GoldStoreController round6]  0x21ec8..0x21ed8  @8@0:4
+  21ed0  r1 = IVOFF(_round6)
+  21ed2  r1 = IVOFF(_round6)
+  21ed4  r0 = self->_round6
+
+//// -[GoldStoreController setRound6:]  0x21ed8..0x21efc  v12@0:4@8
+  21edc  sub sp, #8
+  21ee8  r3 = 0
+  21eea  r2 = IVOFF(_round6)
+  21ef2  r2 = IVOFF(_round6)
+  21ef4  call _objc_setProperty
+  21ef8  add sp, #8
+  21efa  return
+
+//// -[GoldStoreController activityIndicator]  0x21efc..0x21f0c  @8@0:4
+  21f04  r1 = IVOFF(_activityIndicator)
+  21f06  r1 = IVOFF(_activityIndicator)
+  21f08  r0 = self->_activityIndicator
+
+//// -[GoldStoreController setActivityIndicator:]  0x21f0c..0x21f30  v12@0:4@8
+  21f10  sub sp, #8
+  21f1c  r3 = 0
+  21f1e  r2 = IVOFF(_activityIndicator)
+  21f26  r2 = IVOFF(_activityIndicator)
+  21f28  call _objc_setProperty
+  21f2c  add sp, #8
+  21f2e  return
+
+//// -[GoldStoreController round3]  0x21f30..0x21f40  @8@0:4
+  21f38  r1 = IVOFF(_round3)
+  21f3a  r1 = IVOFF(_round3)
+  21f3c  r0 = self->_round3
+
+//// -[GoldStoreController setRound3:]  0x21f40..0x21f64  v12@0:4@8
+  21f44  sub sp, #8
+  21f50  r3 = 0
+  21f52  r2 = IVOFF(_round3)
+  21f5a  r2 = IVOFF(_round3)
+  21f5c  call _objc_setProperty
+  21f60  add sp, #8
+  21f62  return
+
+//// -[GoldStoreController round4]  0x21f64..0x21f74  @8@0:4
+  21f6c  r1 = IVOFF(_round4)
+  21f6e  r1 = IVOFF(_round4)
+  21f70  r0 = self->_round4
+
+//// -[GoldStoreController setRound4:]  0x21f74..0x21f98  v12@0:4@8
+  21f78  sub sp, #8
+  21f84  r3 = 0
+  21f86  r2 = IVOFF(_round4)
+  21f8e  r2 = IVOFF(_round4)
+  21f90  call _objc_setProperty
+  21f94  add sp, #8
+  21f96  return
+
+//// -[GoldStoreController round1]  0x21f98..0x21fa8  @8@0:4
+  21fa0  r1 = IVOFF(_round1)
+  21fa2  r1 = IVOFF(_round1)
+  21fa4  r0 = self->_round1
+
+//// -[GoldStoreController setRound1:]  0x21fa8..0x21fcc  v12@0:4@8
+  21fac  sub sp, #8
+  21fb8  r3 = 0
+  21fba  r2 = IVOFF(_round1)
+  21fc2  r2 = IVOFF(_round1)
+  21fc4  call _objc_setProperty
+  21fc8  add sp, #8
+  21fca  return
+
+//// -[GoldStoreController round2]  0x21fcc..0x21fdc  @8@0:4
+  21fd4  r1 = IVOFF(_round2)
+  21fd6  r1 = IVOFF(_round2)
+  21fd8  r0 = self->_round2
+
+//// -[GoldStoreController setRound2:]  0x21fdc..0x22000  v12@0:4@8
+  21fe0  sub sp, #8
+  21fec  r3 = 0
+  21fee  r2 = IVOFF(_round2)
+  21ff6  r2 = IVOFF(_round2)
+  21ff8  call _objc_setProperty
+  21ffc  add sp, #8
+  21ffe  return
+
+//// -[GoldStoreController maskView]  0x22000..0x22010  @8@0:4
+  22008  r1 = IVOFF(_maskView)
+  2200a  r1 = IVOFF(_maskView)
+  2200c  r0 = self->_maskView
+
+//// -[GoldStoreController setMaskView:]  0x22010..0x22034  v12@0:4@8
+  22014  sub sp, #8
+  22020  r3 = 0
+  22022  r2 = IVOFF(_maskView)
+  2202a  r2 = IVOFF(_maskView)
+  2202c  call _objc_setProperty
+  22030  add sp, #8
+  22032  return
+
+//// -[GoldStoreController goldLabel]  0x22034..0x22044  @8@0:4
+  2203c  r1 = IVOFF(_goldLabel)
+  2203e  r1 = IVOFF(_goldLabel)
+  22040  r0 = self->_goldLabel
+
+//// -[GoldStoreController setGoldLabel:]  0x22044..0x22068  v12@0:4@8
+  22048  sub sp, #8
+  22054  r3 = 0
+  22056  r2 = IVOFF(_goldLabel)
+  2205e  r2 = IVOFF(_goldLabel)
+  22060  call _objc_setProperty
+  22064  add sp, #8
+  22066  return

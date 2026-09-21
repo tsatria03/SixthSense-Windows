@@ -1,0 +1,611 @@
+
+//// -[WeaponControl dealloc]  0x22068..0x220b4  v8@0:4
+  2206a  add r7, sp, #4
+  2206c  sub sp, #8
+  2207c  r0 = IVOFF(array)
+  22082  r1 = SEL(release)
+  22084  r0 = IVOFF(array)
+  22086  r1 = SEL(release)
+  22088  r0 = self->array
+  2208a  r0 = [self->array release](?, ?)
+  220a0  r0 = SEL(dealloc)
+  220a8  r1 = SEL(dealloc)
+  220ac  r0 = [r0 dealloc](?, ?) SUPER
+  220b0  add sp, #8
+  220b2  return
+
+//// -[WeaponControl loadWeaponForGun:fileType:]  0x220b4..0x2274c  v16@0:4@8@12
+  220b6  add r7, sp, #0xc
+  220cc  r0 = SEL(mainBundle)
+  220d2  r2 = NSBundle
+  220d4  r1 = SEL(mainBundle)
+  220d6  r0 = NSBundle
+  220d8  r0 = [NSBundle mainBundle](NSBundle, ?)
+  220ea  r1 = SEL(pathForResource:ofType:)
+  220f0  r3 = CFSTR('plist')
+  220f2  r1 = SEL(pathForResource:ofType:)
+  220f4  r0 = [r0 pathForResource:ofType:](?, CFSTR('plist'))
+  2210a  r0 = SEL(arrayWithContentsOfFile:)
+  2210c  r3 = NSArray
+  2210e  r1 = SEL(arrayWithContentsOfFile:)
+  22110  r0 = NSArray
+  22112  r0 = [NSArray arrayWithContentsOfFile:](?, NSArray)
+  22120  r0 = SEL(setArray:)
+  22122  r1 = SEL(setArray:)
+  22126  r0 = [r0 setArray:](?, ?)
+  22132  r0 = SEL(array)
+  22134  r6 = SEL(array)
+  2213a  r0 = [r0 array](?, ?)
+  22142  r0 = [r0 array](?, ?)
+  22146  cmp r0, 0
+  22148  beq L_22744
+  22150  r0 = [r0 array](?, ?)
+  22158  r2 = 1
+  2215e  r1 = SEL(objectAtIndex:)
+  22160  fp = SEL(objectAtIndex:)
+  22166  r0 = [r0 objectAtIndex:](1, ?)
+  22172  r1 = SEL(intValue)
+  22174  r8 = SEL(intValue)
+  2217a  r0 = [r0 intValue](?, ?)
+  22188  r0 = SEL(setWeaponNumber:)
+  2218a  r1 = SEL(setWeaponNumber:)
+  2218e  r0 = [r0 setWeaponNumber:](?, ?)
+  22196  r0 = [r0 array](?, ?)
+  2219c  r2 = 3
+  2219e  r0 = [r0 objectAtIndex:](3, ?)
+  221a4  r0 = [r0 intValue](?, ?)
+  221b2  r0 = SEL(setDamage:)
+  221b4  r1 = SEL(setDamage:)
+  221b8  r0 = [r0 setDamage:](?, ?)
+  221c0  r0 = [r0 array](?, ?)
+  221c6  r2 = 5
+  221c8  r0 = [r0 objectAtIndex:](5, ?)
+  221ce  r0 = [r0 intValue](?, ?)
+  221dc  r0 = SEL(setRange:)
+  221de  r1 = SEL(setRange:)
+  221e2  r0 = [r0 setRange:](?, ?)
+  221ea  r0 = [r0 array](?, ?)
+  221f0  r2 = 7
+  221f2  r0 = [r0 objectAtIndex:](7, ?)
+  221f8  r0 = [r0 intValue](?, ?)
+  22206  r0 = SEL(setBulletCount:)
+  22208  r1 = SEL(setBulletCount:)
+  2220c  r0 = [r0 setBulletCount:](?, ?)
+  22214  r0 = [r0 array](?, ?)
+  2221a  r2 = 9
+  2221c  r0 = [r0 objectAtIndex:](9, ?)
+  22228  r1 = SEL(floatValue)
+  2222a  sl = SEL(floatValue)
+  22230  r0 = [r0 floatValue](?, ?)
+  2223e  r0 = SEL(setShotSpeed:)
+  22240  r1 = SEL(setShotSpeed:)
+  22244  r0 = [r0 setShotSpeed:](?, ?)
+  2224c  r0 = [r0 array](?, ?)
+  22252  r2 = 11
+  22254  r0 = [r0 objectAtIndex:](11, ?)
+  2225a  r0 = [r0 intValue](?, ?)
+  22268  r0 = SEL(setShotSoundNumber:)
+  2226a  r1 = SEL(setShotSoundNumber:)
+  2226e  r0 = [r0 setShotSoundNumber:](?, ?)
+  22276  r0 = [r0 array](?, ?)
+  2227c  r2 = 13
+  2227e  r0 = [r0 objectAtIndex:](13, ?)
+  22284  r0 = [r0 floatValue](?, ?)
+  22292  r0 = SEL(setShotSoundgain:)
+  22294  r1 = SEL(setShotSoundgain:)
+  22298  r0 = [r0 setShotSoundgain:](?, ?)
+  222a0  r0 = [r0 array](?, ?)
+  222a6  r2 = 15
+  222a8  r0 = [r0 objectAtIndex:](15, ?)
+  222ae  r0 = [r0 intValue](?, ?)
+  222bc  r0 = SEL(setReloadSoundnumber:)
+  222be  r1 = SEL(setReloadSoundnumber:)
+  222c2  r0 = [r0 setReloadSoundnumber:](?, ?)
+  222ca  r0 = [r0 array](?, ?)
+  222d0  r2 = 17
+  222d2  r0 = [r0 objectAtIndex:](17, ?)
+  222d8  r0 = [r0 floatValue](?, ?)
+  222e6  r0 = SEL(setReloadSoundGain:)
+  222e8  r1 = SEL(setReloadSoundGain:)
+  222ec  r0 = [r0 setReloadSoundGain:](?, ?)
+  222f4  r0 = [r0 array](?, ?)
+  222fa  r2 = 19
+  222fc  r0 = [r0 objectAtIndex:](19, ?)
+  22302  r0 = [r0 floatValue](?, ?)
+  22310  r0 = SEL(setShotTime:)
+  22312  r1 = SEL(setShotTime:)
+  22316  r0 = [r0 setShotTime:](?, ?)
+  2231e  r0 = [r0 array](?, ?)
+  22324  r2 = 21
+  22326  r0 = [r0 objectAtIndex:](21, ?)
+  2232c  r0 = [r0 floatValue](?, ?)
+  2233a  r0 = SEL(setReloadTime:)
+  2233c  r1 = SEL(setReloadTime:)
+  22340  r0 = [r0 setReloadTime:](?, ?)
+  22348  r0 = [r0 array](?, ?)
+  2234e  r2 = 23
+  22350  r0 = [r0 objectAtIndex:](23, ?)
+  22356  r0 = [r0 floatValue](?, ?)
+  2235a  vmov d16, r0, r0
+  22362  vcvt.s32.f32 d0, d16
+  2236a  r0 = SEL(setWeaponChangeSoundNumber:)
+  2236c  r1 = SEL(setWeaponChangeSoundNumber:)
+  22374  r0 = [r0 setWeaponChangeSoundNumber:](?, ?)
+  2237c  r0 = [r0 array](?, ?)
+  22382  r2 = 25
+  22384  r0 = [r0 objectAtIndex:](25, ?)
+  2238a  r0 = [r0 floatValue](?, ?)
+  22398  r0 = SEL(setWeaponChangeSoundGain:)
+  2239a  r1 = SEL(setWeaponChangeSoundGain:)
+  2239e  r0 = [r0 setWeaponChangeSoundGain:](?, ?)
+  223aa  r0 = SEL(WeaponNumber)
+  223ac  r5 = SEL(WeaponNumber)
+  223b2  r0 = [r0 WeaponNumber](?, ?)
+  223b6  cmp r0, 1
+  223b8  bne L_224da
+  223c0  r0 = [r0 array](?, ?)
+  223c6  r2 = 27
+  223c8  r0 = [r0 objectAtIndex:](27, ?)
+  223ce  r0 = [r0 intValue](?, ?)
+  223dc  r0 = SEL(setAtt1SoundNumber:)
+  223de  r1 = SEL(setAtt1SoundNumber:)
+  223e2  r0 = [r0 setAtt1SoundNumber:](?, ?)
+  223ea  r0 = [r0 array](?, ?)
+  223f0  r2 = 29
+  223f2  r0 = [r0 objectAtIndex:](29, ?)
+  223f8  r0 = [r0 intValue](?, ?)
+  223fc  vmov d16, r0, r0
+  22404  vcvt.f32.s32 d0, d16
+  2240c  r0 = SEL(setAtt1SoundGain:)
+  2240e  r1 = SEL(setAtt1SoundGain:)
+  22416  r0 = [r0 setAtt1SoundGain:](?, ?)
+  2241e  r0 = [r0 array](?, ?)
+  22424  r2 = 31
+  22426  r0 = [r0 objectAtIndex:](31, ?)
+  2242c  r0 = [r0 intValue](?, ?)
+  22430  vmov d16, r0, r0
+  22438  vcvt.f32.s32 d0, d16
+  22440  r0 = SEL(setAtt1SoundTime:)
+  22442  r1 = SEL(setAtt1SoundTime:)
+  2244a  r0 = [r0 setAtt1SoundTime:](?, ?)
+  22452  r0 = [r0 array](?, ?)
+  22458  r2 = 33
+  2245a  r0 = [r0 objectAtIndex:](33, ?)
+  22460  r0 = [r0 intValue](?, ?)
+  2246e  r0 = SEL(setAtt2SoundNumber:)
+  22470  r1 = SEL(setAtt2SoundNumber:)
+  22474  r0 = [r0 setAtt2SoundNumber:](?, ?)
+  2247c  r0 = [r0 array](?, ?)
+  22482  r2 = 35
+  22484  r0 = [r0 objectAtIndex:](35, ?)
+  2248a  r0 = [r0 intValue](?, ?)
+  2248e  vmov d16, r0, r0
+  22496  vcvt.f32.s32 d0, d16
+  2249e  r0 = SEL(setAtt2SoundGain:)
+  224a0  r1 = SEL(setAtt2SoundGain:)
+  224a8  r0 = [r0 setAtt2SoundGain:](?, ?)
+  224b0  r0 = [r0 array](?, ?)
+  224b6  r2 = 37
+  224b8  r0 = [r0 objectAtIndex:](37, ?)
+  224be  r0 = [r0 intValue](?, ?)
+  224c2  vmov d16, r0, r0
+  224ca  vcvt.f32.s32 d0, d16
+  224d2  r0 = SEL(setAtt2SoundTime:)
+  224d8  b L_22734
+L_224da:
+  224de  r0 = [r0 WeaponNumber](?, ?)
+  224e2  cmp r0, 7
+  224e4  beq L_224f4
+  224ea  r0 = [r0 WeaponNumber](?, ?)
+  224ee  cmp r0, 8
+  224f0  bne L_22744
+L_224f4:
+  224f8  r0 = [r0 array](?, ?)
+  224fe  r2 = 27
+  22500  r0 = [r0 objectAtIndex:](27, ?)
+  22506  r0 = [r0 intValue](?, ?)
+  22514  r0 = SEL(setAtt1SoundNumber:)
+  22516  r1 = SEL(setAtt1SoundNumber:)
+  2251a  r0 = [r0 setAtt1SoundNumber:](?, ?)
+  22522  r0 = [r0 array](?, ?)
+  22528  r2 = 29
+  2252a  r0 = [r0 objectAtIndex:](29, ?)
+  22530  r0 = [r0 intValue](?, ?)
+  22534  vmov d16, r0, r0
+  2253c  vcvt.f32.s32 d0, d16
+  22544  r0 = SEL(setAtt1SoundGain:)
+  22546  r1 = SEL(setAtt1SoundGain:)
+  2254e  r0 = [r0 setAtt1SoundGain:](?, ?)
+  22556  r0 = [r0 array](?, ?)
+  2255c  r2 = 31
+  2255e  r0 = [r0 objectAtIndex:](31, ?)
+  22564  r0 = [r0 intValue](?, ?)
+  22568  vmov d16, r0, r0
+  22570  vcvt.f32.s32 d0, d16
+  22578  r0 = SEL(setAtt1SoundTime:)
+  2257a  r1 = SEL(setAtt1SoundTime:)
+  22582  r0 = [r0 setAtt1SoundTime:](?, ?)
+  2258a  r0 = [r0 array](?, ?)
+  22590  r2 = 33
+  22592  r0 = [r0 objectAtIndex:](33, ?)
+  22598  r0 = [r0 intValue](?, ?)
+  225a6  r0 = SEL(setAtt2SoundNumber:)
+  225a8  r1 = SEL(setAtt2SoundNumber:)
+  225ac  r0 = [r0 setAtt2SoundNumber:](?, ?)
+  225b4  r0 = [r0 array](?, ?)
+  225ba  r2 = 35
+  225bc  r0 = [r0 objectAtIndex:](35, ?)
+  225c2  r0 = [r0 intValue](?, ?)
+  225c6  vmov d16, r0, r0
+  225ce  vcvt.f32.s32 d0, d16
+  225d6  r0 = SEL(setAtt2SoundGain:)
+  225d8  r1 = SEL(setAtt2SoundGain:)
+  225e0  r0 = [r0 setAtt2SoundGain:](?, ?)
+  225e8  r0 = [r0 array](?, ?)
+  225ee  r2 = 37
+  225f0  r0 = [r0 objectAtIndex:](37, ?)
+  225f6  r0 = [r0 intValue](?, ?)
+  225fa  vmov d16, r0, r0
+  22602  vcvt.f32.s32 d0, d16
+  2260a  r0 = SEL(setAtt2SoundTime:)
+  2260c  r1 = SEL(setAtt2SoundTime:)
+  22614  r0 = [r0 setAtt2SoundTime:](?, ?)
+  2261c  r0 = [r0 array](?, ?)
+  22622  r2 = 39
+  22624  r0 = [r0 objectAtIndex:](39, ?)
+  2262a  r0 = [r0 intValue](?, ?)
+  22638  r0 = SEL(setAtt3SoundNumber:)
+  2263a  r1 = SEL(setAtt3SoundNumber:)
+  2263e  r0 = [r0 setAtt3SoundNumber:](?, ?)
+  22646  r0 = [r0 array](?, ?)
+  2264c  r2 = 41
+  2264e  r0 = [r0 objectAtIndex:](41, ?)
+  22654  r0 = [r0 intValue](?, ?)
+  22658  vmov d16, r0, r0
+  22660  vcvt.f32.s32 d0, d16
+  22668  r0 = SEL(setAtt3SoundGain:)
+  2266a  r1 = SEL(setAtt3SoundGain:)
+  22672  r0 = [r0 setAtt3SoundGain:](?, ?)
+  2267a  r0 = [r0 array](?, ?)
+  22680  r2 = 43
+  22682  r0 = [r0 objectAtIndex:](43, ?)
+  22688  r0 = [r0 intValue](?, ?)
+  2268c  vmov d16, r0, r0
+  22694  vcvt.f32.s32 d0, d16
+  2269c  r0 = SEL(setAtt3SoundTime:)
+  2269e  r1 = SEL(setAtt3SoundTime:)
+  226a6  r0 = [r0 setAtt3SoundTime:](?, ?)
+  226ae  r0 = [r0 array](?, ?)
+  226b4  r2 = 45
+  226b6  r0 = [r0 objectAtIndex:](45, ?)
+  226bc  r0 = [r0 intValue](?, ?)
+  226ca  r0 = SEL(setAtt4SoundNumber:)
+  226cc  r1 = SEL(setAtt4SoundNumber:)
+  226d0  r0 = [r0 setAtt4SoundNumber:](?, ?)
+  226d8  r0 = [r0 array](?, ?)
+  226de  r2 = 47
+  226e0  r0 = [r0 objectAtIndex:](47, ?)
+  226e6  r0 = [r0 intValue](?, ?)
+  226ea  vmov d16, r0, r0
+  226f2  vcvt.f32.s32 d0, d16
+  226fa  r0 = SEL(setAtt4SoundGain:)
+  226fc  r1 = SEL(setAtt4SoundGain:)
+  22704  r0 = [r0 setAtt4SoundGain:](?, ?)
+  2270c  r0 = [r0 array](?, ?)
+  22712  r2 = 49
+  22714  r0 = [r0 objectAtIndex:](49, ?)
+  2271a  r0 = [r0 intValue](?, ?)
+  2271e  vmov d16, r0, r0
+  22726  vcvt.f32.s32 d0, d16
+  2272e  r0 = SEL(setAtt4SoundTime:)
+L_22734:
+  22734  r1 = SEL(setAtt4SoundTime:)
+  22740  b L_a90d0
+L_22744:
+  22748  return
+
+//// -[WeaponControl ReloadGun]  0x2274c..0x22788  i8@0:4
+  22758  r1 = SEL(array)
+  2275a  r1 = SEL(array)
+  2275c  r0 = [r0 array](?, ?)
+  22764  r2 = 7
+  2276a  r1 = SEL(objectAtIndex:)
+  2276c  r1 = SEL(objectAtIndex:)
+  2276e  r0 = [r0 objectAtIndex:](7, ?)
+  2277a  r1 = SEL(intValue)
+  2277c  r1 = SEL(intValue)
+  22782  b L_a90d0
+
+//// -[WeaponControl WeaponNumber]  0x22788..0x2279c  i8@0:4
+  22790  r1 = IVOFF(WeaponNumber)
+  22792  r1 = IVOFF(WeaponNumber)
+  22794  r0 = self->WeaponNumber
+
+//// -[WeaponControl setWeaponNumber:]  0x2279c..0x227b4  v12@0:4i8
+  227a8  r1 = IVOFF(WeaponNumber)
+  227aa  r1 = IVOFF(WeaponNumber)
+  227ac  self->WeaponNumber = r2
+
+//// -[WeaponControl Damage]  0x227b4..0x227c8  i8@0:4
+  227bc  r1 = IVOFF(Damage)
+  227be  r1 = IVOFF(Damage)
+  227c0  r0 = self->Damage
+
+//// -[WeaponControl setDamage:]  0x227c8..0x227e0  v12@0:4i8
+  227d4  r1 = IVOFF(Damage)
+  227d6  r1 = IVOFF(Damage)
+  227d8  self->Damage = r2
+
+//// -[WeaponControl Range]  0x227e0..0x227f4  i8@0:4
+  227e8  r1 = IVOFF(Range)
+  227ea  r1 = IVOFF(Range)
+  227ec  r0 = self->Range
+
+//// -[WeaponControl setRange:]  0x227f4..0x2280c  v12@0:4i8
+  22800  r1 = IVOFF(Range)
+  22802  r1 = IVOFF(Range)
+  22804  self->Range = r2
+
+//// -[WeaponControl BulletCount]  0x2280c..0x22820  i8@0:4
+  22814  r1 = IVOFF(BulletCount)
+  22816  r1 = IVOFF(BulletCount)
+  22818  r0 = self->BulletCount
+
+//// -[WeaponControl setBulletCount:]  0x22820..0x22838  v12@0:4i8
+  2282c  r1 = IVOFF(BulletCount)
+  2282e  r1 = IVOFF(BulletCount)
+  22830  self->BulletCount = r2
+
+//// -[WeaponControl ShotSpeed]  0x22838..0x2284c  f8@0:4
+  22840  r1 = IVOFF(ShotSpeed)
+  22842  r1 = IVOFF(ShotSpeed)
+  22844  r0 = self->ShotSpeed
+
+//// -[WeaponControl setShotSpeed:]  0x2284c..0x22864  v12@0:4f8
+  22858  r1 = IVOFF(ShotSpeed)
+  2285a  r1 = IVOFF(ShotSpeed)
+  2285c  self->ShotSpeed = r2
+
+//// -[WeaponControl ShotSoundNumber]  0x22864..0x22878  i8@0:4
+  2286c  r1 = IVOFF(ShotSoundNumber)
+  2286e  r1 = IVOFF(ShotSoundNumber)
+  22870  r0 = self->ShotSoundNumber
+
+//// -[WeaponControl setShotSoundNumber:]  0x22878..0x22890  v12@0:4i8
+  22884  r1 = IVOFF(ShotSoundNumber)
+  22886  r1 = IVOFF(ShotSoundNumber)
+  22888  self->ShotSoundNumber = r2
+
+//// -[WeaponControl ShotSoundgain]  0x22890..0x228a4  f8@0:4
+  22898  r1 = IVOFF(ShotSoundgain)
+  2289a  r1 = IVOFF(ShotSoundgain)
+  2289c  r0 = self->ShotSoundgain
+
+//// -[WeaponControl setShotSoundgain:]  0x228a4..0x228bc  v12@0:4f8
+  228b0  r1 = IVOFF(ShotSoundgain)
+  228b2  r1 = IVOFF(ShotSoundgain)
+  228b4  self->ShotSoundgain = r2
+
+//// -[WeaponControl ReloadSoundnumber]  0x228bc..0x228d0  i8@0:4
+  228c4  r1 = IVOFF(ReloadSoundnumber)
+  228c6  r1 = IVOFF(ReloadSoundnumber)
+  228c8  r0 = self->ReloadSoundnumber
+
+//// -[WeaponControl setReloadSoundnumber:]  0x228d0..0x228e8  v12@0:4i8
+  228dc  r1 = IVOFF(ReloadSoundnumber)
+  228de  r1 = IVOFF(ReloadSoundnumber)
+  228e0  self->ReloadSoundnumber = r2
+
+//// -[WeaponControl ReloadSoundGain]  0x228e8..0x228fc  f8@0:4
+  228f0  r1 = IVOFF(ReloadSoundGain)
+  228f2  r1 = IVOFF(ReloadSoundGain)
+  228f4  r0 = self->ReloadSoundGain
+
+//// -[WeaponControl setReloadSoundGain:]  0x228fc..0x22914  v12@0:4f8
+  22908  r1 = IVOFF(ReloadSoundGain)
+  2290a  r1 = IVOFF(ReloadSoundGain)
+  2290c  self->ReloadSoundGain = r2
+
+//// -[WeaponControl ShotTime]  0x22914..0x22928  f8@0:4
+  2291c  r1 = IVOFF(ShotTime)
+  2291e  r1 = IVOFF(ShotTime)
+  22920  r0 = self->ShotTime
+
+//// -[WeaponControl setShotTime:]  0x22928..0x22940  v12@0:4f8
+  22934  r1 = IVOFF(ShotTime)
+  22936  r1 = IVOFF(ShotTime)
+  22938  self->ShotTime = r2
+
+//// -[WeaponControl ReloadTime]  0x22940..0x22954  f8@0:4
+  22948  r1 = IVOFF(ReloadTime)
+  2294a  r1 = IVOFF(ReloadTime)
+  2294c  r0 = self->ReloadTime
+
+//// -[WeaponControl setReloadTime:]  0x22954..0x2296c  v12@0:4f8
+  22960  r1 = IVOFF(ReloadTime)
+  22962  r1 = IVOFF(ReloadTime)
+  22964  self->ReloadTime = r2
+
+//// -[WeaponControl weaponChangeSoundNumber]  0x2296c..0x22980  i8@0:4
+  22974  r1 = IVOFF(weaponChangeSoundNumber)
+  22976  r1 = IVOFF(weaponChangeSoundNumber)
+  22978  r0 = self->weaponChangeSoundNumber
+
+//// -[WeaponControl setWeaponChangeSoundNumber:]  0x22980..0x22998  v12@0:4i8
+  2298c  r1 = IVOFF(weaponChangeSoundNumber)
+  2298e  r1 = IVOFF(weaponChangeSoundNumber)
+  22990  self->weaponChangeSoundNumber = r2
+
+//// -[WeaponControl weaponChangeSoundGain]  0x22998..0x229ac  f8@0:4
+  229a0  r1 = IVOFF(weaponChangeSoundGain)
+  229a2  r1 = IVOFF(weaponChangeSoundGain)
+  229a4  r0 = self->weaponChangeSoundGain
+
+//// -[WeaponControl setWeaponChangeSoundGain:]  0x229ac..0x229c4  v12@0:4f8
+  229b8  r1 = IVOFF(weaponChangeSoundGain)
+  229ba  r1 = IVOFF(weaponChangeSoundGain)
+  229bc  self->weaponChangeSoundGain = r2
+
+//// -[WeaponControl array]  0x229c4..0x229d4  @8@0:4
+  229cc  r1 = IVOFF(array)
+  229ce  r1 = IVOFF(array)
+  229d0  r0 = self->array
+
+//// -[WeaponControl setArray:]  0x229d4..0x229f8  v12@0:4@8
+  229d8  sub sp, #8
+  229e4  r3 = 0
+  229e6  r2 = IVOFF(array)
+  229ee  r2 = IVOFF(array)
+  229f0  call _objc_setProperty
+  229f4  add sp, #8
+  229f6  return
+
+//// -[WeaponControl att1SoundNumber]  0x229f8..0x22a0c  i8@0:4
+  22a00  r1 = IVOFF(att1SoundNumber)
+  22a02  r1 = IVOFF(att1SoundNumber)
+  22a04  r0 = self->att1SoundNumber
+
+//// -[WeaponControl setAtt1SoundNumber:]  0x22a0c..0x22a24  v12@0:4i8
+  22a18  r1 = IVOFF(att1SoundNumber)
+  22a1a  r1 = IVOFF(att1SoundNumber)
+  22a1c  self->att1SoundNumber = r2
+
+//// -[WeaponControl att2SoundNumber]  0x22a24..0x22a38  i8@0:4
+  22a2c  r1 = IVOFF(att2SoundNumber)
+  22a2e  r1 = IVOFF(att2SoundNumber)
+  22a30  r0 = self->att2SoundNumber
+
+//// -[WeaponControl setAtt2SoundNumber:]  0x22a38..0x22a50  v12@0:4i8
+  22a44  r1 = IVOFF(att2SoundNumber)
+  22a46  r1 = IVOFF(att2SoundNumber)
+  22a48  self->att2SoundNumber = r2
+
+//// -[WeaponControl att3SoundNumber]  0x22a50..0x22a64  i8@0:4
+  22a58  r1 = IVOFF(att3SoundNumber)
+  22a5a  r1 = IVOFF(att3SoundNumber)
+  22a5c  r0 = self->att3SoundNumber
+
+//// -[WeaponControl setAtt3SoundNumber:]  0x22a64..0x22a7c  v12@0:4i8
+  22a70  r1 = IVOFF(att3SoundNumber)
+  22a72  r1 = IVOFF(att3SoundNumber)
+  22a74  self->att3SoundNumber = r2
+
+//// -[WeaponControl att4SoundNumber]  0x22a7c..0x22a90  i8@0:4
+  22a84  r1 = IVOFF(att4SoundNumber)
+  22a86  r1 = IVOFF(att4SoundNumber)
+  22a88  r0 = self->att4SoundNumber
+
+//// -[WeaponControl setAtt4SoundNumber:]  0x22a90..0x22aa8  v12@0:4i8
+  22a9c  r1 = IVOFF(att4SoundNumber)
+  22a9e  r1 = IVOFF(att4SoundNumber)
+  22aa0  self->att4SoundNumber = r2
+
+//// -[WeaponControl att5SoundNumber]  0x22aa8..0x22abc  i8@0:4
+  22ab0  r1 = IVOFF(att5SoundNumber)
+  22ab2  r1 = IVOFF(att5SoundNumber)
+  22ab4  r0 = self->att5SoundNumber
+
+//// -[WeaponControl setAtt5SoundNumber:]  0x22abc..0x22ad4  v12@0:4i8
+  22ac8  r1 = IVOFF(att5SoundNumber)
+  22aca  r1 = IVOFF(att5SoundNumber)
+  22acc  self->att5SoundNumber = r2
+
+//// -[WeaponControl att1SoundGain]  0x22ad4..0x22ae8  f8@0:4
+  22adc  r1 = IVOFF(att1SoundGain)
+  22ade  r1 = IVOFF(att1SoundGain)
+  22ae0  r0 = self->att1SoundGain
+
+//// -[WeaponControl setAtt1SoundGain:]  0x22ae8..0x22b00  v12@0:4f8
+  22af4  r1 = IVOFF(att1SoundGain)
+  22af6  r1 = IVOFF(att1SoundGain)
+  22af8  self->att1SoundGain = r2
+
+//// -[WeaponControl att2SoundGain]  0x22b00..0x22b14  f8@0:4
+  22b08  r1 = IVOFF(att2SoundGain)
+  22b0a  r1 = IVOFF(att2SoundGain)
+  22b0c  r0 = self->att2SoundGain
+
+//// -[WeaponControl setAtt2SoundGain:]  0x22b14..0x22b2c  v12@0:4f8
+  22b20  r1 = IVOFF(att2SoundGain)
+  22b22  r1 = IVOFF(att2SoundGain)
+  22b24  self->att2SoundGain = r2
+
+//// -[WeaponControl att3SoundGain]  0x22b2c..0x22b40  f8@0:4
+  22b34  r1 = IVOFF(att3SoundGain)
+  22b36  r1 = IVOFF(att3SoundGain)
+  22b38  r0 = self->att3SoundGain
+
+//// -[WeaponControl setAtt3SoundGain:]  0x22b40..0x22b58  v12@0:4f8
+  22b4c  r1 = IVOFF(att3SoundGain)
+  22b4e  r1 = IVOFF(att3SoundGain)
+  22b50  self->att3SoundGain = r2
+
+//// -[WeaponControl att4SoundGain]  0x22b58..0x22b6c  f8@0:4
+  22b60  r1 = IVOFF(att4SoundGain)
+  22b62  r1 = IVOFF(att4SoundGain)
+  22b64  r0 = self->att4SoundGain
+
+//// -[WeaponControl setAtt4SoundGain:]  0x22b6c..0x22b84  v12@0:4f8
+  22b78  r1 = IVOFF(att4SoundGain)
+  22b7a  r1 = IVOFF(att4SoundGain)
+  22b7c  self->att4SoundGain = r2
+
+//// -[WeaponControl att5SoundGain]  0x22b84..0x22b98  f8@0:4
+  22b8c  r1 = IVOFF(att5SoundGain)
+  22b8e  r1 = IVOFF(att5SoundGain)
+  22b90  r0 = self->att5SoundGain
+
+//// -[WeaponControl setAtt5SoundGain:]  0x22b98..0x22bb0  v12@0:4f8
+  22ba4  r1 = IVOFF(att5SoundGain)
+  22ba6  r1 = IVOFF(att5SoundGain)
+  22ba8  self->att5SoundGain = r2
+
+//// -[WeaponControl att1SoundTime]  0x22bb0..0x22bc4  f8@0:4
+  22bb8  r1 = IVOFF(att1SoundTime)
+  22bba  r1 = IVOFF(att1SoundTime)
+  22bbc  r0 = self->att1SoundTime
+
+//// -[WeaponControl setAtt1SoundTime:]  0x22bc4..0x22bdc  v12@0:4f8
+  22bd0  r1 = IVOFF(att1SoundTime)
+  22bd2  r1 = IVOFF(att1SoundTime)
+  22bd4  self->att1SoundTime = r2
+
+//// -[WeaponControl att2SoundTime]  0x22bdc..0x22bf0  f8@0:4
+  22be4  r1 = IVOFF(att2SoundTime)
+  22be6  r1 = IVOFF(att2SoundTime)
+  22be8  r0 = self->att2SoundTime
+
+//// -[WeaponControl setAtt2SoundTime:]  0x22bf0..0x22c08  v12@0:4f8
+  22bfc  r1 = IVOFF(att2SoundTime)
+  22bfe  r1 = IVOFF(att2SoundTime)
+  22c00  self->att2SoundTime = r2
+
+//// -[WeaponControl att3SoundTime]  0x22c08..0x22c1c  f8@0:4
+  22c10  r1 = IVOFF(att3SoundTime)
+  22c12  r1 = IVOFF(att3SoundTime)
+  22c14  r0 = self->att3SoundTime
+
+//// -[WeaponControl setAtt3SoundTime:]  0x22c1c..0x22c34  v12@0:4f8
+  22c28  r1 = IVOFF(att3SoundTime)
+  22c2a  r1 = IVOFF(att3SoundTime)
+  22c2c  self->att3SoundTime = r2
+
+//// -[WeaponControl att4SoundTime]  0x22c34..0x22c48  f8@0:4
+  22c3c  r1 = IVOFF(att4SoundTime)
+  22c3e  r1 = IVOFF(att4SoundTime)
+  22c40  r0 = self->att4SoundTime
+
+//// -[WeaponControl setAtt4SoundTime:]  0x22c48..0x22c60  v12@0:4f8
+  22c54  r1 = IVOFF(att4SoundTime)
+  22c56  r1 = IVOFF(att4SoundTime)
+  22c58  self->att4SoundTime = r2
+
+//// -[WeaponControl att5SoundTime]  0x22c60..0x22c74  f8@0:4
+  22c68  r1 = IVOFF(att5SoundTime)
+  22c6a  r1 = IVOFF(att5SoundTime)
+  22c6c  r0 = self->att5SoundTime
+
+//// -[WeaponControl setAtt5SoundTime:]  0x22c74..0x22c8c  v12@0:4f8
+  22c80  r1 = IVOFF(att5SoundTime)
+  22c82  r1 = IVOFF(att5SoundTime)
+  22c84  self->att5SoundTime = r2

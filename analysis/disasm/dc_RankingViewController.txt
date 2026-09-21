@@ -1,0 +1,3814 @@
+
+//// -[RankingViewController initWithNibName:bundle:]  0x52768..0x52820  @16@0:4@8@12
+  5276a  add r7, sp, #0xc
+  52770  sub sp, #0x10
+  52784  r1 = SEL(initWithNibName:bundle:)
+  5278a  r1 = SEL(initWithNibName:bundle:)
+  5278e  add r0, sp, #8
+  52790  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  52796  cbz r4 -> L_52816
+  527a8  r0 = SEL(defaultCenter)
+  527aa  r8 = NSNotificationCenter
+  527ac  r6 = SEL(defaultCenter)
+  527ae  r0 = NSNotificationCenter
+  527b4  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  527bc  fp = 0
+  527cc  r1 = SEL(addObserver:selector:name:object:)
+  527ce  r2 = SEL(LoadRankingData)
+  527d4  r5 = SEL(addObserver:selector:name:object:)
+  527da  r3 = SEL(LoadRankingData)
+  527de  sl = CFSTR('LoadRankingData')
+  527e6  r0 = [r0 addObserver:selector:name:object:](?, SEL(LoadRankingData))
+  527ea  r0 = NSNotificationCenter
+  527f0  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  52802  r1 = SEL(interruptRestart)
+  52808  sl = CFSTR('InterruptOff')
+  5280e  r3 = SEL(interruptRestart)
+  52812  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+L_52816:
+  52818  add sp, #0x10
+  5281e  return
+
+//// -[RankingViewController interruptRestart]  0x52820..0x52854  v8@0:4
+  52822  add r7, sp, #4
+  52824  sub sp, #8
+  5282a  r3 = 0
+  52838  r1 = SEL(performSelector:withObject:afterDelay:)
+  5283a  r2 = SEL(audioRestart)
+  5283c  r4 = 0
+  5283e  r1 = SEL(performSelector:withObject:afterDelay:)
+  52844  r2 = SEL(audioRestart)
+  5284a  r3 = 0
+  5284c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  52850  add sp, #8
+  52852  return
+
+//// -[RankingViewController audioRestart]  0x52854..0x5295c  v8@0:4
+  52856  add r7, sp, #8
+  52858  call sub_3ccc
+  52866  r0 = SEL(playback)
+  52868  r5 = SEL(playback)
+  5286e  r0 = [r0 playback](?, ?)
+  5287a  r1 = SEL(freeBuffers)
+  5287c  r1 = SEL(freeBuffers)
+  5287e  r0 = [r0 freeBuffers](?, ?)
+  52886  r0 = [r0 playback](?, ?)
+  52892  r1 = SEL(freeSources)
+  52894  r1 = SEL(freeSources)
+  52896  r0 = [r0 freeSources](?, ?)
+  528aa  r0 = SEL(array)
+  528ac  r2 = NSMutableArray
+  528ae  r1 = SEL(array)
+  528b0  r0 = NSMutableArray
+  528b2  r0 = [NSMutableArray array](NSMutableArray, ?)
+  528c0  r0 = SEL(setASoundBufControlData:)
+  528c2  r1 = SEL(setASoundBufControlData:)
+  528c6  r0 = [r0 setASoundBufControlData:](?, ?)
+  528ce  r0 = [r0 playback](?, ?)
+  528d2  cbz r0 -> L_52900
+  528d8  r0 = [r0 playback](?, ?)
+  528e4  r1 = SEL(release)
+  528e6  r1 = SEL(release)
+  528e8  r0 = [r0 release](?, ?)
+  528f0  r2 = 0
+  528f6  r0 = SEL(setPlayback:)
+  528f8  r1 = SEL(setPlayback:)
+  528fc  r0 = [r0 setPlayback:](0, ?)
+L_52900:
+  52910  r0 = SEL(alloc)
+  52912  r2 = oalPlayback
+  52914  r1 = SEL(alloc)
+  52916  r0 = oalPlayback
+  52918  r0 = [oalPlayback alloc](oalPlayback, ?)
+  52924  r1 = SEL(init)
+  52926  r1 = SEL(init)
+  52928  r0 = [r0 init](?, ?)
+  52936  r0 = SEL(setPlayback:)
+  52938  r1 = SEL(setPlayback:)
+  5293c  r0 = [r0 setPlayback:](?, ?)
+  52944  r0 = [r0 playback](?, ?)
+  52950  r1 = SEL(setUpOpenAL)
+  52952  r1 = SEL(setUpOpenAL)
+  52958  b L_a90d0
+
+//// -[RankingViewController viewDidLoad]  0x5295c..0x52ef4  v8@0:4
+  5295e  add r7, sp, #0xc
+  52964  sub sp, #0x1c
+  5297a  r0 = SEL(viewDidLoad)
+  52984  r1 = SEL(viewDidLoad)
+  52986  add r0, sp, #0x14
+  52988  r0 = [r0 viewDidLoad](?, ?) SUPER
+  52994  r0 = SEL(maskView)
+  52996  r4 = SEL(maskView)
+  5299c  r0 = [r0 maskView](?, ?)
+  529a8  r1 = SEL(layer)
+  529aa  r5 = SEL(layer)
+  529ae  r0 = [r0 layer](?, ?)
+  529b6  r2 = 0
+  529c0  r1 = SEL(setCornerRadius:)
+  529c2  r1 = SEL(setCornerRadius:)
+  529c4  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  529cc  r0 = [r0 maskView](?, ?)
+  529d2  r0 = [r0 layer](?, ?)
+  529da  r2 = 1
+  529e0  r1 = SEL(setMasksToBounds:)
+  529e2  r1 = SEL(setMasksToBounds:)
+  529e4  r0 = [r0 setMasksToBounds:](1, ?)
+  529ec  r0 = [r0 maskView](?, ?)
+  529f4  r2 = 1
+  529fa  r1 = SEL(setHidden:)
+  529fc  r1 = SEL(setHidden:)
+  529fe  r0 = [r0 setHidden:](1, ?)
+  52a12  r0 = SEL(standardUserDefaults)
+  52a14  r1 = NSUserDefaults
+  52a16  fp = SEL(standardUserDefaults)
+  52a1a  r0 = NSUserDefaults
+  52a1e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  52a2a  r1 = SEL(objectForKey:)
+  52a2c  r1 = SEL(objectForKey:)
+  52a38  r2 = CFSTR('FACEBOOK')
+  52a3a  r0 = [r0 ??](CFSTR('FACEBOOK'), ?)
+  52a46  r1 = SEL(intValue)
+  52a48  r1 = SEL(intValue)
+  52a4a  r0 = [r0 intValue](?, ?)
+  52a5c  r0 = SEL(showWaiting:message:)
+  52a62  r3 = CFSTR('Loading...')
+  52a64  r2 = 1
+  52a66  r1 = SEL(showWaiting:message:)
+  52a6a  r0 = [r0 showWaiting:message:](1, CFSTR('Loading...'))
+  52a6e  cmp r4, 0
+  52a70  beq L_52c16
+  52a74  call sub_3ccc
+  52a82  r0 = SEL(loginview)
+  52a84  r4 = SEL(loginview)
+  52a8a  r0 = [r0 loginview](?, ?)
+  52a8e  cbnz r0 -> L_52ad0
+  52aa0  r0 = SEL(alloc)
+  52aa2  r2 = FBLoginView
+  52aa4  r1 = SEL(alloc)
+  52aa6  r0 = FBLoginView
+  52aa8  r0 = [FBLoginView alloc](FBLoginView, ?)
+  52ab4  r1 = SEL(init)
+  52ab6  r1 = SEL(init)
+  52ab8  r0 = [r0 init](?, ?)
+  52ac6  r0 = SEL(setLoginview:)
+  52ac8  r1 = SEL(setLoginview:)
+  52acc  r0 = [r0 setLoginview:](?, ?)
+L_52ad0:
+  52ad4  r0 = [r0 loginview](?, ?)
+  52adc  r2 = 0
+  52ae2  r1 = SEL(setDelegate:)
+  52ae4  r1 = SEL(setDelegate:)
+  52ae6  r0 = [r0 setDelegate:](0, ?)
+  52aee  r2 = 1
+  52af8  r0 = IVOFF(bGetFriend)
+  52afe  r1 = SEL(getFacebookFriends)
+  52b00  r0 = IVOFF(bGetFriend)
+  52b02  r1 = SEL(getFacebookFriends)
+  52b04  self->bGetFriend = 1
+  52b0a  r0 = [r0 getFacebookFriends](1, ?)
+  52b1e  r0 = SEL(activeSession)
+  52b20  r5 = FBSession
+  52b22  r6 = SEL(activeSession)
+  52b24  r0 = FBSession
+  52b28  r0 = [FBSession activeSession](?, ?)
+  52b34  r1 = SEL(isOpen)
+  52b36  r4 = SEL(isOpen)
+  52b3a  r0 = [r0 isOpen](?, ?)
+  52b3e  r0 = FBSession
+  52b42  r0 = [FBSession activeSession](?, ?)
+  52b48  r0 = [r0 isOpen](?, ?)
+  52b50  bne L_52c3a
+  52b5c  r4 = NSUserDefaults
+  52b5e  r0 = NSUserDefaults
+  52b60  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  52b70  r1 = SEL(setObject:forKey:)
+  52b7a  r2 = CFSTR('0')
+  52b80  r1 = SEL(setObject:forKey:)
+  52b82  r3 = CFSTR('RANKING')
+  52b84  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('RANKING'))
+  52b88  r0 = NSUserDefaults
+  52b8c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  52b98  r1 = SEL(synchronize)
+  52b9a  r1 = SEL(synchronize)
+  52b9c  r0 = [r0 synchronize](?, ?)
+  52ba0  r0 = FBSession
+  52ba4  r0 = [FBSession activeSession](?, ?)
+  52bb0  r1 = SEL(closeAndClearTokenInformation)
+  52bb2  r1 = SEL(closeAndClearTokenInformation)
+  52bb4  r0 = [r0 closeAndClearTokenInformation](?, ?)
+  52bc0  r0 = SEL(navigationController)
+  52bc2  r1 = SEL(navigationController)
+  52bc6  r0 = [r0 navigationController](?, ?)
+  52bce  r2 = 0
+  52bd4  r1 = SEL(popViewControllerAnimated:)
+  52bd6  r1 = SEL(popViewControllerAnimated:)
+  52bd8  r0 = [r0 popViewControllerAnimated:](0, ?)
+  52bec  r0 = SEL(defaultCenter)
+  52bee  r2 = NSNotificationCenter
+  52bf0  r1 = SEL(defaultCenter)
+  52bf2  r0 = NSNotificationCenter
+  52bf4  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  52bfc  r3 = 0
+  52c06  r1 = SEL(postNotificationName:object:)
+  52c0c  r2 = CFSTR('facebookInit')
+  52c0e  r1 = SEL(postNotificationName:object:)
+  52c10  r0 = [r0 postNotificationName:object:](CFSTR('facebookInit'), 0)
+  52c14  b L_52c3a
+L_52c16:
+  52c1a  r2 = 0
+  52c24  r0 = IVOFF(bGetFriend)
+  52c2a  r1 = SEL(LoadRankingData)
+  52c2c  r0 = IVOFF(bGetFriend)
+  52c2e  r1 = SEL(LoadRankingData)
+  52c30  self->bGetFriend = 0
+  52c36  r0 = [r0 LoadRankingData](0, ?)
+L_52c3a:
+  52c42  r0 = SEL(tournamentWeekLabel)
+  52c44  r1 = SEL(tournamentWeekLabel)
+  52c48  r0 = [r0 tournamentWeekLabel](?, ?)
+  52c58  r1 = SEL(setText:)
+  52c5e  r2 = CFSTR('WEEKLY RANKING')
+  52c60  r1 = SEL(setText:)
+  52c62  r0 = [r0 setText:](CFSTR('WEEKLY RANKING'), ?)
+  52c6e  r0 = SEL(addFriendButton)
+  52c70  r4 = SEL(addFriendButton)
+  52c76  r0 = [r0 addFriendButton](?, ?)
+  52c8c  r0 = SEL(imageNamed:)
+  52c92  fp = UIImage
+  52c94  r6 = SEL(imageNamed:)
+  52c96  r0 = UIImage
+  52ca4  r2 = CFSTR('btn_giftbox_inact.png')
+  52ca6  r0 = [UIImage imageNamed:](CFSTR('btn_giftbox_inact.png'), ?)
+  52cb4  r3 = 0
+  52cb6  r0 = SEL(setBackgroundImage:forState:)
+  52cb8  r5 = SEL(setBackgroundImage:forState:)
+  52cbe  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  52cc6  r0 = [r0 addFriendButton](?, ?)
+  52ccc  r0 = UIImage
+  52cde  r2 = CFSTR('btn_giftbox_act.png')
+  52ce0  r0 = [UIImage imageNamed:](CFSTR('btn_giftbox_act.png'), ?)
+  52cea  r3 = 1
+  52cec  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  52d00  r0 = SEL(dictionary)
+  52d02  r2 = NSMutableDictionary
+  52d04  r1 = SEL(dictionary)
+  52d06  r0 = NSMutableDictionary
+  52d08  r0 = [NSMutableDictionary dictionary](NSMutableDictionary, ?)
+  52d16  r0 = SEL(setImageDownloadsInProgress:)
+  52d18  r1 = SEL(setImageDownloadsInProgress:)
+  52d1c  r0 = [r0 setImageDownloadsInProgress:](?, ?)
+  52d2a  r0 = NSUserDefaults
+  52d2c  r0 = NSUserDefaults
+  52d2e  r0 = [NSUserDefaults ??](?, ?)
+  52d3c  r2 = CFSTR('WEEKTIME')
+  52d3e  r0 = [r0 ??](CFSTR('WEEKTIME'), ?)
+  52d4c  r0 = SEL(length)
+  52d4e  r1 = SEL(length)
+  52d52  r0 = [r0 length](?, ?)
+  52d56  cmp r0, 0
+  52d58  beq L_52eea
+  52d6c  r0 = SEL(date)
+  52d6e  r2 = NSDate
+  52d70  r1 = SEL(date)
+  52d72  r0 = NSDate
+  52d74  r0 = [NSDate date](NSDate, ?)
+  52d8a  r0 = SEL(alloc)
+  52d8c  r2 = NSDateFormatter
+  52d8e  r1 = SEL(alloc)
+  52d90  r0 = NSDateFormatter
+  52d92  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  52d9e  r1 = SEL(init)
+  52da0  r1 = SEL(init)
+  52da2  r0 = [r0 init](?, ?)
+  52dae  r1 = SEL(autorelease)
+  52db0  r1 = SEL(autorelease)
+  52db2  r0 = [r0 autorelease](?, ?)
+  52dc4  r0 = SEL(setDateFormat:)
+  52dca  r2 = CFSTR('yyyyMMddHHmmss')
+  52dcc  r1 = SEL(setDateFormat:)
+  52dd0  r0 = [r0 setDateFormat:](CFSTR('yyyyMMddHHmmss'), ?)
+  52dde  r0 = SEL(stringFromDate:)
+  52de0  r1 = SEL(stringFromDate:)
+  52de4  r0 = [r0 stringFromDate:](?, ?)
+  52df2  r0 = SEL(dateFromString:)
+  52df4  r5 = SEL(dateFromString:)
+  52dfa  r0 = [r0 dateFromString:](?, ?)
+  52e06  r0 = [r0 dateFromString:](?, ?)
+  52e1c  r0 = SEL(currentCalendar)
+  52e1e  r2 = NSCalendar
+  52e20  r1 = SEL(currentCalendar)
+  52e22  r0 = NSCalendar
+  52e24  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  52e2c  r2 = 0
+  52e34  r1 = SEL(components:fromDate:toDate:options:)
+  52e38  r2 = 128
+  52e3c  r1 = SEL(components:fromDate:toDate:options:)
+  52e3e  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  52e4a  r1 = SEL(second)
+  52e4c  r1 = SEL(second)
+  52e4e  r0 = [r0 second](?, ?)
+  52e52  cmp r0, 0
+  52e54  bgt L_52eea
+  52e60  r5 = NSUserDefaults
+  52e62  r0 = NSUserDefaults
+  52e64  r0 = [NSUserDefaults ??](?, ?)
+  52e7a  r0 = SEL(stringWithFormat:)
+  52e7c  r2 = NSString
+  52e7e  r3 = 0
+  52e80  r1 = SEL(stringWithFormat:)
+  52e82  r0 = NSString
+  52e8c  r2 = CFSTR('%d')
+  52e8e  r0 = [NSString stringWithFormat:](CFSTR('%d'), 0)
+  52ea0  r0 = SEL(setObject:forKey:)
+  52ea6  r3 = CFSTR('TOPSCOREWEEK')
+  52ea8  r1 = SEL(setObject:forKey:)
+  52eac  r0 = [r0 setObject:forKey:](?, CFSTR('TOPSCOREWEEK'))
+  52eb0  r0 = NSUserDefaults
+  52eb4  r0 = [NSUserDefaults ??](?, ?)
+  52ec4  r1 = SEL(removeObjectForKey:)
+  52eca  r2 = CFSTR('WEEKTIME')
+  52ecc  r1 = SEL(removeObjectForKey:)
+  52ece  r0 = [r0 removeObjectForKey:](CFSTR('WEEKTIME'), ?)
+  52ed2  r0 = NSUserDefaults
+  52ed6  r0 = [NSUserDefaults ??](?, ?)
+  52ee2  r1 = SEL(synchronize)
+  52ee4  r1 = SEL(synchronize)
+  52ee6  r0 = [r0 synchronize](?, ?)
+L_52eea:
+  52eea  add sp, #0x1c
+  52ef0  return
+
+//// -[RankingViewController viewWillDisappear:]  0x52ef4..0x52f60  v12@0:4c8
+  52ef6  add r7, sp, #8
+  52ef8  sub sp, #8
+  52f0e  r0 = SEL(viewWillDisappear:)
+  52f16  r1 = SEL(viewWillDisappear:)
+  52f1a  r0 = [r0 viewWillDisappear:](?, ?) SUPER
+  52f26  r0 = IVOFF(weekTimer)
+  52f28  r5 = IVOFF(weekTimer)
+  52f2a  r0 = self->weekTimer
+  52f2c  cbz self->weekTimer -> L_52f5a
+  52f36  r1 = SEL(isValid)
+  52f38  r1 = SEL(isValid)
+  52f3a  r0 = [self->weekTimer isValid](?, ?)
+  52f42  beq L_52f5a
+  52f4c  r0 = SEL(invalidate)
+  52f4e  r1 = SEL(invalidate)
+  52f50  r0 = self->weekTimer
+  52f52  r0 = [self->weekTimer invalidate](?, ?)
+  52f56  r0 = 0
+  52f58  self->weekTimer = 0
+L_52f5a:
+  52f5a  add sp, #8
+  52f5c  return
+
+//// -[RankingViewController didReceiveMemoryWarning]  0x52f60..0x52fcc  v8@0:4
+  52f62  add r7, sp, #4
+  52f64  sub sp, #8
+  52f7a  r0 = SEL(didReceiveMemoryWarning)
+  52f82  r1 = SEL(didReceiveMemoryWarning)
+  52f86  r0 = [r0 didReceiveMemoryWarning](?, ?) SUPER
+  52f92  r0 = SEL(imageDownloadsInProgress)
+  52f94  r1 = SEL(imageDownloadsInProgress)
+  52f98  r0 = [r0 imageDownloadsInProgress](?, ?)
+  52fa4  r1 = SEL(allValues)
+  52fa6  r1 = SEL(allValues)
+  52fa8  r0 = [r0 allValues](?, ?)
+  52fbc  r1 = SEL(makeObjectsPerformSelector:)
+  52fbe  r2 = SEL(cancelDownload)
+  52fc0  r1 = SEL(makeObjectsPerformSelector:)
+  52fc2  r2 = SEL(cancelDownload)
+  52fc4  r0 = [r0 makeObjectsPerformSelector:](SEL(cancelDownload), ?)
+  52fc8  add sp, #8
+  52fca  return
+
+//// -[RankingViewController dealloc]  0x52fcc..0x53134  v8@0:4
+  52fce  add r7, sp, #8
+  52fd0  sub sp, #8
+  52fe0  r0 = IVOFF(_mainTableView)
+  52fe6  r1 = SEL(release)
+  52fe8  r0 = IVOFF(_mainTableView)
+  52fea  r5 = SEL(release)
+  52fec  r0 = self->_mainTableView
+  52ff0  r0 = [self->_mainTableView release](?, ?)
+  52ffe  r0 = IVOFF(_goBackButton)
+  53000  r0 = IVOFF(_goBackButton)
+  53002  r0 = self->_goBackButton
+  53004  r0 = [self->_goBackButton release](?, ?)
+  53012  r0 = IVOFF(mylist)
+  53014  r0 = IVOFF(mylist)
+  53016  r0 = self->mylist
+  53018  r0 = [self->mylist release](?, ?)
+  53026  r0 = IVOFF(rawData)
+  53028  r0 = IVOFF(rawData)
+  5302a  r0 = self->rawData
+  5302c  r0 = [self->rawData release](?, ?)
+  5303a  r0 = IVOFF(urlCon)
+  5303c  r0 = IVOFF(urlCon)
+  5303e  r0 = self->urlCon
+  53040  r0 = [self->urlCon release](?, ?)
+  5304e  r0 = IVOFF(_addFriendButton)
+  53050  r0 = IVOFF(_addFriendButton)
+  53052  r0 = self->_addFriendButton
+  53054  r0 = [self->_addFriendButton release](?, ?)
+  53062  r0 = IVOFF(friendList)
+  53064  r0 = IVOFF(friendList)
+  53066  r0 = self->friendList
+  53068  r0 = [self->friendList release](?, ?)
+  53076  r0 = IVOFF(useSixsenseListforFacebook)
+  53078  r0 = IVOFF(useSixsenseListforFacebook)
+  5307a  r0 = self->useSixsenseListforFacebook
+  5307c  r0 = [self->useSixsenseListforFacebook release](?, ?)
+  5308a  r0 = IVOFF(_tournamentWeekLabel)
+  5308c  r0 = IVOFF(_tournamentWeekLabel)
+  5308e  r0 = self->_tournamentWeekLabel
+  53090  r0 = [self->_tournamentWeekLabel release](?, ?)
+  5309e  r0 = IVOFF(_maskView)
+  530a0  r0 = IVOFF(_maskView)
+  530a2  r0 = self->_maskView
+  530a4  r0 = [self->_maskView release](?, ?)
+  530b2  r0 = IVOFF(_activityIndicator)
+  530b4  r0 = IVOFF(_activityIndicator)
+  530b6  r0 = self->_activityIndicator
+  530b8  r0 = [self->_activityIndicator release](?, ?)
+  530c6  r0 = IVOFF(_maskLabel)
+  530c8  r0 = IVOFF(_maskLabel)
+  530ca  r0 = self->_maskLabel
+  530cc  r0 = [self->_maskLabel release](?, ?)
+  530da  r0 = IVOFF(imageDownloadsInProgress)
+  530dc  r0 = IVOFF(imageDownloadsInProgress)
+  530de  r0 = self->imageDownloadsInProgress
+  530e0  r0 = [self->imageDownloadsInProgress release](?, ?)
+  530ee  r0 = IVOFF(addFriendList)
+  530f0  r0 = IVOFF(addFriendList)
+  530f2  r0 = self->addFriendList
+  530f4  r0 = [self->addFriendList release](?, ?)
+  53102  r0 = IVOFF(sendCoinUserId)
+  53104  r0 = IVOFF(sendCoinUserId)
+  53106  r0 = self->sendCoinUserId
+  53108  r0 = [self->sendCoinUserId release](?, ?)
+  5311e  r0 = SEL(dealloc)
+  53126  r1 = SEL(dealloc)
+  5312a  r0 = [r0 dealloc](?, ?) SUPER
+  5312e  add sp, #8
+  53130  return
+
+//// -[RankingViewController viewDidUnload]  0x53134..0x53290  v8@0:4
+  53136  add r7, sp, #4
+  53138  sub sp, #8
+  53144  r2 = 0
+  53146  r0 = SEL(setUseSixsenseListforFacebook:)
+  53148  r1 = SEL(setUseSixsenseListforFacebook:)
+  5314c  r0 = [r0 setUseSixsenseListforFacebook:](0, ?)
+  53154  r2 = 0
+  5315a  r0 = SEL(setFriendList:)
+  5315c  r1 = SEL(setFriendList:)
+  53160  r0 = [r0 setFriendList:](0, ?)
+  53168  r2 = 0
+  5316e  r0 = SEL(setMylist:)
+  53170  r1 = SEL(setMylist:)
+  53174  r0 = [r0 setMylist:](0, ?)
+  5317c  r2 = 0
+  53182  r0 = SEL(setRawData:)
+  53184  r1 = SEL(setRawData:)
+  53188  r0 = [r0 setRawData:](0, ?)
+  53190  r2 = 0
+  53196  r0 = SEL(setUrlCon:)
+  53198  r1 = SEL(setUrlCon:)
+  5319c  r0 = [r0 setUrlCon:](0, ?)
+  531a4  r2 = 0
+  531aa  r0 = SEL(setMainTableView:)
+  531ac  r1 = SEL(setMainTableView:)
+  531b0  r0 = [r0 setMainTableView:](0, ?)
+  531b8  r2 = 0
+  531be  r0 = SEL(setGoBackButton:)
+  531c0  r1 = SEL(setGoBackButton:)
+  531c4  r0 = [r0 setGoBackButton:](0, ?)
+  531cc  r2 = 0
+  531d2  r0 = SEL(setAddFriendButton:)
+  531d4  r1 = SEL(setAddFriendButton:)
+  531d8  r0 = [r0 setAddFriendButton:](0, ?)
+  531e0  r2 = 0
+  531e6  r0 = SEL(setTournamentWeekLabel:)
+  531e8  r1 = SEL(setTournamentWeekLabel:)
+  531ec  r0 = [r0 setTournamentWeekLabel:](0, ?)
+  531f4  r2 = 0
+  531fa  r0 = SEL(setMaskView:)
+  531fc  r1 = SEL(setMaskView:)
+  53200  r0 = [r0 setMaskView:](0, ?)
+  53208  r2 = 0
+  5320e  r0 = SEL(setActivityIndicator:)
+  53210  r1 = SEL(setActivityIndicator:)
+  53214  r0 = [r0 setActivityIndicator:](0, ?)
+  5321c  r2 = 0
+  53222  r0 = SEL(setMaskLabel:)
+  53224  r1 = SEL(setMaskLabel:)
+  53228  r0 = [r0 setMaskLabel:](0, ?)
+  53230  r2 = 0
+  53236  r0 = SEL(setImageDownloadsInProgress:)
+  53238  r1 = SEL(setImageDownloadsInProgress:)
+  5323c  r0 = [r0 setImageDownloadsInProgress:](0, ?)
+  53244  r2 = 0
+  5324a  r0 = SEL(setAddFriendList:)
+  5324c  r1 = SEL(setAddFriendList:)
+  53250  r0 = [r0 setAddFriendList:](0, ?)
+  53258  r2 = 0
+  5325e  r0 = SEL(setSendCoinUserId:)
+  53260  r1 = SEL(setSendCoinUserId:)
+  53264  r0 = [r0 setSendCoinUserId:](0, ?)
+  5327a  r0 = SEL(viewDidUnload)
+  53282  r1 = SEL(viewDidUnload)
+  53286  r0 = [r0 viewDidUnload](?, ?) SUPER
+  5328a  add sp, #8
+  5328c  return
+
+//// -[RankingViewController tableView:numberOfRowsInSection:]  0x53290..0x532bc  i16@0:4@8i12
+  5329c  r1 = SEL(mylist)
+  5329e  r1 = SEL(mylist)
+  532a0  r0 = [r0 mylist](?, ?)
+  532ac  r1 = SEL(count)
+  532ae  r1 = SEL(count)
+  532b0  r0 = [r0 count](?, ?)
+  532b4  cmp r0, 1
+  532ba  return
+
+//// -[RankingViewController numberOfSectionsInTableView:]  0x532bc..0x532c0  i12@0:4@8
+  532bc  r0 = 1
+
+//// -[RankingViewController tableView:heightForRowAtIndexPath:]  0x532c0..0x532c8  f16@0:4@8@12
+  532c0  r0 = 0
+
+//// -[RankingViewController tableView:cellForRowAtIndexPath:]  0x532c8..0x54270  @16@0:4@8@12
+  532ca  add r7, sp, #0xc
+  532d0  sub sp, #0x78
+  532de  r0 = SEL(row)
+  532e0  r6 = SEL(row)
+  532e6  r0 = [r0 row](?, ?)
+  532f4  r0 = SEL(mylist)
+  532f6  r5 = SEL(mylist)
+  532fc  r0 = [r0 mylist](?, ?)
+  53308  r1 = SEL(count)
+  5330a  r1 = SEL(count)
+  5330e  r0 = [r0 ??](?, ?)
+  53312  cmp r0, r4
+  53314  bls L_539e0
+  5331e  r0 = [r0 mylist](?, ?)
+  5332c  r1 = SEL(objectAtIndex:)
+  5332e  sl = SEL(objectAtIndex:)
+  53334  r0 = [r0 objectAtIndex:](?, ?)
+  53344  r0 = SEL(objectForKey:)
+  53346  r6 = SEL(objectForKey:)
+  53354  r2 = CFSTR('name')
+  53358  r0 = [r0 ??](CFSTR('name'), ?)
+  53368  r0 = NSString
+  5336a  r4 = NSString
+  53376  r2 = CFSTR('score')
+  53378  r0 = [r0 ??](CFSTR('score'), ?)
+  53386  r0 = SEL(stringWithFormat:)
+  53388  r1 = SEL(stringWithFormat:)
+  53396  r2 = CFSTR('%@')
+  53398  r0 = [NSString ??](CFSTR('%@'), ?)
+  533a6  r0 = SEL(mainTableView)
+  533a8  r1 = SEL(mainTableView)
+  533ac  r0 = [r0 mainTableView](?, ?)
+  533bc  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  533c2  r2 = CFSTR('CellIdentifier')
+  533c4  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  533c6  r0 = [r0 dequeueReusableCellWithIdentifier:](CFSTR('CellIdentifier'), ?)
+  533ce  cmp r6, 0
+  533d0  bne L_53952
+  533e4  r0 = SEL(mainBundle)
+  533e6  r2 = NSBundle
+  533e8  r1 = SEL(mainBundle)
+  533ea  r0 = NSBundle
+  533ec  r0 = [NSBundle mainBundle](NSBundle, ?)
+  533f4  r3 = 0
+  533fe  r1 = SEL(loadNibNamed:owner:options:)
+  53404  r2 = CFSTR('RankingViewControllerCells')
+  53408  r1 = SEL(loadNibNamed:owner:options:)
+  5340a  r3 = 0
+  5340c  r0 = [r0 loadNibNamed:owner:options:](CFSTR('RankingViewControllerCells'), 0)
+  53412  r2 = 0
+  53414  r0 = [r0 objectAtIndex:](0, ?)
+  5341a  r2 = 0
+  53428  r1 = SEL(setAccessoryType:)
+  5342a  r1 = SEL(setAccessoryType:)
+  5342c  r0 = [r0 setAccessoryType:](0, ?)
+  53440  r0 = SEL(clearColor)
+  53442  fp = UIColor
+  53444  r1 = SEL(clearColor)
+  53446  r0 = UIColor
+  53450  r0 = [UIColor ??](?, ?)
+  53460  r0 = SEL(setBackgroundColor:)
+  53462  r1 = SEL(setBackgroundColor:)
+  5346a  r0 = [r0 ??](?, ?)
+  5347e  r0 = SEL(alloc)
+  53480  r2 = UILabel
+  53482  r1 = SEL(alloc)
+  53484  r0 = UILabel
+  5348a  r0 = [UILabel ??](UILabel, ?)
+  53492  r3 = 0
+  53498  r2 = 0
+  5349a  r1 = SEL(initWithFrame:)
+  534a4  r1 = SEL(initWithFrame:)
+  534aa  r2 = 0
+  534b4  r0 = [r0 ??](0x40a00000/f5, 0x40a00000/f5)
+  534c2  r2 = 1
+  534c8  r0 = SEL(setTag:)
+  534ca  r1 = SEL(setTag:)
+  534d0  r0 = [r0 ??](1, ?)
+  534d8  r3 = 0
+  534e6  r0 = SEL(fontWithName:size:)
+  534e8  r2 = UIFont
+  534ee  r1 = SEL(fontWithName:size:)
+  534f2  r0 = UIFont
+  534fc  r2 = CFSTR('Helvetica-Bold')
+  534fe  r0 = [UIFont ??](CFSTR('Helvetica-Bold'), 0x41c00000/f24)
+  5350c  r0 = SEL(setFont:)
+  5350e  r1 = SEL(setFont:)
+  53514  r0 = [r0 ??](?, ?)
+  5351c  r2 = 0
+  53522  r0 = SEL(setNumberOfLines:)
+  53524  r1 = SEL(setNumberOfLines:)
+  5352a  r0 = [r0 ??](0, ?)
+  53536  r0 = SEL(whiteColor)
+  53538  r1 = SEL(whiteColor)
+  5353a  r0 = UIColor
+  5353e  r0 = [UIColor ??](?, ?)
+  5354c  r0 = SEL(setTextColor:)
+  5354e  r1 = SEL(setTextColor:)
+  53554  r0 = [r0 ??](?, ?)
+  53558  r0 = UIColor
+  5355c  r0 = [UIColor ??](?, ?)
+  53566  r0 = [r0 ??](?, ?)
+  5356e  r2 = 1
+  53574  r0 = SEL(setTextAlignment:)
+  53576  r1 = SEL(setTextAlignment:)
+  5357e  r0 = [r0 ??](1, ?)
+  5358a  r0 = SEL(contentView)
+  5358c  r1 = SEL(contentView)
+  53592  r0 = [r0 ??](?, ?)
+  535a0  r1 = SEL(addSubview:)
+  535a2  r1 = SEL(addSubview:)
+  535a6  r0 = [r0 ??](?, ?)
+  535b2  r0 = SEL(release)
+  535b4  r1 = SEL(release)
+  535ba  r0 = [r0 ??](?, ?)
+  535c8  fp = UILabel
+  535ca  r0 = UILabel
+  535ce  r0 = [UILabel ??](?, ?)
+  535d6  r1 = 0
+  535e4  r2 = 0
+  535ee  r3 = 1073741824
+  535f4  r0 = [r0 ??](0x42d60000/f107, 0x40000000/f2)
+  535fa  r2 = 2
+  535fe  r0 = [r0 ??](2, ?)
+  53606  r3 = 0
+  5360e  r0 = UIFont
+  53614  r0 = UIFont
+  5361e  r2 = CFSTR('Helvetica-Bold')
+  53620  r0 = [UIFont ??](CFSTR('Helvetica-Bold'), 0x41500000/f13)
+  5362a  r0 = [r0 ??](?, ?)
+  53632  r2 = 0
+  53634  r0 = [r0 ??](0, ?)
+  53642  r5 = UIColor
+  53644  r0 = UIColor
+  53646  r0 = [UIColor ??](?, ?)
+  53650  r0 = [r0 ??](?, ?)
+  53654  r0 = UIColor
+  53658  r0 = [UIColor ??](?, ?)
+  53662  r0 = [r0 ??](?, ?)
+  5366a  r2 = 0
+  5366c  r0 = [r0 ??](0, ?)
+  53678  r0 = [r0 ??](?, ?)
+  53684  r0 = [r0 ??](?, ?)
+  5368c  r0 = [r0 ??](?, ?)
+  53690  r0 = UILabel
+  53696  r0 = [UILabel ??](?, ?)
+  5369e  r1 = 0
+  536a0  r3 = 0
+  536a2  r2 = 0
+  536bc  r0 = [r0 ??](0x42d60000/f107, 0x41a00000/f20)
+  536c2  r2 = 3
+  536c6  r0 = [r0 ??](3, ?)
+  536ce  r3 = 0
+  536d6  r0 = UIFont
+  536dc  r0 = UIFont
+  536e6  r2 = CFSTR('Helvetica-Bold')
+  536e8  r0 = [UIFont ??](CFSTR('Helvetica-Bold'), 0x41900000/f18)
+  536f2  r0 = [r0 ??](?, ?)
+  536fa  r2 = 0
+  536fc  r0 = [r0 ??](0, ?)
+  53704  r3 = 1065353216
+  53714  r0 = SEL(colorWithRed:green:blue:alpha:)
+  53716  r4 = UIColor
+  53718  r2 = 0
+  5371a  r1 = SEL(colorWithRed:green:blue:alpha:)
+  5371c  r0 = UIColor
+  5372a  r2 = 1065353216
+  5372e  r0 = [UIColor colorWithRed:green:blue:alpha:](0x3f800000/f1, 0x3e70a3d7/f0.235)
+  53738  r0 = [r0 ??](?, ?)
+  5373c  r0 = UIColor
+  53740  r0 = [UIColor ??](?, ?)
+  5374a  r0 = [r0 ??](?, ?)
+  53752  r2 = 0
+  53754  r0 = [r0 ??](0, ?)
+  5375e  r0 = [r0 ??](?, ?)
+  53766  r0 = [r0 ??](?, ?)
+  5376e  r0 = [r0 ??](?, ?)
+  5377c  r0 = UIImageView
+  5377e  r0 = UIImageView
+  53782  r0 = [UIImageView ??](?, ?)
+  53786  r1 = 0
+  53788  r2 = 0
+  53794  r3 = 1065353216
+  5379c  r0 = [r0 ??](0x425c0000/f55, 0x3f800000/f1)
+  537aa  r0 = SEL(layer)
+  537ac  r5 = SEL(layer)
+  537b2  r0 = [r0 layer](?, ?)
+  537ba  r2 = 1082130432
+  537c2  r1 = SEL(setCornerRadius:)
+  537c4  r1 = SEL(setCornerRadius:)
+  537c6  r0 = [r0 setCornerRadius:](0x40800000/f4, ?)
+  537ce  r0 = [r0 layer](?, ?)
+  537d6  r2 = 1
+  537dc  r1 = SEL(setMasksToBounds:)
+  537de  r1 = SEL(setMasksToBounds:)
+  537e0  r0 = [r0 setMasksToBounds:](1, ?)
+  537e8  r2 = 4
+  537ec  r0 = [r0 ??](4, ?)
+  537f4  r0 = [r0 ??](?, ?)
+  537fe  r0 = [r0 ??](?, ?)
+  5380c  r0 = UIActivityIndicatorView
+  5380e  r0 = UIActivityIndicatorView
+  53810  r0 = [UIActivityIndicatorView ??](?, ?)
+  53818  r2 = 2
+  5381e  r1 = SEL(initWithActivityIndicatorStyle:)
+  53820  r1 = SEL(initWithActivityIndicatorStyle:)
+  53822  r0 = [r0 initWithActivityIndicatorStyle:](2, ?)
+  53830  r2 = 0
+  53832  r0 = SEL(setFrame:)
+  53834  r3 = 0
+  5383e  sl = SEL(setFrame:)
+  53842  r0 = 0
+  53850  r0 = [r0 setFrame:](0x42340000/f45, 0x41900000/f18)
+  53858  r2 = 1
+  5385c  r0 = [r0 ??](1, ?)
+  53864  r2 = 1
+  5386a  r0 = SEL(setHidesWhenStopped:)
+  5386c  r1 = SEL(setHidesWhenStopped:)
+  53870  r0 = [r0 setHidesWhenStopped:](1, ?)
+  5387c  r0 = SEL(startAnimating)
+  5387e  r1 = SEL(startAnimating)
+  53882  r0 = [r0 startAnimating](?, ?)
+  5388c  r0 = [r0 ??](?, ?)
+  53898  r0 = [r0 ??](?, ?)
+  538a0  r0 = [r0 ??](?, ?)
+  538a8  r2 = 0
+  538ae  r0 = SEL(buttonWithType:)
+  538b0  r1 = SEL(buttonWithType:)
+  538ba  r0 = UIButton
+  538bc  r0 = UIButton
+  538be  r0 = [UIButton buttonWithType:](0, ?)
+  538c8  r0 = [r0 ??](?, ?)
+  538cc  add.w r2, r0, #0x64
+  538d4  r0 = [r0 ??](?, ?)
+  538e4  r0 = SEL(setAccessibilityLabel:)
+  538ea  r2 = CFSTR('Send coin')
+  538ec  r1 = SEL(setAccessibilityLabel:)
+  538f0  r0 = [r0 setAccessibilityLabel:](CFSTR('Send coin'), ?)
+  538f4  r0 = 0
+  538f6  r1 = 0
+  538f8  r2 = 0
+  538fa  r3 = 0
+  5391a  r0 = [r0 setFrame:](0x43700000/f240, 0x40c00000/f6)
+  5392e  r0 = SEL(addTarget:action:forControlEvents:)
+  53930  r2 = SEL(sendCoinAndAdd:)
+  53932  r1 = SEL(addTarget:action:forControlEvents:)
+  53934  r0 = 64
+  53936  r3 = SEL(sendCoinAndAdd:)
+  5393e  r0 = [r0 addTarget:action:forControlEvents:](?, SEL(sendCoinAndAdd:))
+  53946  r0 = [r0 ??](?, ?)
+  5394e  r0 = [r0 ??](?, ?)
+L_53952:
+  53964  r1 = SEL(contentView)
+  53966  r1 = SEL(contentView)
+  5396a  r0 = [r0 ??](?, ?)
+  53972  r2 = 1
+  53978  r1 = SEL(viewWithTag:)
+  5397a  fp = SEL(viewWithTag:)
+  53980  r0 = [r0 viewWithTag:](1, ?)
+  5398e  r0 = SEL(length)
+  53990  r1 = SEL(length)
+  53994  r0 = [r0 length](?, ?)
+  53998  cmp r0, 0
+  5399a  beq L_53aca
+  539aa  sl = NSString
+  539ac  r6 = NSString
+  539b0  r0 = [r0 ??](?, ?)
+  539b8  adds r3, r0, #1
+  539c0  r2 = CFSTR('%d')
+  539c6  r0 = [NSString ??](CFSTR('%d'), ?)
+  539d4  r0 = SEL(setText:)
+  539d6  r1 = SEL(setText:)
+  539da  r0 = [r0 setText:](?, ?)
+  539de  b L_53af2
+L_539e0:
+  539e8  r0 = SEL(mainTableView)
+  539ea  r1 = SEL(mainTableView)
+  539ee  r0 = [r0 mainTableView](?, ?)
+  539fe  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  53a04  r2 = CFSTR('LoadingCells')
+  53a06  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  53a08  r0 = [r0 dequeueReusableCellWithIdentifier:](CFSTR('LoadingCells'), ?)
+  53a0e  cmp r6, 0
+  53a10  bne L_54074
+  53a24  r0 = SEL(mainBundle)
+  53a26  r2 = NSBundle
+  53a28  r1 = SEL(mainBundle)
+  53a2a  r0 = NSBundle
+  53a2c  r0 = [NSBundle mainBundle](NSBundle, ?)
+  53a34  r3 = 0
+  53a3e  r1 = SEL(loadNibNamed:owner:options:)
+  53a44  r2 = CFSTR('RankingViewControllerCells')
+  53a48  r1 = SEL(loadNibNamed:owner:options:)
+  53a4a  r3 = 0
+  53a4c  r0 = [r0 loadNibNamed:owner:options:](CFSTR('RankingViewControllerCells'), 0)
+  53a54  r2 = 0
+  53a5a  r1 = SEL(objectAtIndex:)
+  53a5c  r1 = SEL(objectAtIndex:)
+  53a5e  r0 = [r0 objectAtIndex:](0, ?)
+  53a6c  r2 = 0
+  53a6e  r0 = SEL(setAccessoryType:)
+  53a70  r1 = SEL(setAccessoryType:)
+  53a74  r0 = [r0 setAccessoryType:](0, ?)
+  53a88  r0 = SEL(clearColor)
+  53a8a  r2 = UIColor
+  53a8c  r1 = SEL(clearColor)
+  53a8e  r0 = UIColor
+  53a90  r0 = [UIColor clearColor](UIColor, ?)
+  53a9e  r0 = SEL(setBackgroundColor:)
+  53aa0  r1 = SEL(setBackgroundColor:)
+  53aa4  r0 = [r0 setBackgroundColor:](?, ?)
+  53ab0  r0 = SEL(textLabel)
+  53ab2  r1 = SEL(textLabel)
+  53ab6  r0 = [r0 textLabel](?, ?)
+  53abe  r2 = 1
+  53ac4  r1 = SEL(setTextAlignment:)
+  53ac6  r1 = SEL(setTextAlignment:)
+  53ac8  b L_54070
+L_53aca:
+  53ad6  r0 = SEL(setText:)
+  53adc  r2 = CFSTR('-')
+  53ade  r1 = SEL(setText:)
+  53ae2  r0 = [r0 setText:](CFSTR('-'), ?)
+  53af0  sl = NSString
+L_53af2:
+  53b00  r0 = [r0 ??](?, ?)
+  53b06  r2 = 2
+  53b08  r0 = [r0 viewWithTag:](2, ?)
+  53b0e  r0 = NSString
+  53b1e  r2 = CFSTR('%@')
+  53b20  r0 = [NSString ??](CFSTR('%@'), ?)
+  53b2e  r0 = SEL(setText:)
+  53b30  sl = SEL(setText:)
+  53b38  r0 = [r0 setText:](?, ?)
+  53b40  r0 = [r0 ??](?, ?)
+  53b46  r2 = 3
+  53b4a  r0 = [r0 viewWithTag:](3, ?)
+  53b5a  r0 = SEL(intValue)
+  53b5c  r4 = SEL(intValue)
+  53b62  r0 = [r0 intValue](?, ?)
+  53b6a  cmp r0, 0
+  53b6c  bgt L_53ba0
+  53b7a  r2 = CFSTR('use')
+  53b7c  r0 = [r0 ??](CFSTR('use'), ?)
+  53b82  r0 = [r0 intValue](?, ?)
+  53b8a  cmp r0, 0
+  53b98  r1 = CFSTR('NoScore')
+  53b9a  r5 = CFSTR('0')
+L_53ba0:
+  53bae  r0 = NSString
+  53bb0  r0 = NSString
+  53bbc  r2 = CFSTR('%@')
+  53bbe  r0 = [NSString ??](CFSTR('%@'), ?)
+  53bc8  r0 = [r0 setText:](?, ?)
+  53bd0  r0 = [r0 ??](?, ?)
+  53bd6  r2 = 4
+  53bda  r0 = [r0 viewWithTag:](4, ?)
+  53bea  r0 = SEL(imageDownloadsInProgress)
+  53bec  r1 = SEL(imageDownloadsInProgress)
+  53bf0  r0 = [r0 imageDownloadsInProgress](?, ?)
+  53c00  r2 = CFSTR('facebook_id')
+  53c06  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  53c10  r0 = [r0 ??](?, ?)
+  53c16  cmp r0, 0
+  53c18  beq L_53c46
+  53c26  r2 = CFSTR('image')
+  53c28  r0 = [r0 ??](CFSTR('image'), ?)
+  53c36  r0 = SEL(setImage:)
+  53c38  r1 = SEL(setImage:)
+  53c3c  r0 = [r0 setImage:](?, ?)
+  53c44  b L_53c7e
+L_53c46:
+  53c4a  r2 = 1
+  53c4c  r0 = [r0 viewWithTag:](1, ?)
+  53c5c  r0 = SEL(startIconDownload:forIndexPath:)
+  53c62  r1 = SEL(startIconDownload:forIndexPath:)
+  53c68  r0 = [r0 startIconDownload:forIndexPath:](?, ?)
+  53c74  r0 = SEL(startAnimating)
+  53c76  r1 = SEL(startAnimating)
+  53c7a  r0 = [r0 startAnimating](?, ?)
+L_53c7e:
+  53c84  r0 = [r0 ??](?, ?)
+  53c90  r0 = [r0 ??](?, ?)
+  53c94  add.w r2, r0, #0x64
+  53c9c  r0 = [r0 viewWithTag:](?, ?)
+  53ca2  call sub_3ccc
+  53cb8  r0 = SEL(standardUserDefaults)
+  53cba  r2 = NSUserDefaults
+  53cbc  r1 = SEL(standardUserDefaults)
+  53cbe  r0 = NSUserDefaults
+  53cc0  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  53cce  r2 = CFSTR('FACEBOOK_ID')
+  53cd0  r0 = [r0 ??](CFSTR('FACEBOOK_ID'), ?)
+  53cde  r0 = SEL(setG_facebook:)
+  53ce0  r1 = SEL(setG_facebook:)
+  53ce4  r0 = [r0 setG_facebook:](?, ?)
+  53cf4  r2 = CFSTR('me')
+  53cf8  r0 = [r0 ??](CFSTR('me'), ?)
+  53d00  r0 = [r0 ??](?, ?)
+  53d04  cbz r0 -> L_53d64
+  53d0a  r2 = 1
+  53d10  r0 = SEL(setHidden:)
+  53d12  r1 = SEL(setHidden:)
+  53d16  r0 = [r0 setHidden:](1, ?)
+  53d24  r0 = NSString
+  53d26  r4 = NSString
+  53d2a  r0 = [r0 ??](?, ?)
+  53d3a  r2 = CFSTR("It's me. Rank\n %dth \n Name %@ \n score %@")
+  53d3e  adds r3, r0, #1
+  53d46  r0 = [NSString ??](CFSTR("It's me. Rank\n %dth \n Name %@ \n score %@"), ?)
+  53d56  r0 = SEL(setAccessibilityLabel:)
+  53d58  r1 = SEL(setAccessibilityLabel:)
+  53d5c  r0 = [r0 setAccessibilityLabel:](?, ?)
+  53d62  b L_54074
+L_53d64:
+  53d72  r0 = SEL(timeLeft:)
+  53d74  r1 = SEL(timeLeft:)
+  53d78  r0 = [r0 timeLeft:](?, ?)
+  53d84  beq L_53e62
+  53d92  r2 = CFSTR('use')
+  53d96  r0 = [r0 ??](CFSTR('use'), ?)
+  53d9c  r0 = [r0 ??](?, ?)
+  53db2  r0 = SEL(imageNamed:)
+  53db4  sl = UIImage
+  53db6  cmp r1, 1
+  53db8  r4 = SEL(imageNamed:)
+  53dba  r0 = UIImage
+  53dbe  blt L_53fce
+  53dcc  r2 = CFSTR('btn_coinsend_inact.png')
+  53dce  r0 = [UIImage imageNamed:](CFSTR('btn_coinsend_inact.png'), ?)
+  53de0  r0 = SEL(setBackgroundImage:forState:)
+  53de2  r3 = 0
+  53de4  r5 = SEL(setBackgroundImage:forState:)
+  53dea  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  53dee  r0 = UIImage
+  53dfc  r2 = CFSTR('btn_coinsend_act.png')
+  53dfe  r0 = [UIImage imageNamed:](CFSTR('btn_coinsend_act.png'), ?)
+  53e08  r3 = 1
+  53e0a  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  53e18  r0 = NSString
+  53e1a  r4 = NSString
+  53e1e  r0 = [r0 ??](?, ?)
+  53e2e  r2 = CFSTR('Rank\n %dth \n Name %@ \n score %@ \n send a coin button. \n if you select this button, you can send a coin.')
+  53e32  adds r3, r0, #1
+  53e3a  r0 = [NSString ??](CFSTR('Rank\n %dth \n Name %@ \n score %@ \n send a coin button. \n if you select this button, you can send a coin.'), ?)
+  53e4a  r0 = SEL(setAccessibilityLabel:)
+  53e4c  r4 = SEL(setAccessibilityLabel:)
+  53e52  r0 = [r0 setAccessibilityLabel:](?, ?)
+  53e5e  r2 = CFSTR('Send a coin button. \n if you select this button, you can send a coin.')
+  53e60  b L_5406c
+L_53e62:
+  53e6e  r0 = NSString
+  53e70  r4 = NSString
+  53e7c  r2 = CFSTR('id')
+  53e7e  r0 = [SEL(setBackgroundImage:forState:) ??](CFSTR('id'), ?)
+  53e8e  r2 = CFSTR('where EMAIL=%@')
+  53e92  r0 = [NSString ??](CFSTR('where EMAIL=%@'), ?)
+  53e96  call sub_7869c
+  53e9e  r0 = [r0 ??](?, ?)
+  53ea4  cmp r0, 0
+  53ea6  beq L_53fca
+  53eae  r2 = 0
+  53eb2  r0 = [r0 ??](0, ?)
+  53ec8  r0 = SEL(alloc)
+  53eca  r2 = NSDateFormatter
+  53ecc  r1 = SEL(alloc)
+  53ece  r0 = NSDateFormatter
+  53ed0  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  53edc  r1 = SEL(init)
+  53ede  r1 = SEL(init)
+  53ee0  r0 = [r0 init](?, ?)
+  53eec  r1 = SEL(autorelease)
+  53eee  r1 = SEL(autorelease)
+  53ef0  r0 = [r0 autorelease](?, ?)
+  53f02  r0 = SEL(setDateFormat:)
+  53f08  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  53f0a  r1 = SEL(setDateFormat:)
+  53f0e  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  53f22  r0 = SEL(date)
+  53f24  r2 = NSDate
+  53f26  r1 = SEL(date)
+  53f28  r0 = NSDate
+  53f2a  r0 = [NSDate date](NSDate, ?)
+  53f38  r0 = SEL(stringFromDate:)
+  53f3a  r1 = SEL(stringFromDate:)
+  53f3e  r0 = [r0 stringFromDate:](?, ?)
+  53f4e  r0 = SEL(dateFromString:)
+  53f50  r6 = SEL(dateFromString:)
+  53f56  r0 = [r0 dateFromString:](?, ?)
+  53f66  r2 = CFSTR('time')
+  53f6a  r0 = [r0 ??](CFSTR('time'), ?)
+  53f74  r0 = [r0 dateFromString:](?, ?)
+  53f8a  r0 = SEL(currentCalendar)
+  53f8c  r2 = NSCalendar
+  53f8e  r1 = SEL(currentCalendar)
+  53f90  r0 = NSCalendar
+  53f92  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  53f9a  r2 = 0
+  53fa4  r1 = SEL(components:fromDate:toDate:options:)
+  53fa8  r2 = 128
+  53fac  r1 = SEL(components:fromDate:toDate:options:)
+  53fae  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  53fba  r1 = SEL(second)
+  53fbc  r1 = SEL(second)
+  53fbe  r0 = [r0 second](?, ?)
+  53fc6  cmp r0, 43199
+  53fc8  ble L_5407e
+L_53fca:
+  53fcc  b L_54074
+L_53fce:
+  53fd8  r2 = CFSTR('btn_invite_inact.png')
+  53fda  r0 = [r0 ??](CFSTR('btn_invite_inact.png'), ?)
+  53fec  r0 = SEL(setBackgroundImage:forState:)
+  53fee  r3 = 0
+  53ff0  r5 = SEL(setBackgroundImage:forState:)
+  53ff6  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  54008  r2 = CFSTR('btn_invite_act.png')
+  5400a  r0 = [r0 ??](CFSTR('btn_invite_act.png'), ?)
+  54014  r3 = 1
+  54016  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  54024  r0 = NSString
+  54026  r4 = NSString
+  5402a  r0 = [r0 ??](?, ?)
+  5403a  r2 = CFSTR('Rank\n %dth \n Name %@ \n score %@ \n Invite a friend button. \n If you invite friends by this button, you can receive one coin.')
+  5403e  adds r3, r0, #1
+  54046  r0 = [NSString ??](CFSTR('Rank\n %dth \n Name %@ \n score %@ \n Invite a friend button. \n If you invite friends by this button, you can receive one coin.'), ?)
+  54056  r0 = SEL(setAccessibilityLabel:)
+  54058  r4 = SEL(setAccessibilityLabel:)
+  5405e  r0 = [r0 setAccessibilityLabel:](?, ?)
+  5406a  r2 = CFSTR('Invite a friend button. \n If you invite friends by this button, you can receive one coin.')
+L_5406c:
+L_54070:
+  54070  r0 = [r0 setAccessibilityLabel:](CFSTR('Invite a friend button. \n If you invite friends by this button, you can receive one coin.'), ?)
+L_54074:
+  54076  add sp, #0x78
+  5407c  return
+L_5407e:
+  54082  subs r4, r1, r0
+  540a0  sl = NSString
+  540a2  r5 = CFSTR('%d')
+  540a4  r0 = NSString
+  540a8  asrs r2, r1, #0xb
+  540aa  add.w r6, r2, r1, lsr #31
+  540b4  r0 = [NSString ??](CFSTR('%d'), ?)
+  540b8  r1 = 3600
+  540d0  asrs r1, r0, #5
+  540d2  add.w r6, r1, r0, lsr #31
+  540d6  r0 = NSString
+  540de  r0 = [NSString ??](CFSTR('%d'), ?)
+  540e2  rsb r1, r6, r6, lsl #4
+  540e8  r0 = NSString
+  540ee  sub.w r3, r4, r1, lsl #2
+  540f4  r0 = [NSString ??](CFSTR('%d'), ?)
+  5410a  r0 = SEL(imageNamed:)
+  5410c  r8 = UIImage
+  5410e  r5 = SEL(imageNamed:)
+  54110  r0 = UIImage
+  5411c  r2 = CFSTR('btn_sandtimer_inact.png')
+  54120  r0 = [UIImage imageNamed:](CFSTR('btn_sandtimer_inact.png'), ?)
+  54130  r0 = SEL(setBackgroundImage:forState:)
+  54132  r3 = 0
+  54134  r6 = SEL(setBackgroundImage:forState:)
+  5413a  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  5413e  r0 = UIImage
+  5414c  r2 = CFSTR('btn_sandtimer_act.png')
+  5414e  r0 = [UIImage imageNamed:](CFSTR('btn_sandtimer_act.png'), ?)
+  54158  r3 = 1
+  5415a  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  5416a  r2 = CFSTR('use')
+  5416c  r0 = [r0 ??](CFSTR('use'), ?)
+  54176  r5 = NSString
+  5417a  r0 = [r0 ??](?, ?)
+  5417e  adds r3, r0, #1
+  54180  cbz r6 -> L_541f8
+  54190  r2 = CFSTR('Rank\n %dth \n Name %@ \n score %@ \n wait time button. \n You can send coins again after %@ hours %@ minutes %@ seconds.')
+  541b0  r0 = [NSString ??](CFSTR('Rank\n %dth \n Name %@ \n score %@ \n wait time button. \n You can send coins again after %@ hours %@ minutes %@ seconds.'), ?)
+  541c0  r0 = SEL(setAccessibilityLabel:)
+  541c2  r5 = SEL(setAccessibilityLabel:)
+  541c8  r0 = [r0 setAccessibilityLabel:](?, ?)
+  541d8  r0 = NSString
+  541da  r0 = NSString
+  541e8  r2 = CFSTR('wait time button. \n You can send coins again after %@ hours %@ minutes %@ seconds.')
+  541ec  r0 = [NSString ??](CFSTR('wait time button. \n You can send coins again after %@ hours %@ minutes %@ seconds.'), ?)
+  541f6  b L_54070
+L_541f8:
+  54208  r2 = CFSTR('Rank\n %dth \n Name %@ \n score %@ \n wait time button. \n You can invite again after %@ hours %@ minutes %@ seconds.')
+  54224  r0 = [SEL(setAccessibilityLabel:) ??](CFSTR('Rank\n %dth \n Name %@ \n score %@ \n wait time button. \n You can invite again after %@ hours %@ minutes %@ seconds.'), ?)
+  54234  r0 = SEL(setAccessibilityLabel:)
+  54236  r8 = SEL(setAccessibilityLabel:)
+  5423e  r0 = [r0 setAccessibilityLabel:](?, ?)
+  5424e  r0 = NSString
+  54250  r0 = NSString
+  5425e  r2 = CFSTR('wait time button. \n You can invite again after %@ hours %@ minutes %@ seconds.')
+  54264  r0 = [NSString ??](CFSTR('wait time button. \n You can invite again after %@ hours %@ minutes %@ seconds.'), ?)
+  5426e  b L_54070
+
+//// -[RankingViewController timeLeft:]  0x54270..0x54418  c12@0:4@8
+  54272  add r7, sp, #0xc
+  54278  sub sp, #8
+  5428a  r0 = NSString
+  5428c  r1 = SEL(objectForKey:)
+  5428e  r4 = NSString
+  54294  r8 = SEL(objectForKey:)
+  5429c  r3 = CFSTR('id')
+  542a4  r0 = [r0 objectForKey:](CFSTR('id'), CFSTR('id'))
+  542b6  r0 = SEL(stringWithFormat:)
+  542bc  r2 = CFSTR('where EMAIL=%@')
+  542be  r1 = SEL(stringWithFormat:)
+  542c2  r0 = [NSString stringWithFormat:](CFSTR('where EMAIL=%@'), ?)
+  542c6  call sub_7869c
+  542d4  r0 = SEL(count)
+  542d6  r1 = SEL(count)
+  542da  r0 = [r0 count](?, ?)
+  542de  r4 = 1
+  542e0  cmp r0, 0
+  542e2  beq L_5440e
+  542ea  r2 = 0
+  542f0  r4 = 0
+  542f2  r0 = SEL(objectAtIndex:)
+  542f4  r1 = SEL(objectAtIndex:)
+  542f8  r0 = [r0 objectAtIndex:](0, ?)
+  5430e  r0 = SEL(alloc)
+  54310  r2 = NSDateFormatter
+  54312  r1 = SEL(alloc)
+  54314  r0 = NSDateFormatter
+  54316  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  54322  r1 = SEL(init)
+  54324  r1 = SEL(init)
+  54326  r0 = [r0 init](?, ?)
+  54332  r1 = SEL(autorelease)
+  54334  r1 = SEL(autorelease)
+  54336  r0 = [r0 autorelease](?, ?)
+  54348  r0 = SEL(setDateFormat:)
+  5434e  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  54350  r1 = SEL(setDateFormat:)
+  54354  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  54368  r0 = SEL(date)
+  5436a  r2 = NSDate
+  5436c  r1 = SEL(date)
+  5436e  r0 = NSDate
+  54370  r0 = [NSDate date](NSDate, ?)
+  5437e  r0 = SEL(stringFromDate:)
+  54380  r1 = SEL(stringFromDate:)
+  54384  r0 = [r0 stringFromDate:](?, ?)
+  54392  r0 = SEL(dateFromString:)
+  54394  r6 = SEL(dateFromString:)
+  5439a  r0 = [r0 dateFromString:](?, ?)
+  543aa  r2 = CFSTR('time')
+  543ae  r0 = [r0 objectForKey:](CFSTR('time'), ?)
+  543b8  r0 = [r0 dateFromString:](?, ?)
+  543ce  r0 = SEL(currentCalendar)
+  543d0  r2 = NSCalendar
+  543d2  r1 = SEL(currentCalendar)
+  543d4  r0 = NSCalendar
+  543d6  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  543de  r2 = 128
+  543e6  r1 = SEL(components:fromDate:toDate:options:)
+  543ee  r1 = SEL(components:fromDate:toDate:options:)
+  543f0  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  543fc  r1 = SEL(second)
+  543fe  r1 = SEL(second)
+  54400  r0 = [r0 second](?, ?)
+  54408  cmp r0, 43199
+L_5440e:
+  54410  add sp, #8
+  54416  return
+
+//// -[RankingViewController sendCoinAndAdd:]  0x54418..0x548e4  v12@0:4@8
+  5441a  add r7, sp, #0xc
+  54420  sub sp, #0x24
+  54426  call sub_3ccc
+  54436  r2 = 0
+  54438  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  54442  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  54448  r2 = 10
+  5444a  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  54456  r0 = SEL(mylist)
+  54458  r1 = SEL(mylist)
+  5445c  r0 = [r0 mylist](?, ?)
+  5446a  r0 = SEL(tag)
+  5446c  r1 = SEL(tag)
+  54470  r0 = [r0 tag](?, ?)
+  54478  sub.w r2, r0, #0x64
+  54482  r1 = SEL(objectAtIndex:)
+  54484  r6 = SEL(objectAtIndex:)
+  54488  r0 = [r0 objectAtIndex:](?, ?)
+  5449e  r1 = NSString
+  544a0  r0 = SEL(objectForKey:)
+  544a2  r4 = NSString
+  544a8  sl = SEL(objectForKey:)
+  544b0  r2 = CFSTR('id')
+  544b6  r0 = [r0 objectForKey:](CFSTR('id'), ?)
+  544c8  r0 = SEL(stringWithFormat:)
+  544ce  r2 = CFSTR('where EMAIL=%@')
+  544d0  fp = SEL(stringWithFormat:)
+  544d8  r0 = [NSString stringWithFormat:](CFSTR('where EMAIL=%@'), ?)
+  544dc  call sub_7869c
+  544ea  r0 = SEL(count)
+  544ec  r1 = SEL(count)
+  544f0  r0 = [r0 count](?, ?)
+  544f4  cmp r0, 0
+  544f6  beq L_54648
+  544fe  r2 = 0
+  54506  r0 = [r0 objectAtIndex:](0, ?)
+  5451c  r0 = SEL(alloc)
+  5451e  r2 = NSDateFormatter
+  54520  r1 = SEL(alloc)
+  54522  r0 = NSDateFormatter
+  54526  r0 = [NSDateFormatter ??](NSDateFormatter, ?)
+  54532  r1 = SEL(init)
+  54534  r1 = SEL(init)
+  54536  r0 = [r0 init](?, ?)
+  54542  r1 = SEL(autorelease)
+  54544  r1 = SEL(autorelease)
+  54546  r0 = [r0 autorelease](?, ?)
+  54558  r0 = SEL(setDateFormat:)
+  5455e  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  54560  r1 = SEL(setDateFormat:)
+  54564  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  54578  r0 = SEL(date)
+  5457a  r2 = NSDate
+  5457c  r1 = SEL(date)
+  5457e  r0 = NSDate
+  54580  r0 = [NSDate date](NSDate, ?)
+  5458e  r0 = SEL(stringFromDate:)
+  54590  r1 = SEL(stringFromDate:)
+  54594  r0 = [r0 stringFromDate:](?, ?)
+  545a4  r0 = SEL(dateFromString:)
+  545a6  r4 = SEL(dateFromString:)
+  545ac  r0 = [r0 dateFromString:](?, ?)
+  545c0  r2 = CFSTR('time')
+  545c2  r0 = [r0 ??](CFSTR('time'), ?)
+  545cc  r0 = [r0 dateFromString:](?, ?)
+  545e2  r0 = SEL(currentCalendar)
+  545e4  r2 = NSCalendar
+  545e6  r1 = SEL(currentCalendar)
+  545e8  r0 = NSCalendar
+  545ea  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  545f2  r2 = 0
+  545fc  r1 = SEL(components:fromDate:toDate:options:)
+  54600  r2 = 128
+  54604  r1 = SEL(components:fromDate:toDate:options:)
+  54606  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  54612  r1 = SEL(second)
+  54614  r1 = SEL(second)
+  54616  r0 = [r0 second](?, ?)
+  5461e  cmp r0, 43199
+  54620  ble L_54760
+  5462e  r0 = SEL(sendCoinControl:)
+  54630  r1 = SEL(sendCoinControl:)
+  54634  r0 = [r0 sendCoinControl:](?, ?)
+  5463a  add sp, #0x24
+  54644  b L_78614
+L_54648:
+  54658  r0 = SEL(alloc)
+  5465a  r2 = NSDateFormatter
+  5465c  r1 = SEL(alloc)
+  5465e  r0 = NSDateFormatter
+  54660  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  5466c  r1 = SEL(init)
+  5466e  r1 = SEL(init)
+  54670  r0 = [r0 init](?, ?)
+  5467c  r1 = SEL(autorelease)
+  5467e  r1 = SEL(autorelease)
+  54680  r0 = [r0 autorelease](?, ?)
+  54692  r0 = SEL(setDateFormat:)
+  54698  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  5469a  r1 = SEL(setDateFormat:)
+  5469e  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  546b2  r0 = SEL(date)
+  546b4  r2 = NSDate
+  546b6  r1 = SEL(date)
+  546b8  r0 = NSDate
+  546ba  r0 = [NSDate date](NSDate, ?)
+  546c8  r0 = SEL(stringFromDate:)
+  546ca  r1 = SEL(stringFromDate:)
+  546ce  r0 = [r0 stringFromDate:](?, ?)
+  546e0  r0 = SEL(setObject:forKey:)
+  546e6  r3 = CFSTR('time')
+  546e8  r4 = SEL(setObject:forKey:)
+  546ee  r0 = [r0 setObject:forKey:](?, CFSTR('time'))
+  546fc  r0 = SEL(sendCoinControl:)
+  546fe  r1 = SEL(sendCoinControl:)
+  54702  r0 = [r0 sendCoinControl:](?, ?)
+  54712  r2 = CFSTR('use')
+  54714  r0 = [r0 ??](CFSTR('use'), ?)
+  54720  r1 = SEL(intValue)
+  54722  r1 = SEL(intValue)
+  54724  r0 = [r0 intValue](?, ?)
+  54728  cbnz r0 -> L_54750
+  54736  r2 = CFSTR('facebook_id')
+  54738  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  54748  r3 = CFSTR('id')
+  5474c  r0 = [r0 setObject:forKey:](?, CFSTR('id'))
+L_54750:
+  54752  add sp, #0x24
+  5475c  b L_78b00
+L_54760:
+  54768  subs r1, r1, r0
+  54772  asrs r2, r0, #0xb
+  54774  add.w r3, r2, r0, lsr #31
+  54778  r0 = 3600
+  54794  r0 = NSString
+  54796  r0 = NSString
+  54798  asrs r6, r2, #5
+  5479a  add.w r8, r6, r2, lsr #31
+  5479e  rsb r2, r8, r8, lsl #4
+  547a2  sub.w r5, r4, r2, lsl #2
+  547aa  cmp r1, 35999
+  547ac  bgt L_547ba
+  547b6  r2 = CFSTR('0%d')
+  547b8  b L_547c4
+L_547ba:
+  547c2  r2 = CFSTR('%d')
+L_547c4:
+  547c6  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  547d4  cmp r5, 9
+  547d6  r6 = NSString
+  547d8  r0 = NSString
+  547da  bgt L_547e8
+  547e4  r2 = CFSTR('0%d')
+  547e6  b L_547f2
+L_547e8:
+  547f0  r2 = CFSTR('%d')
+L_547f2:
+  547f6  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  547fc  r0 = NSString
+  547fe  cmp r4, 600
+  54802  bge L_54810
+  5480c  r2 = CFSTR('0%d')
+  5480e  b L_5481a
+L_54810:
+  54818  r2 = CFSTR('%d')
+L_5481a:
+  5481e  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  54830  r2 = CFSTR('use')
+  54832  r0 = [r0 ??](CFSTR('use'), ?)
+  5483e  r1 = SEL(intValue)
+  54840  r1 = SEL(intValue)
+  54842  r0 = [r0 intValue](?, ?)
+  54848  r0 = NSString
+  5484e  cmp r1, 1
+  54852  blt L_54860
+  5485c  r2 = CFSTR('You can send coins again after %@ hours %@ minutes %@ seconds. ')
+  5485e  b L_5486a
+L_54860:
+  54868  r2 = CFSTR('You can invite again after %@ hours %@ minutes %@ seconds.')
+L_5486a:
+  54872  r0 = [NSString stringWithFormat:](CFSTR('You can invite again after %@ hours %@ minutes %@ seconds.'), ?)
+  54882  r0 = UIAlertView
+  54884  r0 = UIAlertView
+  54886  r0 = [UIAlertView ??](?, ?)
+  5488e  r3 = 0
+  54898  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5489e  r2 = CFSTR('OK')
+  548a4  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  548a8  r2 = 0
+  548ae  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, ?)
+  548bc  r0 = SEL(show)
+  548be  r1 = SEL(show)
+  548c2  r0 = [r0 show](?, ?)
+  548ce  r0 = SEL(release)
+  548d0  r1 = SEL(release)
+  548d4  add sp, #0x24
+  548de  b L_a90d0
+
+//// -[RankingViewController sendCoinControl:]  0x548e4..0x55108  v12@0:4@8
+  548e6  add r7, sp, #0xc
+  548ec  sub sp, #0x54
+  548fa  r0 = SEL(objectForKey:)
+  548fc  r5 = SEL(objectForKey:)
+  5490a  r2 = CFSTR('id')
+  5490e  r0 = [r0 ??](CFSTR('id'), ?)
+  5491e  r2 = CFSTR('use')
+  54922  r0 = [r0 ??](CFSTR('use'), ?)
+  5492e  r1 = SEL(intValue)
+  54930  r1 = SEL(intValue)
+  54932  r0 = [r0 intValue](?, ?)
+  5493a  cmp r0, 0
+  54940  r1 = SEL(showWaiting:message:)
+  54942  r6 = SEL(showWaiting:message:)
+  54944  beq L_54988
+  54952  r3 = CFSTR('Sending coin...')
+  54954  r2 = 1
+  54956  r0 = [r0 showWaiting:message:](1, CFSTR('Sending coin...'))
+  5496e  r0 = SEL(performSelector:withObject:afterDelay:)
+  54970  r2 = SEL(sendCoin:)
+  54976  r1 = SEL(performSelector:withObject:afterDelay:)
+  54978  r0 = -1610612736
+  5497c  r2 = SEL(sendCoin:)
+  54986  b L_54a72
+L_54988:
+  54994  r3 = CFSTR('Inviting a friend')
+  54996  r2 = 1
+  54998  r0 = [r0 showWaiting:message:](1, CFSTR('Inviting a friend'))
+  549ac  r0 = SEL(activeSession)
+  549ae  r5 = FBSession
+  549b0  r4 = SEL(activeSession)
+  549b2  r0 = FBSession
+  549b6  r0 = [FBSession activeSession](?, ?)
+  549c2  r1 = SEL(permissions)
+  549c4  r1 = SEL(permissions)
+  549c6  r0 = [r0 permissions](?, ?)
+  549d6  r1 = SEL(indexOfObject:)
+  549dc  r2 = CFSTR('publish_stream')
+  549de  r1 = SEL(indexOfObject:)
+  549e0  r0 = [r0 indexOfObject:](CFSTR('publish_stream'), ?)
+  549e4  r1 = 2147483647
+  549e8  cmp r0, 2147483647
+  549ea  bne L_54a78
+  549ec  r0 = FBSession
+  549f0  r0 = [FBSession activeSession](?, ?)
+  54a0a  r0 = NSArray
+  54a0c  r1 = SEL(arrayWithObjects:)
+  54a12  r6 = 0
+  54a14  r0 = NSArray
+  54a1e  r1 = SEL(arrayWithObjects:)
+  54a20  r2 = CFSTR('publish_actions')
+  54a22  r3 = CFSTR('publish_stream')
+  54a26  r0 = [NSArray arrayWithObjects:](CFSTR('publish_actions'), CFSTR('publish_stream'))
+  54a48  r5 = __NSConcreteStackBlock
+  54a4e  r0 = SEL(reauthorizeWithPublishPermissions:defaultAudience:completionHandler:)
+  54a52  r5 = __NSConcreteStackBlock
+  54a58  r5 = 1107296256
+  54a5c  add.w r8, sp, #0x44
+  54a68  r3 = 20
+  54a6a  r1 = SEL(reauthorizeWithPublishPermissions:defaultAudience:completionHandler:)
+  54a6c  add r0, sp, #0x38
+L_54a72:
+  54a72  r0 = [r0 reauthorizeWithPublishPermissions:defaultAudience:completionHandler:](?, 20)
+  54a76  b L_54bea
+L_54a78:
+  54a84  r3 = CFSTR('Inviting a friend')
+  54a86  r2 = 1
+  54a88  r0 = [r0 ??](1, CFSTR('Inviting a friend'))
+  54a9c  r0 = SEL(stringWithFormat:)
+  54a9e  r8 = NSString
+  54aa0  r6 = SEL(stringWithFormat:)
+  54aa2  r0 = NSString
+  54aae  r2 = CFSTR("I'd like to invite you to Sixth Sense.")
+  54ab2  r0 = [NSString stringWithFormat:](CFSTR("I'd like to invite you to Sixth Sense."), ?)
+  54ac8  r0 = SEL(dictionaryWithObjectsAndKeys:)
+  54aca  r3 = NSMutableDictionary
+  54acc  sb = 0
+  54ad0  r1 = SEL(dictionaryWithObjectsAndKeys:)
+  54ad2  r0 = NSMutableDictionary
+  54afc  r5 = CFSTR('link')
+  54afe  r3 = CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8')
+  54b00  ip = CFSTR('[Sixth Sense : The Zombies] is a shooting game conducted by voice. \n This game provides itself Voice Over function.')
+  54b02  lr = CFSTR('name')
+  54b04  r4 = CFSTR('Sixth Sense : The Zombies')
+  54b1c  r3 = CFSTR('description')
+  54b2c  r3 = CFSTR('message')
+  54b2e  r0 = [NSMutableDictionary dictionaryWithObjectsAndKeys:](?, CFSTR('message'))
+  54b32  r4 = NSString
+  54b40  r2 = CFSTR('facebook_id')
+  54b46  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  54b56  r2 = CFSTR('%@/feed')
+  54b5a  r0 = [NSString stringWithFormat:](CFSTR('%@/feed'), ?)
+  54b6c  r0 = SEL(setObject:forKey:)
+  54b76  r2 = CFSTR('1')
+  54b7c  r1 = SEL(setObject:forKey:)
+  54b7e  r3 = CFSTR('b_send')
+  54b82  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('b_send'))
+  54b8a  r6 = 0
+  54b98  r0 = __NSConcreteStackBlock
+  54b9a  r2 = FBRequestConnection
+  54ba4  r3 = __NSConcreteStackBlock
+  54ba6  r0 = FBRequestConnection
+  54bb2  r3 = 1107296256
+  54bb6  r1 = SEL(startWithGraphPath:parameters:HTTPMethod:completionHandler:)
+  54bca  add r3, sp, #0x20
+  54bda  r1 = SEL(startWithGraphPath:parameters:HTTPMethod:completionHandler:)
+  54bdc  r2 = CFSTR('POST')
+  54be6  r0 = [FBRequestConnection startWithGraphPath:parameters:HTTPMethod:completionHandler:](?, ?)
+L_54bea:
+  54bea  add sp, #0x54
+  54bf0  return
+  54bf6  add r7, sp, #0xc
+  54bfc  sub sp, #0x34
+  54c00  cmp r2, 0
+  54c02  bne L_54d76
+  54c16  r0 = SEL(stringWithFormat:)
+  54c18  r8 = NSString
+  54c1a  r6 = SEL(stringWithFormat:)
+  54c1c  r0 = NSString
+  54c28  r2 = CFSTR("I'd like to invite you to Sixth Sense.")
+  54c2c  r0 = [NSString stringWithFormat:](CFSTR("I'd like to invite you to Sixth Sense."), ?)
+  54c42  r0 = SEL(dictionaryWithObjectsAndKeys:)
+  54c44  r3 = NSMutableDictionary
+  54c46  fp = 0
+  54c4a  r1 = SEL(dictionaryWithObjectsAndKeys:)
+  54c4c  r0 = NSMutableDictionary
+  54c7e  r5 = CFSTR('link')
+  54c80  sl = CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8')
+  54c86  ip = CFSTR('[Sixth Sense : The Zombies] is a shooting game conducted by voice. \n This game provides itself Voice Over function.')
+  54c88  lr = CFSTR('name')
+  54c8a  sb = CFSTR('Sixth Sense : The Zombies')
+  54c92  r3 = CFSTR('message')
+  54c98  sl = 0
+  54ca8  r5 = CFSTR('description')
+  54cb0  r0 = [NSMutableDictionary dictionaryWithObjectsAndKeys:](?, CFSTR('message'))
+  54cbe  r5 = NSString
+  54cc2  r0 = SEL(objectForKey:)
+  54cc4  r1 = SEL(objectForKey:)
+  54cd0  r2 = CFSTR('facebook_id')
+  54cd2  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  54ce2  r2 = CFSTR('%@/feed')
+  54ce6  r0 = [NSString stringWithFormat:](CFSTR('%@/feed'), ?)
+  54cf8  r0 = SEL(setObject:forKey:)
+  54cfe  r2 = CFSTR('1')
+  54d00  r1 = SEL(setObject:forKey:)
+  54d0c  r3 = CFSTR('b_send')
+  54d0e  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('b_send'))
+  54d22  r0 = __NSConcreteStackBlock
+  54d24  r2 = FBRequestConnection
+  54d2e  r3 = __NSConcreteStackBlock
+  54d30  r0 = FBRequestConnection
+  54d3c  r3 = 1107296256
+  54d4c  r2 = SEL(startWithGraphPath:parameters:HTTPMethod:completionHandler:)
+  54d56  add r3, sp, #0x1c
+  54d5e  r1 = SEL(startWithGraphPath:parameters:HTTPMethod:completionHandler:)
+  54d68  r2 = CFSTR('POST')
+  54d72  r0 = [FBRequestConnection startWithGraphPath:parameters:HTTPMethod:completionHandler:](?, ?)
+L_54d76:
+  54d76  add sp, #0x34
+  54d7c  return
+  54d82  add r7, sp, #0xc
+  54d88  sub sp, #0xc
+  54d96  r1 = SEL(showWaiting:message:)
+  54da0  r2 = 0
+  54da2  r1 = SEL(showWaiting:message:)
+  54da4  r3 = CFSTR('Inviting a friend')
+  54da6  r8 = 0
+  54daa  r0 = [r0 showWaiting:message:](0, CFSTR('Inviting a friend'))
+  54dbe  r0 = SEL(alloc)
+  54dc0  r2 = UIAlertView
+  54dc2  r1 = SEL(alloc)
+  54dc4  r0 = UIAlertView
+  54dc6  r0 = [UIAlertView alloc](UIAlertView, ?)
+  54dda  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  54dee  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  54df0  r2 = CFSTR('Invitation complete')
+  54df2  r3 = CFSTR('You obtained one coin.')
+  54df4  r5 = CFSTR('OK')
+  54dfe  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('Invitation complete'), CFSTR('You obtained one coin.'))
+  54e0c  r0 = SEL(show)
+  54e0e  r1 = SEL(show)
+  54e12  r0 = [r0 show](?, ?)
+  54e1e  r0 = SEL(release)
+  54e20  r1 = SEL(release)
+  54e24  r0 = [r0 release](?, ?)
+  54e30  r0 = SEL(mainTableView)
+  54e32  r1 = SEL(mainTableView)
+  54e36  r0 = [r0 mainTableView](?, ?)
+  54e42  r1 = SEL(reloadData)
+  54e44  r1 = SEL(reloadData)
+  54e46  r0 = [r0 reloadData](?, ?)
+  54e4a  call sub_3ccc
+  54e58  r0 = SEL(Coin)
+  54e5a  r6 = SEL(Coin)
+  54e60  r0 = [r0 Coin](?, ?)
+  54e68  adds r2, r0, #1
+  54e70  r1 = SEL(setCoin:)
+  54e72  r1 = SEL(setCoin:)
+  54e74  r0 = [r0 setCoin:](?, ?)
+  54e88  r0 = SEL(standardUserDefaults)
+  54e8a  fp = NSUserDefaults
+  54e8c  sl = SEL(standardUserDefaults)
+  54e90  r0 = NSUserDefaults
+  54e96  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  54ea6  r0 = NSString
+  54ea8  r4 = NSString
+  54eac  r0 = [r0 Coin](?, ?)
+  54ebe  r0 = SEL(stringWithFormat:)
+  54ec4  r2 = CFSTR('%d')
+  54ec6  r1 = SEL(stringWithFormat:)
+  54eca  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  54edc  r0 = SEL(setObject:forKey:)
+  54ee2  r3 = CFSTR('COIN')
+  54ee4  r1 = SEL(setObject:forKey:)
+  54ee8  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  54eec  r0 = NSUserDefaults
+  54ef2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  54efe  r1 = SEL(synchronize)
+  54f00  r1 = SEL(synchronize)
+  54f02  add sp, #0xc
+  54f0c  b L_a90d0
+  54f10  r1 = ''
+  54f12  adds r0, #0x14
+  54f14  r2 = 3
+  54f16  b L_a9100
+  54f1e  r1 = 3
+  54f20  b L_a910c
+  54f2c  add.w r0, r4, #0x14
+  54f30  r2 = 3
+  54f32  add r7, sp, #8
+  54f34  call __Block_object_assign
+  54f3a  add.w r0, r4, #0x18
+  54f3e  r2 = 3
+  54f44  b L_a9100
+  54f4c  r1 = 3
+  54f50  add r7, sp, #4
+  54f52  call __Block_object_dispose
+  54f58  r1 = 3
+  54f5e  b L_a910c
+  54f66  add r7, sp, #0xc
+  54f6c  sub sp, #0xc
+  54f7a  r1 = SEL(showWaiting:message:)
+  54f84  r2 = 0
+  54f86  r1 = SEL(showWaiting:message:)
+  54f88  r3 = CFSTR('Inviting a friend')
+  54f8a  r8 = 0
+  54f8e  r0 = [r0 showWaiting:message:](0, CFSTR('Inviting a friend'))
+  54fa2  r0 = SEL(alloc)
+  54fa4  r2 = UIAlertView
+  54fa6  r1 = SEL(alloc)
+  54fa8  r0 = UIAlertView
+  54faa  r0 = [UIAlertView alloc](UIAlertView, ?)
+  54fbe  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  54fd2  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  54fd4  r2 = CFSTR('Invitation complete')
+  54fd6  r3 = CFSTR('You obtained one coin.')
+  54fd8  r5 = CFSTR('OK')
+  54fe2  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('Invitation complete'), CFSTR('You obtained one coin.'))
+  54ff0  r0 = SEL(show)
+  54ff2  r1 = SEL(show)
+  54ff6  r0 = [r0 show](?, ?)
+  55002  r0 = SEL(release)
+  55004  r1 = SEL(release)
+  55008  r0 = [r0 release](?, ?)
+  55014  r0 = SEL(mainTableView)
+  55016  r1 = SEL(mainTableView)
+  5501a  r0 = [r0 mainTableView](?, ?)
+  55026  r1 = SEL(reloadData)
+  55028  r1 = SEL(reloadData)
+  5502a  r0 = [r0 reloadData](?, ?)
+  5502e  call sub_3ccc
+  5503c  r0 = SEL(Coin)
+  5503e  r6 = SEL(Coin)
+  55044  r0 = [r0 Coin](?, ?)
+  5504c  adds r2, r0, #1
+  55054  r1 = SEL(setCoin:)
+  55056  r1 = SEL(setCoin:)
+  55058  r0 = [r0 setCoin:](?, ?)
+  5506c  r0 = SEL(standardUserDefaults)
+  5506e  fp = NSUserDefaults
+  55070  sl = SEL(standardUserDefaults)
+  55074  r0 = NSUserDefaults
+  5507a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5508a  r0 = NSString
+  5508c  r4 = NSString
+  55090  r0 = [r0 Coin](?, ?)
+  550a2  r0 = SEL(stringWithFormat:)
+  550a8  r2 = CFSTR('%d')
+  550aa  r1 = SEL(stringWithFormat:)
+  550ae  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  550c0  r0 = SEL(setObject:forKey:)
+  550c6  r3 = CFSTR('COIN')
+  550c8  r1 = SEL(setObject:forKey:)
+  550cc  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  550d0  r0 = NSUserDefaults
+  550d6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  550e2  r1 = SEL(synchronize)
+  550e4  r1 = SEL(synchronize)
+  550e6  add sp, #0xc
+  550f0  b L_a90d0
+  550f4  r1 = ''
+  550f6  adds r0, #0x14
+  550f8  r2 = 3
+  550fa  b L_a9100
+  55102  r1 = 3
+  55104  b L_a910c
+
+//// -[RankingViewController performPublishAction:]  0x55108..0x5520c  v12@0:4@?8
+  5510a  add r7, sp, #0xc
+  5510c  sub sp, #0x1c
+  55120  r0 = SEL(activeSession)
+  55122  r6 = FBSession
+  55124  r5 = SEL(activeSession)
+  55126  r0 = FBSession
+  5512a  r0 = [FBSession activeSession](?, ?)
+  55136  r1 = SEL(permissions)
+  55138  r1 = SEL(permissions)
+  5513a  r0 = [r0 permissions](?, ?)
+  5514a  r1 = SEL(indexOfObject:)
+  55150  r2 = CFSTR('publish_actions')
+  55152  r1 = SEL(indexOfObject:)
+  55154  r0 = [r0 indexOfObject:](CFSTR('publish_actions'), ?)
+  55158  r1 = 2147483647
+  5515c  cmp r0, 2147483647
+  5515e  bne L_551e0
+  55160  r0 = FBSession
+  55164  r0 = [FBSession activeSession](?, ?)
+  5517a  r0 = SEL(arrayWithObject:)
+  5517c  r2 = NSArray
+  5517e  r1 = SEL(arrayWithObject:)
+  55180  r0 = NSArray
+  5518a  r2 = CFSTR('publish_actions')
+  5518c  r0 = [NSArray arrayWithObject:](CFSTR('publish_actions'), ?)
+  5519e  r6 = __NSConcreteStackBlock
+  551b2  r6 = __NSConcreteStackBlock
+  551ba  r6 = 1107296256
+  551be  r0 = SEL(reauthorizeWithPublishPermissions:defaultAudience:completionHandler:)
+  551c2  r6 = 0
+  551c6  add.w sb, sp, #0x10
+  551d0  r3 = 20
+  551d2  r1 = SEL(reauthorizeWithPublishPermissions:defaultAudience:completionHandler:)
+  551d4  add r0, sp, #4
+  551da  r0 = [r0 reauthorizeWithPublishPermissions:defaultAudience:completionHandler:](?, 20)
+  551de  b L_551e6
+L_551e0:
+L_551e6:
+  551e6  add sp, #0x1c
+  551e8  return
+  551ec  cmp r2, 0
+  551fa  adds r0, #0x14
+  551fc  r2 = 7
+  551fe  b L_a9100
+  55206  r1 = 7
+  55208  b L_a910c
+
+//// -[RankingViewController tableView:didSelectRowAtIndexPath:]  0x5520c..0x55224  v16@0:4@8@12
+  55214  r0 = SEL(deselectRowAtIndexPath:animated:)
+  55216  r1 = SEL(deselectRowAtIndexPath:animated:)
+  5521c  r3 = 0
+  5521e  b L_a90d0
+
+//// -[RankingViewController goBackAction:]  0x55224..0x55280  v12@0:4@8
+  55226  add r7, sp, #4
+  55228  sub sp, #0x10
+  5522c  call sub_3ccc
+  5523c  r2 = 0
+  5523e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  55248  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5524e  r2 = 10
+  55250  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5525c  r0 = SEL(navigationController)
+  5525e  r1 = SEL(navigationController)
+  55262  r0 = [r0 navigationController](?, ?)
+  5526a  r2 = 0
+  55270  r1 = SEL(popViewControllerAnimated:)
+  55272  r1 = SEL(popViewControllerAnimated:)
+  55274  add sp, #0x10
+  5527a  b L_a90d0
+
+//// -[RankingViewController addFriendAction:]  0x55280..0x55440  v12@0:4@8
+  55282  add r7, sp, #0xc
+  55288  sub sp, #0x30
+  5528c  call sub_3ccc
+  5529c  r2 = 0
+  5529e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  552a8  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  552ae  r2 = 10
+  552b0  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  552bc  r0 = CFSTR('getCoinListController')
+  552be  call _NSClassFromString
+  552ca  r1 = SEL(alloc)
+  552cc  sl = SEL(alloc)
+  552d2  r0 = [r0 alloc](?, ?)
+  552e8  r0 = SEL(mainScreen)
+  552ea  r5 = UIScreen
+  552ec  r4 = SEL(mainScreen)
+  552ee  r0 = UIScreen
+  552f2  r0 = [UIScreen mainScreen](?, ?)
+  552f8  cmp r1, 0
+  552fa  beq L_55334
+  55304  r0 = SEL(bounds)
+  55306  r2 = SEL(bounds)
+  55308  add r0, sp, #0x20
+  5530a  r0 = [r0 ??](SEL(bounds), ?)
+  5530e  s0 = 320
+  55312  vldr s2, [sp, #0x28]
+  55316  vcmpe.f32 s2, s0
+  5531a  vmrs apsr_nzcv, fpscr
+  5531e  bne L_5533e
+  55320  vldr s0, [sp, #0x2c]
+  55324  s2 = 568
+  55328  vcmpe.f32 s0, s2
+  5532c  vmrs apsr_nzcv, fpscr
+  55330  beq L_55382
+  55332  b L_5533e
+L_55334:
+  55334  vmov.i32 q8, #0
+  55338  add r0, sp, #0x20
+  5533a  vst1.32 {d16, d17}, [r0]
+L_5533e:
+  5533e  r0 = UIScreen
+  55342  r0 = [UIScreen mainScreen](?, ?)
+  55348  cmp r1, 0
+  5534a  beq L_55398
+  55354  r0 = SEL(bounds)
+  55356  r2 = SEL(bounds)
+  55358  add r0, sp, #0x10
+  5535a  r0 = [r0 ??](SEL(bounds), ?)
+  5535e  s0 = 568
+  55362  vldr s2, [sp, #0x18]
+  55366  vcmpe.f32 s2, s0
+  5536a  vmrs apsr_nzcv, fpscr
+  5536e  bne L_553a2
+  55370  vldr s0, [sp, #0x1c]
+  55374  s2 = 320
+  55378  vcmpe.f32 s0, s2
+  5537c  vmrs apsr_nzcv, fpscr
+  55380  bne L_553a2
+L_55382:
+  55392  r0 = SEL(initWithNibName:bundle:)
+  55394  r2 = CFSTR('getCoinListController~568h')
+  55396  b L_553b6
+L_55398:
+  55398  vmov.i32 q8, #0
+  5539c  add r0, sp, #0x10
+  5539e  vst1.32 {d16, d17}, [r0]
+L_553a2:
+  553b2  r0 = SEL(initWithNibName:bundle:)
+  553b4  r2 = CFSTR('getCoinListController')
+L_553b6:
+  553b6  r1 = SEL(initWithNibName:bundle:)
+  553ba  r3 = 0
+  553bc  r0 = [r0 initWithNibName:bundle:](CFSTR('getCoinListController'), 0)
+  553cc  r0 = UINavigationController
+  553ce  r0 = UINavigationController
+  553d0  r0 = [UINavigationController alloc](?, ?)
+  553de  r1 = SEL(initWithRootViewController:)
+  553e0  r1 = SEL(initWithRootViewController:)
+  553e2  r0 = [r0 initWithRootViewController:](?, ?)
+  553f0  r2 = 1
+  553f2  r0 = SEL(setNavigationBarHidden:)
+  553f4  r1 = SEL(setNavigationBarHidden:)
+  553f8  r0 = [r0 setNavigationBarHidden:](1, ?)
+  55406  r3 = 1
+  55408  r0 = SEL(presentModalViewController:animated:)
+  5540a  r1 = SEL(presentModalViewController:animated:)
+  5540e  r0 = [r0 presentModalViewController:animated:](?, 1)
+  5541a  r0 = SEL(release)
+  5541c  r5 = SEL(release)
+  55422  r0 = [r0 release](?, ?)
+  5542a  r0 = [r0 release](?, ?)
+  5542e  add sp, #0x30
+  55434  return
+  5543e  add r6, r1
+
+//// -[RankingViewController getFacebookFriends]  0x55440..0x55750  v8@0:4
+  55442  add r7, sp, #0xc
+  55448  sub sp, #0x18
+  5545c  r0 = SEL(new)
+  5545e  r2 = FBRequestConnection
+  55460  r1 = SEL(new)
+  55462  r0 = FBRequestConnection
+  55464  r0 = [FBRequestConnection new](FBRequestConnection, ?)
+  5547a  r0 = SEL(requestForMyFriends)
+  5547c  r2 = FBRequest
+  5547e  r1 = SEL(requestForMyFriends)
+  55480  r0 = FBRequest
+  55482  r0 = [FBRequest requestForMyFriends](FBRequest, ?)
+  55498  r0 = SEL(array)
+  5549a  r4 = NSMutableArray
+  5549c  r6 = SEL(array)
+  5549e  r0 = NSMutableArray
+  554a2  r0 = [NSMutableArray array](?, ?)
+  554b0  r0 = SEL(setFriendList:)
+  554b2  r1 = SEL(setFriendList:)
+  554b6  r0 = [r0 setFriendList:](?, ?)
+  554ba  r0 = NSMutableArray
+  554be  r0 = [NSMutableArray array](?, ?)
+  554cc  r0 = SEL(setAddFriendList:)
+  554ce  r1 = SEL(setAddFriendList:)
+  554d2  r0 = [r0 setAddFriendList:](?, ?)
+  554da  add r4, sp, #0xc
+  554e4  r3 = __NSConcreteStackBlock
+  554f8  r3 = __NSConcreteStackBlock
+  55500  r3 = 1107296256
+  55504  r0 = SEL(addRequest:completionHandler:)
+  55508  r3 = 0
+  55516  r1 = SEL(addRequest:completionHandler:)
+  5551a  r0 = [r0 addRequest:completionHandler:](?, ?)
+  55526  r0 = SEL(start)
+  55528  r1 = SEL(start)
+  5552c  r0 = [r0 start](?, ?)
+  55530  add sp, #0x18
+  55536  return
+  5553a  add r7, sp, #0xc
+  55540  sub sp, #0x44
+  5554c  r0 = SEL(objectForKey:)
+  5554e  r1 = SEL(objectForKey:)
+  5555c  r3 = CFSTR('data')
+  55560  r0 = [r0 ??](CFSTR('data'), CFSTR('data'))
+  5556e  r1 = SEL(count)
+  55570  r1 = SEL(count)
+  55574  r0 = [r0 ??](?, ?)
+  5557a  cmp r0, 1
+  5557c  blt L_556da
+  555ac  r0 = SEL(friendList)
+  555ae  r3 = SEL(addObject:)
+  555b4  r5 = SEL(addFriendList)
+  555b6  r1 = SEL(dictionary)
+  555b8  r2 = SEL(stringWithFormat:)
+  555ba  r6 = SEL(setObject:forKey:)
+  555bc  r3 = SEL(addObject:)
+  555be  r0 = SEL(friendList)
+  555c0  r5 = SEL(addFriendList)
+  555c4  r3 = SEL(dictionary)
+  555c6  r1 = SEL(stringWithFormat:)
+  555c8  r2 = 0
+  555cc  r0 = SEL(setObject:forKey:)
+  555de  r0 = SEL(objectAtIndex:)
+  555e0  r0 = SEL(objectAtIndex:)
+L_555e4:
+  555ea  r0 = [r0 ??](?, ?)
+  555fa  sl = NSString
+  555fc  r6 = NSString
+  5560a  r2 = CFSTR('id')
+  5560c  r0 = [r0 ??](CFSTR('id'), ?)
+  5561e  r6 = CFSTR('%@')
+  55624  r0 = [NSString ??](CFSTR('%@'), ?)
+  5562c  r8 = NSString
+  5563a  r5 = CFSTR('name')
+  55640  r0 = [r0 ??](CFSTR('name'), ?)
+  5564c  r0 = [NSString ??](CFSTR('%@'), ?)
+  5565c  r0 = NSMutableDictionary
+  5565e  r0 = NSMutableDictionary
+  55660  r0 = [NSMutableDictionary ??](?, ?)
+  55672  r3 = CFSTR('facebook_id')
+  55678  r0 = [r0 ??](?, CFSTR('facebook_id'))
+  55688  r3 = CFSTR('id')
+  5568e  r0 = [r0 ??](?, CFSTR('id'))
+  5569a  r0 = [r0 ??](?, CFSTR('name'))
+  556a4  r0 = [r0 ??](?, ?)
+  556ae  r0 = [r0 ??](?, ?)
+  556b4  call sub_78f74
+  556b8  cbnz r0 -> L_556d0
+  556bc  call sub_78e24
+  556c4  r0 = [r0 ??](?, ?)
+  556cc  r0 = [r0 ??](?, ?)
+L_556d0:
+  556d4  adds r2, #1
+  556d6  cmp r0, r2
+  556d8  bne L_555e4
+L_556da:
+  556e6  r1 = SEL(addFriendList)
+  556ec  r1 = SEL(addFriendList)
+  556ee  r0 = [r0 addFriendList](?, ?)
+  556f4  r0 = [r0 ??](?, ?)
+  556fe  cbz r1 -> L_5570e
+  55708  r1 = SEL(sendFacebookFriendList)
+  5570a  r1 = SEL(sendFacebookFriendList)
+  5570c  b L_5572e
+L_5570e:
+  55712  r3 = 0
+  5571c  r1 = IVOFF(bGetFriend)
+  55722  r2 = SEL(LoadRankingData)
+  55724  r1 = IVOFF(bGetFriend)
+  55726  self->bGetFriend = 0
+  55728  r1 = SEL(LoadRankingData)
+L_5572e:
+  5572e  add sp, #0x44
+  55738  b L_a90d0
+  5573c  r1 = 'acebookFriends'
+  5573e  adds r0, #0x14
+  55740  r2 = 3
+  55742  b L_a9100
+  5574a  r1 = 3
+  5574c  b L_a910c
+
+//// -[RankingViewController sendFacebookFriendList]  0x55750..0x55a6c  v8@0:4
+  55752  add r7, sp, #0xc
+  55758  sub sp, #0x14
+  5575c  call sub_3ccc
+  5577a  r1 = NSString
+  5577c  r0 = SEL(standardUserDefaults)
+  5577e  r2 = NSUserDefaults
+  55780  r5 = NSString
+  55782  r1 = SEL(standardUserDefaults)
+  55784  r0 = NSUserDefaults
+  55786  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  55796  r1 = SEL(objectForKey:)
+  5579c  r2 = CFSTR('BASEURL')
+  5579e  r1 = SEL(objectForKey:)
+  557a0  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  557b2  r0 = SEL(stringWithFormat:)
+  557b8  r2 = CFSTR('%@send_ff.php')
+  557ba  r8 = SEL(stringWithFormat:)
+  557c2  r0 = [NSString stringWithFormat:](CFSTR('%@send_ff.php'), ?)
+  557d8  r0 = SEL(alloc)
+  557da  r1 = NSMutableURLRequest
+  557dc  r4 = SEL(alloc)
+  557de  r0 = NSMutableURLRequest
+  557e2  r0 = [NSMutableURLRequest alloc](?, ?)
+  557f8  r0 = SEL(URLWithString:)
+  557fa  r2 = NSURL
+  557fc  r1 = SEL(URLWithString:)
+  557fe  r0 = NSURL
+  55802  r0 = [NSURL URLWithString:](?, ?)
+  55810  r0 = SEL(initWithURL:)
+  55812  r1 = SEL(initWithURL:)
+  55816  r0 = [r0 initWithURL:](?, ?)
+  5582c  r0 = SEL(data)
+  5582e  r2 = NSMutableData
+  55830  r1 = SEL(data)
+  55832  r0 = NSMutableData
+  55834  r0 = [NSMutableData data](NSMutableData, ?)
+  5584a  r0 = NSDictionary
+  5584c  r1 = SEL(addFriendList)
+  5584e  r6 = NSDictionary
+  55852  r1 = SEL(addFriendList)
+  55854  r0 = [r0 addFriendList](?, ?)
+  55862  r0 = SEL(dictionaryWithObjectsAndKeys:)
+  55864  r1 = SEL(dictionaryWithObjectsAndKeys:)
+  55866  r0 = 0
+  55874  r3 = CFSTR('list')
+  55876  r0 = [NSDictionary dictionaryWithObjectsAndKeys:](?, CFSTR('list'))
+  55882  r1 = SEL(JSONString)
+  55884  r1 = SEL(JSONString)
+  55886  r0 = [r0 JSONString](?, ?)
+  55896  r0 = NSString
+  55898  r0 = NSString
+  558a2  r2 = CFSTR('list=%@')
+  558a4  r0 = [NSString stringWithFormat:](CFSTR('list=%@'), ?)
+  558ac  r2 = 4
+  558b2  r1 = SEL(dataUsingEncoding:)
+  558b4  r1 = SEL(dataUsingEncoding:)
+  558b6  r0 = [r0 dataUsingEncoding:](4, ?)
+  558c4  r0 = SEL(appendData:)
+  558c6  r1 = SEL(appendData:)
+  558ca  r0 = [r0 appendData:](?, ?)
+  558da  r0 = SEL(setHTTPBody:)
+  558dc  r1 = SEL(setHTTPBody:)
+  558e0  r0 = [r0 setHTTPBody:](?, ?)
+  558f0  r0 = SEL(setHTTPMethod:)
+  558f6  r2 = CFSTR('POST')
+  558f8  r1 = SEL(setHTTPMethod:)
+  558fc  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  55908  r0 = SEL(PHPSESSID)
+  5590a  r1 = SEL(PHPSESSID)
+  5590e  r0 = [r0 PHPSESSID](?, ?)
+  5591a  r1 = SEL(length)
+  5591c  r1 = SEL(length)
+  5591e  r0 = [r0 length](?, ?)
+  55922  cbnz r0 -> L_55946
+  5592c  r0 = SEL(g_loginController)
+  5592e  r1 = SEL(g_loginController)
+  55932  r0 = [r0 g_loginController](?, ?)
+  5593e  r1 = SEL(Login)
+  55940  r1 = SEL(Login)
+  55942  r0 = [r0 Login](?, ?)
+L_55946:
+  55950  r0 = NSURLConnection
+  55952  r0 = NSURLConnection
+  55954  r0 = [NSURLConnection alloc](?, ?)
+  55964  r1 = SEL(initWithRequest:delegate:)
+  55966  r1 = SEL(initWithRequest:delegate:)
+  55968  r0 = [r0 initWithRequest:delegate:](?, ?)
+  55974  r1 = SEL(autorelease)
+  55976  r1 = SEL(autorelease)
+  55978  r0 = [r0 autorelease](?, ?)
+  55986  r0 = SEL(setUrlCon:)
+  55988  r1 = SEL(setUrlCon:)
+  5598c  r0 = [r0 setUrlCon:](?, ?)
+  559a0  r0 = SEL(sharedApplication)
+  559a2  r2 = UIApplication
+  559a4  r1 = SEL(sharedApplication)
+  559a6  r0 = UIApplication
+  559a8  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  559b0  r2 = 1
+  559b6  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  559b8  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  559ba  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  559c6  r0 = SEL(release)
+  559c8  r1 = SEL(release)
+  559cc  r0 = [r0 release](?, ?)
+  559d4  r2 = 0
+  559de  r0 = IVOFF(timerEnd)
+  559e4  r1 = IVOFF(reqTimer)
+  559e6  r0 = IVOFF(timerEnd)
+  559e8  r5 = IVOFF(reqTimer)
+  559ea  self->timerEnd = 0
+  559ee  r0 = self->reqTimer
+  559f2  cbnz self->reqTimer -> L_55a52
+  559f8  r8 = 0
+  55a00  r0 = SEL(isValid)
+  55a02  r1 = SEL(isValid)
+  55a04  r0 = 0
+  55a06  r0 = [r0 isValid](0, ?)
+  55a0e  bne L_55a52
+  55a10  vmov.f64 d16, #3.000000e+01
+  55a28  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  55a2a  r4 = NSTimer
+  55a2c  vmov r2, r3, d16
+  55a34  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  55a36  r6 = SEL(reqTimerMethod:)
+  55a38  r0 = NSTimer
+  55a3a  r4 = SEL(reqTimerMethod:)
+  55a4a  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  55a4e  self->reqTimer = r0
+L_55a52:
+  55a56  r1 = 0
+  55a5c  r0 = IVOFF(reqOK)
+  55a5e  r0 = IVOFF(reqOK)
+  55a60  self->reqOK = 0
+  55a64  add sp, #0x14
+  55a6a  return
+
+//// -[RankingViewController sendCoin:]  0x55a6c..0x55e8c  v12@0:4@8
+  55a6e  add r7, sp, #0xc
+  55a74  sub sp, #0x24
+  55a8c  r0 = SEL(stringWithFormat:)
+  55a8e  sl = NSString
+  55a92  r5 = SEL(stringWithFormat:)
+  55a94  r0 = NSString
+  55aa0  r2 = CFSTR('%@')
+  55aa4  r0 = [NSString stringWithFormat:](CFSTR('%@'), ?)
+  55ab0  r1 = IVOFF(sendCoinUserId)
+  55ab2  r1 = IVOFF(sendCoinUserId)
+  55ab4  self->sendCoinUserId = r0
+  55ab6  call sub_3ccc
+  55acc  r0 = SEL(standardUserDefaults)
+  55ace  r2 = NSUserDefaults
+  55ad0  r6 = NSString
+  55ad4  r1 = SEL(standardUserDefaults)
+  55ad6  r0 = NSUserDefaults
+  55ad8  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  55ae4  r1 = SEL(objectForKey:)
+  55ae6  r1 = SEL(objectForKey:)
+  55af2  r2 = CFSTR('BASEURL')
+  55af4  r0 = [r0 ??](CFSTR('BASEURL'), ?)
+  55b04  r2 = CFSTR('%@sendCoin.php')
+  55b08  r0 = [NSString stringWithFormat:](CFSTR('%@sendCoin.php'), ?)
+  55b0e  r0 = NSString
+  55b1e  r2 = CFSTR('id=%@')
+  55b20  r0 = [NSString stringWithFormat:](CFSTR('id=%@'), ?)
+  55b36  r0 = NSData
+  55b38  r1 = SEL(UTF8String)
+  55b3a  r4 = NSData
+  55b3e  r1 = SEL(UTF8String)
+  55b40  r0 = [r0 UTF8String](?, ?)
+  55b4e  r0 = SEL(length)
+  55b50  fp = SEL(length)
+  55b58  r0 = [r0 length](?, ?)
+  55b68  r0 = SEL(dataWithBytes:length:)
+  55b6c  r1 = SEL(dataWithBytes:length:)
+  55b70  r0 = [NSData dataWithBytes:length:](?, ?)
+  55b86  r0 = SEL(alloc)
+  55b88  r1 = NSMutableURLRequest
+  55b8a  r5 = SEL(alloc)
+  55b8c  r0 = NSMutableURLRequest
+  55b90  r0 = [NSMutableURLRequest alloc](?, ?)
+  55ba6  r0 = SEL(URLWithString:)
+  55ba8  r2 = NSURL
+  55baa  r1 = SEL(URLWithString:)
+  55bac  r0 = NSURL
+  55bb0  r0 = [NSURL URLWithString:](?, ?)
+  55bbe  r0 = SEL(initWithURL:)
+  55bc0  r1 = SEL(initWithURL:)
+  55bc4  r0 = [r0 initWithURL:](?, ?)
+  55bd4  r0 = SEL(setHTTPBody:)
+  55bd6  r1 = SEL(setHTTPBody:)
+  55bda  r0 = [r0 setHTTPBody:](?, ?)
+  55bea  r0 = SEL(setHTTPMethod:)
+  55bf0  r2 = CFSTR('POST')
+  55bf2  r1 = SEL(setHTTPMethod:)
+  55bf6  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  55c02  r0 = SEL(PHPSESSID)
+  55c04  r1 = SEL(PHPSESSID)
+  55c08  r0 = [r0 PHPSESSID](?, ?)
+  55c0e  r0 = [r0 length](?, ?)
+  55c12  cbnz r0 -> L_55c36
+  55c1c  r0 = SEL(g_loginController)
+  55c1e  r1 = SEL(g_loginController)
+  55c22  r0 = [r0 g_loginController](?, ?)
+  55c2e  r1 = SEL(Login)
+  55c30  r1 = SEL(Login)
+  55c32  r0 = [r0 Login](?, ?)
+L_55c36:
+  55c3a  add r3, sp, #0x1c
+  55c48  r0 = SEL(sendSynchronousRequest:returningResponse:error:)
+  55c4a  r2 = NSURLConnection
+  55c4c  r1 = SEL(sendSynchronousRequest:returningResponse:error:)
+  55c4e  r0 = NSURLConnection
+  55c50  add r2, sp, #0x20
+  55c56  r0 = [NSURLConnection sendSynchronousRequest:returningResponse:error:](?, ?)
+  55c64  r0 = SEL(release)
+  55c66  r1 = SEL(release)
+  55c6c  r0 = [r0 ??](?, ?)
+  55c74  cmp r6, 0
+  55c76  beq L_55e82
+  55c84  r0 = NSString
+  55c86  r0 = NSString
+  55c88  r0 = [NSString alloc](?, ?)
+  55c96  r3 = 4
+  55c98  r1 = SEL(initWithData:encoding:)
+  55c9a  r1 = SEL(initWithData:encoding:)
+  55c9c  r0 = [r0 initWithData:encoding:](?, 4)
+  55ca8  r1 = SEL(autorelease)
+  55caa  r1 = SEL(autorelease)
+  55cac  r0 = [r0 autorelease](?, ?)
+  55cb8  r1 = SEL(objectFromJSONString)
+  55cba  r1 = SEL(objectFromJSONString)
+  55cbc  r0 = [r0 objectFromJSONString](?, ?)
+  55ccc  r2 = CFSTR('code')
+  55cd2  r0 = [r0 ??](CFSTR('code'), ?)
+  55cde  r1 = SEL(intValue)
+  55ce0  r1 = SEL(intValue)
+  55ce2  r0 = [r0 intValue](?, ?)
+  55cf2  r2 = CFSTR('comment')
+  55cf6  r0 = [r0 ??](CFSTR('comment'), ?)
+  55d08  r0 = SEL(showWaiting:message:)
+  55d0e  r3 = CFSTR('Loading...')
+  55d10  r2 = 0
+  55d12  r1 = SEL(showWaiting:message:)
+  55d16  r4 = 0
+  55d18  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  55d20  cmp r6, 100
+  55d26  r0 = UIAlertView
+  55d28  bne L_55d7a
+  55d2a  r0 = UIAlertView
+  55d2e  r0 = [UIAlertView alloc](?, ?)
+  55d3e  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  55d48  r3 = CFSTR('Completion of send.')
+  55d4e  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  55d50  r2 = CFSTR('OK')
+  55d58  r2 = 0
+  55d5c  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Completion of send.'))
+  55d6a  r0 = SEL(show)
+  55d6c  r1 = SEL(show)
+  55d70  r0 = [r0 show](?, ?)
+  55d78  b L_55e5c
+L_55d7a:
+  55d7e  r0 = [r0 alloc](?, ?)
+  55d86  cmp r6, 500
+  55d90  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  55d92  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  55d94  bne L_55e00
+  55d9a  r4 = 0
+  55db4  r2 = CFSTR('Error')
+  55db6  r3 = CFSTR('No Connection Error')
+  55dbc  sb = CFSTR('Cancel')
+  55dc2  r6 = CFSTR('Try')
+  55dcc  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('Error'), CFSTR('No Connection Error'))
+  55dda  r2 = 500
+  55dde  r0 = SEL(setTag:)
+  55de0  r1 = SEL(setTag:)
+  55de4  r0 = [r0 setTag:](500, ?)
+  55df0  r0 = SEL(show)
+  55df2  r1 = SEL(show)
+  55df6  r0 = [r0 show](?, ?)
+  55dfe  b L_55e7e
+L_55e00:
+  55e04  r4 = 0
+  55e16  r3 = CFSTR('Cancel')
+  55e18  r2 = CFSTR('No Connection Error')
+  55e26  r6 = CFSTR('Try')
+  55e2c  r0 = [r0 ??](CFSTR('No Connection Error'), ?)
+  55e3a  r2 = 20
+  55e3c  r0 = SEL(setTag:)
+  55e3e  r1 = SEL(setTag:)
+  55e42  r0 = [r0 setTag:](20, ?)
+  55e4e  r0 = SEL(show)
+  55e50  r1 = SEL(show)
+  55e54  r0 = [r0 show](?, ?)
+L_55e5c:
+  55e5c  r0 = [r0 ??](?, ?)
+  55e68  r0 = SEL(mainTableView)
+  55e6a  r1 = SEL(mainTableView)
+  55e6e  r0 = [r0 mainTableView](?, ?)
+  55e7a  r1 = SEL(reloadData)
+  55e7c  r1 = SEL(reloadData)
+L_55e7e:
+  55e7e  r0 = [r0 reloadData](?, ?)
+L_55e82:
+  55e82  add sp, #0x24
+  55e88  return
+
+//// -[RankingViewController LoadRankingData]  0x55e8c..0x56118  v8@0:4
+  55e8e  add r7, sp, #0xc
+  55e94  sub sp, #0x10
+  55e98  call sub_3ccc
+  55eb6  r1 = SEL(standardUserDefaults)
+  55eb8  r0 = NSString
+  55eba  r2 = NSUserDefaults
+  55ebc  r1 = SEL(standardUserDefaults)
+  55ebe  r5 = NSString
+  55ec0  r0 = NSUserDefaults
+  55ec2  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  55ed2  r1 = SEL(objectForKey:)
+  55ed8  r2 = CFSTR('BASEURL')
+  55eda  r1 = SEL(objectForKey:)
+  55edc  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  55eee  r0 = SEL(stringWithFormat:)
+  55ef4  r2 = CFSTR('%@getFriends.php')
+  55ef6  r1 = SEL(stringWithFormat:)
+  55efa  r0 = [NSString stringWithFormat:](CFSTR('%@getFriends.php'), ?)
+  55f10  r0 = SEL(alloc)
+  55f12  r1 = NSMutableURLRequest
+  55f14  r8 = SEL(alloc)
+  55f18  r0 = NSMutableURLRequest
+  55f1c  r0 = [NSMutableURLRequest alloc](?, ?)
+  55f32  r0 = SEL(URLWithString:)
+  55f34  r2 = NSURL
+  55f36  r1 = SEL(URLWithString:)
+  55f38  r0 = NSURL
+  55f3c  r0 = [NSURL URLWithString:](?, ?)
+  55f4a  r0 = SEL(initWithURL:)
+  55f4c  r1 = SEL(initWithURL:)
+  55f50  r0 = [r0 initWithURL:](?, ?)
+  55f62  r0 = SEL(setHTTPMethod:)
+  55f68  r2 = CFSTR('POST')
+  55f6a  r1 = SEL(setHTTPMethod:)
+  55f6e  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  55f7a  r0 = SEL(PHPSESSID)
+  55f7c  r6 = SEL(PHPSESSID)
+  55f82  r0 = [r0 PHPSESSID](?, ?)
+  55f8a  r0 = [r0 PHPSESSID](?, ?)
+  55f96  r1 = SEL(length)
+  55f98  r1 = SEL(length)
+  55f9a  r0 = [r0 length](?, ?)
+  55f9e  cbnz r0 -> L_55fc2
+  55fa8  r0 = SEL(g_loginController)
+  55faa  r1 = SEL(g_loginController)
+  55fae  r0 = [r0 g_loginController](?, ?)
+  55fba  r1 = SEL(Login)
+  55fbc  r1 = SEL(Login)
+  55fbe  r0 = [r0 Login](?, ?)
+L_55fc2:
+  55fd2  r0 = SEL(array)
+  55fd4  r2 = NSMutableArray
+  55fd6  r1 = SEL(array)
+  55fd8  r0 = NSMutableArray
+  55fda  r0 = [NSMutableArray array](NSMutableArray, ?)
+  55fe8  r0 = SEL(setMylist:)
+  55fea  r1 = SEL(setMylist:)
+  55fee  r0 = [r0 setMylist:](?, ?)
+  55ffc  r0 = NSURLConnection
+  55ffe  r0 = NSURLConnection
+  56000  r0 = [NSURLConnection alloc](?, ?)
+  56010  r1 = SEL(initWithRequest:delegate:)
+  56012  r1 = SEL(initWithRequest:delegate:)
+  56014  r0 = [r0 initWithRequest:delegate:](?, ?)
+  56020  r1 = SEL(autorelease)
+  56022  r1 = SEL(autorelease)
+  56024  r0 = [r0 autorelease](?, ?)
+  56032  r0 = SEL(setUrlCon:)
+  56034  r1 = SEL(setUrlCon:)
+  56038  r0 = [r0 setUrlCon:](?, ?)
+  5604c  r0 = SEL(sharedApplication)
+  5604e  r2 = UIApplication
+  56050  r1 = SEL(sharedApplication)
+  56052  r0 = UIApplication
+  56054  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  5605c  r2 = 1
+  56062  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  56064  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  56066  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  56072  r0 = SEL(release)
+  56074  r1 = SEL(release)
+  56078  r0 = [r0 release](?, ?)
+  56080  r8 = 0
+  5608c  r0 = IVOFF(timerEnd)
+  56092  r1 = IVOFF(reqTimer)
+  56094  r0 = IVOFF(timerEnd)
+  56096  r6 = IVOFF(reqTimer)
+  56098  self->timerEnd = 0
+  5609c  r0 = self->reqTimer
+  560a0  cbnz self->reqTimer -> L_56100
+  560a6  sl = 0
+  560ae  r0 = SEL(isValid)
+  560b0  r1 = SEL(isValid)
+  560b2  r0 = 0
+  560b4  r0 = [r0 isValid](?, ?)
+  560bc  bne L_56100
+  560be  vmov.f64 d16, #3.000000e+01
+  560d6  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  560d8  r5 = NSTimer
+  560da  vmov r2, r3, d16
+  560e2  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  560e4  r4 = SEL(reqTimerMethod:)
+  560e6  r0 = NSTimer
+  560e8  r5 = SEL(reqTimerMethod:)
+  560f8  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  560fc  self->reqTimer = r0
+L_56100:
+  56108  r0 = IVOFF(reqOK)
+  5610a  r0 = IVOFF(reqOK)
+  5610c  self->reqOK = 0
+  56110  add sp, #0x10
+  56116  return
+
+//// -[RankingViewController reqTimerMethod:]  0x56118..0x56244  v12@0:4@8
+  5611a  add r7, sp, #0xc
+  5611c  sub sp, #0xc
+  56128  r0 = IVOFF(reqOK)
+  5612a  r0 = IVOFF(reqOK)
+  5612c  r1 = self->reqOK
+  5612e  cmp self->reqOK, 0
+  5613a  r3 = 1
+  56148  r2 = UIApplication
+  5614a  r1 = SEL(sharedApplication)
+  5614c  self->reqOK = 1
+  5614e  r1 = SEL(sharedApplication)
+  56150  r0 = UIApplication
+  56152  r0 = [UIApplication sharedApplication](UIApplication, 1)
+  5615a  r2 = 0
+  56160  r6 = 0
+  56162  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  56164  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  56166  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  56172  r0 = SEL(urlCon)
+  56174  r1 = SEL(urlCon)
+  56178  r0 = [r0 urlCon](?, ?)
+  56184  r1 = SEL(cancel)
+  56186  r1 = SEL(cancel)
+  56188  r0 = [r0 cancel](?, ?)
+  56190  r2 = 0
+  56196  r0 = SEL(setUrlCon:)
+  56198  r1 = SEL(setUrlCon:)
+  5619c  r0 = [r0 setUrlCon:](0, ?)
+  561a4  r2 = 0
+  561aa  r0 = SEL(setRawData:)
+  561ac  r1 = SEL(setRawData:)
+  561b0  r0 = [r0 setRawData:](0, ?)
+  561c4  r0 = SEL(alloc)
+  561c6  r2 = UIAlertView
+  561c8  r1 = SEL(alloc)
+  561ca  r0 = UIAlertView
+  561cc  r0 = [UIAlertView alloc](UIAlertView, ?)
+  561dc  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  561e6  r2 = CFSTR('No Connection Error')
+  561f0  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  561f6  r3 = CFSTR('Please, try again.')
+  561f8  r5 = CFSTR('try')
+  561fe  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), CFSTR('Please, try again.'))
+  5620c  r2 = 10
+  5620e  r0 = SEL(setTag:)
+  56210  r1 = SEL(setTag:)
+  56214  r0 = [r0 setTag:](10, ?)
+  56220  r0 = SEL(show)
+  56222  r1 = SEL(show)
+  56226  r0 = [r0 show](?, ?)
+  56232  r0 = SEL(release)
+  56234  r1 = SEL(release)
+  56238  add sp, #0xc
+  5623e  b L_a90d0
+
+//// -[RankingViewController connection:didReceiveResponse:]  0x56244..0x56280  v16@0:4@8@12
+  56258  r0 = SEL(data)
+  5625a  r2 = NSMutableData
+  5625c  add r7, sp, #4
+  5625e  r1 = SEL(data)
+  56260  r0 = NSMutableData
+  56262  r0 = [NSMutableData data](NSMutableData, ?)
+  56270  r0 = SEL(setRawData:)
+  56272  r1 = SEL(setRawData:)
+  5627a  b L_a90d0
+
+//// -[RankingViewController connection:didReceiveData:]  0x56280..0x562ac  v16@0:4@8@12
+  56286  add r7, sp, #4
+  5628e  r1 = SEL(rawData)
+  56290  r1 = SEL(rawData)
+  56292  r0 = [r0 rawData](?, ?)
+  562a0  r1 = SEL(appendData:)
+  562a2  r1 = SEL(appendData:)
+  562a8  b L_a90d0
+
+//// -[RankingViewController connection:didFailWithError:]  0x562ac..0x5641c  v16@0:4@8@12
+  562ae  add r7, sp, #0xc
+  562b0  sub sp, #4
+  562be  r0 = SEL(showWaiting:message:)
+  562c8  r2 = 0
+  562ca  r1 = SEL(showWaiting:message:)
+  562cc  r3 = CFSTR('Loading...')
+  562d0  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  562e0  r0 = IVOFF(reqOK)
+  562e6  r2 = IVOFF(timerEnd)
+  562e8  r1 = IVOFF(reqOK)
+  562ea  r0 = 1
+  562ec  self->reqOK = 1
+  562ee  r1 = IVOFF(timerEnd)
+  562f0  r2 = self->timerEnd
+  562f2  cbnz self->timerEnd -> L_56332
+  562fc  self->timerEnd = 1
+  562fe  r2 = IVOFF(reqTimer)
+  56300  r6 = IVOFF(reqTimer)
+  56302  r0 = self->reqTimer
+  56304  cbz self->reqTimer -> L_56332
+  5630e  r1 = SEL(isValid)
+  56310  r1 = SEL(isValid)
+  56312  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  5631a  beq L_56332
+  56324  r0 = SEL(invalidate)
+  56326  r1 = SEL(invalidate)
+  56328  r0 = self->reqTimer
+  5632a  r0 = [self->reqTimer invalidate](?, ?)
+  5632e  r0 = 0
+  56330  self->reqTimer = 0
+L_56332:
+  56342  r0 = SEL(sharedApplication)
+  56344  r2 = UIApplication
+  56346  r1 = SEL(sharedApplication)
+  56348  r0 = UIApplication
+  5634a  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  56352  r2 = 0
+  56358  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  5635a  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  5635c  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  56368  r0 = SEL(code)
+  5636a  r1 = SEL(code)
+  5636e  r0 = [r0 code](?, ?)
+  56372  r1 = -1009
+  56376  cmp r0, 4294966287
+  56378  bne L_563e0
+  56386  r1 = _NSLocalizedDescriptionKey
+  56390  r2 = SEL(dictionaryWithObject:forKey:)
+  56392  r3 = _NSLocalizedDescriptionKey
+  56398  r0 = NSDictionary
+  5639a  r1 = SEL(dictionaryWithObject:forKey:)
+  563a4  r0 = NSDictionary
+  563a8  r2 = CFSTR('No Connection Error')
+  563aa  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  563c2  r1 = _NSCocoaErrorDomain
+  563c8  r3 = NSError
+  563ca  r2 = SEL(errorWithDomain:code:userInfo:)
+  563cc  r6 = _NSCocoaErrorDomain
+  563ce  r3 = NSError
+  563d0  r1 = SEL(errorWithDomain:code:userInfo:)
+  563d8  r3 = -1009
+  563dc  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_563e0:
+  563e4  r2 = 0
+  563ea  r0 = SEL(setUrlCon:)
+  563ec  r1 = SEL(setUrlCon:)
+  563f0  r0 = [r0 setUrlCon:](0, ?)
+  563fc  r0 = SEL(mainTableView)
+  563fe  r1 = SEL(mainTableView)
+  56402  r0 = [r0 mainTableView](?, ?)
+  5640e  r1 = SEL(reloadData)
+  56410  r1 = SEL(reloadData)
+  56412  add sp, #4
+  56418  b L_a90d0
+
+//// -[RankingViewController connectionDidFinishLoading:]  0x5641c..0x570d0  v12@0:4@8
+  5641e  add r7, sp, #0xc
+  56424  sub sp, #0x6c
+  56434  r0 = IVOFF(reqOK)
+  5643a  r2 = IVOFF(timerEnd)
+  5643c  r1 = IVOFF(reqOK)
+  5643e  r0 = 1
+  56440  self->reqOK = 1
+  56442  r1 = IVOFF(timerEnd)
+  56444  r2 = self->timerEnd
+  56446  cbnz self->timerEnd -> L_56486
+  56450  self->timerEnd = 1
+  56452  r2 = IVOFF(reqTimer)
+  56454  r4 = IVOFF(reqTimer)
+  56456  r0 = self->reqTimer
+  56458  cbz self->reqTimer -> L_56486
+  56462  r1 = SEL(isValid)
+  56464  r1 = SEL(isValid)
+  56466  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  5646e  beq L_56486
+  56478  r0 = SEL(invalidate)
+  5647a  r1 = SEL(invalidate)
+  5647c  r0 = self->reqTimer
+  5647e  r0 = [self->reqTimer invalidate](?, ?)
+  56482  r0 = 0
+  56484  self->reqTimer = 0
+L_56486:
+  56496  r0 = SEL(alloc)
+  56498  r8 = NSString
+  5649a  r1 = SEL(alloc)
+  5649c  r0 = NSString
+  564a2  r0 = [NSString ??](?, ?)
+  564b0  r0 = SEL(rawData)
+  564b2  r1 = SEL(rawData)
+  564b6  r0 = [r0 rawData](?, ?)
+  564c4  r3 = 4
+  564c6  r0 = SEL(initWithData:encoding:)
+  564c8  r1 = SEL(initWithData:encoding:)
+  564cc  r0 = [r0 initWithData:encoding:](?, 4)
+  564d8  r1 = SEL(autorelease)
+  564da  r1 = SEL(autorelease)
+  564dc  r0 = [r0 autorelease](?, ?)
+  564e8  r1 = SEL(objectFromJSONString)
+  564ea  r1 = SEL(objectFromJSONString)
+  564ec  r0 = [r0 objectFromJSONString](?, ?)
+  564fa  r0 = IVOFF(bGetFriend)
+  564fc  r0 = IVOFF(bGetFriend)
+  564fe  r1 = self->bGetFriend
+  56500  cmp self->bGetFriend, 0
+  56502  beq L_565a0
+  56508  r2 = 0
+  5650e  self->bGetFriend = 0
+  56510  r1 = SEL(objectForKey:)
+  56518  r4 = SEL(objectForKey:)
+  5651e  r2 = CFSTR('code')
+  56522  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  5652e  r1 = SEL(intValue)
+  56530  r1 = SEL(intValue)
+  56532  r0 = [r0 intValue](?, ?)
+  56542  r2 = CFSTR('comment')
+  56546  r0 = [r0 objectForKey:](CFSTR('comment'), ?)
+  56556  r0 = NSMutableArray
+  56558  fp = NSMutableArray
+  56566  r2 = CFSTR('result')
+  56568  r0 = [r0 objectForKey:](CFSTR('result'), ?)
+  56576  r0 = SEL(arrayWithArray:)
+  56578  r1 = SEL(arrayWithArray:)
+  5657c  r0 = [NSMutableArray arrayWithArray:](?, ?)
+  56580  cmp sl, 100
+  56584  bne L_56e36
+  56590  r0 = SEL(LoadRankingData)
+  56592  r1 = SEL(LoadRankingData)
+  56596  r0 = [r0 LoadRankingData](?, ?)
+  5659c  b L_570a4
+L_565a0:
+  565a0  cmp r5, 0
+  565a2  beq L_56ebc
+  565b4  r0 = SEL(objectForKey:)
+  565ba  r2 = CFSTR('code')
+  565bc  r4 = SEL(objectForKey:)
+  565c2  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  565ce  r1 = SEL(intValue)
+  565d0  r1 = SEL(intValue)
+  565d4  r0 = [r0 ??](?, ?)
+  565e6  r2 = CFSTR('comment')
+  565ec  r0 = [r0 objectForKey:](CFSTR('comment'), ?)
+  565fe  r0 = SEL(stringWithFormat:)
+  56604  r2 = CFSTR('%@')
+  56606  r1 = SEL(stringWithFormat:)
+  5660c  r0 = [r0 stringWithFormat:](CFSTR('%@'), ?)
+  5661c  r0 = NSMutableArray
+  5661e  fp = NSMutableArray
+  5662c  r2 = CFSTR('list')
+  5662e  r0 = [r0 objectForKey:](CFSTR('list'), ?)
+  5663c  r0 = SEL(arrayWithArray:)
+  5663e  r1 = SEL(arrayWithArray:)
+  56644  r0 = [NSMutableArray arrayWithArray:](?, ?)
+  56652  r0 = SEL(count)
+  56654  r1 = SEL(count)
+  5665a  r0 = [r0 ??](?, ?)
+  5665e  cmp fp, 100
+  56662  bne L_56ec4
+  56674  r0 = NSMutableString
+  56676  r8 = NSMutableString
+  56684  r2 = CFSTR('resettime')
+  56688  r0 = [r0 objectForKey:](CFSTR('resettime'), ?)
+  56698  r2 = CFSTR('%@')
+  5669e  r0 = [NSMutableString ??](CFSTR('%@'), ?)
+  566a6  r0 = [r0 ??](?, ?)
+  566ba  r1 = IVOFF(weeklyTimeSecond)
+  566bc  r2 = IVOFF(weekTimer)
+  566c2  r1 = IVOFF(weeklyTimeSecond)
+  566c4  r6 = IVOFF(weekTimer)
+  566c8  self->weeklyTimeSecond = r0
+  566cc  r0 = self->weekTimer
+  566d0  cbnz self->weekTimer -> L_5672a
+  566d6  r8 = 0
+  566de  r0 = SEL(isValid)
+  566e0  r1 = SEL(isValid)
+  566e2  r0 = 0
+  566e4  r0 = [r0 isValid](IVOFF(weekTimer), ?)
+  566ec  bne L_5672a
+  566ee  vmov.f64 d16, #1.000000e+00
+  56706  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  56708  r5 = NSTimer
+  5670a  vmov r2, r3, d16
+  56712  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  56714  sb = SEL(TuWeekTimer)
+  56716  r0 = NSTimer
+  56718  r5 = SEL(TuWeekTimer)
+  5671c  sb = 1
+  56724  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  56728  self->weekTimer = r0
+L_5672a:
+  56734  r0 = SEL(array)
+  56736  r1 = SEL(array)
+  56742  r0 = NSMutableArray
+  56744  r0 = NSMutableArray
+  56746  r0 = [NSMutableArray ??](?, ?)
+  56752  cmp r0, 1
+  56756  blt L_5690e
+  5676a  r3 = SEL(numberWithInteger:)
+  5676c  r2 = SEL(addObject:)
+  56772  r3 = SEL(numberWithInteger:)
+  56778  r2 = SEL(addObject:)
+  5677a  r1 = SEL(setObject:forKey:)
+  56788  r8 = SEL(setObject:forKey:)
+  5678c  r2 = SEL(dictionaryWithCapacity:)
+  5678e  r1 = SEL(dictionaryWithCapacity:)
+  56790  r2 = 0
+  5679c  r1 = SEL(objectAtIndex:)
+  5679e  r1 = SEL(objectAtIndex:)
+L_567a2:
+  567a8  r0 = [r0 ??](?, ?)
+  567ba  r0 = NSMutableDictionary
+  567bc  r5 = NSMutableDictionary
+  567c2  r0 = [r0 ??](?, ?)
+  567cc  r0 = [NSMutableDictionary ??](?, ?)
+  567e0  r0 = NSString
+  567e2  r5 = NSString
+  567ee  r6 = CFSTR('facebook_id')
+  567f2  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  56806  r5 = CFSTR('%@')
+  5680c  r0 = [NSString ??](CFSTR('%@'), ?)
+  56818  r0 = [r0 setObject:forKey:](?, CFSTR('facebook_id'))
+  5682a  r0 = NSString
+  5682c  r0 = NSString
+  5683a  r6 = CFSTR('id')
+  5683e  r0 = [r0 ??](CFSTR('id'), ?)
+  5684a  r0 = [r0 ??](CFSTR('%@'), ?)
+  56856  r0 = [r0 setObject:forKey:](?, CFSTR('id'))
+  56864  r0 = NSString
+  56866  r0 = NSString
+  56874  r6 = CFSTR('name')
+  56878  r0 = [r0 ??](CFSTR('name'), ?)
+  56884  r0 = [r0 ??](CFSTR('%@'), ?)
+  56894  r0 = [r0 setObject:forKey:](?, CFSTR('name'))
+  568a2  r0 = NSNumber
+  568a4  r5 = NSNumber
+  568b4  r6 = CFSTR('score')
+  568b8  r0 = [r0 ??](CFSTR('score'), ?)
+  568be  r0 = [r0 ??](?, ?)
+  568c8  r0 = [NSNumber ??](?, ?)
+  568d4  r0 = [r0 setObject:forKey:](?, CFSTR('score'))
+  568ea  r2 = CFSTR('1')
+  568ec  r3 = CFSTR('use')
+  568f2  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('use'))
+  568fc  r0 = [r0 ??](?, ?)
+  56904  adds r2, #1
+  56908  cmp r1, r2
+  5690a  bne L_567a2
+L_5690e:
+  5691e  r0 = SEL(dictionary)
+  56920  r2 = NSMutableDictionary
+  56922  r1 = SEL(dictionary)
+  56924  r0 = NSMutableDictionary
+  56926  r0 = [NSMutableDictionary dictionary](NSMutableDictionary, ?)
+  5693c  r0 = SEL(standardUserDefaults)
+  56942  fp = NSUserDefaults
+  56948  r5 = SEL(standardUserDefaults)
+  5694a  r1 = NSString
+  5694c  r0 = NSUserDefaults
+  56952  r8 = NSString
+  56958  r0 = [NSUserDefaults ??](?, ?)
+  56966  r2 = CFSTR('TOPSCOREWEEK')
+  56968  r0 = [r0 ??](CFSTR('TOPSCOREWEEK'), ?)
+  56978  r2 = CFSTR('%@')
+  5697c  r0 = [NSString ??](CFSTR('%@'), ?)
+  56984  r0 = [r0 ??](?, ?)
+  5698a  call sub_3ccc
+  56990  r0 = NSUserDefaults
+  56998  r0 = [NSUserDefaults ??](?, ?)
+  569a6  r2 = CFSTR('NAME')
+  569a8  r0 = [r0 ??](CFSTR('NAME'), ?)
+  569b6  r0 = SEL(setG_name:)
+  569b8  r1 = SEL(setG_name:)
+  569bc  r0 = [r0 setG_name:](?, ?)
+  569c0  r0 = NSUserDefaults
+  569c6  r0 = [NSUserDefaults ??](?, ?)
+  569d4  r2 = CFSTR('FACEBOOK_ID')
+  569d6  r0 = [r0 ??](CFSTR('FACEBOOK_ID'), ?)
+  569e4  r0 = SEL(g_name)
+  569e6  r4 = SEL(g_name)
+  569ec  r0 = [r0 g_name](?, ?)
+  569f4  r0 = [r0 g_name](?, ?)
+  56a02  r0 = SEL(setObject:forKey:)
+  56a04  r4 = SEL(setObject:forKey:)
+  56a12  r3 = CFSTR('name')
+  56a18  r0 = [r0 ??](?, CFSTR('name'))
+  56a24  r0 = NSNumber
+  56a26  r6 = NSNumber
+  56a32  r0 = CFSTR('0')
+  56a34  cmp r1, 1
+  56a3e  r0 = [r0 ??](?, ?)
+  56a4c  r0 = SEL(numberWithInteger:)
+  56a4e  r1 = SEL(numberWithInteger:)
+  56a54  r0 = [NSNumber ??](?, ?)
+  56a64  r3 = CFSTR('score')
+  56a68  r0 = [r0 ??](?, CFSTR('score'))
+  56a7e  r6 = CFSTR('1')
+  56a80  r3 = CFSTR('use')
+  56a86  r0 = [r0 ??](CFSTR('1'), CFSTR('use'))
+  56a96  r3 = CFSTR('me')
+  56a9a  r0 = [r0 ??](CFSTR('1'), CFSTR('me'))
+  56aaa  r3 = CFSTR('facebook_id')
+  56aae  r0 = [r0 ??](?, CFSTR('facebook_id'))
+  56abe  r3 = CFSTR('id')
+  56ac2  r0 = [r0 ??](?, CFSTR('id'))
+  56ad2  r0 = SEL(addObject:)
+  56ad4  r1 = SEL(addObject:)
+  56ada  r0 = [r0 addObject:](?, ?)
+  56ae8  r0 = NSMutableArray
+  56aea  r0 = NSMutableArray
+  56aec  r0 = [NSMutableArray ??](?, ?)
+  56afa  r0 = SEL(setMylist:)
+  56afc  r1 = SEL(setMylist:)
+  56b00  r0 = [r0 setMylist:](?, ?)
+  56b0a  r0 = [r0 ??](?, ?)
+  56b14  cbz r0 -> L_56b8c
+  56b20  r0 = NSSortDescriptor
+  56b22  r0 = NSSortDescriptor
+  56b24  r0 = [NSSortDescriptor ??](?, ?)
+  56b2c  r3 = 0
+  56b36  r1 = SEL(initWithKey:ascending:)
+  56b3c  r2 = CFSTR('score')
+  56b3e  r1 = SEL(initWithKey:ascending:)
+  56b40  r0 = [r0 initWithKey:ascending:](CFSTR('score'), 0)
+  56b56  r0 = SEL(arrayWithObjects:)
+  56b58  r2 = NSArray
+  56b5a  r3 = 0
+  56b5c  r1 = SEL(arrayWithObjects:)
+  56b5e  r0 = NSArray
+  56b62  r0 = [NSArray arrayWithObjects:](?, 0)
+  56b70  r0 = SEL(sortUsingDescriptors:)
+  56b72  r1 = SEL(sortUsingDescriptors:)
+  56b76  r0 = [r0 sortUsingDescriptors:](?, ?)
+  56b82  r0 = SEL(release)
+  56b84  r1 = SEL(release)
+  56b88  r0 = [r0 release](?, ?)
+L_56b8c:
+  56b92  r0 = [r0 ??](?, ?)
+  56b96  cmp r0, 0
+  56b98  beq L_56f90
+  56ba8  r0 = SEL(friendList)
+  56baa  r1 = SEL(friendList)
+  56bb0  r0 = [r0 ??](?, ?)
+  56bb6  r0 = [r0 ??](?, ?)
+  56bbe  r0 = [r0 ??](?, ?)
+  56bca  r0 = SEL(mylist)
+  56bcc  r4 = SEL(mylist)
+  56bd2  r0 = [r0 mylist](?, ?)
+  56bd8  r0 = [r0 ??](?, ?)
+  56be6  r0 = NSUserDefaults
+  56be8  r0 = NSUserDefaults
+  56bea  r0 = [NSUserDefaults ??](?, ?)
+  56bfa  r2 = CFSTR('FACEBOOK')
+  56c02  r0 = [r0 ??](CFSTR('FACEBOOK'), ?)
+  56c08  r0 = [r0 ??](?, ?)
+  56c0c  cmp r0, 0
+  56c0e  beq L_5701c
+  56c1e  r0 = NSMutableArray
+  56c22  r0 = NSMutableArray
+  56c24  r0 = [NSMutableArray ??](?, ?)
+  56c30  r0 = [r0 ??](?, ?)
+  56c36  r0 = [r0 ??](?, ?)
+  56c42  r0 = [r0 ??](?, ?)
+  56c4c  r0 = [r0 ??](?, ?)
+  56c50  cmp r5, 1
+  56c54  blt L_56cee
+  56c66  r1 = SEL(isEqualToString:)
+  56c68  r2 = SEL(objectAtIndex:)
+  56c6a  r1 = SEL(isEqualToString:)
+  56c6c  r2 = SEL(objectAtIndex:)
+  56c70  r2 = 0
+L_56c74:
+  56c78  r0 = [r0 ??](?, ?)
+  56c80  cmp r0, 1
+  56c82  blt L_56cda
+  56c84  r4 = 0
+L_56c86:
+  56c8c  r0 = [r0 ??](0, ?)
+  56c9c  r2 = CFSTR('id')
+  56ca0  r0 = [r0 ??](CFSTR('id'), ?)
+  56cb0  r2 = CFSTR('facebook_id')
+  56cb4  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  56cbe  r0 = [r0 ??](?, ?)
+  56cc6  beq L_56cd2
+  56cce  r0 = [r0 addObject:](?, ?)
+L_56cd2:
+  56cd2  adds r4, #1
+  56cd6  cmp r0, r4
+  56cd8  bne L_56c86
+L_56cda:
+  56ce0  r0 = [r0 ??](?, ?)
+  56ce8  adds r2, #1
+  56cea  cmp r2, r1
+  56cec  bne L_56c74
+L_56cee:
+  56cfa  r1 = SEL(removeObjectsInArray:)
+  56cfc  r1 = SEL(removeObjectsInArray:)
+  56cfe  r0 = [r0 removeObjectsInArray:](?, ?)
+  56d0c  r0 = NSMutableArray
+  56d0e  r0 = NSMutableArray
+  56d10  r0 = [NSMutableArray ??](?, ?)
+  56d22  r0 = [r0 ??](?, ?)
+  56d28  r0 = [r0 ??](?, ?)
+  56d2e  cmp r0, 1
+  56d3e  r0 = NSNumber
+  56d44  blt L_56e0c
+  56d4a  r5 = 0
+  56d58  r0 = SEL(dictionaryWithDictionary:)
+  56d5a  r2 = SEL(objectAtIndex:)
+  56d5c  r0 = SEL(dictionaryWithDictionary:)
+  56d5e  r2 = SEL(objectAtIndex:)
+L_56d64:
+  56d66  r0 = [r0 ??](?, ?)
+  56d6e  r0 = [r0 ??](0, ?)
+  56d82  r0 = NSMutableDictionary
+  56d86  r0 = NSMutableDictionary
+  56d88  r0 = [NSMutableDictionary ??](?, ?)
+  56d9e  r2 = CFSTR('0')
+  56da0  r3 = CFSTR('use')
+  56da4  r0 = [r0 ??](CFSTR('0'), CFSTR('use'))
+  56dba  r2 = CFSTR('id')
+  56dbc  r0 = [r0 ??](CFSTR('id'), ?)
+  56dcc  r3 = CFSTR('facebook_id')
+  56dd0  r0 = [r0 ??](?, CFSTR('facebook_id'))
+  56dd4  r0 = NSNumber
+  56dd8  r2 = 0
+  56ddc  r0 = [NSNumber ??](0, ?)
+  56dec  r3 = CFSTR('score')
+  56df0  r0 = [r0 ??](?, CFSTR('score'))
+  56dfe  r0 = [r0 ??](?, ?)
+  56e04  adds r5, #1
+  56e08  cmp r0, r5
+  56e0a  bne L_56d64
+L_56e0c:
+  56e18  r0 = SEL(addObjectsFromArray:)
+  56e1a  r6 = SEL(addObjectsFromArray:)
+  56e20  r0 = [r0 addObjectsFromArray:](?, ?)
+  56e28  r0 = [r0 ??](?, ?)
+  56e30  r0 = [r0 addObjectsFromArray:](?, ?)
+  56e34  b L_57038
+L_56e36:
+  56e40  r0 = UIAlertView
+  56e42  r0 = UIAlertView
+  56e44  r0 = [UIAlertView ??](?, ?)
+  56e4c  cmp sl, 500
+  56e54  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  56e56  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  56e58  bne L_56e78
+  56e5e  r5 = 0
+  56e68  r2 = CFSTR('No Connection Error')
+  56e6e  r3 = CFSTR('try')
+  56e76  b L_56f14
+L_56e78:
+  56e7c  r5 = 0
+  56e92  r3 = CFSTR('Cancel')
+  56e94  r2 = CFSTR('No Connection Error')
+  56e96  r4 = CFSTR('Try')
+  56e98  add.w sb, sp, #4
+  56ea4  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), NSNumber)
+  56eb2  r2 = 200
+  56eb4  r0 = SEL(setTag:)
+  56eb6  r1 = SEL(setTag:)
+  56eba  b L_56f6a
+L_56ebc:
+  56ebc  add sp, #0x6c
+  56ec2  return
+L_56ec4:
+  56ece  r0 = UIAlertView
+  56ed0  r0 = UIAlertView
+  56ed2  r0 = [UIAlertView ??](200, ?)
+  56eda  cmp fp, 500
+  56ee6  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  56eec  r3 = CFSTR('Cancel')
+  56eee  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  56ef0  bne L_56f30
+  56ef6  r5 = 0
+  56f06  r4 = CFSTR('Try')
+  56f08  add.w sb, sp, #4
+  56f0e  r2 = CFSTR('No Connection Error')
+L_56f14:
+  56f16  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), NSNumber)
+  56f24  r2 = 500
+  56f28  r0 = SEL(setTag:)
+  56f2a  r1 = SEL(setTag:)
+  56f2e  b L_56f6a
+L_56f30:
+  56f34  r5 = 0
+  56f44  r2 = CFSTR('Error')
+  56f46  r4 = CFSTR('Try')
+  56f48  add.w sb, sp, #4
+  56f54  r0 = [r0 setTag:](CFSTR('Error'), NSNumber)
+  56f62  r2 = 50
+  56f64  r0 = SEL(setTag:)
+  56f66  r1 = SEL(setTag:)
+L_56f6a:
+  56f6a  r0 = [r0 setTag:](50, ?)
+  56f76  r0 = SEL(show)
+  56f78  r1 = SEL(show)
+  56f7c  r0 = [r0 show](?, ?)
+  56f88  r0 = SEL(release)
+  56f8a  r1 = SEL(release)
+  56f8e  b L_570c2
+L_56f90:
+  56f9a  r0 = NSUserDefaults
+  56f9c  r0 = NSUserDefaults
+  56f9e  r0 = [NSUserDefaults ??](?, ?)
+  56fac  r2 = CFSTR('FACEBOOK')
+  56fae  r0 = [r0 ??](CFSTR('FACEBOOK'), ?)
+  56fb4  r0 = [r0 ??](?, ?)
+  56fbc  cbz r0 -> L_57038
+  56fc6  r0 = SEL(mylist)
+  56fc8  r1 = SEL(mylist)
+  56fcc  r0 = [r0 mylist](?, ?)
+  56fda  r0 = SEL(friendList)
+  56fdc  r1 = SEL(friendList)
+  56fe0  r0 = [r0 friendList](?, ?)
+  56fee  r0 = SEL(addObjectsFromArray:)
+  56ff0  r1 = SEL(addObjectsFromArray:)
+  56ff4  r0 = [r0 addObjectsFromArray:](?, ?)
+  57000  r0 = SEL(mainTableView)
+  57002  r1 = SEL(mainTableView)
+  57006  r0 = [r0 mainTableView](?, ?)
+  57012  r1 = SEL(reloadData)
+  57014  r1 = SEL(reloadData)
+  57016  r0 = [r0 reloadData](?, ?)
+  5701a  b L_57038
+L_5701c:
+  57020  r0 = [NSNumber ??](?, ?)
+  5702e  r1 = SEL(addObjectsFromArray:)
+  57030  r1 = SEL(addObjectsFromArray:)
+  57032  r0 = [r0 addObjectsFromArray:](?, ?)
+L_57038:
+  5703c  r2 = 0
+  57046  r0 = SEL(showWaiting:message:)
+  5704c  r3 = CFSTR('Loading')
+  5704e  r4 = 0
+  57050  r1 = SEL(showWaiting:message:)
+  57054  r0 = [NSNumber showWaiting:message:](0, CFSTR('Loading'))
+  57060  r0 = SEL(mainTableView)
+  57062  r1 = SEL(mainTableView)
+  57066  r0 = [NSNumber mainTableView](?, ?)
+  57072  r1 = SEL(reloadData)
+  57074  r1 = SEL(reloadData)
+  57076  r0 = [r0 reloadData](?, ?)
+  5707e  r5 = 0
+  5708c  r0 = SEL(performSelector:withObject:afterDelay:)
+  5708e  r2 = SEL(reviewCheck:)
+  57094  r1 = SEL(performSelector:withObject:afterDelay:)
+  57098  r2 = SEL(reviewCheck:)
+  5709a  r3 = 0
+  570a0  r0 = [NSNumber performSelector:withObject:afterDelay:](SEL(reviewCheck:), 0)
+L_570a4:
+  570ac  r0 = SEL(mainTableView)
+  570ae  r1 = SEL(mainTableView)
+  570b2  r0 = [NSNumber mainTableView](?, ?)
+  570be  r1 = SEL(reloadData)
+  570c0  r1 = SEL(reloadData)
+L_570c2:
+  570c2  add sp, #0x6c
+  570cc  b L_a90d0
+
+//// -[RankingViewController reviewCheck:]  0x570d0..0x57238  v12@0:4@8
+  570d2  add r7, sp, #0xc
+  570d8  sub sp, #0x10
+  570ec  r0 = SEL(standardUserDefaults)
+  570ee  sl = NSUserDefaults
+  570f0  r4 = SEL(standardUserDefaults)
+  570f2  r0 = NSUserDefaults
+  570f8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57108  r1 = SEL(objectForKey:)
+  5710e  r2 = CFSTR('REVIEW')
+  57110  r6 = SEL(objectForKey:)
+  57114  r0 = [r0 objectForKey:](CFSTR('REVIEW'), ?)
+  57120  r1 = SEL(integerValue)
+  57122  r5 = SEL(integerValue)
+  57126  r0 = [r0 integerValue](?, ?)
+  5712a  cmp r0, 0
+  5712c  bne L_57230
+  57130  r0 = NSUserDefaults
+  57136  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57144  r2 = CFSTR('REVIEWCOUNT')
+  57146  r0 = [r0 objectForKey:](CFSTR('REVIEWCOUNT'), ?)
+  5714c  r0 = [r0 integerValue](?, ?)
+  57150  cmp r0, 11
+  57152  blt L_57230
+  57164  r0 = SEL(alloc)
+  57166  r2 = UIAlertView
+  57168  r1 = SEL(alloc)
+  5716a  r0 = UIAlertView
+  5716c  r0 = [UIAlertView alloc](UIAlertView, ?)
+  57174  r5 = 0
+  5717e  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  57188  r2 = CFSTR('Cancel')
+  5718e  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  57194  r3 = CFSTR('Have you enjoyed SixthSense? If you review it, you can receive 5,000 gold.')
+  571a0  r2 = 0
+  571a2  r6 = CFSTR('Go')
+  571a8  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Have you enjoyed SixthSense? If you review it, you can receive 5,000 gold.'))
+  571b6  r2 = 300
+  571ba  r0 = SEL(setTag:)
+  571bc  r1 = SEL(setTag:)
+  571c0  r0 = [r0 setTag:](300, ?)
+  571cc  r0 = SEL(show)
+  571ce  r1 = SEL(show)
+  571d2  r0 = [r0 show](?, ?)
+  571de  r0 = SEL(release)
+  571e0  r1 = SEL(release)
+  571e4  r0 = [r0 release](?, ?)
+  571e8  r0 = NSUserDefaults
+  571ee  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  571fe  r1 = SEL(setObject:forKey:)
+  57208  r2 = CFSTR('1')
+  5720e  r1 = SEL(setObject:forKey:)
+  57210  r3 = CFSTR('REVIEW')
+  57212  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('REVIEW'))
+  57216  r0 = NSUserDefaults
+  5721c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57228  r1 = SEL(synchronize)
+  5722a  r1 = SEL(synchronize)
+  5722c  r0 = [r0 synchronize](?, ?)
+L_57230:
+  57230  add sp, #0x10
+  57236  return
+
+//// -[RankingViewController TuWeekTimer]  0x57238..0x576d0  v8@0:4
+  5723a  add r7, sp, #0xc
+  57240  sub sp, #0x30
+  5724c  r0 = IVOFF(weeklyTimeSecond)
+  5724e  r1 = IVOFF(weeklyTimeSecond)
+  57256  subs r0, r2, #1
+  57260  cmp r0, 0
+  57262  ble L_573ac
+  57274  asrs r1, r0, #0x10
+  57276  add.w r3, r1, r0, lsr #31
+  57294  asrs r2, r1, #0xb
+  57296  add.w r4, r2, r1, lsr #31
+  5729a  r1 = 3600
+  572b0  asrs r2, r1, #5
+  572b2  add.w r5, r2, r1, lsr #31
+  572b8  rsb r1, r5, r5, lsl #4
+  572bc  sub.w r0, r0, r1, lsl #2
+  572d2  r0 = SEL(stringWithFormat:)
+  572d4  r8 = NSString
+  572d6  r6 = SEL(stringWithFormat:)
+  572d8  r0 = NSString
+  572e4  sl = CFSTR('%d')
+  572ea  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  572f2  r0 = NSString
+  572fa  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  57302  r0 = NSString
+  5730c  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  57312  r0 = NSString
+  57320  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  5732e  r0 = SEL(tournamentWeekLabel)
+  57330  r4 = SEL(tournamentWeekLabel)
+  57336  r0 = [r0 tournamentWeekLabel](?, ?)
+  5733c  r0 = NSString
+  5734a  cmp r2, 86399
+  5734c  bgt L_574b2
+  5735c  r2 = CFSTR('WEEKLY RANKING : %@h %@m %@s')
+  57362  r0 = [NSString stringWithFormat:](CFSTR('WEEKLY RANKING : %@h %@m %@s'), ?)
+  57370  r0 = SEL(setText:)
+  57372  r1 = SEL(setText:)
+  57376  r0 = [r0 setText:](?, ?)
+  57382  r0 = [r0 tournamentWeekLabel](?, ?)
+  57390  r0 = NSString
+  57392  r0 = NSString
+  573a0  r2 = CFSTR('Weekly ranking is reset after %d hours, %d minutes, %d seconds. ')
+  573aa  b L_57516
+L_573ac:
+  573b4  r0 = SEL(tournamentWeekLabel)
+  573b6  r4 = SEL(tournamentWeekLabel)
+  573bc  r0 = [r0 tournamentWeekLabel](CFSTR('Weekly ranking is reset after %d hours, %d minutes, %d seconds. '), ?)
+  573d2  r0 = SEL(stringWithFormat:)
+  573d4  r8 = NSString
+  573d6  r6 = SEL(stringWithFormat:)
+  573d8  r0 = NSString
+  573e4  r2 = CFSTR('WEEKLY RANKING : END')
+  573e8  r0 = [NSString stringWithFormat:](CFSTR('WEEKLY RANKING : END'), ?)
+  573f6  r0 = SEL(setText:)
+  573f8  r1 = SEL(setText:)
+  573fc  r0 = [r0 setText:](?, ?)
+  57404  r0 = [r0 tournamentWeekLabel](?, ?)
+  5740a  r0 = NSString
+  57418  r2 = CFSTR('Weekly ranking  : END')
+  5741a  r0 = [NSString stringWithFormat:](CFSTR('Weekly ranking  : END'), ?)
+  57428  r0 = SEL(setAccessibilityLabel:)
+  5742a  r1 = SEL(setAccessibilityLabel:)
+  5742e  r0 = [r0 setAccessibilityLabel:](?, ?)
+  57442  r0 = SEL(standardUserDefaults)
+  57444  sl = NSUserDefaults
+  57446  r4 = SEL(standardUserDefaults)
+  57448  r0 = NSUserDefaults
+  5744e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57454  r0 = NSString
+  57462  r3 = 0
+  57464  r2 = CFSTR('%d')
+  57466  r0 = [NSString stringWithFormat:](CFSTR('%d'), 0)
+  57478  r0 = SEL(setObject:forKey:)
+  5747e  r3 = CFSTR('TOPSCOREWEEK')
+  57480  r1 = SEL(setObject:forKey:)
+  57484  r0 = [r0 setObject:forKey:](?, CFSTR('TOPSCOREWEEK'))
+  57488  r0 = NSUserDefaults
+  5748e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5749e  r1 = SEL(removeObjectForKey:)
+  574a4  r2 = CFSTR('WEEKTIME')
+  574a6  r1 = SEL(removeObjectForKey:)
+  574a8  r0 = [r0 removeObjectForKey:](CFSTR('WEEKTIME'), ?)
+  574ac  r0 = NSUserDefaults
+  574b0  b L_576b0
+L_574b2:
+  574bc  r2 = CFSTR('WEEKLY RANKING : %@d %@h %@m %@s')
+  574c6  r0 = [NSUserDefaults stringWithFormat:](CFSTR('WEEKLY RANKING : %@d %@h %@m %@s'), ?)
+  574d4  r0 = SEL(setText:)
+  574d6  r1 = SEL(setText:)
+  574da  r0 = [r0 setText:](?, ?)
+  574e6  r0 = [r0 standardUserDefaults](?, ?)
+  574f4  r0 = NSString
+  574f6  r0 = NSString
+  57506  r2 = CFSTR('Weekly ranking is reset after %d days, %d hours, %d minutes, %d seconds. ')
+L_57516:
+  57516  r0 = [NSString stringWithFormat:](CFSTR('Weekly ranking is reset after %d days, %d hours, %d minutes, %d seconds. '), ?)
+  57524  r0 = SEL(setAccessibilityLabel:)
+  57526  r1 = SEL(setAccessibilityLabel:)
+  5752a  r0 = [r0 setAccessibilityLabel:](?, ?)
+  5753e  r0 = SEL(date)
+  57540  r2 = NSDate
+  57542  r1 = SEL(date)
+  57544  r0 = NSDate
+  57546  r0 = [NSDate date](NSDate, ?)
+  5755c  r0 = SEL(alloc)
+  5755e  r1 = NSCalendar
+  57560  r5 = SEL(alloc)
+  57562  r0 = NSCalendar
+  57566  r0 = [NSCalendar alloc](?, ?)
+  57576  r1 = _NSGregorianCalendar
+  5757c  r2 = SEL(initWithCalendarIdentifier:)
+  5757e  r3 = _NSGregorianCalendar
+  57580  r1 = SEL(initWithCalendarIdentifier:)
+  57584  r0 = [r0 initWithCalendarIdentifier:](?, _NSGregorianCalendar)
+  57594  r0 = NSDateComponents
+  57596  r0 = NSDateComponents
+  57598  r0 = [NSDateComponents alloc](?, ?)
+  575a4  r1 = SEL(init)
+  575a6  r6 = SEL(init)
+  575aa  r0 = [r0 init](?, ?)
+  575b8  r0 = SEL(setSecond:)
+  575ba  r1 = SEL(setSecond:)
+  575c4  r0 = [r0 setSecond:](?, ?)
+  575d4  r0 = SEL(dateByAddingComponents:toDate:options:)
+  575d6  r1 = SEL(dateByAddingComponents:toDate:options:)
+  575d8  r0 = 0
+  575de  r0 = [r0 dateByAddingComponents:toDate:options:](?, ?)
+  575ee  r0 = NSDateFormatter
+  575f0  r0 = NSDateFormatter
+  575f2  r0 = [NSDateFormatter alloc](?, ?)
+  575f8  r0 = [r0 init](?, ?)
+  57604  r1 = SEL(autorelease)
+  57606  r1 = SEL(autorelease)
+  57608  r0 = [r0 autorelease](?, ?)
+  5761a  r0 = SEL(setDateFormat:)
+  57620  r2 = CFSTR('yyyyMMddHHmmss')
+  57622  r1 = SEL(setDateFormat:)
+  57626  r0 = [r0 setDateFormat:](CFSTR('yyyyMMddHHmmss'), ?)
+  57634  r0 = SEL(stringFromDate:)
+  57636  r1 = SEL(stringFromDate:)
+  5763a  r0 = [r0 stringFromDate:](?, ?)
+  57650  r0 = SEL(standardUserDefaults)
+  57652  r6 = NSUserDefaults
+  57654  r4 = SEL(standardUserDefaults)
+  57656  r0 = NSUserDefaults
+  5765a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5766a  r1 = SEL(objectForKey:)
+  57670  r2 = CFSTR('WEEKTIME')
+  57672  r1 = SEL(objectForKey:)
+  57674  r0 = [r0 objectForKey:](CFSTR('WEEKTIME'), ?)
+  57680  r1 = SEL(length)
+  57682  r1 = SEL(length)
+  57684  r0 = [r0 length](?, ?)
+  57688  cbnz r0 -> L_576c6
+  5768a  r0 = NSUserDefaults
+  5768e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  576a0  r1 = SEL(setObject:forKey:)
+  576a6  r3 = CFSTR('WEEKTIME')
+  576a8  r1 = SEL(setObject:forKey:)
+  576aa  r0 = [r0 setObject:forKey:](?, CFSTR('WEEKTIME'))
+  576ae  r0 = NSUserDefaults
+L_576b0:
+  576b2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  576be  r1 = SEL(synchronize)
+  576c0  r1 = SEL(synchronize)
+  576c2  r0 = [r0 synchronize](?, ?)
+L_576c6:
+  576c6  add sp, #0x30
+  576cc  return
+
+//// -[RankingViewController showWaiting:message:]  0x576d0..0x57784  v16@0:4c8@12
+  576d2  add r7, sp, #0xc
+  576e4  r0 = SEL(maskView)
+  576e8  r6 = SEL(maskView)
+  576ee  r0 = [r0 maskView](?, ?)
+  576f6  r2 = 0
+  576fe  r1 = SEL(setHidden:)
+  57700  cmp r5, 0
+  57706  r1 = SEL(setHidden:)
+  57708  r0 = [r0 setHidden:](?, ?)
+  57714  r0 = SEL(maskLabel)
+  57716  r1 = SEL(maskLabel)
+  5771a  r0 = [r0 maskLabel](?, ?)
+  57728  r1 = SEL(setText:)
+  5772a  r1 = SEL(setText:)
+  5772c  r0 = [r0 setText:](?, ?)
+  57734  r0 = [r0 maskView](?, ?)
+  57742  r1 = SEL(setAccessibilityLabel:)
+  57744  r1 = SEL(setAccessibilityLabel:)
+  57746  r0 = [r0 setAccessibilityLabel:](?, ?)
+  57752  r0 = SEL(activityIndicator)
+  57754  r1 = SEL(activityIndicator)
+  57758  r0 = [r0 activityIndicator](?, ?)
+  5775c  cbz r5 -> L_5776a
+  57766  r1 = SEL(startAnimating)
+  57768  b L_57774
+L_5776a:
+  57772  r1 = SEL(stopAnimating)
+L_57774:
+  57774  r1 = SEL(stopAnimating)
+  5777e  b L_a90d0
+
+//// -[RankingViewController startIconDownload:forIndexPath:]  0x57784..0x578e0  v16@0:4@8@12
+  57786  add r7, sp, #0xc
+  57798  r0 = SEL(imageDownloadsInProgress)
+  5779c  sl = SEL(imageDownloadsInProgress)
+  577a4  r0 = [r0 imageDownloadsInProgress](?, ?)
+  577b6  r0 = SEL(objectForKey:)
+  577bc  r2 = CFSTR('facebook_id')
+  577be  r6 = SEL(objectForKey:)
+  577c4  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  577ce  r0 = [r0 objectForKey:](?, ?)
+  577d2  cbz r0 -> L_577ea
+  577e0  r2 = CFSTR('download')
+  577e2  r0 = [r0 objectForKey:](CFSTR('download'), ?)
+  577e6  cmp r0, 0
+  577e8  bne L_578d8
+L_577ea:
+  577f6  r2 = CFSTR('facebook_id')
+  577f8  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  57804  r1 = SEL(length)
+  57806  r1 = SEL(length)
+  57808  r0 = [r0 length](?, ?)
+  5780c  cmp r0, 0
+  5780e  beq L_578d8
+  57820  r0 = SEL(alloc)
+  57822  r2 = IconDownloader
+  57824  r1 = SEL(alloc)
+  57826  r0 = IconDownloader
+  57828  r0 = [IconDownloader alloc](IconDownloader, ?)
+  57834  r1 = SEL(init)
+  57836  r1 = SEL(init)
+  57838  r0 = [r0 init](?, ?)
+  57848  r0 = SEL(setAppRecord:)
+  5784a  r1 = SEL(setAppRecord:)
+  5784e  r0 = [r0 setAppRecord:](?, ?)
+  5785c  r0 = SEL(setDelegate:)
+  5785e  r1 = SEL(setDelegate:)
+  57862  r0 = [r0 setDelegate:](?, ?)
+  57870  r0 = SEL(setIndexPathInTableView:)
+  57872  r1 = SEL(setIndexPathInTableView:)
+  57876  r0 = [r0 setIndexPathInTableView:](?, ?)
+  5787e  r0 = [r0 imageDownloadsInProgress](?, ?)
+  5788e  r2 = CFSTR('facebook_id')
+  57892  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  578a2  r0 = SEL(setObject:forKey:)
+  578a4  r1 = SEL(setObject:forKey:)
+  578a8  r0 = [r0 setObject:forKey:](?, ?)
+  578b4  r0 = SEL(startDownload)
+  578b6  r1 = SEL(startDownload)
+  578ba  r0 = [r0 startDownload](?, ?)
+  578c6  r0 = SEL(release)
+  578c8  r1 = SEL(release)
+  578d4  b L_a90d0
+L_578d8:
+  578dc  return
+
+//// -[RankingViewController appImageDidLoad:indexPath:]  0x578e0..0x579e0  v16@0:4@8@12
+  578e2  add r7, sp, #0xc
+  578f4  r0 = SEL(imageDownloadsInProgress)
+  578f8  r1 = SEL(imageDownloadsInProgress)
+  578fc  r0 = [r0 imageDownloadsInProgress](?, ?)
+  5790e  r0 = SEL(objectForKey:)
+  57914  r2 = CFSTR('facebook_id')
+  57916  fp = SEL(objectForKey:)
+  5791e  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  57928  r0 = [r0 objectForKey:](?, ?)
+  5792e  cmp sl, 0
+  57932  beq L_579da
+  5793c  r0 = SEL(mainTableView)
+  5793e  r1 = SEL(mainTableView)
+  57942  r0 = [r0 mainTableView](?, ?)
+  57950  r1 = SEL(cellForRowAtIndexPath:)
+  57952  r1 = SEL(cellForRowAtIndexPath:)
+  57954  r0 = [r0 cellForRowAtIndexPath:](?, ?)
+  57958  cmp r0, 0
+  5795a  beq L_579da
+  57964  r1 = SEL(contentView)
+  57966  r1 = SEL(contentView)
+  57968  r0 = [r0 contentView](?, ?)
+  57970  r2 = 4
+  57976  r1 = SEL(viewWithTag:)
+  57978  r6 = SEL(viewWithTag:)
+  5797c  r0 = [r0 viewWithTag:](4, ?)
+  5798a  r0 = SEL(appRecord)
+  5798c  r1 = SEL(appRecord)
+  57990  r0 = [r0 appRecord](?, ?)
+  5799e  r2 = CFSTR('image')
+  579a0  r0 = [r0 objectForKey:](CFSTR('image'), ?)
+  579ae  r0 = SEL(setImage:)
+  579b0  r1 = SEL(setImage:)
+  579b4  r0 = [r0 setImage:](?, ?)
+  579bc  r2 = 1
+  579be  r0 = [r0 viewWithTag:](1, ?)
+  579ca  r1 = SEL(stopAnimating)
+  579cc  r1 = SEL(stopAnimating)
+  579d6  b L_a90d0
+L_579da:
+  579de  return
+
+//// -[RankingViewController alertView:clickedButtonAtIndex:]  0x579e0..0x57d00  v16@0:4@8i12
+  579e2  add r7, sp, #0xc
+  579e8  sub sp, #4
+  579f6  r0 = SEL(tag)
+  579fa  r4 = SEL(tag)
+  57a00  r0 = [r0 tag](?, ?)
+  57a04  cmp r0, 500
+  57a08  bne L_57a3e
+  57a0a  cmp r5, 1
+  57a0c  bne L_57cf6
+  57a10  call sub_3ccc
+  57a1c  r1 = SEL(g_loginController)
+  57a1e  r1 = SEL(g_loginController)
+  57a20  r0 = [r0 g_loginController](?, ?)
+  57a2c  r1 = SEL(Login)
+  57a2e  r1 = SEL(Login)
+L_57a30:
+  57a30  add sp, #4
+  57a3a  b L_a90d0
+L_57a3e:
+  57a42  r0 = [r0 tag](?, ?)
+  57a46  cmp r0, 20
+  57a48  bne L_57a9e
+  57a4a  cmp r5, 1
+  57a4c  bne L_57cf6
+  57a54  r2 = 1
+  57a5e  r0 = SEL(showWaiting:message:)
+  57a64  r3 = CFSTR('Sending coin...')
+  57a66  r1 = SEL(showWaiting:message:)
+  57a6a  r0 = [r0 showWaiting:message:](1, CFSTR('Sending coin...'))
+  57a76  r0 = SEL(sendCoinUserId)
+  57a78  r1 = SEL(sendCoinUserId)
+  57a7c  r0 = [r0 sendCoinUserId](?, ?)
+  57a8a  r0 = SEL(sendCoin:)
+  57a8c  r1 = SEL(sendCoin:)
+  57a90  add sp, #4
+  57a9a  b L_a90d0
+L_57a9e:
+  57aa2  r0 = [r0 tag](?, ?)
+  57aa6  cmp r0, 30
+  57aa8  beq L_57cf6
+  57ab0  r0 = [r0 tag](?, ?)
+  57ab4  cmp r0, 50
+  57ab6  bne L_57adc
+  57ab8  cmp r5, 1
+  57aba  bne L_57cf6
+  57ac2  r2 = 0
+  57acc  r0 = IVOFF(bGetFriend)
+  57ad2  r1 = SEL(LoadRankingData)
+  57ad4  r0 = IVOFF(bGetFriend)
+  57ad6  self->bGetFriend = 0
+  57ada  b L_57b82
+L_57adc:
+  57ae0  r0 = [r0 tag](0, ?)
+  57ae4  cmp r0, 200
+  57ae6  bne L_57b88
+  57ae8  cmp r5, 1
+  57aea  bne L_57cf6
+  57af2  r2 = 1
+  57afc  r0 = SEL(showWaiting:message:)
+  57b02  r3 = CFSTR('Loading')
+  57b04  r5 = 1
+  57b06  r1 = SEL(showWaiting:message:)
+  57b0a  r0 = [r0 showWaiting:message:](1, CFSTR('Loading'))
+  57b0e  call sub_3ccc
+  57b1c  r0 = SEL(loginview)
+  57b1e  r1 = SEL(loginview)
+  57b22  r0 = [r0 loginview](?, ?)
+  57b26  cbnz r0 -> L_57b68
+  57b38  r0 = SEL(alloc)
+  57b3a  r2 = FBLoginView
+  57b3c  r1 = SEL(alloc)
+  57b3e  r0 = FBLoginView
+  57b40  r0 = [FBLoginView alloc](FBLoginView, ?)
+  57b4c  r1 = SEL(init)
+  57b4e  r1 = SEL(init)
+  57b50  r0 = [r0 init](?, ?)
+  57b5e  r0 = SEL(setLoginview:)
+  57b60  r1 = SEL(setLoginview:)
+  57b64  r0 = [r0 setLoginview:](?, ?)
+L_57b68:
+  57b74  r0 = IVOFF(bGetFriend)
+  57b7a  r1 = SEL(getFacebookFriends)
+  57b7c  r0 = IVOFF(bGetFriend)
+  57b7e  self->bGetFriend = 1
+L_57b82:
+  57b82  r1 = SEL(getFacebookFriends)
+  57b86  b L_57a30
+L_57b88:
+  57b8c  r0 = [r0 ??](?, ?)
+  57b90  cmp r0, 300
+  57b98  bne L_57cf6
+  57bac  r0 = SEL(stringWithFormat:)
+  57bae  r8 = NSString
+  57bb0  r1 = SEL(stringWithFormat:)
+  57bb4  r0 = NSString
+  57bc0  r2 = CFSTR('http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=580417319&type=Purple+Software&mt=8')
+  57bc2  r0 = [NSString ??](CFSTR('http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=580417319&type=Purple+Software&mt=8'), ?)
+  57bd0  r0 = SEL(stringWithString:)
+  57bd2  r1 = SEL(stringWithString:)
+  57bd4  r0 = NSString
+  57bd8  r0 = [NSString stringWithString:](?, ?)
+  57be0  r2 = 4
+  57be6  r1 = SEL(stringByAddingPercentEscapesUsingEncoding:)
+  57be8  r1 = SEL(stringByAddingPercentEscapesUsingEncoding:)
+  57bea  r0 = [r0 stringByAddingPercentEscapesUsingEncoding:](4, ?)
+  57c00  r0 = SEL(sharedApplication)
+  57c02  r2 = UIApplication
+  57c04  r1 = SEL(sharedApplication)
+  57c06  r0 = UIApplication
+  57c08  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  57c1e  r0 = SEL(URLWithString:)
+  57c20  r2 = NSURL
+  57c22  r1 = SEL(URLWithString:)
+  57c24  r0 = NSURL
+  57c28  r0 = [NSURL URLWithString:](?, ?)
+  57c36  r0 = SEL(openURL:)
+  57c38  r1 = SEL(openURL:)
+  57c3c  r0 = [r0 openURL:](?, ?)
+  57c40  call sub_3ccc
+  57c4e  r0 = SEL(haveGold)
+  57c50  r4 = SEL(haveGold)
+  57c56  r0 = [r0 haveGold](?, ?)
+  57c66  add r2, r0
+  57c68  r1 = SEL(setHaveGold:)
+  57c6c  r1 = SEL(setHaveGold:)
+  57c6e  r0 = [r0 setHaveGold:](?, ?)
+  57c82  r0 = SEL(standardUserDefaults)
+  57c84  r8 = NSUserDefaults
+  57c86  fp = SEL(standardUserDefaults)
+  57c8a  r0 = NSUserDefaults
+  57c90  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57ca0  r0 = NSString
+  57ca2  r5 = NSString
+  57ca6  r0 = [r0 haveGold](?, ?)
+  57cb6  r2 = CFSTR('%d')
+  57cba  r0 = [NSString ??](CFSTR('%d'), ?)
+  57ccc  r0 = SEL(setObject:forKey:)
+  57cd2  r3 = CFSTR('GOLD')
+  57cd4  r1 = SEL(setObject:forKey:)
+  57cd8  r0 = [r0 setObject:forKey:](?, CFSTR('GOLD'))
+  57cdc  r0 = NSUserDefaults
+  57ce2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  57cee  r1 = SEL(synchronize)
+  57cf0  r1 = SEL(synchronize)
+  57cf2  r0 = [r0 synchronize](?, ?)
+L_57cf6:
+  57cf6  add sp, #4
+  57cfc  return
+
+//// -[RankingViewController loginViewShowingLoggedInUser:]  0x57d00..0x57d04  v12@0:4@8
+
+//// -[RankingViewController loginViewFetchedUserInfo:user:]  0x57d04..0x57d08  v16@0:4@8@12
+
+//// -[RankingViewController loginViewShowingLoggedOutUser:]  0x57d08..0x57d0c  v12@0:4@8
+
+//// -[RankingViewController rawData]  0x57d0c..0x57d1c  @8@0:4
+  57d14  r1 = IVOFF(rawData)
+  57d16  r1 = IVOFF(rawData)
+  57d18  r0 = self->rawData
+
+//// -[RankingViewController setRawData:]  0x57d1c..0x57d40  v12@0:4@8
+  57d20  sub sp, #8
+  57d2c  r3 = 0
+  57d2e  r2 = IVOFF(rawData)
+  57d36  r2 = IVOFF(rawData)
+  57d38  call _objc_setProperty
+  57d3c  add sp, #8
+  57d3e  return
+
+//// -[RankingViewController urlCon]  0x57d40..0x57d50  @8@0:4
+  57d48  r1 = IVOFF(urlCon)
+  57d4a  r1 = IVOFF(urlCon)
+  57d4c  r0 = self->urlCon
+
+//// -[RankingViewController setUrlCon:]  0x57d50..0x57d74  v12@0:4@8
+  57d54  sub sp, #8
+  57d60  r3 = 0
+  57d62  r2 = IVOFF(urlCon)
+  57d6a  r2 = IVOFF(urlCon)
+  57d6c  call _objc_setProperty
+  57d70  add sp, #8
+  57d72  return
+
+//// -[RankingViewController mylist]  0x57d74..0x57d84  @8@0:4
+  57d7c  r1 = IVOFF(mylist)
+  57d7e  r1 = IVOFF(mylist)
+  57d80  r0 = self->mylist
+
+//// -[RankingViewController setMylist:]  0x57d84..0x57da8  v12@0:4@8
+  57d88  sub sp, #8
+  57d94  r3 = 0
+  57d96  r2 = IVOFF(mylist)
+  57d9e  r2 = IVOFF(mylist)
+  57da0  call _objc_setProperty
+  57da4  add sp, #8
+  57da6  return
+
+//// -[RankingViewController friendList]  0x57da8..0x57db8  @8@0:4
+  57db0  r1 = IVOFF(friendList)
+  57db2  r1 = IVOFF(friendList)
+  57db4  r0 = self->friendList
+
+//// -[RankingViewController setFriendList:]  0x57db8..0x57ddc  v12@0:4@8
+  57dbc  sub sp, #8
+  57dc8  r3 = 0
+  57dca  r2 = IVOFF(friendList)
+  57dd2  r2 = IVOFF(friendList)
+  57dd4  call _objc_setProperty
+  57dd8  add sp, #8
+  57dda  return
+
+//// -[RankingViewController useSixsenseListforFacebook]  0x57ddc..0x57dec  @8@0:4
+  57de4  r1 = IVOFF(useSixsenseListforFacebook)
+  57de6  r1 = IVOFF(useSixsenseListforFacebook)
+  57de8  r0 = self->useSixsenseListforFacebook
+
+//// -[RankingViewController setUseSixsenseListforFacebook:]  0x57dec..0x57e10  v12@0:4@8
+  57df0  sub sp, #8
+  57dfc  r3 = 0
+  57dfe  r2 = IVOFF(useSixsenseListforFacebook)
+  57e06  r2 = IVOFF(useSixsenseListforFacebook)
+  57e08  call _objc_setProperty
+  57e0c  add sp, #8
+  57e0e  return
+
+//// -[RankingViewController imageDownloadsInProgress]  0x57e10..0x57e20  @8@0:4
+  57e18  r1 = IVOFF(imageDownloadsInProgress)
+  57e1a  r1 = IVOFF(imageDownloadsInProgress)
+  57e1c  r0 = self->imageDownloadsInProgress
+
+//// -[RankingViewController setImageDownloadsInProgress:]  0x57e20..0x57e44  v12@0:4@8
+  57e24  sub sp, #8
+  57e30  r3 = 0
+  57e32  r2 = IVOFF(imageDownloadsInProgress)
+  57e3a  r2 = IVOFF(imageDownloadsInProgress)
+  57e3c  call _objc_setProperty
+  57e40  add sp, #8
+  57e42  return
+
+//// -[RankingViewController addFriendList]  0x57e44..0x57e54  @8@0:4
+  57e4c  r1 = IVOFF(addFriendList)
+  57e4e  r1 = IVOFF(addFriendList)
+  57e50  r0 = self->addFriendList
+
+//// -[RankingViewController setAddFriendList:]  0x57e54..0x57e78  v12@0:4@8
+  57e58  sub sp, #8
+  57e64  r3 = 0
+  57e66  r2 = IVOFF(addFriendList)
+  57e6e  r2 = IVOFF(addFriendList)
+  57e70  call _objc_setProperty
+  57e74  add sp, #8
+  57e76  return
+
+//// -[RankingViewController sendCoinUserId]  0x57e78..0x57e88  @8@0:4
+  57e80  r1 = IVOFF(sendCoinUserId)
+  57e82  r1 = IVOFF(sendCoinUserId)
+  57e84  r0 = self->sendCoinUserId
+
+//// -[RankingViewController setSendCoinUserId:]  0x57e88..0x57eac  v12@0:4@8
+  57e8c  sub sp, #8
+  57e98  r3 = 0
+  57e9a  r2 = IVOFF(sendCoinUserId)
+  57ea2  r2 = IVOFF(sendCoinUserId)
+  57ea4  call _objc_setProperty
+  57ea8  add sp, #8
+  57eaa  return
+
+//// -[RankingViewController tournamentWeekLabel]  0x57eac..0x57ebc  @8@0:4
+  57eb4  r1 = IVOFF(_tournamentWeekLabel)
+  57eb6  r1 = IVOFF(_tournamentWeekLabel)
+  57eb8  r0 = self->_tournamentWeekLabel
+
+//// -[RankingViewController setTournamentWeekLabel:]  0x57ebc..0x57ee0  v12@0:4@8
+  57ec0  sub sp, #8
+  57ecc  r3 = 0
+  57ece  r2 = IVOFF(_tournamentWeekLabel)
+  57ed6  r2 = IVOFF(_tournamentWeekLabel)
+  57ed8  call _objc_setProperty
+  57edc  add sp, #8
+  57ede  return
+
+//// -[RankingViewController addFriendButton]  0x57ee0..0x57ef0  @8@0:4
+  57ee8  r1 = IVOFF(_addFriendButton)
+  57eea  r1 = IVOFF(_addFriendButton)
+  57eec  r0 = self->_addFriendButton
+
+//// -[RankingViewController setAddFriendButton:]  0x57ef0..0x57f14  v12@0:4@8
+  57ef4  sub sp, #8
+  57f00  r3 = 0
+  57f02  r2 = IVOFF(_addFriendButton)
+  57f0a  r2 = IVOFF(_addFriendButton)
+  57f0c  call _objc_setProperty
+  57f10  add sp, #8
+  57f12  return
+
+//// -[RankingViewController maskLabel]  0x57f14..0x57f24  @8@0:4
+  57f1c  r1 = IVOFF(_maskLabel)
+  57f1e  r1 = IVOFF(_maskLabel)
+  57f20  r0 = self->_maskLabel
+
+//// -[RankingViewController setMaskLabel:]  0x57f24..0x57f48  v12@0:4@8
+  57f28  sub sp, #8
+  57f34  r3 = 0
+  57f36  r2 = IVOFF(_maskLabel)
+  57f3e  r2 = IVOFF(_maskLabel)
+  57f40  call _objc_setProperty
+  57f44  add sp, #8
+  57f46  return
+
+//// -[RankingViewController goBackButton]  0x57f48..0x57f58  @8@0:4
+  57f50  r1 = IVOFF(_goBackButton)
+  57f52  r1 = IVOFF(_goBackButton)
+  57f54  r0 = self->_goBackButton
+
+//// -[RankingViewController setGoBackButton:]  0x57f58..0x57f7c  v12@0:4@8
+  57f5c  sub sp, #8
+  57f68  r3 = 0
+  57f6a  r2 = IVOFF(_goBackButton)
+  57f72  r2 = IVOFF(_goBackButton)
+  57f74  call _objc_setProperty
+  57f78  add sp, #8
+  57f7a  return
+
+//// -[RankingViewController maskView]  0x57f7c..0x57f8c  @8@0:4
+  57f84  r1 = IVOFF(_maskView)
+  57f86  r1 = IVOFF(_maskView)
+  57f88  r0 = self->_maskView
+
+//// -[RankingViewController setMaskView:]  0x57f8c..0x57fb0  v12@0:4@8
+  57f90  sub sp, #8
+  57f9c  r3 = 0
+  57f9e  r2 = IVOFF(_maskView)
+  57fa6  r2 = IVOFF(_maskView)
+  57fa8  call _objc_setProperty
+  57fac  add sp, #8
+  57fae  return
+
+//// -[RankingViewController mainTableView]  0x57fb0..0x57fc0  @8@0:4
+  57fb8  r1 = IVOFF(_mainTableView)
+  57fba  r1 = IVOFF(_mainTableView)
+  57fbc  r0 = self->_mainTableView
+
+//// -[RankingViewController setMainTableView:]  0x57fc0..0x57fe4  v12@0:4@8
+  57fc4  sub sp, #8
+  57fd0  r3 = 0
+  57fd2  r2 = IVOFF(_mainTableView)
+  57fda  r2 = IVOFF(_mainTableView)
+  57fdc  call _objc_setProperty
+  57fe0  add sp, #8
+  57fe2  return
+
+//// -[RankingViewController activityIndicator]  0x57fe4..0x57ff4  @8@0:4
+  57fec  r1 = IVOFF(_activityIndicator)
+  57fee  r1 = IVOFF(_activityIndicator)
+  57ff0  r0 = self->_activityIndicator
+
+//// -[RankingViewController setActivityIndicator:]  0x57ff4..0x58018  v12@0:4@8
+  57ff8  sub sp, #8
+  58004  r3 = 0
+  58006  r2 = IVOFF(_activityIndicator)
+  5800e  r2 = IVOFF(_activityIndicator)
+  58010  call _objc_setProperty
+  58014  add sp, #8
+  58016  return

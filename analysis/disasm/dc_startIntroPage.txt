@@ -1,0 +1,1443 @@
+
+//// -[startIntroPage initWithNibName:bundle:]  0x16f68..0x16fe4  @16@0:4@8@12
+  16f6a  add r7, sp, #8
+  16f6c  sub sp, #0x10
+  16f80  r1 = SEL(initWithNibName:bundle:)
+  16f86  r1 = SEL(initWithNibName:bundle:)
+  16f8a  add r0, sp, #8
+  16f8c  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  16f92  cbz r4 -> L_16fde
+  16fa4  r0 = SEL(defaultCenter)
+  16fa6  r2 = NSNotificationCenter
+  16fa8  r1 = SEL(defaultCenter)
+  16faa  r0 = NSNotificationCenter
+  16fac  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  16fb4  r5 = 0
+  16fc2  r1 = SEL(addObserver:selector:name:object:)
+  16fc4  r2 = SEL(interruptRestart)
+  16fc6  r1 = SEL(addObserver:selector:name:object:)
+  16fc8  r3 = SEL(interruptRestart)
+  16fd2  r2 = CFSTR('InterruptOff')
+  16fda  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+L_16fde:
+  16fe0  add sp, #0x10
+  16fe2  return
+
+//// -[startIntroPage interruptRestart]  0x16fe4..0x17018  v8@0:4
+  16fe6  add r7, sp, #4
+  16fe8  sub sp, #8
+  16fee  r3 = 0
+  16ffc  r1 = SEL(performSelector:withObject:afterDelay:)
+  16ffe  r2 = SEL(audioRestart)
+  17000  r4 = 0
+  17002  r1 = SEL(performSelector:withObject:afterDelay:)
+  17008  r2 = SEL(audioRestart)
+  1700e  r3 = 0
+  17010  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  17014  add sp, #8
+  17016  return
+
+//// -[startIntroPage audioRestart]  0x17018..0x17120  v8@0:4
+  1701a  add r7, sp, #8
+  1701c  call sub_3ccc
+  1702a  r0 = SEL(playback)
+  1702c  r5 = SEL(playback)
+  17032  r0 = [r0 playback](?, ?)
+  1703e  r1 = SEL(freeBuffers)
+  17040  r1 = SEL(freeBuffers)
+  17042  r0 = [r0 freeBuffers](?, ?)
+  1704a  r0 = [r0 playback](?, ?)
+  17056  r1 = SEL(freeSources)
+  17058  r1 = SEL(freeSources)
+  1705a  r0 = [r0 freeSources](?, ?)
+  1706e  r0 = SEL(array)
+  17070  r2 = NSMutableArray
+  17072  r1 = SEL(array)
+  17074  r0 = NSMutableArray
+  17076  r0 = [NSMutableArray array](NSMutableArray, ?)
+  17084  r0 = SEL(setASoundBufControlData:)
+  17086  r1 = SEL(setASoundBufControlData:)
+  1708a  r0 = [r0 setASoundBufControlData:](?, ?)
+  17092  r0 = [r0 playback](?, ?)
+  17096  cbz r0 -> L_170c4
+  1709c  r0 = [r0 playback](?, ?)
+  170a8  r1 = SEL(release)
+  170aa  r1 = SEL(release)
+  170ac  r0 = [r0 release](?, ?)
+  170b4  r2 = 0
+  170ba  r0 = SEL(setPlayback:)
+  170bc  r1 = SEL(setPlayback:)
+  170c0  r0 = [r0 setPlayback:](0, ?)
+L_170c4:
+  170d4  r0 = SEL(alloc)
+  170d6  r2 = oalPlayback
+  170d8  r1 = SEL(alloc)
+  170da  r0 = oalPlayback
+  170dc  r0 = [oalPlayback alloc](oalPlayback, ?)
+  170e8  r1 = SEL(init)
+  170ea  r1 = SEL(init)
+  170ec  r0 = [r0 init](?, ?)
+  170fa  r0 = SEL(setPlayback:)
+  170fc  r1 = SEL(setPlayback:)
+  17100  r0 = [r0 setPlayback:](?, ?)
+  17108  r0 = [r0 playback](?, ?)
+  17114  r1 = SEL(setUpOpenAL)
+  17116  r1 = SEL(setUpOpenAL)
+  1711c  b L_a90d0
+
+//// -[startIntroPage didReceiveMemoryWarning]  0x17120..0x1714c  v8@0:4
+  17124  sub sp, #8
+  17138  r1 = SEL(didReceiveMemoryWarning)
+  1713e  r1 = SEL(didReceiveMemoryWarning)
+  17144  r0 = [r0 didReceiveMemoryWarning](0xdb0c0/f1.25727e-39, ?) SUPER
+  17148  add sp, #8
+  1714a  return
+
+//// -[startIntroPage viewWillAppear:]  0x1714c..0x17178  v12@0:4c8
+  17150  sub sp, #8
+  17164  r1 = SEL(viewWillAppear:)
+  1716a  r1 = SEL(viewWillAppear:)
+  17170  r0 = [r0 viewWillAppear:](?, 0xdb0c0/f1.25727e-39) SUPER
+  17174  add sp, #8
+  17176  return
+
+//// -[startIntroPage shakeDevice]  0x17178..0x17234  v8@0:4
+  1717a  add r7, sp, #8
+  1717c  sub sp, #0x10
+  17180  call sub_3ccc
+  1718e  r2 = 14
+  17190  r0 = SEL(stopSoundBufNumber:)
+  17192  r1 = SEL(stopSoundBufNumber:)
+  17196  r0 = [r0 stopSoundBufNumber:](14, ?)
+  171aa  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  171ac  r2 = 15
+  171ae  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  171b0  r0 = 0
+  171bc  r0 = [r0 playSound:Gain:Pos:z:reprats:](15, 0x3e4ccccd/f0.2)
+  171c8  r0 = SEL(explainLabel)
+  171ca  r1 = SEL(explainLabel)
+  171ce  r0 = [r0 explainLabel](?, ?)
+  171de  r1 = SEL(setText:)
+  171e4  r2 = CFSTR('As the ozone layer has disappeared due to global environment destruction, people suffered from skin cancer. \n                                                                                                                  The cell increase project which can overcome skin cancer was carried out across the world. \n                                           Although clinical test seemed to be successful, there was a very fatal side effect. \n                                                          It turned people into zombies with a big appetite. \n                                                                                   Zombie virus attacked the whole world in the blink of an eye and people hid in caves or basements avoiding light and zombies. \n                                                                                                                         You have to get rid of zombies only by voice to keep your families from approaching zombies. ')
+  171e6  r1 = SEL(setText:)
+  171e8  r0 = [r0 setText:](CFSTR('As the ozone layer has disappeared due to global environment destruction, people suffered from skin cancer. \n                                                                                                                  The cell increase project which can overcome skin cancer was carried out across the world. \n                                           Although clinical test seemed to be successful, there was a very fatal side effect. \n                                                          It turned people into zombies with a big appetite. \n                                                                                   Zombie virus attacked the whole world in the blink of an eye and people hid in caves or basements avoiding light and zombies. \n                                                                                                                         You have to get rid of zombies only by voice to keep your families from approaching zombies. '), ?)
+  171f4  r0 = SEL(playback)
+  171f6  r1 = SEL(playback)
+  171fa  r0 = [r0 playback](?, ?)
+  1720e  r1 = SEL(startBGPlayer:type:soundGain:Loop:)
+  17218  r2 = CFSTR('bgm_start_end')
+  1721e  r1 = SEL(startBGPlayer:type:soundGain:Loop:)
+  17220  r3 = CFSTR('wav')
+  17222  r5 = 1
+  1722c  r0 = [r0 startBGPlayer:type:soundGain:Loop:](CFSTR('bgm_start_end'), CFSTR('wav'))
+  17230  add sp, #0x10
+  17232  return
+
+//// -[startIntroPage viewDidLoad]  0x17234..0x177f4  v8@0:4
+  17236  add r7, sp, #0xc
+  1723c  sub sp, #0x30
+  17252  r0 = SEL(viewDidLoad)
+  1725a  r1 = SEL(viewDidLoad)
+  1725c  add r0, sp, #0x28
+  1725e  r0 = [r0 viewDidLoad](?, ?) SUPER
+  1726a  r0 = SEL(navigationController)
+  1726c  r1 = SEL(navigationController)
+  17270  r0 = [r0 navigationController](?, ?)
+  17278  r2 = 1
+  1727e  r1 = SEL(setNavigationBarHidden:)
+  17280  r1 = SEL(setNavigationBarHidden:)
+  17282  r0 = [r0 setNavigationBarHidden:](1, ?)
+  17296  r0 = SEL(mainScreen)
+  17298  r6 = UIScreen
+  1729a  r5 = SEL(mainScreen)
+  1729c  r0 = UIScreen
+  172a0  r0 = [UIScreen mainScreen](?, ?)
+  172a6  cmp r1, 0
+  172a8  beq L_172e2
+  172b2  r0 = SEL(bounds)
+  172b4  r2 = SEL(bounds)
+  172b6  add r0, sp, #0x18
+  172b8  r0 = [r0 ??](SEL(bounds), ?)
+  172bc  s0 = 320
+  172c0  vldr s2, [sp, #0x20]
+  172c4  vcmpe.f32 s2, s0
+  172c8  vmrs apsr_nzcv, fpscr
+  172cc  bne L_172ec
+  172ce  vldr s0, [sp, #0x24]
+  172d2  s2 = 568
+  172d6  vcmpe.f32 s0, s2
+  172da  vmrs apsr_nzcv, fpscr
+  172de  beq L_17330
+  172e0  b L_172ec
+L_172e2:
+  172e2  vmov.i32 q8, #0
+  172e6  add r0, sp, #0x18
+  172e8  vst1.32 {d16, d17}, [r0]
+L_172ec:
+  172ec  r0 = UIScreen
+  172f0  r0 = [UIScreen mainScreen](?, ?)
+  172f6  cmp r1, 0
+  172f8  beq L_17368
+  17302  r0 = SEL(bounds)
+  17304  r2 = SEL(bounds)
+  17306  add r0, sp, #8
+  17308  r0 = [r0 ??](SEL(bounds), ?)
+  1730c  s0 = 568
+  17310  vldr s2, [sp, #0x10]
+  17314  vcmpe.f32 s2, s0
+  17318  vmrs apsr_nzcv, fpscr
+  1731c  bne L_17372
+  1731e  vldr s0, [sp, #0x14]
+  17322  s2 = 320
+  17326  vcmpe.f32 s0, s2
+  1732a  vmrs apsr_nzcv, fpscr
+  1732e  bne L_17372
+L_17330:
+  17340  r0 = SEL(alloc)
+  17342  r2 = UIImageView
+  17344  r1 = SEL(alloc)
+  17346  r0 = UIImageView
+  17348  r0 = [UIImageView alloc](UIImageView, ?)
+  17350  r3 = 0
+  1735a  r1 = SEL(initWithFrame:)
+  1735c  r1 = SEL(initWithFrame:)
+  1735e  b L_173a0
+  17366  add r6, r1
+L_17368:
+  17368  vmov.i32 q8, #0
+  1736c  add r0, sp, #8
+  1736e  vst1.32 {d16, d17}, [r0]
+L_17372:
+  17382  r0 = SEL(alloc)
+  17384  r2 = UIImageView
+  17386  r1 = SEL(alloc)
+  17388  r0 = UIImageView
+  1738a  r0 = [UIImageView alloc](UIImageView, 0x440e0000/f568)
+  17392  r3 = 0
+  1739c  r1 = SEL(initWithFrame:)
+  1739e  r1 = SEL(initWithFrame:)
+L_173a0:
+  173a0  r2 = 0
+  173aa  r2 = 0
+  173ac  r3 = 0
+  173ae  r0 = [r0 initWithFrame:](0, 0)
+  173ba  r1 = SEL(autorelease)
+  173bc  r1 = SEL(autorelease)
+  173be  r0 = [r0 autorelease](?, ?)
+  173ce  r1 = IVOFF(startImageView)
+  173d4  r3 = UIImage
+  173d6  r2 = IVOFF(startImageView)
+  173e0  r1 = SEL(imageNamed:)
+  173e2  self->startImageView = r0
+  173e4  r0 = UIImage
+  173e6  r5 = self->startImageView
+  173f0  r1 = SEL(imageNamed:)
+  173f2  r2 = CFSTR('0_splash2.png')
+  173f4  r0 = [UIImage imageNamed:](CFSTR('0_splash2.png'), UIImage)
+  17402  r0 = SEL(setImage:)
+  17404  r1 = SEL(setImage:)
+  17408  r0 = [self->startImageView setImage:](?, ?)
+  17414  r0 = SEL(view)
+  17416  r5 = SEL(view)
+  1741c  r0 = [r0 view](?, ?)
+  1742c  r1 = IVOFF(startImageView)
+  17432  r2 = SEL(addSubview:)
+  17434  r6 = IVOFF(startImageView)
+  17436  r1 = SEL(addSubview:)
+  17438  r2 = self->startImageView
+  1743a  r0 = [r0 addSubview:](self->startImageView, ?)
+  17442  r0 = [r0 view](?, ?)
+  1744e  r2 = self->startImageView
+  17450  r1 = SEL(bringSubviewToFront:)
+  17452  r1 = SEL(bringSubviewToFront:)
+  17454  r0 = [r0 bringSubviewToFront:](self->startImageView, ?)
+  1745c  r3 = 1073741824
+  1746c  r0 = SEL(performSelector:withObject:afterDelay:)
+  1746e  r2 = SEL(startIntro1)
+  17470  r1 = SEL(performSelector:withObject:afterDelay:)
+  17472  r0 = 0
+  17474  r2 = SEL(startIntro1)
+  1747c  r3 = 0
+  1747e  r0 = [r0 performSelector:withObject:afterDelay:](SEL(startIntro1), 0)
+  17482  call sub_3ccc
+  17498  r0 = SEL(standardUserDefaults)
+  1749a  fp = NSUserDefaults
+  1749c  sl = SEL(standardUserDefaults)
+  174a0  r0 = NSUserDefaults
+  174a6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  174b6  r1 = SEL(objectForKey:)
+  174bc  r2 = CFSTR('TOKEN')
+  174be  r5 = SEL(objectForKey:)
+  174c2  r0 = [r0 objectForKey:](CFSTR('TOKEN'), ?)
+  174d0  r0 = SEL(setG_token:)
+  174d2  r1 = SEL(setG_token:)
+  174d6  r0 = [r0 setG_token:](?, ?)
+  174e2  r0 = SEL(g_token)
+  174e4  r1 = SEL(g_token)
+  174e8  r0 = [r0 g_token](?, ?)
+  174f4  r1 = SEL(length)
+  174f6  r8 = SEL(length)
+  174fc  r0 = [r0 length](?, ?)
+  17500  cbnz r0 -> L_17530
+  17512  r0 = SEL(sharedApplication)
+  17514  r2 = UIApplication
+  17516  r1 = SEL(sharedApplication)
+  17518  r0 = UIApplication
+  1751a  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  17522  r2 = 7
+  17528  r1 = SEL(registerForRemoteNotificationTypes:)
+  1752a  r1 = SEL(registerForRemoteNotificationTypes:)
+  1752c  r0 = [r0 registerForRemoteNotificationTypes:](7, ?)
+L_17530:
+  17530  r0 = NSUserDefaults
+  17536  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  17544  r2 = CFSTR('EMAIL')
+  17546  r0 = [r0 objectForKey:](CFSTR('EMAIL'), ?)
+  17554  r0 = SEL(setG_email:)
+  17556  r1 = SEL(setG_email:)
+  1755a  r0 = [r0 setG_email:](?, ?)
+  1755e  r0 = NSUserDefaults
+  17564  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  17572  r2 = CFSTR('NAME')
+  17574  r0 = [r0 objectForKey:](CFSTR('NAME'), ?)
+  17582  r0 = SEL(setG_name:)
+  17584  r1 = SEL(setG_name:)
+  17588  r0 = [r0 setG_name:](?, ?)
+  1758c  r0 = NSUserDefaults
+  17592  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  175a0  r2 = CFSTR('FACEBOOK_ID')
+  175a2  r0 = [r0 objectForKey:](CFSTR('FACEBOOK_ID'), ?)
+  175b0  r0 = SEL(setG_facebook:)
+  175b2  r1 = SEL(setG_facebook:)
+  175b6  r0 = [r0 setG_facebook:](?, ?)
+  175c2  r0 = SEL(g_name)
+  175c4  r1 = SEL(g_name)
+  175c8  r0 = [r0 g_name](?, ?)
+  175d4  r0 = SEL(g_facebook)
+  175d6  r1 = SEL(g_facebook)
+  175da  r0 = [r0 g_facebook](?, ?)
+  175e6  r0 = SEL(g_key)
+  175e8  r1 = SEL(g_key)
+  175ec  r0 = [r0 g_key](?, ?)
+  175f8  r0 = SEL(g_email)
+  175fa  r4 = SEL(g_email)
+  17600  r0 = [r0 g_email](?, ?)
+  17608  r0 = [r0 g_email](?, ?)
+  1760e  r0 = [r0 length](?, ?)
+  17612  cbz r0 -> L_17636
+  1761c  r0 = SEL(g_loginController)
+  1761e  r1 = SEL(g_loginController)
+  17622  r0 = [r0 g_loginController](?, ?)
+  1762e  r1 = SEL(Login)
+  17630  r1 = SEL(Login)
+  17632  r0 = [r0 Login](?, ?)
+L_17636:
+  17636  r0 = NSUserDefaults
+  1763c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  1764a  r2 = CFSTR('WEEKTIME')
+  1764c  r0 = [r0 objectForKey:](CFSTR('WEEKTIME'), ?)
+  17654  r0 = [r0 length](?, ?)
+  17658  cmp r0, 0
+  1765a  beq L_177ec
+  1766e  r0 = SEL(date)
+  17670  r2 = NSDate
+  17672  r1 = SEL(date)
+  17674  r0 = NSDate
+  17676  r0 = [NSDate date](NSDate, ?)
+  1768c  r0 = SEL(alloc)
+  1768e  r2 = NSDateFormatter
+  17690  r1 = SEL(alloc)
+  17692  r0 = NSDateFormatter
+  17694  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  176a0  r1 = SEL(init)
+  176a2  r1 = SEL(init)
+  176a4  r0 = [r0 init](?, ?)
+  176b0  r1 = SEL(autorelease)
+  176b2  r1 = SEL(autorelease)
+  176b4  r0 = [r0 autorelease](?, ?)
+  176c6  r0 = SEL(setDateFormat:)
+  176cc  r2 = CFSTR('yyyyMMddHHmmss')
+  176ce  r1 = SEL(setDateFormat:)
+  176d2  r0 = [r0 setDateFormat:](CFSTR('yyyyMMddHHmmss'), ?)
+  176e0  r0 = SEL(stringFromDate:)
+  176e2  r1 = SEL(stringFromDate:)
+  176e6  r0 = [r0 stringFromDate:](?, ?)
+  176f4  r0 = SEL(dateFromString:)
+  176f6  r5 = SEL(dateFromString:)
+  176fc  r0 = [r0 dateFromString:](?, ?)
+  17708  r0 = [r0 dateFromString:](?, ?)
+  1771e  r0 = SEL(currentCalendar)
+  17720  r2 = NSCalendar
+  17722  r1 = SEL(currentCalendar)
+  17724  r0 = NSCalendar
+  17726  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  1772e  r5 = 0
+  17734  r2 = 128
+  17736  r1 = SEL(components:fromDate:toDate:options:)
+  1773e  r1 = SEL(components:fromDate:toDate:options:)
+  17740  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  1774c  r1 = SEL(second)
+  1774e  r1 = SEL(second)
+  17750  r0 = [r0 second](?, ?)
+  17754  cmp r0, 0
+  17756  bgt L_177ec
+  17762  r5 = NSUserDefaults
+  17764  r0 = NSUserDefaults
+  17766  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  1777c  r0 = SEL(stringWithFormat:)
+  1777e  r2 = NSString
+  17780  r3 = 0
+  17782  r1 = SEL(stringWithFormat:)
+  17784  r0 = NSString
+  1778e  r2 = CFSTR('%d')
+  17790  r0 = [NSString stringWithFormat:](CFSTR('%d'), 0)
+  177a2  r0 = SEL(setObject:forKey:)
+  177a8  r3 = CFSTR('TOPSCOREWEEK')
+  177aa  r1 = SEL(setObject:forKey:)
+  177ae  r0 = [r0 setObject:forKey:](?, CFSTR('TOPSCOREWEEK'))
+  177b2  r0 = NSUserDefaults
+  177b6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  177c6  r1 = SEL(removeObjectForKey:)
+  177cc  r2 = CFSTR('WEEKTIME')
+  177ce  r1 = SEL(removeObjectForKey:)
+  177d0  r0 = [r0 removeObjectForKey:](CFSTR('WEEKTIME'), ?)
+  177d4  r0 = NSUserDefaults
+  177d8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  177e4  r1 = SEL(synchronize)
+  177e6  r1 = SEL(synchronize)
+  177e8  r0 = [r0 synchronize](?, ?)
+L_177ec:
+  177ec  add sp, #0x30
+  177f2  return
+
+//// -[startIntroPage startIntro1]  0x177f4..0x17bb0  v8@0:4
+  177f6  add r7, sp, #0xc
+  177fc  sub sp, #0x18
+  1780c  r0 = IVOFF(startImageView)
+  17812  r1 = SEL(removeFromSuperview)
+  17814  r0 = IVOFF(startImageView)
+  17816  r1 = SEL(removeFromSuperview)
+  17818  r0 = self->startImageView
+  1781c  r0 = [self->startImageView removeFromSuperview](?, ?)
+  17820  call sub_3ccc
+  17836  r0 = SEL(standardUserDefaults)
+  17838  sl = NSUserDefaults
+  1783a  r8 = SEL(standardUserDefaults)
+  1783e  r0 = NSUserDefaults
+  17844  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  17854  r1 = SEL(objectForKey:)
+  1785a  r2 = CFSTR('EYEMODE')
+  1785c  r5 = SEL(objectForKey:)
+  17860  r0 = [r0 objectForKey:](CFSTR('EYEMODE'), ?)
+  1786e  r0 = SEL(length)
+  17870  r1 = SEL(length)
+  17874  r0 = [r0 length](?, ?)
+  17878  cbz r0 -> L_178a6
+  17882  r0 = SEL(intValue)
+  17884  r1 = SEL(intValue)
+  17888  r0 = [r0 intValue](?, ?)
+  17890  cmp r0, 1
+  1789c  r1 = SEL(setMode:)
+  178a0  r1 = SEL(setMode:)
+  178a2  r0 = [r0 setMode:](?, ?)
+L_178a6:
+  178a6  r0 = NSUserDefaults
+  178ae  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  178bc  r2 = CFSTR('GOLD')
+  178be  r0 = [r0 objectForKey:](CFSTR('GOLD'), ?)
+  178ca  r1 = SEL(intValue)
+  178cc  r6 = SEL(intValue)
+  178d0  r0 = [r0 intValue](?, ?)
+  178de  r0 = SEL(setHaveGold:)
+  178e0  r1 = SEL(setHaveGold:)
+  178e4  r0 = [r0 setHaveGold:](?, ?)
+  178e8  r0 = NSUserDefaults
+  178ee  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  178fc  r2 = CFSTR('STAGE')
+  178fe  r0 = [r0 objectForKey:](CFSTR('STAGE'), ?)
+  17904  r0 = [r0 intValue](?, ?)
+  17912  r0 = SEL(setStage:)
+  17914  r1 = SEL(setStage:)
+  17918  r0 = [r0 setStage:](?, ?)
+  1792c  r0 = SEL(currentDevice)
+  1792e  r2 = UIDevice
+  17930  r1 = SEL(currentDevice)
+  17932  r0 = UIDevice
+  17934  r0 = [UIDevice currentDevice](UIDevice, ?)
+  17940  r1 = SEL(systemVersion)
+  17942  r1 = SEL(systemVersion)
+  17944  r0 = [r0 systemVersion](?, ?)
+  17950  r1 = SEL(floatValue)
+  17952  r1 = SEL(floatValue)
+  17954  r0 = [r0 floatValue](?, ?)
+  17958  vmov.f32 d0, #5.000000e+00
+  1795c  vmov d1, r0, r0
+  17960  vcmpe.f32 s2, s0
+  17964  vmrs apsr_nzcv, fpscr
+  17968  blt L_17a7a
+  1797c  r0 = SEL(alloc)
+  1797e  r1 = UITapGestureRecognizer
+  17980  r6 = SEL(alloc)
+  17982  r0 = UITapGestureRecognizer
+  17986  r0 = [UITapGestureRecognizer alloc](?, ?)
+  1799a  r1 = SEL(initWithTarget:action:)
+  1799c  r2 = SEL(tapSelect:)
+  1799e  r8 = SEL(initWithTarget:action:)
+  179a2  r3 = SEL(tapSelect:)
+  179a8  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  179b6  r2 = 1
+  179b8  r0 = SEL(setEnabled:)
+  179ba  r5 = SEL(setEnabled:)
+  179c0  r0 = [r0 setEnabled:](1, ?)
+  179cc  r0 = SEL(view)
+  179ce  r1 = SEL(view)
+  179d4  r0 = [r0 ??](?, ?)
+  179e2  r1 = SEL(addGestureRecognizer:)
+  179e4  r4 = SEL(addGestureRecognizer:)
+  179e8  r0 = [r0 addGestureRecognizer:](?, ?)
+  179f4  r0 = SEL(release)
+  179f6  r1 = SEL(release)
+  179fa  r0 = [r0 release](?, ?)
+  17a06  r0 = SEL(mode)
+  17a08  r1 = SEL(mode)
+  17a0c  r0 = [r0 mode](?, ?)
+  17a14  beq L_17a7a
+  17a20  r0 = UIPanGestureRecognizer
+  17a22  r0 = UIPanGestureRecognizer
+  17a24  r0 = [UIPanGestureRecognizer alloc](?, ?)
+  17a32  r1 = SEL(Menu:)
+  17a34  r3 = SEL(Menu:)
+  17a38  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  17a44  r1 = SEL(autorelease)
+  17a46  r1 = SEL(autorelease)
+  17a48  r0 = [r0 autorelease](?, ?)
+  17a4e  r2 = 1
+  17a52  r0 = [r0 setEnabled:](1, ?)
+  17a60  r0 = SEL(setDelegate:)
+  17a62  r1 = SEL(setDelegate:)
+  17a66  r0 = [r0 setDelegate:](?, ?)
+  17a6e  r0 = [r0 ??](?, ?)
+  17a76  r0 = [r0 addGestureRecognizer:](?, ?)
+L_17a7a:
+  17a82  r0 = SEL(explainLabel)
+  17a84  r1 = SEL(explainLabel)
+  17a88  r0 = [r0 explainLabel](?, ?)
+  17a98  r1 = SEL(setText:)
+  17a9e  r2 = CFSTR('Welcome to [Sixth Sense : The zombie]. \n                                                              This game provides itself Voice Over function. Please turn off the Voice Over function for normal game progress. \n                                                                                                                                      [Sixth Sense : The zombie] is a shooting game conducted by voice. \n                                                                     You must use earphone supporting stereo before playing the game. \n                                                              Warning! It may be hard to play the game normally in a noisy environment. \n                                                             Also the old, weak or the pregnant should abstain from playing this game.')
+  17aa0  r1 = SEL(setText:)
+  17aa2  r0 = [r0 setText:](CFSTR('Welcome to [Sixth Sense : The zombie]. \n                                                              This game provides itself Voice Over function. Please turn off the Voice Over function for normal game progress. \n                                                                                                                                      [Sixth Sense : The zombie] is a shooting game conducted by voice. \n                                                                     You must use earphone supporting stereo before playing the game. \n                                                              Warning! It may be hard to play the game normally in a noisy environment. \n                                                             Also the old, weak or the pregnant should abstain from playing this game.'), ?)
+  17ab0  r0 = SEL(mode)
+  17ab2  r1 = SEL(mode)
+  17ab6  r0 = [r0 mode](?, ?)
+  17abe  beq L_17ae0
+  17ac4  r2 = 1
+  17ace  r0 = IVOFF(selectMenu)
+  17ad4  r1 = SEL(blindModeSelectedMenu)
+  17ad6  r0 = IVOFF(selectMenu)
+  17ad8  r1 = SEL(blindModeSelectedMenu)
+  17ada  self->selectMenu = 1
+  17ade  b L_17aec
+L_17ae0:
+  17ae8  r0 = SEL(blindModeSelectedMenu)
+  17aea  r1 = SEL(blindModeSelectedMenu)
+L_17aec:
+  17aee  r0 = [r0 blindModeSelectedMenu](1, ?)
+  17af2  r0 = 0
+  17af4  r5 = 0
+  17af6  call _UIAccessibilityIsVoiceOverRunning
+  17afe  bne L_17b36
+  17b08  r0 = SEL(StopElseSpeak)
+  17b0a  r1 = SEL(StopElseSpeak)
+  17b0e  r0 = [r0 StopElseSpeak](?, ?)
+  17b22  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  17b24  r2 = 14
+  17b28  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  17b32  r0 = [r0 playSound:Gain:Pos:z:reprats:](14, 0x3e4ccccd/f0.2)
+L_17b36:
+  17b3e  r0 = IVOFF(getVoiceOver)
+  17b40  r5 = IVOFF(getVoiceOver)
+  17b42  r0 = self->getVoiceOver
+  17b46  cbnz self->getVoiceOver -> L_17ba6
+  17b4c  r8 = 0
+  17b54  r0 = SEL(isValid)
+  17b56  r1 = SEL(isValid)
+  17b58  r0 = 0
+  17b5a  r0 = [r0 isValid](?, ?)
+  17b62  bne L_17ba6
+  17b64  vmov.f64 d16, #5.000000e-01
+  17b7c  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  17b7e  r6 = NSTimer
+  17b80  vmov r2, r3, d16
+  17b88  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  17b8a  r4 = SEL(checkVoiceOver)
+  17b8c  r0 = NSTimer
+  17b8e  r6 = SEL(checkVoiceOver)
+  17b90  r4 = 1
+  17b9e  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  17ba2  self->getVoiceOver = r0
+L_17ba6:
+  17ba6  add sp, #0x18
+  17bac  return
+
+//// -[startIntroPage checkVoiceOver]  0x17bb0..0x17d24  v8@0:4
+  17bb4  r0 = 0
+  17bb6  add r7, sp, #0xc
+  17bb8  call _UIAccessibilityIsVoiceOverRunning
+  17bbe  call sub_3ccc
+  17bcc  r0 = SEL(CheckVoiceOver)
+  17bce  r1 = SEL(CheckVoiceOver)
+  17bd2  r0 = [r0 CheckVoiceOver](?, ?)
+  17bda  beq L_17c04
+  17be0  bne L_17ccc
+  17be6  r2 = 1
+  17bec  r0 = SEL(setCheckVoiceOver:)
+  17bee  r1 = SEL(setCheckVoiceOver:)
+  17bf2  r0 = [r0 setCheckVoiceOver:](1, ?)
+  17bfe  r0 = SEL(setMode:)
+  17c00  r1 = SEL(setMode:)
+  17c02  b L_17cce
+L_17c04:
+  17c08  beq L_17ccc
+  17c0e  r2 = 0
+  17c14  r0 = SEL(setCheckVoiceOver:)
+  17c16  r1 = SEL(setCheckVoiceOver:)
+  17c1a  r0 = [r0 setCheckVoiceOver:](0, ?)
+  17c2e  r0 = SEL(standardUserDefaults)
+  17c30  r2 = NSUserDefaults
+  17c32  r1 = SEL(standardUserDefaults)
+  17c34  r0 = NSUserDefaults
+  17c36  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  17c46  r1 = SEL(objectForKey:)
+  17c4c  r2 = CFSTR('EYEMODE')
+  17c4e  r1 = SEL(objectForKey:)
+  17c50  r0 = [r0 objectForKey:](CFSTR('EYEMODE'), ?)
+  17c5e  r0 = SEL(length)
+  17c60  r1 = SEL(length)
+  17c64  r0 = [r0 length](?, ?)
+  17c68  cmp r0, 0
+  17c76  r0 = SEL(intValue)
+  17c78  r1 = SEL(intValue)
+  17c7c  r0 = [r0 intValue](?, ?)
+  17c84  cmp r0, 1
+  17c8a  r1 = SEL(setMode:)
+  17c8c  r1 = SEL(setMode:)
+  17c8e  bne L_17cce
+  17c92  r2 = 1
+  17c94  r0 = [r0 setMode:](1, ?)
+  17ca8  r0 = SEL(defaultCenter)
+  17caa  r2 = NSNotificationCenter
+  17cac  r1 = SEL(defaultCenter)
+  17cae  r0 = NSNotificationCenter
+  17cb0  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  17cc0  r1 = SEL(postNotificationName:object:)
+  17cc6  r2 = CFSTR('TurnOnVoiceOver')
+  17cc8  r1 = SEL(postNotificationName:object:)
+  17cca  b L_17d08
+L_17ccc:
+  17ccc  return
+L_17cce:
+  17cd0  r2 = 0
+  17cd2  r0 = [r0 postNotificationName:object:](0, ?)
+  17ce6  r0 = SEL(defaultCenter)
+  17ce8  r2 = NSNotificationCenter
+  17cea  r1 = SEL(defaultCenter)
+  17cec  r0 = NSNotificationCenter
+  17cee  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  17cfe  r1 = SEL(postNotificationName:object:)
+  17d04  r2 = CFSTR('TurnOnVoiceOver')
+  17d06  r1 = SEL(postNotificationName:object:)
+L_17d08:
+  17d08  r3 = 0
+  17d0a  r0 = [r0 postNotificationName:object:](CFSTR('TurnOnVoiceOver'), 0)
+  17d16  r0 = SEL(TurnOnVoiceOver)
+  17d18  r1 = SEL(TurnOnVoiceOver)
+  17d20  b L_a90d0
+
+//// -[startIntroPage TurnOnVoiceOver]  0x17d24..0x17fd8  v8@0:4
+  17d26  add r7, sp, #0xc
+  17d2c  sub sp, #0x10
+  17d30  call sub_3ccc
+  17d3e  r0 = SEL(mode)
+  17d40  r1 = SEL(mode)
+  17d44  r0 = [r0 mode](?, ?)
+  17d54  r1 = IVOFF(selectMenu)
+  17d56  r1 = IVOFF(selectMenu)
+  17d58  beq L_17e96
+  17d60  r2 = 1
+  17d66  self->selectMenu = 1
+  17d6a  r0 = SEL(blindModeSelectedMenu)
+  17d6c  r1 = SEL(blindModeSelectedMenu)
+  17d70  r0 = [r0 blindModeSelectedMenu](1, ?)
+  17d7c  r0 = SEL(StopElseSpeak)
+  17d7e  r1 = SEL(StopElseSpeak)
+  17d82  r0 = [r0 StopElseSpeak](?, ?)
+  17d96  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  17d98  r2 = 21
+  17d9a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  17d9c  r0 = 0
+  17da8  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  17dbc  r0 = SEL(currentDevice)
+  17dbe  r2 = UIDevice
+  17dc0  r1 = SEL(currentDevice)
+  17dc2  r0 = UIDevice
+  17dc4  r0 = [UIDevice currentDevice](UIDevice, ?)
+  17dd0  r1 = SEL(systemVersion)
+  17dd2  r1 = SEL(systemVersion)
+  17dd4  r0 = [r0 systemVersion](?, ?)
+  17de0  r1 = SEL(floatValue)
+  17de2  r1 = SEL(floatValue)
+  17de4  r0 = [r0 floatValue](?, ?)
+  17de8  vmov.f32 d0, #5.000000e+00
+  17dec  vmov d1, r0, r0
+  17df0  vcmpe.f32 s2, s0
+  17df4  vmrs apsr_nzcv, fpscr
+  17df8  blt L_17f9c
+  17e0c  r0 = SEL(alloc)
+  17e0e  r2 = UIPanGestureRecognizer
+  17e10  r1 = SEL(alloc)
+  17e12  r0 = UIPanGestureRecognizer
+  17e14  r0 = [UIPanGestureRecognizer alloc](UIPanGestureRecognizer, ?)
+  17e28  r1 = SEL(initWithTarget:action:)
+  17e2a  r2 = SEL(Menu:)
+  17e2c  r1 = SEL(initWithTarget:action:)
+  17e2e  r3 = SEL(Menu:)
+  17e32  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  17e3e  r1 = SEL(autorelease)
+  17e40  r1 = SEL(autorelease)
+  17e42  r0 = [r0 autorelease](?, ?)
+  17e50  r2 = 1
+  17e52  r0 = SEL(setEnabled:)
+  17e54  r1 = SEL(setEnabled:)
+  17e58  r0 = [r0 setEnabled:](1, ?)
+  17e66  r0 = SEL(setDelegate:)
+  17e68  r1 = SEL(setDelegate:)
+  17e6c  r0 = [r0 setDelegate:](?, ?)
+  17e78  r0 = SEL(view)
+  17e7a  r1 = SEL(view)
+  17e7e  r0 = [r0 view](?, ?)
+  17e8c  r1 = SEL(addGestureRecognizer:)
+  17e8e  r1 = SEL(addGestureRecognizer:)
+L_17e90:
+  17e90  r0 = [r0 addGestureRecognizer:](?, ?)
+  17e94  b L_17f9c
+L_17e96:
+  17e9a  r2 = 0
+  17ea4  r0 = SEL(blindModeSelectedMenu)
+  17ea6  r1 = SEL(blindModeSelectedMenu)
+  17eaa  r0 = [r0 blindModeSelectedMenu](0, ?)
+  17ebe  r0 = SEL(currentDevice)
+  17ec0  r2 = UIDevice
+  17ec2  r1 = SEL(currentDevice)
+  17ec4  r0 = UIDevice
+  17ec6  r0 = [UIDevice currentDevice](UIDevice, ?)
+  17ed2  r1 = SEL(systemVersion)
+  17ed4  r1 = SEL(systemVersion)
+  17ed6  r0 = [r0 systemVersion](?, ?)
+  17ee2  r1 = SEL(floatValue)
+  17ee4  r1 = SEL(floatValue)
+  17ee6  r0 = [r0 floatValue](?, ?)
+  17eea  vmov.f32 d0, #5.000000e+00
+  17eee  vmov d1, r0, r0
+  17ef2  vcmpe.f32 s2, s0
+  17ef6  vmrs apsr_nzcv, fpscr
+  17efa  blt L_17f9c
+  17f04  r0 = SEL(view)
+  17f06  r5 = SEL(view)
+  17f0c  r0 = [r0 view](?, ?)
+  17f18  r1 = SEL(gestureRecognizers)
+  17f1a  r6 = SEL(gestureRecognizers)
+  17f1e  r0 = [r0 gestureRecognizers](?, ?)
+  17f2a  r1 = SEL(count)
+  17f2c  r4 = SEL(count)
+  17f30  r0 = [r0 count](?, ?)
+  17f34  cbz r0 -> L_17f9c
+  17f3a  r0 = [r0 view](?, ?)
+  17f40  r0 = [r0 gestureRecognizers](?, ?)
+  17f46  r0 = [r0 count](?, ?)
+  17f4a  cmp r0, 2
+  17f4c  blo L_17f9c
+  17f52  r0 = [r0 view](?, ?)
+  17f58  r0 = [r0 gestureRecognizers](?, ?)
+  17f60  r2 = 1
+  17f66  r1 = SEL(objectAtIndex:)
+  17f68  r1 = SEL(objectAtIndex:)
+  17f6a  r0 = [r0 objectAtIndex:](1, ?)
+  17f78  r2 = 0
+  17f7a  r0 = SEL(setEnabled:)
+  17f7c  r1 = SEL(setEnabled:)
+  17f80  r0 = [r0 setEnabled:](0, ?)
+  17f88  r0 = [r0 view](?, ?)
+  17f96  r1 = SEL(removeGestureRecognizer:)
+  17f98  r1 = SEL(removeGestureRecognizer:)
+  17f9a  b L_17e90
+L_17f9c:
+  17fa4  r0 = SEL(view)
+  17fa6  r1 = SEL(view)
+  17faa  r0 = [r0 view](?, ?)
+  17fb6  r1 = SEL(gestureRecognizers)
+  17fb8  r1 = SEL(gestureRecognizers)
+  17fba  r0 = [r0 gestureRecognizers](?, ?)
+  17fc6  r1 = SEL(count)
+  17fc8  r1 = SEL(count)
+  17fca  add sp, #0x10
+  17fd4  b L_a90d0
+
+//// -[startIntroPage blindModeSelectedMenu]  0x17fd8..0x18064  v8@0:4
+  17fda  add r7, sp, #0xc
+  17fea  r0 = SEL(round1)
+  17fec  r8 = SEL(round1)
+  17ff4  r0 = [r0 round1](?, ?)
+  17ffc  r2 = 1
+  18002  r1 = SEL(setHidden:)
+  18004  r4 = SEL(setHidden:)
+  18008  r0 = [r0 setHidden:](1, ?)
+  18014  r0 = SEL(round2)
+  18016  r6 = SEL(round2)
+  1801c  r0 = [r0 round2](?, ?)
+  18022  r2 = 1
+  18024  r0 = [r0 setHidden:](1, ?)
+  18030  r0 = IVOFF(selectMenu)
+  18032  r0 = IVOFF(selectMenu)
+  18034  r0 = self->selectMenu
+  18036  cmp self->selectMenu, 2
+  18038  bne L_18040
+  1803e  b L_1804e
+L_18040:
+  18040  cmp r0, 1
+L_1804e:
+  1804e  r0 = [r0 ??](?, ?)
+  18054  r2 = 0
+  1805e  b L_a90d0
+
+//// -[startIntroPage Menu:]  0x18064..0x18244  v12@0:4@8
+  18066  add r7, sp, #0xc
+  1806c  sub sp, #0x14
+  1807a  r0 = SEL(view)
+  1807c  r6 = SEL(view)
+  18082  r0 = [r0 view](?, ?)
+  18090  r0 = SEL(state)
+  18092  sl = SEL(state)
+  1809a  r0 = [r0 state](?, ?)
+  1809e  cmp r0, 1
+  180a0  beq L_180b0
+  180a6  r0 = [r0 state](?, ?)
+  180aa  cmp r0, 2
+  180ac  bne L_181e6
+L_180b0:
+  180b4  r0 = [r0 state](?, ?)
+  180b8  cmp r0, 1
+  180ba  bne L_1812c
+  180c0  r0 = [r0 view](?, ?)
+  180c6  cbz r5 -> L_180e6
+  180d2  r0 = SEL(locationInView:)
+  180d4  r2 = SEL(locationInView:)
+  180d6  add r0, sp, #0xc
+  180d8  r0 = [r0 ??](SEL(locationInView:), ?)
+  180dc  vldr s2, [sp, #0xc]
+  180e0  vldr s0, [sp, #0x10]
+  180e4  b L_180f4
+L_180e6:
+  180e6  vmov.i32 d0, #0
+  180ea  r0 = 0
+  180f0  vmov.f32 s2, s0
+L_180f4:
+  180fc  r0 = IVOFF(posX)
+  180fe  r1 = IVOFF(posX)
+  18108  add r1, r4
+  1810a  r0 = IVOFF(posY)
+  1810c  vstr s2, [r1]
+  18110  r1 = IVOFF(posY)
+  1811a  r0 = IVOFF(tapOrGesture)
+  1811c  add r1, r4
+  1811e  r0 = IVOFF(tapOrGesture)
+  18120  vstr s0, [r1]
+  18124  r1 = 1
+  18126  self->tapOrGesture = 1
+  18128  vorr d0, d0, d0
+L_1812c:
+  18134  r0 = SEL(superview)
+  18136  r6 = SEL(superview)
+  1813c  r0 = [r0 superview](?, ?)
+  18142  cbz r5 -> L_18162
+  1814e  r0 = SEL(translationInView:)
+  18150  r2 = SEL(translationInView:)
+  18152  add r0, sp, #4
+  18154  r0 = [r0 ??](SEL(translationInView:), ?)
+  18158  vldr s2, [sp, #4]
+  1815c  vldr s0, [sp, #8]
+  18160  b L_18170
+L_18162:
+  18162  vmov.i32 d0, #0
+  18166  r0 = 0
+  1816a  vorr d1, d0, d0
+L_18170:
+  18178  r0 = IVOFF(posX)
+  1817a  r1 = IVOFF(posX)
+  18184  add r1, r4
+  18186  r0 = IVOFF(posY)
+  18188  vldr s4, [r1]
+  1818c  r0 = IVOFF(posY)
+  1818e  vadd.f32 d1, d1, d2
+  18192  add r0, r4
+  18194  vstr s2, [r1]
+  1819a  vldr s2, [r0]
+  1819e  vadd.f32 d0, d0, d1
+  181a2  vstr s0, [r0]
+  181a8  vorr d0, d0, d0
+  181ac  r0 = [r0 superview](?, ?)
+  181bc  r1 = _CGPointZero
+  181c2  r2 = SEL(setTranslation:inView:)
+  181c6  r3 = _CGPointZero
+  181ca  r1 = SEL(setTranslation:inView:)
+  181d0  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  181dc  r0 = SEL(selectTapPointSoundStart)
+  181de  r1 = SEL(selectTapPointSoundStart)
+  181e2  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_181e6:
+  181ea  r0 = [r0 state](?, ?)
+  181ee  cmp r0, 3
+  181f0  bne L_1823a
+  181fe  r0 = IVOFF(main_label_flag)
+  18204  r2 = IVOFF(double_tap_flag)
+  18206  r1 = IVOFF(main_label_flag)
+  18208  r0 = 0
+  1820a  self->main_label_flag = 0
+  1820c  r1 = IVOFF(double_tap_flag)
+  18216  r2 = IVOFF(posX)
+  18218  self->double_tap_flag = 0
+  1821a  r1 = IVOFF(posX)
+  18224  r2 = IVOFF(posY)
+  18226  self->posX = 0
+  18228  r1 = IVOFF(posY)
+  18232  r2 = IVOFF(tapOrGesture)
+  18234  self->posY = 0
+  18236  r1 = IVOFF(tapOrGesture)
+  18238  self->tapOrGesture = 0
+L_1823a:
+  1823a  add sp, #0x14
+  18240  return
+
+//// -[startIntroPage selectTapPointSoundStart]  0x18244..0x18618  v8@0:4
+  18246  add r7, sp, #0xc
+  1824c  sub sp, #0x30
+  18250  call sub_3ccc
+  18256  r0 = 0
+  18258  call _UIAccessibilityIsVoiceOverRunning
+  18260  bne L_185ec
+  18274  r0 = SEL(mainScreen)
+  18276  r5 = UIScreen
+  18278  r6 = SEL(mainScreen)
+  1827a  r0 = UIScreen
+  1827e  r0 = [UIScreen mainScreen](?, ?)
+  18284  cmp r1, 0
+  18286  beq L_182c0
+  18290  r0 = SEL(bounds)
+  18292  r2 = SEL(bounds)
+  18294  add r0, sp, #0x20
+  18296  r0 = [r0 ??](SEL(bounds), ?)
+  1829a  s0 = 320
+  1829e  vldr s2, [sp, #0x28]
+  182a2  vcmpe.f32 s2, s0
+  182a6  vmrs apsr_nzcv, fpscr
+  182aa  bne L_182ca
+  182ac  vldr s0, [sp, #0x2c]
+  182b0  s2 = 568
+  182b4  vcmpe.f32 s0, s2
+  182b8  vmrs apsr_nzcv, fpscr
+  182bc  beq L_1830e
+  182be  b L_182ca
+L_182c0:
+  182c0  vmov.i32 q8, #0
+  182c4  add r0, sp, #0x20
+  182c6  vst1.32 {d16, d17}, [r0]
+L_182ca:
+  182ca  r0 = UIScreen
+  182ce  r0 = [UIScreen mainScreen](?, ?)
+  182d4  cmp r1, 0
+  182d6  beq L_18376
+  182e0  r0 = SEL(bounds)
+  182e2  r2 = SEL(bounds)
+  182e4  add r0, sp, #0x10
+  182e6  r0 = [r0 ??](SEL(bounds), ?)
+  182ea  s0 = 568
+  182ee  vldr s2, [sp, #0x18]
+  182f2  vcmpe.f32 s2, s0
+  182f6  vmrs apsr_nzcv, fpscr
+  182fa  bne L_18380
+  182fc  vldr s0, [sp, #0x1c]
+  18300  s2 = 320
+  18304  vcmpe.f32 s0, s2
+  18308  vmrs apsr_nzcv, fpscr
+  1830c  bne L_18380
+L_1830e:
+  18312  s4 = 493
+  1831e  r1 = IVOFF(posY)
+  18324  r0 = IVOFF(tapOrGesture)
+  18326  s2 = 46
+  1832a  r1 = IVOFF(posY)
+  1832c  r2 = 0
+  1832e  r0 = IVOFF(tapOrGesture)
+  18330  add r1, r4
+  18332  vldr s0, [r1]
+  18336  r1 = 0
+  18338  r0 = self->tapOrGesture
+  1833a  vcmpe.f32 s0, s4
+  1833e  vmrs apsr_nzcv, fpscr
+  18342  vcmpe.f32 s0, s2
+  1834a  vmrs apsr_nzcv, fpscr
+  18352  cmp self->tapOrGesture, 0
+  18354  orr.w r1, r1, r2
+  18358  beq L_184cc
+  1835c  cmp r1, 0
+  1835e  beq L_18454
+  18360  s2 = 522
+  18364  vcmpe.f32 s0, s2
+  18368  vmrs apsr_nzcv, fpscr
+  1836c  blt L_185a4
+  18370  s2 = 553
+  18374  b L_183e4
+L_18376:
+  18376  vmov.i32 q8, #0
+  1837a  add r0, sp, #0x10
+  1837c  vst1.32 {d16, d17}, [r0]
+L_18380:
+  18384  s4 = 434
+  18390  r1 = IVOFF(posY)
+  18396  r0 = IVOFF(tapOrGesture)
+  18398  s2 = 46
+  1839c  r1 = IVOFF(posY)
+  1839e  r2 = 0
+  183a0  r0 = IVOFF(tapOrGesture)
+  183a2  add r1, r4
+  183a4  vldr s0, [r1]
+  183a8  r1 = 0
+  183aa  r0 = self->tapOrGesture
+  183ac  vcmpe.f32 s0, s4
+  183b0  vmrs apsr_nzcv, fpscr
+  183b4  vcmpe.f32 s0, s2
+  183bc  vmrs apsr_nzcv, fpscr
+  183c4  cmp self->tapOrGesture, 0
+  183c6  orr.w r1, r1, r2
+  183ca  beq L_184b4
+  183cc  cmp r1, 0
+  183ce  beq L_18454
+  183d0  s2 = 441
+  183d4  vcmpe.f32 s0, s2
+  183d8  vmrs apsr_nzcv, fpscr
+  183dc  blt L_185a4
+  183e0  s2 = 472
+L_183e4:
+  183e4  vcmpe.f32 s0, s2
+  183e8  vmrs apsr_nzcv, fpscr
+  183ec  bhi L_185a4
+  183f8  r0 = IVOFF(double_tap_flag)
+  183fa  r0 = IVOFF(double_tap_flag)
+  183fc  r1 = self->double_tap_flag
+  183fe  cmp self->double_tap_flag, 0
+  18400  bne L_185c2
+  18408  r2 = 1
+  1840e  self->double_tap_flag = 1
+  18410  r1 = IVOFF(selectMenu)
+  18412  r2 = 2
+  18414  r0 = IVOFF(selectMenu)
+  1841e  r1 = SEL(StopElseSpeak)
+  18420  self->selectMenu = 2
+  18424  r1 = SEL(StopElseSpeak)
+  18426  r0 = [r0 StopElseSpeak](2, ?)
+  1843a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1843c  r2 = 266
+  18440  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  18442  r0 = 0
+  1844e  r0 = [r0 playSound:Gain:Pos:z:reprats:](266, 0x3e4ccccd/f0.2)
+  18452  b L_185c2
+L_18454:
+  1845c  r0 = IVOFF(main_label_flag)
+  1845e  r0 = IVOFF(main_label_flag)
+  18460  r1 = self->main_label_flag
+  18462  cmp self->main_label_flag, 0
+  18464  bne L_185c2
+  1846c  r1 = 1
+  18472  self->main_label_flag = 1
+  18474  r2 = IVOFF(selectMenu)
+  18476  r0 = IVOFF(selectMenu)
+  18480  r2 = SEL(StopElseSpeak)
+  18482  self->selectMenu = 1
+  18486  r1 = SEL(StopElseSpeak)
+  18488  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  1849c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1849e  r2 = 14
+  184a0  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  184a2  r0 = 0
+  184ae  r0 = [r0 playSound:Gain:Pos:z:reprats:](14, 0x3e4ccccd/f0.2)
+  184b2  b L_185c2
+L_184b4:
+  184b4  cmp r1, 0
+  184b6  beq L_1854a
+  184b8  s2 = 441
+  184bc  vcmpe.f32 s0, s2
+  184c0  vmrs apsr_nzcv, fpscr
+  184c4  blt L_185a4
+  184c6  s2 = 472
+  184ca  b L_184e2
+L_184cc:
+  184cc  cmp r1, 0
+  184ce  beq L_1854a
+  184d0  s2 = 522
+  184d4  vcmpe.f32 s0, s2
+  184d8  vmrs apsr_nzcv, fpscr
+  184dc  blt L_185a4
+  184de  s2 = 553
+L_184e2:
+  184e2  vcmpe.f32 s0, s2
+  184e6  vmrs apsr_nzcv, fpscr
+  184ea  bhi L_185a4
+  184f4  r0 = IVOFF(double_tap_flag)
+  184f6  r0 = IVOFF(double_tap_flag)
+  184f8  r1 = self->double_tap_flag
+  184fa  cmp self->double_tap_flag, 0
+  184fc  bne L_185a4
+  18502  r2 = 1
+  18508  self->double_tap_flag = 1
+  1850a  r1 = IVOFF(selectMenu)
+  1850c  r2 = 2
+  1850e  r0 = IVOFF(selectMenu)
+  18518  r1 = SEL(StopElseSpeak)
+  1851a  self->selectMenu = 2
+  1851e  r1 = SEL(StopElseSpeak)
+  18520  r0 = [r0 StopElseSpeak](2, ?)
+  18534  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  18536  r2 = 266
+  1853a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1853c  r0 = 0
+  18548  b L_185a0
+L_1854a:
+  18552  r0 = IVOFF(main_label_flag)
+  18554  r0 = IVOFF(main_label_flag)
+  18556  r1 = self->main_label_flag
+  18558  cbnz self->main_label_flag -> L_185a4
+  1855e  r1 = 1
+  18564  self->main_label_flag = 1
+  18566  r2 = IVOFF(selectMenu)
+  18568  r0 = IVOFF(selectMenu)
+  18572  r2 = SEL(StopElseSpeak)
+  18574  self->selectMenu = 1
+  18578  r1 = SEL(StopElseSpeak)
+  1857a  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), 0x3e4ccccd/f0.2)
+  1858e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  18590  r2 = 14
+  18592  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  18594  r0 = 0
+L_185a0:
+  185a0  r0 = [r0 playSound:Gain:Pos:z:reprats:](14, 0x3e4ccccd/f0.2)
+L_185a4:
+  185a8  r2 = 0
+  185b2  r0 = IVOFF(main_label_flag)
+  185b8  r1 = IVOFF(double_tap_flag)
+  185ba  r0 = IVOFF(main_label_flag)
+  185bc  self->main_label_flag = 0
+  185be  r0 = IVOFF(double_tap_flag)
+  185c0  self->double_tap_flag = 0
+L_185c2:
+  185ca  r0 = SEL(mode)
+  185cc  r1 = SEL(mode)
+  185d0  r0 = [r0 mode](0, ?)
+  185d8  beq L_185ec
+  185e2  r0 = SEL(blindModeSelectedMenu)
+  185e4  r1 = SEL(blindModeSelectedMenu)
+  185e8  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_185ec:
+  185ec  add sp, #0x30
+  185f2  return
+  185fa  add r6, r1
+  18606  add r2, r0
+  1860a  add r2, r1
+
+//// -[startIntroPage StopElseSpeak]  0x18618..0x18648  v8@0:4
+  1861a  add r7, sp, #8
+  1861c  call sub_3ccc
+  1862a  r2 = 14
+  1862c  r0 = SEL(stopSoundBufNumber:)
+  1862e  r5 = SEL(stopSoundBufNumber:)
+  18634  r0 = [r0 stopSoundBufNumber:](14, ?)
+  1863c  r2 = 266
+  18644  b L_a90d0
+
+//// -[startIntroPage tapSelect:]  0x18648..0x18728  v12@0:4@8
+  1864a  add r7, sp, #8
+  1864c  sub sp, #0x18
+  1865a  r0 = SEL(view)
+  1865c  r1 = SEL(view)
+  18660  r0 = [r0 view](?, ?)
+  18666  cbz r5 -> L_18686
+  18672  r0 = SEL(locationInView:)
+  18674  r2 = SEL(locationInView:)
+  18676  add r0, sp, #0x10
+  18678  r0 = [r0 ??](SEL(locationInView:), ?)
+  1867c  vldr s2, [sp, #0x10]
+  18680  vldr s0, [sp, #0x14]
+  18684  b L_18694
+L_18686:
+  18686  vmov.i32 d0, #0
+  1868a  r0 = 0
+  18690  vmov.f32 s2, s0
+L_18694:
+  18698  d16 = 0.35
+  186a4  r1 = IVOFF(posX)
+  186aa  r0 = IVOFF(tapCount)
+  186ac  r2 = IVOFF(posX)
+  186b6  add r2, r4
+  186b8  r1 = IVOFF(posY)
+  186ba  vstr s2, [r2]
+  186be  vmov r2, r3, d16
+  186c2  r5 = IVOFF(posY)
+  186cc  adds r1, r4, r5
+  186ce  r5 = IVOFF(tapCount)
+  186d0  ip = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  186d2  vstr s0, [r1]
+  186de  r1 = self->tapCount
+  186e4  r0 = NSTimer
+  186ea  adds r1, #1
+  186ec  self->tapCount = r1
+  186ee  sb = SEL(tapCount)
+  186f0  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  186f4  r0 = NSTimer
+  186f6  r5 = SEL(tapCount)
+  186fa  sb = 0
+  18706  vorr d0, d0, d0
+  1870a  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  18716  r1 = IVOFF(tapTimer)
+  18718  r1 = IVOFF(tapTimer)
+  1871a  self->tapTimer = r0
+  1871c  add sp, #0x18
+  1871e  return
+  18726  subs r7, #0xd6
+
+//// -[startIntroPage tapCount]  0x18728..0x187cc  v8@0:4
+  1872a  add r7, sp, #4
+  1872e  call sub_3ccc
+  1873a  r1 = SEL(mode)
+  1873c  r1 = SEL(mode)
+  1873e  r0 = [r0 mode](?, ?)
+  18744  cmp r0, 1
+  18746  bne L_1878c
+  18750  r0 = IVOFF(tapCount)
+  18752  r0 = IVOFF(tapCount)
+  18754  r0 = self->tapCount
+  18756  cmp self->tapCount, 1
+  18758  bne L_18766
+  18762  r0 = SEL(selectTapPointSoundStart)
+  18764  b L_18796
+L_18766:
+  18766  cmp SEL(selectTapPointSoundStart), 2
+  18768  bne L_1879e
+  1876a  call sub_3ccc
+  18776  r1 = SEL(bDevice)
+  18778  r1 = SEL(bDevice)
+  1877a  r0 = [r0 bDevice](?, ?)
+L_1878c:
+  18794  r0 = SEL(skipAction)
+L_18796:
+  18796  r1 = SEL(skipAction)
+  1879a  r0 = [r0 skipAction](?, ?)
+L_1879e:
+  187aa  r0 = IVOFF(posX)
+  187b0  r2 = IVOFF(posY)
+  187b2  r1 = IVOFF(posX)
+  187b4  r0 = 0
+  187b6  self->posX = 0
+  187b8  r1 = IVOFF(posY)
+  187c2  r2 = IVOFF(tapCount)
+  187c4  self->posY = 0
+  187c6  r1 = IVOFF(tapCount)
+  187c8  self->tapCount = 0
+  187ca  return
+
+//// -[startIntroPage viewDidUnload]  0x187cc..0x18838  v8@0:4
+  187ce  add r7, sp, #4
+  187d0  sub sp, #8
+  187dc  r2 = 0
+  187de  r0 = SEL(setExplainLabel:)
+  187e0  r1 = SEL(setExplainLabel:)
+  187e4  r0 = [r0 setExplainLabel:](0, ?)
+  187ec  r2 = 0
+  187f2  r0 = SEL(setRound1:)
+  187f4  r1 = SEL(setRound1:)
+  187f8  r0 = [r0 setRound1:](0, ?)
+  18800  r2 = 0
+  18806  r0 = SEL(setRound2:)
+  18808  r1 = SEL(setRound2:)
+  1880c  r0 = [r0 setRound2:](0, ?)
+  18822  r0 = SEL(viewDidUnload)
+  1882a  r1 = SEL(viewDidUnload)
+  1882e  r0 = [r0 viewDidUnload](?, ?) SUPER
+  18832  add sp, #8
+  18834  return
+
+//// -[startIntroPage shouldAutorotateToInterfaceOrientation:]  0x18838..0x18844  c12@0:4i8
+  18838  cmp r2, 1
+
+//// -[startIntroPage dealloc]  0x18844..0x188bc  v8@0:4
+  18846  add r7, sp, #8
+  18848  sub sp, #8
+  18858  r0 = IVOFF(explainLabel)
+  1885e  r1 = SEL(release)
+  18860  r0 = IVOFF(explainLabel)
+  18862  r5 = SEL(release)
+  18864  r0 = self->explainLabel
+  18868  r0 = [self->explainLabel release](?, ?)
+  18876  r0 = IVOFF(_round1)
+  18878  r0 = IVOFF(_round1)
+  1887a  r0 = self->_round1
+  1887c  r0 = [self->_round1 release](?, ?)
+  1888a  r0 = IVOFF(_round2)
+  1888c  r0 = IVOFF(_round2)
+  1888e  r0 = self->_round2
+  18890  r0 = [self->_round2 release](?, ?)
+  188a6  r0 = SEL(dealloc)
+  188ae  r1 = SEL(dealloc)
+  188b2  r0 = [r0 dealloc](?, ?) SUPER
+  188b6  add sp, #8
+  188b8  return
+
+//// -[startIntroPage skipAction]  0x188bc..0x18a84  v8@0:4
+  188be  add r7, sp, #0xc
+  188c4  sub sp, #0x24
+  188c8  call sub_3ccc
+  188d6  r2 = 14
+  188d8  r0 = SEL(stopSoundBufNumber:)
+  188da  r6 = SEL(stopSoundBufNumber:)
+  188e0  r0 = [r0 stopSoundBufNumber:](14, ?)
+  188e8  r2 = 11
+  188ea  r0 = [r0 stopSoundBufNumber:](11, ?)
+  188f2  r2 = 15
+  188f4  r0 = [r0 stopSoundBufNumber:](15, ?)
+  188fc  r2 = 266
+  18900  r0 = [r0 stopSoundBufNumber:](266, ?)
+  1891c  r0 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  1891e  r2 = SEL(shakeDevice)
+  18920  r6 = NSObject
+  18922  r1 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  18924  r3 = SEL(shakeDevice)
+  18926  r2 = 0
+  18928  r0 = NSObject
+  1892e  r0 = [NSObject cancelPreviousPerformRequestsWithTarget:selector:object:](?, SEL(shakeDevice))
+  1893a  r0 = CFSTR('MainController')
+  1893c  call _NSClassFromString
+  18948  r1 = SEL(alloc)
+  1894a  r1 = SEL(alloc)
+  1894c  r0 = [r0 alloc](?, ?)
+  18962  r0 = SEL(mainScreen)
+  18964  r4 = UIScreen
+  18966  r6 = SEL(mainScreen)
+  18968  r0 = UIScreen
+  1896c  r0 = [UIScreen mainScreen](?, ?)
+  18972  cmp r1, 0
+  18974  beq L_189ae
+  1897e  r0 = SEL(bounds)
+  18980  r2 = SEL(bounds)
+  18982  add r0, sp, #0x14
+  18984  r0 = [r0 ??](SEL(bounds), ?)
+  18988  s0 = 320
+  1898c  vldr s2, [sp, #0x1c]
+  18990  vcmpe.f32 s2, s0
+  18994  vmrs apsr_nzcv, fpscr
+  18998  bne L_189b8
+  1899a  vldr s0, [sp, #0x20]
+  1899e  s2 = 568
+  189a2  vcmpe.f32 s0, s2
+  189a6  vmrs apsr_nzcv, fpscr
+  189aa  beq L_189fc
+  189ac  b L_189b8
+L_189ae:
+  189ae  vmov.i32 q8, #0
+  189b2  add r0, sp, #0x14
+  189b4  vst1.32 {d16, d17}, [r0]
+L_189b8:
+  189b8  r0 = UIScreen
+  189bc  r0 = [UIScreen mainScreen](?, ?)
+  189c2  cmp r1, 0
+  189c4  beq L_18a12
+  189ce  r0 = SEL(bounds)
+  189d0  r2 = SEL(bounds)
+  189d2  add r0, sp, #4
+  189d4  r0 = [r0 ??](SEL(bounds), ?)
+  189d8  s0 = 568
+  189dc  vldr s2, [sp, #0xc]
+  189e0  vcmpe.f32 s2, s0
+  189e4  vmrs apsr_nzcv, fpscr
+  189e8  bne L_18a1c
+  189ea  vldr s0, [sp, #0x10]
+  189ee  s2 = 320
+  189f2  vcmpe.f32 s0, s2
+  189f6  vmrs apsr_nzcv, fpscr
+  189fa  bne L_18a1c
+L_189fc:
+  18a0c  r0 = SEL(initWithNibName:bundle:)
+  18a0e  r2 = CFSTR('MainController~568h')
+  18a10  b L_18a30
+L_18a12:
+  18a12  vmov.i32 q8, #0
+  18a16  add r0, sp, #4
+  18a18  vst1.32 {d16, d17}, [r0]
+L_18a1c:
+  18a2c  r0 = SEL(initWithNibName:bundle:)
+  18a2e  r2 = CFSTR('MainController')
+L_18a30:
+  18a30  r1 = SEL(initWithNibName:bundle:)
+  18a34  r3 = 0
+  18a36  r0 = [r0 initWithNibName:bundle:](CFSTR('MainController'), 0)
+  18a44  r0 = SEL(navigationController)
+  18a46  r1 = SEL(navigationController)
+  18a4a  r0 = [r0 navigationController](?, ?)
+  18a58  r3 = 0
+  18a5a  r1 = SEL(pushViewController:animated:)
+  18a5c  r1 = SEL(pushViewController:animated:)
+  18a5e  r0 = [r0 pushViewController:animated:](?, 0)
+  18a6a  r0 = SEL(release)
+  18a6c  r1 = SEL(release)
+  18a70  r0 = [r0 release](?, ?)
+  18a74  add sp, #0x24
+  18a7a  return
+  18a82  add r6, r1
+
+//// -[startIntroPage explainLabel]  0x18a84..0x18a94  @8@0:4
+  18a8c  r1 = IVOFF(explainLabel)
+  18a8e  r1 = IVOFF(explainLabel)
+  18a90  r0 = self->explainLabel
+
+//// -[startIntroPage setExplainLabel:]  0x18a94..0x18ab8  v12@0:4@8
+  18a98  sub sp, #8
+  18aa4  r3 = 0
+  18aa6  r2 = IVOFF(explainLabel)
+  18aae  r2 = IVOFF(explainLabel)
+  18ab0  call _objc_setProperty
+  18ab4  add sp, #8
+  18ab6  return
+
+//// -[startIntroPage round1]  0x18ab8..0x18ac8  @8@0:4
+  18ac0  r1 = IVOFF(_round1)
+  18ac2  r1 = IVOFF(_round1)
+  18ac4  r0 = self->_round1
+
+//// -[startIntroPage setRound1:]  0x18ac8..0x18aec  v12@0:4@8
+  18acc  sub sp, #8
+  18ad8  r3 = 0
+  18ada  r2 = IVOFF(_round1)
+  18ae2  r2 = IVOFF(_round1)
+  18ae4  call _objc_setProperty
+  18ae8  add sp, #8
+  18aea  return
+
+//// -[startIntroPage round2]  0x18aec..0x18afc  @8@0:4
+  18af4  r1 = IVOFF(_round2)
+  18af6  r1 = IVOFF(_round2)
+  18af8  r0 = self->_round2
+
+//// -[startIntroPage setRound2:]  0x18afc..0x18b20  v12@0:4@8
+  18b00  sub sp, #8
+  18b0c  r3 = 0
+  18b0e  r2 = IVOFF(_round2)
+  18b16  r2 = IVOFF(_round2)
+  18b18  call _objc_setProperty
+  18b1c  add sp, #8
+  18b1e  return

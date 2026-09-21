@@ -1,0 +1,171 @@
+
+//// -[HighpassFilter initWithSampleRate:cutoffFrequency:]  0xedb4..0xee18  @24@0:4d8d16
+  edb6  add r7, sp, #8
+  edb8  sub sp, #8
+  edce  r1 = SEL(init)
+  edd6  r1 = SEL(init)
+  eddc  r0 = [r0 init](0xdb0ac/f1.25724e-39, ?) SUPER
+  ede0  cbz r0 -> L_ee10
+  ede2  vmov.f64 d18, #1.000000e+00
+  edee  r1 = IVOFF(filterConstant)
+  edf0  vldr d17, [r7, #8]
+  edf4  vmov d16, r5, r4
+  edf8  r1 = IVOFF(filterConstant)
+  edfa  vdiv.f64 d17, d18, d17
+  edfe  add r1, r0
+  ee00  vdiv.f64 d16, d18, d16
+  ee04  vadd.f64 d16, d16, d17
+  ee08  vdiv.f64 d16, d17, d16
+  ee0c  vstr d16, [r1]
+L_ee10:
+  ee10  add sp, #8
+  ee12  return
+
+//// -[HighpassFilter addAcceleration:]  0xee18..0xf0c0  v12@0:4@8
+  ee1a  add r7, sp, #0xc
+  ee20  sub.w r4, sp, #0x28
+  ee2a  vst1.64 {d8, d9, d10, d11}, [r4:0x80]
+  ee2e  vstr d12, [r4, #0x20]
+  ee32  sub sp, #0x20
+  ee40  r0 = IVOFF(adaptive)
+  ee42  r0 = IVOFF(adaptive)
+  ee44  r0 = self->adaptive
+  ee46  cmp self->adaptive, 0
+  ee48  beq L_ef64
+  ee58  r0 = IVOFF(y)
+  ee62  r1 = IVOFF(z)
+  ee64  r0 = IVOFF(y)
+  ee6a  r2 = IVOFF(x)
+  ee6c  r1 = IVOFF(z)
+  ee6e  add r0, r4
+  ee70  r2 = IVOFF(x)
+  ee72  add r1, r4
+  ee74  vldr d16, [r0]
+  ee80  add r2, r4
+  ee82  r0 = SEL(x)
+  ee84  vldr d9, [r1]
+  ee88  vmul.f64 d8, d16, d16
+  ee8c  r1 = SEL(x)
+  ee90  vldr d16, [r2]
+  ee94  vmul.f64 d10, d16, d16
+  ee98  r0 = [r0 x](?, ?)
+  eea0  vmov d11, r0, r1
+  eeac  r2 = SEL(y)
+  eeb4  r6 = SEL(z)
+  eeb6  r2 = SEL(y)
+  eeba  r0 = [r0 y](SEL(y), ?)
+  eec0  r1 = SEL(z)
+  eec2  vmov d12, r0, r2
+  eec8  r0 = [r0 z](?, ?)
+  eecc  vmul.f64 d17, d11, d11
+  eed0  vmul.f64 d18, d12, d12
+  eed4  vmov d16, r0, r1
+  eed8  vmul.f64 d19, d9, d9
+  eedc  vmul.f64 d16, d16, d16
+  eee0  vadd.f64 d17, d17, d18
+  eee4  vadd.f64 d20, d10, d8
+  eee8  vadd.f64 d16, d17, d16
+  eeec  vadd.f64 d18, d20, d19
+  eef0  vsqrt.f64 d17, d18
+  eef4  vsqrt.f64 d16, d16
+  eef8  vsub.f64 d16, d17, d16
+  eefc  vabs.f64 d16, d16
+  ef00  d17 = 0.02
+  ef04  vdiv.f64 d16, d16, d17
+  ef08  vmov.f64 d17, #-1.000000e+00
+  ef0c  vadd.f64 d17, d16, d17
+  ef10  vmov.f64 d16, #1.000000e+00
+  ef14  vcmpe.f64 d17, d16
+  ef18  vmov.f64 d18, d16
+  ef1c  vmrs apsr_nzcv, fpscr
+  ef20  bgt L_ef38
+  ef22  vcmpe.f64 d17, #0
+  ef26  vmrs apsr_nzcv, fpscr
+  ef2a  d18 = 0
+  ef30  vmovmi.f64 d17, d18
+  ef34  vmov.f64 d18, d17
+L_ef38:
+  ef3c  vmov.f64 d20, #3.000000e+00
+  ef44  r0 = IVOFF(filterConstant)
+  ef46  r0 = IVOFF(filterConstant)
+  ef48  vsub.f64 d16, d16, d18
+  ef4c  add r0, r4
+  ef4e  vldr d17, [r0]
+  ef52  vmul.f64 d19, d18, d17
+  ef56  vdiv.f64 d19, d19, d20
+  ef5a  vmul.f64 d16, d16, d17
+  ef5e  vadd.f64 d8, d19, d16
+  ef62  b L_ef76
+L_ef64:
+  ef6c  r0 = IVOFF(filterConstant)
+  ef6e  r0 = IVOFF(filterConstant)
+  ef70  add r0, r4
+  ef72  vldr d8, [r0]
+L_ef76:
+  ef82  r0 = IVOFF(x)
+  ef88  r1 = SEL(x)
+  ef8a  r0 = IVOFF(x)
+  ef8c  r1 = SEL(x)
+  ef8e  adds r6, r4, r0
+  ef94  vldr d9, [r6]
+  ef98  r0 = [r0 ??](?, ?)
+  ef9c  vmov d16, r0, r1
+  efa8  vadd.f64 d16, d9, d16
+  efac  r0 = IVOFF(lastX)
+  efae  r0 = IVOFF(lastX)
+  efb2  add r0, r4
+  efb6  vldr d17, [r0]
+  efc6  vsub.f64 d16, d16, d17
+  efce  r1 = IVOFF(y)
+  efd0  r0 = SEL(y)
+  efd2  r1 = IVOFF(y)
+  efd4  vmul.f64 d16, d8, d16
+  efd8  vstr d16, [r6]
+  efdc  adds r6, r4, r1
+  efde  r1 = SEL(y)
+  efe4  vldr d9, [r6]
+  efe8  r0 = [r0 ??](?, ?)
+  efec  vmov d16, r0, r1
+  eff8  vadd.f64 d16, d9, d16
+  effc  r2 = IVOFF(lastY)
+  effe  r2 = IVOFF(lastY)
+  f002  add r2, r4
+  f006  vldr d17, [r2]
+  f012  vsub.f64 d16, d16, d17
+  f016  r0 = IVOFF(z)
+  f018  r0 = IVOFF(z)
+  f01a  add.w fp, r4, r0
+  f01e  vmul.f64 d16, d8, d16
+  f022  vstr d16, [r6]
+  f026  vldr d9, [fp]
+  f032  r0 = SEL(z)
+  f034  r6 = SEL(z)
+  f03a  r0 = [r0 z](?, ?)
+  f03e  vmov d17, r0, r1
+  f04c  vadd.f64 d17, d9, d17
+  f050  r2 = IVOFF(lastZ)
+  f054  sl = IVOFF(lastZ)
+  f058  add.w r8, r4, sl
+  f05c  vldr d16, [r8]
+  f060  vsub.f64 d16, d17, d16
+  f064  vmul.f64 d16, d8, d16
+  f068  vstr d16, [fp]
+  f06c  r0 = [r0 ??](IVOFF(lastZ), ?)
+  f07c  r0 = [r0 ??](?, ?)
+  f08c  r0 = [r0 z](?, ?)
+  f090  self->lastZ = r0
+  f094  add r4, sp, #0x20
+  f09a  vld1.64 {d8, d9, d10, d11}, [r4:0x80]
+  f09e  vldr d12, [r4, #0x20]
+  f0a2  sub.w r4, r7, #0x18
+  f0ac  return
+  f0b0  asrs r3, r7, #0x11
+  f0b6  subs r7, #0x94
+
+//// -[HighpassFilter name]  0xf0c0..0xf0ec  @8@0:4
+  f0cc  r1 = IVOFF(adaptive)
+  f0d2  r2 = CFSTR('Adaptive Highpass Filter')
+  f0d4  r3 = IVOFF(adaptive)
+  f0de  r1 = CFSTR('Highpass Filter')
+  f0e0  r0 = self->adaptive
+  f0e2  cmp self->adaptive, 0

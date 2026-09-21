@@ -1,0 +1,3373 @@
+
+//// -[StoreController initWithNibName:bundle:]  0x12f88..0x130c8  @16@0:4@8@12
+  12f8a  add r7, sp, #0xc
+  12f90  sub sp, #0x10
+  12fa4  r1 = SEL(initWithNibName:bundle:)
+  12faa  r1 = SEL(initWithNibName:bundle:)
+  12fae  add r0, sp, #8
+  12fb0  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  12fb6  cmp r4, 0
+  12fb8  beq L_130be
+  12fcc  r0 = SEL(defaultCenter)
+  12fce  r8 = NSNotificationCenter
+  12fd0  r6 = SEL(defaultCenter)
+  12fd2  r0 = NSNotificationCenter
+  12fd8  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  12fe0  fp = 0
+  12ff0  r1 = SEL(addObserver:selector:name:object:)
+  12ff2  r2 = SEL(reloadGold)
+  12ff8  r5 = SEL(addObserver:selector:name:object:)
+  12ffe  r3 = SEL(reloadGold)
+  13002  sl = CFSTR('reloadGoldInWeaponShop')
+  1300a  r0 = [r0 addObserver:selector:name:object:](?, SEL(reloadGold))
+  1300e  r0 = NSNotificationCenter
+  13014  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  13026  r1 = SEL(TurnOnVoiceOver)
+  1302c  sl = CFSTR('TurnOnVoiceOver')
+  13032  r3 = SEL(TurnOnVoiceOver)
+  13036  r0 = [r0 addObserver:selector:name:object:](?, SEL(TurnOnVoiceOver))
+  1303a  r0 = NSNotificationCenter
+  13040  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  13052  r1 = SEL(buyAllWeaponsComplet)
+  13058  sl = CFSTR('buyAllWeaponsComplet')
+  1305e  r3 = SEL(buyAllWeaponsComplet)
+  13062  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyAllWeaponsComplet))
+  13066  r0 = NSNotificationCenter
+  1306c  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1307e  r1 = SEL(buyItemError)
+  13084  sl = CFSTR('buyItemError')
+  1308a  r3 = SEL(buyItemError)
+  1308e  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyItemError))
+  13092  r0 = NSNotificationCenter
+  13098  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  130aa  r1 = SEL(interruptRestart)
+  130b0  sl = CFSTR('InterruptOff')
+  130b6  r3 = SEL(interruptRestart)
+  130ba  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+L_130be:
+  130c0  add sp, #0x10
+  130c6  return
+
+//// -[StoreController interruptRestart]  0x130c8..0x130fc  v8@0:4
+  130ca  add r7, sp, #4
+  130cc  sub sp, #8
+  130d2  r3 = 0
+  130e0  r1 = SEL(performSelector:withObject:afterDelay:)
+  130e2  r2 = SEL(audioRestart)
+  130e4  r4 = 0
+  130e6  r1 = SEL(performSelector:withObject:afterDelay:)
+  130ec  r2 = SEL(audioRestart)
+  130f2  r3 = 0
+  130f4  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  130f8  add sp, #8
+  130fa  return
+
+//// -[StoreController audioRestart]  0x130fc..0x13204  v8@0:4
+  130fe  add r7, sp, #8
+  13100  call sub_3ccc
+  1310e  r0 = SEL(playback)
+  13110  r5 = SEL(playback)
+  13116  r0 = [r0 playback](?, ?)
+  13122  r1 = SEL(freeBuffers)
+  13124  r1 = SEL(freeBuffers)
+  13126  r0 = [r0 freeBuffers](?, ?)
+  1312e  r0 = [r0 playback](?, ?)
+  1313a  r1 = SEL(freeSources)
+  1313c  r1 = SEL(freeSources)
+  1313e  r0 = [r0 freeSources](?, ?)
+  13152  r0 = SEL(array)
+  13154  r2 = NSMutableArray
+  13156  r1 = SEL(array)
+  13158  r0 = NSMutableArray
+  1315a  r0 = [NSMutableArray array](NSMutableArray, ?)
+  13168  r0 = SEL(setASoundBufControlData:)
+  1316a  r1 = SEL(setASoundBufControlData:)
+  1316e  r0 = [r0 setASoundBufControlData:](?, ?)
+  13176  r0 = [r0 playback](?, ?)
+  1317a  cbz r0 -> L_131a8
+  13180  r0 = [r0 playback](?, ?)
+  1318c  r1 = SEL(release)
+  1318e  r1 = SEL(release)
+  13190  r0 = [r0 release](?, ?)
+  13198  r2 = 0
+  1319e  r0 = SEL(setPlayback:)
+  131a0  r1 = SEL(setPlayback:)
+  131a4  r0 = [r0 setPlayback:](0, ?)
+L_131a8:
+  131b8  r0 = SEL(alloc)
+  131ba  r2 = oalPlayback
+  131bc  r1 = SEL(alloc)
+  131be  r0 = oalPlayback
+  131c0  r0 = [oalPlayback alloc](oalPlayback, ?)
+  131cc  r1 = SEL(init)
+  131ce  r1 = SEL(init)
+  131d0  r0 = [r0 init](?, ?)
+  131de  r0 = SEL(setPlayback:)
+  131e0  r1 = SEL(setPlayback:)
+  131e4  r0 = [r0 setPlayback:](?, ?)
+  131ec  r0 = [r0 playback](?, ?)
+  131f8  r1 = SEL(setUpOpenAL)
+  131fa  r1 = SEL(setUpOpenAL)
+  13200  b L_a90d0
+
+//// -[StoreController buyItemError]  0x13204..0x13220  v8@0:4
+  13208  r2 = 0
+  13212  r1 = SEL(showWaiting:message:)
+  13218  r3 = CFSTR('Loading...')
+  1321a  r1 = SEL(showWaiting:message:)
+  1321c  b L_a90d0
+
+//// -[StoreController TurnOnVoiceOver]  0x13220..0x135bc  v8@0:4
+  13222  add r7, sp, #0xc
+  13228  sub sp, #0x14
+  1322c  call sub_3ccc
+  1323a  r0 = SEL(mode)
+  1323c  r1 = SEL(mode)
+  13240  r0 = [r0 mode](?, ?)
+  13250  r1 = IVOFF(selectMenu)
+  13252  r1 = IVOFF(selectMenu)
+  13254  beq L_133dc
+  1325c  r2 = 1
+  13262  self->selectMenu = 1
+  13266  r0 = SEL(blindModeSelectedMenu)
+  13268  r1 = SEL(blindModeSelectedMenu)
+  1326c  r0 = [r0 blindModeSelectedMenu](1, ?)
+  13278  r0 = SEL(StopElseSpeak)
+  1327a  r1 = SEL(StopElseSpeak)
+  1327e  r0 = [r0 StopElseSpeak](?, ?)
+  13292  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  13294  r2 = 21
+  13296  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  13298  r0 = 0
+  132a4  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  132b8  r0 = SEL(currentDevice)
+  132ba  r2 = UIDevice
+  132bc  r1 = SEL(currentDevice)
+  132be  r0 = UIDevice
+  132c0  r0 = [UIDevice currentDevice](UIDevice, ?)
+  132cc  r1 = SEL(systemVersion)
+  132ce  r1 = SEL(systemVersion)
+  132d0  r0 = [r0 systemVersion](?, ?)
+  132dc  r1 = SEL(floatValue)
+  132de  r1 = SEL(floatValue)
+  132e0  r0 = [r0 floatValue](?, ?)
+  132e4  vmov.f32 d0, #5.000000e+00
+  132e8  vmov d1, r0, r0
+  132ec  vcmpe.f32 s2, s0
+  132f0  vmrs apsr_nzcv, fpscr
+  132f4  blt L_1356c
+  13308  r0 = SEL(alloc)
+  1330a  r2 = UIPanGestureRecognizer
+  1330c  r1 = SEL(alloc)
+  1330e  r0 = UIPanGestureRecognizer
+  13312  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  13326  r1 = SEL(initWithTarget:action:)
+  13328  r2 = SEL(Menu:)
+  1332a  fp = SEL(initWithTarget:action:)
+  1332e  r3 = SEL(Menu:)
+  13334  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  13340  r1 = SEL(autorelease)
+  13342  r5 = SEL(autorelease)
+  13346  r0 = [r0 autorelease](?, ?)
+  13354  r2 = 1
+  13356  r0 = SEL(setEnabled:)
+  13358  r1 = SEL(setEnabled:)
+  1335c  r0 = [r0 setEnabled:](1, ?)
+  1336a  r0 = SEL(setDelegate:)
+  1336c  r1 = SEL(setDelegate:)
+  13370  r0 = [r0 setDelegate:](?, ?)
+  1337c  r0 = SEL(view)
+  1337e  r4 = SEL(view)
+  13384  r0 = [r0 view](?, ?)
+  13392  r1 = SEL(addGestureRecognizer:)
+  13394  r6 = SEL(addGestureRecognizer:)
+  13398  r0 = [r0 addGestureRecognizer:](?, ?)
+  133a6  r0 = UITapGestureRecognizer
+  133a8  r0 = UITapGestureRecognizer
+  133aa  r0 = [UITapGestureRecognizer ??](?, ?)
+  133b8  r1 = SEL(tapSelect:)
+  133ba  r3 = SEL(tapSelect:)
+  133be  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  133c4  r0 = [r0 autorelease](?, ?)
+  133ce  r0 = [r0 view](?, ?)
+L_133d6:
+  133d6  r0 = [r0 addGestureRecognizer:](?, ?)
+  133da  b L_1356c
+L_133dc:
+  133e0  r2 = 0
+  133ea  r0 = SEL(blindModeSelectedMenu)
+  133ec  r1 = SEL(blindModeSelectedMenu)
+  133f0  r0 = [r0 blindModeSelectedMenu](0, ?)
+  13404  r0 = SEL(currentDevice)
+  13406  r2 = UIDevice
+  13408  r1 = SEL(currentDevice)
+  1340a  r0 = UIDevice
+  1340c  r0 = [UIDevice currentDevice](UIDevice, ?)
+  13418  r1 = SEL(systemVersion)
+  1341a  r1 = SEL(systemVersion)
+  1341c  r0 = [r0 systemVersion](?, ?)
+  13428  r1 = SEL(floatValue)
+  1342a  r1 = SEL(floatValue)
+  1342c  r0 = [r0 floatValue](?, ?)
+  13430  vmov.f32 d0, #5.000000e+00
+  13434  vmov d1, r0, r0
+  13438  vcmpe.f32 s2, s0
+  1343c  vmrs apsr_nzcv, fpscr
+  13440  blt L_1356c
+  1344c  r0 = SEL(view)
+  1344e  fp = SEL(view)
+  13456  r0 = [r0 view](?, ?)
+  13462  r1 = SEL(gestureRecognizers)
+  13464  r6 = SEL(gestureRecognizers)
+  13468  r0 = [r0 gestureRecognizers](?, ?)
+  13474  r1 = SEL(count)
+  13476  r4 = SEL(count)
+  1347a  r0 = [r0 count](?, ?)
+  1347e  cmp r0, 0
+  13480  beq L_1356c
+  13486  r0 = [r0 view](?, ?)
+  1348c  r0 = [r0 gestureRecognizers](?, ?)
+  13492  r0 = [r0 count](?, ?)
+  1349c  r0 = [r0 view](?, ?)
+  134a2  r0 = [r0 gestureRecognizers](?, ?)
+  134a6  cmp r5, 2
+  134a8  blo L_13516
+  134ae  r2 = 1
+  134b4  r1 = SEL(objectAtIndex:)
+  134b6  r4 = SEL(objectAtIndex:)
+  134ba  r0 = [r0 objectAtIndex:](1, ?)
+  134c4  r0 = [r0 view](?, ?)
+  134ca  r0 = [r0 gestureRecognizers](?, ?)
+  134d0  r2 = 0
+  134d2  r0 = [r0 objectAtIndex:](0, ?)
+  134e0  r2 = 0
+  134e2  r0 = SEL(setEnabled:)
+  134e4  r1 = SEL(setEnabled:)
+  134e8  r0 = [r0 setEnabled:](0, ?)
+  134f0  r0 = [r0 view](?, ?)
+  134fe  r1 = SEL(removeGestureRecognizer:)
+  13500  r4 = SEL(removeGestureRecognizer:)
+  13504  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1350c  r0 = [r0 view](?, ?)
+  13514  b L_133d6
+L_13516:
+  13518  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1351c  cbz r0 -> L_1356c
+  13522  r0 = [r0 view](?, ?)
+  13528  r0 = [r0 ??](?, ?)
+  13530  r2 = 0
+  13536  r1 = SEL(objectAtIndex:)
+  13538  r1 = SEL(objectAtIndex:)
+  1353a  r0 = [r0 objectAtIndex:](0, ?)
+  13548  r2 = 0
+  1354a  r0 = SEL(setEnabled:)
+  1354c  r1 = SEL(setEnabled:)
+  13550  r0 = [r0 setEnabled:](0, ?)
+  13558  r0 = [r0 view](?, ?)
+  13566  r1 = SEL(removeGestureRecognizer:)
+  13568  r1 = SEL(removeGestureRecognizer:)
+  1356a  b L_133d6
+L_1356c:
+  13574  r0 = SEL(view)
+  13576  r1 = SEL(view)
+  1357a  r0 = [r0 view](?, ?)
+  13586  r1 = SEL(gestureRecognizers)
+  13588  r1 = SEL(gestureRecognizers)
+  1358a  r0 = [r0 gestureRecognizers](?, ?)
+  13596  r1 = SEL(count)
+  13598  r1 = SEL(count)
+  1359a  r0 = [r0 count](?, ?)
+  135a6  r0 = SEL(buttonSelectImage)
+  135a8  r1 = SEL(buttonSelectImage)
+  135ac  add sp, #0x14
+  135b6  b L_a90d0
+
+//// -[StoreController didReceiveMemoryWarning]  0x135bc..0x135e8  v8@0:4
+  135c0  sub sp, #8
+  135d4  r1 = SEL(didReceiveMemoryWarning)
+  135da  r1 = SEL(didReceiveMemoryWarning)
+  135e0  r0 = [r0 didReceiveMemoryWarning](0xdb0bc/f1.25726e-39, ?) SUPER
+  135e4  add sp, #8
+  135e6  return
+
+//// -[StoreController viewWillAppear:]  0x135e8..0x13614  v12@0:4c8
+  135ec  sub sp, #8
+  13600  r1 = SEL(viewWillAppear:)
+  13606  r1 = SEL(viewWillAppear:)
+  1360c  r0 = [r0 viewWillAppear:](?, 0xdb0bc/f1.25726e-39) SUPER
+  13610  add sp, #8
+  13612  return
+
+//// -[StoreController viewWillDisappear:]  0x13614..0x13640  v12@0:4c8
+  13618  sub sp, #8
+  1362c  r1 = SEL(viewWillDisappear:)
+  13632  r1 = SEL(viewWillDisappear:)
+  13638  r0 = [r0 viewWillDisappear:](?, 0xdb0bc/f1.25726e-39) SUPER
+  1363c  add sp, #8
+  1363e  return
+
+//// -[StoreController reloadGold]  0x13640..0x136b4  v8@0:4
+  13642  add r7, sp, #0xc
+  13646  call sub_3ccc
+  13654  r0 = SEL(goldLabel)
+  13656  r1 = SEL(goldLabel)
+  1365a  r0 = [r0 goldLabel](?, ?)
+  13670  r0 = NSString
+  13672  r1 = SEL(haveGold)
+  13674  r6 = NSString
+  13678  r1 = SEL(haveGold)
+  1367a  r0 = [r0 haveGold](?, ?)
+  1368c  r0 = SEL(stringWithFormat:)
+  13692  r2 = CFSTR('%d')
+  13694  r1 = SEL(stringWithFormat:)
+  13698  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  136a6  r0 = SEL(setText:)
+  136a8  r1 = SEL(setText:)
+  136b0  b L_a90d0
+
+//// -[StoreController viewDidLoad]  0x136b4..0x13a78  v8@0:4
+  136b6  add r7, sp, #0xc
+  136bc  sub sp, #0x18
+  136d2  r0 = SEL(viewDidLoad)
+  136da  r1 = SEL(viewDidLoad)
+  136dc  add r0, sp, #0x10
+  136de  r0 = [r0 viewDidLoad](?, ?) SUPER
+  136ea  r0 = SEL(maskView)
+  136ec  r5 = SEL(maskView)
+  136f2  r0 = [r0 maskView](?, ?)
+  136fe  r1 = SEL(layer)
+  13700  r6 = SEL(layer)
+  13704  r0 = [r0 layer](?, ?)
+  1370c  r2 = 0
+  13716  r1 = SEL(setCornerRadius:)
+  13718  r1 = SEL(setCornerRadius:)
+  1371a  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  13722  r0 = [r0 maskView](?, ?)
+  13728  r0 = [r0 layer](?, ?)
+  13730  r2 = 1
+  13736  r1 = SEL(setMasksToBounds:)
+  13738  r1 = SEL(setMasksToBounds:)
+  1373a  r0 = [r0 setMasksToBounds:](1, ?)
+  13742  r0 = [r0 maskView](?, ?)
+  1374a  r2 = 1
+  13750  r1 = SEL(setHidden:)
+  13752  r1 = SEL(setHidden:)
+  13754  r0 = [r0 setHidden:](1, ?)
+  13758  call sub_3ccc
+  13766  r0 = SEL(buttonSelectImage)
+  13768  r1 = SEL(buttonSelectImage)
+  1376c  r0 = [r0 buttonSelectImage](?, ?)
+  13780  r0 = SEL(currentDevice)
+  13782  r2 = UIDevice
+  13784  r1 = SEL(currentDevice)
+  13786  r0 = UIDevice
+  13788  r0 = [UIDevice currentDevice](UIDevice, ?)
+  13794  r1 = SEL(systemVersion)
+  13796  r1 = SEL(systemVersion)
+  13798  r0 = [r0 systemVersion](?, ?)
+  137a4  r1 = SEL(floatValue)
+  137a6  r1 = SEL(floatValue)
+  137a8  r0 = [r0 floatValue](?, ?)
+  137ac  vmov.f32 d0, #5.000000e+00
+  137b0  vmov d1, r0, r0
+  137b4  vcmpe.f32 s2, s0
+  137b8  vmrs apsr_nzcv, fpscr
+  137bc  blt L_138ce
+  137c8  r0 = SEL(mode)
+  137ca  r5 = SEL(mode)
+  137d0  r0 = [r0 mode](?, ?)
+  137d8  r0 = [r0 mode](?, ?)
+  137de  cmp r0, 1
+  137e0  bne L_138ce
+  137f2  r0 = SEL(alloc)
+  137f4  r2 = UIPanGestureRecognizer
+  137f6  r1 = SEL(alloc)
+  137f8  r0 = UIPanGestureRecognizer
+  137fc  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  13810  r1 = SEL(initWithTarget:action:)
+  13812  r2 = SEL(Menu:)
+  13814  fp = SEL(initWithTarget:action:)
+  13818  r3 = SEL(Menu:)
+  1381e  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  1382a  r1 = SEL(autorelease)
+  1382c  r6 = SEL(autorelease)
+  13830  r0 = [r0 autorelease](?, ?)
+  1383e  r2 = 1
+  13840  r0 = SEL(setEnabled:)
+  13842  r1 = SEL(setEnabled:)
+  13846  r0 = [r0 setEnabled:](1, ?)
+  13854  r0 = SEL(setDelegate:)
+  13856  r1 = SEL(setDelegate:)
+  1385a  r0 = [r0 setDelegate:](?, ?)
+  13866  r0 = SEL(view)
+  13868  r5 = SEL(view)
+  1386e  r0 = [r0 view](?, ?)
+  13880  r1 = SEL(addGestureRecognizer:)
+  13882  r8 = SEL(addGestureRecognizer:)
+  13888  r0 = [r0 addGestureRecognizer:](?, ?)
+  13896  r0 = UITapGestureRecognizer
+  13898  r0 = UITapGestureRecognizer
+  1389a  r0 = [UITapGestureRecognizer ??](?, ?)
+  138a8  r1 = SEL(tapSelect:)
+  138aa  r3 = SEL(tapSelect:)
+  138ae  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  138b4  r0 = [r0 autorelease](?, ?)
+  138be  r0 = [r0 view](?, ?)
+  138ca  r0 = [r0 addGestureRecognizer:](?, ?)
+L_138ce:
+  138d6  r0 = SEL(goldLabel)
+  138d8  r1 = SEL(goldLabel)
+  138dc  r0 = [r0 goldLabel](?, ?)
+  138f2  r1 = NSString
+  138f4  r0 = SEL(haveGold)
+  138f6  r6 = NSString
+  138f8  r1 = SEL(haveGold)
+  138fc  r0 = [r0 haveGold](?, ?)
+  1390a  r0 = SEL(stringWithFormat:)
+  1390c  r1 = SEL(stringWithFormat:)
+  1391a  r2 = CFSTR('%d')
+  1391c  r0 = [NSString ??](CFSTR('%d'), ?)
+  1392a  r0 = SEL(setText:)
+  1392c  r1 = SEL(setText:)
+  13930  r0 = [r0 setText:](?, ?)
+  1393c  r0 = SEL(mode)
+  1393e  r1 = SEL(mode)
+  13942  r0 = [r0 mode](?, ?)
+  13948  cmp r0, 1
+  1394a  bne L_1399c
+  13950  r2 = 1
+  1395a  r0 = IVOFF(selectMenu)
+  13960  r1 = SEL(blindModeSelectedMenu)
+  13962  r0 = IVOFF(selectMenu)
+  13964  r1 = SEL(blindModeSelectedMenu)
+  13966  self->selectMenu = 1
+  1396a  r0 = [r0 blindModeSelectedMenu](1, ?)
+  13972  r3 = 0
+  13980  r0 = SEL(performSelector:withObject:afterDelay:)
+  13982  r2 = SEL(startRead)
+  13988  r1 = SEL(performSelector:withObject:afterDelay:)
+  1398a  r0 = 0
+  1398c  r2 = SEL(startRead)
+  13994  r3 = 0
+  13996  r0 = [r0 performSelector:withObject:afterDelay:](SEL(startRead), 0)
+  1399a  b L_139ae
+L_1399c:
+  139a4  r0 = SEL(blindModeSelectedMenu)
+  139a6  r1 = SEL(blindModeSelectedMenu)
+  139aa  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_139ae:
+  139b6  r0 = SEL(reloadGold)
+  139b8  r1 = SEL(reloadGold)
+  139bc  r0 = [r0 reloadGold](?, ?)
+  139c8  r0 = SEL(g_allweaponPrice)
+  139ca  r5 = SEL(g_allweaponPrice)
+  139d0  r0 = [r0 g_allweaponPrice](?, ?)
+  139dc  r0 = SEL(ItemAllButton)
+  139de  r1 = SEL(ItemAllButton)
+  139e2  r0 = [r0 ItemAllButton](?, ?)
+  139f2  sl = NSString
+  139f6  r6 = NSString
+  139fa  r0 = [r0 g_allweaponPrice](?, ?)
+  13a0e  r2 = CFSTR('All Wepon %@')
+  13a16  r0 = [NSString ??](CFSTR('All Wepon %@'), ?)
+  13a24  r0 = SEL(setAccessibilityLabel:)
+  13a26  r6 = SEL(setAccessibilityLabel:)
+  13a2c  r0 = [r0 setAccessibilityLabel:](?, ?)
+  13a38  r0 = SEL(round9)
+  13a3a  r1 = SEL(round9)
+  13a3e  r0 = [r0 round9](?, ?)
+  13a48  r4 = NSString
+  13a4c  r0 = [r0 g_allweaponPrice](?, ?)
+  13a5c  r2 = CFSTR('All Wepon %@')
+  13a60  r0 = [NSString ??](CFSTR('All Wepon %@'), ?)
+  13a6a  r0 = [r0 setAccessibilityLabel:](?, ?)
+  13a6e  add sp, #0x18
+  13a74  return
+
+//// -[StoreController startRead]  0x13a78..0x13ac4  v8@0:4
+  13a7a  add r7, sp, #8
+  13a7c  sub sp, #0x10
+  13a80  call sub_3ccc
+  13a8e  r0 = SEL(StopElseSpeak)
+  13a90  r1 = SEL(StopElseSpeak)
+  13a94  r0 = [r0 StopElseSpeak](?, ?)
+  13aa8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  13aaa  r2 = 13
+  13aac  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  13aae  r0 = 0
+  13aba  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  13abe  add sp, #0x10
+  13ac0  return
+
+//// -[StoreController buttonSelectImage]  0x13ac4..0x1408c  v8@0:4
+  13ac6  add r7, sp, #0xc
+  13acc  sub sp, #0x2c
+  13ad8  r0 = SEL(Item1Button)
+  13ada  r1 = SEL(Item1Button)
+  13ae2  r0 = [r0 ??](?, ?)
+  13af8  r0 = SEL(imageNamed:)
+  13afa  sl = UIImage
+  13afc  r8 = SEL(imageNamed:)
+  13b00  r0 = UIImage
+  13b0c  r2 = CFSTR('5_shop_weapon_btn1_inact.png')
+  13b10  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn1_inact.png'), ?)
+  13b1e  r3 = 0
+  13b20  r0 = SEL(setBackgroundImage:forState:)
+  13b22  fp = SEL(setBackgroundImage:forState:)
+  13b2a  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13b32  r0 = [r0 ??](?, ?)
+  13b38  r0 = UIImage
+  13b46  r2 = CFSTR('5_shop_weapon_btn1_act.png')
+  13b48  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn1_act.png'), ?)
+  13b52  r3 = 1
+  13b54  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13b60  r0 = SEL(Item2Button)
+  13b62  r6 = SEL(Item2Button)
+  13b6a  r0 = [r0 ??](?, ?)
+  13b70  r0 = UIImage
+  13b7e  r2 = CFSTR('5_shop_weapon_btn2_inact.png')
+  13b80  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn2_inact.png'), ?)
+  13b8a  r3 = 0
+  13b8c  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13b94  r0 = [r0 ??](?, ?)
+  13b9a  r0 = UIImage
+  13ba8  r2 = CFSTR('5_shop_weapon_btn2_act.png')
+  13baa  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn2_act.png'), ?)
+  13bb4  r3 = 1
+  13bb6  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13bc2  r0 = SEL(Item3Button)
+  13bc4  r6 = SEL(Item3Button)
+  13bcc  r0 = [r0 ??](?, ?)
+  13bd2  r0 = UIImage
+  13be0  r2 = CFSTR('5_shop_weapon_btn3_inact.png')
+  13be2  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn3_inact.png'), ?)
+  13bec  r3 = 0
+  13bee  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13bf6  r0 = [r0 ??](?, ?)
+  13bfc  r0 = UIImage
+  13c0a  r2 = CFSTR('5_shop_weapon_btn3_act.png')
+  13c0c  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn3_act.png'), ?)
+  13c16  r3 = 1
+  13c18  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13c24  r0 = SEL(Item4Button)
+  13c26  r6 = SEL(Item4Button)
+  13c2e  r0 = [r0 ??](?, ?)
+  13c34  r0 = UIImage
+  13c42  r2 = CFSTR('5_shop_weapon_btn4_inact.png')
+  13c44  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn4_inact.png'), ?)
+  13c4e  r3 = 0
+  13c50  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13c58  r0 = [r0 ??](?, ?)
+  13c5e  r0 = UIImage
+  13c6c  r2 = CFSTR('5_shop_weapon_btn4_act.png')
+  13c6e  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn4_act.png'), ?)
+  13c78  r3 = 1
+  13c7a  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13c86  r0 = SEL(Item5Button)
+  13c88  r6 = SEL(Item5Button)
+  13c90  r0 = [r0 ??](?, ?)
+  13c96  r0 = UIImage
+  13ca4  r2 = CFSTR('5_shop_weapon_btn5_inact.png')
+  13ca6  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn5_inact.png'), ?)
+  13cb0  r3 = 0
+  13cb2  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13cba  r0 = [r0 ??](?, ?)
+  13cc0  r0 = UIImage
+  13cce  r2 = CFSTR('5_shop_weapon_btn5_act.png')
+  13cd0  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn5_act.png'), ?)
+  13cda  r3 = 1
+  13cdc  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13ce8  r0 = SEL(Item6Button)
+  13cea  r6 = SEL(Item6Button)
+  13cf2  r0 = [r0 ??](?, ?)
+  13cf8  r0 = UIImage
+  13d06  r2 = CFSTR('5_shop_weapon_btn9_inact.png.png')
+  13d08  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn9_inact.png.png'), ?)
+  13d12  r3 = 0
+  13d14  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13d1c  r0 = [r0 ??](?, ?)
+  13d22  r0 = UIImage
+  13d30  r2 = CFSTR('5_shop_weapon_btn9_act.png.png')
+  13d32  r0 = [UIImage imageNamed:](CFSTR('5_shop_weapon_btn9_act.png.png'), ?)
+  13d3c  r3 = 1
+  13d3e  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13d4a  r0 = SEL(ItemAllButton)
+  13d4c  r1 = SEL(ItemAllButton)
+  13d54  r0 = [r0 ??](?, ?)
+  13d5a  r0 = UIImage
+  13d68  r2 = CFSTR('Btn_buy_all_normal.PNG')
+  13d6a  r0 = [UIImage imageNamed:](CFSTR('Btn_buy_all_normal.PNG'), ?)
+  13d74  r3 = 0
+  13d76  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13d7e  r0 = [r0 ??](?, ?)
+  13d84  r0 = UIImage
+  13d92  r2 = CFSTR('Btn_buy__allclick.PNG')
+  13d94  r0 = [UIImage imageNamed:](CFSTR('Btn_buy__allclick.PNG'), ?)
+  13d9e  r3 = 1
+  13da0  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13da4  call sub_3ccc
+  13db4  r0 = SEL(alloc)
+  13db6  r1 = SEL(alloc)
+  13dc0  r0 = UILabel
+  13dc2  r0 = UILabel
+  13dc4  r0 = [UILabel alloc](?, ?)
+  13dcc  r3 = 0
+  13dd2  r2 = 0
+  13dd4  r1 = SEL(initWithFrame:)
+  13dde  r1 = SEL(initWithFrame:)
+  13de4  r2 = 0
+  13dea  r3 = 0
+  13dec  r0 = [r0 initWithFrame:](0x43480000/f200, 0)
+  13dfa  r0 = SEL(g_allweaponPrice)
+  13dfc  r1 = SEL(g_allweaponPrice)
+  13e00  r0 = [r0 g_allweaponPrice](?, ?)
+  13e0e  r0 = SEL(setText:)
+  13e10  r1 = SEL(setText:)
+  13e14  r0 = [r0 setText:](?, ?)
+  13e1c  r3 = 0
+  13e26  r0 = SEL(fontWithName:size:)
+  13e28  r1 = SEL(fontWithName:size:)
+  13e32  r0 = UIFont
+  13e34  r0 = UIFont
+  13e3e  r2 = CFSTR('Helvetica-Bold')
+  13e40  r0 = [UIFont fontWithName:size:](CFSTR('Helvetica-Bold'), 0x41a00000/f20)
+  13e4e  r0 = SEL(setFont:)
+  13e50  r1 = SEL(setFont:)
+  13e54  r0 = [r0 setFont:](?, ?)
+  13e5c  r2 = 0
+  13e62  r0 = SEL(setNumberOfLines:)
+  13e64  r1 = SEL(setNumberOfLines:)
+  13e68  r0 = [r0 setNumberOfLines:](0, ?)
+  13e7c  r0 = SEL(darkGrayColor)
+  13e7e  r6 = UIColor
+  13e80  r1 = SEL(darkGrayColor)
+  13e82  r0 = UIColor
+  13e84  r0 = [UIColor darkGrayColor](?, ?)
+  13e92  r0 = SEL(setTextColor:)
+  13e94  r1 = SEL(setTextColor:)
+  13e98  r0 = [r0 setTextColor:](?, ?)
+  13ea4  r0 = SEL(clearColor)
+  13ea6  r1 = SEL(clearColor)
+  13ea8  r0 = UIColor
+  13eaa  r0 = [UIColor clearColor](?, ?)
+  13eb8  r0 = SEL(setBackgroundColor:)
+  13eba  r1 = SEL(setBackgroundColor:)
+  13ebe  r0 = [r0 setBackgroundColor:](?, ?)
+  13ec6  r2 = 1
+  13ecc  r0 = SEL(setTextAlignment:)
+  13ece  r1 = SEL(setTextAlignment:)
+  13ed2  r0 = [r0 setTextAlignment:](1, ?)
+  13eda  r0 = [r0 ??](?, ?)
+  13ee8  r1 = SEL(addSubview:)
+  13eea  r1 = SEL(addSubview:)
+  13eec  r0 = [r0 addSubview:](?, ?)
+  13ef8  r0 = SEL(release)
+  13efa  r1 = SEL(release)
+  13efe  r0 = [r0 release](?, ?)
+  13f0a  r0 = SEL(goBackButton)
+  13f0c  r6 = SEL(goBackButton)
+  13f14  r0 = [r0 ??](?, ?)
+  13f1a  r0 = UIImage
+  13f28  r2 = CFSTR('z_btn_back_act.png')
+  13f2a  r0 = [UIImage imageNamed:](CFSTR('z_btn_back_act.png'), ?)
+  13f34  r3 = 0
+  13f36  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  13f3e  r0 = [r0 ??](?, ?)
+  13f44  r0 = UIImage
+  13f52  r2 = CFSTR('z_btn_back_inact.png')
+  13f54  r0 = [UIImage imageNamed:](CFSTR('z_btn_back_inact.png'), ?)
+  13f5e  r3 = 1
+  13f60  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  13f6c  r0 = SEL(mode)
+  13f6e  r1 = SEL(mode)
+  13f72  r0 = [r0 mode](?, ?)
+  13f7c  r0 = [r0 ??](?, ?)
+  13f88  r1 = SEL(setEnabled:)
+  13f8a  r5 = SEL(setEnabled:)
+  13f8e  cmp r1, 1
+  13f90  bne L_14008
+  13f94  r2 = 0
+  13f96  r0 = [r0 setEnabled:](0, ?)
+  13f9e  r0 = [r0 ??](?, ?)
+  13fa4  r2 = 0
+  13fa6  r0 = [r0 setEnabled:](0, ?)
+  13fae  r0 = [r0 ??](?, ?)
+  13fb4  r2 = 0
+  13fb6  r0 = [r0 setEnabled:](0, ?)
+  13fbe  r0 = [r0 ??](?, ?)
+  13fc4  r2 = 0
+  13fc6  r0 = [r0 setEnabled:](0, ?)
+  13fce  r0 = [r0 ??](?, ?)
+  13fd4  r2 = 0
+  13fd6  r0 = [r0 setEnabled:](0, ?)
+  13fde  r0 = [r0 ??](?, ?)
+  13fe4  r2 = 0
+  13fe6  r0 = [r0 setEnabled:](0, ?)
+  13fee  r0 = [r0 ??](?, ?)
+  13ff4  r2 = 0
+  13ff6  r0 = [r0 setEnabled:](0, ?)
+  13ffe  r0 = [r0 ??](?, ?)
+  14004  r2 = 0
+  14006  b L_1407c
+L_14008:
+  1400a  r2 = 1
+  1400c  r0 = [r0 setEnabled:](1, ?)
+  14014  r0 = [r0 ??](?, ?)
+  1401a  r2 = 1
+  1401c  r0 = [r0 setEnabled:](1, ?)
+  14024  r0 = [r0 ??](?, ?)
+  1402a  r2 = 1
+  1402c  r0 = [r0 setEnabled:](1, ?)
+  14034  r0 = [r0 ??](?, ?)
+  1403a  r2 = 1
+  1403c  r0 = [r0 setEnabled:](1, ?)
+  14044  r0 = [r0 ??](?, ?)
+  1404a  r2 = 1
+  1404c  r0 = [r0 setEnabled:](1, ?)
+  14054  r0 = [r0 ??](?, ?)
+  1405a  r2 = 1
+  1405c  r0 = [r0 setEnabled:](1, ?)
+  14064  r0 = [r0 ??](?, ?)
+  1406a  r2 = 1
+  1406c  r0 = [r0 setEnabled:](1, ?)
+  14074  r0 = [r0 ??](?, ?)
+  1407a  r2 = 1
+L_1407c:
+  1407c  add sp, #0x2c
+  14086  b L_a90d0
+
+//// -[StoreController blindModeSelectedMenu]  0x1408c..0x14220  v8@0:4
+  1408e  add r7, sp, #0xc
+  14094  sub sp, #0x14
+  140a0  r0 = SEL(round1)
+  140a2  r1 = SEL(round1)
+  140a8  r0 = [r0 ??](?, ?)
+  140b0  r2 = 1
+  140b6  r1 = SEL(setHidden:)
+  140b8  r4 = SEL(setHidden:)
+  140bc  r0 = [r0 setHidden:](1, ?)
+  140c8  r0 = SEL(round2)
+  140ca  r1 = SEL(round2)
+  140d0  r0 = [r0 ??](?, ?)
+  140d6  r2 = 1
+  140d8  r0 = [r0 setHidden:](1, ?)
+  140e4  r0 = SEL(round3)
+  140e6  r1 = SEL(round3)
+  140ec  r0 = [r0 ??](?, ?)
+  140f2  r2 = 1
+  140f4  r0 = [r0 setHidden:](1, ?)
+  14100  r0 = SEL(round4)
+  14102  r1 = SEL(round4)
+  14108  r0 = [r0 ??](?, ?)
+  1410e  r2 = 1
+  14110  r0 = [r0 setHidden:](1, ?)
+  1411c  r0 = SEL(round5)
+  1411e  r1 = SEL(round5)
+  14124  r0 = [r0 ??](?, ?)
+  1412a  r2 = 1
+  1412c  r0 = [r0 setHidden:](1, ?)
+  14138  r0 = SEL(round6)
+  1413a  sl = SEL(round6)
+  14142  r0 = [r0 round6](?, ?)
+  14148  r2 = 1
+  1414a  r0 = [r0 setHidden:](1, ?)
+  14156  r0 = SEL(round7)
+  14158  fp = SEL(round7)
+  14160  r0 = [r0 round7](?, ?)
+  14166  r2 = 1
+  14168  r0 = [r0 setHidden:](1, ?)
+  14174  r0 = SEL(round8)
+  14176  r6 = SEL(round8)
+  1417c  r0 = [r0 round8](?, ?)
+  14182  r2 = 1
+  14184  r0 = [r0 setHidden:](1, ?)
+  14190  r0 = SEL(round9)
+  14192  r8 = SEL(round9)
+  1419a  r0 = [r0 round9](?, ?)
+  141a0  r2 = 1
+  141a2  r0 = [r0 setHidden:](1, ?)
+  141ae  r0 = IVOFF(selectMenu)
+  141b0  r0 = IVOFF(selectMenu)
+  141b2  r0 = self->selectMenu
+  141b4  subs r0, #1
+  141b6  cmp r0, 8
+  141b8  bls L_141c2
+  141ba  add sp, #0x14
+  141c0  return
+L_141c2:
+  141c6  lsrs r5, r0, #0x20
+  141c8  lsrs r3, r1, #0x18
+  141ca  asrs r1, r2, #0x10
+  141cc  subs r7, r2, r0
+  141d4  b L_14204
+  141da  b L_14204
+  141e0  b L_14204
+  141e6  b L_14204
+  141ec  b L_14204
+  141f2  b L_14204
+  141f8  b L_14204
+  141fe  b L_14204
+L_14204:
+  14204  r0 = [r0 round9](?, ?)
+  1420a  r2 = 0
+  1420c  add sp, #0x14
+  14216  b L_a90d0
+
+//// -[StoreController tapSelect:]  0x14220..0x14310  v12@0:4@8
+  14222  add r7, sp, #8
+  14224  sub sp, #0x18
+  14232  r0 = SEL(view)
+  14234  r1 = SEL(view)
+  14238  r0 = [r0 view](?, ?)
+  1423e  cbz r5 -> L_1425e
+  1424a  r0 = SEL(locationInView:)
+  1424c  r2 = SEL(locationInView:)
+  1424e  add r0, sp, #0x10
+  14250  r0 = [r0 ??](SEL(locationInView:), ?)
+  14254  vldr s2, [sp, #0x10]
+  14258  vldr s0, [sp, #0x14]
+  1425c  b L_1426c
+L_1425e:
+  1425e  vmov.i32 d0, #0
+  14262  r0 = 0
+  14268  vmov.f32 s2, s0
+L_1426c:
+  14270  d16 = 0.35
+  14278  ip = 0
+  1427c  r0 = IVOFF(posX)
+  1427e  vmov r2, r3, d16
+  14282  r1 = IVOFF(posX)
+  1428c  add r1, r4
+  1428e  r0 = IVOFF(posY)
+  14290  vstr s2, [r1]
+  14294  r1 = IVOFF(posY)
+  1429e  add r1, r4
+  142a0  r0 = IVOFF(tapCount)
+  142a2  vstr s0, [r1]
+  142aa  r1 = IVOFF(tapCount)
+  142b0  r5 = IVOFF(tapOrGesture)
+  142b2  r0 = self->tapCount
+  142bc  adds r0, #1
+  142be  self->tapCount = r0
+  142cc  r1 = IVOFF(tapOrGesture)
+  142d2  lr = NSTimer
+  142d4  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  142d6  sb = SEL(tapCount)
+  142d8  self->tapOrGesture = 0
+  142dc  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  142de  r0 = NSTimer
+  142e2  r5 = SEL(tapCount)
+  142ee  vorr d0, d0, d0
+  142f2  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  142fe  r1 = IVOFF(tapTimer)
+  14300  r1 = IVOFF(tapTimer)
+  14302  self->tapTimer = r0
+  14304  add sp, #0x18
+  14306  return
+  1430e  subs r7, #0xd6
+
+//// -[StoreController tapCount]  0x14310..0x1447c  v8@0:4
+  14312  add r7, sp, #0xc
+  14314  sub sp, #0x10
+  14320  r0 = IVOFF(tapCount)
+  14322  r6 = IVOFF(tapCount)
+  14324  r0 = self->tapCount
+  14326  cmp self->tapCount, 2
+  14328  bne L_143c2
+  1432a  call sub_3ccc
+  14338  r0 = SEL(bDevice)
+  1433a  r1 = SEL(bDevice)
+  1433e  r0 = [r0 bDevice](?, ?)
+  14358  r0 = IVOFF(selectMenu)
+  1435a  r0 = IVOFF(selectMenu)
+  1435c  r0 = self->selectMenu
+  1435e  subs r0, #1
+  14360  cmp r0, 8
+  14362  bhi L_14472
+  1436a  subs r0, #5
+  14372  lsls r2, r7, #1
+  14374  call sub_3ccc
+  14384  r2 = 0
+  14386  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  14390  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  14396  r2 = 10
+  14398  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  143a4  r0 = SEL(navigationController)
+  143a6  r1 = SEL(navigationController)
+  143aa  r0 = [r0 navigationController](?, ?)
+  143b2  r2 = 0
+  143b8  r1 = SEL(popViewControllerAnimated:)
+  143ba  r1 = SEL(popViewControllerAnimated:)
+  143bc  r0 = [r0 popViewControllerAnimated:](0, ?)
+  143c0  b L_14472
+L_143c2:
+  143c2  cmp r0, 1
+  143c4  bne L_14472
+  143ce  r0 = SEL(selectTapPointSoundStart)
+  143d0  r1 = SEL(selectTapPointSoundStart)
+  143d4  r0 = [r0 selectTapPointSoundStart](?, ?)
+  143d8  b L_14472
+  143e2  r0 = SEL(StopElseSpeak)
+  143e4  r1 = SEL(StopElseSpeak)
+  143e8  r0 = [r0 StopElseSpeak](?, ?)
+  143f4  r0 = SEL(haveGold)
+  143f6  r1 = SEL(haveGold)
+  143fa  r0 = [r0 haveGold](?, ?)
+  14408  r3 = 1
+  1440a  r0 = SEL(TTSNumber:type:)
+  1440c  r1 = SEL(TTSNumber:type:)
+  14410  r0 = [r0 TTSNumber:type:](?, 1)
+  14414  b L_14472
+  1441e  r0 = SEL(Item1Action:)
+  14420  b L_14468
+  1442a  r0 = SEL(Item2Action:)
+  1442c  b L_14468
+  14436  r0 = SEL(Item3Action:)
+  14438  b L_14468
+  14442  r0 = SEL(Item4Action:)
+  14444  b L_14468
+  1444e  r0 = SEL(Item5Action:)
+  14450  b L_14468
+  1445a  r0 = SEL(Item6Action:)
+  1445c  b L_14468
+  14466  r0 = SEL(ItemAllAction:)
+L_14468:
+  14468  r1 = SEL(ItemAllAction:)
+  1446c  r2 = 0
+  1446e  r0 = [r0 ItemAllAction:](0, ?)
+L_14472:
+  14472  r0 = 0
+  14476  add sp, #0x10
+  14478  return
+
+//// -[StoreController viewDidUnload]  0x1447c..0x14678  v8@0:4
+  1447e  add r7, sp, #4
+  14480  sub sp, #8
+  1448c  r2 = 0
+  1448e  r0 = SEL(setItem1Button:)
+  14490  r1 = SEL(setItem1Button:)
+  14494  r0 = [r0 setItem1Button:](0, ?)
+  1449c  r2 = 0
+  144a2  r0 = SEL(setItem2Button:)
+  144a4  r1 = SEL(setItem2Button:)
+  144a8  r0 = [r0 setItem2Button:](0, ?)
+  144b0  r2 = 0
+  144b6  r0 = SEL(setItem3Button:)
+  144b8  r1 = SEL(setItem3Button:)
+  144bc  r0 = [r0 setItem3Button:](0, ?)
+  144c4  r2 = 0
+  144ca  r0 = SEL(setItem4Button:)
+  144cc  r1 = SEL(setItem4Button:)
+  144d0  r0 = [r0 setItem4Button:](0, ?)
+  144d8  r2 = 0
+  144de  r0 = SEL(setItem5Button:)
+  144e0  r1 = SEL(setItem5Button:)
+  144e4  r0 = [r0 setItem5Button:](0, ?)
+  144ec  r2 = 0
+  144f2  r0 = SEL(setItem6Button:)
+  144f4  r1 = SEL(setItem6Button:)
+  144f8  r0 = [r0 setItem6Button:](0, ?)
+  14500  r2 = 0
+  14506  r0 = SEL(setGoBackButton:)
+  14508  r1 = SEL(setGoBackButton:)
+  1450c  r0 = [r0 setGoBackButton:](0, ?)
+  14514  r2 = 0
+  1451a  r0 = SEL(setGoldLabel:)
+  1451c  r1 = SEL(setGoldLabel:)
+  14520  r0 = [r0 setGoldLabel:](0, ?)
+  14528  r2 = 0
+  1452e  r0 = SEL(setRound1:)
+  14530  r1 = SEL(setRound1:)
+  14534  r0 = [r0 setRound1:](0, ?)
+  1453c  r2 = 0
+  14542  r0 = SEL(setRound2:)
+  14544  r1 = SEL(setRound2:)
+  14548  r0 = [r0 setRound2:](0, ?)
+  14550  r2 = 0
+  14556  r0 = SEL(setRound3:)
+  14558  r1 = SEL(setRound3:)
+  1455c  r0 = [r0 setRound3:](0, ?)
+  14564  r2 = 0
+  1456a  r0 = SEL(setRound4:)
+  1456c  r1 = SEL(setRound4:)
+  14570  r0 = [r0 setRound4:](0, ?)
+  14578  r2 = 0
+  1457e  r0 = SEL(setRound5:)
+  14580  r1 = SEL(setRound5:)
+  14584  r0 = [r0 setRound5:](0, ?)
+  1458c  r2 = 0
+  14592  r0 = SEL(setRound6:)
+  14594  r1 = SEL(setRound6:)
+  14598  r0 = [r0 setRound6:](0, ?)
+  145a0  r2 = 0
+  145a6  r0 = SEL(setRound7:)
+  145a8  r1 = SEL(setRound7:)
+  145ac  r0 = [r0 setRound7:](0, ?)
+  145b4  r2 = 0
+  145ba  r0 = SEL(setRound8:)
+  145bc  r1 = SEL(setRound8:)
+  145c0  r0 = [r0 setRound8:](0, ?)
+  145c8  r2 = 0
+  145ce  r0 = SEL(setItemAllButton:)
+  145d0  r1 = SEL(setItemAllButton:)
+  145d4  r0 = [r0 setItemAllButton:](0, ?)
+  145dc  r2 = 0
+  145e2  r0 = SEL(setRound9:)
+  145e4  r1 = SEL(setRound9:)
+  145e8  r0 = [r0 setRound9:](0, ?)
+  145f0  r2 = 0
+  145f6  r0 = SEL(setMaskView:)
+  145f8  r1 = SEL(setMaskView:)
+  145fc  r0 = [r0 setMaskView:](0, ?)
+  14604  r2 = 0
+  1460a  r0 = SEL(setMaskLabel:)
+  1460c  r1 = SEL(setMaskLabel:)
+  14610  r0 = [r0 setMaskLabel:](0, ?)
+  14618  r2 = 0
+  1461e  r0 = SEL(setActivityIndicator:)
+  14620  r1 = SEL(setActivityIndicator:)
+  14624  r0 = [r0 setActivityIndicator:](0, ?)
+  1462c  r2 = 0
+  14632  r0 = SEL(setUrlCon:)
+  14634  r1 = SEL(setUrlCon:)
+  14638  r0 = [r0 setUrlCon:](0, ?)
+  14640  r2 = 0
+  14646  r0 = SEL(setRawData:)
+  14648  r1 = SEL(setRawData:)
+  1464c  r0 = [r0 setRawData:](0, ?)
+  14662  r0 = SEL(viewDidUnload)
+  1466a  r1 = SEL(viewDidUnload)
+  1466e  r0 = [r0 viewDidUnload](?, ?) SUPER
+  14672  add sp, #8
+  14674  return
+
+//// -[StoreController dealloc]  0x14678..0x14880  v8@0:4
+  1467a  add r7, sp, #8
+  1467c  sub sp, #8
+  1468c  r0 = IVOFF(Item1Button)
+  14692  r1 = SEL(release)
+  14694  r0 = IVOFF(Item1Button)
+  14696  r5 = SEL(release)
+  14698  r0 = self->Item1Button
+  1469c  r0 = [self->Item1Button release](?, ?)
+  146aa  r0 = IVOFF(Item2Button)
+  146ac  r0 = IVOFF(Item2Button)
+  146ae  r0 = self->Item2Button
+  146b0  r0 = [self->Item2Button release](?, ?)
+  146be  r0 = IVOFF(Item3Button)
+  146c0  r0 = IVOFF(Item3Button)
+  146c2  r0 = self->Item3Button
+  146c4  r0 = [self->Item3Button release](?, ?)
+  146d2  r0 = IVOFF(Item4Button)
+  146d4  r0 = IVOFF(Item4Button)
+  146d6  r0 = self->Item4Button
+  146d8  r0 = [self->Item4Button release](?, ?)
+  146e6  r0 = IVOFF(Item5Button)
+  146e8  r0 = IVOFF(Item5Button)
+  146ea  r0 = self->Item5Button
+  146ec  r0 = [self->Item5Button release](?, ?)
+  146fa  r0 = IVOFF(Item6Button)
+  146fc  r0 = IVOFF(Item6Button)
+  146fe  r0 = self->Item6Button
+  14700  r0 = [self->Item6Button release](?, ?)
+  1470e  r0 = IVOFF(goBackButton)
+  14710  r0 = IVOFF(goBackButton)
+  14712  r0 = self->goBackButton
+  14714  r0 = [self->goBackButton release](?, ?)
+  14722  r0 = IVOFF(goldLabel)
+  14724  r0 = IVOFF(goldLabel)
+  14726  r0 = self->goldLabel
+  14728  r0 = [self->goldLabel release](?, ?)
+  14736  r0 = IVOFF(_round1)
+  14738  r0 = IVOFF(_round1)
+  1473a  r0 = self->_round1
+  1473c  r0 = [self->_round1 release](?, ?)
+  1474a  r0 = IVOFF(_round2)
+  1474c  r0 = IVOFF(_round2)
+  1474e  r0 = self->_round2
+  14750  r0 = [self->_round2 release](?, ?)
+  1475e  r0 = IVOFF(_round3)
+  14760  r0 = IVOFF(_round3)
+  14762  r0 = self->_round3
+  14764  r0 = [self->_round3 release](?, ?)
+  14772  r0 = IVOFF(_round4)
+  14774  r0 = IVOFF(_round4)
+  14776  r0 = self->_round4
+  14778  r0 = [self->_round4 release](?, ?)
+  14786  r0 = IVOFF(_round5)
+  14788  r0 = IVOFF(_round5)
+  1478a  r0 = self->_round5
+  1478c  r0 = [self->_round5 release](?, ?)
+  1479a  r0 = IVOFF(_round6)
+  1479c  r0 = IVOFF(_round6)
+  1479e  r0 = self->_round6
+  147a0  r0 = [self->_round6 release](?, ?)
+  147ae  r0 = IVOFF(_round7)
+  147b0  r0 = IVOFF(_round7)
+  147b2  r0 = self->_round7
+  147b4  r0 = [self->_round7 release](?, ?)
+  147c2  r0 = IVOFF(_round8)
+  147c4  r0 = IVOFF(_round8)
+  147c6  r0 = self->_round8
+  147c8  r0 = [self->_round8 release](?, ?)
+  147d6  r0 = IVOFF(_ItemAllButton)
+  147d8  r0 = IVOFF(_ItemAllButton)
+  147da  r0 = self->_ItemAllButton
+  147dc  r0 = [self->_ItemAllButton release](?, ?)
+  147ea  r0 = IVOFF(_round9)
+  147ec  r0 = IVOFF(_round9)
+  147ee  r0 = self->_round9
+  147f0  r0 = [self->_round9 release](?, ?)
+  147fe  r0 = IVOFF(_maskView)
+  14800  r0 = IVOFF(_maskView)
+  14802  r0 = self->_maskView
+  14804  r0 = [self->_maskView release](?, ?)
+  14812  r0 = IVOFF(_maskLabel)
+  14814  r0 = IVOFF(_maskLabel)
+  14816  r0 = self->_maskLabel
+  14818  r0 = [self->_maskLabel release](?, ?)
+  14826  r0 = IVOFF(_activityIndicator)
+  14828  r0 = IVOFF(_activityIndicator)
+  1482a  r0 = self->_activityIndicator
+  1482c  r0 = [self->_activityIndicator release](?, ?)
+  1483a  r0 = IVOFF(urlCon)
+  1483c  r0 = IVOFF(urlCon)
+  1483e  r0 = self->urlCon
+  14840  r0 = [self->urlCon release](?, ?)
+  1484e  r0 = IVOFF(rawData)
+  14850  r0 = IVOFF(rawData)
+  14852  r0 = self->rawData
+  14854  r0 = [self->rawData release](?, ?)
+  1486a  r0 = SEL(dealloc)
+  14872  r1 = SEL(dealloc)
+  14876  r0 = [r0 dealloc](?, ?) SUPER
+  1487a  add sp, #8
+  1487c  return
+
+//// -[StoreController shouldAutorotateToInterfaceOrientation:]  0x14880..0x1488c  c12@0:4i8
+  14880  cmp r2, 1
+
+//// -[StoreController StopElseSpeak]  0x1488c..0x14968  v8@0:4
+  1488e  add r7, sp, #0xc
+  14890  sub sp, #4
+  14894  call sub_3ccc
+  148a2  r2 = 13
+  148a4  r0 = SEL(stopSoundBufNumber:)
+  148a6  r6 = SEL(stopSoundBufNumber:)
+  148ac  r0 = [r0 stopSoundBufNumber:](13, ?)
+  148b4  r2 = 233
+  148b6  r0 = [r0 stopSoundBufNumber:](233, ?)
+  148be  r2 = 241
+  148c0  r0 = [r0 stopSoundBufNumber:](241, ?)
+  148c8  r2 = 242
+  148ca  r0 = [r0 stopSoundBufNumber:](242, ?)
+  148d2  r2 = 243
+  148d4  r0 = [r0 stopSoundBufNumber:](243, ?)
+  148dc  r2 = 244
+  148de  r0 = [r0 stopSoundBufNumber:](244, ?)
+  148e6  r2 = 245
+  148e8  r0 = [r0 stopSoundBufNumber:](245, ?)
+  148f0  r2 = 246
+  148f2  r0 = [r0 stopSoundBufNumber:](246, ?)
+  148fa  r2 = 366
+  148fe  r0 = [r0 stopSoundBufNumber:](366, ?)
+  1490a  r0 = [r0 stopSoundBufNumber:](261, ?)
+  14912  r2 = 10
+  14914  r0 = [r0 stopSoundBufNumber:](10, ?)
+  1491c  r2 = 348
+  14920  r0 = [r0 stopSoundBufNumber:](348, ?)
+  1492c  r0 = SEL(readStop)
+  1492e  r1 = SEL(readStop)
+  14932  r0 = [r0 readStop](?, ?)
+  1494e  r0 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  14950  r2 = SEL(readgold)
+  14952  r6 = NSObject
+  14954  r1 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  14956  r3 = SEL(readgold)
+  14958  r2 = 0
+  1495a  r0 = NSObject
+  14960  r0 = [NSObject cancelPreviousPerformRequestsWithTarget:selector:object:](?, SEL(readgold))
+  14964  add sp, #4
+  14966  return
+
+//// -[StoreController selectTapPointSoundStart]  0x14968..0x15720  v8@0:4
+  1496a  add r7, sp, #0xc
+  14970  sub sp, #0x30
+  14974  call sub_3ccc
+  1498a  r0 = SEL(mainScreen)
+  1498c  r5 = UIScreen
+  1498e  r6 = SEL(mainScreen)
+  14990  r0 = UIScreen
+  14994  r0 = [UIScreen mainScreen](?, ?)
+  1499a  cmp r1, 0
+  1499c  beq L_149d6
+  149a6  r0 = SEL(bounds)
+  149a8  r2 = SEL(bounds)
+  149aa  add r0, sp, #0x20
+  149ac  r0 = [r0 ??](SEL(bounds), ?)
+  149b0  s0 = 320
+  149b4  vldr s2, [sp, #0x28]
+  149b8  vcmpe.f32 s2, s0
+  149bc  vmrs apsr_nzcv, fpscr
+  149c0  bne L_149e0
+  149c2  vldr s0, [sp, #0x2c]
+  149c6  s2 = 568
+  149ca  vcmpe.f32 s0, s2
+  149ce  vmrs apsr_nzcv, fpscr
+  149d2  beq L_14a2a
+  149d4  b L_149e0
+L_149d6:
+  149d6  vmov.i32 q8, #0
+  149da  add r0, sp, #0x20
+  149dc  vst1.32 {d16, d17}, [r0]
+L_149e0:
+  149e0  r0 = UIScreen
+  149e4  r0 = [UIScreen mainScreen](?, ?)
+  149ea  cmp r1, 0
+  149ec  beq L_14b66
+  149f8  r0 = SEL(bounds)
+  149fa  r2 = SEL(bounds)
+  149fc  add r0, sp, #0x10
+  149fe  r0 = [r0 ??](SEL(bounds), ?)
+  14a02  s0 = 568
+  14a06  vldr s2, [sp, #0x18]
+  14a0a  vcmpe.f32 s2, s0
+  14a0e  vmrs apsr_nzcv, fpscr
+  14a12  bne L_14b70
+  14a16  vldr s0, [sp, #0x1c]
+  14a1a  s2 = 320
+  14a1e  vcmpe.f32 s0, s2
+  14a22  vmrs apsr_nzcv, fpscr
+  14a26  bne L_14b70
+L_14a2a:
+  14a2e  s2 = 40
+  14a3a  r1 = IVOFF(posY)
+  14a40  r0 = IVOFF(tapOrGesture)
+  14a42  vmov.i32 d2, #0
+  14a46  r1 = IVOFF(posY)
+  14a48  r2 = 0
+  14a4a  r0 = IVOFF(tapOrGesture)
+  14a4c  add r1, r4
+  14a4e  vldr s0, [r1]
+  14a52  r1 = 0
+  14a54  r0 = self->tapOrGesture
+  14a56  vcmpe.f32 s0, s2
+  14a5a  vmrs apsr_nzcv, fpscr
+  14a5e  vcmpe.f32 s0, s4
+  14a66  vmrs apsr_nzcv, fpscr
+  14a6e  cmp self->tapOrGesture, 0
+  14a70  orr.w r1, r1, r2
+  14a74  beq L_14f02
+  14a78  cmp r1, 0
+  14a7a  beq L_14d1c
+  14a7e  s2 = 55
+  14a82  vcmpe.f32 s0, s2
+  14a86  vmrs apsr_nzcv, fpscr
+  14a8a  blt L_14a9c
+  14a8c  s2 = 85
+  14a90  vcmpe.f32 s0, s2
+  14a94  vmrs apsr_nzcv, fpscr
+  14a98  bls L_1506a
+L_14a9c:
+  14a9c  s2 = 99
+  14aa0  vcmpe.f32 s0, s2
+  14aa4  vmrs apsr_nzcv, fpscr
+  14aa8  blt L_14aba
+  14aaa  s2 = 157
+  14aae  vcmpe.f32 s0, s2
+  14ab2  vmrs apsr_nzcv, fpscr
+  14ab6  bls L_150f6
+L_14aba:
+  14aba  s2 = 169
+  14abe  vcmpe.f32 s0, s2
+  14ac2  vmrs apsr_nzcv, fpscr
+  14ac6  blt L_14ad8
+  14ac8  s2 = 227
+  14acc  vcmpe.f32 s0, s2
+  14ad0  vmrs apsr_nzcv, fpscr
+  14ad4  bls L_151e4
+L_14ad8:
+  14ad8  s2 = 239
+  14adc  vcmpe.f32 s0, s2
+  14ae0  vmrs apsr_nzcv, fpscr
+  14ae4  blt L_14af6
+  14ae6  s2 = 297
+  14aea  vcmpe.f32 s0, s2
+  14aee  vmrs apsr_nzcv, fpscr
+  14af2  bls L_152a8
+L_14af6:
+  14af6  s2 = 309
+  14afa  vcmpe.f32 s0, s2
+  14afe  vmrs apsr_nzcv, fpscr
+  14b02  blt L_14b14
+  14b04  s2 = 369
+  14b08  vcmpe.f32 s0, s2
+  14b0c  vmrs apsr_nzcv, fpscr
+  14b10  bls L_1536c
+L_14b14:
+  14b14  s2 = 379
+  14b18  vcmpe.f32 s0, s2
+  14b1c  vmrs apsr_nzcv, fpscr
+  14b20  blt L_14b32
+  14b22  s2 = 439
+  14b26  vcmpe.f32 s0, s2
+  14b2a  vmrs apsr_nzcv, fpscr
+  14b2e  bls L_15430
+L_14b32:
+  14b32  s2 = 445
+  14b36  vcmpe.f32 s0, s2
+  14b3a  vmrs apsr_nzcv, fpscr
+  14b3e  ble L_14b50
+  14b40  s2 = 505
+  14b44  vcmpe.f32 s0, s2
+  14b48  vmrs apsr_nzcv, fpscr
+  14b4c  bls L_154f4
+L_14b50:
+  14b50  s2 = 496
+  14b54  vcmpe.f32 s0, s2
+  14b58  vmrs apsr_nzcv, fpscr
+  14b5c  ble L_1566c
+  14b60  s2 = 554
+  14b64  b L_14caa
+L_14b66:
+  14b66  vmov.i32 q8, #0
+  14b6a  add r0, sp, #0x10
+  14b6c  vst1.32 {d16, d17}, [r0]
+L_14b70:
+  14b74  s2 = 40
+  14b80  r1 = IVOFF(posY)
+  14b86  r0 = IVOFF(tapOrGesture)
+  14b88  vmov.i32 d2, #0
+  14b8c  r1 = IVOFF(posY)
+  14b8e  r2 = 0
+  14b90  r0 = IVOFF(tapOrGesture)
+  14b92  add r1, r4
+  14b94  vldr s0, [r1]
+  14b98  r1 = 0
+  14b9a  r0 = self->tapOrGesture
+  14b9c  vcmpe.f32 s0, s2
+  14ba0  vmrs apsr_nzcv, fpscr
+  14ba4  vcmpe.f32 s0, s4
+  14bac  vmrs apsr_nzcv, fpscr
+  14bb4  cmp self->tapOrGesture, 0
+  14bb6  orr.w r1, r1, r2
+  14bba  beq L_14e08
+  14bbe  cmp r1, 0
+  14bc0  beq L_14d1c
+  14bc4  s2 = 50
+  14bc8  vcmpe.f32 s0, s2
+  14bcc  vmrs apsr_nzcv, fpscr
+  14bd0  blt L_14be2
+  14bd2  s2 = 80
+  14bd6  vcmpe.f32 s0, s2
+  14bda  vmrs apsr_nzcv, fpscr
+  14bde  bls L_1506a
+L_14be2:
+  14be2  s2 = 86
+  14be6  vcmpe.f32 s0, s2
+  14bea  vmrs apsr_nzcv, fpscr
+  14bee  blt L_14c00
+  14bf0  s2 = 144
+  14bf4  vcmpe.f32 s0, s2
+  14bf8  vmrs apsr_nzcv, fpscr
+  14bfc  bls L_150f6
+L_14c00:
+  14c00  s2 = 141
+  14c04  vcmpe.f32 s0, s2
+  14c08  vmrs apsr_nzcv, fpscr
+  14c0c  blt L_14c1e
+  14c0e  s2 = 191
+  14c12  vcmpe.f32 s0, s2
+  14c16  vmrs apsr_nzcv, fpscr
+  14c1a  bls L_151e4
+L_14c1e:
+  14c1e  s2 = 199
+  14c22  vcmpe.f32 s0, s2
+  14c26  vmrs apsr_nzcv, fpscr
+  14c2a  blt L_14c3c
+  14c2c  s2 = 249
+  14c30  vcmpe.f32 s0, s2
+  14c34  vmrs apsr_nzcv, fpscr
+  14c38  bls L_152a8
+L_14c3c:
+  14c3c  s2 = 253
+  14c40  vcmpe.f32 s0, s2
+  14c44  vmrs apsr_nzcv, fpscr
+  14c48  blt L_14c5a
+  14c4a  s2 = 303
+  14c4e  vcmpe.f32 s0, s2
+  14c52  vmrs apsr_nzcv, fpscr
+  14c56  bls L_1536c
+L_14c5a:
+  14c5a  s2 = 309
+  14c5e  vcmpe.f32 s0, s2
+  14c62  vmrs apsr_nzcv, fpscr
+  14c66  blt L_14c78
+  14c68  s2 = 359
+  14c6c  vcmpe.f32 s0, s2
+  14c70  vmrs apsr_nzcv, fpscr
+  14c74  bls L_15430
+L_14c78:
+  14c78  s2 = 364
+  14c7c  vcmpe.f32 s0, s2
+  14c80  vmrs apsr_nzcv, fpscr
+  14c84  ble L_14c96
+  14c86  s2 = 414
+  14c8a  vcmpe.f32 s0, s2
+  14c8e  vmrs apsr_nzcv, fpscr
+  14c92  bls L_154f4
+L_14c96:
+  14c96  s2 = 422
+  14c9a  vcmpe.f32 s0, s2
+  14c9e  vmrs apsr_nzcv, fpscr
+  14ca2  ble L_1566c
+  14ca6  s2 = 472
+L_14caa:
+  14caa  vcmpe.f32 s0, s2
+  14cae  vmrs apsr_nzcv, fpscr
+  14cb2  bhi L_1566c
+  14cba  r2 = 8
+  14cc4  r0 = IVOFF(selectMenu)
+  14cca  r1 = IVOFF(item6_flag)
+  14ccc  r0 = IVOFF(selectMenu)
+  14cce  self->selectMenu = 8
+  14cd0  r0 = IVOFF(item6_flag)
+  14cd2  r1 = self->item6_flag
+  14cd4  cmp self->item6_flag, 0
+  14cd6  bne L_156ec
+  14cde  r2 = 1
+  14ce4  self->item6_flag = 1
+  14ce6  r1 = SEL(StopElseSpeak)
+  14cea  r1 = SEL(StopElseSpeak)
+  14cec  r0 = [r0 StopElseSpeak](1, ?)
+  14d00  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  14d02  r2 = 348
+  14d06  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  14d08  r0 = 0
+  14d14  r0 = [r0 playSound:Gain:Pos:z:reprats:](348, 0x3e4ccccd/f0.2)
+  14d18  b L_156ec
+L_14d1c:
+  14d28  r0 = IVOFF(selectMenu)
+  14d2e  r2 = IVOFF(back_flag)
+  14d30  r1 = IVOFF(selectMenu)
+  14d32  r0 = 1
+  14d34  self->selectMenu = 1
+  14d36  r1 = IVOFF(back_flag)
+  14d38  r2 = self->back_flag
+  14d3a  cmp self->back_flag, 0
+  14d3c  bne L_156ec
+  14d48  self->back_flag = 1
+  14d4a  r2 = SEL(StopElseSpeak)
+  14d4e  r1 = SEL(StopElseSpeak)
+  14d50  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  14d64  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  14d66  r2 = 13
+  14d68  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  14d6a  r0 = 0
+  14d76  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  14d7a  b L_156ec
+  14d86  add r6, r1
+  14d8e  rsbs r4, r3, #0
+  14d92  cmp r2, UIScreen
+  14d96  cmp r6, r0
+  14da2  muls r3, r4, r3
+  14da6  muls r7, r5, r7
+  14dca  add r2, r1
+  14dce  rsbs r0, r1, #0
+  14dd2  cmp r0, r4
+  14dd6  cmp r4, r5
+  14de6  muls r7, r0, r7
+  14dea  muls r1, r7, r1
+  14dee  muls r5, r7, r5
+L_14e08:
+  14e08  cmp r1, 0
+  14e0a  beq L_1500a
+  14e0e  s2 = 50
+  14e12  vcmpe.f32 s0, s2
+  14e16  vmrs apsr_nzcv, fpscr
+  14e1a  blt L_14e2c
+  14e1c  s2 = 80
+  14e20  vcmpe.f32 s0, s2
+  14e24  vmrs apsr_nzcv, fpscr
+  14e28  bls L_15158
+L_14e2c:
+  14e2c  s2 = 86
+  14e30  vcmpe.f32 s0, s2
+  14e34  vmrs apsr_nzcv, fpscr
+  14e38  blt L_14e4a
+  14e3a  s2 = 144
+  14e3e  vcmpe.f32 s0, s2
+  14e42  vmrs apsr_nzcv, fpscr
+  14e46  bls L_15246
+L_14e4a:
+  14e4a  s2 = 141
+  14e4e  vcmpe.f32 s0, s2
+  14e52  vmrs apsr_nzcv, fpscr
+  14e56  blt L_14e68
+  14e58  s2 = 191
+  14e5c  vcmpe.f32 s0, s2
+  14e60  vmrs apsr_nzcv, fpscr
+  14e64  bls L_1530a
+L_14e68:
+  14e68  s2 = 199
+  14e6c  vcmpe.f32 s0, s2
+  14e70  vmrs apsr_nzcv, fpscr
+  14e74  blt L_14e86
+  14e76  s2 = 249
+  14e7a  vcmpe.f32 s0, s2
+  14e7e  vmrs apsr_nzcv, fpscr
+  14e82  bls L_153ce
+L_14e86:
+  14e86  s2 = 253
+  14e8a  vcmpe.f32 s0, s2
+  14e8e  vmrs apsr_nzcv, fpscr
+  14e92  blt L_14ea4
+  14e94  s2 = 303
+  14e98  vcmpe.f32 s0, s2
+  14e9c  vmrs apsr_nzcv, fpscr
+  14ea0  bls L_15492
+L_14ea4:
+  14ea4  s2 = 309
+  14ea8  vcmpe.f32 s0, s2
+  14eac  vmrs apsr_nzcv, fpscr
+  14eb0  blt L_14ec2
+  14eb2  s2 = 359
+  14eb6  vcmpe.f32 s0, s2
+  14eba  vmrs apsr_nzcv, fpscr
+  14ebe  bls L_15558
+L_14ec2:
+  14ec2  s2 = 364
+  14ec6  vcmpe.f32 s0, s2
+  14eca  vmrs apsr_nzcv, fpscr
+  14ece  ble L_14ee0
+  14ed0  s2 = 414
+  14ed4  vcmpe.f32 s0, s2
+  14ed8  vmrs apsr_nzcv, fpscr
+  14edc  bls L_155b8
+L_14ee0:
+  14ee4  s2 = 422
+  14eec  r0 = IVOFF(selectMenu)
+  14eee  vcmpe.f32 s0, s2
+  14ef2  vmrs apsr_nzcv, fpscr
+  14ef6  r0 = IVOFF(selectMenu)
+  14ef8  ble L_15004
+  14efc  s2 = 472
+  14f00  b L_14ff8
+L_14f02:
+  14f02  cmp r1, 0
+  14f04  beq L_1500a
+  14f08  s2 = 55
+  14f0c  vcmpe.f32 s0, s2
+  14f10  vmrs apsr_nzcv, fpscr
+  14f14  blt L_14f26
+  14f16  s2 = 85
+  14f1a  vcmpe.f32 s0, s2
+  14f1e  vmrs apsr_nzcv, fpscr
+  14f22  bls L_15158
+L_14f26:
+  14f26  s2 = 99
+  14f2a  vcmpe.f32 s0, s2
+  14f2e  vmrs apsr_nzcv, fpscr
+  14f32  blt L_14f44
+  14f34  s2 = 157
+  14f38  vcmpe.f32 s0, s2
+  14f3c  vmrs apsr_nzcv, fpscr
+  14f40  bls L_15246
+L_14f44:
+  14f44  s2 = 169
+  14f48  vcmpe.f32 s0, s2
+  14f4c  vmrs apsr_nzcv, fpscr
+  14f50  blt L_14f62
+  14f52  s2 = 227
+  14f56  vcmpe.f32 s0, s2
+  14f5a  vmrs apsr_nzcv, fpscr
+  14f5e  bls L_1530a
+L_14f62:
+  14f62  s2 = 239
+  14f66  vcmpe.f32 s0, s2
+  14f6a  vmrs apsr_nzcv, fpscr
+  14f6e  blt L_14f80
+  14f70  s2 = 297
+  14f74  vcmpe.f32 s0, s2
+  14f78  vmrs apsr_nzcv, fpscr
+  14f7c  bls L_153ce
+L_14f80:
+  14f80  s2 = 309
+  14f84  vcmpe.f32 s0, s2
+  14f88  vmrs apsr_nzcv, fpscr
+  14f8c  blt L_14f9e
+  14f8e  s2 = 369
+  14f92  vcmpe.f32 s0, s2
+  14f96  vmrs apsr_nzcv, fpscr
+  14f9a  bls L_15492
+L_14f9e:
+  14f9e  s2 = 379
+  14fa2  vcmpe.f32 s0, s2
+  14fa6  vmrs apsr_nzcv, fpscr
+  14faa  blt L_14fbc
+  14fac  s2 = 439
+  14fb0  vcmpe.f32 s0, s2
+  14fb4  vmrs apsr_nzcv, fpscr
+  14fb8  bls L_15558
+L_14fbc:
+  14fbc  s2 = 445
+  14fc0  vcmpe.f32 s0, s2
+  14fc4  vmrs apsr_nzcv, fpscr
+  14fc8  ble L_14fda
+  14fca  s2 = 505
+  14fce  vcmpe.f32 s0, s2
+  14fd2  vmrs apsr_nzcv, fpscr
+  14fd6  bls L_155b8
+L_14fda:
+  14fde  s2 = 496
+  14fe6  r0 = IVOFF(selectMenu)
+  14fe8  vcmpe.f32 s0, s2
+  14fec  vmrs apsr_nzcv, fpscr
+  14ff0  r0 = IVOFF(selectMenu)
+  14ff2  ble L_15004
+  14ff4  s2 = 554
+L_14ff8:
+  14ff8  vcmpe.f32 s0, s2
+  14ffc  vmrs apsr_nzcv, fpscr
+  15000  bls L_1561a
+L_15004:
+  15004  r1 = 0
+  15006  self->selectMenu = 0
+  15008  b L_1566c
+L_1500a:
+  15016  r0 = IVOFF(selectMenu)
+  1501c  r2 = IVOFF(back_flag)
+  1501e  r1 = IVOFF(selectMenu)
+  15020  r0 = 1
+  15022  self->selectMenu = 1
+  15024  r1 = IVOFF(back_flag)
+  15026  r2 = self->back_flag
+  15028  cmp self->back_flag, 0
+  1502a  bne L_1566c
+  15036  self->back_flag = 1
+  15038  r2 = SEL(StopElseSpeak)
+  1503c  r1 = SEL(StopElseSpeak)
+  1503e  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  15052  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15054  r2 = 13
+  15056  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15058  r0 = 0
+  15064  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  15068  b L_1566c
+L_1506a:
+  1506e  r2 = 2
+  15078  r0 = IVOFF(selectMenu)
+  1507e  r1 = IVOFF(tts_gold_flag)
+  15080  r0 = IVOFF(selectMenu)
+  15082  self->selectMenu = 2
+  15084  r0 = IVOFF(tts_gold_flag)
+  15086  r1 = self->tts_gold_flag
+  15088  cmp self->tts_gold_flag, 0
+  1508a  bne L_156ec
+  15092  r2 = 1
+  15098  self->tts_gold_flag = 1
+  1509a  r1 = SEL(StopElseSpeak)
+  1509e  r1 = SEL(StopElseSpeak)
+  150a0  r0 = [r0 StopElseSpeak](1, ?)
+  150b0  r6 = 0
+  150b2  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  150b8  r2 = 233
+  150bc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  150c6  r0 = [r0 playSound:Gain:Pos:z:reprats:](233, 0x3e4ccccd/f0.2)
+  150ce  r5 = 0
+  150dc  r0 = SEL(performSelector:withObject:afterDelay:)
+  150de  r2 = SEL(readgold)
+  150e4  r1 = SEL(performSelector:withObject:afterDelay:)
+  150e8  r2 = SEL(readgold)
+  150ea  r3 = 0
+  150f0  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readgold), 0)
+  150f4  b L_156ec
+L_150f6:
+  150fa  r2 = 3
+  15104  r0 = IVOFF(selectMenu)
+  1510a  r1 = IVOFF(item1_flag)
+  1510c  r0 = IVOFF(selectMenu)
+  1510e  self->selectMenu = 3
+  15110  r0 = IVOFF(item1_flag)
+  15112  r1 = self->item1_flag
+  15114  cmp self->item1_flag, 0
+  15116  bne L_156ec
+  1511e  r2 = 1
+  15124  self->item1_flag = 1
+  15126  r1 = SEL(StopElseSpeak)
+  1512a  r1 = SEL(StopElseSpeak)
+  1512c  r0 = [r0 StopElseSpeak](1, ?)
+  15140  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15142  r2 = 241
+  15144  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15146  r0 = 0
+  15152  r0 = [r0 playSound:Gain:Pos:z:reprats:](241, 0x3e4ccccd/f0.2)
+  15156  b L_156ec
+L_15158:
+  1515c  r2 = 2
+  15166  r0 = IVOFF(selectMenu)
+  1516c  r1 = IVOFF(tts_gold_flag)
+  1516e  r0 = IVOFF(selectMenu)
+  15170  self->selectMenu = 2
+  15172  r0 = IVOFF(tts_gold_flag)
+  15174  r1 = self->tts_gold_flag
+  15176  cmp self->tts_gold_flag, 0
+  15178  bne L_1566c
+  15180  r2 = 1
+  15186  self->tts_gold_flag = 1
+  15188  r1 = SEL(StopElseSpeak)
+  1518c  r1 = SEL(StopElseSpeak)
+  1518e  r0 = [r0 StopElseSpeak](1, ?)
+  1519e  r6 = 0
+  151a0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  151a6  r2 = 233
+  151aa  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  151b4  r0 = [r0 playSound:Gain:Pos:z:reprats:](233, 0x3e4ccccd/f0.2)
+  151bc  r5 = 0
+  151ca  r0 = SEL(performSelector:withObject:afterDelay:)
+  151cc  r2 = SEL(readgold)
+  151d2  r1 = SEL(performSelector:withObject:afterDelay:)
+  151d6  r2 = SEL(readgold)
+  151d8  r3 = 0
+  151de  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readgold), 0)
+  151e2  b L_1566c
+L_151e4:
+  151e8  r2 = 4
+  151f2  r0 = IVOFF(selectMenu)
+  151f8  r1 = IVOFF(item2_flag)
+  151fa  r0 = IVOFF(selectMenu)
+  151fc  self->selectMenu = 4
+  151fe  r0 = IVOFF(item2_flag)
+  15200  r1 = self->item2_flag
+  15202  cmp self->item2_flag, 0
+  15204  bne L_156ec
+  1520c  r2 = 1
+  15212  self->item2_flag = 1
+  15214  r1 = SEL(StopElseSpeak)
+  15218  r1 = SEL(StopElseSpeak)
+  1521a  r0 = [r0 StopElseSpeak](1, ?)
+  1522e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15230  r2 = 242
+  15232  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15234  r0 = 0
+  15240  r0 = [r0 playSound:Gain:Pos:z:reprats:](242, 0x3e4ccccd/f0.2)
+  15244  b L_156ec
+L_15246:
+  1524a  r2 = 3
+  15254  r0 = IVOFF(selectMenu)
+  1525a  r1 = IVOFF(item1_flag)
+  1525c  r0 = IVOFF(selectMenu)
+  1525e  self->selectMenu = 3
+  15260  r0 = IVOFF(item1_flag)
+  15262  r1 = self->item1_flag
+  15264  cmp self->item1_flag, 0
+  15266  bne L_1566c
+  1526e  r2 = 1
+  15274  self->item1_flag = 1
+  15276  r1 = SEL(StopElseSpeak)
+  1527a  r1 = SEL(StopElseSpeak)
+  1527c  r0 = [r0 StopElseSpeak](1, ?)
+  15290  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15292  r2 = 241
+  15294  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15296  r0 = 0
+  152a2  r0 = [r0 playSound:Gain:Pos:z:reprats:](241, 0x3e4ccccd/f0.2)
+  152a6  b L_1566c
+L_152a8:
+  152ac  r2 = 5
+  152b6  r0 = IVOFF(selectMenu)
+  152bc  r1 = IVOFF(item3_flag)
+  152be  r0 = IVOFF(selectMenu)
+  152c0  self->selectMenu = 5
+  152c2  r0 = IVOFF(item3_flag)
+  152c4  r1 = self->item3_flag
+  152c6  cmp self->item3_flag, 0
+  152c8  bne L_156ec
+  152d0  r2 = 1
+  152d6  self->item3_flag = 1
+  152d8  r1 = SEL(StopElseSpeak)
+  152dc  r1 = SEL(StopElseSpeak)
+  152de  r0 = [r0 StopElseSpeak](1, ?)
+  152f2  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  152f4  r2 = 243
+  152f6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  152f8  r0 = 0
+  15304  r0 = [r0 playSound:Gain:Pos:z:reprats:](243, 0x3e4ccccd/f0.2)
+  15308  b L_156ec
+L_1530a:
+  1530e  r2 = 4
+  15318  r0 = IVOFF(selectMenu)
+  1531e  r1 = IVOFF(item2_flag)
+  15320  r0 = IVOFF(selectMenu)
+  15322  self->selectMenu = 4
+  15324  r0 = IVOFF(item2_flag)
+  15326  r1 = self->item2_flag
+  15328  cmp self->item2_flag, 0
+  1532a  bne L_1566c
+  15332  r2 = 1
+  15338  self->item2_flag = 1
+  1533a  r1 = SEL(StopElseSpeak)
+  1533e  r1 = SEL(StopElseSpeak)
+  15340  r0 = [r0 StopElseSpeak](1, ?)
+  15354  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15356  r2 = 242
+  15358  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1535a  r0 = 0
+  15366  r0 = [r0 playSound:Gain:Pos:z:reprats:](242, 0x3e4ccccd/f0.2)
+  1536a  b L_1566c
+L_1536c:
+  15370  r2 = 6
+  1537a  r0 = IVOFF(selectMenu)
+  15380  r1 = IVOFF(item4_flag)
+  15382  r0 = IVOFF(selectMenu)
+  15384  self->selectMenu = 6
+  15386  r0 = IVOFF(item4_flag)
+  15388  r1 = self->item4_flag
+  1538a  cmp self->item4_flag, 0
+  1538c  bne L_156ec
+  15394  r2 = 1
+  1539a  self->item4_flag = 1
+  1539c  r1 = SEL(StopElseSpeak)
+  153a0  r1 = SEL(StopElseSpeak)
+  153a2  r0 = [r0 StopElseSpeak](1, ?)
+  153b6  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  153b8  r2 = 244
+  153ba  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  153bc  r0 = 0
+  153c8  r0 = [r0 playSound:Gain:Pos:z:reprats:](244, 0x3e4ccccd/f0.2)
+  153cc  b L_156ec
+L_153ce:
+  153d2  r2 = 5
+  153dc  r0 = IVOFF(selectMenu)
+  153e2  r1 = IVOFF(item3_flag)
+  153e4  r0 = IVOFF(selectMenu)
+  153e6  self->selectMenu = 5
+  153e8  r0 = IVOFF(item3_flag)
+  153ea  r1 = self->item3_flag
+  153ec  cmp self->item3_flag, 0
+  153ee  bne L_1566c
+  153f6  r2 = 1
+  153fc  self->item3_flag = 1
+  153fe  r1 = SEL(StopElseSpeak)
+  15402  r1 = SEL(StopElseSpeak)
+  15404  r0 = [r0 StopElseSpeak](1, ?)
+  15418  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1541a  r2 = 243
+  1541c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1541e  r0 = 0
+  1542a  r0 = [r0 playSound:Gain:Pos:z:reprats:](243, 0x3e4ccccd/f0.2)
+  1542e  b L_1566c
+L_15430:
+  15434  r2 = 7
+  1543e  r0 = IVOFF(selectMenu)
+  15444  r1 = IVOFF(item5_flag)
+  15446  r0 = IVOFF(selectMenu)
+  15448  self->selectMenu = 7
+  1544a  r0 = IVOFF(item5_flag)
+  1544c  r1 = self->item5_flag
+  1544e  cmp self->item5_flag, 0
+  15450  bne L_156ec
+  15458  r2 = 1
+  1545e  self->item5_flag = 1
+  15460  r1 = SEL(StopElseSpeak)
+  15464  r1 = SEL(StopElseSpeak)
+  15466  r0 = [r0 StopElseSpeak](1, ?)
+  1547a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1547c  r2 = 245
+  1547e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15480  r0 = 0
+  1548c  r0 = [r0 playSound:Gain:Pos:z:reprats:](245, 0x3e4ccccd/f0.2)
+  15490  b L_156ec
+L_15492:
+  15496  r2 = 6
+  154a0  r0 = IVOFF(selectMenu)
+  154a6  r1 = IVOFF(item4_flag)
+  154a8  r0 = IVOFF(selectMenu)
+  154aa  self->selectMenu = 6
+  154ac  r0 = IVOFF(item4_flag)
+  154ae  r1 = self->item4_flag
+  154b0  cmp self->item4_flag, 0
+  154b2  bne L_1566c
+  154ba  r2 = 1
+  154c0  self->item4_flag = 1
+  154c2  r1 = SEL(StopElseSpeak)
+  154c6  r1 = SEL(StopElseSpeak)
+  154c8  r0 = [r0 StopElseSpeak](1, ?)
+  154dc  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  154de  r2 = 244
+  154e0  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  154e2  r0 = 0
+  154ee  r0 = [r0 playSound:Gain:Pos:z:reprats:](244, 0x3e4ccccd/f0.2)
+  154f2  b L_1566c
+L_154f4:
+  154f8  r2 = 9
+  15502  r0 = IVOFF(selectMenu)
+  15508  r1 = IVOFF(itemAll_flag)
+  1550a  r0 = IVOFF(selectMenu)
+  1550c  self->selectMenu = 9
+  1550e  r0 = IVOFF(itemAll_flag)
+  15510  r1 = self->itemAll_flag
+  15512  cmp self->itemAll_flag, 0
+  15514  bne L_156ec
+  1551c  r2 = 1
+  15522  self->itemAll_flag = 1
+  15524  r1 = SEL(StopElseSpeak)
+  15528  r1 = SEL(StopElseSpeak)
+  1552a  r0 = [r0 StopElseSpeak](1, ?)
+  1553e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15540  r2 = 366
+  15544  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15546  r0 = 0
+  15552  r0 = [r0 playSound:Gain:Pos:z:reprats:](366, 0x3e4ccccd/f0.2)
+  15556  b L_156ec
+L_15558:
+  1555c  r2 = 7
+  15566  r0 = IVOFF(selectMenu)
+  1556c  r1 = IVOFF(item5_flag)
+  1556e  r0 = IVOFF(selectMenu)
+  15570  self->selectMenu = 7
+  15572  r0 = IVOFF(item5_flag)
+  15574  r1 = self->item5_flag
+  15576  cmp self->item5_flag, 0
+  15578  bne L_1566c
+  1557e  r2 = 1
+  15584  self->item5_flag = 1
+  15586  r1 = SEL(StopElseSpeak)
+  1558a  r1 = SEL(StopElseSpeak)
+  1558c  r0 = [r0 StopElseSpeak](1, ?)
+  155a0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  155a2  r2 = 245
+  155a4  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  155a6  r0 = 0
+  155b2  r0 = [r0 playSound:Gain:Pos:z:reprats:](245, 0x3e4ccccd/f0.2)
+  155b6  b L_1566c
+L_155b8:
+  155bc  r2 = 9
+  155c6  r0 = IVOFF(selectMenu)
+  155cc  r1 = IVOFF(itemAll_flag)
+  155ce  r0 = IVOFF(selectMenu)
+  155d0  self->selectMenu = 9
+  155d2  r0 = IVOFF(itemAll_flag)
+  155d4  r1 = self->itemAll_flag
+  155d6  cmp self->itemAll_flag, 0
+  155d8  bne L_1566c
+  155de  r2 = 1
+  155e4  self->itemAll_flag = 1
+  155e6  r1 = SEL(StopElseSpeak)
+  155ea  r1 = SEL(StopElseSpeak)
+  155ec  r0 = [r0 StopElseSpeak](1, ?)
+  15600  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15602  r2 = 366
+  15606  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15608  r0 = 0
+  15614  r0 = [r0 playSound:Gain:Pos:z:reprats:](366, 0x3e4ccccd/f0.2)
+  15618  b L_1566c
+L_1561a:
+  1561e  r2 = 8
+  15626  r1 = IVOFF(item6_flag)
+  15628  r0 = IVOFF(item6_flag)
+  1562a  r1 = self->item6_flag
+  1562c  cbnz self->item6_flag -> L_1566c
+  15632  r2 = 1
+  15638  self->item6_flag = 1
+  1563a  r1 = SEL(StopElseSpeak)
+  1563e  r1 = SEL(StopElseSpeak)
+  15640  r0 = [r0 StopElseSpeak](1, ?)
+  15654  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  15656  r2 = 348
+  1565a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1565c  r0 = 0
+  15668  r0 = [r0 playSound:Gain:Pos:z:reprats:](348, 0x3e4ccccd/f0.2)
+L_1566c:
+  15678  r0 = IVOFF(item1_flag)
+  1567e  r2 = IVOFF(item2_flag)
+  15680  r1 = IVOFF(item1_flag)
+  15682  r0 = 0
+  15684  self->item1_flag = 0
+  15686  r1 = IVOFF(item2_flag)
+  15690  r2 = IVOFF(item3_flag)
+  15692  self->item2_flag = 0
+  15694  r1 = IVOFF(item3_flag)
+  1569e  r2 = IVOFF(item4_flag)
+  156a0  self->item3_flag = 0
+  156a2  r1 = IVOFF(item4_flag)
+  156ac  r2 = IVOFF(item5_flag)
+  156ae  self->item4_flag = 0
+  156b0  r1 = IVOFF(item5_flag)
+  156ba  r2 = IVOFF(item6_flag)
+  156bc  self->item5_flag = 0
+  156be  r1 = IVOFF(item6_flag)
+  156c8  r2 = IVOFF(itemAll_flag)
+  156ca  self->item6_flag = 0
+  156cc  r1 = IVOFF(itemAll_flag)
+  156d6  r2 = IVOFF(back_flag)
+  156d8  self->itemAll_flag = 0
+  156da  r1 = IVOFF(back_flag)
+  156e4  r2 = IVOFF(tts_gold_flag)
+  156e6  self->back_flag = 0
+  156e8  r1 = IVOFF(tts_gold_flag)
+  156ea  self->tts_gold_flag = 0
+L_156ec:
+  156f4  r0 = SEL(mode)
+  156f6  r1 = SEL(mode)
+  156fa  r0 = [r0 mode](IVOFF(tts_gold_flag), ?)
+  15702  beq L_15716
+  1570c  r0 = SEL(blindModeSelectedMenu)
+  1570e  r1 = SEL(blindModeSelectedMenu)
+  15712  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_15716:
+  15716  add sp, #0x30
+  1571c  return
+
+//// -[StoreController readgold]  0x15720..0x15758  v8@0:4
+  15722  add r7, sp, #4
+  15724  call sub_3ccc
+  15732  r0 = SEL(haveGold)
+  15734  r1 = SEL(haveGold)
+  15738  r0 = [r0 haveGold](?, ?)
+  15746  r3 = 1
+  15748  r0 = SEL(TTSNumber:type2:)
+  1574a  r1 = SEL(TTSNumber:type2:)
+  15752  b L_a90d0
+
+//// -[StoreController Menu:]  0x15758..0x159a8  v12@0:4@8
+  1575a  add r7, sp, #0xc
+  15760  sub sp, #0x14
+  15766  call sub_3ccc
+  15772  r1 = SEL(mode)
+  15774  r1 = SEL(mode)
+  15776  r0 = [r0 mode](?, ?)
+  1577e  beq L_1599e
+  1578a  r0 = SEL(view)
+  1578c  r6 = SEL(view)
+  15792  r0 = [r0 view](?, ?)
+  157a0  r0 = SEL(state)
+  157a2  sl = SEL(state)
+  157aa  r0 = [r0 state](?, ?)
+  157ae  cmp r0, 1
+  157b0  beq L_157c0
+  157b6  r0 = [r0 state](?, ?)
+  157ba  cmp r0, 2
+  157bc  bne L_158f6
+L_157c0:
+  157c4  r0 = [r0 state](?, ?)
+  157c8  cmp r0, 1
+  157ca  bne L_1583c
+  157d0  r0 = [r0 view](?, ?)
+  157d6  cbz r5 -> L_157f6
+  157e2  r0 = SEL(locationInView:)
+  157e4  r2 = SEL(locationInView:)
+  157e6  add r0, sp, #0xc
+  157e8  r0 = [r0 ??](SEL(locationInView:), ?)
+  157ec  vldr s2, [sp, #0xc]
+  157f0  vldr s0, [sp, #0x10]
+  157f4  b L_15804
+L_157f6:
+  157f6  vmov.i32 d0, #0
+  157fa  r0 = 0
+  15800  vmov.f32 s2, s0
+L_15804:
+  1580c  r0 = IVOFF(posX)
+  1580e  r1 = IVOFF(posX)
+  15818  add r1, r4
+  1581a  r0 = IVOFF(posY)
+  1581c  vstr s2, [r1]
+  15820  r1 = IVOFF(posY)
+  1582a  r0 = IVOFF(tapOrGesture)
+  1582c  add r1, r4
+  1582e  r0 = IVOFF(tapOrGesture)
+  15830  vstr s0, [r1]
+  15834  r1 = 1
+  15836  self->tapOrGesture = 1
+  15838  vorr d0, d0, d0
+L_1583c:
+  15844  r0 = SEL(superview)
+  15846  r6 = SEL(superview)
+  1584c  r0 = [r0 superview](?, ?)
+  15852  cbz r5 -> L_15872
+  1585e  r0 = SEL(translationInView:)
+  15860  r2 = SEL(translationInView:)
+  15862  add r0, sp, #4
+  15864  r0 = [r0 ??](SEL(translationInView:), ?)
+  15868  vldr s2, [sp, #4]
+  1586c  vldr s0, [sp, #8]
+  15870  b L_15880
+L_15872:
+  15872  vmov.i32 d0, #0
+  15876  r0 = 0
+  1587a  vorr d1, d0, d0
+L_15880:
+  15888  r0 = IVOFF(posX)
+  1588a  r1 = IVOFF(posX)
+  15894  add r1, r4
+  15896  r0 = IVOFF(posY)
+  15898  vldr s4, [r1]
+  1589c  r0 = IVOFF(posY)
+  1589e  vadd.f32 d1, d1, d2
+  158a2  add r0, r4
+  158a4  vstr s2, [r1]
+  158aa  vldr s2, [r0]
+  158ae  vadd.f32 d0, d0, d1
+  158b2  vstr s0, [r0]
+  158b8  vorr d0, d0, d0
+  158bc  r0 = [r0 superview](?, ?)
+  158cc  r1 = _CGPointZero
+  158d2  r2 = SEL(setTranslation:inView:)
+  158d6  r3 = _CGPointZero
+  158da  r1 = SEL(setTranslation:inView:)
+  158e0  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  158ec  r0 = SEL(selectTapPointSoundStart)
+  158ee  r1 = SEL(selectTapPointSoundStart)
+  158f2  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_158f6:
+  158fa  r0 = [r0 state](?, ?)
+  158fe  cmp r0, 3
+  15900  bne L_1599e
+  1590e  r0 = IVOFF(posX)
+  15914  r2 = IVOFF(posY)
+  15916  r1 = IVOFF(posX)
+  15918  r0 = 0
+  1591a  self->posX = 0
+  1591c  r1 = IVOFF(posY)
+  15926  r2 = IVOFF(item1_flag)
+  15928  self->posY = 0
+  1592a  r1 = IVOFF(item1_flag)
+  15934  r2 = IVOFF(item2_flag)
+  15936  self->item1_flag = 0
+  15938  r1 = IVOFF(item2_flag)
+  15942  r2 = IVOFF(item3_flag)
+  15944  self->item2_flag = 0
+  15946  r1 = IVOFF(item3_flag)
+  15950  r2 = IVOFF(item4_flag)
+  15952  self->item3_flag = 0
+  15954  r1 = IVOFF(item4_flag)
+  1595e  r2 = IVOFF(item5_flag)
+  15960  self->item4_flag = 0
+  15962  r1 = IVOFF(item5_flag)
+  1596c  r2 = IVOFF(item6_flag)
+  1596e  self->item5_flag = 0
+  15970  r1 = IVOFF(item6_flag)
+  1597a  r2 = IVOFF(itemAll_flag)
+  1597c  self->item6_flag = 0
+  1597e  r1 = IVOFF(itemAll_flag)
+  15988  r2 = IVOFF(back_flag)
+  1598a  self->itemAll_flag = 0
+  1598c  r1 = IVOFF(back_flag)
+  15996  r2 = IVOFF(tapOrGesture)
+  15998  self->back_flag = 0
+  1599a  r1 = IVOFF(tapOrGesture)
+  1599c  self->tapOrGesture = 0
+L_1599e:
+  1599e  add sp, #0x14
+  159a4  return
+
+//// -[StoreController goBackAction:]  0x159a8..0x15a14  v12@0:4@8
+  159aa  add r7, sp, #4
+  159ac  sub sp, #0x10
+  159b8  r0 = SEL(StopElseSpeak)
+  159ba  r1 = SEL(StopElseSpeak)
+  159be  r0 = [r0 StopElseSpeak](?, ?)
+  159c2  call sub_3ccc
+  159d2  r2 = 0
+  159d4  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  159de  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  159e4  r2 = 10
+  159e6  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  159f2  r0 = SEL(navigationController)
+  159f4  r1 = SEL(navigationController)
+  159f8  r0 = [r0 navigationController](?, ?)
+  15a00  r2 = 0
+  15a06  r1 = SEL(popViewControllerAnimated:)
+  15a08  r1 = SEL(popViewControllerAnimated:)
+  15a0a  add sp, #0x10
+  15a10  b L_a90d0
+
+//// -[StoreController Item1Action:]  0x15a14..0x15bd0  v12@0:4@8
+  15a16  add r7, sp, #0xc
+  15a1c  sub sp, #0x30
+  15a28  r0 = SEL(StopElseSpeak)
+  15a2a  r1 = SEL(StopElseSpeak)
+  15a2e  r0 = [r0 StopElseSpeak](?, ?)
+  15a32  call sub_3ccc
+  15a42  r2 = 0
+  15a44  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15a4e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15a54  r2 = 10
+  15a56  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  15a6a  r0 = SEL(alloc)
+  15a6c  r2 = DetailStoreController
+  15a6e  r1 = SEL(alloc)
+  15a70  r0 = DetailStoreController
+  15a72  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  15a7e  r1 = SEL(init)
+  15a80  r1 = SEL(init)
+  15a82  r0 = [r0 init](?, ?)
+  15a90  r2 = 1
+  15a92  r0 = SEL(setWeaponType:)
+  15a94  r1 = SEL(setWeaponType:)
+  15a98  r0 = [r0 setWeaponType:](1, ?)
+  15aac  r0 = SEL(mainScreen)
+  15aae  r4 = UIScreen
+  15ab0  r6 = SEL(mainScreen)
+  15ab2  r0 = UIScreen
+  15ab6  r0 = [UIScreen mainScreen](?, ?)
+  15abc  cmp r1, 0
+  15abe  beq L_15af8
+  15ac8  r0 = SEL(bounds)
+  15aca  r2 = SEL(bounds)
+  15acc  add r0, sp, #0x20
+  15ace  r0 = [r0 ??](SEL(bounds), ?)
+  15ad2  s0 = 320
+  15ad6  vldr s2, [sp, #0x28]
+  15ada  vcmpe.f32 s2, s0
+  15ade  vmrs apsr_nzcv, fpscr
+  15ae2  bne L_15b02
+  15ae4  vldr s0, [sp, #0x2c]
+  15ae8  s2 = 568
+  15aec  vcmpe.f32 s0, s2
+  15af0  vmrs apsr_nzcv, fpscr
+  15af4  beq L_15b46
+  15af6  b L_15b02
+L_15af8:
+  15af8  vmov.i32 q8, #0
+  15afc  add r0, sp, #0x20
+  15afe  vst1.32 {d16, d17}, [r0]
+L_15b02:
+  15b02  r0 = UIScreen
+  15b06  r0 = [UIScreen mainScreen](?, ?)
+  15b0c  cmp r1, 0
+  15b0e  beq L_15b5c
+  15b18  r0 = SEL(bounds)
+  15b1a  r2 = SEL(bounds)
+  15b1c  add r0, sp, #0x10
+  15b1e  r0 = [r0 ??](SEL(bounds), ?)
+  15b22  s0 = 568
+  15b26  vldr s2, [sp, #0x18]
+  15b2a  vcmpe.f32 s2, s0
+  15b2e  vmrs apsr_nzcv, fpscr
+  15b32  bne L_15b66
+  15b34  vldr s0, [sp, #0x1c]
+  15b38  s2 = 320
+  15b3c  vcmpe.f32 s0, s2
+  15b40  vmrs apsr_nzcv, fpscr
+  15b44  bne L_15b66
+L_15b46:
+  15b56  r0 = SEL(initWithNibName:bundle:)
+  15b58  r2 = CFSTR('DetailStoreController~568h')
+  15b5a  b L_15b7a
+L_15b5c:
+  15b5c  vmov.i32 q8, #0
+  15b60  add r0, sp, #0x10
+  15b62  vst1.32 {d16, d17}, [r0]
+L_15b66:
+  15b76  r0 = SEL(initWithNibName:bundle:)
+  15b78  r2 = CFSTR('DetailStoreController')
+L_15b7a:
+  15b7a  r1 = SEL(initWithNibName:bundle:)
+  15b7e  r3 = 0
+  15b80  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  15b8e  r0 = SEL(navigationController)
+  15b90  r1 = SEL(navigationController)
+  15b94  r0 = [r0 navigationController](?, ?)
+  15ba2  r3 = 0
+  15ba4  r1 = SEL(pushViewController:animated:)
+  15ba6  r1 = SEL(pushViewController:animated:)
+  15ba8  r0 = [r0 pushViewController:animated:](?, 0)
+  15bb4  r0 = SEL(release)
+  15bb6  r1 = SEL(release)
+  15bba  r0 = [r0 release](?, ?)
+  15bbe  add sp, #0x30
+  15bc4  return
+  15bce  add r6, r1
+
+//// -[StoreController Item2Action:]  0x15bd0..0x15d8c  v12@0:4@8
+  15bd2  add r7, sp, #0xc
+  15bd8  sub sp, #0x30
+  15be4  r0 = SEL(StopElseSpeak)
+  15be6  r1 = SEL(StopElseSpeak)
+  15bea  r0 = [r0 StopElseSpeak](?, ?)
+  15bee  call sub_3ccc
+  15bfe  r2 = 0
+  15c00  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15c0a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15c10  r2 = 10
+  15c12  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  15c26  r0 = SEL(alloc)
+  15c28  r2 = DetailStoreController
+  15c2a  r1 = SEL(alloc)
+  15c2c  r0 = DetailStoreController
+  15c2e  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  15c3a  r1 = SEL(init)
+  15c3c  r1 = SEL(init)
+  15c3e  r0 = [r0 init](?, ?)
+  15c4c  r2 = 2
+  15c4e  r0 = SEL(setWeaponType:)
+  15c50  r1 = SEL(setWeaponType:)
+  15c54  r0 = [r0 setWeaponType:](2, ?)
+  15c68  r0 = SEL(mainScreen)
+  15c6a  r4 = UIScreen
+  15c6c  r6 = SEL(mainScreen)
+  15c6e  r0 = UIScreen
+  15c72  r0 = [UIScreen mainScreen](?, ?)
+  15c78  cmp r1, 0
+  15c7a  beq L_15cb4
+  15c84  r0 = SEL(bounds)
+  15c86  r2 = SEL(bounds)
+  15c88  add r0, sp, #0x20
+  15c8a  r0 = [r0 ??](SEL(bounds), ?)
+  15c8e  s0 = 320
+  15c92  vldr s2, [sp, #0x28]
+  15c96  vcmpe.f32 s2, s0
+  15c9a  vmrs apsr_nzcv, fpscr
+  15c9e  bne L_15cbe
+  15ca0  vldr s0, [sp, #0x2c]
+  15ca4  s2 = 568
+  15ca8  vcmpe.f32 s0, s2
+  15cac  vmrs apsr_nzcv, fpscr
+  15cb0  beq L_15d02
+  15cb2  b L_15cbe
+L_15cb4:
+  15cb4  vmov.i32 q8, #0
+  15cb8  add r0, sp, #0x20
+  15cba  vst1.32 {d16, d17}, [r0]
+L_15cbe:
+  15cbe  r0 = UIScreen
+  15cc2  r0 = [UIScreen mainScreen](?, ?)
+  15cc8  cmp r1, 0
+  15cca  beq L_15d18
+  15cd4  r0 = SEL(bounds)
+  15cd6  r2 = SEL(bounds)
+  15cd8  add r0, sp, #0x10
+  15cda  r0 = [r0 ??](SEL(bounds), ?)
+  15cde  s0 = 568
+  15ce2  vldr s2, [sp, #0x18]
+  15ce6  vcmpe.f32 s2, s0
+  15cea  vmrs apsr_nzcv, fpscr
+  15cee  bne L_15d22
+  15cf0  vldr s0, [sp, #0x1c]
+  15cf4  s2 = 320
+  15cf8  vcmpe.f32 s0, s2
+  15cfc  vmrs apsr_nzcv, fpscr
+  15d00  bne L_15d22
+L_15d02:
+  15d12  r0 = SEL(initWithNibName:bundle:)
+  15d14  r2 = CFSTR('DetailStoreController~568h')
+  15d16  b L_15d36
+L_15d18:
+  15d18  vmov.i32 q8, #0
+  15d1c  add r0, sp, #0x10
+  15d1e  vst1.32 {d16, d17}, [r0]
+L_15d22:
+  15d32  r0 = SEL(initWithNibName:bundle:)
+  15d34  r2 = CFSTR('DetailStoreController')
+L_15d36:
+  15d36  r1 = SEL(initWithNibName:bundle:)
+  15d3a  r3 = 0
+  15d3c  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  15d4a  r0 = SEL(navigationController)
+  15d4c  r1 = SEL(navigationController)
+  15d50  r0 = [r0 navigationController](?, ?)
+  15d5e  r3 = 0
+  15d60  r1 = SEL(pushViewController:animated:)
+  15d62  r1 = SEL(pushViewController:animated:)
+  15d64  r0 = [r0 pushViewController:animated:](?, 0)
+  15d70  r0 = SEL(release)
+  15d72  r1 = SEL(release)
+  15d76  r0 = [r0 release](?, ?)
+  15d7a  add sp, #0x30
+  15d80  return
+  15d8a  add r6, r1
+
+//// -[StoreController Item3Action:]  0x15d8c..0x15f48  v12@0:4@8
+  15d8e  add r7, sp, #0xc
+  15d94  sub sp, #0x30
+  15da0  r0 = SEL(StopElseSpeak)
+  15da2  r1 = SEL(StopElseSpeak)
+  15da6  r0 = [r0 StopElseSpeak](?, ?)
+  15daa  call sub_3ccc
+  15dba  r2 = 0
+  15dbc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15dc6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15dcc  r2 = 10
+  15dce  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  15de2  r0 = SEL(alloc)
+  15de4  r2 = DetailStoreController
+  15de6  r1 = SEL(alloc)
+  15de8  r0 = DetailStoreController
+  15dea  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  15df6  r1 = SEL(init)
+  15df8  r1 = SEL(init)
+  15dfa  r0 = [r0 init](?, ?)
+  15e08  r2 = 3
+  15e0a  r0 = SEL(setWeaponType:)
+  15e0c  r1 = SEL(setWeaponType:)
+  15e10  r0 = [r0 setWeaponType:](3, ?)
+  15e24  r0 = SEL(mainScreen)
+  15e26  r4 = UIScreen
+  15e28  r6 = SEL(mainScreen)
+  15e2a  r0 = UIScreen
+  15e2e  r0 = [UIScreen mainScreen](?, ?)
+  15e34  cmp r1, 0
+  15e36  beq L_15e70
+  15e40  r0 = SEL(bounds)
+  15e42  r2 = SEL(bounds)
+  15e44  add r0, sp, #0x20
+  15e46  r0 = [r0 ??](SEL(bounds), ?)
+  15e4a  s0 = 320
+  15e4e  vldr s2, [sp, #0x28]
+  15e52  vcmpe.f32 s2, s0
+  15e56  vmrs apsr_nzcv, fpscr
+  15e5a  bne L_15e7a
+  15e5c  vldr s0, [sp, #0x2c]
+  15e60  s2 = 568
+  15e64  vcmpe.f32 s0, s2
+  15e68  vmrs apsr_nzcv, fpscr
+  15e6c  beq L_15ebe
+  15e6e  b L_15e7a
+L_15e70:
+  15e70  vmov.i32 q8, #0
+  15e74  add r0, sp, #0x20
+  15e76  vst1.32 {d16, d17}, [r0]
+L_15e7a:
+  15e7a  r0 = UIScreen
+  15e7e  r0 = [UIScreen mainScreen](?, ?)
+  15e84  cmp r1, 0
+  15e86  beq L_15ed4
+  15e90  r0 = SEL(bounds)
+  15e92  r2 = SEL(bounds)
+  15e94  add r0, sp, #0x10
+  15e96  r0 = [r0 ??](SEL(bounds), ?)
+  15e9a  s0 = 568
+  15e9e  vldr s2, [sp, #0x18]
+  15ea2  vcmpe.f32 s2, s0
+  15ea6  vmrs apsr_nzcv, fpscr
+  15eaa  bne L_15ede
+  15eac  vldr s0, [sp, #0x1c]
+  15eb0  s2 = 320
+  15eb4  vcmpe.f32 s0, s2
+  15eb8  vmrs apsr_nzcv, fpscr
+  15ebc  bne L_15ede
+L_15ebe:
+  15ece  r0 = SEL(initWithNibName:bundle:)
+  15ed0  r2 = CFSTR('DetailStoreController~568h')
+  15ed2  b L_15ef2
+L_15ed4:
+  15ed4  vmov.i32 q8, #0
+  15ed8  add r0, sp, #0x10
+  15eda  vst1.32 {d16, d17}, [r0]
+L_15ede:
+  15eee  r0 = SEL(initWithNibName:bundle:)
+  15ef0  r2 = CFSTR('DetailStoreController')
+L_15ef2:
+  15ef2  r1 = SEL(initWithNibName:bundle:)
+  15ef6  r3 = 0
+  15ef8  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  15f06  r0 = SEL(navigationController)
+  15f08  r1 = SEL(navigationController)
+  15f0c  r0 = [r0 navigationController](?, ?)
+  15f1a  r3 = 0
+  15f1c  r1 = SEL(pushViewController:animated:)
+  15f1e  r1 = SEL(pushViewController:animated:)
+  15f20  r0 = [r0 pushViewController:animated:](?, 0)
+  15f2c  r0 = SEL(release)
+  15f2e  r1 = SEL(release)
+  15f32  r0 = [r0 release](?, ?)
+  15f36  add sp, #0x30
+  15f3c  return
+  15f46  add r6, r1
+
+//// -[StoreController Item4Action:]  0x15f48..0x16104  v12@0:4@8
+  15f4a  add r7, sp, #0xc
+  15f50  sub sp, #0x30
+  15f5c  r0 = SEL(StopElseSpeak)
+  15f5e  r1 = SEL(StopElseSpeak)
+  15f62  r0 = [r0 StopElseSpeak](?, ?)
+  15f66  call sub_3ccc
+  15f76  r2 = 0
+  15f78  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15f82  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  15f88  r2 = 10
+  15f8a  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  15f9e  r0 = SEL(alloc)
+  15fa0  r2 = DetailStoreController
+  15fa2  r1 = SEL(alloc)
+  15fa4  r0 = DetailStoreController
+  15fa6  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  15fb2  r1 = SEL(init)
+  15fb4  r1 = SEL(init)
+  15fb6  r0 = [r0 init](?, ?)
+  15fc4  r2 = 4
+  15fc6  r0 = SEL(setWeaponType:)
+  15fc8  r1 = SEL(setWeaponType:)
+  15fcc  r0 = [r0 setWeaponType:](4, ?)
+  15fe0  r0 = SEL(mainScreen)
+  15fe2  r4 = UIScreen
+  15fe4  r6 = SEL(mainScreen)
+  15fe6  r0 = UIScreen
+  15fea  r0 = [UIScreen mainScreen](?, ?)
+  15ff0  cmp r1, 0
+  15ff2  beq L_1602c
+  15ffc  r0 = SEL(bounds)
+  15ffe  r2 = SEL(bounds)
+  16000  add r0, sp, #0x20
+  16002  r0 = [r0 ??](SEL(bounds), ?)
+  16006  s0 = 320
+  1600a  vldr s2, [sp, #0x28]
+  1600e  vcmpe.f32 s2, s0
+  16012  vmrs apsr_nzcv, fpscr
+  16016  bne L_16036
+  16018  vldr s0, [sp, #0x2c]
+  1601c  s2 = 568
+  16020  vcmpe.f32 s0, s2
+  16024  vmrs apsr_nzcv, fpscr
+  16028  beq L_1607a
+  1602a  b L_16036
+L_1602c:
+  1602c  vmov.i32 q8, #0
+  16030  add r0, sp, #0x20
+  16032  vst1.32 {d16, d17}, [r0]
+L_16036:
+  16036  r0 = UIScreen
+  1603a  r0 = [UIScreen mainScreen](?, ?)
+  16040  cmp r1, 0
+  16042  beq L_16090
+  1604c  r0 = SEL(bounds)
+  1604e  r2 = SEL(bounds)
+  16050  add r0, sp, #0x10
+  16052  r0 = [r0 ??](SEL(bounds), ?)
+  16056  s0 = 568
+  1605a  vldr s2, [sp, #0x18]
+  1605e  vcmpe.f32 s2, s0
+  16062  vmrs apsr_nzcv, fpscr
+  16066  bne L_1609a
+  16068  vldr s0, [sp, #0x1c]
+  1606c  s2 = 320
+  16070  vcmpe.f32 s0, s2
+  16074  vmrs apsr_nzcv, fpscr
+  16078  bne L_1609a
+L_1607a:
+  1608a  r0 = SEL(initWithNibName:bundle:)
+  1608c  r2 = CFSTR('DetailStoreController~568h')
+  1608e  b L_160ae
+L_16090:
+  16090  vmov.i32 q8, #0
+  16094  add r0, sp, #0x10
+  16096  vst1.32 {d16, d17}, [r0]
+L_1609a:
+  160aa  r0 = SEL(initWithNibName:bundle:)
+  160ac  r2 = CFSTR('DetailStoreController')
+L_160ae:
+  160ae  r1 = SEL(initWithNibName:bundle:)
+  160b2  r3 = 0
+  160b4  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  160c2  r0 = SEL(navigationController)
+  160c4  r1 = SEL(navigationController)
+  160c8  r0 = [r0 navigationController](?, ?)
+  160d6  r3 = 0
+  160d8  r1 = SEL(pushViewController:animated:)
+  160da  r1 = SEL(pushViewController:animated:)
+  160dc  r0 = [r0 pushViewController:animated:](?, 0)
+  160e8  r0 = SEL(release)
+  160ea  r1 = SEL(release)
+  160ee  r0 = [r0 release](?, ?)
+  160f2  add sp, #0x30
+  160f8  return
+  16102  add r6, r1
+
+//// -[StoreController Item5Action:]  0x16104..0x162c0  v12@0:4@8
+  16106  add r7, sp, #0xc
+  1610c  sub sp, #0x30
+  16118  r0 = SEL(StopElseSpeak)
+  1611a  r1 = SEL(StopElseSpeak)
+  1611e  r0 = [r0 StopElseSpeak](?, ?)
+  16122  call sub_3ccc
+  16132  r2 = 0
+  16134  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1613e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  16144  r2 = 10
+  16146  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1615a  r0 = SEL(alloc)
+  1615c  r2 = DetailStoreController
+  1615e  r1 = SEL(alloc)
+  16160  r0 = DetailStoreController
+  16162  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  1616e  r1 = SEL(init)
+  16170  r1 = SEL(init)
+  16172  r0 = [r0 init](?, ?)
+  16180  r2 = 5
+  16182  r0 = SEL(setWeaponType:)
+  16184  r1 = SEL(setWeaponType:)
+  16188  r0 = [r0 setWeaponType:](5, ?)
+  1619c  r0 = SEL(mainScreen)
+  1619e  r4 = UIScreen
+  161a0  r6 = SEL(mainScreen)
+  161a2  r0 = UIScreen
+  161a6  r0 = [UIScreen mainScreen](?, ?)
+  161ac  cmp r1, 0
+  161ae  beq L_161e8
+  161b8  r0 = SEL(bounds)
+  161ba  r2 = SEL(bounds)
+  161bc  add r0, sp, #0x20
+  161be  r0 = [r0 ??](SEL(bounds), ?)
+  161c2  s0 = 320
+  161c6  vldr s2, [sp, #0x28]
+  161ca  vcmpe.f32 s2, s0
+  161ce  vmrs apsr_nzcv, fpscr
+  161d2  bne L_161f2
+  161d4  vldr s0, [sp, #0x2c]
+  161d8  s2 = 568
+  161dc  vcmpe.f32 s0, s2
+  161e0  vmrs apsr_nzcv, fpscr
+  161e4  beq L_16236
+  161e6  b L_161f2
+L_161e8:
+  161e8  vmov.i32 q8, #0
+  161ec  add r0, sp, #0x20
+  161ee  vst1.32 {d16, d17}, [r0]
+L_161f2:
+  161f2  r0 = UIScreen
+  161f6  r0 = [UIScreen mainScreen](?, ?)
+  161fc  cmp r1, 0
+  161fe  beq L_1624c
+  16208  r0 = SEL(bounds)
+  1620a  r2 = SEL(bounds)
+  1620c  add r0, sp, #0x10
+  1620e  r0 = [r0 ??](SEL(bounds), ?)
+  16212  s0 = 568
+  16216  vldr s2, [sp, #0x18]
+  1621a  vcmpe.f32 s2, s0
+  1621e  vmrs apsr_nzcv, fpscr
+  16222  bne L_16256
+  16224  vldr s0, [sp, #0x1c]
+  16228  s2 = 320
+  1622c  vcmpe.f32 s0, s2
+  16230  vmrs apsr_nzcv, fpscr
+  16234  bne L_16256
+L_16236:
+  16246  r0 = SEL(initWithNibName:bundle:)
+  16248  r2 = CFSTR('DetailStoreController~568h')
+  1624a  b L_1626a
+L_1624c:
+  1624c  vmov.i32 q8, #0
+  16250  add r0, sp, #0x10
+  16252  vst1.32 {d16, d17}, [r0]
+L_16256:
+  16266  r0 = SEL(initWithNibName:bundle:)
+  16268  r2 = CFSTR('DetailStoreController')
+L_1626a:
+  1626a  r1 = SEL(initWithNibName:bundle:)
+  1626e  r3 = 0
+  16270  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  1627e  r0 = SEL(navigationController)
+  16280  r1 = SEL(navigationController)
+  16284  r0 = [r0 navigationController](?, ?)
+  16292  r3 = 0
+  16294  r1 = SEL(pushViewController:animated:)
+  16296  r1 = SEL(pushViewController:animated:)
+  16298  r0 = [r0 pushViewController:animated:](?, 0)
+  162a4  r0 = SEL(release)
+  162a6  r1 = SEL(release)
+  162aa  r0 = [r0 release](?, ?)
+  162ae  add sp, #0x30
+  162b4  return
+  162be  add r6, r1
+
+//// -[StoreController Item6Action:]  0x162c0..0x1647c  v12@0:4@8
+  162c2  add r7, sp, #0xc
+  162c8  sub sp, #0x30
+  162d4  r0 = SEL(StopElseSpeak)
+  162d6  r1 = SEL(StopElseSpeak)
+  162da  r0 = [r0 StopElseSpeak](?, ?)
+  162de  call sub_3ccc
+  162ee  r2 = 0
+  162f0  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  162fa  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  16300  r2 = 10
+  16302  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  16316  r0 = SEL(alloc)
+  16318  r2 = DetailStoreController
+  1631a  r1 = SEL(alloc)
+  1631c  r0 = DetailStoreController
+  1631e  r0 = [DetailStoreController alloc](DetailStoreController, ?)
+  1632a  r1 = SEL(init)
+  1632c  r1 = SEL(init)
+  1632e  r0 = [r0 init](?, ?)
+  1633c  r2 = 0
+  1633e  r0 = SEL(setWeaponType:)
+  16340  r1 = SEL(setWeaponType:)
+  16344  r0 = [r0 setWeaponType:](0, ?)
+  16358  r0 = SEL(mainScreen)
+  1635a  r4 = UIScreen
+  1635c  r6 = SEL(mainScreen)
+  1635e  r0 = UIScreen
+  16362  r0 = [UIScreen mainScreen](?, ?)
+  16368  cmp r1, 0
+  1636a  beq L_163a4
+  16374  r0 = SEL(bounds)
+  16376  r2 = SEL(bounds)
+  16378  add r0, sp, #0x20
+  1637a  r0 = [r0 ??](SEL(bounds), ?)
+  1637e  s0 = 320
+  16382  vldr s2, [sp, #0x28]
+  16386  vcmpe.f32 s2, s0
+  1638a  vmrs apsr_nzcv, fpscr
+  1638e  bne L_163ae
+  16390  vldr s0, [sp, #0x2c]
+  16394  s2 = 568
+  16398  vcmpe.f32 s0, s2
+  1639c  vmrs apsr_nzcv, fpscr
+  163a0  beq L_163f2
+  163a2  b L_163ae
+L_163a4:
+  163a4  vmov.i32 q8, #0
+  163a8  add r0, sp, #0x20
+  163aa  vst1.32 {d16, d17}, [r0]
+L_163ae:
+  163ae  r0 = UIScreen
+  163b2  r0 = [UIScreen mainScreen](?, ?)
+  163b8  cmp r1, 0
+  163ba  beq L_16408
+  163c4  r0 = SEL(bounds)
+  163c6  r2 = SEL(bounds)
+  163c8  add r0, sp, #0x10
+  163ca  r0 = [r0 ??](SEL(bounds), ?)
+  163ce  s0 = 568
+  163d2  vldr s2, [sp, #0x18]
+  163d6  vcmpe.f32 s2, s0
+  163da  vmrs apsr_nzcv, fpscr
+  163de  bne L_16412
+  163e0  vldr s0, [sp, #0x1c]
+  163e4  s2 = 320
+  163e8  vcmpe.f32 s0, s2
+  163ec  vmrs apsr_nzcv, fpscr
+  163f0  bne L_16412
+L_163f2:
+  16402  r0 = SEL(initWithNibName:bundle:)
+  16404  r2 = CFSTR('DetailStoreController~568h')
+  16406  b L_16426
+L_16408:
+  16408  vmov.i32 q8, #0
+  1640c  add r0, sp, #0x10
+  1640e  vst1.32 {d16, d17}, [r0]
+L_16412:
+  16422  r0 = SEL(initWithNibName:bundle:)
+  16424  r2 = CFSTR('DetailStoreController')
+L_16426:
+  16426  r1 = SEL(initWithNibName:bundle:)
+  1642a  r3 = 0
+  1642c  r0 = [r0 initWithNibName:bundle:](CFSTR('DetailStoreController'), 0)
+  1643a  r0 = SEL(navigationController)
+  1643c  r1 = SEL(navigationController)
+  16440  r0 = [r0 navigationController](?, ?)
+  1644e  r3 = 0
+  16450  r1 = SEL(pushViewController:animated:)
+  16452  r1 = SEL(pushViewController:animated:)
+  16454  r0 = [r0 pushViewController:animated:](?, 0)
+  16460  r0 = SEL(release)
+  16462  r1 = SEL(release)
+  16466  r0 = [r0 release](?, ?)
+  1646a  add sp, #0x30
+  16470  return
+  1647a  add r6, r1
+
+//// -[StoreController ItemAllAction:]  0x1647c..0x1652c  v12@0:4@8
+  1647e  add r7, sp, #0xc
+  16480  sub sp, #0x10
+  1648c  r0 = SEL(StopElseSpeak)
+  1648e  r1 = SEL(StopElseSpeak)
+  16492  r0 = [r0 StopElseSpeak](?, ?)
+  16496  call sub_3ccc
+  164a8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  164aa  r4 = 0
+  164b0  r2 = 10
+  164b2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  164be  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  164ce  r0 = SEL(BuyItem:)
+  164d4  r2 = CFSTR('SixthSense.AllWeapon')
+  164d6  r1 = SEL(BuyItem:)
+  164da  r0 = [r0 BuyItem:](CFSTR('SixthSense.AllWeapon'), ?)
+  164e2  r5 = 0
+  164f0  r0 = SEL(performSelector:withObject:afterDelay:)
+  164f2  r2 = SEL(readInApp)
+  164f8  r1 = SEL(performSelector:withObject:afterDelay:)
+  164fc  r2 = SEL(readInApp)
+  164fe  r3 = 0
+  16504  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  1650c  r2 = 1
+  16516  r0 = SEL(showWaiting:message:)
+  1651c  r3 = CFSTR('Loading..')
+  1651e  r1 = SEL(showWaiting:message:)
+  16522  add sp, #0x10
+  16528  b L_a90d0
+
+//// -[StoreController alertView:clickedButtonAtIndex:]  0x1652c..0x16530  v16@0:4@8i12
+
+//// -[StoreController readInApp]  0x16530..0x16594  v8@0:4
+  16532  add r7, sp, #8
+  16534  sub sp, #0x10
+  16538  call sub_3ccc
+  16546  r0 = SEL(mode)
+  16548  r1 = SEL(mode)
+  1654c  r0 = [r0 mode](?, ?)
+  16552  cmp r0, 1
+  16554  bne L_16590
+  1655e  r0 = SEL(StopElseSpeak)
+  16560  r1 = SEL(StopElseSpeak)
+  16564  r0 = [r0 StopElseSpeak](?, ?)
+  16578  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1657e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  16580  r0 = 0
+  1658c  r0 = [r0 playSound:Gain:Pos:z:reprats:](261, 0x3e4ccccd/f0.2)
+L_16590:
+  16590  add sp, #0x10
+  16592  return
+
+//// -[StoreController showWaiting:message:]  0x16594..0x16648  v16@0:4c8@12
+  16596  add r7, sp, #0xc
+  165a8  r0 = SEL(maskView)
+  165ac  r6 = SEL(maskView)
+  165b2  r0 = [r0 maskView](?, ?)
+  165ba  r2 = 0
+  165c2  r1 = SEL(setHidden:)
+  165c4  cmp r5, 0
+  165ca  r1 = SEL(setHidden:)
+  165cc  r0 = [r0 setHidden:](?, ?)
+  165d8  r0 = SEL(maskLabel)
+  165da  r1 = SEL(maskLabel)
+  165de  r0 = [r0 maskLabel](?, ?)
+  165ec  r1 = SEL(setText:)
+  165ee  r1 = SEL(setText:)
+  165f0  r0 = [r0 setText:](?, ?)
+  165f8  r0 = [r0 maskView](?, ?)
+  16606  r1 = SEL(setAccessibilityLabel:)
+  16608  r1 = SEL(setAccessibilityLabel:)
+  1660a  r0 = [r0 setAccessibilityLabel:](?, ?)
+  16616  r0 = SEL(activityIndicator)
+  16618  r1 = SEL(activityIndicator)
+  1661c  r0 = [r0 activityIndicator](?, ?)
+  16620  cbz r5 -> L_1662e
+  1662a  r1 = SEL(startAnimating)
+  1662c  b L_16638
+L_1662e:
+  16636  r1 = SEL(stopAnimating)
+L_16638:
+  16638  r1 = SEL(stopAnimating)
+  16642  b L_a90d0
+
+//// -[StoreController buyAllWeaponsComplet]  0x16648..0x16774  v8@0:4
+  1664a  add r7, sp, #0xc
+  1664c  sub sp, #0x10
+  1665c  r0 = SEL(showWaiting:message:)
+  16662  r3 = CFSTR('Loading..')
+  16664  r2 = 0
+  16666  r1 = SEL(showWaiting:message:)
+  1666a  r6 = 0
+  1666c  r0 = [r0 showWaiting:message:](0, CFSTR('Loading..'))
+  16680  r0 = SEL(alloc)
+  16682  r2 = UIAlertView
+  16684  r1 = SEL(alloc)
+  16686  r0 = UIAlertView
+  16688  r0 = [UIAlertView alloc](UIAlertView, ?)
+  16698  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  166a2  r3 = CFSTR('Purchase has been completed.')
+  166a8  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  166aa  r2 = CFSTR('OK')
+  166b0  r2 = 0
+  166b4  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  166c2  r0 = SEL(show)
+  166c4  r1 = SEL(show)
+  166c8  r0 = [r0 show](?, ?)
+  166d4  r0 = SEL(release)
+  166d6  r1 = SEL(release)
+  166da  r0 = [r0 release](?, ?)
+  166ee  r0 = SEL(defaultCenter)
+  166f0  r2 = NSNotificationCenter
+  166f2  r1 = SEL(defaultCenter)
+  166f4  r0 = NSNotificationCenter
+  166f6  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  166fe  r3 = 0
+  16708  r1 = SEL(postNotificationName:object:)
+  1670e  r2 = CFSTR('coinTiemrControlStart')
+  16710  r1 = SEL(postNotificationName:object:)
+  16712  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  16722  r0 = SEL(sendBuyLog:)
+  16728  r2 = CFSTR('all weapons 0.99')
+  1672a  r1 = SEL(sendBuyLog:)
+  1672e  r0 = [r0 sendBuyLog:](CFSTR('all weapons 0.99'), ?)
+  16732  call sub_3ccc
+  16740  r0 = SEL(StopElseSpeak)
+  16742  r1 = SEL(StopElseSpeak)
+  16746  r0 = [r0 StopElseSpeak](?, ?)
+  1675a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1675c  r2 = 260
+  16762  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1676c  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  16770  add sp, #0x10
+  16772  return
+
+//// -[StoreController sendBuyLog:]  0x16774..0x168f4  v12@0:4@8
+  16776  add r7, sp, #0xc
+  1678e  r0 = SEL(stringWithFormat:)
+  16790  r6 = NSString
+  16794  r5 = SEL(stringWithFormat:)
+  16796  r0 = NSString
+  167a0  r2 = CFSTR('http://www.evree.net/post_sale.php')
+  167a4  r0 = [NSString stringWithFormat:](CFSTR('http://www.evree.net/post_sale.php'), ?)
+  167aa  r0 = NSString
+  167b8  r2 = CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY')
+  167ba  r0 = [NSString stringWithFormat:](CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY'), ?)
+  167d0  r0 = NSData
+  167d2  r1 = SEL(UTF8String)
+  167d4  r4 = NSData
+  167d8  r1 = SEL(UTF8String)
+  167da  r0 = [r0 UTF8String](?, ?)
+  167e8  r0 = SEL(length)
+  167ea  r1 = SEL(length)
+  167ee  r0 = [r0 length](?, ?)
+  167fe  r0 = SEL(dataWithBytes:length:)
+  16800  r1 = SEL(dataWithBytes:length:)
+  16804  r0 = [NSData dataWithBytes:length:](?, ?)
+  1681a  r0 = SEL(alloc)
+  1681c  r1 = NSMutableURLRequest
+  1681e  r6 = SEL(alloc)
+  16820  r0 = NSMutableURLRequest
+  16824  r0 = [NSMutableURLRequest alloc](?, ?)
+  1683a  r0 = SEL(URLWithString:)
+  1683c  r2 = NSURL
+  1683e  r1 = SEL(URLWithString:)
+  16840  r0 = NSURL
+  16844  r0 = [NSURL URLWithString:](?, ?)
+  16852  r0 = SEL(initWithURL:)
+  16854  r1 = SEL(initWithURL:)
+  16858  r0 = [r0 initWithURL:](?, ?)
+  1686a  r0 = SEL(setHTTPMethod:)
+  16870  r2 = CFSTR('POST')
+  16872  r1 = SEL(setHTTPMethod:)
+  16876  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  16884  r0 = SEL(setHTTPBody:)
+  16886  r1 = SEL(setHTTPBody:)
+  1688a  r0 = [r0 setHTTPBody:](?, ?)
+  16898  r0 = NSURLConnection
+  1689a  r0 = NSURLConnection
+  1689c  r0 = [NSURLConnection alloc](?, ?)
+  168ac  r1 = SEL(initWithRequest:delegate:)
+  168ae  r1 = SEL(initWithRequest:delegate:)
+  168b0  r0 = [r0 initWithRequest:delegate:](?, ?)
+  168bc  r1 = SEL(autorelease)
+  168be  r1 = SEL(autorelease)
+  168c0  r0 = [r0 autorelease](?, ?)
+  168ce  r0 = SEL(setUrlCon:)
+  168d0  r1 = SEL(setUrlCon:)
+  168d4  r0 = [r0 setUrlCon:](?, ?)
+  168e0  r0 = SEL(release)
+  168e2  r1 = SEL(release)
+  168ee  b L_a90d0
+
+//// -[StoreController connection:didReceiveResponse:]  0x168f4..0x16930  v16@0:4@8@12
+  16908  r0 = SEL(data)
+  1690a  r2 = NSMutableData
+  1690c  add r7, sp, #4
+  1690e  r1 = SEL(data)
+  16910  r0 = NSMutableData
+  16912  r0 = [NSMutableData data](NSMutableData, ?)
+  16920  r0 = SEL(setRawData:)
+  16922  r1 = SEL(setRawData:)
+  1692a  b L_a90d0
+
+//// -[StoreController connection:didReceiveData:]  0x16930..0x1695c  v16@0:4@8@12
+  16936  add r7, sp, #4
+  1693e  r1 = SEL(rawData)
+  16940  r1 = SEL(rawData)
+  16942  r0 = [r0 rawData](?, ?)
+  16950  r1 = SEL(appendData:)
+  16952  r1 = SEL(appendData:)
+  16958  b L_a90d0
+
+//// -[StoreController connection:didFailWithError:]  0x1695c..0x16a30  v16@0:4@8@12
+  1695e  add r7, sp, #8
+  16960  sub sp, #4
+  16974  r0 = SEL(sharedApplication)
+  16976  r2 = UIApplication
+  1697a  r1 = SEL(sharedApplication)
+  1697c  r0 = UIApplication
+  1697e  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  16986  r2 = 0
+  1698c  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  1698e  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  16990  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  1699c  r0 = SEL(code)
+  1699e  r1 = SEL(code)
+  169a2  r0 = [r0 code](?, ?)
+  169a6  r1 = -1009
+  169aa  cmp r0, 4294966287
+  169ac  bne L_16a14
+  169ba  r1 = _NSLocalizedDescriptionKey
+  169c4  r2 = SEL(dictionaryWithObject:forKey:)
+  169c6  r3 = _NSLocalizedDescriptionKey
+  169cc  r0 = NSDictionary
+  169ce  r1 = SEL(dictionaryWithObject:forKey:)
+  169d8  r0 = NSDictionary
+  169dc  r2 = CFSTR('No Connection Error')
+  169de  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  169f6  r1 = _NSCocoaErrorDomain
+  169fc  r3 = NSError
+  169fe  r2 = SEL(errorWithDomain:code:userInfo:)
+  16a00  r5 = _NSCocoaErrorDomain
+  16a02  r3 = NSError
+  16a04  r1 = SEL(errorWithDomain:code:userInfo:)
+  16a0c  r3 = -1009
+  16a10  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_16a14:
+  16a18  r2 = 0
+  16a1e  r0 = SEL(setUrlCon:)
+  16a20  r1 = SEL(setUrlCon:)
+  16a24  add sp, #4
+  16a2a  b L_a90d0
+
+//// -[StoreController connectionDidFinishLoading:]  0x16a30..0x16ab8  v12@0:4@8
+  16a44  r0 = SEL(alloc)
+  16a46  r2 = NSString
+  16a48  add r7, sp, #8
+  16a4a  r1 = SEL(alloc)
+  16a4c  r0 = NSString
+  16a4e  r0 = [NSString alloc](NSString, ?)
+  16a5c  r0 = SEL(rawData)
+  16a5e  r1 = SEL(rawData)
+  16a62  r0 = [r0 rawData](?, ?)
+  16a70  r3 = 4
+  16a72  r0 = SEL(initWithData:encoding:)
+  16a74  r1 = SEL(initWithData:encoding:)
+  16a78  r0 = [r0 initWithData:encoding:](?, 4)
+  16a84  r1 = SEL(autorelease)
+  16a86  r1 = SEL(autorelease)
+  16a88  r0 = [r0 autorelease](?, ?)
+  16a90  r2 = 0
+  16a96  r0 = SEL(setRawData:)
+  16a98  r1 = SEL(setRawData:)
+  16a9c  r0 = [r0 setRawData:](0, ?)
+  16aa4  r2 = 0
+  16aaa  r0 = SEL(setUrlCon:)
+  16aac  r1 = SEL(setUrlCon:)
+  16ab4  b L_a90d0
+
+//// -[StoreController goldLabel]  0x16ab8..0x16ac8  @8@0:4
+  16ac0  r1 = IVOFF(goldLabel)
+  16ac2  r1 = IVOFF(goldLabel)
+  16ac4  r0 = self->goldLabel
+
+//// -[StoreController setGoldLabel:]  0x16ac8..0x16aec  v12@0:4@8
+  16acc  sub sp, #8
+  16ad8  r3 = 0
+  16ada  r2 = IVOFF(goldLabel)
+  16ae2  r2 = IVOFF(goldLabel)
+  16ae4  call _objc_setProperty
+  16ae8  add sp, #8
+  16aea  return
+
+//// -[StoreController Item1Button]  0x16aec..0x16afc  @8@0:4
+  16af4  r1 = IVOFF(Item1Button)
+  16af6  r1 = IVOFF(Item1Button)
+  16af8  r0 = self->Item1Button
+
+//// -[StoreController setItem1Button:]  0x16afc..0x16b20  v12@0:4@8
+  16b00  sub sp, #8
+  16b0c  r3 = 0
+  16b0e  r2 = IVOFF(Item1Button)
+  16b16  r2 = IVOFF(Item1Button)
+  16b18  call _objc_setProperty
+  16b1c  add sp, #8
+  16b1e  return
+
+//// -[StoreController Item2Button]  0x16b20..0x16b30  @8@0:4
+  16b28  r1 = IVOFF(Item2Button)
+  16b2a  r1 = IVOFF(Item2Button)
+  16b2c  r0 = self->Item2Button
+
+//// -[StoreController setItem2Button:]  0x16b30..0x16b54  v12@0:4@8
+  16b34  sub sp, #8
+  16b40  r3 = 0
+  16b42  r2 = IVOFF(Item2Button)
+  16b4a  r2 = IVOFF(Item2Button)
+  16b4c  call _objc_setProperty
+  16b50  add sp, #8
+  16b52  return
+
+//// -[StoreController Item3Button]  0x16b54..0x16b64  @8@0:4
+  16b5c  r1 = IVOFF(Item3Button)
+  16b5e  r1 = IVOFF(Item3Button)
+  16b60  r0 = self->Item3Button
+
+//// -[StoreController setItem3Button:]  0x16b64..0x16b88  v12@0:4@8
+  16b68  sub sp, #8
+  16b74  r3 = 0
+  16b76  r2 = IVOFF(Item3Button)
+  16b7e  r2 = IVOFF(Item3Button)
+  16b80  call _objc_setProperty
+  16b84  add sp, #8
+  16b86  return
+
+//// -[StoreController Item4Button]  0x16b88..0x16b98  @8@0:4
+  16b90  r1 = IVOFF(Item4Button)
+  16b92  r1 = IVOFF(Item4Button)
+  16b94  r0 = self->Item4Button
+
+//// -[StoreController setItem4Button:]  0x16b98..0x16bbc  v12@0:4@8
+  16b9c  sub sp, #8
+  16ba8  r3 = 0
+  16baa  r2 = IVOFF(Item4Button)
+  16bb2  r2 = IVOFF(Item4Button)
+  16bb4  call _objc_setProperty
+  16bb8  add sp, #8
+  16bba  return
+
+//// -[StoreController Item5Button]  0x16bbc..0x16bcc  @8@0:4
+  16bc4  r1 = IVOFF(Item5Button)
+  16bc6  r1 = IVOFF(Item5Button)
+  16bc8  r0 = self->Item5Button
+
+//// -[StoreController setItem5Button:]  0x16bcc..0x16bf0  v12@0:4@8
+  16bd0  sub sp, #8
+  16bdc  r3 = 0
+  16bde  r2 = IVOFF(Item5Button)
+  16be6  r2 = IVOFF(Item5Button)
+  16be8  call _objc_setProperty
+  16bec  add sp, #8
+  16bee  return
+
+//// -[StoreController Item6Button]  0x16bf0..0x16c00  @8@0:4
+  16bf8  r1 = IVOFF(Item6Button)
+  16bfa  r1 = IVOFF(Item6Button)
+  16bfc  r0 = self->Item6Button
+
+//// -[StoreController setItem6Button:]  0x16c00..0x16c24  v12@0:4@8
+  16c04  sub sp, #8
+  16c10  r3 = 0
+  16c12  r2 = IVOFF(Item6Button)
+  16c1a  r2 = IVOFF(Item6Button)
+  16c1c  call _objc_setProperty
+  16c20  add sp, #8
+  16c22  return
+
+//// -[StoreController goBackButton]  0x16c24..0x16c34  @8@0:4
+  16c2c  r1 = IVOFF(goBackButton)
+  16c2e  r1 = IVOFF(goBackButton)
+  16c30  r0 = self->goBackButton
+
+//// -[StoreController setGoBackButton:]  0x16c34..0x16c58  v12@0:4@8
+  16c38  sub sp, #8
+  16c44  r3 = 0
+  16c46  r2 = IVOFF(goBackButton)
+  16c4e  r2 = IVOFF(goBackButton)
+  16c50  call _objc_setProperty
+  16c54  add sp, #8
+  16c56  return
+
+//// -[StoreController urlCon]  0x16c58..0x16c68  @8@0:4
+  16c60  r1 = IVOFF(urlCon)
+  16c62  r1 = IVOFF(urlCon)
+  16c64  r0 = self->urlCon
+
+//// -[StoreController setUrlCon:]  0x16c68..0x16c8c  v12@0:4@8
+  16c6c  sub sp, #8
+  16c78  r3 = 0
+  16c7a  r2 = IVOFF(urlCon)
+  16c82  r2 = IVOFF(urlCon)
+  16c84  call _objc_setProperty
+  16c88  add sp, #8
+  16c8a  return
+
+//// -[StoreController rawData]  0x16c8c..0x16c9c  @8@0:4
+  16c94  r1 = IVOFF(rawData)
+  16c96  r1 = IVOFF(rawData)
+  16c98  r0 = self->rawData
+
+//// -[StoreController setRawData:]  0x16c9c..0x16cc0  v12@0:4@8
+  16ca0  sub sp, #8
+  16cac  r3 = 0
+  16cae  r2 = IVOFF(rawData)
+  16cb6  r2 = IVOFF(rawData)
+  16cb8  call _objc_setProperty
+  16cbc  add sp, #8
+  16cbe  return
+
+//// -[StoreController maskLabel]  0x16cc0..0x16cd0  @8@0:4
+  16cc8  r1 = IVOFF(_maskLabel)
+  16cca  r1 = IVOFF(_maskLabel)
+  16ccc  r0 = self->_maskLabel
+
+//// -[StoreController setMaskLabel:]  0x16cd0..0x16cf4  v12@0:4@8
+  16cd4  sub sp, #8
+  16ce0  r3 = 0
+  16ce2  r2 = IVOFF(_maskLabel)
+  16cea  r2 = IVOFF(_maskLabel)
+  16cec  call _objc_setProperty
+  16cf0  add sp, #8
+  16cf2  return
+
+//// -[StoreController ItemAllButton]  0x16cf4..0x16d04  @8@0:4
+  16cfc  r1 = IVOFF(_ItemAllButton)
+  16cfe  r1 = IVOFF(_ItemAllButton)
+  16d00  r0 = self->_ItemAllButton
+
+//// -[StoreController setItemAllButton:]  0x16d04..0x16d28  v12@0:4@8
+  16d08  sub sp, #8
+  16d14  r3 = 0
+  16d16  r2 = IVOFF(_ItemAllButton)
+  16d1e  r2 = IVOFF(_ItemAllButton)
+  16d20  call _objc_setProperty
+  16d24  add sp, #8
+  16d26  return
+
+//// -[StoreController activityIndicator]  0x16d28..0x16d38  @8@0:4
+  16d30  r1 = IVOFF(_activityIndicator)
+  16d32  r1 = IVOFF(_activityIndicator)
+  16d34  r0 = self->_activityIndicator
+
+//// -[StoreController setActivityIndicator:]  0x16d38..0x16d5c  v12@0:4@8
+  16d3c  sub sp, #8
+  16d48  r3 = 0
+  16d4a  r2 = IVOFF(_activityIndicator)
+  16d52  r2 = IVOFF(_activityIndicator)
+  16d54  call _objc_setProperty
+  16d58  add sp, #8
+  16d5a  return
+
+//// -[StoreController round7]  0x16d5c..0x16d6c  @8@0:4
+  16d64  r1 = IVOFF(_round7)
+  16d66  r1 = IVOFF(_round7)
+  16d68  r0 = self->_round7
+
+//// -[StoreController setRound7:]  0x16d6c..0x16d90  v12@0:4@8
+  16d70  sub sp, #8
+  16d7c  r3 = 0
+  16d7e  r2 = IVOFF(_round7)
+  16d86  r2 = IVOFF(_round7)
+  16d88  call _objc_setProperty
+  16d8c  add sp, #8
+  16d8e  return
+
+//// -[StoreController round2]  0x16d90..0x16da0  @8@0:4
+  16d98  r1 = IVOFF(_round2)
+  16d9a  r1 = IVOFF(_round2)
+  16d9c  r0 = self->_round2
+
+//// -[StoreController setRound2:]  0x16da0..0x16dc4  v12@0:4@8
+  16da4  sub sp, #8
+  16db0  r3 = 0
+  16db2  r2 = IVOFF(_round2)
+  16dba  r2 = IVOFF(_round2)
+  16dbc  call _objc_setProperty
+  16dc0  add sp, #8
+  16dc2  return
+
+//// -[StoreController round1]  0x16dc4..0x16dd4  @8@0:4
+  16dcc  r1 = IVOFF(_round1)
+  16dce  r1 = IVOFF(_round1)
+  16dd0  r0 = self->_round1
+
+//// -[StoreController setRound1:]  0x16dd4..0x16df8  v12@0:4@8
+  16dd8  sub sp, #8
+  16de4  r3 = 0
+  16de6  r2 = IVOFF(_round1)
+  16dee  r2 = IVOFF(_round1)
+  16df0  call _objc_setProperty
+  16df4  add sp, #8
+  16df6  return
+
+//// -[StoreController round8]  0x16df8..0x16e08  @8@0:4
+  16e00  r1 = IVOFF(_round8)
+  16e02  r1 = IVOFF(_round8)
+  16e04  r0 = self->_round8
+
+//// -[StoreController setRound8:]  0x16e08..0x16e2c  v12@0:4@8
+  16e0c  sub sp, #8
+  16e18  r3 = 0
+  16e1a  r2 = IVOFF(_round8)
+  16e22  r2 = IVOFF(_round8)
+  16e24  call _objc_setProperty
+  16e28  add sp, #8
+  16e2a  return
+
+//// -[StoreController round9]  0x16e2c..0x16e3c  @8@0:4
+  16e34  r1 = IVOFF(_round9)
+  16e36  r1 = IVOFF(_round9)
+  16e38  r0 = self->_round9
+
+//// -[StoreController setRound9:]  0x16e3c..0x16e60  v12@0:4@8
+  16e40  sub sp, #8
+  16e4c  r3 = 0
+  16e4e  r2 = IVOFF(_round9)
+  16e56  r2 = IVOFF(_round9)
+  16e58  call _objc_setProperty
+  16e5c  add sp, #8
+  16e5e  return
+
+//// -[StoreController round5]  0x16e60..0x16e70  @8@0:4
+  16e68  r1 = IVOFF(_round5)
+  16e6a  r1 = IVOFF(_round5)
+  16e6c  r0 = self->_round5
+
+//// -[StoreController setRound5:]  0x16e70..0x16e94  v12@0:4@8
+  16e74  sub sp, #8
+  16e80  r3 = 0
+  16e82  r2 = IVOFF(_round5)
+  16e8a  r2 = IVOFF(_round5)
+  16e8c  call _objc_setProperty
+  16e90  add sp, #8
+  16e92  return
+
+//// -[StoreController round6]  0x16e94..0x16ea4  @8@0:4
+  16e9c  r1 = IVOFF(_round6)
+  16e9e  r1 = IVOFF(_round6)
+  16ea0  r0 = self->_round6
+
+//// -[StoreController setRound6:]  0x16ea4..0x16ec8  v12@0:4@8
+  16ea8  sub sp, #8
+  16eb4  r3 = 0
+  16eb6  r2 = IVOFF(_round6)
+  16ebe  r2 = IVOFF(_round6)
+  16ec0  call _objc_setProperty
+  16ec4  add sp, #8
+  16ec6  return
+
+//// -[StoreController round3]  0x16ec8..0x16ed8  @8@0:4
+  16ed0  r1 = IVOFF(_round3)
+  16ed2  r1 = IVOFF(_round3)
+  16ed4  r0 = self->_round3
+
+//// -[StoreController setRound3:]  0x16ed8..0x16efc  v12@0:4@8
+  16edc  sub sp, #8
+  16ee8  r3 = 0
+  16eea  r2 = IVOFF(_round3)
+  16ef2  r2 = IVOFF(_round3)
+  16ef4  call _objc_setProperty
+  16ef8  add sp, #8
+  16efa  return
+
+//// -[StoreController maskView]  0x16efc..0x16f0c  @8@0:4
+  16f04  r1 = IVOFF(_maskView)
+  16f06  r1 = IVOFF(_maskView)
+  16f08  r0 = self->_maskView
+
+//// -[StoreController setMaskView:]  0x16f0c..0x16f30  v12@0:4@8
+  16f10  sub sp, #8
+  16f1c  r3 = 0
+  16f1e  r2 = IVOFF(_maskView)
+  16f26  r2 = IVOFF(_maskView)
+  16f28  call _objc_setProperty
+  16f2c  add sp, #8
+  16f2e  return
+
+//// -[StoreController round4]  0x16f30..0x16f40  @8@0:4
+  16f38  r1 = IVOFF(_round4)
+  16f3a  r1 = IVOFF(_round4)
+  16f3c  r0 = self->_round4
+
+//// -[StoreController setRound4:]  0x16f40..0x16f68  v12@0:4@8
+  16f44  sub sp, #8
+  16f50  r3 = 0
+  16f52  r2 = IVOFF(_round4)
+  16f5a  r2 = IVOFF(_round4)
+  16f5c  call _objc_setProperty
+  16f60  add sp, #8
+  16f62  return

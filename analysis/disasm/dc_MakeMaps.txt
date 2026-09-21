@@ -1,0 +1,459 @@
+
+//// -[MakeMaps DataInMethodXplot:yPlot:data:]  0xf0ec..0xf1d4  @20@0:4i8i12@16
+  f0ee  add r7, sp, #0xc
+  f0f4  sub sp, #0x18
+  f104  r0 = SEL(count)
+  f106  r1 = SEL(count)
+  f10a  r0 = [r0 count](?, ?)
+  f10e  r6 = 0
+  f112  cmp r0, 1
+  f114  blt L_f1ca
+  f11a  r4 = 0
+  f134  r0 = SEL(intValue)
+  f136  r1 = SEL(objectForKey:)
+  f13c  r3 = IVOFF(dataIN)
+  f13e  r2 = SEL(objectAtIndex:)
+  f140  sl = SEL(intValue)
+  f144  r8 = SEL(objectForKey:)
+  f148  r3 = IVOFF(dataIN)
+  f14a  r0 = SEL(objectAtIndex:)
+L_f150:
+  f156  r0 = [r0 ??](0, ?)
+  f166  r2 = CFSTR('X')
+  f168  r0 = [r0 objectForKey:](CFSTR('X'), ?)
+  f178  r2 = CFSTR('Y')
+  f17c  r0 = [r0 objectForKey:](CFSTR('Y'), ?)
+  f186  r0 = [r0 intValue](?, ?)
+  f18c  cmp r0, r1
+  f18e  bne L_f19e
+  f194  r0 = [r0 intValue](?, ?)
+  f19a  cmp r0, r1
+  f19c  beq L_f1b0
+L_f19e:
+  f1a0  r6 = 0
+  f1a4  adds r4, #1
+  f1aa  cmp r4, r0
+  f1ac  blt L_f150
+  f1ae  b L_f1ca
+L_f1b0:
+  f1bc  r2 = CFSTR('V')
+  f1be  r0 = [r0 objectForKey:](CFSTR('V'), ?)
+  f1c4  r0 = 1
+L_f1ca:
+  f1cc  add sp, #0x18
+  f1d2  return
+
+//// -[MakeMaps initWithMapsX:MapsY:MapsData:]  0xf1d4..0xf3bc  @20@0:4@8@12@16
+  f1d6  add r7, sp, #0xc
+  f1dc  sub sp, #0x3c
+  f1e4  cmp r6, 0
+  f1e8  beq L_f3b2
+  f1fc  r0 = SEL(array)
+  f1fe  r2 = NSMutableArray
+  f200  r1 = SEL(array)
+  f202  r0 = NSMutableArray
+  f206  r0 = [NSMutableArray ??](NSMutableArray, ?)
+  f214  r0 = SEL(setMaps:)
+  f216  r1 = SEL(setMaps:)
+  f21a  r0 = [r0 setMaps:](?, ?)
+  f22a  sl = SEL(intValue)
+  f22c  r1 = SEL(intValue)
+  f230  r0 = [r0 intValue](?, ?)
+  f234  cmp r0, 1
+  f236  blt L_f3b2
+  f256  r1 = SEL(dictionary)
+  f260  r0 = SEL(DataInMethodXplot:yPlot:data:)
+  f26a  r1 = SEL(dictionary)
+  f276  r3 = SEL(stringWithFormat:)
+  f278  r5 = SEL(setObject:forKey:)
+  f27e  r2 = SEL(addObject:)
+  f280  fp = SEL(setObject:forKey:)
+  f284  r4 = IVOFF(dataIN)
+  f286  r5 = SEL(intValue)
+  f28a  r1 = SEL(maps)
+  f28c  r8 = SEL(stringWithFormat:)
+  f290  sl = 0
+  f294  r0 = SEL(DataInMethodXplot:yPlot:data:)
+  f298  r0 = SEL(addObject:)
+  f29a  r3 = IVOFF(dataIN)
+  f29e  r0 = SEL(maps)
+L_f2a6:
+  f2b0  r0 = NSMutableArray
+  f2b2  r0 = NSMutableArray
+  f2b4  r0 = [NSMutableArray ??](SEL(addObject:), ?)
+  f2be  r0 = [r0 ??](?, ?)
+  f2c2  r2 = 0
+  f2c4  cmp r0, 1
+  f2c6  blt L_f390
+L_f2c8:
+  f2d4  r0 = [r0 ??](0, 0)
+  f2de  cmp r0, 0
+  f2e0  bne L_f378
+  f2ec  r0 = NSMutableDictionary
+  f2ee  r0 = NSMutableDictionary
+  f2f0  r0 = [NSMutableDictionary ??](?, ?)
+  f300  r5 = NSString
+  f306  r0 = NSString
+  f310  r6 = CFSTR('%d')
+  f314  r0 = [NSString stringWithFormat:](CFSTR('%d'), 0)
+  f324  r3 = CFSTR('Y')
+  f328  r0 = [r0 setObject:forKey:](?, CFSTR('Y'))
+  f32c  r0 = NSString
+  f334  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  f348  r3 = CFSTR('X')
+  f34c  r0 = [r0 setObject:forKey:](?, CFSTR('X'))
+  f362  r2 = CFSTR('0')
+  f364  r3 = CFSTR('V')
+  f368  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('V'))
+  f376  b L_f37c
+L_f378:
+L_f37c:
+  f37c  r0 = [r0 ??](?, ?)
+  f384  r0 = [r0 ??](?, ?)
+  f388  adds r4, #1
+  f38a  cmp r4, r0
+  f38e  blt L_f2c8
+L_f390:
+  f394  r0 = [r0 ??](?, ?)
+  f39c  r0 = [r0 ??](?, ?)
+  f3a4  r0 = [r0 ??](?, ?)
+  f3a8  add.w sl, sl, #1
+  f3ac  cmp sl, r0
+  f3ae  blt L_f2a6
+L_f3b2:
+  f3b4  add sp, #0x3c
+  f3ba  return
+
+//// -[MakeMaps initWithMapGroundFile:soundPosFileName:]  0xf3bc..0xf6b0  @16@0:4@8@12
+  f3be  add r7, sp, #0xc
+  f3c4  sub sp, #0x58
+  f3cc  cmp r8, 0
+  f3d4  beq L_f6a6
+  f3e8  r0 = SEL(mainBundle)
+  f3ea  r1 = NSBundle
+  f3ec  fp = SEL(mainBundle)
+  f3f0  r0 = NSBundle
+  f3f4  r0 = [NSBundle mainBundle](?, ?)
+  f402  r3 = 0
+  f404  r1 = SEL(pathForResource:ofType:)
+  f406  r5 = 0
+  f408  r6 = SEL(pathForResource:ofType:)
+  f40c  r0 = [r0 pathForResource:ofType:](?, 0)
+  f422  r0 = SEL(stringWithContentsOfFile:encoding:error:)
+  f424  r1 = NSString
+  f426  r3 = 4
+  f428  r4 = SEL(stringWithContentsOfFile:encoding:error:)
+  f42a  r0 = NSString
+  f430  r0 = [NSString stringWithContentsOfFile:encoding:error:](?, 4)
+  f440  r1 = SEL(componentsSeparatedByString:)
+  f44a  r5 = SEL(componentsSeparatedByString:)
+  f44c  r2 = CFSTR('\n')
+  f452  r0 = [r0 componentsSeparatedByString:](CFSTR('\n'), ?)
+  f462  r0 = NSBundle
+  f464  r0 = NSBundle
+  f466  r0 = [NSBundle mainBundle](?, ?)
+  f46e  r3 = 0
+  f470  r0 = [r0 pathForResource:ofType:](?, 0)
+  f47e  r1 = 0
+  f480  r0 = NSString
+  f486  r3 = 4
+  f488  r0 = NSString
+  f48a  r0 = [NSString stringWithContentsOfFile:encoding:error:](?, 4)
+  f496  r0 = [r0 componentsSeparatedByString:](CFSTR('\n'), ?)
+  f49c  r2 = 0
+  f4a8  r0 = SEL(objectAtIndex:)
+  f4aa  r1 = SEL(objectAtIndex:)
+  f4b0  r0 = [r0 ??](0, ?)
+  f4be  r5 = SEL(length)
+  f4c0  r1 = SEL(length)
+  f4c2  r0 = [r0 length](?, ?)
+  f4d6  r0 = SEL(array)
+  f4d8  r2 = NSMutableArray
+  f4da  r1 = SEL(array)
+  f4dc  r0 = NSMutableArray
+  f4e0  r0 = [NSMutableArray ??](NSMutableArray, ?)
+  f4ee  r0 = SEL(setMaps:)
+  f4f0  r1 = SEL(setMaps:)
+  f4f4  r0 = [r0 setMaps:](?, ?)
+  f500  r0 = SEL(count)
+  f502  r1 = SEL(count)
+  f508  r0 = [r0 ??](?, ?)
+  f50c  cmp r0, 0
+  f50e  beq L_f6a6
+  f52a  r0 = SEL(dictionary)
+  f52c  r2 = SEL(stringWithFormat:)
+  f52e  r3 = SEL(setObject:forKey:)
+  f534  r0 = SEL(dictionary)
+  f536  r3 = SEL(setObject:forKey:)
+  f53c  r2 = SEL(stringWithFormat:)
+  f53e  r1 = SEL(substringToIndex:)
+  f54e  r1 = SEL(substringToIndex:)
+  f550  r0 = SEL(addObject:)
+  f554  r1 = 0
+  f556  r0 = SEL(addObject:)
+  f562  r4 = SEL(length)
+  f564  r0 = SEL(maps)
+  f568  r0 = SEL(maps)
+L_f56c:
+  f578  r0 = NSMutableArray
+  f57a  r0 = NSMutableArray
+  f57c  r0 = [NSMutableArray ??](?, ?)
+  f586  r0 = [r0 ??](?, ?)
+  f58a  cmp r0, 0
+  f594  r6 = 0
+  f598  r0 = CFSTR('%d')
+  f59c  beq L_f67c
+L_f59e:
+  f5a8  r0 = [r0 ??](0, ?)
+  f5b4  r0 = [r0 ??](0, ?)
+  f5c2  r0 = [r0 ??](?, ?)
+  f5ce  r0 = [r0 ??](?, ?)
+  f5de  r0 = NSMutableDictionary
+  f5e0  r0 = NSMutableDictionary
+  f5e2  r0 = [NSMutableDictionary ??](?, ?)
+  f5f2  fp = NSString
+  f5f8  r0 = NSString
+  f5fe  r0 = [NSString ??](CFSTR('%d'), 0)
+  f60e  r3 = CFSTR('Y')
+  f614  r0 = [r0 ??](?, CFSTR('Y'))
+  f618  r0 = NSString
+  f622  r0 = [NSString ??](CFSTR('%d'), ?)
+  f632  r3 = CFSTR('X')
+  f636  r0 = [r0 ??](?, CFSTR('X'))
+  f646  r3 = CFSTR('V')
+  f64a  r0 = [r0 ??](?, CFSTR('V'))
+  f65a  r3 = CFSTR('G')
+  f65e  r0 = [r0 ??](?, CFSTR('G'))
+  f66a  r0 = [r0 ??](?, ?)
+  f672  r0 = [r0 ??](?, ?)
+  f676  adds r6, #1
+  f678  cmp r6, r0
+  f67a  blo L_f59e
+L_f67c:
+  f686  r0 = [r0 ??](?, ?)
+  f68e  r0 = [r0 ??](?, ?)
+  f696  r0 = [r0 ??](?, ?)
+  f69a  add.w sl, sl, #1
+  f69e  cmp sl, r0
+  f6a2  blo L_f56c
+L_f6a6:
+  f6a8  add sp, #0x58
+  f6ae  return
+
+//// -[MakeMaps initWithMapGroundFileString:soundPosFileName:actionPosFileName:]  0xf6b0..0xf950  @20@0:4@8@12@16
+  f6b2  add r7, sp, #0xc
+  f6b8  sub sp, #0x6c
+  f6c0  cmp r5, 0
+  f6c2  beq L_f946
+  f6d2  r0 = SEL(componentsSeparatedByString:)
+  f6d4  r4 = SEL(componentsSeparatedByString:)
+  f6e2  r6 = CFSTR('\n')
+  f6e8  r0 = [r0 ??](CFSTR('\n'), ?)
+  f6f4  r0 = [r0 ??](CFSTR('\n'), ?)
+  f704  r0 = [r0 ??](CFSTR('\n'), ?)
+  f71a  r0 = SEL(array)
+  f71c  r2 = NSMutableArray
+  f71e  r1 = SEL(array)
+  f720  r0 = NSMutableArray
+  f724  r0 = [NSMutableArray ??](NSMutableArray, ?)
+  f732  r0 = SEL(setMaps:)
+  f734  r1 = SEL(setMaps:)
+  f738  r0 = [r0 setMaps:](?, ?)
+  f746  r4 = SEL(count)
+  f748  r1 = SEL(count)
+  f74a  r0 = [r0 count](?, ?)
+  f74e  cmp r0, 0
+  f750  beq L_f946
+  f778  r0 = SEL(dictionary)
+  f77a  r1 = SEL(maps)
+  f780  r2 = SEL(stringWithFormat:)
+  f782  r5 = SEL(setObject:forKey:)
+  f784  r3 = SEL(addObject:)
+  f786  r0 = SEL(dictionary)
+  f788  r1 = SEL(maps)
+  f78a  r5 = SEL(setObject:forKey:)
+  f78c  r2 = SEL(stringWithFormat:)
+  f790  r0 = SEL(addObject:)
+  f794  r1 = SEL(count)
+  f798  r2 = 0
+  f7a8  r0 = SEL(objectAtIndex:)
+  f7aa  r6 = SEL(objectAtIndex:)
+L_f7ae:
+  f7ba  r0 = NSMutableArray
+  f7be  r0 = NSMutableArray
+  f7c0  r0 = [NSMutableArray ??](?, SEL(addObject:))
+  f7d0  r0 = [r0 ??](?, ?)
+  f7de  r5 = CFSTR(' ')
+  f7e6  r0 = [r0 ??](CFSTR(' '), ?)
+  f7f2  r0 = [r0 ??](?, ?)
+  f7fa  r0 = [r0 ??](CFSTR(' '), ?)
+  f80a  r0 = [r0 ??](?, ?)
+  f814  r0 = [r0 ??](CFSTR(' '), ?)
+  f81e  r0 = [r0 ??](?, ?)
+  f822  cmp r0, 0
+  f830  r0 = NSString
+  f834  beq L_f91a
+  f836  r6 = 0
+L_f838:
+  f840  r0 = [r0 ??](0, ?)
+  f84c  r0 = [r0 ??](0, ?)
+  f858  r0 = [r0 ??](0, ?)
+  f868  r0 = NSMutableDictionary
+  f86a  r0 = NSMutableDictionary
+  f86c  r0 = [NSMutableDictionary ??](?, ?)
+  f874  r0 = NSString
+  f882  r4 = CFSTR('%d')
+  f888  r0 = [NSString ??](CFSTR('%d'), ?)
+  f898  r3 = CFSTR('Y')
+  f89c  r0 = [r0 ??](?, CFSTR('Y'))
+  f8a0  r0 = NSString
+  f8aa  r0 = [NSString ??](CFSTR('%d'), 0)
+  f8ba  r3 = CFSTR('X')
+  f8be  r0 = [r0 ??](?, CFSTR('X'))
+  f8d2  r3 = CFSTR('V')
+  f8d4  r0 = [r0 ??](?, CFSTR('V'))
+  f8e4  r3 = CFSTR('G')
+  f8e8  r0 = [r0 ??](?, CFSTR('G'))
+  f8f8  r3 = CFSTR('A')
+  f8fc  r0 = [r0 ??](?, CFSTR('A'))
+  f908  r0 = [r0 ??](?, ?)
+  f910  r0 = [r0 ??](?, ?)
+  f914  adds r6, #1
+  f916  cmp r6, r0
+  f918  blo L_f838
+L_f91a:
+  f922  r0 = [r0 ??](?, ?)
+  f92a  r0 = [r0 ??](?, ?)
+  f936  r0 = [r0 ??](?, ?)
+  f93c  adds r1, #1
+  f93e  cmp r1, r0
+  f942  blo L_f7ae
+L_f946:
+  f948  add sp, #0x6c
+  f94e  return
+
+//// -[MakeMaps MovingPlotX:PlotY:]  0xf950..0xfa54  @16@0:4i8i12
+  f952  add r7, sp, #0xc
+  f958  sub sp, #0x2c
+  f970  r0 = SEL(array)
+  f972  r2 = NSMutableArray
+  f974  r1 = SEL(array)
+  f976  r0 = NSMutableArray
+  f97a  r0 = [NSMutableArray ??](NSMutableArray, ?)
+  f9a0  r0 = SEL(intValue)
+  f9a2  r1 = SEL(objectAtIndex:)
+  f9a4  r3 = SEL(addObject:)
+  f9a6  fp = SEL(intValue)
+  f9aa  sub.w r0, r4, #0x13
+  f9ae  r4 = SEL(objectAtIndex:)
+  f9b0  r2 = SEL(objectForKey:)
+  f9b4  r5 = 0
+  f9c0  sl = SEL(addObject:)
+  f9c4  r0 = SEL(maps)
+  f9c6  r6 = SEL(objectForKey:)
+  f9c8  r0 = SEL(maps)
+L_f9cc:
+  f9d2  r0 = [r0 ??](SEL(objectForKey:), SEL(addObject:))
+  f9d8  adds r2, r1, r5
+  f9dc  r0 = [r0 ??](?, ?)
+  f9ec  r0 = NSMutableArray
+  f9ee  r0 = NSMutableArray
+  f9f0  r0 = [NSMutableArray ??](?, ?)
+  f9fe  r8 = -19
+  fa02  r4 = CFSTR('V')
+L_fa04:
+  fa08  add.w r2, r0, r8
+  fa0e  r0 = [r0 ??](?, ?)
+  fa18  r0 = [r0 objectForKey:](CFSTR('V'), ?)
+  fa1e  r0 = [r0 intValue](?, ?)
+  fa28  r0 = [r0 addObject:](?, ?)
+  fa2c  add.w r8, r8, #1
+  fa30  cmp r8, 21
+  fa34  bne L_fa04
+  fa3c  r0 = [r0 addObject:](?, ?)
+  fa44  adds r5, #1
+  fa46  cmp r5, 40
+  fa48  bne L_f9cc
+  fa4c  add sp, #0x2c
+  fa52  return
+
+//// -[MakeMaps movePlayGroundState:PlotY:]  0xfa54..0xfab8  i16@0:4i8i12
+  fa5a  add r7, sp, #0xc
+  fa62  r1 = SEL(maps)
+  fa66  r1 = SEL(maps)
+  fa68  r0 = [r0 maps](?, ?)
+  fa76  r1 = SEL(objectAtIndex:)
+  fa78  r6 = SEL(objectAtIndex:)
+  fa7c  r0 = [r0 objectAtIndex:](?, ?)
+  fa84  r0 = [r0 objectAtIndex:](?, ?)
+  fa94  r1 = SEL(objectForKey:)
+  fa9a  r2 = CFSTR('G')
+  fa9c  r1 = SEL(objectForKey:)
+  fa9e  r0 = [r0 objectForKey:](CFSTR('G'), ?)
+  faaa  r1 = SEL(intValue)
+  faac  r1 = SEL(intValue)
+  fab2  b L_a90d0
+
+//// -[MakeMaps movePlayActionState:PlotY:]  0xfab8..0xfb1c  i16@0:4i8i12
+  fabe  add r7, sp, #0xc
+  fac6  r1 = SEL(maps)
+  faca  r1 = SEL(maps)
+  facc  r0 = [r0 maps](?, ?)
+  fada  r1 = SEL(objectAtIndex:)
+  fadc  r6 = SEL(objectAtIndex:)
+  fae0  r0 = [r0 objectAtIndex:](?, ?)
+  fae8  r0 = [r0 objectAtIndex:](?, ?)
+  faf8  r1 = SEL(objectForKey:)
+  fafe  r2 = CFSTR('A')
+  fb00  r1 = SEL(objectForKey:)
+  fb02  r0 = [r0 objectForKey:](CFSTR('A'), ?)
+  fb0e  r1 = SEL(intValue)
+  fb10  r1 = SEL(intValue)
+  fb16  b L_a90d0
+
+//// -[MakeMaps dealloc]  0xfb1c..0xfb80  v8@0:4
+  fb1e  add r7, sp, #8
+  fb20  sub sp, #8
+  fb36  r0 = SEL(dealloc)
+  fb3e  r1 = SEL(dealloc)
+  fb42  r0 = [r0 dealloc](?, ?) SUPER
+  fb52  r0 = IVOFF(maps)
+  fb58  r1 = SEL(release)
+  fb5a  r0 = IVOFF(maps)
+  fb5c  r5 = SEL(release)
+  fb5e  r0 = self->maps
+  fb62  r0 = [self->maps release](?, ?)
+  fb70  r0 = IVOFF(mapsFollowing)
+  fb72  r0 = IVOFF(mapsFollowing)
+  fb74  r0 = self->mapsFollowing
+  fb76  r0 = [self->mapsFollowing release](?, ?)
+  fb7a  add sp, #8
+  fb7c  return
+
+//// -[MakeMaps maps]  0xfb80..0xfb90  @8@0:4
+  fb88  r1 = IVOFF(maps)
+  fb8a  r1 = IVOFF(maps)
+  fb8c  r0 = self->maps
+
+//// -[MakeMaps setMaps:]  0xfb90..0xfbb4  v12@0:4@8
+  fb94  sub sp, #8
+  fba0  r3 = 0
+  fba2  r2 = IVOFF(maps)
+  fbaa  r2 = IVOFF(maps)
+  fbac  call _objc_setProperty
+  fbb0  add sp, #8
+  fbb2  return
+
+//// -[MakeMaps mapsFollowing]  0xfbb4..0xfbc4  @8@0:4
+  fbbc  r1 = IVOFF(mapsFollowing)
+  fbbe  r1 = IVOFF(mapsFollowing)
+  fbc0  r0 = self->mapsFollowing
+
+//// -[MakeMaps setMapsFollowing:]  0xfbc4..0xfbe8  v12@0:4@8
+  fbc8  sub sp, #8
+  fbd4  r3 = 0
+  fbd6  r2 = IVOFF(mapsFollowing)
+  fbde  r2 = IVOFF(mapsFollowing)
+  fbe0  call _objc_setProperty
+  fbe4  add sp, #8
+  fbe6  return

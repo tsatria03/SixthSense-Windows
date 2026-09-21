@@ -1,0 +1,2075 @@
+
+//// -[MonsterControl initWithMonsterPatern:soundController:comingSound:hitSound:damageSound:diesound:shakeApproach:shakwPush:HPGain:]  0x10618..0x10ca8  @44@0:4i8@12i16i20i24i28i32i36f40
+  1061a  add r7, sp, #0xc
+  10620  vpush {d8}
+  10628  cmp r4, 0
+  1062a  beq L_10c42
+  1063e  r0 = SEL(stringWithFormat:)
+  10640  r2 = NSString
+  10642  r1 = SEL(stringWithFormat:)
+  10644  r0 = NSString
+  1064e  r2 = CFSTR('type%d')
+  10650  r0 = [NSString stringWithFormat:](CFSTR('type%d'), ?)
+  10666  r0 = SEL(mainBundle)
+  10668  r2 = NSBundle
+  1066a  r1 = SEL(mainBundle)
+  1066c  r0 = NSBundle
+  1066e  r0 = [NSBundle mainBundle](NSBundle, ?)
+  10680  r1 = SEL(pathForResource:ofType:)
+  10686  r3 = CFSTR('plist')
+  10688  r1 = SEL(pathForResource:ofType:)
+  1068a  r0 = [r0 pathForResource:ofType:](?, CFSTR('plist'))
+  106a0  r0 = SEL(arrayWithContentsOfFile:)
+  106a2  r3 = NSArray
+  106a4  r1 = SEL(arrayWithContentsOfFile:)
+  106a6  r0 = NSArray
+  106a8  r0 = [NSArray arrayWithContentsOfFile:](?, NSArray)
+  106ae  cmp r5, 0
+  106b0  beq L_10c42
+  106b8  r2 = 1
+  106be  vldr s16, [r7, #0x20]
+  106c2  r0 = SEL(objectAtIndex:)
+  106ca  sl = SEL(objectAtIndex:)
+  106d2  r0 = [r0 objectAtIndex:](1, ?)
+  106de  r1 = SEL(intValue)
+  106e0  r8 = SEL(intValue)
+  106e6  r0 = [r0 intValue](?, ?)
+  106f4  r0 = SEL(setMovingType:)
+  106f6  r1 = SEL(setMovingType:)
+  106fa  r0 = [r0 setMovingType:](?, ?)
+  10702  r2 = 3
+  10704  r0 = [r0 objectAtIndex:](3, ?)
+  1070a  r0 = [r0 intValue](?, ?)
+  1070e  vmov d16, r0, r0
+  10716  vcvt.f32.s32 d16, d16
+  1071e  r0 = SEL(setHP:)
+  10720  r1 = SEL(setHP:)
+  10724  vmul.f32 d16, d16, d8
+  10728  vcvt.s32.f32 d0, d16
+  10730  r0 = [r0 setHP:](?, ?)
+  10738  r2 = 5
+  1073a  r0 = [r0 objectAtIndex:](5, ?)
+  10740  r0 = [r0 intValue](?, ?)
+  1074e  r0 = SEL(setDamage:)
+  10750  r1 = SEL(setDamage:)
+  10754  r0 = [r0 setDamage:](?, ?)
+  10758  call sub_3ccc
+  10766  r1 = SEL(playSoundBufNumber:)
+  10768  r1 = SEL(playSoundBufNumber:)
+  1076a  r0 = [r0 playSoundBufNumber:](?, ?)
+  1077a  r1 = IVOFF(comingMonsterStopSoundNumber)
+  10780  r2 = SEL(setComingSound:)
+  10782  r1 = IVOFF(comingMonsterStopSoundNumber)
+  10784  self->comingMonsterStopSoundNumber = r0
+  10788  r1 = SEL(setComingSound:)
+  1078c  r0 = [r0 setComingSound:](?, ?)
+  10794  r2 = 9
+  10796  r0 = [r0 objectAtIndex:](9, ?)
+  107a2  r1 = SEL(floatValue)
+  107a4  fp = SEL(floatValue)
+  107aa  r0 = [r0 floatValue](?, ?)
+  107ae  s0 = 0.2
+  107b2  vmov d16, r0, r0
+  107ba  vadd.f32 d0, d16, d0
+  107c2  r0 = SEL(setComingSoundGain:)
+  107c4  r1 = SEL(setComingSoundGain:)
+  107cc  r0 = [r0 setComingSoundGain:](?, ?)
+  107d4  r2 = 11
+  107d6  r0 = [r0 objectAtIndex:](11, ?)
+  107dc  r0 = [r0 floatValue](?, ?)
+  107ea  r0 = SEL(setComingSoundTime:)
+  107ec  r1 = SEL(setComingSoundTime:)
+  107f0  r0 = [r0 setComingSoundTime:](?, ?)
+  107f8  r2 = 13
+  107fa  r0 = [r0 objectAtIndex:](13, ?)
+  10800  r0 = [r0 floatValue](?, ?)
+  10804  vmov d16, r0, r0
+  1080c  vcvt.s32.f32 d0, d16
+  10814  r0 = SEL(setComingSoundInWalk:)
+  10816  r1 = SEL(setComingSoundInWalk:)
+  1081e  r0 = [r0 setComingSoundInWalk:](?, ?)
+  10826  r2 = 15
+  10828  r0 = [r0 objectAtIndex:](15, ?)
+  1082e  r0 = [r0 intValue](?, ?)
+  10832  vmov d16, r0, r0
+  1083a  vcvt.f32.s32 d16, d16
+  10842  r0 = SEL(setComingRange:)
+  10844  r1 = SEL(setComingRange:)
+  10848  vmul.f32 d16, d16, d8
+  1084c  vcvt.s32.f32 d0, d16
+  10854  r0 = [r0 setComingRange:](?, ?)
+  10862  r0 = SEL(setHitSound:)
+  10864  r1 = SEL(setHitSound:)
+  10868  r0 = [r0 setHitSound:](?, ?)
+  10870  r2 = 19
+  10872  r0 = [r0 objectAtIndex:](19, ?)
+  10878  r0 = [r0 floatValue](?, ?)
+  1087c  vmov.f32 d16, #5.000000e-01
+  10880  vmov d17, r0, r0
+  1088c  vmul.f32 d0, d17, d16
+  10890  r0 = SEL(setHitSoundGain:)
+  10892  r1 = SEL(setHitSoundGain:)
+  1089a  r0 = [r0 setHitSoundGain:](?, ?)
+  108a2  r2 = 21
+  108a4  r0 = [r0 objectAtIndex:](21, ?)
+  108aa  r0 = [r0 floatValue](?, ?)
+  108b8  r0 = SEL(setHitSoundTime:)
+  108ba  r1 = SEL(setHitSoundTime:)
+  108be  r0 = [r0 setHitSoundTime:](?, ?)
+  108cc  r0 = SEL(setDieSound:)
+  108ce  r1 = SEL(setDieSound:)
+  108d2  r0 = [r0 setDieSound:](?, ?)
+  108da  r2 = 25
+  108dc  r0 = [r0 objectAtIndex:](25, ?)
+  108e2  r0 = [r0 floatValue](?, ?)
+  108f0  r0 = SEL(setDieSoundgain:)
+  108f2  r1 = SEL(setDieSoundgain:)
+  108f6  r0 = [r0 setDieSoundgain:](?, ?)
+  108fe  r2 = 27
+  10900  r0 = [r0 objectAtIndex:](27, ?)
+  10906  r0 = [r0 floatValue](?, ?)
+  10914  r0 = SEL(setDieSoundTime:)
+  10916  r1 = SEL(setDieSoundTime:)
+  1091a  r0 = [r0 setDieSoundTime:](?, ?)
+  10928  r0 = SEL(setPlayerHitSound:)
+  1092a  r1 = SEL(setPlayerHitSound:)
+  1092e  r0 = [r0 setPlayerHitSound:](?, ?)
+  10936  r2 = 31
+  10938  r0 = [r0 objectAtIndex:](31, ?)
+  1093e  r0 = [r0 floatValue](?, ?)
+  1094c  r0 = SEL(setPlayerHitSoundGain:)
+  1094e  r1 = SEL(setPlayerHitSoundGain:)
+  10952  r0 = [r0 setPlayerHitSoundGain:](?, ?)
+  1095a  r2 = 33
+  1095c  r0 = [r0 objectAtIndex:](33, ?)
+  10962  r0 = [r0 floatValue](?, ?)
+  10970  r0 = SEL(setPlayerHitSoundtimer:)
+  10972  r1 = SEL(setPlayerHitSoundtimer:)
+  10976  r0 = [r0 setPlayerHitSoundtimer:](?, ?)
+  1097e  r2 = 35
+  10980  r0 = [r0 objectAtIndex:](35, ?)
+  10990  r1 = SEL(componentsSeparatedByString:)
+  10996  r2 = CFSTR(',')
+  10998  r1 = SEL(componentsSeparatedByString:)
+  1099a  r0 = [r0 componentsSeparatedByString:](CFSTR(','), ?)
+  109a8  r0 = SEL(count)
+  109aa  r1 = SEL(count)
+  109ae  r0 = [r0 count](?, ?)
+  109b2  cmp r0, 2
+  109b4  blt L_109e8
+  109c6  r0 = SEL(arrayWithArray:)
+  109c8  r2 = NSMutableArray
+  109ca  r1 = SEL(arrayWithArray:)
+  109cc  r0 = NSMutableArray
+  109d0  r0 = [NSMutableArray arrayWithArray:](?, ?)
+  109de  r0 = SEL(setMonsterHeadShotArray:)
+  109e0  b L_10a04
+  109e6  subs r6, #0x4c
+L_109e8:
+  109ec  r2 = 35
+  109ee  r0 = [r0 objectAtIndex:](35, ?)
+  109f4  r0 = [r0 floatValue](?, ?)
+  10a02  r0 = SEL(setHeadShotTimeStart:)
+L_10a04:
+  10a04  r1 = SEL(setHeadShotTimeStart:)
+  10a08  r0 = [r0 setHeadShotTimeStart:](?, ?)
+  10a10  r2 = 37
+  10a12  r0 = [r0 objectAtIndex:](37, ?)
+  10a18  r0 = [r0 floatValue](?, ?)
+  10a26  r0 = SEL(setHeadShotTimeEndHowLong:)
+  10a28  r1 = SEL(setHeadShotTimeEndHowLong:)
+  10a2c  r0 = [r0 setHeadShotTimeEndHowLong:](?, ?)
+  10a34  r2 = 39
+  10a36  r0 = [r0 objectAtIndex:](39, ?)
+  10a3c  r0 = [r0 intValue](?, ?)
+  10a4c  r1 = SEL(setShakeMonsterFlag:)
+  10a4e  r1 = SEL(setShakeMonsterFlag:)
+  10a50  r0 = [r0 setShakeMonsterFlag:](?, ?)
+  10a58  r2 = 41
+  10a5a  r0 = [r0 objectAtIndex:](41, ?)
+  10a60  r0 = [r0 intValue](?, ?)
+  10a6e  r0 = SEL(setMonsterNumber:)
+  10a70  r1 = SEL(setMonsterNumber:)
+  10a74  r0 = [r0 setMonsterNumber:](?, ?)
+  10a80  r0 = SEL(shakeMonsterFlag)
+  10a82  r1 = SEL(shakeMonsterFlag)
+  10a86  r0 = [r0 shakeMonsterFlag](?, ?)
+  10a8e  beq L_10b48
+  10a9a  r0 = SEL(setShakeMonsterApproachSound:)
+  10a9c  r1 = SEL(setShakeMonsterApproachSound:)
+  10aa0  r0 = [r0 setShakeMonsterApproachSound:](?, ?)
+  10aa8  r2 = 45
+  10aaa  r0 = [r0 objectAtIndex:](45, ?)
+  10ab0  r0 = [r0 floatValue](?, ?)
+  10abe  r0 = SEL(setShakeMonsterApproachTime:)
+  10ac0  r1 = SEL(setShakeMonsterApproachTime:)
+  10ac4  r0 = [r0 setShakeMonsterApproachTime:](?, ?)
+  10acc  r2 = 47
+  10ace  r0 = [r0 objectAtIndex:](47, ?)
+  10ad4  r0 = [r0 floatValue](?, ?)
+  10ae2  r0 = SEL(setShakeMonsterApproachGain:)
+  10ae4  r1 = SEL(setShakeMonsterApproachGain:)
+  10ae8  r0 = [r0 setShakeMonsterApproachGain:](?, ?)
+  10af6  r0 = SEL(setShakeMonsterPushSound:)
+  10af8  r1 = SEL(setShakeMonsterPushSound:)
+  10afc  r0 = [r0 setShakeMonsterPushSound:](?, ?)
+  10b04  r2 = 51
+  10b06  r0 = [r0 objectAtIndex:](51, ?)
+  10b0c  r0 = [r0 floatValue](?, ?)
+  10b1a  r0 = SEL(setShakeMonsterPushTime:)
+  10b1c  r1 = SEL(setShakeMonsterPushTime:)
+  10b20  r0 = [r0 setShakeMonsterPushTime:](?, ?)
+  10b28  r2 = 53
+  10b2a  r0 = [r0 objectAtIndex:](53, ?)
+  10b30  r0 = [r0 floatValue](?, ?)
+  10b3e  r0 = SEL(setShakeMoneterPushGain:)
+  10b40  r1 = SEL(setShakeMoneterPushGain:)
+  10b44  r0 = [r0 setShakeMoneterPushGain:](?, ?)
+L_10b48:
+  10b4c  r2 = -1
+  10b54  r0 = SEL(setMonsterChangeAngle:)
+  10b56  r1 = SEL(setMonsterChangeAngle:)
+  10b5a  r0 = [r0 setMonsterChangeAngle:](-1, ?)
+  10b62  r2 = 1
+  10b68  r0 = SEL(setMonsterFlag:)
+  10b6a  r1 = SEL(setMonsterFlag:)
+  10b6e  r0 = [r0 setMonsterFlag:](1, ?)
+  10b7a  r0 = SEL(MovingType)
+  10b7c  r5 = SEL(MovingType)
+  10b82  r0 = [r0 MovingType](?, ?)
+  10b86  cmp r0, 1
+  10b88  beq L_10b96
+  10b8e  r0 = [r0 MovingType](?, ?)
+  10b92  cmp r0, 11
+  10b94  bne L_10bae
+L_10b96:
+  10b9a  r2 = 0
+  10ba4  r0 = SEL(setPos:)
+  10ba6  r1 = SEL(setPos:)
+L_10ba8:
+  10baa  r3 = 0
+  10bac  b L_10c12
+L_10bae:
+  10bb2  r0 = [r0 MovingType](0xc47a0000/f-1000, 0)
+  10bb6  cmp r0, 2
+  10bb8  beq L_10bc6
+  10bbe  r0 = [r0 MovingType](?, ?)
+  10bc2  cmp r0, 22
+  10bc4  bne L_10be4
+L_10bc6:
+  10bca  r2 = 0
+  10bd4  r0 = SEL(setPos:)
+  10bd6  r1 = SEL(setPos:)
+L_10bd8:
+  10be2  b L_10c12
+L_10be4:
+  10be8  r0 = [r0 MovingType](0xc3fa0000/f-500, 0x44588000/f866)
+  10bec  cmp r0, 3
+  10bee  beq L_10bfc
+  10bf4  r0 = [r0 MovingType](?, ?)
+  10bf8  cmp r0, 33
+  10bfa  bne L_10c4e
+L_10bfc:
+  10c00  r3 = 0
+  10c0a  r0 = SEL(setPos:)
+  10c0c  r2 = 0
+  10c0e  r1 = SEL(setPos:)
+L_10c12:
+  10c12  r0 = [r0 setPos:](0, 0x447a0000/f1000)
+L_10c16:
+  10c1a  r2 = 0
+  10c24  r0 = SEL(setMonsterRange:)
+  10c26  r1 = SEL(setMonsterRange:)
+  10c2a  r0 = [r0 setMonsterRange:](0x447a0000/f1000, ?)
+  10c32  r2 = 0
+  10c38  r0 = SEL(MonsterStart:)
+  10c3a  r1 = SEL(MonsterStart:)
+  10c3e  r0 = [r0 MonsterStart:](0, ?)
+L_10c42:
+  10c44  vpop {d8}
+  10c4c  return
+L_10c4e:
+  10c52  r0 = [r0 MovingType](?, ?)
+  10c56  cmp r0, 4
+  10c58  beq L_10c66
+  10c5e  r0 = [r0 MovingType](?, ?)
+  10c62  cmp r0, 44
+  10c64  bne L_10c7a
+L_10c66:
+  10c6a  r2 = 0
+  10c74  r0 = SEL(setPos:)
+  10c76  r1 = SEL(setPos:)
+  10c78  b L_10bd8
+L_10c7a:
+  10c7e  r0 = [r0 MovingType](0x43fa0000/f500, ?)
+  10c82  cmp r0, 5
+  10c84  beq L_10c92
+  10c8a  r0 = [r0 MovingType](?, ?)
+  10c8e  cmp r0, 55
+  10c90  bne L_10c16
+L_10c92:
+  10c96  r2 = 0
+  10ca0  r0 = SEL(setPos:)
+  10ca2  r1 = SEL(setPos:)
+  10ca4  b L_10ba8
+
+//// -[MonsterControl StopPlayGame]  0x10ca8..0x10d98  v8@0:4
+  10cb4  add r7, sp, #8
+  10cb6  r0 = IVOFF(MainMonsterTimer)
+  10cb8  r5 = IVOFF(MainMonsterTimer)
+  10cba  r0 = self->MainMonsterTimer
+  10cbc  cbz self->MainMonsterTimer -> L_10cea
+  10cc6  r1 = SEL(isValid)
+  10cc8  r1 = SEL(isValid)
+  10cca  r0 = [self->MainMonsterTimer isValid](?, ?)
+  10cd2  beq L_10cea
+  10cdc  r0 = SEL(invalidate)
+  10cde  r1 = SEL(invalidate)
+  10ce0  r0 = self->MainMonsterTimer
+  10ce2  r0 = [self->MainMonsterTimer invalidate](?, ?)
+  10ce6  r0 = 0
+  10ce8  self->MainMonsterTimer = 0
+L_10cea:
+  10cf2  r0 = IVOFF(comingBreathTimer)
+  10cf4  r5 = IVOFF(comingBreathTimer)
+  10cf6  r0 = self->comingBreathTimer
+  10cf8  cbz self->comingBreathTimer -> L_10d26
+  10d02  r1 = SEL(isValid)
+  10d04  r1 = SEL(isValid)
+  10d06  r0 = [self->comingBreathTimer isValid](?, ?)
+  10d0e  beq L_10d26
+  10d18  r0 = SEL(invalidate)
+  10d1a  r1 = SEL(invalidate)
+  10d1c  r0 = self->comingBreathTimer
+  10d1e  r0 = [self->comingBreathTimer invalidate](?, ?)
+  10d22  r0 = 0
+  10d24  self->comingBreathTimer = 0
+L_10d26:
+  10d2e  r0 = IVOFF(MonsterMovingAngleTimer)
+  10d30  r5 = IVOFF(MonsterMovingAngleTimer)
+  10d32  r0 = self->MonsterMovingAngleTimer
+  10d34  cbz self->MonsterMovingAngleTimer -> L_10d62
+  10d3e  r1 = SEL(isValid)
+  10d40  r1 = SEL(isValid)
+  10d42  r0 = [self->MonsterMovingAngleTimer isValid](?, ?)
+  10d4a  beq L_10d62
+  10d54  r0 = SEL(invalidate)
+  10d56  r1 = SEL(invalidate)
+  10d58  r0 = self->MonsterMovingAngleTimer
+  10d5a  r0 = [self->MonsterMovingAngleTimer invalidate](?, ?)
+  10d5e  r0 = 0
+  10d60  self->MonsterMovingAngleTimer = 0
+L_10d62:
+  10d62  call sub_3ccc
+  10d6e  r1 = SEL(playback)
+  10d70  r1 = SEL(playback)
+  10d72  r0 = [r0 playback](?, ?)
+  10d82  r1 = IVOFF(comingMonsterStopSoundNumber)
+  10d88  r3 = SEL(stopSound:)
+  10d8a  r1 = IVOFF(comingMonsterStopSoundNumber)
+  10d8c  r2 = self->comingMonsterStopSoundNumber
+  10d8e  r1 = SEL(stopSound:)
+  10d94  b L_a90d0
+
+//// -[MonsterControl ReplayGame]  0x10d98..0x10dac  v8@0:4
+  10d9c  r2 = 0
+  10da2  r1 = SEL(MonsterStart:)
+  10da4  r1 = SEL(MonsterStart:)
+  10da6  b L_a90d0
+
+//// -[MonsterControl MonsterStart:]  0x10dac..0x10f38  v12@0:4@8
+  10dae  add r7, sp, #0xc
+  10db4  vpush {d8}
+  10db8  sub sp, #0x28
+  10dcc  r0 = SEL(performSelector:)
+  10dce  r2 = SEL(MonsterComing:)
+  10dd0  r1 = SEL(performSelector:)
+  10dd4  r8 = SEL(MonsterComing:)
+  10dda  r0 = [r0 performSelector:](SEL(MonsterComing:), ?)
+  10dde  call sub_3ccc
+  10dec  r0 = SEL(playback)
+  10dee  r1 = SEL(playback)
+  10df2  r0 = [r0 playback](?, ?)
+  10e02  r1 = IVOFF(comingMonsterStopSoundNumber)
+  10e08  r2 = SEL(stopSound:)
+  10e0a  r3 = IVOFF(comingMonsterStopSoundNumber)
+  10e0c  r1 = SEL(stopSound:)
+  10e0e  r2 = self->comingMonsterStopSoundNumber
+  10e10  r0 = [r0 stopSound:](self->comingMonsterStopSoundNumber, comingMonsterStopSoundNumber)
+  10e1c  r0 = SEL(comingSound)
+  10e1e  r1 = SEL(comingSound)
+  10e22  r0 = [r0 comingSound](?, ?)
+  10e30  r0 = SEL(comingSoundGain)
+  10e32  r1 = SEL(comingSoundGain)
+  10e36  r0 = [r0 comingSoundGain](?, ?)
+  10e3a  vmov d8, r0, r0
+  10e3e  cbz r4 -> L_10e98
+  10e4a  r0 = SEL(Pos)
+  10e4c  r5 = SEL(Pos)
+  10e4e  add r0, sp, #0x20
+  10e52  r0 = [r0 ??](SEL(Pos), ?)
+  10e64  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  10e68  ip = 0
+  10e6c  sb = 1
+  10e70  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  10e7e  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, ?)
+  10e82  add r0, sp, #0x18
+  10e88  r0 = [r0 ??](SEL(Pos), ?)
+  10e8c  add r0, sp, #0x10
+  10e92  r0 = [r0 ??](SEL(Pos), ?)
+  10e96  b L_10ed0
+L_10e98:
+  10ea4  r5 = 0
+  10ea6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  10eac  sb = 1
+  10eb2  add.w ip, sp, #4
+  10eb6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  10ec4  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, ?)
+L_10ed0:
+  10ee0  r0 = NSTimer
+  10ee2  r1 = SEL(comingSoundTime)
+  10ee4  r5 = NSTimer
+  10ee8  r1 = SEL(comingSoundTime)
+  10eea  r0 = [r0 comingSoundTime](?, ?)
+  10eee  vmov d0, r0, r0
+  10efa  r6 = 0
+  10efc  vcvt.f64.f32 d16, s0
+  10f00  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  10f06  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  10f08  r0 = 1
+  10f0c  vmov r2, r3, d16
+  10f14  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  10f20  r1 = IVOFF(MainMonsterTimer)
+  10f22  r1 = IVOFF(MainMonsterTimer)
+  10f24  self->MainMonsterTimer = r0
+  10f26  add sp, #0x28
+  10f28  vpop {d8}
+  10f30  return
+
+//// -[MonsterControl MonsterMoving:]  0x10f38..0x11920  v12@0:4@8
+  10f3a  add r7, sp, #0xc
+  10f40  sub.w r4, sp, #0x18
+  10f4a  vst1.64 {d8, d9}, [r4:0x80]
+  10f4e  vstr d10, [r4, #0x10]
+  10f52  sub sp, #0x20
+  10f5e  cmp r4, 0
+  10f60  r0 = IVOFF(MovingCount)
+  10f62  fp = IVOFF(MovingCount)
+  10f66  r0 = self->MovingCount
+  10f6a  add.w r0, r0, #1
+  10f6e  self->MovingCount = r0
+  10f72  beq L_10f9e
+  10f7e  r0 = SEL(Pos)
+  10f80  r5 = SEL(Pos)
+  10f82  add r0, sp, #0x18
+  10f86  r0 = [r0 ??](SEL(Pos), ?)
+  10f8a  add r0, sp, #0x10
+  10f90  vldr s16, [sp, #0x18]
+  10f94  r0 = [r0 ??](SEL(Pos), ?)
+  10f98  vldr s18, [sp, #0x14]
+  10f9c  b L_10fb0
+L_10f9e:
+  10f9e  vmov.i32 d9, #0
+  10fa2  r0 = 0
+  10fa6  vorr d8, d9, d9
+L_10fb0:
+  10fb0  vmul.f32 d16, d9, d9
+  10fb8  vmul.f32 d17, d8, d8
+  10fc0  r0 = SEL(setMonsterRange:)
+  10fc2  r5 = SEL(setMonsterRange:)
+  10fc6  vadd.f32 d0, d17, d16
+  10fcc  vsqrt.f32 s0, s0
+  10fd4  r0 = [r0 setMonsterRange:](?, ?)
+  10fe0  r0 = SEL(monsterRange)
+  10fe2  r8 = SEL(monsterRange)
+  10fea  r0 = [r0 monsterRange](?, ?)
+  10fee  vmov.f32 d0, #2.500000e+01
+  10ff2  vmov d1, r0, r0
+  10ff6  vcmpe.f32 s2, s0
+  10ffa  vmrs apsr_nzcv, fpscr
+  10ffe  ble L_11032
+  11008  r0 = SEL(comingRange)
+  1100a  r1 = SEL(comingRange)
+  1100e  r0 = [r0 comingRange](?, ?)
+  11018  r0 = [r0 monsterRange](?, ?)
+  1101c  vmov d16, r6, r6
+  11020  vcvt.f32.s32 d16, d16
+  11024  vmov d17, r0, r0
+  11028  vsub.f32 d0, d17, d16
+  11030  b L_11038
+L_11032:
+  11032  r2 = 0
+L_11038:
+  1103c  r0 = [r0 setMonsterRange:](0x41a00000/f20, ?)
+  11048  r0 = SEL(MovingType)
+  1104a  r6 = SEL(MovingType)
+  11050  r0 = [r0 MovingType](?, ?)
+  11054  cmp r0, 1
+  11056  bne L_110e0
+  11060  r0 = SEL(monsterChangeAngle)
+  11062  sl = SEL(monsterChangeAngle)
+  1106a  r0 = [r0 monsterChangeAngle](?, ?)
+  1106e  cmp r0, -1
+  11072  bne L_11342
+  11086  r0 = SEL(standardUserDefaults)
+  11088  r2 = NSUserDefaults
+  1108a  r1 = SEL(standardUserDefaults)
+  1108c  r0 = NSUserDefaults
+  1108e  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  1109e  r1 = SEL(objectForKey:)
+  110a4  r2 = CFSTR('WZ')
+  110a6  r1 = SEL(objectForKey:)
+  110a8  r0 = [r0 objectForKey:](CFSTR('WZ'), ?)
+  110b2  r0 = [r0 MovingType](?, ?)
+  110be  r0 = SEL(length)
+  110c0  r1 = SEL(length)
+  110c4  r0 = [r0 length](?, ?)
+  110c8  cmp r0, 0
+  110ca  bne L_1131c
+  110d2  r2 = 180
+  110d8  r0 = SEL(setMonsterChangeAngle:)
+  110da  r1 = SEL(setMonsterChangeAngle:)
+  110de  b L_1133e
+L_110e0:
+  110e4  r0 = [r0 MovingType](180, ?)
+  110e8  cmp r0, 2
+  110ea  bne L_11174
+  110f4  r0 = SEL(monsterChangeAngle)
+  110f6  sl = SEL(monsterChangeAngle)
+  110fe  r0 = [r0 monsterChangeAngle](?, ?)
+  11102  cmp r0, -1
+  11106  bne L_11342
+  1111a  r0 = SEL(standardUserDefaults)
+  1111c  r2 = NSUserDefaults
+  1111e  r1 = SEL(standardUserDefaults)
+  11120  r0 = NSUserDefaults
+  11122  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  11132  r1 = SEL(objectForKey:)
+  11138  r2 = CFSTR('WNZ')
+  1113a  r1 = SEL(objectForKey:)
+  1113c  r0 = [r0 objectForKey:](CFSTR('WNZ'), ?)
+  11146  r0 = [r0 MovingType](?, ?)
+  11152  r0 = SEL(length)
+  11154  r1 = SEL(length)
+  11158  r0 = [r0 length](?, ?)
+  1115c  cmp r0, 0
+  1115e  bne L_1131c
+  11166  r2 = 123
+  1116c  r0 = SEL(setMonsterChangeAngle:)
+  1116e  r1 = SEL(setMonsterChangeAngle:)
+  11172  b L_1133e
+L_11174:
+  11178  r0 = [r0 MovingType](123, ?)
+  1117c  cmp r0, 3
+  1117e  bne L_11208
+  11188  r0 = SEL(monsterChangeAngle)
+  1118a  sl = SEL(monsterChangeAngle)
+  11192  r0 = [r0 monsterChangeAngle](?, ?)
+  11196  cmp r0, -1
+  1119a  bne L_11342
+  111ae  r0 = SEL(standardUserDefaults)
+  111b0  r2 = NSUserDefaults
+  111b2  r1 = SEL(standardUserDefaults)
+  111b4  r0 = NSUserDefaults
+  111b6  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  111c6  r1 = SEL(objectForKey:)
+  111cc  r2 = CFSTR('NZ')
+  111ce  r1 = SEL(objectForKey:)
+  111d0  r0 = [r0 objectForKey:](CFSTR('NZ'), ?)
+  111da  r0 = [r0 MovingType](?, ?)
+  111e6  r0 = SEL(length)
+  111e8  r1 = SEL(length)
+  111ec  r0 = [r0 length](?, ?)
+  111f0  cmp r0, 0
+  111f2  bne L_1131c
+  111fa  r2 = 90
+  11200  r0 = SEL(setMonsterChangeAngle:)
+  11202  r1 = SEL(setMonsterChangeAngle:)
+  11206  b L_1133e
+L_11208:
+  1120c  r0 = [r0 MovingType](90, ?)
+  11210  cmp r0, 4
+  11212  bne L_1129a
+  1121c  r0 = SEL(monsterChangeAngle)
+  1121e  sl = SEL(monsterChangeAngle)
+  11226  r0 = [r0 monsterChangeAngle](?, ?)
+  1122a  cmp r0, -1
+  1122e  bne L_11342
+  11242  r0 = SEL(standardUserDefaults)
+  11244  r2 = NSUserDefaults
+  11246  r1 = SEL(standardUserDefaults)
+  11248  r0 = NSUserDefaults
+  1124a  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  1125a  r1 = SEL(objectForKey:)
+  11260  r2 = CFSTR('ENZ')
+  11262  r1 = SEL(objectForKey:)
+  11264  r0 = [r0 objectForKey:](CFSTR('ENZ'), ?)
+  1126e  r0 = [r0 MovingType](?, ?)
+  1127a  r0 = SEL(length)
+  1127c  r1 = SEL(length)
+  11280  r0 = [r0 length](?, ?)
+  11284  cmp r0, 0
+  11286  bne L_1131c
+  1128c  r2 = 57
+  11292  r0 = SEL(setMonsterChangeAngle:)
+  11294  r1 = SEL(setMonsterChangeAngle:)
+  11298  b L_1133e
+L_1129a:
+  1129e  r0 = [r0 MovingType](57, ?)
+  112a2  cmp r0, 5
+  112a4  bne L_1155e
+  112b0  r0 = SEL(monsterChangeAngle)
+  112b2  sl = SEL(monsterChangeAngle)
+  112ba  r0 = [r0 monsterChangeAngle](?, ?)
+  112be  cmp r0, -1
+  112c2  bne L_11342
+  112d4  r0 = SEL(standardUserDefaults)
+  112d6  r2 = NSUserDefaults
+  112d8  r1 = SEL(standardUserDefaults)
+  112da  r0 = NSUserDefaults
+  112dc  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  112ec  r1 = SEL(objectForKey:)
+  112f2  r2 = CFSTR('EZ')
+  112f4  r1 = SEL(objectForKey:)
+  112f6  r0 = [r0 objectForKey:](CFSTR('EZ'), ?)
+  11300  r0 = [r0 MovingType](?, ?)
+  1130c  r0 = SEL(length)
+  1130e  r1 = SEL(length)
+  11312  r0 = [r0 length](?, ?)
+  11316  cmp r0, 0
+  11318  beq L_1160a
+L_1131c:
+  11324  r0 = SEL(intValue)
+  11326  r1 = SEL(intValue)
+  1132a  r0 = [r0 intValue](?, ?)
+  11338  r0 = SEL(setMonsterChangeAngle:)
+  1133a  r1 = SEL(setMonsterChangeAngle:)
+L_1133e:
+  1133e  r0 = [r0 setMonsterChangeAngle:](?, ?)
+L_11342:
+  11346  r0 = [r0 monsterChangeAngle](?, ?)
+  11354  r0 = SEL(setMovingPosAngle:)
+  11356  r1 = SEL(setMovingPosAngle:)
+  1135a  r0 = [r0 setMovingPosAngle:](?, ?)
+  11362  r0 = [r0 monsterRange](?, ?)
+  11372  r0 = IVOFF(MovingPosAngle)
+  11374  r0 = IVOFF(MovingPosAngle)
+  11376  adds r6, r4, r0
+  1137a  vldr s16, [r6]
+  1137e  r0 = [r0 monsterRange](?, ?)
+  11382  vcvt.f64.s32 d17, s16
+  11386  d16 = 3.14159
+  1138a  vmov d1, r5, r5
+  1138e  d19 = 180
+  11392  vmul.f64 d17, d17, d16
+  11396  vdiv.f64 d17, d17, d19
+  1139a  vldr s0, [r6]
+  1139e  vmov r2, r1, d17
+  113a2  vcvt.f64.f32 d8, s2
+  113a6  vcvt.f64.s32 d18, s0
+  113aa  vmul.f64 d16, d18, d16
+  113ae  vmov d0, r0, r0
+  113b4  vdiv.f64 d10, d16, d19
+  113b8  vcvt.f64.f32 d9, s0
+  113bc  call _cos
+  113c2  vmov r3, r1, d10
+  113c6  vmov d10, r0, r2
+  113cc  call _sin
+  113d0  vmov d16, r0, r1
+  113d4  vmul.f64 d17, d8, d10
+  113d8  vmul.f64 d16, d9, d16
+  113dc  vcvt.f32.f64 s16, d17
+  113e0  vcvt.f32.f64 s18, d16
+L_113e4:
+  113ec  r0 = SEL(MovingPosAngle)
+  113ee  r1 = SEL(MovingPosAngle)
+  113f2  r0 = [r0 MovingPosAngle](?, ?)
+  113f6  vmov d0, r0, r0
+  113fa  d17 = 3.14159
+  11402  vcvt.f64.s32 d16, s0
+  1140a  r0 = SEL(setMonsterPi:)
+  1140c  r1 = SEL(setMonsterPi:)
+  11410  vmul.f64 d16, d16, d17
+  11414  d17 = 180
+  11418  vdiv.f64 d16, d16, d17
+  1141c  vcvt.f32.f64 s0, d16
+  11424  r0 = [r0 setMonsterPi:](?, ?)
+  11430  r0 = SEL(comingSoundGain)
+  11432  r8 = SEL(comingSoundGain)
+  1143a  r0 = [r0 comingSoundGain](?, ?)
+  1143e  vmov d0, r0, r0
+  11442  d17 = 1.1
+  1144a  vcvt.f64.f32 d16, s0
+  11452  r0 = SEL(setComingSoundGain:)
+  11454  r1 = SEL(setComingSoundGain:)
+  11458  vmul.f64 d16, d16, d17
+  1145c  vcvt.f32.f64 s0, d16
+  11464  r0 = [r0 setComingSoundGain:](?, ?)
+  11478  r0 = SEL(setPos:)
+  1147a  r1 = SEL(setPos:)
+  1147e  r0 = [r0 setPos:](?, ?)
+  11482  call sub_3ccc
+  1148e  r1 = SEL(playback)
+  11490  r1 = SEL(playback)
+  11492  r0 = [r0 playback](?, ?)
+  114a0  cmp r4, 0
+  114a2  r0 = IVOFF(comingMonsterStopSoundNumber)
+  114a4  r0 = IVOFF(comingMonsterStopSoundNumber)
+  114a6  r5 = self->comingMonsterStopSoundNumber
+  114a8  beq L_114c0
+  114b4  r0 = SEL(Pos)
+  114b6  r2 = SEL(Pos)
+  114b8  add r0, sp, #8
+  114ba  r0 = [r0 ??](SEL(Pos), ?)
+  114be  b L_114c6
+L_114c0:
+  114c0  r0 = 0
+L_114c6:
+  114ca  r0 = [r0 comingSoundGain](?, ?)
+  114da  r1 = SEL(startSound:Postion:soundGain:)
+  114de  r1 = SEL(startSound:Postion:soundGain:)
+  114e8  r0 = [r0 startSound:Postion:soundGain:](self->comingMonsterStopSoundNumber, ?)
+  114f4  r5 = self->MovingCount
+  114f8  r0 = SEL(comingSoundInWalk)
+  114fa  r1 = SEL(comingSoundInWalk)
+  114fe  r0 = [r0 comingSoundInWalk](?, ?)
+  11502  cmp self->MovingCount, r0
+  11504  blt L_11548
+  1150a  r1 = 0
+  11510  self->MovingCount = 0
+  11514  r0 = IVOFF(MonsterMovingAngleTimer)
+  11516  r5 = IVOFF(MonsterMovingAngleTimer)
+  11518  r0 = self->MonsterMovingAngleTimer
+  1151a  cbz self->MonsterMovingAngleTimer -> L_11548
+  11524  r1 = SEL(isValid)
+  11526  r1 = SEL(isValid)
+  11528  r0 = [self->MonsterMovingAngleTimer isValid](?, ?)
+  11530  beq L_11548
+  1153a  r0 = SEL(invalidate)
+  1153c  r1 = SEL(invalidate)
+  1153e  r0 = self->MonsterMovingAngleTimer
+  11540  r0 = [self->MonsterMovingAngleTimer invalidate](?, ?)
+  11544  r0 = 0
+  11546  self->MonsterMovingAngleTimer = 0
+L_11548:
+  11548  add r4, sp, #0x20
+  1154a  vld1.64 {d8, d9}, [r4:0x80]
+  1154e  vldr d10, [r4, #0x10]
+  11552  sub.w r4, r7, #0x18
+  1155c  return
+L_1155e:
+  11562  r0 = [r0 ??](?, ?)
+  11566  cmp r0, 11
+  11568  bne L_11590
+  11572  r0 = IVOFF(MovingAngleTurn)
+  11574  r1 = IVOFF(MovingAngleTurn)
+  11576  r0 = self->MovingCount
+  1157a  r2 = self->MovingAngleTurn
+  1157c  cmp self->MovingAngleTurn, 0
+  1157e  beq L_1161c
+  11580  cmp self->MovingCount, 1
+  11582  bne L_1162c
+  1158c  r0 = SEL(setMovingPosAngle:)
+  1158e  b L_1174e
+L_11590:
+  11594  r0 = [r0 ??](self->MovingAngleTurn, ?)
+  11598  cmp r0, 22
+  1159a  bne L_115cc
+  115a4  r0 = IVOFF(MovingAngleTurn)
+  115a6  r1 = IVOFF(MovingAngleTurn)
+  115a8  r0 = self->MovingCount
+  115ac  r2 = self->MovingAngleTurn
+  115ae  cmp self->MovingAngleTurn, 0
+  115b0  beq L_1167e
+  115b2  cmp self->MovingCount, 1
+  115b4  beq L_116e8
+  115b8  cmp self->MovingCount, 4
+  115ba  beq L_1176e
+  115be  cmp self->MovingCount, 3
+  115c0  beq L_117e8
+  115c4  cmp self->MovingCount, 2
+  115c6  bne L_1187c
+  115ca  b L_11712
+L_115cc:
+  115d0  r0 = [r0 ??](self->MovingAngleTurn, ?)
+  115d4  cmp r0, 33
+  115d6  bne L_1163e
+  115e0  r0 = IVOFF(MovingAngleTurn)
+  115e2  r1 = IVOFF(MovingAngleTurn)
+  115e4  r0 = self->MovingCount
+  115e8  r2 = self->MovingAngleTurn
+  115ea  cmp self->MovingAngleTurn, 0
+  115ec  beq L_116e4
+  115f0  cmp self->MovingCount, 1
+  115f2  beq L_11798
+  115f6  cmp self->MovingCount, 4
+  115f8  beq L_11784
+  115fc  cmp self->MovingCount, 3
+  115fe  beq L_11826
+  11602  cmp self->MovingCount, 2
+  11604  bne L_1187c
+  11608  b L_117bc
+L_1160a:
+  1160e  r2 = 0
+  11614  r0 = SEL(setMonsterChangeAngle:)
+  11616  r1 = SEL(setMonsterChangeAngle:)
+  1161a  b L_1133e
+L_1161c:
+  1161c  cmp r0, 1
+  1161e  bne L_1168e
+  11628  r0 = SEL(setMovingPosAngle:)
+  1162a  b L_11702
+L_1162c:
+  1162c  cmp SEL(setMovingPosAngle:), 4
+  1162e  beq L_116f4
+  11630  cmp SEL(setMovingPosAngle:), 3
+  11632  beq L_1175c
+  11636  cmp SEL(setMovingPosAngle:), 2
+  11638  bne L_1187c
+  1163c  b L_11696
+L_1163e:
+  11642  r0 = [r0 ??](0, ?)
+  11646  cmp r0, 44
+  11648  bne L_116a8
+  11652  r0 = IVOFF(MovingAngleTurn)
+  11654  r1 = IVOFF(MovingAngleTurn)
+  11656  r0 = self->MovingCount
+  1165a  r2 = self->MovingAngleTurn
+  1165c  cmp self->MovingAngleTurn, 0
+  1165e  beq L_11794
+  11662  cmp self->MovingCount, 1
+  11664  beq L_117a8
+  11668  cmp self->MovingCount, 4
+  1166a  bne L_1180c
+  11672  r2 = 0
+  11678  self->MovingAngleTurn = 0
+  1167a  r0 = SEL(setMovingPosAngle:)
+  1167c  b L_1185c
+L_1167e:
+  1167e  cmp SEL(setMovingPosAngle:), 1
+  11680  bne L_1170a
+  1168a  r0 = SEL(setMovingPosAngle:)
+  1168c  b L_1177c
+L_1168e:
+  1168e  cmp SEL(setMovingPosAngle:), 4
+  11690  beq L_11740
+  11692  cmp SEL(setMovingPosAngle:), 3
+  11694  bne L_11756
+L_11696:
+  1169a  r2 = 140
+  116a0  r0 = SEL(setMovingPosAngle:)
+  116a2  r1 = SEL(setMovingPosAngle:)
+  116a6  b L_11878
+L_116a8:
+  116ac  r0 = [r0 ??](140, ?)
+  116b0  cmp r0, 55
+  116b2  bne L_113e4
+  116be  r0 = IVOFF(MovingAngleTurn)
+  116c0  r1 = IVOFF(MovingAngleTurn)
+  116c2  r0 = self->MovingCount
+  116c6  r2 = self->MovingAngleTurn
+  116c8  cmp self->MovingAngleTurn, 0
+  116ca  beq L_117a4
+  116cc  cmp self->MovingCount, 1
+  116ce  beq L_11798
+  116d0  cmp self->MovingCount, 4
+  116d2  bne L_117fe
+  116da  r2 = 0
+  116e0  r0 = SEL(setMovingPosAngle:)
+  116e2  b L_11844
+L_116e4:
+  116e4  cmp SEL(setMovingPosAngle:), 1
+  116e6  bne L_117b4
+L_116e8:
+  116f0  r0 = SEL(setMovingPosAngle:)
+  116f2  b L_117dc
+L_116f4:
+  116f8  r2 = 0
+  116fe  self->MovingAngleTurn = 0
+  11700  r0 = SEL(setMovingPosAngle:)
+L_11702:
+  11702  r1 = SEL(setMovingPosAngle:)
+  11706  r2 = 185
+  11708  b L_11878
+L_1170a:
+  1170a  cmp r0, 4
+  1170c  beq L_117ce
+  1170e  cmp r0, 3
+  11710  bne L_117e4
+L_11712:
+  11716  r2 = 100
+  1171c  r0 = SEL(setMovingPosAngle:)
+  1171e  r1 = SEL(setMovingPosAngle:)
+  11722  b L_11878
+  11728  cmp MonsterMovingAngleTimer, 24
+  1172c  r1 = 251
+  1173e  subs r7, #0xf1
+L_11740:
+  11744  r2 = 1
+  1174c  r0 = SEL(setMovingPosAngle:)
+L_1174e:
+  1174e  r1 = SEL(setMovingPosAngle:)
+  11752  r2 = 120
+  11754  b L_11878
+L_11756:
+  11756  cmp r0, 2
+  11758  bne L_1187c
+L_1175c:
+  11760  r2 = 160
+  11766  r0 = SEL(setMovingPosAngle:)
+  11768  r1 = SEL(setMovingPosAngle:)
+  1176c  b L_11878
+L_1176e:
+  11772  r2 = 0
+  1177a  r0 = SEL(setMovingPosAngle:)
+L_1177c:
+  1177c  r1 = SEL(setMovingPosAngle:)
+  11780  r2 = 125
+  11782  b L_11878
+L_11784:
+  11788  r2 = 0
+  11790  r0 = SEL(setMovingPosAngle:)
+  11792  b L_117dc
+L_11794:
+  11794  cmp SEL(setMovingPosAngle:), 1
+  11796  bne L_117fa
+L_11798:
+  117a0  r0 = SEL(setMovingPosAngle:)
+  117a2  b L_1185c
+L_117a4:
+  117a4  cmp SEL(setMovingPosAngle:), 1
+  117a6  bne L_11808
+L_117a8:
+  117b0  r0 = SEL(setMovingPosAngle:)
+  117b2  b L_11846
+L_117b4:
+  117b4  cmp SEL(setMovingPosAngle:), 4
+  117b6  beq L_1184e
+  117b8  cmp SEL(setMovingPosAngle:), 3
+  117ba  bne L_11822
+L_117bc:
+  117c0  r2 = 65
+  117c6  r0 = SEL(setMovingPosAngle:)
+  117c8  r1 = SEL(setMovingPosAngle:)
+  117cc  b L_11878
+L_117ce:
+  117d2  r2 = 1
+  117da  r0 = SEL(setMovingPosAngle:)
+L_117dc:
+  117dc  r1 = SEL(setMovingPosAngle:)
+  117e0  r2 = 90
+  117e2  b L_11878
+L_117e4:
+  117e4  cmp r0, 2
+  117e6  bne L_1187c
+L_117e8:
+  117ec  r2 = 110
+  117f2  r0 = SEL(setMovingPosAngle:)
+  117f4  r1 = SEL(setMovingPosAngle:)
+  117f8  b L_11878
+L_117fa:
+  117fa  cmp r0, 4
+  117fc  beq L_11838
+L_117fe:
+  117fe  cmp r0, 3
+  11800  beq L_11868
+  11802  cmp r0, 2
+  11804  bne L_1187c
+  11806  b L_11810
+L_11808:
+  11808  cmp r0, 4
+  1180a  beq L_1184e
+L_1180c:
+  1180c  cmp r0, 3
+  1180e  bne L_11864
+L_11810:
+  11814  r2 = 40
+  1181a  r0 = SEL(setMovingPosAngle:)
+  1181c  r1 = SEL(setMovingPosAngle:)
+  11820  b L_11878
+L_11822:
+  11822  cmp r0, 2
+  11824  bne L_1187c
+L_11826:
+  1182a  r2 = 80
+  11830  r0 = SEL(setMovingPosAngle:)
+  11832  r1 = SEL(setMovingPosAngle:)
+  11836  b L_11878
+L_11838:
+  1183c  r2 = 1
+  11842  r0 = SEL(setMovingPosAngle:)
+L_11844:
+L_11846:
+  11846  r1 = SEL(setMovingPosAngle:)
+  1184a  r2 = 1
+  1184c  b L_11878
+L_1184e:
+  11852  r2 = 1
+  1185a  r0 = SEL(setMovingPosAngle:)
+L_1185c:
+  1185c  r1 = SEL(setMovingPosAngle:)
+  11860  r2 = 55
+  11862  b L_11878
+L_11864:
+  11864  cmp r0, 2
+  11866  bne L_1187c
+L_11868:
+  1186c  r2 = 15
+  11872  r0 = SEL(setMovingPosAngle:)
+  11874  r1 = SEL(setMovingPosAngle:)
+L_11878:
+  11878  r0 = [r0 setMovingPosAngle:](15, ?)
+L_1187c:
+  11880  r0 = [r0 comingSoundGain](?, ?)
+  1188e  r0 = SEL(MovingPosAngle)
+  11890  r5 = SEL(MovingPosAngle)
+  11896  r0 = [r0 MovingPosAngle](?, ?)
+  118a0  r0 = [r0 comingSoundGain](?, ?)
+  118aa  r0 = [r0 MovingPosAngle](?, ?)
+  118ae  vmov d0, r6, r6
+  118b2  d17 = 3.14159
+  118b6  d19 = 180
+  118ba  vmov d8, sl, sl
+  118be  vcvt.f64.s32 d16, s0
+  118c2  vmul.f64 d16, d16, d17
+  118c6  vmov d0, r0, r0
+  118ca  vdiv.f64 d16, d16, d19
+  118ce  vcvt.f64.s32 d18, s0
+  118d2  vmul.f64 d17, d18, d17
+  118d6  vdiv.f64 d17, d17, d19
+  118da  vcvt.f32.f64 s0, d16
+  118e2  vcvt.f32.f64 s2, d17
+  118ea  vmov d9, r8, r8
+  118ee  call _cosf
+  118f2  vmov d10, r0, r0
+  118f8  call _sinf
+  118fc  vmov d16, r0, r0
+  11900  vmul.f32 d8, d8, d10
+  11904  vmul.f32 d9, d9, d16
+  11908  b L_113e4
+  11910  cmp SEL(MovingPosAngle), 24
+  11914  r1 = 251
+
+//// -[MonsterControl MonsterComing:]  0x11920..0x11b30  v12@0:4@8
+  11922  add r7, sp, #0xc
+  11928  vpush {d8}
+  1192c  sub sp, #0x14
+  11940  r0 = SEL(performSelector:)
+  11942  r2 = SEL(MonsterMoving:)
+  11944  r1 = SEL(performSelector:)
+  11948  r6 = SEL(MonsterMoving:)
+  1194c  r0 = [r0 performSelector:](SEL(MonsterMoving:), ?)
+  11960  r1 = NSTimer
+  11962  r0 = SEL(comingSoundTime)
+  11964  r5 = NSTimer
+  11966  r1 = SEL(comingSoundTime)
+  1196a  r0 = [r0 comingSoundTime](?, ?)
+  1196e  vmov d0, r0, r0
+  1197a  r0 = SEL(comingSoundInWalk)
+  1197c  vcvt.f64.f32 d8, s0
+  11980  r1 = SEL(comingSoundInWalk)
+  11984  r0 = [r0 comingSoundInWalk](?, ?)
+  11988  d16 = -0.1
+  1198c  vmov d0, r0, r0
+  11994  sb = 1
+  11998  vadd.f64 d16, d8, d16
+  119a0  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  119a2  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  119a4  r0 = 0
+  119b4  vcvt.f64.s32 d17, s0
+  119b8  vdiv.f64 d16, d16, d17
+  119bc  vmov r2, r3, d16
+  119c0  r0 = [NSTimer ??](?, ?)
+  119d4  r1 = IVOFF(MonsterMovingAngleTimer)
+  119d6  r2 = SEL(monsterHeadShotArray)
+  119d8  r1 = IVOFF(MonsterMovingAngleTimer)
+  119da  r6 = SEL(monsterHeadShotArray)
+  119dc  self->MonsterMovingAngleTimer = r0
+  119e2  r0 = [r0 monsterHeadShotArray](SEL(monsterHeadShotArray), ?)
+  119ee  r1 = SEL(count)
+  119f0  r5 = SEL(count)
+  119f4  r0 = [r0 count](?, ?)
+  11a00  r1 = IVOFF(monsterHeadShotArrayCount)
+  11a02  fp = IVOFF(monsterHeadShotArrayCount)
+  11a08  self->monsterHeadShotArrayCount = r0
+  11a0e  r0 = [r0 monsterHeadShotArray](?, ?)
+  11a14  r0 = [r0 count](?, ?)
+  11a18  cmp r0, 2
+  11a1a  blo L_11ada
+  11a24  r0 = IVOFF(headShotTimer)
+  11a26  sl = IVOFF(headShotTimer)
+  11a2a  r0 = self->headShotTimer
+  11a2e  cmp self->headShotTimer, 0
+  11a30  bne L_11b1a
+  11a36  r5 = 0
+  11a3c  r0 = SEL(isValid)
+  11a3e  r1 = SEL(isValid)
+  11a40  r0 = 0
+  11a42  r0 = [r0 isValid](?, ?)
+  11a4a  bne L_11b1a
+  11a56  r0 = IVOFF(monsterHeadShotTimeCount)
+  11a58  r8 = IVOFF(monsterHeadShotTimeCount)
+  11a5c  self->monsterHeadShotTimeCount = 0
+  11a68  r0 = NSTimer
+  11a6a  r5 = NSTimer
+  11a6e  r0 = [r0 monsterHeadShotArray](?, ?)
+  11a7a  r2 = self->monsterHeadShotTimeCount
+  11a7e  r1 = SEL(objectAtIndex:)
+  11a80  r1 = SEL(objectAtIndex:)
+  11a82  r0 = [r0 objectAtIndex:](self->monsterHeadShotTimeCount, ?)
+  11a8e  r1 = SEL(floatValue)
+  11a90  r1 = SEL(floatValue)
+  11a92  r0 = [r0 floatValue](?, ?)
+  11a96  vmov d0, r0, r0
+  11aa4  vcvt.f64.f32 d16, s0
+  11aa8  r0 = SEL(headShot:)
+  11aac  r0 = SEL(headShot:)
+  11ab0  r0 = 0
+  11ab4  vmov r2, r3, d16
+  11abc  r0 = [NSTimer ??](?, ?)
+  11ac0  self->headShotTimer = r0
+  11ac4  r0 = self->monsterHeadShotArrayCount
+  11ac8  subs r0, #1
+  11aca  self->monsterHeadShotArrayCount = r0
+  11ace  r0 = self->monsterHeadShotTimeCount
+  11ad2  adds r0, #1
+  11ad4  self->monsterHeadShotTimeCount = r0
+  11ad8  b L_11b1a
+L_11ada:
+  11aea  r0 = SEL(headShot:)
+  11aec  r1 = SEL(headShotTimeStart)
+  11aee  r5 = SEL(headShot:)
+  11af2  r1 = SEL(headShotTimeStart)
+  11af4  r0 = [r0 headShotTimeStart](?, ?)
+  11afc  vmov d0, r0, r0
+  11b06  r1 = SEL(performSelector:withObject:afterDelay:)
+  11b08  vcvt.f64.f32 d16, s0
+  11b0e  r3 = 0
+  11b10  r1 = SEL(performSelector:withObject:afterDelay:)
+  11b12  vstr d16, [sp]
+  11b16  r0 = [r0 performSelector:withObject:afterDelay:](SEL(headShot:), 0)
+L_11b1a:
+  11b1a  add sp, #0x14
+  11b1c  vpop {d8}
+  11b24  return
+
+//// -[MonsterControl headShot:]  0x11b30..0x11ccc  v12@0:4@8
+  11b32  add r7, sp, #0xc
+  11b38  sub sp, #0x18
+  11b44  r0 = IVOFF(headShotTimer)
+  11b46  r5 = IVOFF(headShotTimer)
+  11b48  r0 = self->headShotTimer
+  11b4a  cbz self->headShotTimer -> L_11b78
+  11b54  r1 = SEL(isValid)
+  11b56  r1 = SEL(isValid)
+  11b58  r0 = [self->headShotTimer isValid](?, ?)
+  11b60  beq L_11b78
+  11b6a  r0 = SEL(invalidate)
+  11b6c  r1 = SEL(invalidate)
+  11b6e  r0 = self->headShotTimer
+  11b70  r0 = [self->headShotTimer invalidate](?, ?)
+  11b74  r0 = 0
+  11b76  self->headShotTimer = 0
+L_11b78:
+  11b80  r0 = IVOFF(monsterHeadShotArrayCount)
+  11b82  r0 = IVOFF(monsterHeadShotArrayCount)
+  11b88  cmp r0, 1
+  11b8a  blt L_11c70
+  11b8c  r0 = self->headShotTimer
+  11b8e  cmp self->headShotTimer, 0
+  11b90  bne L_11c70
+  11b9a  r0 = SEL(isValid)
+  11b9c  r1 = SEL(isValid)
+  11b9e  r0 = 0
+  11ba0  r0 = [r0 isValid](?, ?)
+  11ba8  bne L_11c70
+  11bb2  r0 = SEL(monsterHeadShotArray)
+  11bb4  r8 = SEL(monsterHeadShotArray)
+  11bbc  r0 = [r0 monsterHeadShotArray](?, ?)
+  11bcc  r1 = IVOFF(monsterHeadShotTimeCount)
+  11bd2  r2 = SEL(objectAtIndex:)
+  11bd4  fp = IVOFF(monsterHeadShotTimeCount)
+  11bd8  r6 = SEL(objectAtIndex:)
+  11bda  r2 = self->monsterHeadShotTimeCount
+  11be0  r0 = [r0 objectAtIndex:](self->monsterHeadShotTimeCount, ?)
+  11bee  r1 = SEL(floatValue)
+  11bf0  r5 = SEL(floatValue)
+  11bf4  r0 = [r0 floatValue](?, ?)
+  11bfe  r0 = [r0 monsterHeadShotArray](?, ?)
+  11c02  r1 = self->monsterHeadShotTimeCount
+  11c06  subs r2, r1, #1
+  11c0a  r0 = [r0 objectAtIndex:](?, ?)
+  11c10  r0 = [r0 floatValue](?, ?)
+  11c14  vmov d17, r0, r0
+  11c1c  vmov d16, sl, sl
+  11c24  vsub.f32 d0, d16, d17
+  11c38  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  11c3a  r6 = NSTimer
+  11c3c  r5 = SEL(headShot:)
+  11c3e  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  11c40  vcvt.f64.f32 d16, s0
+  11c44  r0 = NSTimer
+  11c46  r6 = SEL(headShot:)
+  11c4c  r6 = 0
+  11c50  vmov r2, r3, d16
+  11c56  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  11c62  subs r0, #1
+  11c66  r0 = self->monsterHeadShotTimeCount
+  11c6a  adds r0, #1
+  11c6c  self->monsterHeadShotTimeCount = r0
+L_11c70:
+  11c74  r2 = 1
+  11c7a  r0 = SEL(setHeadShotFlag:)
+  11c7c  r1 = SEL(setHeadShotFlag:)
+  11c80  r0 = [r0 setHeadShotFlag:](1, ?)
+  11c94  r0 = SEL(headShotEnd:)
+  11c96  r1 = SEL(headShotTimeEndHowLong)
+  11c98  r5 = SEL(headShotEnd:)
+  11c9c  r1 = SEL(headShotTimeEndHowLong)
+  11c9e  r0 = [r0 headShotTimeEndHowLong](?, ?)
+  11ca6  vmov d0, r0, r0
+  11cb0  r1 = SEL(performSelector:withObject:afterDelay:)
+  11cb2  vcvt.f64.f32 d16, s0
+  11cb8  r3 = 0
+  11cba  r1 = SEL(performSelector:withObject:afterDelay:)
+  11cbc  vstr d16, [sp]
+  11cc0  r0 = [r0 performSelector:withObject:afterDelay:](SEL(headShotEnd:), 0)
+  11cc4  add sp, #0x18
+  11cca  return
+
+//// -[MonsterControl headShotEnd:]  0x11ccc..0x11ce0  v12@0:4@8
+  11cd0  r2 = 0
+  11cd6  r1 = SEL(setHeadShotFlag:)
+  11cd8  r1 = SEL(setHeadShotFlag:)
+  11cda  b L_a90d0
+
+//// -[MonsterControl shakeMonster]  0x11ce0..0x11e44  v8@0:4
+  11ce2  add r7, sp, #0xc
+  11ce4  sub sp, #0x10
+  11cf0  r0 = IVOFF(comingBreathTimer)
+  11cf2  r5 = IVOFF(comingBreathTimer)
+  11cf4  r0 = self->comingBreathTimer
+  11cf6  cbz self->comingBreathTimer -> L_11d24
+  11d00  r1 = SEL(isValid)
+  11d02  r1 = SEL(isValid)
+  11d04  r0 = [self->comingBreathTimer isValid](?, ?)
+  11d0c  beq L_11d24
+  11d16  r0 = SEL(invalidate)
+  11d18  r1 = SEL(invalidate)
+  11d1a  r0 = self->comingBreathTimer
+  11d1c  r0 = [self->comingBreathTimer invalidate](?, ?)
+  11d20  r0 = 0
+  11d22  self->comingBreathTimer = 0
+L_11d24:
+  11d24  call sub_3ccc
+  11d30  r1 = SEL(playback)
+  11d32  r1 = SEL(playback)
+  11d34  r0 = [r0 playback](?, ?)
+  11d44  r1 = IVOFF(comingMonsterStopSoundNumber)
+  11d4a  r2 = SEL(stopSound:)
+  11d4c  r3 = IVOFF(comingMonsterStopSoundNumber)
+  11d4e  r1 = SEL(stopSound:)
+  11d50  r2 = self->comingMonsterStopSoundNumber
+  11d52  r0 = [r0 stopSound:](self->comingMonsterStopSoundNumber, comingMonsterStopSoundNumber)
+  11d5e  r0 = IVOFF(MonsterMovingAngleTimer)
+  11d60  r5 = IVOFF(MonsterMovingAngleTimer)
+  11d62  r0 = self->MonsterMovingAngleTimer
+  11d64  cbz self->MonsterMovingAngleTimer -> L_11d92
+  11d6e  r1 = SEL(isValid)
+  11d70  r1 = SEL(isValid)
+  11d72  r0 = [self->MonsterMovingAngleTimer isValid](?, ?)
+  11d7a  beq L_11d92
+  11d84  r0 = SEL(invalidate)
+  11d86  r1 = SEL(invalidate)
+  11d88  r0 = self->MonsterMovingAngleTimer
+  11d8a  r0 = [self->MonsterMovingAngleTimer invalidate](?, ?)
+  11d8e  r0 = 0
+  11d90  self->MonsterMovingAngleTimer = 0
+L_11d92:
+  11d9a  r0 = IVOFF(MainMonsterTimer)
+  11d9c  r5 = IVOFF(MainMonsterTimer)
+  11d9e  r0 = self->MainMonsterTimer
+  11da0  cbz self->MainMonsterTimer -> L_11dce
+  11daa  r1 = SEL(isValid)
+  11dac  r1 = SEL(isValid)
+  11dae  r0 = [self->MainMonsterTimer isValid](?, ?)
+  11db6  beq L_11dce
+  11dc0  r0 = SEL(invalidate)
+  11dc2  r1 = SEL(invalidate)
+  11dc4  r0 = self->MainMonsterTimer
+  11dc6  r0 = [self->MainMonsterTimer invalidate](?, ?)
+  11dca  r0 = 0
+  11dcc  self->MainMonsterTimer = 0
+L_11dce:
+  11dce  call sub_3ccc
+  11ddc  r0 = SEL(shakeMonsterApproachSound)
+  11dde  r1 = SEL(shakeMonsterApproachSound)
+  11de2  r0 = [r0 shakeMonsterApproachSound](?, ?)
+  11df0  r0 = SEL(shakeMonsterApproachGain)
+  11df2  r1 = SEL(shakeMonsterApproachGain)
+  11df6  r0 = [r0 shakeMonsterApproachGain](?, ?)
+  11e06  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  11e08  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  11e0a  r0 = 0
+  11e16  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, ?)
+  11e22  r0 = SEL(bDevice)
+  11e24  r1 = SEL(bDevice)
+  11e28  r0 = [r0 bDevice](?, ?)
+  11e30  beq L_11e40
+  11e36  add sp, #0x10
+  11e3c  b L_a90f4
+L_11e40:
+  11e40  add sp, #0x10
+  11e42  return
+
+//// -[MonsterControl stopShakeMonsterSound:]  0x11e44..0x11e7c  v12@0:4@8
+  11e46  add r7, sp, #8
+  11e4a  call sub_3ccc
+  11e58  r0 = SEL(shakeMonsterApproachSound)
+  11e5a  r1 = SEL(shakeMonsterApproachSound)
+  11e5e  r0 = [r0 shakeMonsterApproachSound](?, ?)
+  11e6c  r0 = SEL(stopSoundBufNumber:)
+  11e6e  r1 = SEL(stopSoundBufNumber:)
+  11e76  b L_a90d0
+
+//// -[MonsterControl hitPlayer]  0x11e7c..0x11fec  v8@0:4
+  11e7e  add r7, sp, #8
+  11e80  sub sp, #0x10
+  11e8c  r0 = IVOFF(comingBreathTimer)
+  11e8e  r5 = IVOFF(comingBreathTimer)
+  11e90  r0 = self->comingBreathTimer
+  11e92  cbz self->comingBreathTimer -> L_11ec0
+  11e9c  r1 = SEL(isValid)
+  11e9e  r1 = SEL(isValid)
+  11ea0  r0 = [self->comingBreathTimer isValid](?, ?)
+  11ea8  beq L_11ec0
+  11eb2  r0 = SEL(invalidate)
+  11eb4  r1 = SEL(invalidate)
+  11eb6  r0 = self->comingBreathTimer
+  11eb8  r0 = [self->comingBreathTimer invalidate](?, ?)
+  11ebc  r0 = 0
+  11ebe  self->comingBreathTimer = 0
+L_11ec0:
+  11ec0  call sub_3ccc
+  11ecc  r1 = SEL(playback)
+  11ece  r1 = SEL(playback)
+  11ed0  r0 = [r0 playback](?, ?)
+  11ee0  r1 = IVOFF(comingMonsterStopSoundNumber)
+  11ee6  r2 = SEL(stopSound:)
+  11ee8  r3 = IVOFF(comingMonsterStopSoundNumber)
+  11eea  r1 = SEL(stopSound:)
+  11eec  r2 = self->comingMonsterStopSoundNumber
+  11eee  r0 = [r0 stopSound:](self->comingMonsterStopSoundNumber, comingMonsterStopSoundNumber)
+  11efa  r0 = IVOFF(MonsterMovingAngleTimer)
+  11efc  r5 = IVOFF(MonsterMovingAngleTimer)
+  11efe  r0 = self->MonsterMovingAngleTimer
+  11f00  cbz self->MonsterMovingAngleTimer -> L_11f2e
+  11f0a  r1 = SEL(isValid)
+  11f0c  r1 = SEL(isValid)
+  11f0e  r0 = [self->MonsterMovingAngleTimer isValid](?, ?)
+  11f16  beq L_11f2e
+  11f20  r0 = SEL(invalidate)
+  11f22  r1 = SEL(invalidate)
+  11f24  r0 = self->MonsterMovingAngleTimer
+  11f26  r0 = [self->MonsterMovingAngleTimer invalidate](?, ?)
+  11f2a  r0 = 0
+  11f2c  self->MonsterMovingAngleTimer = 0
+L_11f2e:
+  11f36  r0 = IVOFF(MainMonsterTimer)
+  11f38  r5 = IVOFF(MainMonsterTimer)
+  11f3a  r0 = self->MainMonsterTimer
+  11f3c  cbz self->MainMonsterTimer -> L_11f6a
+  11f46  r1 = SEL(isValid)
+  11f48  r1 = SEL(isValid)
+  11f4a  r0 = [self->MainMonsterTimer isValid](?, ?)
+  11f52  beq L_11f6a
+  11f5c  r0 = SEL(invalidate)
+  11f5e  r1 = SEL(invalidate)
+  11f60  r0 = self->MainMonsterTimer
+  11f62  r0 = [self->MainMonsterTimer invalidate](?, ?)
+  11f66  r0 = 0
+  11f68  self->MainMonsterTimer = 0
+L_11f6a:
+  11f6a  call sub_3ccc
+  11f78  r0 = SEL(playerHitSound)
+  11f7a  r1 = SEL(playerHitSound)
+  11f7e  r0 = [r0 playerHitSound](?, ?)
+  11f8c  r3 = 40
+  11f8e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  11f90  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  11f92  r0 = 0
+  11f9a  r3 = 1065353216
+  11fa2  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, 0x3f800000/f1)
+  11fb6  r0 = SEL(MonsterHitAndDead)
+  11fb8  r1 = SEL(dieSoundTime)
+  11fba  r5 = SEL(MonsterHitAndDead)
+  11fbe  r1 = SEL(dieSoundTime)
+  11fc0  r0 = [r0 dieSoundTime](?, ?)
+  11fc8  vmov d0, r0, r0
+  11fd2  r1 = SEL(performSelector:withObject:afterDelay:)
+  11fd4  vcvt.f64.f32 d16, s0
+  11fda  r3 = 0
+  11fdc  r1 = SEL(performSelector:withObject:afterDelay:)
+  11fde  vstr d16, [sp]
+  11fe2  r0 = [r0 performSelector:withObject:afterDelay:](SEL(MonsterHitAndDead), 0)
+  11fe6  add sp, #0x10
+  11fe8  return
+
+//// -[MonsterControl MonsterHitAndDead]  0x11fec..0x12054  v8@0:4
+  11fee  add r7, sp, #8
+  11ff2  call sub_3ccc
+  12000  r0 = SEL(playback)
+  12002  r1 = SEL(playback)
+  12006  r0 = [r0 playback](?, ?)
+  12016  r1 = IVOFF(comingMonsterStopSoundNumber)
+  1201c  r2 = SEL(stopSound:)
+  1201e  r3 = IVOFF(comingMonsterStopSoundNumber)
+  12020  r1 = SEL(stopSound:)
+  12022  r2 = self->comingMonsterStopSoundNumber
+  12024  r0 = [r0 stopSound:](self->comingMonsterStopSoundNumber, comingMonsterStopSoundNumber)
+  12030  r0 = SEL(playerHitSound)
+  12032  r1 = SEL(playerHitSound)
+  12036  r0 = [r0 playerHitSound](?, ?)
+  12044  r0 = SEL(stopSoundBufNumber:)
+  12046  r1 = SEL(stopSoundBufNumber:)
+  1204e  b L_a90d0
+
+//// -[MonsterControl stopMonsterComingSound:]  0x12054..0x12090  v12@0:4@8
+  12056  add r7, sp, #4
+  1205a  call sub_3ccc
+  12066  r1 = SEL(playback)
+  12068  r1 = SEL(playback)
+  1206a  r0 = [r0 playback](?, ?)
+  1207a  r1 = IVOFF(comingMonsterStopSoundNumber)
+  12080  r3 = SEL(stopSound:)
+  12082  r1 = IVOFF(comingMonsterStopSoundNumber)
+  12084  r2 = self->comingMonsterStopSoundNumber
+  12086  r1 = SEL(stopSound:)
+  1208c  b L_a90d0
+
+//// -[MonsterControl MonsterHitSoundDealloc]  0x12090..0x120d4  v8@0:4
+  12092  add r7, sp, #0xc
+  12096  call sub_3ccc
+  120a4  r2 = 56
+  120a6  r0 = SEL(stopSoundBufNumber:)
+  120a8  r6 = SEL(stopSoundBufNumber:)
+  120ae  r0 = [r0 stopSoundBufNumber:](56, ?)
+  120ba  r0 = SEL(hitSound)
+  120bc  r1 = SEL(hitSound)
+  120c0  r0 = [r0 hitSound](?, ?)
+  120ce  b L_a90d0
+
+//// -[MonsterControl MonsterHitSound:]  0x120d4..0x1222c  v12@0:4@8
+  120d6  add r7, sp, #0xc
+  120dc  vpush {d8}
+  120e0  sub sp, #0x28
+  120ec  r0 = SEL(HP)
+  120ee  r1 = SEL(HP)
+  120f2  r0 = [r0 HP](?, ?)
+  120f8  call sub_3ccc
+  12106  r0 = SEL(playerHitSoundGain)
+  12108  r1 = SEL(playerHitSoundGain)
+  1210c  r0 = [r0 playerHitSoundGain](?, ?)
+  12110  vmov.f32 d16, #2.500000e+00
+  12114  cmp r5, 1
+  12116  vmov d17, r0, r0
+  1211a  vmul.f32 d8, d17, d16
+  1211e  blt L_12138
+  12120  cbz r4 -> L_12152
+  1212c  r0 = SEL(Pos)
+  1212e  r2 = SEL(Pos)
+  12130  add r0, sp, #0x20
+  12132  r0 = [r0 ??](SEL(Pos), ?)
+  12136  b L_12158
+L_12138:
+  12138  cmp r4, 0
+  1213a  beq L_121e2
+  12146  r0 = SEL(Pos)
+  12148  r2 = SEL(Pos)
+  1214a  add r0, sp, #0x10
+  1214c  r0 = [r0 ??](SEL(Pos), ?)
+  12150  b L_121e8
+L_12152:
+  12152  r0 = 0
+L_12158:
+  12166  r2 = SEL(playSound:Gain:Pos:z:reprats:)
+  1216a  r5 = 0
+  1216c  r6 = SEL(playSound:Gain:Pos:z:reprats:)
+  1216e  r2 = 40
+  12176  r2 = 56
+  1217a  r0 = [r0 playSound:Gain:Pos:z:reprats:](56, ?)
+  12186  r0 = SEL(hitSound)
+  12188  r1 = SEL(hitSound)
+  1218c  r0 = [r0 hitSound](?, ?)
+  1219a  r0 = SEL(hitSoundGain)
+  1219c  r1 = SEL(hitSoundGain)
+  121a0  r0 = [r0 hitSoundGain](?, ?)
+  121a4  vmov d8, r0, r0
+  121a8  cbz r4 -> L_121c0
+  121b4  r0 = SEL(Pos)
+  121b6  r2 = SEL(Pos)
+  121b8  add r0, sp, #0x18
+  121ba  r0 = [r0 ??](SEL(Pos), ?)
+  121be  b L_121c4
+L_121c0:
+L_121c4:
+  121cc  r5 = 40
+  121ce  r2 = 0
+  121dc  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, ?)
+  121e0  b L_1221e
+L_121e2:
+  121e2  r0 = 0
+L_121e8:
+  121f6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  121fa  r6 = 0
+  121fc  r5 = 40
+  121fe  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  12206  r2 = 56
+  12208  r0 = [r0 playSound:Gain:Pos:z:reprats:](56, ?)
+  12214  r0 = SEL(DieMonster)
+  12216  r1 = SEL(DieMonster)
+  1221a  r0 = [r0 DieMonster](?, ?)
+L_1221e:
+  1221e  add sp, #0x28
+  12220  vpop {d8}
+  12228  return
+
+//// -[MonsterControl DieMonster]  0x1222c..0x12428  v8@0:4
+  1222e  add r7, sp, #0xc
+  12234  vpush {d8}
+  12238  sub sp, #0x18
+  12244  r0 = IVOFF(comingBreathTimer)
+  12246  r5 = IVOFF(comingBreathTimer)
+  12248  r0 = self->comingBreathTimer
+  1224a  cbz self->comingBreathTimer -> L_12278
+  12254  r1 = SEL(isValid)
+  12256  r1 = SEL(isValid)
+  12258  r0 = [self->comingBreathTimer isValid](?, ?)
+  12260  beq L_12278
+  1226a  r0 = SEL(invalidate)
+  1226c  r1 = SEL(invalidate)
+  1226e  r0 = self->comingBreathTimer
+  12270  r0 = [self->comingBreathTimer invalidate](?, ?)
+  12274  r0 = 0
+  12276  self->comingBreathTimer = 0
+L_12278:
+  12278  call sub_3ccc
+  12284  r1 = SEL(playback)
+  12286  r1 = SEL(playback)
+  12288  r0 = [r0 playback](?, ?)
+  12298  r1 = IVOFF(comingMonsterStopSoundNumber)
+  1229e  r2 = SEL(stopSound:)
+  122a0  r3 = IVOFF(comingMonsterStopSoundNumber)
+  122a2  r1 = SEL(stopSound:)
+  122a4  r2 = self->comingMonsterStopSoundNumber
+  122a6  r0 = [r0 stopSound:](self->comingMonsterStopSoundNumber, comingMonsterStopSoundNumber)
+  122b2  r0 = IVOFF(MonsterMovingAngleTimer)
+  122b4  r5 = IVOFF(MonsterMovingAngleTimer)
+  122b6  r0 = self->MonsterMovingAngleTimer
+  122b8  cbz self->MonsterMovingAngleTimer -> L_122e6
+  122c2  r1 = SEL(isValid)
+  122c4  r1 = SEL(isValid)
+  122c6  r0 = [self->MonsterMovingAngleTimer isValid](?, ?)
+  122ce  beq L_122e6
+  122d8  r0 = SEL(invalidate)
+  122da  r1 = SEL(invalidate)
+  122dc  r0 = self->MonsterMovingAngleTimer
+  122de  r0 = [self->MonsterMovingAngleTimer invalidate](?, ?)
+  122e2  r0 = 0
+  122e4  self->MonsterMovingAngleTimer = 0
+L_122e6:
+  122ee  r0 = IVOFF(MainMonsterTimer)
+  122f0  r5 = IVOFF(MainMonsterTimer)
+  122f2  r0 = self->MainMonsterTimer
+  122f4  cbz self->MainMonsterTimer -> L_12322
+  122fe  r1 = SEL(isValid)
+  12300  r1 = SEL(isValid)
+  12302  r0 = [self->MainMonsterTimer isValid](?, ?)
+  1230a  beq L_12322
+  12314  r0 = SEL(invalidate)
+  12316  r1 = SEL(invalidate)
+  12318  r0 = self->MainMonsterTimer
+  1231a  r0 = [self->MainMonsterTimer invalidate](?, ?)
+  1231e  r0 = 0
+  12320  self->MainMonsterTimer = 0
+L_12322:
+  12322  call sub_3ccc
+  12330  r0 = SEL(comingSound)
+  12332  r1 = SEL(comingSound)
+  12336  r0 = [r0 comingSound](?, ?)
+  12344  r0 = SEL(stopSoundBufNumber:)
+  12346  r6 = SEL(stopSoundBufNumber:)
+  1234c  r0 = [r0 stopSoundBufNumber:](?, ?)
+  12358  r0 = SEL(dieSound)
+  1235a  r5 = SEL(dieSound)
+  12360  r0 = [r0 dieSound](?, ?)
+  1236a  r0 = [r0 stopSoundBufNumber:](?, ?)
+  12372  r0 = [r0 dieSound](?, ?)
+  12380  r0 = SEL(dieSoundgain)
+  12382  r1 = SEL(dieSoundgain)
+  12386  r0 = [r0 dieSoundgain](?, ?)
+  1238a  vmov d8, r0, r0
+  1238e  cbz r4 -> L_123a6
+  1239a  r0 = SEL(Pos)
+  1239c  r2 = SEL(Pos)
+  1239e  add r0, sp, #0x10
+  123a0  r0 = [r0 ??](SEL(Pos), ?)
+  123a4  b L_123ac
+L_123a6:
+  123a6  r0 = 0
+L_123ac:
+  123ba  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  123be  r6 = 40
+  123c0  r5 = 0
+  123c2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  123ce  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, ?)
+  123da  r0 = SEL(dieSoundTime)
+  123dc  r6 = SEL(dieSoundTime)
+  123e2  r0 = [r0 dieSoundTime](?, ?)
+  123f0  r0 = SEL(MonsterDead)
+  123f2  r5 = SEL(MonsterDead)
+  123f6  r0 = [r0 dieSoundTime](?, ?)
+  123fe  vmov d0, r0, r0
+  12408  r1 = SEL(performSelector:withObject:afterDelay:)
+  1240a  vcvt.f64.f32 d16, s0
+  12410  r3 = 0
+  12412  r1 = SEL(performSelector:withObject:afterDelay:)
+  12414  vstr d16, [sp]
+  12418  r0 = [r0 performSelector:withObject:afterDelay:](SEL(MonsterDead), 0)
+  1241c  add sp, #0x18
+  1241e  vpop {d8}
+  12426  return
+
+//// -[MonsterControl MonsterDead]  0x12428..0x12458  v8@0:4
+  12434  add r7, sp, #4
+  12436  r0 = SEL(dieSound)
+  12438  r1 = SEL(dieSound)
+  1243c  r0 = [r0 dieSound](?, ?)
+  12444  r2 = 0
+  1244a  r0 = SEL(setMonsterFlag:)
+  1244c  r1 = SEL(setMonsterFlag:)
+  12454  b L_a90d0
+
+//// -[MonsterControl dealloc]  0x12458..0x124a4  v8@0:4
+  1245a  add r7, sp, #4
+  1245c  sub sp, #8
+  12472  r0 = SEL(dealloc)
+  1247a  r1 = SEL(dealloc)
+  1247e  r0 = [r0 dealloc](?, ?) SUPER
+  1248e  r0 = IVOFF(monsterHeadShotArray)
+  12494  r1 = SEL(release)
+  12496  r0 = IVOFF(monsterHeadShotArray)
+  12498  r1 = SEL(release)
+  1249a  r0 = self->monsterHeadShotArray
+  1249c  r0 = [self->monsterHeadShotArray release](?, ?)
+  124a0  add sp, #8
+  124a2  return
+
+//// -[MonsterControl monsterFlag]  0x124a4..0x124bc  c8@0:4
+  124ac  r1 = IVOFF(monsterFlag)
+  124ae  r1 = IVOFF(monsterFlag)
+  124b0  r0 = self->monsterFlag
+
+//// -[MonsterControl setMonsterFlag:]  0x124bc..0x124d4  v12@0:4c8
+  124c8  r1 = IVOFF(monsterFlag)
+  124ca  r1 = IVOFF(monsterFlag)
+  124cc  self->monsterFlag = r2
+
+//// -[MonsterControl Pos]  0x124d4..0x124f8  {CGPoint=ff}8@0:4
+  124d8  sub sp, #4
+  124de  r3 = 0
+  124e6  r2 = IVOFF(Pos)
+  124e8  r3 = 1
+  124ea  r2 = IVOFF(Pos)
+  124ec  add r1, r2
+  124ee  r2 = 8
+  124f0  call _objc_copyStruct
+  124f4  add sp, #4
+  124f6  return
+
+//// -[MonsterControl setPos:]  0x124f8..0x12524  v16@0:4{CGPoint=ff}8
+  124fc  sub sp, #0xc
+  12508  r1 = IVOFF(Pos)
+  1250c  r2 = 0
+  1250e  r3 = 1
+  12510  r1 = IVOFF(Pos)
+  12514  r2 = 8
+  12516  add r0, r1
+  12518  add r1, sp, #4
+  1251a  call _objc_copyStruct
+  1251e  add sp, #0xc
+  12520  return
+
+//// -[MonsterControl workingSoundTime]  0x12524..0x12538  f8@0:4
+  1252c  r1 = IVOFF(workingSoundTime)
+  1252e  r1 = IVOFF(workingSoundTime)
+  12530  r0 = self->workingSoundTime
+
+//// -[MonsterControl setWorkingSoundTime:]  0x12538..0x12550  v12@0:4f8
+  12544  r1 = IVOFF(workingSoundTime)
+  12546  r1 = IVOFF(workingSoundTime)
+  12548  self->workingSoundTime = r2
+
+//// -[MonsterControl MovingType]  0x12550..0x12564  i8@0:4
+  12558  r1 = IVOFF(MovingType)
+  1255a  r1 = IVOFF(MovingType)
+  1255c  r0 = self->MovingType
+
+//// -[MonsterControl setMovingType:]  0x12564..0x1257c  v12@0:4i8
+  12570  r1 = IVOFF(MovingType)
+  12572  r1 = IVOFF(MovingType)
+  12574  self->MovingType = r2
+
+//// -[MonsterControl HP]  0x1257c..0x12590  i8@0:4
+  12584  r1 = IVOFF(HP)
+  12586  r1 = IVOFF(HP)
+  12588  r0 = self->HP
+
+//// -[MonsterControl setHP:]  0x12590..0x125a8  v12@0:4i8
+  1259c  r1 = IVOFF(HP)
+  1259e  r1 = IVOFF(HP)
+  125a0  self->HP = r2
+
+//// -[MonsterControl Damage]  0x125a8..0x125bc  i8@0:4
+  125b0  r1 = IVOFF(Damage)
+  125b2  r1 = IVOFF(Damage)
+  125b4  r0 = self->Damage
+
+//// -[MonsterControl setDamage:]  0x125bc..0x125d4  v12@0:4i8
+  125c8  r1 = IVOFF(Damage)
+  125ca  r1 = IVOFF(Damage)
+  125cc  self->Damage = r2
+
+//// -[MonsterControl comingSound]  0x125d4..0x125e8  i8@0:4
+  125dc  r1 = IVOFF(comingSound)
+  125de  r1 = IVOFF(comingSound)
+  125e0  r0 = self->comingSound
+
+//// -[MonsterControl setComingSound:]  0x125e8..0x12600  v12@0:4i8
+  125f4  r1 = IVOFF(comingSound)
+  125f6  r1 = IVOFF(comingSound)
+  125f8  self->comingSound = r2
+
+//// -[MonsterControl comingSoundGain]  0x12600..0x12614  f8@0:4
+  12608  r1 = IVOFF(comingSoundGain)
+  1260a  r1 = IVOFF(comingSoundGain)
+  1260c  r0 = self->comingSoundGain
+
+//// -[MonsterControl setComingSoundGain:]  0x12614..0x1262c  v12@0:4f8
+  12620  r1 = IVOFF(comingSoundGain)
+  12622  r1 = IVOFF(comingSoundGain)
+  12624  self->comingSoundGain = r2
+
+//// -[MonsterControl comingSoundTime]  0x1262c..0x12640  f8@0:4
+  12634  r1 = IVOFF(comingSoundTime)
+  12636  r1 = IVOFF(comingSoundTime)
+  12638  r0 = self->comingSoundTime
+
+//// -[MonsterControl setComingSoundTime:]  0x12640..0x12658  v12@0:4f8
+  1264c  r1 = IVOFF(comingSoundTime)
+  1264e  r1 = IVOFF(comingSoundTime)
+  12650  self->comingSoundTime = r2
+
+//// -[MonsterControl comingSoundInWalk]  0x12658..0x1266c  i8@0:4
+  12660  r1 = IVOFF(comingSoundInWalk)
+  12662  r1 = IVOFF(comingSoundInWalk)
+  12664  r0 = self->comingSoundInWalk
+
+//// -[MonsterControl setComingSoundInWalk:]  0x1266c..0x12684  v12@0:4i8
+  12678  r1 = IVOFF(comingSoundInWalk)
+  1267a  r1 = IVOFF(comingSoundInWalk)
+  1267c  self->comingSoundInWalk = r2
+
+//// -[MonsterControl comingRange]  0x12684..0x12698  i8@0:4
+  1268c  r1 = IVOFF(comingRange)
+  1268e  r1 = IVOFF(comingRange)
+  12690  r0 = self->comingRange
+
+//// -[MonsterControl setComingRange:]  0x12698..0x126b0  v12@0:4i8
+  126a4  r1 = IVOFF(comingRange)
+  126a6  r1 = IVOFF(comingRange)
+  126a8  self->comingRange = r2
+
+//// -[MonsterControl hitSound]  0x126b0..0x126c4  i8@0:4
+  126b8  r1 = IVOFF(hitSound)
+  126ba  r1 = IVOFF(hitSound)
+  126bc  r0 = self->hitSound
+
+//// -[MonsterControl setHitSound:]  0x126c4..0x126dc  v12@0:4i8
+  126d0  r1 = IVOFF(hitSound)
+  126d2  r1 = IVOFF(hitSound)
+  126d4  self->hitSound = r2
+
+//// -[MonsterControl hitSoundTime]  0x126dc..0x126f0  f8@0:4
+  126e4  r1 = IVOFF(hitSoundTime)
+  126e6  r1 = IVOFF(hitSoundTime)
+  126e8  r0 = self->hitSoundTime
+
+//// -[MonsterControl setHitSoundTime:]  0x126f0..0x12708  v12@0:4f8
+  126fc  r1 = IVOFF(hitSoundTime)
+  126fe  r1 = IVOFF(hitSoundTime)
+  12700  self->hitSoundTime = r2
+
+//// -[MonsterControl hitSoundGain]  0x12708..0x1271c  f8@0:4
+  12710  r1 = IVOFF(hitSoundGain)
+  12712  r1 = IVOFF(hitSoundGain)
+  12714  r0 = self->hitSoundGain
+
+//// -[MonsterControl setHitSoundGain:]  0x1271c..0x12734  v12@0:4f8
+  12728  r1 = IVOFF(hitSoundGain)
+  1272a  r1 = IVOFF(hitSoundGain)
+  1272c  self->hitSoundGain = r2
+
+//// -[MonsterControl dieSound]  0x12734..0x12748  i8@0:4
+  1273c  r1 = IVOFF(dieSound)
+  1273e  r1 = IVOFF(dieSound)
+  12740  r0 = self->dieSound
+
+//// -[MonsterControl setDieSound:]  0x12748..0x12760  v12@0:4i8
+  12754  r1 = IVOFF(dieSound)
+  12756  r1 = IVOFF(dieSound)
+  12758  self->dieSound = r2
+
+//// -[MonsterControl dieSoundTime]  0x12760..0x12774  f8@0:4
+  12768  r1 = IVOFF(dieSoundTime)
+  1276a  r1 = IVOFF(dieSoundTime)
+  1276c  r0 = self->dieSoundTime
+
+//// -[MonsterControl setDieSoundTime:]  0x12774..0x1278c  v12@0:4f8
+  12780  r1 = IVOFF(dieSoundTime)
+  12782  r1 = IVOFF(dieSoundTime)
+  12784  self->dieSoundTime = r2
+
+//// -[MonsterControl dieSoundgain]  0x1278c..0x127a0  f8@0:4
+  12794  r1 = IVOFF(dieSoundgain)
+  12796  r1 = IVOFF(dieSoundgain)
+  12798  r0 = self->dieSoundgain
+
+//// -[MonsterControl setDieSoundgain:]  0x127a0..0x127b8  v12@0:4f8
+  127ac  r1 = IVOFF(dieSoundgain)
+  127ae  r1 = IVOFF(dieSoundgain)
+  127b0  self->dieSoundgain = r2
+
+//// -[MonsterControl playerHitSound]  0x127b8..0x127cc  i8@0:4
+  127c0  r1 = IVOFF(playerHitSound)
+  127c2  r1 = IVOFF(playerHitSound)
+  127c4  r0 = self->playerHitSound
+
+//// -[MonsterControl setPlayerHitSound:]  0x127cc..0x127e4  v12@0:4i8
+  127d8  r1 = IVOFF(playerHitSound)
+  127da  r1 = IVOFF(playerHitSound)
+  127dc  self->playerHitSound = r2
+
+//// -[MonsterControl playerHitSoundGain]  0x127e4..0x127f8  f8@0:4
+  127ec  r1 = IVOFF(playerHitSoundGain)
+  127ee  r1 = IVOFF(playerHitSoundGain)
+  127f0  r0 = self->playerHitSoundGain
+
+//// -[MonsterControl setPlayerHitSoundGain:]  0x127f8..0x12810  v12@0:4f8
+  12804  r1 = IVOFF(playerHitSoundGain)
+  12806  r1 = IVOFF(playerHitSoundGain)
+  12808  self->playerHitSoundGain = r2
+
+//// -[MonsterControl playerHitSoundtimer]  0x12810..0x12824  f8@0:4
+  12818  r1 = IVOFF(playerHitSoundtimer)
+  1281a  r1 = IVOFF(playerHitSoundtimer)
+  1281c  r0 = self->playerHitSoundtimer
+
+//// -[MonsterControl setPlayerHitSoundtimer:]  0x12824..0x1283c  v12@0:4f8
+  12830  r1 = IVOFF(playerHitSoundtimer)
+  12832  r1 = IVOFF(playerHitSoundtimer)
+  12834  self->playerHitSoundtimer = r2
+
+//// -[MonsterControl headShotTimeStart]  0x1283c..0x12850  f8@0:4
+  12844  r1 = IVOFF(headShotTimeStart)
+  12846  r1 = IVOFF(headShotTimeStart)
+  12848  r0 = self->headShotTimeStart
+
+//// -[MonsterControl setHeadShotTimeStart:]  0x12850..0x12868  v12@0:4f8
+  1285c  r1 = IVOFF(headShotTimeStart)
+  1285e  r1 = IVOFF(headShotTimeStart)
+  12860  self->headShotTimeStart = r2
+
+//// -[MonsterControl headShotTimeEndHowLong]  0x12868..0x1287c  f8@0:4
+  12870  r1 = IVOFF(headShotTimeEndHowLong)
+  12872  r1 = IVOFF(headShotTimeEndHowLong)
+  12874  r0 = self->headShotTimeEndHowLong
+
+//// -[MonsterControl setHeadShotTimeEndHowLong:]  0x1287c..0x12894  v12@0:4f8
+  12888  r1 = IVOFF(headShotTimeEndHowLong)
+  1288a  r1 = IVOFF(headShotTimeEndHowLong)
+  1288c  self->headShotTimeEndHowLong = r2
+
+//// -[MonsterControl headShotFlag]  0x12894..0x128ac  c8@0:4
+  1289c  r1 = IVOFF(headShotFlag)
+  1289e  r1 = IVOFF(headShotFlag)
+  128a0  r0 = self->headShotFlag
+
+//// -[MonsterControl setHeadShotFlag:]  0x128ac..0x128c4  v12@0:4c8
+  128b8  r1 = IVOFF(headShotFlag)
+  128ba  r1 = IVOFF(headShotFlag)
+  128bc  self->headShotFlag = r2
+
+//// -[MonsterControl monsterNumber]  0x128c4..0x128d8  i8@0:4
+  128cc  r1 = IVOFF(monsterNumber)
+  128ce  r1 = IVOFF(monsterNumber)
+  128d0  r0 = self->monsterNumber
+
+//// -[MonsterControl setMonsterNumber:]  0x128d8..0x128f0  v12@0:4i8
+  128e4  r1 = IVOFF(monsterNumber)
+  128e6  r1 = IVOFF(monsterNumber)
+  128e8  self->monsterNumber = r2
+
+//// -[MonsterControl shakeMonsterFlag]  0x128f0..0x12908  c8@0:4
+  128f8  r1 = IVOFF(shakeMonsterFlag)
+  128fa  r1 = IVOFF(shakeMonsterFlag)
+  128fc  r0 = self->shakeMonsterFlag
+
+//// -[MonsterControl setShakeMonsterFlag:]  0x12908..0x12920  v12@0:4c8
+  12914  r1 = IVOFF(shakeMonsterFlag)
+  12916  r1 = IVOFF(shakeMonsterFlag)
+  12918  self->shakeMonsterFlag = r2
+
+//// -[MonsterControl shakeMonsterNumber]  0x12920..0x12934  i8@0:4
+  12928  r1 = IVOFF(shakeMonsterNumber)
+  1292a  r1 = IVOFF(shakeMonsterNumber)
+  1292c  r0 = self->shakeMonsterNumber
+
+//// -[MonsterControl setShakeMonsterNumber:]  0x12934..0x1294c  v12@0:4i8
+  12940  r1 = IVOFF(shakeMonsterNumber)
+  12942  r1 = IVOFF(shakeMonsterNumber)
+  12944  self->shakeMonsterNumber = r2
+
+//// -[MonsterControl shakeMonsterSoundGain]  0x1294c..0x12960  f8@0:4
+  12954  r1 = IVOFF(shakeMonsterSoundGain)
+  12956  r1 = IVOFF(shakeMonsterSoundGain)
+  12958  r0 = self->shakeMonsterSoundGain
+
+//// -[MonsterControl setShakeMonsterSoundGain:]  0x12960..0x12978  v12@0:4f8
+  1296c  r1 = IVOFF(shakeMonsterSoundGain)
+  1296e  r1 = IVOFF(shakeMonsterSoundGain)
+  12970  self->shakeMonsterSoundGain = r2
+
+//// -[MonsterControl shakeMonsterApproachSound]  0x12978..0x1298c  i8@0:4
+  12980  r1 = IVOFF(shakeMonsterApproachSound)
+  12982  r1 = IVOFF(shakeMonsterApproachSound)
+  12984  r0 = self->shakeMonsterApproachSound
+
+//// -[MonsterControl setShakeMonsterApproachSound:]  0x1298c..0x129a4  v12@0:4i8
+  12998  r1 = IVOFF(shakeMonsterApproachSound)
+  1299a  r1 = IVOFF(shakeMonsterApproachSound)
+  1299c  self->shakeMonsterApproachSound = r2
+
+//// -[MonsterControl shakeMonsterApproachTime]  0x129a4..0x129b8  f8@0:4
+  129ac  r1 = IVOFF(shakeMonsterApproachTime)
+  129ae  r1 = IVOFF(shakeMonsterApproachTime)
+  129b0  r0 = self->shakeMonsterApproachTime
+
+//// -[MonsterControl setShakeMonsterApproachTime:]  0x129b8..0x129d0  v12@0:4f8
+  129c4  r1 = IVOFF(shakeMonsterApproachTime)
+  129c6  r1 = IVOFF(shakeMonsterApproachTime)
+  129c8  self->shakeMonsterApproachTime = r2
+
+//// -[MonsterControl shakeMonsterApproachGain]  0x129d0..0x129e4  f8@0:4
+  129d8  r1 = IVOFF(shakeMonsterApproachGain)
+  129da  r1 = IVOFF(shakeMonsterApproachGain)
+  129dc  r0 = self->shakeMonsterApproachGain
+
+//// -[MonsterControl setShakeMonsterApproachGain:]  0x129e4..0x129fc  v12@0:4f8
+  129f0  r1 = IVOFF(shakeMonsterApproachGain)
+  129f2  r1 = IVOFF(shakeMonsterApproachGain)
+  129f4  self->shakeMonsterApproachGain = r2
+
+//// -[MonsterControl shakeMonsterPushSound]  0x129fc..0x12a10  i8@0:4
+  12a04  r1 = IVOFF(shakeMonsterPushSound)
+  12a06  r1 = IVOFF(shakeMonsterPushSound)
+  12a08  r0 = self->shakeMonsterPushSound
+
+//// -[MonsterControl setShakeMonsterPushSound:]  0x12a10..0x12a28  v12@0:4i8
+  12a1c  r1 = IVOFF(shakeMonsterPushSound)
+  12a1e  r1 = IVOFF(shakeMonsterPushSound)
+  12a20  self->shakeMonsterPushSound = r2
+
+//// -[MonsterControl shakeMonsterPushTime]  0x12a28..0x12a3c  f8@0:4
+  12a30  r1 = IVOFF(shakeMonsterPushTime)
+  12a32  r1 = IVOFF(shakeMonsterPushTime)
+  12a34  r0 = self->shakeMonsterPushTime
+
+//// -[MonsterControl setShakeMonsterPushTime:]  0x12a3c..0x12a54  v12@0:4f8
+  12a48  r1 = IVOFF(shakeMonsterPushTime)
+  12a4a  r1 = IVOFF(shakeMonsterPushTime)
+  12a4c  self->shakeMonsterPushTime = r2
+
+//// -[MonsterControl shakeMoneterPushGain]  0x12a54..0x12a68  f8@0:4
+  12a5c  r1 = IVOFF(shakeMoneterPushGain)
+  12a5e  r1 = IVOFF(shakeMoneterPushGain)
+  12a60  r0 = self->shakeMoneterPushGain
+
+//// -[MonsterControl setShakeMoneterPushGain:]  0x12a68..0x12a80  v12@0:4f8
+  12a74  r1 = IVOFF(shakeMoneterPushGain)
+  12a76  r1 = IVOFF(shakeMoneterPushGain)
+  12a78  self->shakeMoneterPushGain = r2
+
+//// -[MonsterControl monsterPi]  0x12a80..0x12a94  f8@0:4
+  12a88  r1 = IVOFF(monsterPi)
+  12a8a  r1 = IVOFF(monsterPi)
+  12a8c  r0 = self->monsterPi
+
+//// -[MonsterControl setMonsterPi:]  0x12a94..0x12aac  v12@0:4f8
+  12aa0  r1 = IVOFF(monsterPi)
+  12aa2  r1 = IVOFF(monsterPi)
+  12aa4  self->monsterPi = r2
+
+//// -[MonsterControl monsterRange]  0x12aac..0x12ac0  f8@0:4
+  12ab4  r1 = IVOFF(monsterRange)
+  12ab6  r1 = IVOFF(monsterRange)
+  12ab8  r0 = self->monsterRange
+
+//// -[MonsterControl setMonsterRange:]  0x12ac0..0x12ad8  v12@0:4f8
+  12acc  r1 = IVOFF(monsterRange)
+  12ace  r1 = IVOFF(monsterRange)
+  12ad0  self->monsterRange = r2
+
+//// -[MonsterControl MovingPosAngle]  0x12ad8..0x12aec  i8@0:4
+  12ae0  r1 = IVOFF(MovingPosAngle)
+  12ae2  r1 = IVOFF(MovingPosAngle)
+  12ae4  r0 = self->MovingPosAngle
+
+//// -[MonsterControl setMovingPosAngle:]  0x12aec..0x12b04  v12@0:4i8
+  12af8  r1 = IVOFF(MovingPosAngle)
+  12afa  r1 = IVOFF(MovingPosAngle)
+  12afc  self->MovingPosAngle = r2
+
+//// -[MonsterControl monsterHeadShotArray]  0x12b04..0x12b14  @8@0:4
+  12b0c  r1 = IVOFF(monsterHeadShotArray)
+  12b0e  r1 = IVOFF(monsterHeadShotArray)
+  12b10  r0 = self->monsterHeadShotArray
+
+//// -[MonsterControl setMonsterHeadShotArray:]  0x12b14..0x12b38  v12@0:4@8
+  12b18  sub sp, #8
+  12b24  r3 = 0
+  12b26  r2 = IVOFF(monsterHeadShotArray)
+  12b2e  r2 = IVOFF(monsterHeadShotArray)
+  12b30  call _objc_setProperty
+  12b34  add sp, #8
+  12b36  return
+
+//// -[MonsterControl isHeadShot]  0x12b38..0x12b50  c8@0:4
+  12b40  r1 = IVOFF(isHeadShot)
+  12b42  r1 = IVOFF(isHeadShot)
+  12b44  r0 = self->isHeadShot
+
+//// -[MonsterControl setIsHeadShot:]  0x12b50..0x12b68  v12@0:4c8
+  12b5c  r1 = IVOFF(isHeadShot)
+  12b5e  r1 = IVOFF(isHeadShot)
+  12b60  self->isHeadShot = r2
+
+//// -[MonsterControl monsterChangeAngle]  0x12b68..0x12b7c  i8@0:4
+  12b70  r1 = IVOFF(monsterChangeAngle)
+  12b72  r1 = IVOFF(monsterChangeAngle)
+  12b74  r0 = self->monsterChangeAngle
+
+//// -[MonsterControl setMonsterChangeAngle:]  0x12b7c..0x12b94  v12@0:4i8
+  12b88  r1 = IVOFF(monsterChangeAngle)
+  12b8a  r1 = IVOFF(monsterChangeAngle)
+  12b8c  self->monsterChangeAngle = r2

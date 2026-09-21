@@ -1,0 +1,2073 @@
+
+//// -[mainStoreController initWithNibName:bundle:]  0x1c8c8..0x1c9dc  @16@0:4@8@12
+  1c8ca  add r7, sp, #0xc
+  1c8d0  sub sp, #0x10
+  1c8e4  r1 = SEL(initWithNibName:bundle:)
+  1c8ea  r1 = SEL(initWithNibName:bundle:)
+  1c8ee  add r0, sp, #8
+  1c8f0  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  1c8f6  cmp r4, 0
+  1c8f8  beq L_1c9d0
+  1c90a  r0 = SEL(defaultCenter)
+  1c90c  r8 = NSNotificationCenter
+  1c90e  r6 = SEL(defaultCenter)
+  1c910  r0 = NSNotificationCenter
+  1c916  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1c91e  fp = 0
+  1c92e  r1 = SEL(addObserver:selector:name:object:)
+  1c930  r2 = SEL(TurnOnVoiceOver)
+  1c936  r5 = SEL(addObserver:selector:name:object:)
+  1c93c  r3 = SEL(TurnOnVoiceOver)
+  1c940  sl = CFSTR('TurnOnVoiceOver')
+  1c948  r0 = [r0 addObserver:selector:name:object:](?, SEL(TurnOnVoiceOver))
+  1c94c  r0 = NSNotificationCenter
+  1c952  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1c964  r1 = SEL(interruptRestart)
+  1c96a  sl = CFSTR('InterruptOff')
+  1c970  r3 = SEL(interruptRestart)
+  1c974  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+  1c978  r0 = NSNotificationCenter
+  1c97e  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1c990  r1 = SEL(buyAllWeaponsRestore)
+  1c996  sl = CFSTR('buyAllWeaponsRestore')
+  1c99c  r3 = SEL(buyAllWeaponsRestore)
+  1c9a0  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyAllWeaponsRestore))
+  1c9a4  r0 = NSNotificationCenter
+  1c9aa  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  1c9bc  r1 = SEL(buyAllWeaponsRestoreNON)
+  1c9c2  sl = CFSTR('buyAllWeaponsRestoreNON')
+  1c9c8  r3 = SEL(buyAllWeaponsRestoreNON)
+  1c9cc  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyAllWeaponsRestoreNON))
+L_1c9d0:
+  1c9d2  add sp, #0x10
+  1c9d8  return
+
+//// -[mainStoreController interruptRestart]  0x1c9dc..0x1ca10  v8@0:4
+  1c9de  add r7, sp, #4
+  1c9e0  sub sp, #8
+  1c9e6  r3 = 0
+  1c9f4  r1 = SEL(performSelector:withObject:afterDelay:)
+  1c9f6  r2 = SEL(audioRestart)
+  1c9f8  r4 = 0
+  1c9fa  r1 = SEL(performSelector:withObject:afterDelay:)
+  1ca00  r2 = SEL(audioRestart)
+  1ca06  r3 = 0
+  1ca08  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  1ca0c  add sp, #8
+  1ca0e  return
+
+//// -[mainStoreController audioRestart]  0x1ca10..0x1cb18  v8@0:4
+  1ca12  add r7, sp, #8
+  1ca14  call sub_3ccc
+  1ca22  r0 = SEL(playback)
+  1ca24  r5 = SEL(playback)
+  1ca2a  r0 = [r0 playback](?, ?)
+  1ca36  r1 = SEL(freeBuffers)
+  1ca38  r1 = SEL(freeBuffers)
+  1ca3a  r0 = [r0 freeBuffers](?, ?)
+  1ca42  r0 = [r0 playback](?, ?)
+  1ca4e  r1 = SEL(freeSources)
+  1ca50  r1 = SEL(freeSources)
+  1ca52  r0 = [r0 freeSources](?, ?)
+  1ca66  r0 = SEL(array)
+  1ca68  r2 = NSMutableArray
+  1ca6a  r1 = SEL(array)
+  1ca6c  r0 = NSMutableArray
+  1ca6e  r0 = [NSMutableArray array](NSMutableArray, ?)
+  1ca7c  r0 = SEL(setASoundBufControlData:)
+  1ca7e  r1 = SEL(setASoundBufControlData:)
+  1ca82  r0 = [r0 setASoundBufControlData:](?, ?)
+  1ca8a  r0 = [r0 playback](?, ?)
+  1ca8e  cbz r0 -> L_1cabc
+  1ca94  r0 = [r0 playback](?, ?)
+  1caa0  r1 = SEL(release)
+  1caa2  r1 = SEL(release)
+  1caa4  r0 = [r0 release](?, ?)
+  1caac  r2 = 0
+  1cab2  r0 = SEL(setPlayback:)
+  1cab4  r1 = SEL(setPlayback:)
+  1cab8  r0 = [r0 setPlayback:](0, ?)
+L_1cabc:
+  1cacc  r0 = SEL(alloc)
+  1cace  r2 = oalPlayback
+  1cad0  r1 = SEL(alloc)
+  1cad2  r0 = oalPlayback
+  1cad4  r0 = [oalPlayback alloc](oalPlayback, ?)
+  1cae0  r1 = SEL(init)
+  1cae2  r1 = SEL(init)
+  1cae4  r0 = [r0 init](?, ?)
+  1caf2  r0 = SEL(setPlayback:)
+  1caf4  r1 = SEL(setPlayback:)
+  1caf8  r0 = [r0 setPlayback:](?, ?)
+  1cb00  r0 = [r0 playback](?, ?)
+  1cb0c  r1 = SEL(setUpOpenAL)
+  1cb0e  r1 = SEL(setUpOpenAL)
+  1cb14  b L_a90d0
+
+//// -[mainStoreController TurnOnVoiceOver]  0x1cb18..0x1ceb4  v8@0:4
+  1cb1a  add r7, sp, #0xc
+  1cb20  sub sp, #0x14
+  1cb24  call sub_3ccc
+  1cb32  r0 = SEL(mode)
+  1cb34  r1 = SEL(mode)
+  1cb38  r0 = [r0 mode](?, ?)
+  1cb48  r1 = IVOFF(selectMenu)
+  1cb4a  r1 = IVOFF(selectMenu)
+  1cb4c  beq L_1ccd4
+  1cb54  r2 = 1
+  1cb5a  self->selectMenu = 1
+  1cb5e  r0 = SEL(blindModeSelectedMenu)
+  1cb60  r1 = SEL(blindModeSelectedMenu)
+  1cb64  r0 = [r0 blindModeSelectedMenu](1, ?)
+  1cb70  r0 = SEL(StopElseSpeak)
+  1cb72  r1 = SEL(StopElseSpeak)
+  1cb76  r0 = [r0 StopElseSpeak](?, ?)
+  1cb8a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1cb8c  r2 = 21
+  1cb8e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1cb90  r0 = 0
+  1cb9c  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  1cbb0  r0 = SEL(currentDevice)
+  1cbb2  r2 = UIDevice
+  1cbb4  r1 = SEL(currentDevice)
+  1cbb6  r0 = UIDevice
+  1cbb8  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1cbc4  r1 = SEL(systemVersion)
+  1cbc6  r1 = SEL(systemVersion)
+  1cbc8  r0 = [r0 systemVersion](?, ?)
+  1cbd4  r1 = SEL(floatValue)
+  1cbd6  r1 = SEL(floatValue)
+  1cbd8  r0 = [r0 floatValue](?, ?)
+  1cbdc  vmov.f32 d0, #5.000000e+00
+  1cbe0  vmov d1, r0, r0
+  1cbe4  vcmpe.f32 s2, s0
+  1cbe8  vmrs apsr_nzcv, fpscr
+  1cbec  blt L_1ce64
+  1cc00  r0 = SEL(alloc)
+  1cc02  r2 = UIPanGestureRecognizer
+  1cc04  r1 = SEL(alloc)
+  1cc06  r0 = UIPanGestureRecognizer
+  1cc0a  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  1cc1e  r1 = SEL(initWithTarget:action:)
+  1cc20  r2 = SEL(Menu:)
+  1cc22  fp = SEL(initWithTarget:action:)
+  1cc26  r3 = SEL(Menu:)
+  1cc2c  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  1cc38  r1 = SEL(autorelease)
+  1cc3a  r5 = SEL(autorelease)
+  1cc3e  r0 = [r0 autorelease](?, ?)
+  1cc4c  r2 = 1
+  1cc4e  r0 = SEL(setEnabled:)
+  1cc50  r1 = SEL(setEnabled:)
+  1cc54  r0 = [r0 setEnabled:](1, ?)
+  1cc62  r0 = SEL(setDelegate:)
+  1cc64  r1 = SEL(setDelegate:)
+  1cc68  r0 = [r0 setDelegate:](?, ?)
+  1cc74  r0 = SEL(view)
+  1cc76  r4 = SEL(view)
+  1cc7c  r0 = [r0 view](?, ?)
+  1cc8a  r1 = SEL(addGestureRecognizer:)
+  1cc8c  r6 = SEL(addGestureRecognizer:)
+  1cc90  r0 = [r0 addGestureRecognizer:](?, ?)
+  1cc9e  r0 = UITapGestureRecognizer
+  1cca0  r0 = UITapGestureRecognizer
+  1cca2  r0 = [UITapGestureRecognizer ??](?, ?)
+  1ccb0  r1 = SEL(tapSelect:)
+  1ccb2  r3 = SEL(tapSelect:)
+  1ccb6  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  1ccbc  r0 = [r0 autorelease](?, ?)
+  1ccc6  r0 = [r0 view](?, ?)
+L_1ccce:
+  1ccce  r0 = [r0 addGestureRecognizer:](?, ?)
+  1ccd2  b L_1ce64
+L_1ccd4:
+  1ccd8  r2 = 0
+  1cce2  r0 = SEL(blindModeSelectedMenu)
+  1cce4  r1 = SEL(blindModeSelectedMenu)
+  1cce8  r0 = [r0 blindModeSelectedMenu](0, ?)
+  1ccfc  r0 = SEL(currentDevice)
+  1ccfe  r2 = UIDevice
+  1cd00  r1 = SEL(currentDevice)
+  1cd02  r0 = UIDevice
+  1cd04  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1cd10  r1 = SEL(systemVersion)
+  1cd12  r1 = SEL(systemVersion)
+  1cd14  r0 = [r0 systemVersion](?, ?)
+  1cd20  r1 = SEL(floatValue)
+  1cd22  r1 = SEL(floatValue)
+  1cd24  r0 = [r0 floatValue](?, ?)
+  1cd28  vmov.f32 d0, #5.000000e+00
+  1cd2c  vmov d1, r0, r0
+  1cd30  vcmpe.f32 s2, s0
+  1cd34  vmrs apsr_nzcv, fpscr
+  1cd38  blt L_1ce64
+  1cd44  r0 = SEL(view)
+  1cd46  fp = SEL(view)
+  1cd4e  r0 = [r0 view](?, ?)
+  1cd5a  r1 = SEL(gestureRecognizers)
+  1cd5c  r6 = SEL(gestureRecognizers)
+  1cd60  r0 = [r0 gestureRecognizers](?, ?)
+  1cd6c  r1 = SEL(count)
+  1cd6e  r4 = SEL(count)
+  1cd72  r0 = [r0 count](?, ?)
+  1cd76  cmp r0, 0
+  1cd78  beq L_1ce64
+  1cd7e  r0 = [r0 view](?, ?)
+  1cd84  r0 = [r0 gestureRecognizers](?, ?)
+  1cd8a  r0 = [r0 count](?, ?)
+  1cd94  r0 = [r0 view](?, ?)
+  1cd9a  r0 = [r0 gestureRecognizers](?, ?)
+  1cd9e  cmp r5, 2
+  1cda0  blo L_1ce0e
+  1cda6  r2 = 1
+  1cdac  r1 = SEL(objectAtIndex:)
+  1cdae  r4 = SEL(objectAtIndex:)
+  1cdb2  r0 = [r0 objectAtIndex:](1, ?)
+  1cdbc  r0 = [r0 view](?, ?)
+  1cdc2  r0 = [r0 gestureRecognizers](?, ?)
+  1cdc8  r2 = 0
+  1cdca  r0 = [r0 objectAtIndex:](0, ?)
+  1cdd8  r2 = 0
+  1cdda  r0 = SEL(setEnabled:)
+  1cddc  r1 = SEL(setEnabled:)
+  1cde0  r0 = [r0 setEnabled:](0, ?)
+  1cde8  r0 = [r0 view](?, ?)
+  1cdf6  r1 = SEL(removeGestureRecognizer:)
+  1cdf8  r4 = SEL(removeGestureRecognizer:)
+  1cdfc  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1ce04  r0 = [r0 view](?, ?)
+  1ce0c  b L_1ccce
+L_1ce0e:
+  1ce10  r0 = [r0 removeGestureRecognizer:](?, ?)
+  1ce14  cbz r0 -> L_1ce64
+  1ce1a  r0 = [r0 view](?, ?)
+  1ce20  r0 = [r0 ??](?, ?)
+  1ce28  r2 = 0
+  1ce2e  r1 = SEL(objectAtIndex:)
+  1ce30  r1 = SEL(objectAtIndex:)
+  1ce32  r0 = [r0 objectAtIndex:](0, ?)
+  1ce40  r2 = 0
+  1ce42  r0 = SEL(setEnabled:)
+  1ce44  r1 = SEL(setEnabled:)
+  1ce48  r0 = [r0 setEnabled:](0, ?)
+  1ce50  r0 = [r0 view](?, ?)
+  1ce5e  r1 = SEL(removeGestureRecognizer:)
+  1ce60  r1 = SEL(removeGestureRecognizer:)
+  1ce62  b L_1ccce
+L_1ce64:
+  1ce6c  r0 = SEL(view)
+  1ce6e  r1 = SEL(view)
+  1ce72  r0 = [r0 view](?, ?)
+  1ce7e  r1 = SEL(gestureRecognizers)
+  1ce80  r1 = SEL(gestureRecognizers)
+  1ce82  r0 = [r0 gestureRecognizers](?, ?)
+  1ce8e  r1 = SEL(count)
+  1ce90  r1 = SEL(count)
+  1ce92  r0 = [r0 count](?, ?)
+  1ce9e  r0 = SEL(buttonSelectImage)
+  1cea0  r1 = SEL(buttonSelectImage)
+  1cea4  add sp, #0x14
+  1ceae  b L_a90d0
+
+//// -[mainStoreController didReceiveMemoryWarning]  0x1ceb4..0x1cee0  v8@0:4
+  1ceb8  sub sp, #8
+  1cecc  r1 = SEL(didReceiveMemoryWarning)
+  1ced2  r1 = SEL(didReceiveMemoryWarning)
+  1ced8  r0 = [r0 didReceiveMemoryWarning](0xdb0c8/f1.25728e-39, ?) SUPER
+  1cedc  add sp, #8
+  1cede  return
+
+//// -[mainStoreController viewWillAppear:]  0x1cee0..0x1cf0c  v12@0:4c8
+  1cee4  sub sp, #8
+  1cef8  r1 = SEL(viewWillAppear:)
+  1cefe  r1 = SEL(viewWillAppear:)
+  1cf04  r0 = [r0 viewWillAppear:](?, 0xdb0c8/f1.25728e-39) SUPER
+  1cf08  add sp, #8
+  1cf0a  return
+
+//// -[mainStoreController viewDidLoad]  0x1cf0c..0x1d124  v8@0:4
+  1cf0e  add r7, sp, #0xc
+  1cf14  sub sp, #0x18
+  1cf2a  r0 = SEL(viewDidLoad)
+  1cf32  r1 = SEL(viewDidLoad)
+  1cf34  add r0, sp, #0x10
+  1cf36  r0 = [r0 viewDidLoad](?, ?) SUPER
+  1cf3a  call sub_3ccc
+  1cf48  r0 = SEL(buttonSelectImage)
+  1cf4a  r1 = SEL(buttonSelectImage)
+  1cf4e  r0 = [r0 buttonSelectImage](?, ?)
+  1cf62  r0 = SEL(currentDevice)
+  1cf64  r2 = UIDevice
+  1cf66  r1 = SEL(currentDevice)
+  1cf68  r0 = UIDevice
+  1cf6a  r0 = [UIDevice currentDevice](UIDevice, ?)
+  1cf76  r1 = SEL(systemVersion)
+  1cf78  r1 = SEL(systemVersion)
+  1cf7a  r0 = [r0 systemVersion](?, ?)
+  1cf86  r1 = SEL(floatValue)
+  1cf88  r1 = SEL(floatValue)
+  1cf8a  r0 = [r0 floatValue](?, ?)
+  1cf8e  vmov.f32 d0, #5.000000e+00
+  1cf92  vmov d1, r0, r0
+  1cf96  vcmpe.f32 s2, s0
+  1cf9a  vmrs apsr_nzcv, fpscr
+  1cf9e  blt L_1d0a2
+  1cfaa  r0 = SEL(mode)
+  1cfac  r1 = SEL(mode)
+  1cfb0  r0 = [r0 mode](?, ?)
+  1cfb6  cmp r0, 1
+  1cfb8  bne L_1d0a2
+  1cfca  r0 = SEL(alloc)
+  1cfcc  r2 = UIPanGestureRecognizer
+  1cfce  r1 = SEL(alloc)
+  1cfd0  r0 = UIPanGestureRecognizer
+  1cfd4  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  1cfe8  r1 = SEL(initWithTarget:action:)
+  1cfea  r2 = SEL(Menu:)
+  1cfec  fp = SEL(initWithTarget:action:)
+  1cff0  r3 = SEL(Menu:)
+  1cff6  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  1d002  r1 = SEL(autorelease)
+  1d004  r6 = SEL(autorelease)
+  1d008  r0 = [r0 autorelease](?, ?)
+  1d016  r2 = 1
+  1d018  r0 = SEL(setEnabled:)
+  1d01a  r1 = SEL(setEnabled:)
+  1d01e  r0 = [r0 setEnabled:](1, ?)
+  1d02c  r0 = SEL(setDelegate:)
+  1d02e  r1 = SEL(setDelegate:)
+  1d032  r0 = [r0 setDelegate:](?, ?)
+  1d040  r0 = SEL(view)
+  1d042  r5 = SEL(view)
+  1d048  r0 = [r0 view](?, ?)
+  1d056  r1 = SEL(addGestureRecognizer:)
+  1d058  r8 = SEL(addGestureRecognizer:)
+  1d05e  r0 = [r0 addGestureRecognizer:](?, ?)
+  1d06c  r0 = UITapGestureRecognizer
+  1d06e  r0 = UITapGestureRecognizer
+  1d070  r0 = [UITapGestureRecognizer ??](?, ?)
+  1d07e  r1 = SEL(tapSelect:)
+  1d080  r3 = SEL(tapSelect:)
+  1d084  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  1d08a  r0 = [r0 autorelease](?, ?)
+  1d096  r0 = [r0 view](?, ?)
+  1d09e  r0 = [r0 addGestureRecognizer:](?, ?)
+L_1d0a2:
+  1d0aa  r0 = SEL(mode)
+  1d0ac  r1 = SEL(mode)
+  1d0b0  r0 = [r0 mode](?, ?)
+  1d0b6  cmp r0, 1
+  1d0b8  bne L_1d10a
+  1d0be  r2 = 1
+  1d0c8  r0 = IVOFF(selectMenu)
+  1d0ce  r1 = SEL(blindModeSelectedMenu)
+  1d0d0  r0 = IVOFF(selectMenu)
+  1d0d2  r1 = SEL(blindModeSelectedMenu)
+  1d0d4  self->selectMenu = 1
+  1d0d8  r0 = [r0 blindModeSelectedMenu](1, ?)
+  1d0e0  r3 = 0
+  1d0ee  r0 = SEL(performSelector:withObject:afterDelay:)
+  1d0f0  r2 = SEL(startRead)
+  1d0f6  r1 = SEL(performSelector:withObject:afterDelay:)
+  1d0f8  r0 = 0
+  1d0fa  r2 = SEL(startRead)
+  1d102  r3 = 0
+  1d104  r0 = [r0 performSelector:withObject:afterDelay:](SEL(startRead), 0)
+  1d108  b L_1d11c
+L_1d10a:
+  1d112  r0 = SEL(blindModeSelectedMenu)
+  1d114  r1 = SEL(blindModeSelectedMenu)
+  1d118  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_1d11c:
+  1d11c  add sp, #0x18
+  1d122  return
+
+//// -[mainStoreController startRead]  0x1d124..0x1d170  v8@0:4
+  1d126  add r7, sp, #8
+  1d128  sub sp, #0x10
+  1d12c  call sub_3ccc
+  1d13a  r0 = SEL(StopElseSpeak)
+  1d13c  r1 = SEL(StopElseSpeak)
+  1d140  r0 = [r0 StopElseSpeak](?, ?)
+  1d154  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1d156  r2 = 13
+  1d158  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1d15a  r0 = 0
+  1d166  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  1d16a  add sp, #0x10
+  1d16c  return
+
+//// -[mainStoreController buttonSelectImage]  0x1d170..0x1d4d8  v8@0:4
+  1d172  add r7, sp, #0xc
+  1d178  sub sp, #0x18
+  1d184  r0 = SEL(goBackButton)
+  1d186  r1 = SEL(goBackButton)
+  1d18e  r0 = [r0 ??](?, ?)
+  1d1a4  r0 = SEL(imageNamed:)
+  1d1a6  fp = UIImage
+  1d1a8  r8 = SEL(imageNamed:)
+  1d1ac  r0 = UIImage
+  1d1b8  r2 = CFSTR('z_btn_back_act.png')
+  1d1bc  r0 = [UIImage imageNamed:](CFSTR('z_btn_back_act.png'), ?)
+  1d1ca  r3 = 0
+  1d1cc  r0 = SEL(setBackgroundImage:forState:)
+  1d1ce  sl = SEL(setBackgroundImage:forState:)
+  1d1d6  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d1de  r0 = [r0 ??](?, ?)
+  1d1e4  r0 = UIImage
+  1d1f2  r2 = CFSTR('z_btn_back_inact.png')
+  1d1f4  r0 = [UIImage imageNamed:](CFSTR('z_btn_back_inact.png'), ?)
+  1d1fe  r3 = 1
+  1d200  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d20c  r0 = SEL(coinShopButton)
+  1d20e  r5 = SEL(coinShopButton)
+  1d216  r0 = [r0 ??](?, ?)
+  1d21c  r0 = UIImage
+  1d22a  r2 = CFSTR('5_store_btn4_inact.png')
+  1d22c  r0 = [UIImage imageNamed:](CFSTR('5_store_btn4_inact.png'), ?)
+  1d236  r3 = 0
+  1d238  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d240  r0 = [r0 ??](?, ?)
+  1d246  r0 = UIImage
+  1d254  r2 = CFSTR('5_store_btn4_act.png')
+  1d256  r0 = [UIImage imageNamed:](CFSTR('5_store_btn4_act.png'), ?)
+  1d260  r3 = 1
+  1d262  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d26e  r0 = SEL(weaponShopButton)
+  1d270  r5 = SEL(weaponShopButton)
+  1d278  r0 = [r0 ??](?, ?)
+  1d27e  r0 = UIImage
+  1d28c  r2 = CFSTR('5_store_btn1_inact.png')
+  1d28e  r0 = [UIImage imageNamed:](CFSTR('5_store_btn1_inact.png'), ?)
+  1d298  r3 = 0
+  1d29a  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d2a2  r0 = [r0 ??](?, ?)
+  1d2a8  r0 = UIImage
+  1d2b6  r2 = CFSTR('5_store_btn1_act.png')
+  1d2b8  r0 = [UIImage imageNamed:](CFSTR('5_store_btn1_act.png'), ?)
+  1d2c2  r3 = 1
+  1d2c4  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d2d0  r0 = SEL(glodShopButton)
+  1d2d2  r5 = SEL(glodShopButton)
+  1d2da  r0 = [r0 ??](?, ?)
+  1d2e0  r0 = UIImage
+  1d2ee  r2 = CFSTR('5_store_btn2_inact.png')
+  1d2f0  r0 = [UIImage imageNamed:](CFSTR('5_store_btn2_inact.png'), ?)
+  1d2fa  r3 = 0
+  1d2fc  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d304  r0 = [r0 ??](?, ?)
+  1d30a  r0 = UIImage
+  1d318  r2 = CFSTR('5_store_btn2_act.png')
+  1d31a  r0 = [UIImage imageNamed:](CFSTR('5_store_btn2_act.png'), ?)
+  1d324  r3 = 1
+  1d326  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d332  r0 = SEL(inventoryButton)
+  1d334  r5 = SEL(inventoryButton)
+  1d33c  r0 = [r0 ??](?, ?)
+  1d342  r0 = UIImage
+  1d350  r2 = CFSTR('5_store_btn3_inact.png')
+  1d352  r0 = [UIImage imageNamed:](CFSTR('5_store_btn3_inact.png'), ?)
+  1d35c  r3 = 0
+  1d35e  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d366  r0 = [r0 ??](?, ?)
+  1d36c  r0 = UIImage
+  1d37a  r2 = CFSTR('5_store_btn3_act.png')
+  1d37c  r0 = [UIImage imageNamed:](CFSTR('5_store_btn3_act.png'), ?)
+  1d386  r3 = 1
+  1d388  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d394  r0 = SEL(restoreButton)
+  1d396  r5 = SEL(restoreButton)
+  1d39e  r0 = [r0 ??](?, ?)
+  1d3a4  r0 = UIImage
+  1d3b2  r2 = CFSTR('btn_restore_normal.PNG')
+  1d3b4  r0 = [UIImage imageNamed:](CFSTR('btn_restore_normal.PNG'), ?)
+  1d3be  r3 = 0
+  1d3c0  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  1d3c8  r0 = [r0 ??](?, ?)
+  1d3ce  r0 = UIImage
+  1d3dc  r2 = CFSTR('btn_restore_click.PNG')
+  1d3de  r0 = [UIImage imageNamed:](CFSTR('btn_restore_click.PNG'), ?)
+  1d3e8  r3 = 1
+  1d3ea  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  1d3ee  call sub_3ccc
+  1d3fa  r1 = SEL(mode)
+  1d3fc  r1 = SEL(mode)
+  1d3fe  r0 = [r0 mode](?, ?)
+  1d408  r0 = [r0 ??](?, ?)
+  1d414  r1 = SEL(setEnabled:)
+  1d416  r5 = SEL(setEnabled:)
+  1d41a  cmp r1, 1
+  1d41c  bne L_1d474
+  1d420  r2 = 0
+  1d422  r0 = [r0 setEnabled:](0, ?)
+  1d42a  r0 = [r0 ??](?, ?)
+  1d430  r2 = 0
+  1d432  r0 = [r0 setEnabled:](0, ?)
+  1d43a  r0 = [r0 ??](?, ?)
+  1d440  r2 = 0
+  1d442  r0 = [r0 setEnabled:](0, ?)
+  1d44a  r0 = [r0 ??](?, ?)
+  1d450  r2 = 0
+  1d452  r0 = [r0 setEnabled:](0, ?)
+  1d45a  r0 = [r0 ??](?, ?)
+  1d460  r2 = 0
+  1d462  r0 = [r0 setEnabled:](0, ?)
+  1d46a  r0 = [r0 ??](?, ?)
+  1d470  r2 = 0
+  1d472  b L_1d4c8
+L_1d474:
+  1d476  r2 = 1
+  1d478  r0 = [r0 setEnabled:](1, ?)
+  1d480  r0 = [r0 ??](?, ?)
+  1d486  r2 = 1
+  1d488  r0 = [r0 setEnabled:](1, ?)
+  1d490  r0 = [r0 ??](?, ?)
+  1d496  r2 = 1
+  1d498  r0 = [r0 setEnabled:](1, ?)
+  1d4a0  r0 = [r0 ??](?, ?)
+  1d4a6  r2 = 1
+  1d4a8  r0 = [r0 setEnabled:](1, ?)
+  1d4b0  r0 = [r0 ??](?, ?)
+  1d4b6  r2 = 1
+  1d4b8  r0 = [r0 setEnabled:](1, ?)
+  1d4c0  r0 = [r0 ??](?, ?)
+  1d4c6  r2 = 1
+L_1d4c8:
+  1d4c8  add sp, #0x18
+  1d4d2  b L_a90d0
+
+//// -[mainStoreController blindModeSelectedMenu]  0x1d4d8..0x1d5fc  v8@0:4
+  1d4da  add r7, sp, #0xc
+  1d4e0  sub sp, #8
+  1d4ec  r0 = SEL(round1)
+  1d4ee  r1 = SEL(round1)
+  1d4f4  r0 = [r0 ??](?, ?)
+  1d4fc  r2 = 1
+  1d502  r1 = SEL(setHidden:)
+  1d504  r4 = SEL(setHidden:)
+  1d508  r0 = [r0 setHidden:](1, ?)
+  1d514  r0 = SEL(round2)
+  1d516  r1 = SEL(round2)
+  1d51c  r0 = [r0 ??](?, ?)
+  1d522  r2 = 1
+  1d524  r0 = [r0 setHidden:](1, ?)
+  1d530  r0 = SEL(round3)
+  1d532  fp = SEL(round3)
+  1d53a  r0 = [r0 round3](?, ?)
+  1d540  r2 = 1
+  1d542  r0 = [r0 setHidden:](1, ?)
+  1d54e  r0 = SEL(round4)
+  1d550  r6 = SEL(round4)
+  1d556  r0 = [r0 round4](?, ?)
+  1d55c  r2 = 1
+  1d55e  r0 = [r0 setHidden:](1, ?)
+  1d56a  r0 = SEL(round5)
+  1d56c  r8 = SEL(round5)
+  1d574  r0 = [r0 round5](?, ?)
+  1d57a  r2 = 1
+  1d57c  r0 = [r0 setHidden:](1, ?)
+  1d588  r0 = SEL(round6)
+  1d58a  sl = SEL(round6)
+  1d592  r0 = [r0 round6](?, ?)
+  1d598  r2 = 1
+  1d59a  r0 = [r0 setHidden:](1, ?)
+  1d5a6  r0 = IVOFF(selectMenu)
+  1d5a8  r0 = IVOFF(selectMenu)
+  1d5aa  r0 = self->selectMenu
+  1d5ac  subs r0, #1
+  1d5ae  cmp r0, 5
+  1d5b0  bls L_1d5ba
+  1d5b2  add sp, #8
+  1d5b8  return
+L_1d5ba:
+  1d5be  lsls r3, r0, #0x18
+  1d5c0  lsrs r1, r1, #0x10
+  1d5c2  asrs r7, r1, #8
+  1d5c8  b L_1d5e6
+  1d5ce  b L_1d5e6
+  1d5d4  b L_1d5e6
+  1d5da  b L_1d5e6
+  1d5e0  b L_1d5e6
+L_1d5e6:
+  1d5e6  r0 = [r0 round6](?, ?)
+  1d5ec  r2 = 0
+  1d5ee  add sp, #8
+  1d5f8  b L_a90d0
+
+//// -[mainStoreController viewDidUnload]  0x1d5fc..0x1d730  v8@0:4
+  1d5fe  add r7, sp, #4
+  1d600  sub sp, #8
+  1d60c  r2 = 0
+  1d60e  r0 = SEL(setGoBackButton:)
+  1d610  r1 = SEL(setGoBackButton:)
+  1d614  r0 = [r0 setGoBackButton:](0, ?)
+  1d61c  r2 = 0
+  1d622  r0 = SEL(setWeaponShopButton:)
+  1d624  r1 = SEL(setWeaponShopButton:)
+  1d628  r0 = [r0 setWeaponShopButton:](0, ?)
+  1d630  r2 = 0
+  1d636  r0 = SEL(setItemShopButton:)
+  1d638  r1 = SEL(setItemShopButton:)
+  1d63c  r0 = [r0 setItemShopButton:](0, ?)
+  1d644  r2 = 0
+  1d64a  r0 = SEL(setGlodShopButton:)
+  1d64c  r1 = SEL(setGlodShopButton:)
+  1d650  r0 = [r0 setGlodShopButton:](0, ?)
+  1d658  r2 = 0
+  1d65e  r0 = SEL(setInventoryButton:)
+  1d660  r1 = SEL(setInventoryButton:)
+  1d664  r0 = [r0 setInventoryButton:](0, ?)
+  1d66c  r2 = 0
+  1d672  r0 = SEL(setRound1:)
+  1d674  r1 = SEL(setRound1:)
+  1d678  r0 = [r0 setRound1:](0, ?)
+  1d680  r2 = 0
+  1d686  r0 = SEL(setRound2:)
+  1d688  r1 = SEL(setRound2:)
+  1d68c  r0 = [r0 setRound2:](0, ?)
+  1d694  r2 = 0
+  1d69a  r0 = SEL(setRound3:)
+  1d69c  r1 = SEL(setRound3:)
+  1d6a0  r0 = [r0 setRound3:](0, ?)
+  1d6a8  r2 = 0
+  1d6ae  r0 = SEL(setRound4:)
+  1d6b0  r1 = SEL(setRound4:)
+  1d6b4  r0 = [r0 setRound4:](0, ?)
+  1d6bc  r2 = 0
+  1d6c2  r0 = SEL(setCoinShopButton:)
+  1d6c4  r1 = SEL(setCoinShopButton:)
+  1d6c8  r0 = [r0 setCoinShopButton:](0, ?)
+  1d6d0  r2 = 0
+  1d6d6  r0 = SEL(setRound5:)
+  1d6d8  r1 = SEL(setRound5:)
+  1d6dc  r0 = [r0 setRound5:](0, ?)
+  1d6e4  r2 = 0
+  1d6ea  r0 = SEL(setRound6:)
+  1d6ec  r1 = SEL(setRound6:)
+  1d6f0  r0 = [r0 setRound6:](0, ?)
+  1d6f8  r2 = 0
+  1d6fe  r0 = SEL(setRestoreButton:)
+  1d700  r1 = SEL(setRestoreButton:)
+  1d704  r0 = [r0 setRestoreButton:](0, ?)
+  1d71a  r0 = SEL(viewDidUnload)
+  1d722  r1 = SEL(viewDidUnload)
+  1d726  r0 = [r0 viewDidUnload](?, ?) SUPER
+  1d72a  add sp, #8
+  1d72c  return
+
+//// -[mainStoreController shouldAutorotateToInterfaceOrientation:]  0x1d730..0x1d73c  c12@0:4i8
+  1d730  cmp r2, 1
+
+//// -[mainStoreController dealloc]  0x1d73c..0x1d880  v8@0:4
+  1d73e  add r7, sp, #8
+  1d740  sub sp, #8
+  1d750  r0 = IVOFF(goBackButton)
+  1d756  r1 = SEL(release)
+  1d758  r0 = IVOFF(goBackButton)
+  1d75a  r5 = SEL(release)
+  1d75c  r0 = self->goBackButton
+  1d760  r0 = [self->goBackButton release](?, ?)
+  1d76e  r0 = IVOFF(weaponShopButton)
+  1d770  r0 = IVOFF(weaponShopButton)
+  1d772  r0 = self->weaponShopButton
+  1d774  r0 = [self->weaponShopButton release](?, ?)
+  1d782  r0 = IVOFF(itemShopButton)
+  1d784  r0 = IVOFF(itemShopButton)
+  1d786  r0 = self->itemShopButton
+  1d788  r0 = [self->itemShopButton release](?, ?)
+  1d796  r0 = IVOFF(glodShopButton)
+  1d798  r0 = IVOFF(glodShopButton)
+  1d79a  r0 = self->glodShopButton
+  1d79c  r0 = [self->glodShopButton release](?, ?)
+  1d7aa  r0 = IVOFF(inventoryButton)
+  1d7ac  r0 = IVOFF(inventoryButton)
+  1d7ae  r0 = self->inventoryButton
+  1d7b0  r0 = [self->inventoryButton release](?, ?)
+  1d7be  r0 = IVOFF(_round1)
+  1d7c0  r0 = IVOFF(_round1)
+  1d7c2  r0 = self->_round1
+  1d7c4  r0 = [self->_round1 release](?, ?)
+  1d7d2  r0 = IVOFF(_round2)
+  1d7d4  r0 = IVOFF(_round2)
+  1d7d6  r0 = self->_round2
+  1d7d8  r0 = [self->_round2 release](?, ?)
+  1d7e6  r0 = IVOFF(_round3)
+  1d7e8  r0 = IVOFF(_round3)
+  1d7ea  r0 = self->_round3
+  1d7ec  r0 = [self->_round3 release](?, ?)
+  1d7fa  r0 = IVOFF(_round4)
+  1d7fc  r0 = IVOFF(_round4)
+  1d7fe  r0 = self->_round4
+  1d800  r0 = [self->_round4 release](?, ?)
+  1d80e  r0 = IVOFF(_coinShopButton)
+  1d810  r0 = IVOFF(_coinShopButton)
+  1d812  r0 = self->_coinShopButton
+  1d814  r0 = [self->_coinShopButton release](?, ?)
+  1d822  r0 = IVOFF(_round5)
+  1d824  r0 = IVOFF(_round5)
+  1d826  r0 = self->_round5
+  1d828  r0 = [self->_round5 release](?, ?)
+  1d836  r0 = IVOFF(_round6)
+  1d838  r0 = IVOFF(_round6)
+  1d83a  r0 = self->_round6
+  1d83c  r0 = [self->_round6 release](?, ?)
+  1d84a  r0 = IVOFF(_restoreButton)
+  1d84c  r0 = IVOFF(_restoreButton)
+  1d84e  r0 = self->_restoreButton
+  1d850  r0 = [self->_restoreButton release](?, ?)
+  1d866  r0 = SEL(dealloc)
+  1d86e  r1 = SEL(dealloc)
+  1d872  r0 = [r0 dealloc](?, ?) SUPER
+  1d876  add sp, #8
+  1d878  return
+
+//// -[mainStoreController tapSelect:]  0x1d880..0x1d970  v12@0:4@8
+  1d882  add r7, sp, #8
+  1d884  sub sp, #0x18
+  1d892  r0 = SEL(view)
+  1d894  r1 = SEL(view)
+  1d898  r0 = [r0 view](?, ?)
+  1d89e  cbz r5 -> L_1d8be
+  1d8aa  r0 = SEL(locationInView:)
+  1d8ac  r2 = SEL(locationInView:)
+  1d8ae  add r0, sp, #0x10
+  1d8b0  r0 = [r0 ??](SEL(locationInView:), ?)
+  1d8b4  vldr s2, [sp, #0x10]
+  1d8b8  vldr s0, [sp, #0x14]
+  1d8bc  b L_1d8cc
+L_1d8be:
+  1d8be  vmov.i32 d0, #0
+  1d8c2  r0 = 0
+  1d8c8  vmov.f32 s2, s0
+L_1d8cc:
+  1d8d0  d16 = 0.35
+  1d8d8  ip = 0
+  1d8dc  r0 = IVOFF(posX)
+  1d8de  vmov r2, r3, d16
+  1d8e2  r1 = IVOFF(posX)
+  1d8ec  add r1, r4
+  1d8ee  r0 = IVOFF(posY)
+  1d8f0  vstr s2, [r1]
+  1d8f4  r1 = IVOFF(posY)
+  1d8fe  add r1, r4
+  1d900  r0 = IVOFF(tapCount)
+  1d902  vstr s0, [r1]
+  1d90a  r1 = IVOFF(tapCount)
+  1d910  r5 = IVOFF(tapOrGesture)
+  1d912  r0 = self->tapCount
+  1d91c  adds r0, #1
+  1d91e  self->tapCount = r0
+  1d92c  r1 = IVOFF(tapOrGesture)
+  1d932  lr = NSTimer
+  1d934  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  1d936  sb = SEL(tapCount)
+  1d938  self->tapOrGesture = 0
+  1d93c  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  1d93e  r0 = NSTimer
+  1d942  r5 = SEL(tapCount)
+  1d94e  vorr d0, d0, d0
+  1d952  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  1d95e  r1 = IVOFF(tapTimer)
+  1d960  r1 = IVOFF(tapTimer)
+  1d962  self->tapTimer = r0
+  1d964  add sp, #0x18
+  1d966  return
+  1d96e  subs r7, #0xd6
+
+//// -[mainStoreController tapCount]  0x1d970..0x1da54  v8@0:4
+  1d97c  add r7, sp, #8
+  1d97e  r0 = IVOFF(tapCount)
+  1d980  r5 = IVOFF(tapCount)
+  1d982  r0 = self->tapCount
+  1d984  cmp self->tapCount, 2
+  1d986  bne L_1d9d4
+  1d988  call sub_3ccc
+  1d994  r1 = SEL(bDevice)
+  1d996  r1 = SEL(bDevice)
+  1d998  r0 = [r0 bDevice](?, ?)
+  1d9b2  r0 = IVOFF(selectMenu)
+  1d9b4  r0 = IVOFF(selectMenu)
+  1d9b6  r0 = self->selectMenu
+  1d9b8  subs r0, #1
+  1d9ba  cmp r0, 5
+  1d9bc  bhi L_1da30
+  1d9c2  asrs r3, r0, #0x14
+  1d9c4  r1 = 27
+  1d9c6  cmp tapCount, 39
+  1d9d0  r0 = SEL(goBackAction:)
+  1d9d2  b L_1da26
+L_1d9d4:
+  1d9d4  cmp SEL(goBackAction:), 1
+  1d9d6  bne L_1da30
+  1d9e0  r0 = SEL(selectTapPointSoundStart)
+  1d9e2  r1 = SEL(selectTapPointSoundStart)
+  1d9e6  r0 = [r0 selectTapPointSoundStart](?, ?)
+  1d9ea  b L_1da30
+  1d9f4  r0 = SEL(weaponShopAction:)
+  1d9f6  b L_1da26
+  1da00  r0 = SEL(glodShopAction:)
+  1da02  b L_1da26
+  1da0c  r0 = SEL(inventoryAction:)
+  1da0e  b L_1da26
+  1da18  r0 = SEL(coinShopAction:)
+  1da1a  b L_1da26
+  1da24  r0 = SEL(restoreAction:)
+L_1da26:
+  1da26  r1 = SEL(restoreAction:)
+  1da2a  r2 = 0
+  1da2c  r0 = [r0 restoreAction:](0, ?)
+L_1da30:
+  1da34  r0 = 0
+  1da3a  self->tapCount = 0
+  1da3c  r1 = IVOFF(posX)
+  1da46  r1 = IVOFF(posX)
+  1da48  r2 = IVOFF(posY)
+  1da4a  self->posX = 0
+  1da4c  r1 = IVOFF(posY)
+  1da4e  self->posY = 0
+  1da50  return
+
+//// -[mainStoreController Menu:]  0x1da54..0x1dc88  v12@0:4@8
+  1da56  add r7, sp, #0xc
+  1da5c  sub sp, #0x14
+  1da62  call sub_3ccc
+  1da6e  r1 = SEL(mode)
+  1da70  r1 = SEL(mode)
+  1da72  r0 = [r0 mode](?, ?)
+  1da7a  beq L_1dc7e
+  1da86  r0 = SEL(view)
+  1da88  r6 = SEL(view)
+  1da8e  r0 = [r0 view](?, ?)
+  1da9c  r0 = SEL(state)
+  1da9e  sl = SEL(state)
+  1daa6  r0 = [r0 state](?, ?)
+  1daaa  cmp r0, 1
+  1daac  beq L_1dabc
+  1dab2  r0 = [r0 state](?, ?)
+  1dab6  cmp r0, 2
+  1dab8  bne L_1dbf2
+L_1dabc:
+  1dac0  r0 = [r0 state](?, ?)
+  1dac4  cmp r0, 1
+  1dac6  bne L_1db38
+  1dacc  r0 = [r0 view](?, ?)
+  1dad2  cbz r5 -> L_1daf2
+  1dade  r0 = SEL(locationInView:)
+  1dae0  r2 = SEL(locationInView:)
+  1dae2  add r0, sp, #0xc
+  1dae4  r0 = [r0 ??](SEL(locationInView:), ?)
+  1dae8  vldr s2, [sp, #0xc]
+  1daec  vldr s0, [sp, #0x10]
+  1daf0  b L_1db00
+L_1daf2:
+  1daf2  vmov.i32 d0, #0
+  1daf6  r0 = 0
+  1dafc  vmov.f32 s2, s0
+L_1db00:
+  1db08  r0 = IVOFF(posX)
+  1db0a  r1 = IVOFF(posX)
+  1db14  add r1, r4
+  1db16  r0 = IVOFF(posY)
+  1db18  vstr s2, [r1]
+  1db1c  r1 = IVOFF(posY)
+  1db26  r0 = IVOFF(tapOrGesture)
+  1db28  add r1, r4
+  1db2a  r0 = IVOFF(tapOrGesture)
+  1db2c  vstr s0, [r1]
+  1db30  r1 = 1
+  1db32  self->tapOrGesture = 1
+  1db34  vorr d0, d0, d0
+L_1db38:
+  1db40  r0 = SEL(superview)
+  1db42  r6 = SEL(superview)
+  1db48  r0 = [r0 superview](?, ?)
+  1db4e  cbz r5 -> L_1db6e
+  1db5a  r0 = SEL(translationInView:)
+  1db5c  r2 = SEL(translationInView:)
+  1db5e  add r0, sp, #4
+  1db60  r0 = [r0 ??](SEL(translationInView:), ?)
+  1db64  vldr s2, [sp, #4]
+  1db68  vldr s0, [sp, #8]
+  1db6c  b L_1db7c
+L_1db6e:
+  1db6e  vmov.i32 d0, #0
+  1db72  r0 = 0
+  1db76  vorr d1, d0, d0
+L_1db7c:
+  1db84  r0 = IVOFF(posX)
+  1db86  r1 = IVOFF(posX)
+  1db90  add r1, r4
+  1db92  r0 = IVOFF(posY)
+  1db94  vldr s4, [r1]
+  1db98  r0 = IVOFF(posY)
+  1db9a  vadd.f32 d1, d1, d2
+  1db9e  add r0, r4
+  1dba0  vstr s2, [r1]
+  1dba6  vldr s2, [r0]
+  1dbaa  vadd.f32 d0, d0, d1
+  1dbae  vstr s0, [r0]
+  1dbb4  vorr d0, d0, d0
+  1dbb8  r0 = [r0 superview](?, ?)
+  1dbc8  r1 = _CGPointZero
+  1dbce  r2 = SEL(setTranslation:inView:)
+  1dbd2  r3 = _CGPointZero
+  1dbd6  r1 = SEL(setTranslation:inView:)
+  1dbdc  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  1dbe8  r0 = SEL(selectTapPointSoundStart)
+  1dbea  r1 = SEL(selectTapPointSoundStart)
+  1dbee  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_1dbf2:
+  1dbf6  r0 = [r0 state](?, ?)
+  1dbfa  cmp r0, 3
+  1dbfc  bne L_1dc7e
+  1dc0a  r0 = IVOFF(go_back_flag)
+  1dc10  r2 = IVOFF(weapon_flag)
+  1dc12  r1 = IVOFF(go_back_flag)
+  1dc14  r0 = 0
+  1dc16  self->go_back_flag = 0
+  1dc18  r1 = IVOFF(weapon_flag)
+  1dc22  r2 = IVOFF(item_flag)
+  1dc24  self->weapon_flag = 0
+  1dc26  r1 = IVOFF(item_flag)
+  1dc30  r2 = IVOFF(gold_flag)
+  1dc32  self->item_flag = 0
+  1dc34  r1 = IVOFF(gold_flag)
+  1dc3e  r2 = IVOFF(invantory_flag)
+  1dc40  self->gold_flag = 0
+  1dc42  r1 = IVOFF(invantory_flag)
+  1dc4c  r2 = IVOFF(restore_flag)
+  1dc4e  self->invantory_flag = 0
+  1dc50  r1 = IVOFF(restore_flag)
+  1dc5a  r2 = IVOFF(posX)
+  1dc5c  self->restore_flag = 0
+  1dc5e  r1 = IVOFF(posX)
+  1dc68  r2 = IVOFF(posY)
+  1dc6a  self->posX = 0
+  1dc6c  r1 = IVOFF(posY)
+  1dc76  r2 = IVOFF(tapOrGesture)
+  1dc78  self->posY = 0
+  1dc7a  r1 = IVOFF(tapOrGesture)
+  1dc7c  self->tapOrGesture = 0
+L_1dc7e:
+  1dc7e  add sp, #0x14
+  1dc84  return
+
+//// -[mainStoreController StopElseSpeak]  0x1dc88..0x1dce4  v8@0:4
+  1dc8a  add r7, sp, #8
+  1dc8c  call sub_3ccc
+  1dc9a  r2 = 13
+  1dc9c  r0 = SEL(stopSoundBufNumber:)
+  1dc9e  r5 = SEL(stopSoundBufNumber:)
+  1dca4  r0 = [r0 stopSoundBufNumber:](13, ?)
+  1dcac  r2 = 235
+  1dcae  r0 = [r0 stopSoundBufNumber:](235, ?)
+  1dcb6  r2 = 236
+  1dcb8  r0 = [r0 stopSoundBufNumber:](236, ?)
+  1dcc0  r2 = 237
+  1dcc2  r0 = [r0 stopSoundBufNumber:](237, ?)
+  1dcca  r2 = 342
+  1dcce  r0 = [r0 stopSoundBufNumber:](342, ?)
+  1dcd6  r2 = 370
+  1dcde  b L_a90d0
+
+//// -[mainStoreController selectTapPointSoundStart]  0x1dce4..0x1e4f8  v8@0:4
+  1dce6  add r7, sp, #0xc
+  1dcec  sub sp, #0x30
+  1dcf0  call sub_3ccc
+  1dd06  r0 = SEL(mainScreen)
+  1dd08  r5 = UIScreen
+  1dd0a  r6 = SEL(mainScreen)
+  1dd0c  r0 = UIScreen
+  1dd10  r0 = [UIScreen mainScreen](?, ?)
+  1dd16  cmp r1, 0
+  1dd18  beq L_1dd52
+  1dd22  r0 = SEL(bounds)
+  1dd24  r2 = SEL(bounds)
+  1dd26  add r0, sp, #0x20
+  1dd28  r0 = [r0 ??](SEL(bounds), ?)
+  1dd2c  s0 = 320
+  1dd30  vldr s2, [sp, #0x28]
+  1dd34  vcmpe.f32 s2, s0
+  1dd38  vmrs apsr_nzcv, fpscr
+  1dd3c  bne L_1dd5c
+  1dd3e  vldr s0, [sp, #0x2c]
+  1dd42  s2 = 568
+  1dd46  vcmpe.f32 s0, s2
+  1dd4a  vmrs apsr_nzcv, fpscr
+  1dd4e  beq L_1dda2
+  1dd50  b L_1dd5c
+L_1dd52:
+  1dd52  vmov.i32 q8, #0
+  1dd56  add r0, sp, #0x20
+  1dd58  vst1.32 {d16, d17}, [r0]
+L_1dd5c:
+  1dd5c  r0 = UIScreen
+  1dd60  r0 = [UIScreen mainScreen](?, ?)
+  1dd66  cmp r1, 0
+  1dd68  beq L_1de66
+  1dd74  r0 = SEL(bounds)
+  1dd76  r2 = SEL(bounds)
+  1dd78  add r0, sp, #0x10
+  1dd7a  r0 = [r0 ??](SEL(bounds), ?)
+  1dd7e  s0 = 568
+  1dd82  vldr s2, [sp, #0x18]
+  1dd86  vcmpe.f32 s2, s0
+  1dd8a  vmrs apsr_nzcv, fpscr
+  1dd8e  bne L_1de70
+  1dd90  vldr s0, [sp, #0x1c]
+  1dd94  s2 = 320
+  1dd98  vcmpe.f32 s0, s2
+  1dd9c  vmrs apsr_nzcv, fpscr
+  1dda0  bne L_1de70
+L_1dda2:
+  1dda6  s2 = 45
+  1ddb2  r1 = IVOFF(posY)
+  1ddb8  r0 = IVOFF(tapOrGesture)
+  1ddba  vmov.i32 d2, #0
+  1ddbe  r1 = IVOFF(posY)
+  1ddc0  r2 = 0
+  1ddc2  r0 = IVOFF(tapOrGesture)
+  1ddc4  add r1, r4
+  1ddc6  vldr s0, [r1]
+  1ddca  r1 = 0
+  1ddcc  r0 = self->tapOrGesture
+  1ddce  vcmpe.f32 s0, s2
+  1ddd2  vmrs apsr_nzcv, fpscr
+  1ddd6  vcmpe.f32 s0, s4
+  1ddde  vmrs apsr_nzcv, fpscr
+  1dde6  cmp self->tapOrGesture, 0
+  1dde8  orr.w r1, r1, r2
+  1ddec  beq L_1e0c8
+  1ddf0  cmp r1, 0
+  1ddf2  beq L_1dfa0
+  1ddf6  s2 = 66
+  1ddfa  vcmpe.f32 s0, s2
+  1ddfe  vmrs apsr_nzcv, fpscr
+  1de02  blt L_1de14
+  1de04  s2 = 136
+  1de08  vcmpe.f32 s0, s2
+  1de0c  vmrs apsr_nzcv, fpscr
+  1de10  bls L_1e1b6
+L_1de14:
+  1de14  s2 = 167
+  1de18  vcmpe.f32 s0, s2
+  1de1c  vmrs apsr_nzcv, fpscr
+  1de20  blt L_1de32
+  1de22  s2 = 237
+  1de26  vcmpe.f32 s0, s2
+  1de2a  vmrs apsr_nzcv, fpscr
+  1de2e  bls L_1e21a
+L_1de32:
+  1de32  s2 = 268
+  1de36  vcmpe.f32 s0, s2
+  1de3a  vmrs apsr_nzcv, fpscr
+  1de3e  blt L_1de50
+  1de40  s2 = 338
+  1de44  vcmpe.f32 s0, s2
+  1de48  vmrs apsr_nzcv, fpscr
+  1de4c  bls L_1e2e0
+L_1de50:
+  1de50  s2 = 380
+  1de54  vcmpe.f32 s0, s2
+  1de58  vmrs apsr_nzcv, fpscr
+  1de5c  blt L_1e454
+  1de60  s2 = 430
+  1de64  b L_1df30
+L_1de66:
+  1de66  vmov.i32 q8, #0
+  1de6a  add r0, sp, #0x10
+  1de6c  vst1.32 {d16, d17}, [r0]
+L_1de70:
+  1de74  s2 = 45
+  1de80  r1 = IVOFF(posY)
+  1de86  r0 = IVOFF(tapOrGesture)
+  1de88  vmov.i32 d2, #0
+  1de8c  r1 = IVOFF(posY)
+  1de8e  r2 = 0
+  1de90  r0 = IVOFF(tapOrGesture)
+  1de92  add r1, r4
+  1de94  vldr s0, [r1]
+  1de98  r1 = 0
+  1de9a  r0 = self->tapOrGesture
+  1de9c  vcmpe.f32 s0, s2
+  1dea0  vmrs apsr_nzcv, fpscr
+  1dea4  vcmpe.f32 s0, s4
+  1deac  vmrs apsr_nzcv, fpscr
+  1deb4  cmp self->tapOrGesture, 0
+  1deb6  orr.w r1, r1, r2
+  1deba  beq L_1e000
+  1debe  cmp r1, 0
+  1dec0  beq L_1dfa0
+  1dec2  s2 = 49
+  1dec6  vcmpe.f32 s0, s2
+  1deca  vmrs apsr_nzcv, fpscr
+  1dece  blt L_1dee0
+  1ded0  s2 = 119
+  1ded4  vcmpe.f32 s0, s2
+  1ded8  vmrs apsr_nzcv, fpscr
+  1dedc  bls L_1e1b6
+L_1dee0:
+  1dee0  s2 = 132
+  1dee4  vcmpe.f32 s0, s2
+  1dee8  vmrs apsr_nzcv, fpscr
+  1deec  blt L_1defe
+  1deee  s2 = 202
+  1def2  vcmpe.f32 s0, s2
+  1def6  vmrs apsr_nzcv, fpscr
+  1defa  bls L_1e21a
+L_1defe:
+  1defe  s2 = 218
+  1df02  vcmpe.f32 s0, s2
+  1df06  vmrs apsr_nzcv, fpscr
+  1df0a  blt L_1df1c
+  1df0c  s2 = 288
+  1df10  vcmpe.f32 s0, s2
+  1df14  vmrs apsr_nzcv, fpscr
+  1df18  bls L_1e2e0
+L_1df1c:
+  1df1c  s2 = 320
+  1df20  vcmpe.f32 s0, s2
+  1df24  vmrs apsr_nzcv, fpscr
+  1df28  blt L_1e454
+  1df2c  s2 = 370
+L_1df30:
+  1df30  vcmpe.f32 s0, s2
+  1df34  vmrs apsr_nzcv, fpscr
+  1df38  bhi L_1e454
+  1df40  r2 = 6
+  1df4a  r0 = IVOFF(selectMenu)
+  1df50  r1 = IVOFF(restore_flag)
+  1df52  r0 = IVOFF(selectMenu)
+  1df54  self->selectMenu = 6
+  1df56  r0 = IVOFF(restore_flag)
+  1df58  r1 = self->restore_flag
+  1df5a  cmp self->restore_flag, 0
+  1df5c  bne L_1e4b8
+  1df64  r2 = 1
+  1df6a  self->restore_flag = 1
+  1df6c  r1 = SEL(StopElseSpeak)
+  1df70  r1 = SEL(StopElseSpeak)
+  1df72  r0 = [r0 StopElseSpeak](1, ?)
+  1df86  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1df88  r2 = 370
+  1df8c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1df8e  r0 = 0
+  1df9a  r0 = [r0 playSound:Gain:Pos:z:reprats:](370, 0x3e4ccccd/f0.2)
+  1df9e  b L_1e4b8
+L_1dfa0:
+  1dfac  r0 = IVOFF(selectMenu)
+  1dfb2  r2 = IVOFF(go_back_flag)
+  1dfb4  r1 = IVOFF(selectMenu)
+  1dfb6  r0 = 1
+  1dfb8  self->selectMenu = 1
+  1dfba  r1 = IVOFF(go_back_flag)
+  1dfbc  r2 = self->go_back_flag
+  1dfbe  cmp self->go_back_flag, 0
+  1dfc0  bne L_1e4b8
+  1dfcc  self->go_back_flag = 1
+  1dfce  r2 = SEL(StopElseSpeak)
+  1dfd2  r1 = SEL(StopElseSpeak)
+  1dfd4  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  1dfe8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1dfea  r2 = 13
+  1dfec  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1dfee  r0 = 0
+  1dffa  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  1dffe  b L_1e4b8
+L_1e000:
+  1e000  cmp r1, 0
+  1e002  beq L_1e156
+  1e006  s2 = 49
+  1e00a  vcmpe.f32 s0, s2
+  1e00e  vmrs apsr_nzcv, fpscr
+  1e012  blt L_1e024
+  1e014  s2 = 119
+  1e018  vcmpe.f32 s0, s2
+  1e01c  vmrs apsr_nzcv, fpscr
+  1e020  bls L_1e27c
+L_1e024:
+  1e024  s2 = 132
+  1e028  vcmpe.f32 s0, s2
+  1e02c  vmrs apsr_nzcv, fpscr
+  1e030  blt L_1e042
+  1e032  s2 = 202
+  1e036  vcmpe.f32 s0, s2
+  1e03a  vmrs apsr_nzcv, fpscr
+  1e03e  bls L_1e342
+L_1e042:
+  1e042  s2 = 218
+  1e046  vcmpe.f32 s0, s2
+  1e04a  vmrs apsr_nzcv, fpscr
+  1e04e  blt L_1e060
+  1e050  s2 = 288
+  1e054  vcmpe.f32 s0, s2
+  1e058  vmrs apsr_nzcv, fpscr
+  1e05c  bls L_1e3a2
+L_1e060:
+  1e064  s2 = 320
+  1e06c  r0 = IVOFF(selectMenu)
+  1e06e  vcmpe.f32 s0, s2
+  1e072  vmrs apsr_nzcv, fpscr
+  1e076  r0 = IVOFF(selectMenu)
+  1e078  blt L_1e150
+  1e07a  s2 = 370
+  1e07e  b L_1e144
+  1e086  add r6, r1
+  1e08e  cmp r4, r0
+  1e09a  muls r5, r5, r5
+  1e0ae  rsbs r4, r0, #0
+  1e0b2  cmp r6, r5
+  1e0ba  muls r2, r1, r2
+  1e0be  muls r2, r3, r2
+L_1e0c8:
+  1e0c8  cmp r1, 0
+  1e0ca  beq L_1e156
+  1e0cc  s2 = 66
+  1e0d0  vcmpe.f32 s0, s2
+  1e0d4  vmrs apsr_nzcv, fpscr
+  1e0d8  blt L_1e0ea
+  1e0da  s2 = 136
+  1e0de  vcmpe.f32 s0, s2
+  1e0e2  vmrs apsr_nzcv, fpscr
+  1e0e6  bls L_1e27c
+L_1e0ea:
+  1e0ea  s2 = 167
+  1e0ee  vcmpe.f32 s0, s2
+  1e0f2  vmrs apsr_nzcv, fpscr
+  1e0f6  blt L_1e108
+  1e0f8  s2 = 237
+  1e0fc  vcmpe.f32 s0, s2
+  1e100  vmrs apsr_nzcv, fpscr
+  1e104  bls L_1e342
+L_1e108:
+  1e108  s2 = 268
+  1e10c  vcmpe.f32 s0, s2
+  1e110  vmrs apsr_nzcv, fpscr
+  1e114  blt L_1e126
+  1e116  s2 = 338
+  1e11a  vcmpe.f32 s0, s2
+  1e11e  vmrs apsr_nzcv, fpscr
+  1e122  bls L_1e3a2
+L_1e126:
+  1e12a  s2 = 380
+  1e132  r0 = IVOFF(selectMenu)
+  1e134  vcmpe.f32 s0, s2
+  1e138  vmrs apsr_nzcv, fpscr
+  1e13c  r0 = IVOFF(selectMenu)
+  1e13e  blt L_1e150
+  1e140  s2 = 430
+L_1e144:
+  1e144  vcmpe.f32 s0, s2
+  1e148  vmrs apsr_nzcv, fpscr
+  1e14c  bls L_1e402
+L_1e150:
+  1e150  r1 = 0
+  1e152  self->selectMenu = 0
+  1e154  b L_1e454
+L_1e156:
+  1e162  r0 = IVOFF(selectMenu)
+  1e168  r2 = IVOFF(go_back_flag)
+  1e16a  r1 = IVOFF(selectMenu)
+  1e16c  r0 = 1
+  1e16e  self->selectMenu = 1
+  1e170  r1 = IVOFF(go_back_flag)
+  1e172  r2 = self->go_back_flag
+  1e174  cmp self->go_back_flag, 0
+  1e176  bne L_1e454
+  1e182  self->go_back_flag = 1
+  1e184  r2 = SEL(StopElseSpeak)
+  1e188  r1 = SEL(StopElseSpeak)
+  1e18a  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  1e19e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e1a0  r2 = 13
+  1e1a2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e1a4  r0 = 0
+  1e1b0  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  1e1b4  b L_1e454
+L_1e1b6:
+  1e1ba  r2 = 5
+  1e1c4  r0 = IVOFF(selectMenu)
+  1e1ca  r1 = IVOFF(coin_flag)
+  1e1cc  r0 = IVOFF(selectMenu)
+  1e1ce  self->selectMenu = 5
+  1e1d0  r0 = IVOFF(coin_flag)
+  1e1d2  r1 = self->coin_flag
+  1e1d4  cmp self->coin_flag, 0
+  1e1d6  bne L_1e4b8
+  1e1de  r2 = 1
+  1e1e4  self->coin_flag = 1
+  1e1e6  r1 = SEL(StopElseSpeak)
+  1e1ea  r1 = SEL(StopElseSpeak)
+  1e1ec  r0 = [r0 StopElseSpeak](1, ?)
+  1e200  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e202  r2 = 342
+  1e206  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e208  r0 = 0
+  1e214  r0 = [r0 playSound:Gain:Pos:z:reprats:](342, 0x3e4ccccd/f0.2)
+  1e218  b L_1e4b8
+L_1e21a:
+  1e21e  r2 = 2
+  1e228  r0 = IVOFF(selectMenu)
+  1e22e  r1 = IVOFF(weapon_flag)
+  1e230  r0 = IVOFF(selectMenu)
+  1e232  self->selectMenu = 2
+  1e234  r0 = IVOFF(weapon_flag)
+  1e236  r1 = self->weapon_flag
+  1e238  cmp self->weapon_flag, 0
+  1e23a  bne L_1e4b8
+  1e242  r2 = 1
+  1e248  self->weapon_flag = 1
+  1e24a  r1 = SEL(StopElseSpeak)
+  1e24e  r1 = SEL(StopElseSpeak)
+  1e250  r0 = [r0 StopElseSpeak](1, ?)
+  1e264  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e266  r2 = 235
+  1e268  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e26a  r0 = 0
+  1e276  r0 = [r0 playSound:Gain:Pos:z:reprats:](235, 0x3e4ccccd/f0.2)
+  1e27a  b L_1e4b8
+L_1e27c:
+  1e280  r2 = 5
+  1e28a  r0 = IVOFF(selectMenu)
+  1e290  r1 = IVOFF(coin_flag)
+  1e292  r0 = IVOFF(selectMenu)
+  1e294  self->selectMenu = 5
+  1e296  r0 = IVOFF(coin_flag)
+  1e298  r1 = self->coin_flag
+  1e29a  cmp self->coin_flag, 0
+  1e29c  bne L_1e454
+  1e2a4  r2 = 1
+  1e2aa  self->coin_flag = 1
+  1e2ac  r1 = SEL(StopElseSpeak)
+  1e2b0  r1 = SEL(StopElseSpeak)
+  1e2b2  r0 = [r0 StopElseSpeak](1, ?)
+  1e2c6  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e2c8  r2 = 342
+  1e2cc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e2ce  r0 = 0
+  1e2da  r0 = [r0 playSound:Gain:Pos:z:reprats:](342, 0x3e4ccccd/f0.2)
+  1e2de  b L_1e454
+L_1e2e0:
+  1e2e4  r2 = 4
+  1e2ee  r0 = IVOFF(selectMenu)
+  1e2f4  r1 = IVOFF(invantory_flag)
+  1e2f6  r0 = IVOFF(selectMenu)
+  1e2f8  self->selectMenu = 4
+  1e2fa  r0 = IVOFF(invantory_flag)
+  1e2fc  r1 = self->invantory_flag
+  1e2fe  cmp self->invantory_flag, 0
+  1e300  bne L_1e4b8
+  1e308  r2 = 1
+  1e30e  self->invantory_flag = 1
+  1e310  r1 = SEL(StopElseSpeak)
+  1e314  r1 = SEL(StopElseSpeak)
+  1e316  r0 = [r0 StopElseSpeak](1, ?)
+  1e32a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e32c  r2 = 237
+  1e32e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e330  r0 = 0
+  1e33c  r0 = [r0 playSound:Gain:Pos:z:reprats:](237, 0x3e4ccccd/f0.2)
+  1e340  b L_1e4b8
+L_1e342:
+  1e346  r2 = 2
+  1e350  r0 = IVOFF(selectMenu)
+  1e356  r1 = IVOFF(weapon_flag)
+  1e358  r0 = IVOFF(selectMenu)
+  1e35a  self->selectMenu = 2
+  1e35c  r0 = IVOFF(weapon_flag)
+  1e35e  r1 = self->weapon_flag
+  1e360  cmp self->weapon_flag, 0
+  1e362  bne L_1e454
+  1e368  r2 = 1
+  1e36e  self->weapon_flag = 1
+  1e370  r1 = SEL(StopElseSpeak)
+  1e374  r1 = SEL(StopElseSpeak)
+  1e376  r0 = [r0 StopElseSpeak](1, ?)
+  1e38a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e38c  r2 = 235
+  1e38e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e390  r0 = 0
+  1e39c  r0 = [r0 playSound:Gain:Pos:z:reprats:](235, 0x3e4ccccd/f0.2)
+  1e3a0  b L_1e454
+L_1e3a2:
+  1e3a6  r2 = 4
+  1e3b0  r0 = IVOFF(selectMenu)
+  1e3b6  r1 = IVOFF(invantory_flag)
+  1e3b8  r0 = IVOFF(selectMenu)
+  1e3ba  self->selectMenu = 4
+  1e3bc  r0 = IVOFF(invantory_flag)
+  1e3be  r1 = self->invantory_flag
+  1e3c0  cmp self->invantory_flag, 0
+  1e3c2  bne L_1e454
+  1e3c8  r2 = 1
+  1e3ce  self->invantory_flag = 1
+  1e3d0  r1 = SEL(StopElseSpeak)
+  1e3d4  r1 = SEL(StopElseSpeak)
+  1e3d6  r0 = [r0 StopElseSpeak](1, ?)
+  1e3ea  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e3ec  r2 = 237
+  1e3ee  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e3f0  r0 = 0
+  1e3fc  r0 = [r0 playSound:Gain:Pos:z:reprats:](237, 0x3e4ccccd/f0.2)
+  1e400  b L_1e454
+L_1e402:
+  1e406  r2 = 6
+  1e40e  r1 = IVOFF(restore_flag)
+  1e410  r0 = IVOFF(restore_flag)
+  1e412  r1 = self->restore_flag
+  1e414  cbnz self->restore_flag -> L_1e454
+  1e41a  r2 = 1
+  1e420  self->restore_flag = 1
+  1e422  r1 = SEL(StopElseSpeak)
+  1e426  r1 = SEL(StopElseSpeak)
+  1e428  r0 = [r0 StopElseSpeak](1, ?)
+  1e43c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e43e  r2 = 370
+  1e442  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e444  r0 = 0
+  1e450  r0 = [r0 playSound:Gain:Pos:z:reprats:](370, 0x3e4ccccd/f0.2)
+L_1e454:
+  1e460  r0 = IVOFF(go_back_flag)
+  1e466  r2 = IVOFF(weapon_flag)
+  1e468  r1 = IVOFF(go_back_flag)
+  1e46a  r0 = 0
+  1e46c  self->go_back_flag = 0
+  1e46e  r1 = IVOFF(weapon_flag)
+  1e478  r2 = IVOFF(item_flag)
+  1e47a  self->weapon_flag = 0
+  1e47c  r1 = IVOFF(item_flag)
+  1e486  r2 = IVOFF(gold_flag)
+  1e488  self->item_flag = 0
+  1e48a  r1 = IVOFF(gold_flag)
+  1e494  r2 = IVOFF(invantory_flag)
+  1e496  self->gold_flag = 0
+  1e498  r1 = IVOFF(invantory_flag)
+  1e4a2  r2 = IVOFF(coin_flag)
+  1e4a4  self->invantory_flag = 0
+  1e4a6  r1 = IVOFF(coin_flag)
+  1e4b0  r2 = IVOFF(restore_flag)
+  1e4b2  self->coin_flag = 0
+  1e4b4  r1 = IVOFF(restore_flag)
+  1e4b6  self->restore_flag = 0
+L_1e4b8:
+  1e4c0  r0 = SEL(mode)
+  1e4c2  r1 = SEL(mode)
+  1e4c6  r0 = [r0 mode](IVOFF(restore_flag), ?)
+  1e4ce  beq L_1e4e2
+  1e4d8  r0 = SEL(blindModeSelectedMenu)
+  1e4da  r1 = SEL(blindModeSelectedMenu)
+  1e4de  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_1e4e2:
+  1e4e2  add sp, #0x30
+  1e4e8  return
+
+//// -[mainStoreController goBackAction:]  0x1e4f8..0x1e554  v12@0:4@8
+  1e4fa  add r7, sp, #4
+  1e4fc  sub sp, #0x10
+  1e500  call sub_3ccc
+  1e510  r2 = 0
+  1e512  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e51c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e522  r2 = 10
+  1e524  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1e530  r0 = SEL(navigationController)
+  1e532  r1 = SEL(navigationController)
+  1e536  r0 = [r0 navigationController](?, ?)
+  1e53e  r2 = 0
+  1e544  r1 = SEL(popViewControllerAnimated:)
+  1e546  r1 = SEL(popViewControllerAnimated:)
+  1e548  add sp, #0x10
+  1e54e  b L_a90d0
+
+//// -[mainStoreController weaponShopAction:]  0x1e554..0x1e6dc  v12@0:4@8
+  1e556  add r7, sp, #0xc
+  1e55c  sub sp, #0x30
+  1e560  call sub_3ccc
+  1e570  r2 = 0
+  1e572  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e57c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e582  r2 = 10
+  1e584  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1e590  r0 = CFSTR('StoreController')
+  1e592  call _NSClassFromString
+  1e59e  r1 = SEL(alloc)
+  1e5a0  r1 = SEL(alloc)
+  1e5a2  r0 = [r0 alloc](?, ?)
+  1e5b8  r0 = SEL(mainScreen)
+  1e5ba  r4 = UIScreen
+  1e5bc  r6 = SEL(mainScreen)
+  1e5be  r0 = UIScreen
+  1e5c2  r0 = [UIScreen mainScreen](?, ?)
+  1e5c8  cmp r1, 0
+  1e5ca  beq L_1e604
+  1e5d4  r0 = SEL(bounds)
+  1e5d6  r2 = SEL(bounds)
+  1e5d8  add r0, sp, #0x20
+  1e5da  r0 = [r0 ??](SEL(bounds), ?)
+  1e5de  s0 = 320
+  1e5e2  vldr s2, [sp, #0x28]
+  1e5e6  vcmpe.f32 s2, s0
+  1e5ea  vmrs apsr_nzcv, fpscr
+  1e5ee  bne L_1e60e
+  1e5f0  vldr s0, [sp, #0x2c]
+  1e5f4  s2 = 568
+  1e5f8  vcmpe.f32 s0, s2
+  1e5fc  vmrs apsr_nzcv, fpscr
+  1e600  beq L_1e652
+  1e602  b L_1e60e
+L_1e604:
+  1e604  vmov.i32 q8, #0
+  1e608  add r0, sp, #0x20
+  1e60a  vst1.32 {d16, d17}, [r0]
+L_1e60e:
+  1e60e  r0 = UIScreen
+  1e612  r0 = [UIScreen mainScreen](?, ?)
+  1e618  cmp r1, 0
+  1e61a  beq L_1e668
+  1e624  r0 = SEL(bounds)
+  1e626  r2 = SEL(bounds)
+  1e628  add r0, sp, #0x10
+  1e62a  r0 = [r0 ??](SEL(bounds), ?)
+  1e62e  s0 = 568
+  1e632  vldr s2, [sp, #0x18]
+  1e636  vcmpe.f32 s2, s0
+  1e63a  vmrs apsr_nzcv, fpscr
+  1e63e  bne L_1e672
+  1e640  vldr s0, [sp, #0x1c]
+  1e644  s2 = 320
+  1e648  vcmpe.f32 s0, s2
+  1e64c  vmrs apsr_nzcv, fpscr
+  1e650  bne L_1e672
+L_1e652:
+  1e662  r0 = SEL(initWithNibName:bundle:)
+  1e664  r2 = CFSTR('StoreController~568h')
+  1e666  b L_1e686
+L_1e668:
+  1e668  vmov.i32 q8, #0
+  1e66c  add r0, sp, #0x10
+  1e66e  vst1.32 {d16, d17}, [r0]
+L_1e672:
+  1e682  r0 = SEL(initWithNibName:bundle:)
+  1e684  r2 = CFSTR('StoreController')
+L_1e686:
+  1e686  r1 = SEL(initWithNibName:bundle:)
+  1e68a  r3 = 0
+  1e68c  r0 = [r0 initWithNibName:bundle:](CFSTR('StoreController'), 0)
+  1e69a  r0 = SEL(navigationController)
+  1e69c  r1 = SEL(navigationController)
+  1e6a0  r0 = [r0 navigationController](?, ?)
+  1e6ae  r3 = 0
+  1e6b0  r1 = SEL(pushViewController:animated:)
+  1e6b2  r1 = SEL(pushViewController:animated:)
+  1e6b4  r0 = [r0 pushViewController:animated:](?, 0)
+  1e6c0  r0 = SEL(release)
+  1e6c2  r1 = SEL(release)
+  1e6c6  r0 = [r0 release](?, ?)
+  1e6ca  add sp, #0x30
+  1e6d0  return
+  1e6da  add r6, r1
+
+//// -[mainStoreController itemShopAction:]  0x1e6dc..0x1e6e0  v12@0:4@8
+
+//// -[mainStoreController glodShopAction:]  0x1e6e0..0x1e868  v12@0:4@8
+  1e6e2  add r7, sp, #0xc
+  1e6e8  sub sp, #0x30
+  1e6ec  call sub_3ccc
+  1e6fc  r2 = 0
+  1e6fe  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e708  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e70e  r2 = 10
+  1e710  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1e71c  r0 = CFSTR('GoldStoreController')
+  1e71e  call _NSClassFromString
+  1e72a  r1 = SEL(alloc)
+  1e72c  r1 = SEL(alloc)
+  1e72e  r0 = [r0 alloc](?, ?)
+  1e744  r0 = SEL(mainScreen)
+  1e746  r4 = UIScreen
+  1e748  r6 = SEL(mainScreen)
+  1e74a  r0 = UIScreen
+  1e74e  r0 = [UIScreen mainScreen](?, ?)
+  1e754  cmp r1, 0
+  1e756  beq L_1e790
+  1e760  r0 = SEL(bounds)
+  1e762  r2 = SEL(bounds)
+  1e764  add r0, sp, #0x20
+  1e766  r0 = [r0 ??](SEL(bounds), ?)
+  1e76a  s0 = 320
+  1e76e  vldr s2, [sp, #0x28]
+  1e772  vcmpe.f32 s2, s0
+  1e776  vmrs apsr_nzcv, fpscr
+  1e77a  bne L_1e79a
+  1e77c  vldr s0, [sp, #0x2c]
+  1e780  s2 = 568
+  1e784  vcmpe.f32 s0, s2
+  1e788  vmrs apsr_nzcv, fpscr
+  1e78c  beq L_1e7de
+  1e78e  b L_1e79a
+L_1e790:
+  1e790  vmov.i32 q8, #0
+  1e794  add r0, sp, #0x20
+  1e796  vst1.32 {d16, d17}, [r0]
+L_1e79a:
+  1e79a  r0 = UIScreen
+  1e79e  r0 = [UIScreen mainScreen](?, ?)
+  1e7a4  cmp r1, 0
+  1e7a6  beq L_1e7f4
+  1e7b0  r0 = SEL(bounds)
+  1e7b2  r2 = SEL(bounds)
+  1e7b4  add r0, sp, #0x10
+  1e7b6  r0 = [r0 ??](SEL(bounds), ?)
+  1e7ba  s0 = 568
+  1e7be  vldr s2, [sp, #0x18]
+  1e7c2  vcmpe.f32 s2, s0
+  1e7c6  vmrs apsr_nzcv, fpscr
+  1e7ca  bne L_1e7fe
+  1e7cc  vldr s0, [sp, #0x1c]
+  1e7d0  s2 = 320
+  1e7d4  vcmpe.f32 s0, s2
+  1e7d8  vmrs apsr_nzcv, fpscr
+  1e7dc  bne L_1e7fe
+L_1e7de:
+  1e7ee  r0 = SEL(initWithNibName:bundle:)
+  1e7f0  r2 = CFSTR('GoldStoreController~568h')
+  1e7f2  b L_1e812
+L_1e7f4:
+  1e7f4  vmov.i32 q8, #0
+  1e7f8  add r0, sp, #0x10
+  1e7fa  vst1.32 {d16, d17}, [r0]
+L_1e7fe:
+  1e80e  r0 = SEL(initWithNibName:bundle:)
+  1e810  r2 = CFSTR('GoldStoreController')
+L_1e812:
+  1e812  r1 = SEL(initWithNibName:bundle:)
+  1e816  r3 = 0
+  1e818  r0 = [r0 initWithNibName:bundle:](CFSTR('GoldStoreController'), 0)
+  1e826  r0 = SEL(navigationController)
+  1e828  r1 = SEL(navigationController)
+  1e82c  r0 = [r0 navigationController](?, ?)
+  1e83a  r3 = 0
+  1e83c  r1 = SEL(pushViewController:animated:)
+  1e83e  r1 = SEL(pushViewController:animated:)
+  1e840  r0 = [r0 pushViewController:animated:](?, 0)
+  1e84c  r0 = SEL(release)
+  1e84e  r1 = SEL(release)
+  1e852  r0 = [r0 release](?, ?)
+  1e856  add sp, #0x30
+  1e85c  return
+  1e866  add r6, r1
+
+//// -[mainStoreController inventoryAction:]  0x1e868..0x1e9f0  v12@0:4@8
+  1e86a  add r7, sp, #0xc
+  1e870  sub sp, #0x30
+  1e874  call sub_3ccc
+  1e884  r2 = 0
+  1e886  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e890  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1e896  r2 = 10
+  1e898  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1e8a4  r0 = CFSTR('InventoryController')
+  1e8a6  call _NSClassFromString
+  1e8b2  r1 = SEL(alloc)
+  1e8b4  r1 = SEL(alloc)
+  1e8b6  r0 = [r0 alloc](?, ?)
+  1e8cc  r0 = SEL(mainScreen)
+  1e8ce  r4 = UIScreen
+  1e8d0  r6 = SEL(mainScreen)
+  1e8d2  r0 = UIScreen
+  1e8d6  r0 = [UIScreen mainScreen](?, ?)
+  1e8dc  cmp r1, 0
+  1e8de  beq L_1e918
+  1e8e8  r0 = SEL(bounds)
+  1e8ea  r2 = SEL(bounds)
+  1e8ec  add r0, sp, #0x20
+  1e8ee  r0 = [r0 ??](SEL(bounds), ?)
+  1e8f2  s0 = 320
+  1e8f6  vldr s2, [sp, #0x28]
+  1e8fa  vcmpe.f32 s2, s0
+  1e8fe  vmrs apsr_nzcv, fpscr
+  1e902  bne L_1e922
+  1e904  vldr s0, [sp, #0x2c]
+  1e908  s2 = 568
+  1e90c  vcmpe.f32 s0, s2
+  1e910  vmrs apsr_nzcv, fpscr
+  1e914  beq L_1e966
+  1e916  b L_1e922
+L_1e918:
+  1e918  vmov.i32 q8, #0
+  1e91c  add r0, sp, #0x20
+  1e91e  vst1.32 {d16, d17}, [r0]
+L_1e922:
+  1e922  r0 = UIScreen
+  1e926  r0 = [UIScreen mainScreen](?, ?)
+  1e92c  cmp r1, 0
+  1e92e  beq L_1e97c
+  1e938  r0 = SEL(bounds)
+  1e93a  r2 = SEL(bounds)
+  1e93c  add r0, sp, #0x10
+  1e93e  r0 = [r0 ??](SEL(bounds), ?)
+  1e942  s0 = 568
+  1e946  vldr s2, [sp, #0x18]
+  1e94a  vcmpe.f32 s2, s0
+  1e94e  vmrs apsr_nzcv, fpscr
+  1e952  bne L_1e986
+  1e954  vldr s0, [sp, #0x1c]
+  1e958  s2 = 320
+  1e95c  vcmpe.f32 s0, s2
+  1e960  vmrs apsr_nzcv, fpscr
+  1e964  bne L_1e986
+L_1e966:
+  1e976  r0 = SEL(initWithNibName:bundle:)
+  1e978  r2 = CFSTR('InventoryController~568h')
+  1e97a  b L_1e99a
+L_1e97c:
+  1e97c  vmov.i32 q8, #0
+  1e980  add r0, sp, #0x10
+  1e982  vst1.32 {d16, d17}, [r0]
+L_1e986:
+  1e996  r0 = SEL(initWithNibName:bundle:)
+  1e998  r2 = CFSTR('InventoryController')
+L_1e99a:
+  1e99a  r1 = SEL(initWithNibName:bundle:)
+  1e99e  r3 = 0
+  1e9a0  r0 = [r0 initWithNibName:bundle:](CFSTR('InventoryController'), 0)
+  1e9ae  r0 = SEL(navigationController)
+  1e9b0  r1 = SEL(navigationController)
+  1e9b4  r0 = [r0 navigationController](?, ?)
+  1e9c2  r3 = 0
+  1e9c4  r1 = SEL(pushViewController:animated:)
+  1e9c6  r1 = SEL(pushViewController:animated:)
+  1e9c8  r0 = [r0 pushViewController:animated:](?, 0)
+  1e9d4  r0 = SEL(release)
+  1e9d6  r1 = SEL(release)
+  1e9da  r0 = [r0 release](?, ?)
+  1e9de  add sp, #0x30
+  1e9e4  return
+  1e9ee  add r6, r1
+
+//// -[mainStoreController coinShopAction:]  0x1e9f0..0x1eb78  v12@0:4@8
+  1e9f2  add r7, sp, #0xc
+  1e9f8  sub sp, #0x30
+  1e9fc  call sub_3ccc
+  1ea0c  r2 = 0
+  1ea0e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1ea18  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1ea1e  r2 = 10
+  1ea20  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1ea2c  r0 = CFSTR('CoinStoreController')
+  1ea2e  call _NSClassFromString
+  1ea3a  r1 = SEL(alloc)
+  1ea3c  r1 = SEL(alloc)
+  1ea3e  r0 = [r0 alloc](?, ?)
+  1ea54  r0 = SEL(mainScreen)
+  1ea56  r4 = UIScreen
+  1ea58  r6 = SEL(mainScreen)
+  1ea5a  r0 = UIScreen
+  1ea5e  r0 = [UIScreen mainScreen](?, ?)
+  1ea64  cmp r1, 0
+  1ea66  beq L_1eaa0
+  1ea70  r0 = SEL(bounds)
+  1ea72  r2 = SEL(bounds)
+  1ea74  add r0, sp, #0x20
+  1ea76  r0 = [r0 ??](SEL(bounds), ?)
+  1ea7a  s0 = 320
+  1ea7e  vldr s2, [sp, #0x28]
+  1ea82  vcmpe.f32 s2, s0
+  1ea86  vmrs apsr_nzcv, fpscr
+  1ea8a  bne L_1eaaa
+  1ea8c  vldr s0, [sp, #0x2c]
+  1ea90  s2 = 568
+  1ea94  vcmpe.f32 s0, s2
+  1ea98  vmrs apsr_nzcv, fpscr
+  1ea9c  beq L_1eaee
+  1ea9e  b L_1eaaa
+L_1eaa0:
+  1eaa0  vmov.i32 q8, #0
+  1eaa4  add r0, sp, #0x20
+  1eaa6  vst1.32 {d16, d17}, [r0]
+L_1eaaa:
+  1eaaa  r0 = UIScreen
+  1eaae  r0 = [UIScreen mainScreen](?, ?)
+  1eab4  cmp r1, 0
+  1eab6  beq L_1eb04
+  1eac0  r0 = SEL(bounds)
+  1eac2  r2 = SEL(bounds)
+  1eac4  add r0, sp, #0x10
+  1eac6  r0 = [r0 ??](SEL(bounds), ?)
+  1eaca  s0 = 568
+  1eace  vldr s2, [sp, #0x18]
+  1ead2  vcmpe.f32 s2, s0
+  1ead6  vmrs apsr_nzcv, fpscr
+  1eada  bne L_1eb0e
+  1eadc  vldr s0, [sp, #0x1c]
+  1eae0  s2 = 320
+  1eae4  vcmpe.f32 s0, s2
+  1eae8  vmrs apsr_nzcv, fpscr
+  1eaec  bne L_1eb0e
+L_1eaee:
+  1eafe  r0 = SEL(initWithNibName:bundle:)
+  1eb00  r2 = CFSTR('CoinStoreController~568h')
+  1eb02  b L_1eb22
+L_1eb04:
+  1eb04  vmov.i32 q8, #0
+  1eb08  add r0, sp, #0x10
+  1eb0a  vst1.32 {d16, d17}, [r0]
+L_1eb0e:
+  1eb1e  r0 = SEL(initWithNibName:bundle:)
+  1eb20  r2 = CFSTR('CoinStoreController')
+L_1eb22:
+  1eb22  r1 = SEL(initWithNibName:bundle:)
+  1eb26  r3 = 0
+  1eb28  r0 = [r0 initWithNibName:bundle:](CFSTR('CoinStoreController'), 0)
+  1eb36  r0 = SEL(navigationController)
+  1eb38  r1 = SEL(navigationController)
+  1eb3c  r0 = [r0 navigationController](?, ?)
+  1eb4a  r3 = 0
+  1eb4c  r1 = SEL(pushViewController:animated:)
+  1eb4e  r1 = SEL(pushViewController:animated:)
+  1eb50  r0 = [r0 pushViewController:animated:](?, 0)
+  1eb5c  r0 = SEL(release)
+  1eb5e  r1 = SEL(release)
+  1eb62  r0 = [r0 release](?, ?)
+  1eb66  add sp, #0x30
+  1eb6c  return
+  1eb76  add r6, r1
+
+//// -[mainStoreController restoreAction:]  0x1eb78..0x1eb94  v12@0:4@8
+  1eb7c  call sub_3ccc
+  1eb88  r1 = SEL(checkPurchasedItems)
+  1eb8a  r1 = SEL(checkPurchasedItems)
+  1eb90  b L_a90d0
+
+//// -[mainStoreController buyAllWeaponsRestore]  0x1eb94..0x1ec10  v8@0:4
+  1eb96  add r7, sp, #4
+  1eb98  sub sp, #0xc
+  1ebaa  r0 = SEL(alloc)
+  1ebac  r2 = UIAlertView
+  1ebae  r1 = SEL(alloc)
+  1ebb0  r0 = UIAlertView
+  1ebb2  r0 = [UIAlertView alloc](UIAlertView, ?)
+  1ebba  r4 = 0
+  1ebc4  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  1ebce  r3 = CFSTR('Purchase has been completed.')
+  1ebd4  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  1ebd6  r2 = CFSTR('OK')
+  1ebdc  r2 = 0
+  1ebe0  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  1ebee  r0 = SEL(show)
+  1ebf0  r1 = SEL(show)
+  1ebf4  r0 = [r0 show](?, ?)
+  1ec00  r0 = SEL(release)
+  1ec02  r1 = SEL(release)
+  1ec06  add sp, #0xc
+  1ec0c  b L_a90d0
+
+//// -[mainStoreController buyAllWeaponsRestoreNON]  0x1ec10..0x1ecb4  v8@0:4
+  1ec12  add r7, sp, #4
+  1ec14  sub sp, #0x10
+  1ec16  call sub_3ccc
+  1ec26  r4 = 0
+  1ec28  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1ec2e  r2 = 10
+  1ec32  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  1ec3a  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  1ec4e  r0 = SEL(alloc)
+  1ec50  r2 = UIAlertView
+  1ec52  r1 = SEL(alloc)
+  1ec54  r0 = UIAlertView
+  1ec56  r0 = [UIAlertView alloc](UIAlertView, ?)
+  1ec66  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  1ec70  r3 = CFSTR('Did not purchase the product.')
+  1ec76  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  1ec78  r2 = CFSTR('OK')
+  1ec7e  r2 = 0
+  1ec82  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Did not purchase the product.'))
+  1ec90  r0 = SEL(show)
+  1ec92  r1 = SEL(show)
+  1ec96  r0 = [r0 show](?, ?)
+  1eca2  r0 = SEL(release)
+  1eca4  r1 = SEL(release)
+  1eca8  add sp, #0x10
+  1ecae  b L_a90d0
+
+//// -[mainStoreController goBackButton]  0x1ecb4..0x1ecc4  @8@0:4
+  1ecbc  r1 = IVOFF(goBackButton)
+  1ecbe  r1 = IVOFF(goBackButton)
+  1ecc0  r0 = self->goBackButton
+
+//// -[mainStoreController setGoBackButton:]  0x1ecc4..0x1ece8  v12@0:4@8
+  1ecc8  sub sp, #8
+  1ecd4  r3 = 0
+  1ecd6  r2 = IVOFF(goBackButton)
+  1ecde  r2 = IVOFF(goBackButton)
+  1ece0  call _objc_setProperty
+  1ece4  add sp, #8
+  1ece6  return
+
+//// -[mainStoreController weaponShopButton]  0x1ece8..0x1ecf8  @8@0:4
+  1ecf0  r1 = IVOFF(weaponShopButton)
+  1ecf2  r1 = IVOFF(weaponShopButton)
+  1ecf4  r0 = self->weaponShopButton
+
+//// -[mainStoreController setWeaponShopButton:]  0x1ecf8..0x1ed1c  v12@0:4@8
+  1ecfc  sub sp, #8
+  1ed08  r3 = 0
+  1ed0a  r2 = IVOFF(weaponShopButton)
+  1ed12  r2 = IVOFF(weaponShopButton)
+  1ed14  call _objc_setProperty
+  1ed18  add sp, #8
+  1ed1a  return
+
+//// -[mainStoreController itemShopButton]  0x1ed1c..0x1ed2c  @8@0:4
+  1ed24  r1 = IVOFF(itemShopButton)
+  1ed26  r1 = IVOFF(itemShopButton)
+  1ed28  r0 = self->itemShopButton
+
+//// -[mainStoreController setItemShopButton:]  0x1ed2c..0x1ed50  v12@0:4@8
+  1ed30  sub sp, #8
+  1ed3c  r3 = 0
+  1ed3e  r2 = IVOFF(itemShopButton)
+  1ed46  r2 = IVOFF(itemShopButton)
+  1ed48  call _objc_setProperty
+  1ed4c  add sp, #8
+  1ed4e  return
+
+//// -[mainStoreController glodShopButton]  0x1ed50..0x1ed60  @8@0:4
+  1ed58  r1 = IVOFF(glodShopButton)
+  1ed5a  r1 = IVOFF(glodShopButton)
+  1ed5c  r0 = self->glodShopButton
+
+//// -[mainStoreController setGlodShopButton:]  0x1ed60..0x1ed84  v12@0:4@8
+  1ed64  sub sp, #8
+  1ed70  r3 = 0
+  1ed72  r2 = IVOFF(glodShopButton)
+  1ed7a  r2 = IVOFF(glodShopButton)
+  1ed7c  call _objc_setProperty
+  1ed80  add sp, #8
+  1ed82  return
+
+//// -[mainStoreController inventoryButton]  0x1ed84..0x1ed94  @8@0:4
+  1ed8c  r1 = IVOFF(inventoryButton)
+  1ed8e  r1 = IVOFF(inventoryButton)
+  1ed90  r0 = self->inventoryButton
+
+//// -[mainStoreController setInventoryButton:]  0x1ed94..0x1edb8  v12@0:4@8
+  1ed98  sub sp, #8
+  1eda4  r3 = 0
+  1eda6  r2 = IVOFF(inventoryButton)
+  1edae  r2 = IVOFF(inventoryButton)
+  1edb0  call _objc_setProperty
+  1edb4  add sp, #8
+  1edb6  return
+
+//// -[mainStoreController round3]  0x1edb8..0x1edc8  @8@0:4
+  1edc0  r1 = IVOFF(_round3)
+  1edc2  r1 = IVOFF(_round3)
+  1edc4  r0 = self->_round3
+
+//// -[mainStoreController setRound3:]  0x1edc8..0x1edec  v12@0:4@8
+  1edcc  sub sp, #8
+  1edd8  r3 = 0
+  1edda  r2 = IVOFF(_round3)
+  1ede2  r2 = IVOFF(_round3)
+  1ede4  call _objc_setProperty
+  1ede8  add sp, #8
+  1edea  return
+
+//// -[mainStoreController round4]  0x1edec..0x1edfc  @8@0:4
+  1edf4  r1 = IVOFF(_round4)
+  1edf6  r1 = IVOFF(_round4)
+  1edf8  r0 = self->_round4
+
+//// -[mainStoreController setRound4:]  0x1edfc..0x1ee20  v12@0:4@8
+  1ee00  sub sp, #8
+  1ee0c  r3 = 0
+  1ee0e  r2 = IVOFF(_round4)
+  1ee16  r2 = IVOFF(_round4)
+  1ee18  call _objc_setProperty
+  1ee1c  add sp, #8
+  1ee1e  return
+
+//// -[mainStoreController round5]  0x1ee20..0x1ee30  @8@0:4
+  1ee28  r1 = IVOFF(_round5)
+  1ee2a  r1 = IVOFF(_round5)
+  1ee2c  r0 = self->_round5
+
+//// -[mainStoreController setRound5:]  0x1ee30..0x1ee54  v12@0:4@8
+  1ee34  sub sp, #8
+  1ee40  r3 = 0
+  1ee42  r2 = IVOFF(_round5)
+  1ee4a  r2 = IVOFF(_round5)
+  1ee4c  call _objc_setProperty
+  1ee50  add sp, #8
+  1ee52  return
+
+//// -[mainStoreController restoreButton]  0x1ee54..0x1ee64  @8@0:4
+  1ee5c  r1 = IVOFF(_restoreButton)
+  1ee5e  r1 = IVOFF(_restoreButton)
+  1ee60  r0 = self->_restoreButton
+
+//// -[mainStoreController setRestoreButton:]  0x1ee64..0x1ee88  v12@0:4@8
+  1ee68  sub sp, #8
+  1ee74  r3 = 0
+  1ee76  r2 = IVOFF(_restoreButton)
+  1ee7e  r2 = IVOFF(_restoreButton)
+  1ee80  call _objc_setProperty
+  1ee84  add sp, #8
+  1ee86  return
+
+//// -[mainStoreController round6]  0x1ee88..0x1ee98  @8@0:4
+  1ee90  r1 = IVOFF(_round6)
+  1ee92  r1 = IVOFF(_round6)
+  1ee94  r0 = self->_round6
+
+//// -[mainStoreController setRound6:]  0x1ee98..0x1eebc  v12@0:4@8
+  1ee9c  sub sp, #8
+  1eea8  r3 = 0
+  1eeaa  r2 = IVOFF(_round6)
+  1eeb2  r2 = IVOFF(_round6)
+  1eeb4  call _objc_setProperty
+  1eeb8  add sp, #8
+  1eeba  return
+
+//// -[mainStoreController coinShopButton]  0x1eebc..0x1eecc  @8@0:4
+  1eec4  r1 = IVOFF(_coinShopButton)
+  1eec6  r1 = IVOFF(_coinShopButton)
+  1eec8  r0 = self->_coinShopButton
+
+//// -[mainStoreController setCoinShopButton:]  0x1eecc..0x1eef0  v12@0:4@8
+  1eed0  sub sp, #8
+  1eedc  r3 = 0
+  1eede  r2 = IVOFF(_coinShopButton)
+  1eee6  r2 = IVOFF(_coinShopButton)
+  1eee8  call _objc_setProperty
+  1eeec  add sp, #8
+  1eeee  return
+
+//// -[mainStoreController round1]  0x1eef0..0x1ef00  @8@0:4
+  1eef8  r1 = IVOFF(_round1)
+  1eefa  r1 = IVOFF(_round1)
+  1eefc  r0 = self->_round1
+
+//// -[mainStoreController setRound1:]  0x1ef00..0x1ef24  v12@0:4@8
+  1ef04  sub sp, #8
+  1ef10  r3 = 0
+  1ef12  r2 = IVOFF(_round1)
+  1ef1a  r2 = IVOFF(_round1)
+  1ef1c  call _objc_setProperty
+  1ef20  add sp, #8
+  1ef22  return
+
+//// -[mainStoreController round2]  0x1ef24..0x1ef34  @8@0:4
+  1ef2c  r1 = IVOFF(_round2)
+  1ef2e  r1 = IVOFF(_round2)
+  1ef30  r0 = self->_round2
+
+//// -[mainStoreController setRound2:]  0x1ef34..0x1ef58  v12@0:4@8
+  1ef38  sub sp, #8
+  1ef44  r3 = 0
+  1ef46  r2 = IVOFF(_round2)
+  1ef4e  r2 = IVOFF(_round2)
+  1ef50  call _objc_setProperty
+  1ef54  add sp, #8
+  1ef56  return

@@ -1,0 +1,3241 @@
+
+//// -[AppDelegate init]  0x3d00..0x3dc0  @8@0:4
+  3d02  add r7, sp, #4
+  3d04  sub sp, #8
+  3d18  r1 = SEL(init)
+  3d1e  r1 = SEL(init)
+  3d24  r0 = [r0 init](0xdb09c/f1.25722e-39, ?) SUPER
+  3d2a  cmp r4, 0
+  3d2c  beq L_3dba
+  3d3e  r0 = SEL(array)
+  3d40  r2 = NSMutableArray
+  3d42  r1 = SEL(array)
+  3d44  r0 = NSMutableArray
+  3d46  r0 = [NSMutableArray array](NSMutableArray, ?)
+  3d54  r0 = SEL(setASoundBufControlData:)
+  3d56  r1 = SEL(setASoundBufControlData:)
+  3d5a  r0 = [r0 setASoundBufControlData:](?, ?)
+  3d6e  r0 = SEL(alloc)
+  3d70  r2 = AutoLoginController
+  3d72  r1 = SEL(alloc)
+  3d74  r0 = AutoLoginController
+  3d76  r0 = [AutoLoginController alloc](AutoLoginController, ?)
+  3d7e  r3 = 0
+  3d88  r1 = SEL(initWithNibName:bundle:)
+  3d8e  r2 = CFSTR('AutoLoginController')
+  3d90  r1 = SEL(initWithNibName:bundle:)
+  3d92  r0 = [r0 initWithNibName:bundle:](CFSTR('AutoLoginController'), 0)
+  3d9e  r1 = SEL(autorelease)
+  3da0  r1 = SEL(autorelease)
+  3da2  r0 = [r0 autorelease](?, ?)
+  3db0  r0 = SEL(setG_loginController:)
+  3db2  r1 = SEL(setG_loginController:)
+  3db6  r0 = [r0 setG_loginController:](?, ?)
+L_3dba:
+  3dbc  add sp, #8
+  3dbe  return
+
+//// -[AppDelegate dealloc]  0x3dc0..0x3f64  v8@0:4
+  3dc2  add r7, sp, #8
+  3dc4  sub sp, #8
+  3dd4  r0 = IVOFF(_loginview)
+  3dda  r1 = SEL(release)
+  3ddc  r0 = IVOFF(_loginview)
+  3dde  r5 = SEL(release)
+  3de0  r0 = self->_loginview
+  3de4  r0 = [self->_loginview release](?, ?)
+  3df2  r0 = IVOFF(_g_loginController)
+  3df4  r0 = IVOFF(_g_loginController)
+  3df6  r0 = self->_g_loginController
+  3df8  r0 = [self->_g_loginController release](?, ?)
+  3e06  r0 = IVOFF(_g_network_Buy)
+  3e08  r0 = IVOFF(_g_network_Buy)
+  3e0a  r0 = self->_g_network_Buy
+  3e0c  r0 = [self->_g_network_Buy release](?, ?)
+  3e1a  r0 = IVOFF(g_facebook)
+  3e1c  r0 = IVOFF(g_facebook)
+  3e1e  r0 = self->g_facebook
+  3e20  r0 = [self->g_facebook release](?, ?)
+  3e2e  r0 = IVOFF(g_token)
+  3e30  r0 = IVOFF(g_token)
+  3e32  r0 = self->g_token
+  3e34  r0 = [self->g_token release](?, ?)
+  3e42  r0 = IVOFF(g_key)
+  3e44  r0 = IVOFF(g_key)
+  3e46  r0 = self->g_key
+  3e48  r0 = [self->g_key release](?, ?)
+  3e56  r0 = IVOFF(g_email)
+  3e58  r0 = IVOFF(g_email)
+  3e5a  r0 = self->g_email
+  3e5c  r0 = [self->g_email release](?, ?)
+  3e6a  r0 = IVOFF(g_name)
+  3e6c  r0 = IVOFF(g_name)
+  3e6e  r0 = self->g_name
+  3e70  r0 = [self->g_name release](?, ?)
+  3e7e  r0 = IVOFF(_window)
+  3e80  r0 = IVOFF(_window)
+  3e82  r0 = self->_window
+  3e84  r0 = [self->_window release](?, ?)
+  3e92  r0 = IVOFF(bgURL)
+  3e94  r0 = IVOFF(bgURL)
+  3e96  r0 = self->bgURL
+  3e98  r0 = [self->bgURL release](?, ?)
+  3ea6  r0 = IVOFF(bgPlayer)
+  3ea8  r0 = IVOFF(bgPlayer)
+  3eaa  r0 = self->bgPlayer
+  3eac  r0 = [self->bgPlayer release](?, ?)
+  3eba  r0 = IVOFF(playback)
+  3ebc  r0 = IVOFF(playback)
+  3ebe  r0 = self->playback
+  3ec0  r0 = [self->playback release](?, ?)
+  3ece  r0 = IVOFF(mainNaviController)
+  3ed0  r0 = IVOFF(mainNaviController)
+  3ed2  r0 = self->mainNaviController
+  3ed4  r0 = [self->mainNaviController release](?, ?)
+  3ee2  r0 = IVOFF(numberBackUp)
+  3ee4  r0 = IVOFF(numberBackUp)
+  3ee6  r0 = self->numberBackUp
+  3ee8  r0 = [self->numberBackUp release](?, ?)
+  3ef6  r0 = IVOFF(haveWeapon)
+  3ef8  r0 = IVOFF(haveWeapon)
+  3efa  r0 = self->haveWeapon
+  3efc  r0 = [self->haveWeapon release](?, ?)
+  3f0a  r0 = IVOFF(aSoundBufControlData)
+  3f0c  r0 = IVOFF(aSoundBufControlData)
+  3f0e  r0 = self->aSoundBufControlData
+  3f10  r0 = [self->aSoundBufControlData release](?, ?)
+  3f1e  r0 = IVOFF(useWeapon)
+  3f20  r0 = IVOFF(useWeapon)
+  3f22  r0 = self->useWeapon
+  3f24  r0 = [self->useWeapon release](?, ?)
+  3f32  r0 = IVOFF(g_allweaponPrice)
+  3f34  r0 = IVOFF(g_allweaponPrice)
+  3f36  r0 = self->g_allweaponPrice
+  3f38  r0 = [self->g_allweaponPrice release](?, ?)
+  3f4e  r0 = SEL(dealloc)
+  3f56  r1 = SEL(dealloc)
+  3f5a  r0 = [r0 dealloc](?, ?) SUPER
+  3f5e  add sp, #8
+  3f60  return
+
+//// -[AppDelegate application:didFinishLaunchingWithOptions:]  0x3f64..0x4634  c16@0:4@8@12
+  3f66  add r7, sp, #0xc
+  3f6c  sub sp, #0x34
+  3f70  r0 = 0
+  3f72  call _UIAccessibilityIsVoiceOverRunning
+  3f90  r0 = SEL(sharedApplication)
+  3f92  r8 = UIApplication
+  3f94  r6 = SEL(sharedApplication)
+  3f96  r0 = UIApplication
+  3f9c  r0 = [UIApplication sharedApplication](?, ?)
+  3fa8  r1 = SEL(delegate)
+  3faa  r1 = SEL(delegate)
+  3fae  r0 = [r0 ??](?, ?)
+  3fbc  r0 = SEL(playback)
+  3fbe  r4 = SEL(playback)
+  3fc4  r0 = [r0 playback](?, ?)
+  3fc8  cbnz r0 -> L_400a
+  3fda  r0 = SEL(alloc)
+  3fdc  r2 = oalPlayback
+  3fde  r1 = SEL(alloc)
+  3fe0  r0 = oalPlayback
+  3fe2  r0 = [oalPlayback alloc](oalPlayback, ?)
+  3fee  r1 = SEL(init)
+  3ff0  r1 = SEL(init)
+  3ff2  r0 = [r0 init](?, ?)
+  4000  r0 = SEL(setPlayback:)
+  4002  r1 = SEL(setPlayback:)
+  4006  r0 = [r0 setPlayback:](?, ?)
+L_400a:
+  4010  r0 = [r0 playback](?, ?)
+  401c  r1 = SEL(setUpOpenAL)
+  401e  r1 = SEL(setUpOpenAL)
+  4020  r0 = [r0 setUpOpenAL](?, ?)
+  4034  r0 = SEL(iPodMusicPlayer)
+  4036  r5 = MPMusicPlayerController
+  4038  r4 = SEL(iPodMusicPlayer)
+  403a  r0 = MPMusicPlayerController
+  403e  r0 = [MPMusicPlayerController iPodMusicPlayer](?, ?)
+  404a  r1 = SEL(playbackState)
+  404c  r1 = SEL(playbackState)
+  404e  r0 = [r0 playbackState](?, ?)
+  4052  cmp r0, 1
+  4054  bne L_406e
+  4056  r0 = MPMusicPlayerController
+  405a  r0 = [MPMusicPlayerController iPodMusicPlayer](?, ?)
+  4066  r1 = SEL(pause)
+  4068  r1 = SEL(pause)
+  406a  r0 = [r0 pause](?, ?)
+L_406e:
+  406e  r0 = UIApplication
+  4076  r0 = [UIApplication sharedApplication](?, ?)
+  407e  r2 = 1
+  4084  r1 = SEL(setStatusBarHidden:)
+  4086  r1 = SEL(setStatusBarHidden:)
+  4088  r0 = [r0 setStatusBarHidden:](1, ?)
+  409c  r0 = SEL(currentDevice)
+  409e  r2 = UIDevice
+  40a0  r1 = SEL(currentDevice)
+  40a2  r0 = UIDevice
+  40a4  r0 = [UIDevice currentDevice](UIDevice, ?)
+  40b0  r1 = SEL(model)
+  40b2  r1 = SEL(model)
+  40b4  r0 = [r0 model](?, ?)
+  40c4  r1 = SEL(isEqual:)
+  40ca  r2 = CFSTR('iPhone')
+  40cc  r1 = SEL(isEqual:)
+  40ce  r0 = [r0 isEqual:](CFSTR('iPhone'), ?)
+  40e0  r1 = IVOFF(bDevice)
+  40ea  r3 = UIImageView
+  40f0  r1 = IVOFF(bDevice)
+  40f2  r2 = SEL(alloc)
+  40f4  cmp r0, 0
+  40fa  self->bDevice = r0
+  40fe  r6 = SEL(alloc)
+  4100  r0 = UIImageView
+  4106  r0 = [UIImageView ??](SEL(alloc), UIImageView)
+  410e  r3 = 0
+  4114  r2 = 0
+  4116  r1 = SEL(initWithFrame:)
+  4120  r1 = SEL(initWithFrame:)
+  4126  r2 = 0
+  4128  r3 = 0
+  412c  r0 = [r0 ??](0, 0)
+  4138  r1 = SEL(autorelease)
+  413a  fp = SEL(autorelease)
+  4144  r0 = [r0 ??](?, ?)
+  4150  r1 = IVOFF(splashView)
+  4152  r1 = IVOFF(splashView)
+  416a  r0 = SEL(imageNamed:)
+  4170  r1 = UIImage
+  4172  r8 = SEL(imageNamed:)
+  4176  r0 = UIImage
+  4182  r2 = CFSTR('Default.png')
+  4184  r0 = [UIImage imageNamed:](CFSTR('Default.png'), ?)
+  4192  r0 = SEL(setImage:)
+  4194  r4 = SEL(setImage:)
+  419a  r0 = [r0 setImage:](?, ?)
+  41a8  r0 = UIImageView
+  41aa  r0 = UIImageView
+  41ac  r0 = [UIImageView ??](?, ?)
+  41b0  r1 = 0
+  41b2  r2 = 0
+  41be  r2 = 0
+  41c2  r3 = 0
+  41ce  r0 = [r0 ??](0x43100000/f144, 0x433d0000/f189)
+  41d6  r0 = [r0 ??](?, ?)
+  41e2  r1 = IVOFF(nameImageview)
+  41e4  r6 = IVOFF(nameImageview)
+  41f6  r0 = UIImage
+  41fc  r0 = UIImage
+  4206  r2 = CFSTR('bitbee.png')
+  4208  r0 = [UIImage imageNamed:](CFSTR('bitbee.png'), ?)
+  4212  r0 = [r0 setImage:](?, ?)
+  421a  r2 = 0
+  4220  r0 = SEL(setAlpha:)
+  4222  r1 = SEL(setAlpha:)
+  422a  r0 = [r0 ??](0, ?)
+  423e  r0 = SEL(standardUserDefaults)
+  4240  sl = NSUserDefaults
+  4242  r8 = SEL(standardUserDefaults)
+  4246  r0 = NSUserDefaults
+  424c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  425c  r1 = SEL(objectForKey:)
+  4262  r2 = CFSTR('FIREST')
+  4264  r4 = SEL(objectForKey:)
+  4268  r0 = [r0 objectForKey:](CFSTR('FIREST'), ?)
+  426e  r0 = NSUserDefaults
+  4274  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  4282  r2 = CFSTR('COIN')
+  4284  r0 = [r0 objectForKey:](CFSTR('COIN'), ?)
+  4292  r0 = SEL(intValue)
+  4294  r1 = SEL(intValue)
+  429a  r0 = [r0 ??](?, ?)
+  429e  cbnz r0 -> L_4310
+  42a0  r0 = NSUserDefaults
+  42a6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  42b6  r1 = SEL(setObject:forKey:)
+  42c0  r5 = CFSTR('10')
+  42c2  r6 = SEL(setObject:forKey:)
+  42c8  r3 = CFSTR('COIN')
+  42ce  r0 = [r0 setObject:forKey:](CFSTR('10'), CFSTR('COIN'))
+  42d2  r0 = NSUserDefaults
+  42d8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  42ee  r2 = CFSTR('1')
+  42f0  r3 = CFSTR('FIREST')
+  42f2  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('FIREST'))
+  42f6  r0 = NSUserDefaults
+  42fc  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  4308  r1 = SEL(synchronize)
+  430a  r1 = SEL(synchronize)
+  430c  r0 = [r0 synchronize](?, ?)
+L_4310:
+  431a  r0 = UIApplication
+  431c  r0 = UIApplication
+  431e  r0 = [UIApplication ??](?, ?)
+  4324  r0 = [r0 ??](?, ?)
+  432e  r0 = [CFSTR('10') ??](?, ?)
+  433c  r0 = SEL(setCoin:)
+  433e  r1 = SEL(setCoin:)
+  4342  r0 = [r0 setCoin:](?, ?)
+  4346  r0 = NSUserDefaults
+  434c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  435a  r2 = CFSTR('BASEURL')
+  435c  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  4368  r1 = SEL(length)
+  436a  r1 = SEL(length)
+  436c  r0 = [r0 length](?, ?)
+  4370  cbnz r0 -> L_43ba
+  4372  r0 = NSUserDefaults
+  4378  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  4388  r1 = SEL(setObject:forKey:)
+  4392  r2 = CFSTR('http://www.evree.net/sixsense/')
+  4398  r1 = SEL(setObject:forKey:)
+  439a  r3 = CFSTR('BASEURL')
+  439c  r0 = [r0 setObject:forKey:](CFSTR('http://www.evree.net/sixsense/'), CFSTR('BASEURL'))
+  43a0  r0 = NSUserDefaults
+  43a6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  43b2  r1 = SEL(synchronize)
+  43b4  r1 = SEL(synchronize)
+  43b6  r0 = [r0 synchronize](?, ?)
+L_43ba:
+  43ba  r0 = NSUserDefaults
+  43c0  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  43d0  r6 = CFSTR('verDatabase')
+  43d4  r0 = [r0 objectForKey:](CFSTR('verDatabase'), ?)
+  43de  r0 = [r0 ??](?, ?)
+  43e2  call sub_78488
+  43e6  call sub_7850c
+  43ea  call sub_78590
+  43ee  call sub_7835c
+  43f2  call sub_78474
+  43fa  r2 = 0
+  4400  r0 = SEL(numberWithInt:)
+  4402  r1 = SEL(numberWithInt:)
+  440c  r0 = NSNumber
+  440e  r0 = NSNumber
+  4410  r0 = [NSNumber numberWithInt:](0, ?)
+  4420  r0 = SEL(setObject:forKey:)
+  4422  r1 = SEL(setObject:forKey:)
+  4426  r0 = [r0 setObject:forKey:](?, CFSTR('verDatabase'))
+  4432  r0 = SEL(synchronize)
+  4434  r1 = SEL(synchronize)
+  4438  r0 = [r0 synchronize](?, ?)
+  444c  r0 = SEL(defaultQueue)
+  444e  r2 = SKPaymentQueue
+  4450  r1 = SEL(defaultQueue)
+  4452  r0 = SKPaymentQueue
+  4454  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  4462  r1 = SEL(addTransactionObserver:)
+  4464  r1 = SEL(addTransactionObserver:)
+  4466  r0 = [r0 addTransactionObserver:](?, ?)
+  446a  r0 = NSUserDefaults
+  4470  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  447e  r2 = CFSTR('GAMECENTER')
+  4480  r0 = [r0 ??](CFSTR('GAMECENTER'), ?)
+  4486  r0 = [r0 ??](?, ?)
+  448a  cmp r0, 1
+  448c  bne L_44a2
+  4492  r2 = 1
+  4498  r0 = SEL(authenticateLocalPlayerShowReader:)
+  449a  r1 = SEL(authenticateLocalPlayerShowReader:)
+  449e  r0 = [r0 authenticateLocalPlayerShowReader:](1, ?)
+L_44a2:
+  44ac  r0 = buyNetworkControl
+  44ae  r0 = buyNetworkControl
+  44b0  r0 = [buyNetworkControl ??](?, ?)
+  44bc  r1 = SEL(init)
+  44be  r1 = SEL(init)
+  44c0  r0 = [r0 init](?, ?)
+  44c6  r0 = [r0 ??](?, ?)
+  44d4  r0 = SEL(setG_network_Buy:)
+  44d6  r1 = SEL(setG_network_Buy:)
+  44da  r0 = [r0 setG_network_Buy:](?, ?)
+  44ee  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  44f0  r2 = 340
+  44f4  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  44f6  r0 = 0
+  4502  r0 = [r0 playSound:Gain:Pos:z:reprats:](340, 0x3e4ccccd/f0.2)
+  450e  r0 = SEL(window)
+  4510  r5 = SEL(window)
+  4516  r0 = [r0 window](?, ?)
+  4524  r1 = SEL(addSubview:)
+  4526  sl = SEL(addSubview:)
+  4530  r0 = [r0 addSubview:](?, ?)
+  4538  r0 = [r0 window](?, ?)
+  4548  r1 = SEL(bringSubviewToFront:)
+  454a  r6 = SEL(bringSubviewToFront:)
+  454e  r0 = [r0 bringSubviewToFront:](?, ?)
+  4556  r0 = [r0 window](?, ?)
+  4564  r0 = [r0 addSubview:](?, ?)
+  456c  r0 = [r0 window](?, ?)
+  4576  r0 = [r0 bringSubviewToFront:](?, ?)
+  457e  r2 = 0
+  458c  r0 = SEL(beginAnimations:context:)
+  458e  r6 = UIView
+  4590  r3 = 0
+  4592  r1 = SEL(beginAnimations:context:)
+  4594  r0 = UIView
+  4596  r0 = [UIView beginAnimations:context:](0, 0)
+  459a  vmov.f64 d16, #2.500000e+00
+  45a6  r0 = SEL(setAnimationDuration:)
+  45a8  vmov r2, r3, d16
+  45ac  r1 = SEL(setAnimationDuration:)
+  45ae  r0 = UIView
+  45b0  r0 = [UIView setAnimationDuration:](?, ?)
+  45b8  r4 = UIView
+  45ba  r0 = [r0 window](?, ?)
+  45c8  r2 = 0
+  45ca  r0 = SEL(setAnimationTransition:forView:cache:)
+  45cc  r1 = SEL(setAnimationTransition:forView:cache:)
+  45ce  r0 = 1
+  45d4  r0 = [UIView setAnimationTransition:forView:cache:](0, ?)
+  45e2  r0 = SEL(setAnimationDelegate:)
+  45e4  r1 = SEL(setAnimationDelegate:)
+  45e6  r0 = UIView
+  45e8  r0 = [UIView setAnimationDelegate:](?, ?)
+  45fc  r0 = SEL(setAnimationDidStopSelector:)
+  45fe  r2 = SEL(startIntro)
+  4600  r1 = SEL(setAnimationDidStopSelector:)
+  4602  r2 = SEL(startIntro)
+  4604  r0 = UIView
+  4606  r0 = [UIView setAnimationDidStopSelector:](SEL(startIntro), ?)
+  460e  r2 = 1065353216
+  4614  r0 = [r0 ??](0x3f800000/f1, ?)
+  4620  r0 = SEL(commitAnimations)
+  4622  r1 = SEL(commitAnimations)
+  4624  r0 = UIView
+  4626  r0 = [UIView commitAnimations](?, ?)
+  462a  r0 = 1
+  462c  add sp, #0x34
+  4632  return
+
+//// -[AppDelegate VersionCheck]  0x4634..0x48b8  v8@0:4
+  4636  add r7, sp, #0xc
+  463c  sub sp, #0x1c
+  4658  r0 = SEL(standardUserDefaults)
+  465a  r2 = NSUserDefaults
+  465c  r8 = NSString
+  465e  r1 = SEL(standardUserDefaults)
+  4660  r0 = NSUserDefaults
+  4662  r4 = NSString
+  4666  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  4676  r1 = SEL(objectForKey:)
+  467c  r2 = CFSTR('BASEURL')
+  467e  r6 = SEL(objectForKey:)
+  4682  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  4694  r0 = SEL(stringWithFormat:)
+  469a  r2 = CFSTR('%@version.php')
+  469c  r1 = SEL(stringWithFormat:)
+  46a0  r0 = [NSString stringWithFormat:](CFSTR('%@version.php'), ?)
+  46b6  r0 = SEL(alloc)
+  46b8  r1 = NSMutableURLRequest
+  46ba  fp = SEL(alloc)
+  46be  r0 = NSMutableURLRequest
+  46c2  r0 = [NSMutableURLRequest alloc](?, ?)
+  46d8  r0 = SEL(URLWithString:)
+  46da  r2 = NSURL
+  46dc  r1 = SEL(URLWithString:)
+  46de  r0 = NSURL
+  46e2  r0 = [NSURL URLWithString:](?, ?)
+  46f0  r0 = SEL(initWithURL:)
+  46f2  r1 = SEL(initWithURL:)
+  46f6  r0 = [r0 initWithURL:](?, ?)
+  4708  r0 = SEL(setHTTPMethod:)
+  470e  r2 = CFSTR('POST')
+  4710  r1 = SEL(setHTTPMethod:)
+  4714  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  471c  add r3, sp, #0x14
+  472a  r0 = SEL(sendSynchronousRequest:returningResponse:error:)
+  472c  r2 = NSURLConnection
+  472e  r1 = SEL(sendSynchronousRequest:returningResponse:error:)
+  4730  r0 = NSURLConnection
+  4732  add r2, sp, #0x18
+  4738  r0 = [NSURLConnection sendSynchronousRequest:returningResponse:error:](?, ?)
+  4746  r0 = SEL(release)
+  4748  sl = SEL(release)
+  4750  r0 = [r0 release](?, ?)
+  4754  cmp r5, 0
+  4756  beq L_48b0
+  475a  r0 = NSString
+  4760  r0 = [NSString alloc](?, ?)
+  476e  r3 = 4
+  4770  r1 = SEL(initWithData:encoding:)
+  4772  r1 = SEL(initWithData:encoding:)
+  4774  r0 = [r0 initWithData:encoding:](?, 4)
+  4780  r1 = SEL(autorelease)
+  4782  r1 = SEL(autorelease)
+  4784  r0 = [r0 autorelease](?, ?)
+  4790  r1 = SEL(objectFromJSONString)
+  4792  r1 = SEL(objectFromJSONString)
+  4794  r0 = [r0 objectFromJSONString](?, ?)
+  47a4  r2 = CFSTR('code')
+  47a6  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  47b2  r1 = SEL(intValue)
+  47b4  r4 = SEL(intValue)
+  47b8  r0 = [r0 intValue](?, ?)
+  47bc  cmp r0, 100
+  47be  bne L_48b0
+  47cc  r2 = CFSTR('ver')
+  47ce  r0 = [r0 objectForKey:](CFSTR('ver'), ?)
+  47d4  r0 = [r0 intValue](?, ?)
+  47d8  cmp r0, 3
+  47da  blt L_48b0
+  47e8  r2 = CFSTR('must')
+  47ea  r0 = [r0 objectForKey:](CFSTR('must'), ?)
+  47f0  r0 = [r0 intValue](?, ?)
+  4800  r0 = UIAlertView
+  4802  r0 = UIAlertView
+  4804  r0 = [UIAlertView alloc](?, ?)
+  480c  cmp r4, 0
+  4812  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  4814  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  4816  beq L_4850
+  481c  r6 = 0
+  482c  r3 = CFSTR('A new version is available, You must install the newer version in order to continue')
+  482e  r2 = CFSTR('UPDATE')
+  4834  r2 = 0
+  4838  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('A new version is available, You must install the newer version in order to continue'))
+  4846  r2 = 100
+  4848  r0 = SEL(setTag:)
+  484a  r1 = SEL(setTag:)
+  484e  b L_4892
+L_4850:
+  4854  r5 = 0
+  486c  r2 = CFSTR('Cancel')
+  486e  r3 = CFSTR('A new version is available.')
+  4872  r6 = CFSTR('Update')
+  4876  r2 = 0
+  487c  r0 = [r0 setTag:](0, CFSTR('A new version is available.'))
+  488a  r2 = 200
+  488c  r0 = SEL(setTag:)
+  488e  r1 = SEL(setTag:)
+L_4892:
+  4892  r0 = [r0 setTag:](200, ?)
+  489e  r0 = SEL(show)
+  48a0  r1 = SEL(show)
+  48a4  r0 = [r0 show](?, ?)
+  48ac  r0 = [r0 release](?, ?)
+L_48b0:
+  48b0  add sp, #0x1c
+  48b6  return
+
+//// -[AppDelegate alertView:clickedButtonAtIndex:]  0x48b8..0x49a0  v16@0:4@8i12
+  48c4  add r7, sp, #0xc
+  48c6  r0 = SEL(tag)
+  48ca  r6 = SEL(tag)
+  48d0  r0 = [r0 tag](?, ?)
+  48d4  cmp r0, 100
+  48d6  beq L_4942
+  48dc  r0 = [r0 tag](?, ?)
+  48e0  cmp r0, 200
+  48e6  bne L_4940
+  48f8  r0 = SEL(sharedApplication)
+  48fa  r2 = UIApplication
+  48fc  r1 = SEL(sharedApplication)
+  48fe  r0 = UIApplication
+  4900  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  4916  r0 = SEL(URLWithString:)
+  4918  r2 = NSURL
+  491a  r1 = SEL(URLWithString:)
+  491c  r0 = NSURL
+  4926  r2 = CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8')
+  4928  r0 = [NSURL URLWithString:](CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8'), ?)
+  4936  r0 = SEL(openURL:)
+  4938  r1 = SEL(openURL:)
+  493c  r0 = [r0 openURL:](?, ?)
+L_4940:
+  4940  return
+L_4942:
+  4952  r0 = SEL(sharedApplication)
+  4954  r2 = UIApplication
+  4956  r1 = SEL(sharedApplication)
+  4958  r0 = UIApplication
+  495a  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  4970  r0 = SEL(URLWithString:)
+  4972  r2 = NSURL
+  4974  r1 = SEL(URLWithString:)
+  4976  r0 = NSURL
+  4980  r2 = CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8')
+  4982  r0 = [NSURL URLWithString:](CFSTR('https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8'), ?)
+  4990  r0 = SEL(openURL:)
+  4992  r1 = SEL(openURL:)
+  4996  r0 = [r0 openURL:](?, ?)
+  499a  r0 = 1
+  499c  call _exit
+
+//// -[AppDelegate startIntro]  0x49a0..0x4aa4  v8@0:4
+  49a2  add r7, sp, #0xc
+  49a4  sub sp, #4
+  49b0  r0 = SEL(VersionCheck)
+  49b2  r1 = SEL(VersionCheck)
+  49b6  r0 = [r0 VersionCheck](?, ?)
+  49be  r2 = 0
+  49cc  r0 = SEL(beginAnimations:context:)
+  49ce  r6 = UIView
+  49d0  r3 = 0
+  49d2  r1 = SEL(beginAnimations:context:)
+  49d4  r0 = UIView
+  49d6  r0 = [UIView beginAnimations:context:](0, 0)
+  49da  vmov.f64 d16, #1.000000e+00
+  49e6  r0 = SEL(setAnimationDuration:)
+  49e8  vmov r2, r3, d16
+  49ec  r1 = SEL(setAnimationDuration:)
+  49ee  r0 = UIView
+  49f0  r0 = [UIView setAnimationDuration:](?, ?)
+  49fc  r5 = UIView
+  49fe  r0 = SEL(window)
+  4a00  r1 = SEL(window)
+  4a04  r0 = [r0 window](?, ?)
+  4a12  r2 = 0
+  4a14  r0 = SEL(setAnimationTransition:forView:cache:)
+  4a16  r1 = SEL(setAnimationTransition:forView:cache:)
+  4a18  r0 = 1
+  4a1e  r0 = [UIView setAnimationTransition:forView:cache:](0, ?)
+  4a2c  r0 = SEL(setAnimationDelegate:)
+  4a2e  r1 = SEL(setAnimationDelegate:)
+  4a30  r0 = UIView
+  4a32  r0 = [UIView setAnimationDelegate:](?, ?)
+  4a46  r0 = SEL(setAnimationDidStopSelector:)
+  4a48  r2 = SEL(realStartIntro)
+  4a4a  r1 = SEL(setAnimationDidStopSelector:)
+  4a4c  r2 = SEL(realStartIntro)
+  4a4e  r0 = UIView
+  4a50  r0 = [UIView setAnimationDidStopSelector:](SEL(realStartIntro), ?)
+  4a58  r2 = 0
+  4a62  r0 = IVOFF(nameImageview)
+  4a68  r1 = SEL(setAlpha:)
+  4a6a  r0 = IVOFF(nameImageview)
+  4a6c  r5 = SEL(setAlpha:)
+  4a6e  r0 = self->nameImageview
+  4a72  r0 = [self->nameImageview setAlpha:](0, ?)
+  4a80  r2 = 0
+  4a82  r0 = IVOFF(splashView)
+  4a84  r0 = IVOFF(splashView)
+  4a86  r0 = self->splashView
+  4a88  r0 = [self->splashView setAlpha:](0, ?)
+  4a94  r0 = SEL(commitAnimations)
+  4a96  r1 = SEL(commitAnimations)
+  4a98  r0 = UIView
+  4a9a  add sp, #4
+  4aa0  b L_a90d0
+
+//// -[AppDelegate realStartIntro]  0x4aa4..0x4ce0  v8@0:4
+  4aa6  add r7, sp, #0xc
+  4aac  sub sp, #0x28
+  4abc  r0 = IVOFF(splashView)
+  4ac2  r1 = SEL(removeFromSuperview)
+  4ac4  r0 = IVOFF(splashView)
+  4ac6  r4 = SEL(removeFromSuperview)
+  4ac8  r0 = self->splashView
+  4ace  r0 = [self->splashView removeFromSuperview](?, ?)
+  4adc  r0 = IVOFF(nameImageview)
+  4ade  r0 = IVOFF(nameImageview)
+  4ae0  r0 = self->nameImageview
+  4ae4  r0 = [self->nameImageview removeFromSuperview](?, ?)
+  4af0  r0 = CFSTR('startIntroPage')
+  4af2  call _NSClassFromString
+  4afe  r1 = SEL(alloc)
+  4b00  r8 = SEL(alloc)
+  4b06  r0 = [r0 alloc](?, ?)
+  4b1c  r0 = SEL(mainScreen)
+  4b1e  r4 = UIScreen
+  4b20  r6 = SEL(mainScreen)
+  4b22  r0 = UIScreen
+  4b26  r0 = [UIScreen mainScreen](?, ?)
+  4b2c  cmp r1, 0
+  4b2e  beq L_4b68
+  4b38  r0 = SEL(bounds)
+  4b3a  r2 = SEL(bounds)
+  4b3c  add r0, sp, #0x18
+  4b3e  r0 = [r0 ??](SEL(bounds), ?)
+  4b42  s0 = 320
+  4b46  vldr s2, [sp, #0x20]
+  4b4a  vcmpe.f32 s2, s0
+  4b4e  vmrs apsr_nzcv, fpscr
+  4b52  bne L_4b72
+  4b54  vldr s0, [sp, #0x24]
+  4b58  s2 = 568
+  4b5c  vcmpe.f32 s0, s2
+  4b60  vmrs apsr_nzcv, fpscr
+  4b64  beq L_4bb6
+  4b66  b L_4b72
+L_4b68:
+  4b68  vmov.i32 q8, #0
+  4b6c  add r0, sp, #0x18
+  4b6e  vst1.32 {d16, d17}, [r0]
+L_4b72:
+  4b72  r0 = UIScreen
+  4b76  r0 = [UIScreen mainScreen](?, ?)
+  4b7c  cmp r1, 0
+  4b7e  beq L_4bcc
+  4b88  r0 = SEL(bounds)
+  4b8a  r2 = SEL(bounds)
+  4b8c  add r0, sp, #8
+  4b8e  r0 = [r0 ??](SEL(bounds), ?)
+  4b92  s0 = 568
+  4b96  vldr s2, [sp, #0x10]
+  4b9a  vcmpe.f32 s2, s0
+  4b9e  vmrs apsr_nzcv, fpscr
+  4ba2  bne L_4bd6
+  4ba4  vldr s0, [sp, #0x14]
+  4ba8  s2 = 320
+  4bac  vcmpe.f32 s0, s2
+  4bb0  vmrs apsr_nzcv, fpscr
+  4bb4  bne L_4bd6
+L_4bb6:
+  4bc6  r0 = SEL(initWithNibName:bundle:)
+  4bc8  r2 = CFSTR('startIntroPage~568h')
+  4bca  b L_4bea
+L_4bcc:
+  4bcc  vmov.i32 q8, #0
+  4bd0  add r0, sp, #8
+  4bd2  vst1.32 {d16, d17}, [r0]
+L_4bd6:
+  4be6  r0 = SEL(initWithNibName:bundle:)
+  4be8  r2 = CFSTR('startIntroPage')
+L_4bea:
+  4bea  r1 = SEL(initWithNibName:bundle:)
+  4bee  r3 = 0
+  4bf0  r0 = [r0 initWithNibName:bundle:](CFSTR('startIntroPage'), 0)
+  4c00  r0 = UINavigationController
+  4c02  r0 = UINavigationController
+  4c04  r0 = [UINavigationController alloc](?, ?)
+  4c12  r1 = SEL(initWithRootViewController:)
+  4c14  r1 = SEL(initWithRootViewController:)
+  4c16  r0 = [r0 initWithRootViewController:](?, ?)
+  4c24  r0 = SEL(setMainNaviController:)
+  4c26  r1 = SEL(setMainNaviController:)
+  4c2a  r0 = [r0 setMainNaviController:](?, ?)
+  4c36  r0 = SEL(window)
+  4c38  r4 = SEL(window)
+  4c3e  r0 = [r0 window](?, ?)
+  4c4c  r0 = SEL(mainNaviController)
+  4c4e  r1 = SEL(mainNaviController)
+  4c52  r0 = [r0 mainNaviController](?, ?)
+  4c60  r0 = SEL(setRootViewController:)
+  4c62  r1 = SEL(setRootViewController:)
+  4c66  r0 = [r0 setRootViewController:](?, ?)
+  4c6e  r0 = [r0 window](?, ?)
+  4c7a  r1 = SEL(makeKeyAndVisible)
+  4c7c  r1 = SEL(makeKeyAndVisible)
+  4c7e  r0 = [r0 makeKeyAndVisible](?, ?)
+  4c92  r0 = SEL(defaultCenter)
+  4c94  r2 = NSNotificationCenter
+  4c96  r1 = SEL(defaultCenter)
+  4c98  r0 = NSNotificationCenter
+  4c9a  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  4cb6  r1 = _UIAccessibilityVoiceOverStatusChanged
+  4cb8  r3 = SEL(notified:)
+  4cba  r2 = SEL(addObserver:selector:name:object:)
+  4cbc  r6 = _UIAccessibilityVoiceOverStatusChanged
+  4cbe  r1 = SEL(addObserver:selector:name:object:)
+  4cc2  r3 = SEL(notified:)
+  4ccc  r0 = [r0 addObserver:selector:name:object:](?, SEL(notified:))
+  4cd0  add sp, #0x28
+  4cd6  return
+  4cde  add r6, r1
+
+//// -[AppDelegate notified:]  0x4ce0..0x4ce4  v12@0:4@8
+
+//// -[AppDelegate BGMusicStart]  0x4ce4..0x4d30  v8@0:4
+  4ce6  add r7, sp, #8
+  4ce8  sub sp, #8
+  4cf2  r1 = SEL(playback)
+  4cf4  r1 = SEL(playback)
+  4cf6  r0 = [r0 playback](?, ?)
+  4d0a  r1 = SEL(startBGPlayer:type:soundGain:Loop:)
+  4d14  r2 = CFSTR('bgm_main_menu')
+  4d1a  r1 = SEL(startBGPlayer:type:soundGain:Loop:)
+  4d1c  r3 = CFSTR('wav')
+  4d1e  r5 = 1
+  4d28  r0 = [r0 startBGPlayer:type:soundGain:Loop:](CFSTR('bgm_main_menu'), CFSTR('wav'))
+  4d2c  add sp, #8
+  4d2e  return
+
+//// -[AppDelegate BGMusicStop]  0x4d30..0x4d58  v8@0:4
+  4d3c  r1 = SEL(playback)
+  4d3e  r1 = SEL(playback)
+  4d40  r0 = [r0 playback](?, ?)
+  4d4c  r1 = SEL(backgroundSoundStop)
+  4d4e  r1 = SEL(backgroundSoundStop)
+  4d54  b L_a90d0
+
+//// -[AppDelegate applicationWillResignActive:]  0x4d58..0x4d5c  v12@0:4@8
+
+//// -[AppDelegate applicationDidEnterBackground:]  0x4d5c..0x4d9c  v12@0:4@8
+  4d70  r0 = SEL(defaultCenter)
+  4d72  r2 = NSNotificationCenter
+  4d74  r1 = SEL(defaultCenter)
+  4d76  r0 = NSNotificationCenter
+  4d78  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  4d80  r3 = 0
+  4d8a  r1 = SEL(postNotificationName:object:)
+  4d90  r2 = CFSTR('InterruptON')
+  4d92  r1 = SEL(postNotificationName:object:)
+  4d98  b L_a90d0
+
+//// -[AppDelegate applicationWillEnterForeground:]  0x4d9c..0x4da0  v12@0:4@8
+
+//// -[AppDelegate applicationDidBecomeActive:]  0x4da0..0x4e7c  v12@0:4@8
+  4da2  add r7, sp, #0xc
+  4db8  r0 = SEL(sharedApplication)
+  4dba  sl = UIApplication
+  4dbc  r8 = SEL(sharedApplication)
+  4dc0  r0 = UIApplication
+  4dc6  r0 = [UIApplication sharedApplication](?, ?)
+  4dd2  r1 = SEL(delegate)
+  4dd4  r5 = SEL(delegate)
+  4dd8  r0 = [r0 delegate](?, ?)
+  4de6  r0 = SEL(g_key)
+  4de8  r1 = SEL(g_key)
+  4dec  r0 = [r0 g_key](?, ?)
+  4df8  r1 = SEL(length)
+  4dfa  r6 = SEL(length)
+  4dfe  r0 = [r0 length](?, ?)
+  4e02  cbz r0 -> L_4e4a
+  4e0c  r0 = SEL(g_email)
+  4e0e  r1 = SEL(g_email)
+  4e12  r0 = [r0 g_email](?, ?)
+  4e18  r0 = [r0 length](?, ?)
+  4e1c  cbz r0 -> L_4e4a
+  4e1e  r0 = UIApplication
+  4e24  r0 = [UIApplication sharedApplication](?, ?)
+  4e2a  r0 = [r0 delegate](?, ?)
+  4e38  r0 = SEL(PHPSESSID)
+  4e3a  r1 = SEL(PHPSESSID)
+  4e3e  r0 = [r0 PHPSESSID](?, ?)
+  4e44  r0 = [r0 length](?, ?)
+  4e48  cbz r0 -> L_4e50
+L_4e4a:
+  4e4e  return
+L_4e50:
+  4e58  r0 = SEL(g_loginController)
+  4e5a  r1 = SEL(g_loginController)
+  4e5e  r0 = [r0 g_loginController](?, ?)
+  4e6a  r1 = SEL(Login)
+  4e6c  r1 = SEL(Login)
+  4e76  b L_a90d0
+
+//// -[AppDelegate applicationWillTerminate:]  0x4e7c..0x4eb0  v12@0:4@8
+  4e90  r0 = SEL(activeSession)
+  4e92  r2 = FBSession
+  4e94  r1 = SEL(activeSession)
+  4e96  r0 = FBSession
+  4e98  r0 = [FBSession activeSession](FBSession, ?)
+  4ea4  r1 = SEL(close)
+  4ea6  r1 = SEL(close)
+  4eac  b L_a90d0
+
+//// -[AppDelegate application:openURL:sourceApplication:annotation:]  0x4eb0..0x4ee8  c24@0:4@8@12@16@20
+  4eb6  add r7, sp, #4
+  4ec4  r0 = SEL(activeSession)
+  4ec6  r2 = FBSession
+  4eca  r1 = SEL(activeSession)
+  4ecc  r0 = FBSession
+  4ece  r0 = [FBSession activeSession](FBSession, ?)
+  4edc  r1 = SEL(handleOpenURL:)
+  4ede  r1 = SEL(handleOpenURL:)
+  4ee0  r0 = [r0 handleOpenURL:](?, ?)
+  4ee4  return
+
+//// -[AppDelegate weaponHave]  0x4ee8..0x5590  v8@0:4
+  4eea  add r7, sp, #0xc
+  4ef0  sub sp, #0x10
+  4f04  r0 = SEL(array)
+  4f06  r2 = NSMutableArray
+  4f08  r1 = SEL(array)
+  4f0a  r0 = NSMutableArray
+  4f0e  r0 = [NSMutableArray ??](NSMutableArray, ?)
+  4f1c  r0 = SEL(setHaveWeapon:)
+  4f1e  r1 = SEL(setHaveWeapon:)
+  4f22  r0 = [r0 setHaveWeapon:](?, ?)
+  4f2e  r0 = SEL(haveWeapon)
+  4f30  r8 = SEL(haveWeapon)
+  4f38  r0 = [r0 haveWeapon](?, ?)
+  4f48  r1 = SEL(addObject:)
+  4f4e  r5 = CFSTR('1')
+  4f50  fp = SEL(addObject:)
+  4f58  r0 = [r0 addObject:](CFSTR('1'), ?)
+  4f60  r0 = [r0 haveWeapon](?, ?)
+  4f68  r0 = [r0 addObject:](CFSTR('1'), ?)
+  4f70  r0 = [r0 haveWeapon](?, ?)
+  4f78  r0 = [r0 addObject:](CFSTR('1'), ?)
+  4f8c  r0 = SEL(standardUserDefaults)
+  4f8e  r1 = NSUserDefaults
+  4f90  sl = SEL(standardUserDefaults)
+  4f94  r0 = NSUserDefaults
+  4f98  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  4fa8  r1 = SEL(objectForKey:)
+  4fae  r2 = CFSTR('SHOTGUN')
+  4fb0  r5 = SEL(objectForKey:)
+  4fb4  r0 = [r0 objectForKey:](CFSTR('SHOTGUN'), ?)
+  4fc0  r1 = SEL(intValue)
+  4fc2  r1 = SEL(intValue)
+  4fc6  r0 = [r0 ??](?, ?)
+  4fd0  r0 = [r0 haveWeapon](?, ?)
+  4fd4  cmp r6, 1
+  4fd6  blt L_4fe4
+  4fe0  r2 = CFSTR('1')
+  4fe2  b L_4fee
+L_4fe4:
+  4fec  r2 = CFSTR('0')
+L_4fee:
+  4ff0  r0 = [r0 addObject:](CFSTR('0'), ?)
+  4ffe  r0 = NSUserDefaults
+  5000  r0 = NSUserDefaults
+  5002  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5010  r2 = CFSTR('M4')
+  5012  r0 = [r0 objectForKey:](CFSTR('M4'), ?)
+  5018  r0 = [r0 ??](?, ?)
+  5022  r0 = [r0 haveWeapon](?, ?)
+  5026  cmp r6, 1
+  5028  blt L_5036
+  5032  r2 = CFSTR('1')
+  5034  b L_5040
+L_5036:
+  503e  r2 = CFSTR('0')
+L_5040:
+  5042  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5050  r0 = NSUserDefaults
+  5052  r0 = NSUserDefaults
+  5054  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5062  r2 = CFSTR('AK47')
+  5064  r0 = [r0 objectForKey:](CFSTR('AK47'), ?)
+  506a  r0 = [r0 ??](?, ?)
+  5074  r0 = [r0 haveWeapon](?, ?)
+  5078  cmp r6, 1
+  507a  blt L_5088
+  5084  r2 = CFSTR('1')
+  5086  b L_5092
+L_5088:
+  5090  r2 = CFSTR('0')
+L_5092:
+  5094  r0 = [r0 addObject:](CFSTR('0'), ?)
+  50a2  r0 = NSUserDefaults
+  50a4  r0 = NSUserDefaults
+  50a6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  50b4  r2 = CFSTR('MG80')
+  50b6  r0 = [r0 objectForKey:](CFSTR('MG80'), ?)
+  50bc  r0 = [r0 ??](?, ?)
+  50c6  r0 = [r0 haveWeapon](?, ?)
+  50ca  cmp r6, 1
+  50cc  blt L_50da
+  50d6  r2 = CFSTR('1')
+  50d8  b L_50e4
+L_50da:
+  50e2  r2 = CFSTR('0')
+L_50e4:
+  50e6  r0 = [r0 addObject:](CFSTR('0'), ?)
+  50f4  r0 = NSUserDefaults
+  50f6  r0 = NSUserDefaults
+  50f8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5106  r2 = CFSTR('JAPAN')
+  5108  r0 = [r0 objectForKey:](CFSTR('JAPAN'), ?)
+  510e  r0 = [r0 ??](?, ?)
+  5118  r0 = [r0 haveWeapon](?, ?)
+  511c  cmp r6, 1
+  511e  blt L_512c
+  5128  r2 = CFSTR('1')
+  512a  b L_5136
+L_512c:
+  5134  r2 = CFSTR('0')
+L_5136:
+  5138  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5146  r0 = NSMutableArray
+  5148  r0 = NSMutableArray
+  514a  r0 = [NSMutableArray ??](?, ?)
+  5158  r0 = SEL(setUseWeapon:)
+  515a  r1 = SEL(setUseWeapon:)
+  5160  r0 = [r0 ??](?, ?)
+  516e  r0 = NSUserDefaults
+  5170  r0 = NSUserDefaults
+  5172  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5180  r2 = CFSTR('GRENADEUSE')
+  5182  r0 = [r0 objectForKey:](CFSTR('GRENADEUSE'), ?)
+  5188  r0 = [r0 ??](?, ?)
+  5196  r0 = SEL(useWeapon)
+  5198  r8 = SEL(useWeapon)
+  51a0  r0 = [r0 useWeapon](?, ?)
+  51a4  cmp r6, 1
+  51a6  blt L_51b4
+  51b0  r2 = CFSTR('1')
+  51b2  b L_51be
+L_51b4:
+  51bc  r2 = CFSTR('0')
+L_51be:
+  51c0  r0 = [r0 addObject:](CFSTR('0'), ?)
+  51ce  r0 = NSUserDefaults
+  51d0  r0 = NSUserDefaults
+  51d2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  51e0  r2 = CFSTR('KNIFEUSE')
+  51e2  r0 = [r0 objectForKey:](CFSTR('KNIFEUSE'), ?)
+  51e8  r0 = [r0 ??](?, ?)
+  51f2  r0 = [r0 useWeapon](?, ?)
+  51f6  cmp r6, 1
+  51f8  blt L_5206
+  5202  r2 = CFSTR('1')
+  5204  b L_5210
+L_5206:
+  520e  r2 = CFSTR('0')
+L_5210:
+  5212  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5220  r0 = NSUserDefaults
+  5222  r0 = NSUserDefaults
+  5224  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5232  r2 = CFSTR('COLTUSE')
+  5234  r0 = [r0 objectForKey:](CFSTR('COLTUSE'), ?)
+  523a  r0 = [r0 ??](?, ?)
+  5244  r0 = [r0 useWeapon](?, ?)
+  5248  cmp r6, 1
+  524a  blt L_5258
+  5254  r2 = CFSTR('1')
+  5256  b L_5262
+L_5258:
+  5260  r2 = CFSTR('0')
+L_5262:
+  5264  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5272  r0 = NSUserDefaults
+  5274  r0 = NSUserDefaults
+  5276  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5284  r2 = CFSTR('SHOTGUNUSE')
+  5286  r0 = [r0 objectForKey:](CFSTR('SHOTGUNUSE'), ?)
+  528c  r0 = [r0 ??](?, ?)
+  5296  r0 = [r0 useWeapon](?, ?)
+  529a  cmp r6, 1
+  529c  blt L_52aa
+  52a6  r2 = CFSTR('1')
+  52a8  b L_52b4
+L_52aa:
+  52b2  r2 = CFSTR('0')
+L_52b4:
+  52b6  r0 = [r0 addObject:](CFSTR('0'), ?)
+  52c4  r0 = NSUserDefaults
+  52c6  r0 = NSUserDefaults
+  52c8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  52d6  r2 = CFSTR('M4USE')
+  52d8  r0 = [r0 objectForKey:](CFSTR('M4USE'), ?)
+  52de  r0 = [r0 ??](?, ?)
+  52e8  r0 = [r0 useWeapon](?, ?)
+  52ec  cmp r6, 1
+  52ee  blt L_52fc
+  52f8  r2 = CFSTR('1')
+  52fa  b L_5306
+L_52fc:
+  5304  r2 = CFSTR('0')
+L_5306:
+  5308  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5316  r0 = NSUserDefaults
+  5318  r0 = NSUserDefaults
+  531a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  5328  r2 = CFSTR('AK47USE')
+  532a  r0 = [r0 objectForKey:](CFSTR('AK47USE'), ?)
+  5330  r0 = [r0 ??](?, ?)
+  533a  r0 = [r0 useWeapon](?, ?)
+  533e  cmp r6, 1
+  5340  blt L_534e
+  534a  r2 = CFSTR('1')
+  534c  b L_5358
+L_534e:
+  5356  r2 = CFSTR('0')
+L_5358:
+  535a  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5368  r0 = NSUserDefaults
+  536a  r0 = NSUserDefaults
+  536c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  537a  r2 = CFSTR('MG80USE')
+  537c  r0 = [r0 objectForKey:](CFSTR('MG80USE'), ?)
+  5382  r0 = [r0 ??](?, ?)
+  538c  r0 = [r0 useWeapon](?, ?)
+  5390  cmp r6, 1
+  5392  blt L_53a0
+  539c  r2 = CFSTR('1')
+  539e  b L_53aa
+L_53a0:
+  53a8  r2 = CFSTR('0')
+L_53aa:
+  53ac  r0 = [r0 addObject:](CFSTR('0'), ?)
+  53ba  r0 = NSUserDefaults
+  53bc  r0 = NSUserDefaults
+  53be  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  53cc  r2 = CFSTR('JAPANUSE')
+  53ce  r0 = [r0 objectForKey:](CFSTR('JAPANUSE'), ?)
+  53d4  r0 = [r0 ??](?, ?)
+  53de  r0 = [r0 useWeapon](?, ?)
+  53e2  cmp r5, 1
+  53e4  blt L_53f6
+  53f2  r2 = CFSTR('1')
+  53f4  b L_5404
+L_53f6:
+  5402  r2 = CFSTR('0')
+L_5404:
+  5406  r0 = [r0 addObject:](CFSTR('0'), ?)
+  540e  r0 = [r0 useWeapon](?, ?)
+  541a  r1 = SEL(count)
+  541c  r1 = SEL(count)
+  541e  r0 = [r0 count](?, ?)
+  542c  sl = 0
+  5430  r0 = SEL(objectAtIndex:)
+  5432  r6 = SEL(objectAtIndex:)
+L_5434:
+  5434  cmp 0, r5
+  5436  bge L_5458
+  543c  r0 = [r0 useWeapon](?, ?)
+  5444  r0 = [r0 objectAtIndex:](0, ?)
+  544a  r0 = [r0 ??](?, ?)
+  544e  add.w sl, sl, #1
+  5452  cmp r0, 0
+  5454  beq L_5434
+  5456  b L_5586
+L_5458:
+  5462  r0 = NSMutableArray
+  5464  r0 = NSMutableArray
+  5466  r0 = [NSMutableArray ??](?, ?)
+  5470  r0 = [r0 ??](?, ?)
+  5478  r0 = [r0 useWeapon](?, ?)
+  5486  sl = CFSTR('1')
+  548a  r0 = [r0 addObject:](CFSTR('1'), ?)
+  5492  r0 = [r0 useWeapon](?, ?)
+  549a  r0 = [r0 addObject:](CFSTR('1'), ?)
+  54a2  r0 = [r0 useWeapon](?, ?)
+  54aa  r0 = [r0 addObject:](CFSTR('1'), ?)
+  54b2  r0 = [r0 useWeapon](?, ?)
+  54c0  r5 = CFSTR('0')
+  54c4  r0 = [r0 addObject:](CFSTR('0'), ?)
+  54cc  r0 = [r0 useWeapon](?, ?)
+  54d4  r0 = [r0 addObject:](CFSTR('0'), ?)
+  54dc  r0 = [r0 useWeapon](?, ?)
+  54e4  r0 = [r0 addObject:](CFSTR('0'), ?)
+  54ec  r0 = [r0 useWeapon](?, ?)
+  54f4  r0 = [r0 addObject:](CFSTR('0'), ?)
+  54fc  r0 = [r0 useWeapon](?, ?)
+  5504  r0 = [r0 addObject:](CFSTR('0'), ?)
+  5512  r6 = NSUserDefaults
+  5514  r0 = NSUserDefaults
+  5518  r0 = [NSUserDefaults ??](?, ?)
+  552a  r1 = SEL(setObject:forKey:)
+  5530  r3 = CFSTR('GRENADEUSE')
+  5532  r4 = SEL(setObject:forKey:)
+  5536  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('GRENADEUSE'))
+  553a  r0 = NSUserDefaults
+  553e  r0 = [NSUserDefaults ??](?, ?)
+  554e  r3 = CFSTR('KNIFEUSE')
+  5550  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('KNIFEUSE'))
+  5554  r0 = NSUserDefaults
+  5558  r0 = [NSUserDefaults ??](?, ?)
+  5568  r3 = CFSTR('COLTUSE')
+  556a  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('COLTUSE'))
+  556e  r0 = NSUserDefaults
+  5572  r0 = [NSUserDefaults ??](?, ?)
+  557e  r1 = SEL(synchronize)
+  5580  r1 = SEL(synchronize)
+  5582  r0 = [r0 synchronize](?, ?)
+L_5586:
+  5586  add sp, #0x10
+  558c  return
+
+//// -[AppDelegate TTSNumber:type:]  0x5590..0x583c  v16@0:4i8i12
+  5592  add r7, sp, #0xc
+  5598  sub sp, #0x20
+  55aa  r0 = SEL(stringWithFormat:)
+  55b2  r2 = NSString
+  55b4  r1 = SEL(stringWithFormat:)
+  55b8  r0 = NSString
+  55c2  r2 = CFSTR('%d')
+  55c4  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  55da  r0 = IVOFF(tts_type)
+  55dc  r1 = SEL(length)
+  55e0  r0 = IVOFF(tts_type)
+  55e2  sl = SEL(length)
+  55e6  self->tts_type = r5
+  55ec  r0 = [r0 length](?, ?)
+  55f0  r4 = 1
+  55f2  cbz r0 -> L_560e
+  55f4  r4 = 1
+  55f6  r5 = 0
+L_55f8:
+  55fc  r0 = [r0 length](?, ?)
+  5600  add.w r1, r4, r4, lsl #2
+  5604  adds r5, #1
+  5606  cmp r5, r0
+  560c  blo L_55f8
+L_560e:
+  5620  r0 = SEL(array)
+  5622  r2 = NSMutableArray
+  5624  r1 = SEL(array)
+  5626  r0 = NSMutableArray
+  5628  r0 = [NSMutableArray array](NSMutableArray, ?)
+  5638  r0 = SEL(setNumberBackUp:)
+  563a  r1 = SEL(setNumberBackUp:)
+  563e  r0 = [r0 setNumberBackUp:](?, ?)
+  564e  r0 = [r0 length](?, ?)
+  5652  cmp r0, 0
+  5654  beq L_579a
+  565c  fp = 0
+  566c  r0 = SEL(insertObject:atIndex:)
+  566e  r1 = SEL(numberBackUp)
+  5670  r5 = SEL(insertObject:atIndex:)
+  5672  r8 = SEL(numberBackUp)
+L_5676:
+  5680  add r2, sp, #0x1c
+  5686  asrs r1, r0, #2
+  5688  add.w r1, r1, r0, lsr #31
+  5690  call ___divmodsi4
+  5698  sub.w r0, sl, #1
+  569c  cmp r0, 7
+  569e  bls L_56bc
+  56a4  r0 = [r0 numberBackUp](?, ?)
+  56aa  cmp sl, 9
+  56ae  bne L_56de
+  56b8  r2 = CFSTR('9')
+  56ba  b L_5782
+L_56bc:
+  56c0  asrs r4, r0, #0x14
+  56c2  cmp r3, 32
+  56c4  asrs r6, r6
+  56cc  r0 = [r0 numberBackUp](CFSTR('9'), ?)
+  56da  r2 = CFSTR('1')
+  56dc  b L_5782
+L_56de:
+  56e6  r2 = CFSTR('0')
+  56e8  b L_5782
+  56ee  r0 = [r0 numberBackUp](CFSTR('0'), ?)
+  56fc  r2 = CFSTR('2')
+  56fe  b L_5782
+  5704  r0 = [r0 numberBackUp](CFSTR('2'), ?)
+  5712  r2 = CFSTR('3')
+  5714  b L_5782
+  571a  r0 = [r0 numberBackUp](CFSTR('3'), ?)
+  5728  r2 = CFSTR('4')
+  572a  b L_5782
+  5730  r0 = [r0 numberBackUp](CFSTR('4'), ?)
+  573e  r2 = CFSTR('5')
+  5740  b L_5782
+  5746  r0 = [r0 numberBackUp](CFSTR('5'), ?)
+  5754  r2 = CFSTR('6')
+  5756  b L_5782
+  575c  r0 = [r0 numberBackUp](CFSTR('6'), ?)
+  576a  r2 = CFSTR('7')
+  576c  b L_5782
+  5772  r0 = [r0 numberBackUp](CFSTR('7'), ?)
+  5780  r2 = CFSTR('8')
+L_5782:
+  5782  r3 = 0
+  5784  r0 = [r0 insertObject:atIndex:](CFSTR('8'), 0)
+  578c  r0 = [r0 ??](?, ?)
+  5790  add.w fp, fp, #1
+  5794  cmp fp, r0
+  5796  blo L_5676
+L_579a:
+  57a2  r0 = SEL(numberBackUp)
+  57a4  r1 = SEL(numberBackUp)
+  57a8  r0 = [r0 numberBackUp](?, ?)
+  57b4  r1 = SEL(count)
+  57b6  r1 = SEL(count)
+  57b8  r0 = [r0 count](?, ?)
+  57c8  r1 = IVOFF(ttsArrayCount)
+  57ce  r2 = IVOFF(ttsTimer)
+  57d0  r1 = IVOFF(ttsArrayCount)
+  57d2  r5 = IVOFF(ttsTimer)
+  57d4  self->ttsArrayCount = r0
+  57d6  r0 = self->ttsTimer
+  57d8  cbnz self->ttsTimer -> L_5832
+  57de  r8 = 0
+  57e6  r0 = SEL(isValid)
+  57e8  r1 = SEL(isValid)
+  57ea  r0 = 0
+  57ec  r0 = [r0 isValid](IVOFF(ttsTimer), ?)
+  57f4  bne L_5832
+  57f6  vmov.f64 d16, #1.000000e+00
+  580e  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  5810  r6 = NSTimer
+  5812  vmov r2, r3, d16
+  581a  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  581c  sb = SEL(readNumber:)
+  581e  r0 = NSTimer
+  5820  r6 = SEL(readNumber:)
+  5824  sb = 1
+  582c  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  5830  self->ttsTimer = r0
+L_5832:
+  5832  add sp, #0x20
+  5838  return
+
+//// -[AppDelegate TTSNumber:type2:]  0x583c..0x5ae8  v16@0:4i8i12
+  583e  add r7, sp, #0xc
+  5844  sub sp, #0x20
+  5856  r0 = SEL(stringWithFormat:)
+  585e  r2 = NSString
+  5860  r1 = SEL(stringWithFormat:)
+  5864  r0 = NSString
+  586e  r2 = CFSTR('%d')
+  5870  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  5886  r0 = IVOFF(tts_type)
+  5888  r1 = SEL(length)
+  588c  r0 = IVOFF(tts_type)
+  588e  sl = SEL(length)
+  5892  self->tts_type = r5
+  5898  r0 = [r0 length](?, ?)
+  589c  r4 = 1
+  589e  cbz r0 -> L_58ba
+  58a0  r4 = 1
+  58a2  r5 = 0
+L_58a4:
+  58a8  r0 = [r0 length](?, ?)
+  58ac  add.w r1, r4, r4, lsl #2
+  58b0  adds r5, #1
+  58b2  cmp r5, r0
+  58b8  blo L_58a4
+L_58ba:
+  58cc  r0 = SEL(array)
+  58ce  r2 = NSMutableArray
+  58d0  r1 = SEL(array)
+  58d2  r0 = NSMutableArray
+  58d4  r0 = [NSMutableArray array](NSMutableArray, ?)
+  58e4  r0 = SEL(setNumberBackUp:)
+  58e6  r1 = SEL(setNumberBackUp:)
+  58ea  r0 = [r0 setNumberBackUp:](?, ?)
+  58fa  r0 = [r0 length](?, ?)
+  58fe  cmp r0, 0
+  5900  beq L_5a46
+  5908  fp = 0
+  5918  r0 = SEL(insertObject:atIndex:)
+  591a  r1 = SEL(numberBackUp)
+  591c  r5 = SEL(insertObject:atIndex:)
+  591e  r8 = SEL(numberBackUp)
+L_5922:
+  592c  add r2, sp, #0x1c
+  5932  asrs r1, r0, #2
+  5934  add.w r1, r1, r0, lsr #31
+  593c  call ___divmodsi4
+  5944  sub.w r0, sl, #1
+  5948  cmp r0, 7
+  594a  bls L_5968
+  5950  r0 = [r0 numberBackUp](?, ?)
+  5956  cmp sl, 9
+  595a  bne L_598a
+  5964  r2 = CFSTR('9')
+  5966  b L_5a2e
+L_5968:
+  596c  asrs r4, r0, #0x14
+  596e  cmp r3, 32
+  5970  asrs r6, r6
+  5978  r0 = [r0 numberBackUp](CFSTR('9'), ?)
+  5986  r2 = CFSTR('1')
+  5988  b L_5a2e
+L_598a:
+  5992  r2 = CFSTR('0')
+  5994  b L_5a2e
+  599a  r0 = [r0 numberBackUp](CFSTR('0'), ?)
+  59a8  r2 = CFSTR('2')
+  59aa  b L_5a2e
+  59b0  r0 = [r0 numberBackUp](CFSTR('2'), ?)
+  59be  r2 = CFSTR('3')
+  59c0  b L_5a2e
+  59c6  r0 = [r0 numberBackUp](CFSTR('3'), ?)
+  59d4  r2 = CFSTR('4')
+  59d6  b L_5a2e
+  59dc  r0 = [r0 numberBackUp](CFSTR('4'), ?)
+  59ea  r2 = CFSTR('5')
+  59ec  b L_5a2e
+  59f2  r0 = [r0 numberBackUp](CFSTR('5'), ?)
+  5a00  r2 = CFSTR('6')
+  5a02  b L_5a2e
+  5a08  r0 = [r0 numberBackUp](CFSTR('6'), ?)
+  5a16  r2 = CFSTR('7')
+  5a18  b L_5a2e
+  5a1e  r0 = [r0 numberBackUp](CFSTR('7'), ?)
+  5a2c  r2 = CFSTR('8')
+L_5a2e:
+  5a2e  r3 = 0
+  5a30  r0 = [r0 insertObject:atIndex:](CFSTR('8'), 0)
+  5a38  r0 = [r0 ??](?, ?)
+  5a3c  add.w fp, fp, #1
+  5a40  cmp fp, r0
+  5a42  blo L_5922
+L_5a46:
+  5a4e  r0 = SEL(numberBackUp)
+  5a50  r1 = SEL(numberBackUp)
+  5a54  r0 = [r0 numberBackUp](?, ?)
+  5a60  r1 = SEL(count)
+  5a62  r1 = SEL(count)
+  5a64  r0 = [r0 count](?, ?)
+  5a74  r1 = IVOFF(ttsArrayCount)
+  5a7a  r2 = IVOFF(ttsTimer)
+  5a7c  r1 = IVOFF(ttsArrayCount)
+  5a7e  r5 = IVOFF(ttsTimer)
+  5a80  self->ttsArrayCount = r0
+  5a82  r0 = self->ttsTimer
+  5a84  cbnz self->ttsTimer -> L_5ade
+  5a8a  r8 = 0
+  5a92  r0 = SEL(isValid)
+  5a94  r1 = SEL(isValid)
+  5a96  r0 = 0
+  5a98  r0 = [r0 isValid](IVOFF(ttsTimer), ?)
+  5aa0  bne L_5ade
+  5aa2  vmov.f64 d16, #1.000000e+00
+  5aba  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  5abc  r6 = NSTimer
+  5abe  vmov r2, r3, d16
+  5ac6  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  5ac8  sb = SEL(readNumber:)
+  5aca  r0 = NSTimer
+  5acc  r6 = SEL(readNumber:)
+  5ad0  sb = 1
+  5ad8  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  5adc  self->ttsTimer = r0
+L_5ade:
+  5ade  add sp, #0x20
+  5ae4  return
+
+//// -[AppDelegate readStop]  0x5ae8..0x5cbc  v8@0:4
+  5aea  add r7, sp, #0xc
+  5afa  r0 = SEL(playback)
+  5afc  r8 = SEL(playback)
+  5b04  r0 = [r0 playback](?, ?)
+  5b12  r2 = 0
+  5b14  r0 = SEL(playSoundBufNumber:)
+  5b16  fp = SEL(playSoundBufNumber:)
+  5b1e  r0 = [r0 playSoundBufNumber:](0, ?)
+  5b2c  r0 = SEL(stopSound:)
+  5b2e  r5 = SEL(stopSound:)
+  5b34  r0 = [r0 stopSound:](?, ?)
+  5b3c  r0 = [r0 playback](?, ?)
+  5b46  r2 = 1
+  5b48  r0 = [r0 playSoundBufNumber:](1, ?)
+  5b52  r0 = [r0 stopSound:](?, ?)
+  5b5a  r0 = [r0 playback](?, ?)
+  5b64  r2 = 2
+  5b66  r0 = [r0 playSoundBufNumber:](2, ?)
+  5b70  r0 = [r0 stopSound:](?, ?)
+  5b78  r0 = [r0 playback](?, ?)
+  5b82  r2 = 3
+  5b84  r0 = [r0 playSoundBufNumber:](3, ?)
+  5b8e  r0 = [r0 stopSound:](?, ?)
+  5b96  r0 = [r0 playback](?, ?)
+  5ba0  r2 = 4
+  5ba2  r0 = [r0 playSoundBufNumber:](4, ?)
+  5bac  r0 = [r0 stopSound:](?, ?)
+  5bb4  r0 = [r0 playback](?, ?)
+  5bbe  r2 = 5
+  5bc0  r0 = [r0 playSoundBufNumber:](5, ?)
+  5bca  r0 = [r0 stopSound:](?, ?)
+  5bd2  r0 = [r0 playback](?, ?)
+  5bdc  r2 = 6
+  5bde  r0 = [r0 playSoundBufNumber:](6, ?)
+  5be8  r0 = [r0 stopSound:](?, ?)
+  5bf0  r0 = [r0 playback](?, ?)
+  5bfa  r2 = 7
+  5bfc  r0 = [r0 playSoundBufNumber:](7, ?)
+  5c06  r0 = [r0 stopSound:](?, ?)
+  5c0e  r0 = [r0 playback](?, ?)
+  5c18  r2 = 8
+  5c1a  r0 = [r0 playSoundBufNumber:](8, ?)
+  5c24  r0 = [r0 stopSound:](?, ?)
+  5c2c  r0 = [r0 playback](?, ?)
+  5c36  r2 = 9
+  5c38  r0 = [r0 playSoundBufNumber:](9, ?)
+  5c42  r0 = [r0 stopSound:](?, ?)
+  5c4e  r0 = IVOFF(ttsTimer)
+  5c50  r5 = IVOFF(ttsTimer)
+  5c52  r0 = self->ttsTimer
+  5c54  cbz self->ttsTimer -> L_5c82
+  5c5e  r1 = SEL(isValid)
+  5c60  r1 = SEL(isValid)
+  5c62  r0 = [self->ttsTimer isValid](?, ?)
+  5c6a  beq L_5c82
+  5c74  r0 = SEL(invalidate)
+  5c76  r1 = SEL(invalidate)
+  5c78  r0 = self->ttsTimer
+  5c7a  r0 = [self->ttsTimer invalidate](?, ?)
+  5c7e  r0 = 0
+  5c80  self->ttsTimer = 0
+L_5c82:
+  5c92  r0 = SEL(array)
+  5c94  r2 = NSMutableArray
+  5c96  r1 = SEL(array)
+  5c98  r0 = NSMutableArray
+  5c9a  r0 = [NSMutableArray array](NSMutableArray, ?)
+  5ca8  r0 = SEL(setNumberBackUp:)
+  5caa  r1 = SEL(setNumberBackUp:)
+  5cb6  b L_a90d0
+
+//// -[AppDelegate readNumber:]  0x5cbc..0x5ec4  v12@0:4@8
+  5cbe  add r7, sp, #8
+  5cc0  sub sp, #0x10
+  5ccc  r0 = IVOFF(ttsArrayCount)
+  5cce  r5 = IVOFF(ttsArrayCount)
+  5cd0  r0 = self->ttsArrayCount
+  5cd2  cmp self->ttsArrayCount, 1
+  5cd4  blt L_5d38
+  5cda  subs r0, #1
+  5ce0  self->ttsArrayCount = r0
+  5ce2  r1 = SEL(numberBackUp)
+  5ce6  r1 = SEL(numberBackUp)
+  5ce8  r0 = [r0 numberBackUp](?, ?)
+  5cf4  r2 = self->ttsArrayCount
+  5cf6  r1 = SEL(objectAtIndex:)
+  5cf8  r1 = SEL(objectAtIndex:)
+  5cfa  r0 = [r0 objectAtIndex:](self->ttsArrayCount, ?)
+  5d06  r1 = SEL(intValue)
+  5d08  r1 = SEL(intValue)
+  5d0a  r0 = [r0 intValue](?, ?)
+  5d1c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d22  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d24  r0 = 0
+  5d30  r0 = [r0 playSound:Gain:Pos:z:reprats:](?, 0x3e4ccccd/f0.2)
+  5d34  add sp, #0x10
+  5d36  return
+L_5d38:
+  5d40  r0 = IVOFF(ttsTimer)
+  5d42  r5 = IVOFF(ttsTimer)
+  5d44  r0 = self->ttsTimer
+  5d46  cmp self->ttsTimer, 0
+  5d48  beq L_5e8e
+  5d54  r1 = SEL(isValid)
+  5d56  r1 = SEL(isValid)
+  5d58  r0 = [self->ttsTimer isValid](?, ?)
+  5d60  beq L_5e8e
+  5d6c  r0 = SEL(invalidate)
+  5d6e  r1 = SEL(invalidate)
+  5d70  r0 = self->ttsTimer
+  5d72  r0 = [self->ttsTimer invalidate](?, ?)
+  5d7a  r0 = 0
+  5d80  self->ttsTimer = 0
+  5d82  r1 = IVOFF(tts_type)
+  5d84  r1 = IVOFF(tts_type)
+  5d86  r1 = self->tts_type
+  5d88  cmp self->tts_type, 5
+  5d8a  beq L_5dde
+  5d8c  cmp self->tts_type, 4
+  5d8e  bne L_5e02
+  5da0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5da2  r2 = 336
+  5da6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5da8  r0 = 0
+  5db4  r0 = [r0 playSound:Gain:Pos:z:reprats:](336, 0x3e4ccccd/f0.2)
+  5dcc  r0 = SEL(performSelector:withObject:afterDelay:)
+  5dce  r2 = SEL(readTimeSec)
+  5dd4  r1 = SEL(performSelector:withObject:afterDelay:)
+  5dd6  r0 = -1610612736
+  5dda  r2 = SEL(readTimeSec)
+  5ddc  b L_5e82
+L_5dde:
+  5dec  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5df6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5e00  b L_5e8a
+L_5e02:
+  5e02  cmp SEL(playSound:Gain:Pos:z:reprats:), 3
+  5e04  bne L_5e8e
+  5e0e  r0 = SEL(Coin)
+  5e10  r1 = SEL(Coin)
+  5e14  r0 = [r0 Coin](337, 0x3e4ccccd/f0.2)
+  5e1c  cmp r0, 5
+  5e22  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5e24  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5e26  blt L_5e42
+  5e2c  r0 = 0
+  5e36  r2 = 338
+  5e40  b L_5e8a
+L_5e42:
+  5e46  r0 = 0
+  5e5a  r0 = [r0 playSound:Gain:Pos:z:reprats:](339, 0x3e4ccccd/f0.2)
+  5e72  r0 = SEL(performSelector:withObject:afterDelay:)
+  5e74  r2 = SEL(readTimeMin)
+  5e7a  r1 = SEL(performSelector:withObject:afterDelay:)
+  5e7c  r0 = -1073741824
+  5e80  r2 = SEL(readTimeMin)
+L_5e82:
+  5e88  r3 = 0
+L_5e8a:
+  5e8a  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readTimeMin), 0)
+L_5e8e:
+  5e9e  r0 = SEL(array)
+  5ea0  r2 = NSMutableArray
+  5ea2  r1 = SEL(array)
+  5ea4  r0 = NSMutableArray
+  5ea6  r0 = [NSMutableArray array](NSMutableArray, ?)
+  5eb4  r0 = SEL(setNumberBackUp:)
+  5eb6  r1 = SEL(setNumberBackUp:)
+  5eba  add sp, #0x10
+  5ec0  b L_a90d0
+
+//// -[AppDelegate readTimeMin]  0x5ec4..0x604c  v8@0:4
+  5ec6  add r7, sp, #0xc
+  5ecc  sub sp, #8
+  5ee0  r0 = SEL(standardUserDefaults)
+  5ee2  r2 = NSUserDefaults
+  5ee4  r1 = SEL(standardUserDefaults)
+  5ee6  r0 = NSUserDefaults
+  5ee8  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  5ef8  r1 = SEL(objectForKey:)
+  5efe  r2 = CFSTR('COIN_TIMER')
+  5f00  r1 = SEL(objectForKey:)
+  5f02  r0 = [r0 objectForKey:](CFSTR('COIN_TIMER'), ?)
+  5f18  r0 = SEL(alloc)
+  5f1a  r2 = NSDateFormatter
+  5f1c  r1 = SEL(alloc)
+  5f1e  r0 = NSDateFormatter
+  5f20  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  5f2c  r1 = SEL(init)
+  5f2e  r1 = SEL(init)
+  5f30  r0 = [r0 init](?, ?)
+  5f3c  r1 = SEL(autorelease)
+  5f3e  r1 = SEL(autorelease)
+  5f40  r0 = [r0 autorelease](?, ?)
+  5f52  r0 = SEL(setDateFormat:)
+  5f58  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  5f5a  r1 = SEL(setDateFormat:)
+  5f5e  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  5f6c  r0 = SEL(dateFromString:)
+  5f6e  r4 = SEL(dateFromString:)
+  5f74  r0 = [r0 dateFromString:](?, ?)
+  5f8a  r0 = SEL(date)
+  5f8c  r2 = NSDate
+  5f8e  r1 = SEL(date)
+  5f90  r0 = NSDate
+  5f92  r0 = [NSDate date](NSDate, ?)
+  5fa0  r0 = SEL(stringFromDate:)
+  5fa2  r1 = SEL(stringFromDate:)
+  5fa6  r0 = [r0 stringFromDate:](?, ?)
+  5fb0  r0 = [r0 dateFromString:](?, ?)
+  5fc6  r0 = SEL(currentCalendar)
+  5fc8  r2 = NSCalendar
+  5fca  r1 = SEL(currentCalendar)
+  5fcc  r0 = NSCalendar
+  5fce  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  5fd6  r3 = 0
+  5fde  r1 = SEL(components:fromDate:toDate:options:)
+  5fe2  r2 = 128
+  5fe6  r1 = SEL(components:fromDate:toDate:options:)
+  5fe8  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  5ff4  r1 = SEL(second)
+  5ff6  r1 = SEL(second)
+  5ff8  r0 = [r0 second](?, ?)
+  6000  rsb.w r0, r0, #0x708
+  6008  r3 = 4
+  600e  asrs r2, r1, #0xb
+  6010  add.w r1, r2, r1, lsr #31
+  6014  r2 = 3600
+  6030  r0 = SEL(TTSNumber:type2:)
+  6032  asrs r2, r1, #5
+  6034  add.w r2, r2, r1, lsr #31
+  6038  r1 = SEL(TTSNumber:type2:)
+  603c  add sp, #8
+  6046  b L_a90d0
+
+//// -[AppDelegate readTimeSec]  0x604c..0x61dc  v8@0:4
+  604e  add r7, sp, #0xc
+  6054  sub sp, #8
+  6068  r0 = SEL(standardUserDefaults)
+  606a  r2 = NSUserDefaults
+  606c  r1 = SEL(standardUserDefaults)
+  606e  r0 = NSUserDefaults
+  6070  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  6080  r1 = SEL(objectForKey:)
+  6086  r2 = CFSTR('COIN_TIMER')
+  6088  r1 = SEL(objectForKey:)
+  608a  r0 = [r0 objectForKey:](CFSTR('COIN_TIMER'), ?)
+  60a0  r0 = SEL(alloc)
+  60a2  r2 = NSDateFormatter
+  60a4  r1 = SEL(alloc)
+  60a6  r0 = NSDateFormatter
+  60a8  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  60b4  r1 = SEL(init)
+  60b6  r1 = SEL(init)
+  60b8  r0 = [r0 init](?, ?)
+  60c4  r1 = SEL(autorelease)
+  60c6  r1 = SEL(autorelease)
+  60c8  r0 = [r0 autorelease](?, ?)
+  60da  r0 = SEL(setDateFormat:)
+  60e0  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  60e2  r1 = SEL(setDateFormat:)
+  60e6  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  60f4  r0 = SEL(dateFromString:)
+  60f6  r4 = SEL(dateFromString:)
+  60fc  r0 = [r0 dateFromString:](?, ?)
+  6112  r0 = SEL(date)
+  6114  r2 = NSDate
+  6116  r1 = SEL(date)
+  6118  r0 = NSDate
+  611a  r0 = [NSDate date](NSDate, ?)
+  6128  r0 = SEL(stringFromDate:)
+  612a  r1 = SEL(stringFromDate:)
+  612e  r0 = [r0 stringFromDate:](?, ?)
+  6138  r0 = [r0 dateFromString:](?, ?)
+  614e  r0 = SEL(currentCalendar)
+  6150  r2 = NSCalendar
+  6152  r1 = SEL(currentCalendar)
+  6154  r0 = NSCalendar
+  6156  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  615e  r3 = 0
+  6166  r1 = SEL(components:fromDate:toDate:options:)
+  616a  r2 = 128
+  616e  r1 = SEL(components:fromDate:toDate:options:)
+  6170  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  617c  r1 = SEL(second)
+  617e  r1 = SEL(second)
+  6180  r0 = [r0 second](?, ?)
+  6188  rsb.w r0, r0, #0x708
+  6194  asrs r2, r1, #0xb
+  6196  add.w r1, r2, r1, lsr #31
+  619a  r2 = 3600
+  61b6  r1 = SEL(TTSNumber:type2:)
+  61b8  r1 = SEL(TTSNumber:type2:)
+  61ba  asrs r3, r2, #5
+  61bc  add.w r2, r3, r2, lsr #31
+  61c0  r3 = 5
+  61c2  rsb r2, r2, r2, lsl #4
+  61c6  sub.w r2, r0, r2, lsl #2
+  61cc  add sp, #8
+  61d6  b L_a90d0
+
+//// -[AppDelegate returnFileName:]  0x61dc..0x625c  @12@0:4i8
+  61f0  r0 = SEL(mainBundle)
+  61f2  r2 = NSBundle
+  61f4  add r7, sp, #4
+  61f6  r1 = SEL(mainBundle)
+  61f8  r0 = NSBundle
+  61fa  r0 = [NSBundle mainBundle](NSBundle, ?)
+  620a  r1 = SEL(pathForResource:ofType:)
+  6214  r2 = CFSTR('SoundList')
+  621a  r1 = SEL(pathForResource:ofType:)
+  621c  r3 = CFSTR('plist')
+  621e  r0 = [r0 pathForResource:ofType:](CFSTR('SoundList'), CFSTR('plist'))
+  6234  r0 = SEL(arrayWithContentsOfFile:)
+  6236  r3 = NSArray
+  6238  r1 = SEL(arrayWithContentsOfFile:)
+  623a  r0 = NSArray
+  623c  r0 = [NSArray arrayWithContentsOfFile:](?, NSArray)
+  6240  r1 = 0
+  6242  cbz r0 -> L_6258
+  624e  r1 = SEL(objectAtIndex:)
+  6250  r1 = SEL(objectAtIndex:)
+  6252  r0 = [r0 objectAtIndex:](?, ?)
+L_6258:
+  625a  return
+
+//// -[AppDelegate CheckSoundBuf:]  0x625c..0x62e8  i12@0:4i8
+  625e  add r7, sp, #0xc
+  6272  r0 = SEL(aSoundBufControlData)
+  6274  fp = SEL(aSoundBufControlData)
+  627c  r0 = [r0 aSoundBufControlData](?, ?)
+  6288  r1 = SEL(count)
+  628a  r1 = SEL(count)
+  628c  r0 = [r0 count](?, ?)
+  6292  r0 = -1
+  6296  cmp r4, 1
+  6298  blt L_62e0
+  629e  r8 = -1
+  62ae  r0 = SEL(iFileNumber)
+  62b0  r1 = SEL(objectAtIndex:)
+  62b2  r5 = SEL(iFileNumber)
+  62b4  r6 = SEL(objectAtIndex:)
+L_62b6:
+  62b6  add.w r8, r8, #1
+  62ba  r0 = -1
+  62be  cmp r8, r4
+  62c0  bge L_62e0
+  62c6  r0 = [r0 aSoundBufControlData](?, ?)
+  62ce  r0 = [r0 objectAtIndex:](?, ?)
+  62d4  r0 = [r0 iFileNumber](?, ?)
+  62da  cmp r0, r1
+  62de  bne L_62b6
+L_62e0:
+  62e0  add sp, #4
+  62e6  return
+
+//// -[AppDelegate findBufFlagNO]  0x62e8..0x6370  i8@0:4
+  62ea  add r7, sp, #0xc
+  62fa  r0 = SEL(aSoundBufControlData)
+  62fc  sl = SEL(aSoundBufControlData)
+  6304  r0 = [r0 aSoundBufControlData](?, ?)
+  6310  r1 = SEL(count)
+  6312  r1 = SEL(count)
+  6314  r0 = [r0 count](?, ?)
+  631a  r0 = -1
+  631e  cmp fp, 1
+  6322  blt L_6368
+  6328  r6 = -1
+  6338  r0 = SEL(bIsPlaying)
+  633a  r1 = SEL(objectAtIndex:)
+  633c  r4 = SEL(bIsPlaying)
+  633e  r5 = SEL(objectAtIndex:)
+L_6340:
+  6340  adds r6, #1
+  6342  r0 = -1
+  6346  cmp r6, fp
+  6348  bge L_6368
+  634e  r0 = [r0 aSoundBufControlData](?, ?)
+  6356  r0 = [r0 objectAtIndex:](?, ?)
+  635c  r0 = [r0 bIsPlaying](?, ?)
+  6366  bne L_6340
+L_6368:
+  636c  return
+
+//// -[AppDelegate playSoundBufNumber:]  0x6370..0x6580  i12@0:4i8
+  6372  add r7, sp, #0xc
+  6378  sub sp, #4
+  6386  r0 = SEL(CheckSoundBuf:)
+  6388  r1 = SEL(CheckSoundBuf:)
+  638c  r0 = [r0 CheckSoundBuf:](?, ?)
+  6392  cmp sl, -1
+  6396  bne L_647e
+  63a0  r0 = SEL(findBufFlagNO)
+  63a2  r1 = SEL(findBufFlagNO)
+  63a6  r0 = [r0 findBufFlagNO](?, ?)
+  63bc  r0 = SEL(alloc)
+  63be  r2 = SoundListControl
+  63c0  r1 = SEL(alloc)
+  63c2  r0 = SoundListControl
+  63c4  r0 = [SoundListControl alloc](SoundListControl, ?)
+  63d0  r1 = SEL(init)
+  63d2  r1 = SEL(init)
+  63d4  r0 = [r0 init](?, ?)
+  63e2  r2 = 1
+  63e4  r0 = SEL(setBIsPlaying:)
+  63e6  r1 = SEL(setBIsPlaying:)
+  63ea  r0 = [r0 setBIsPlaying:](1, ?)
+  63f8  r0 = SEL(setIFileNumber:)
+  63fa  r1 = SEL(setIFileNumber:)
+  63fe  r0 = [r0 setIFileNumber:](?, ?)
+  640c  r0 = SEL(returnFileName:)
+  640e  r1 = SEL(returnFileName:)
+  6412  r0 = [r0 returnFileName:](?, ?)
+  6420  r0 = SEL(setSFileName:)
+  6422  r1 = SEL(setSFileName:)
+  6426  r0 = [r0 setSFileName:](?, ?)
+  6432  r0 = SEL(aSoundBufControlData)
+  6434  r6 = SEL(aSoundBufControlData)
+  643a  r0 = [r0 aSoundBufControlData](?, ?)
+  643e  cmp sl, -1
+  6442  bne L_64b6
+  644c  r1 = SEL(count)
+  644e  r1 = SEL(count)
+  6450  r0 = [r0 count](?, ?)
+  645a  r0 = [r0 aSoundBufControlData](?, ?)
+  6468  r1 = SEL(addObject:)
+  646a  r1 = SEL(addObject:)
+  646c  r0 = [r0 addObject:](?, ?)
+  6478  r0 = SEL(playback)
+  647a  r6 = SEL(playback)
+  647c  b L_650a
+L_647e:
+  6486  r0 = SEL(aSoundBufControlData)
+  6488  r1 = SEL(aSoundBufControlData)
+  648c  r0 = [r0 aSoundBufControlData](?, ?)
+  649a  r1 = SEL(objectAtIndex:)
+  649c  r1 = SEL(objectAtIndex:)
+  649e  r0 = [r0 objectAtIndex:](?, ?)
+  64a6  r2 = 1
+  64ac  r1 = SEL(setBIsPlaying:)
+  64ae  r1 = SEL(setBIsPlaying:)
+  64b0  r0 = [r0 setBIsPlaying:](1, ?)
+  64b4  b L_6574
+L_64b6:
+  64c2  r1 = SEL(replaceObjectAtIndex:withObject:)
+  64c4  r1 = SEL(replaceObjectAtIndex:withObject:)
+  64c6  r0 = [r0 replaceObjectAtIndex:withObject:](?, ?)
+  64d2  r0 = SEL(playback)
+  64d4  r6 = SEL(playback)
+  64da  r0 = [r0 playback](?, ?)
+  64e8  r1 = SEL(freeSourceOne:)
+  64ea  r1 = SEL(freeSourceOne:)
+  64ec  r0 = [r0 freeSourceOne:](?, ?)
+  64f4  r0 = [r0 playback](?, ?)
+  6502  r1 = SEL(freeBufferOne:)
+  6504  r1 = SEL(freeBufferOne:)
+  6506  r0 = [r0 freeBufferOne:](?, ?)
+L_650a:
+  650e  r0 = [r0 playback](?, ?)
+  651c  r0 = SEL(sFileName)
+  651e  r1 = SEL(sFileName)
+  6522  r0 = [r0 sFileName](?, ?)
+  6532  r0 = SEL(initBufferOne:FileName:Type:)
+  6534  r1 = SEL(initBufferOne:FileName:Type:)
+  653e  r0 = CFSTR('wav')
+  6544  r0 = [r0 initBufferOne:FileName:Type:](?, ?)
+  654c  r0 = [r0 playback](?, ?)
+  655a  r1 = SEL(initSourceOne:)
+  655c  r1 = SEL(initSourceOne:)
+  655e  r0 = [r0 initSourceOne:](?, ?)
+  656a  r0 = SEL(release)
+  656c  r1 = SEL(release)
+  6570  r0 = [r0 release](?, ?)
+L_6574:
+  6576  add sp, #4
+  657c  return
+
+//// -[AppDelegate stopSoundBufNumber:]  0x6580..0x6658  v12@0:4i8
+  6582  add r7, sp, #0xc
+  6594  r0 = SEL(aSoundBufControlData)
+  6596  r5 = SEL(aSoundBufControlData)
+  659c  r0 = [r0 aSoundBufControlData](?, ?)
+  65a8  r1 = SEL(count)
+  65aa  r8 = SEL(count)
+  65b0  r0 = [r0 count](?, ?)
+  65b4  cmp r0, 1
+  65b6  blt L_65d4
+  65c2  r0 = SEL(CheckSoundBuf:)
+  65c4  r1 = SEL(CheckSoundBuf:)
+  65c8  r0 = [r0 CheckSoundBuf:](?, ?)
+  65ce  cmp r6, -1
+  65d2  bne L_65da
+L_65d4:
+  65d8  return
+L_65da:
+  65de  r0 = [r0 aSoundBufControlData](?, ?)
+  65ec  r1 = SEL(objectAtIndex:)
+  65ee  r1 = SEL(objectAtIndex:)
+  65f0  r0 = [r0 objectAtIndex:](?, ?)
+  65fe  r0 = SEL(iFileNumber)
+  6600  r1 = SEL(iFileNumber)
+  6604  r0 = [r0 iFileNumber](?, ?)
+  660c  r0 = [r0 aSoundBufControlData](?, ?)
+  6612  r0 = [r0 count](?, ?)
+  661e  r0 = SEL(playback)
+  6620  r1 = SEL(playback)
+  6624  r0 = [r0 playback](?, ?)
+  6632  r1 = SEL(stopSound:)
+  6634  r1 = SEL(stopSound:)
+  6636  r0 = [r0 stopSound:](?, ?)
+  663e  r2 = 0
+  6644  r0 = SEL(setBIsPlaying:)
+  6646  r1 = SEL(setBIsPlaying:)
+  6652  b L_a90d0
+
+//// -[AppDelegate playSound:Gain:Pos:z:reprats:]  0x6658..0x6748  v32@0:4i8f12{CGPoint=ff}16i24c28
+  665a  add r7, sp, #0xc
+  6660  vpush {d8}
+  6664  sub sp, #0x10
+  6672  r0 = SEL(playSoundBufNumber:)
+  6674  r1 = SEL(playSoundBufNumber:)
+  6678  r0 = [r0 playSoundBufNumber:](?, ?)
+  6686  r0 = SEL(aSoundBufControlData)
+  6688  r1 = SEL(aSoundBufControlData)
+  668c  r0 = [r0 aSoundBufControlData](?, ?)
+  669a  r1 = SEL(objectAtIndex:)
+  669c  r1 = SEL(objectAtIndex:)
+  669e  r0 = [r0 objectAtIndex:](?, ?)
+  66aa  r1 = SEL(bIsPlaying)
+  66ac  r1 = SEL(bIsPlaying)
+  66ae  r0 = [r0 bIsPlaying](?, ?)
+  66b2  add.w fp, r7, #8
+  66b6  vmov d8, r6, r6
+  66c2  beq L_66e8
+  66cc  r0 = SEL(playback)
+  66ce  r1 = SEL(playback)
+  66d2  r0 = [r0 playback](?, ?)
+  66e0  r1 = SEL(stopSound:)
+  66e2  r1 = SEL(stopSound:)
+  66e4  r0 = [r0 stopSound:](?, ?)
+L_66e8:
+  66f0  r0 = SEL(playback)
+  66f2  r6 = SEL(playback)
+  66f8  r0 = [r0 playback](?, ?)
+  670a  r1 = SEL(queueNote:gain:sourcePos:defaultZ:repeats:)
+  6710  r1 = SEL(queueNote:gain:sourcePos:defaultZ:repeats:)
+  6716  r0 = [r0 queueNote:gain:sourcePos:defaultZ:repeats:](?, ?)
+  671e  r0 = [r0 playback](?, ?)
+  672e  r1 = SEL(startSound:Postion:)
+  6734  r1 = SEL(startSound:Postion:)
+  6736  r0 = [r0 startSound:Postion:](?, ?)
+  673a  add sp, #0x10
+  673c  vpop {d8}
+  6744  return
+
+//// -[AppDelegate application:didRegisterForRemoteNotificationsWithDeviceToken:]  0x6748..0x6888  v16@0:4@8@12
+  674a  add r7, sp, #0xc
+  6752  r0 = 0
+  6756  call _UIAccessibilityIsVoiceOverRunning
+  6766  r1 = SEL(setMode:)
+  6768  r1 = SEL(setMode:)
+  676a  beq L_67a8
+  676e  r2 = 1
+  6770  r0 = [r0 setMode:](1, ?)
+  6784  r0 = SEL(standardUserDefaults)
+  6786  r4 = NSUserDefaults
+  6788  r6 = SEL(standardUserDefaults)
+  678a  r0 = NSUserDefaults
+  678e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  67a2  r1 = SEL(setObject:forKey:)
+  67a4  fp = CFSTR('1')
+  67a6  b L_67e2
+L_67a8:
+  67aa  r2 = 0
+  67ac  r0 = [r0 setObject:forKey:](0, ?)
+  67c0  r0 = SEL(standardUserDefaults)
+  67c2  r4 = NSUserDefaults
+  67c4  r6 = SEL(standardUserDefaults)
+  67c6  r0 = NSUserDefaults
+  67ca  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  67de  r1 = SEL(setObject:forKey:)
+  67e0  fp = CFSTR('0')
+L_67e2:
+  67e6  r5 = SEL(setObject:forKey:)
+  67ee  r3 = CFSTR('EYEMODE')
+  67f2  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('EYEMODE'))
+  67f6  r0 = NSUserDefaults
+  67fa  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  680a  r3 = CFSTR('DEFAULTEYEMODE')
+  680c  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('DEFAULTEYEMODE'))
+  6820  r0 = SEL(standardUserDefaults)
+  6822  r4 = NSUserDefaults
+  6824  r6 = SEL(standardUserDefaults)
+  6826  r0 = NSUserDefaults
+  682a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  683a  r1 = SEL(setObject:forKey:)
+  6844  r2 = CFSTR('http://www.evree.net/sixsense/')
+  684a  r1 = SEL(setObject:forKey:)
+  684c  r3 = CFSTR('BASEURL')
+  684e  r0 = [r0 setObject:forKey:](CFSTR('http://www.evree.net/sixsense/'), CFSTR('BASEURL'))
+  6852  r0 = NSUserDefaults
+  6856  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6862  r1 = SEL(synchronize)
+  6864  r1 = SEL(synchronize)
+  6866  r0 = [r0 synchronize](?, ?)
+  6874  r0 = SEL(getTokenString:)
+  6876  r1 = SEL(getTokenString:)
+  6882  b L_a90d0
+
+//// -[AppDelegate application:didFailToRegisterForRemoteNotificationsWithError:]  0x6888..0x688c  v16@0:4@8@12
+
+//// -[AppDelegate getTokenString:]  0x688c..0x6b7c  v12@0:4@8
+  688e  add r7, sp, #0xc
+  6894  sub sp, #0x14
+  68a0  r0 = SEL(description)
+  68a2  r1 = SEL(description)
+  68a6  r0 = [r0 description](?, ?)
+  68bc  r0 = SEL(characterSetWithCharactersInString:)
+  68be  r2 = NSCharacterSet
+  68c0  r1 = SEL(characterSetWithCharactersInString:)
+  68c2  r0 = NSCharacterSet
+  68cc  r2 = CFSTR('< >')
+  68ce  r0 = [NSCharacterSet characterSetWithCharactersInString:](CFSTR('< >'), ?)
+  68dc  r0 = SEL(stringByTrimmingCharactersInSet:)
+  68de  r1 = SEL(stringByTrimmingCharactersInSet:)
+  68e2  r0 = [r0 stringByTrimmingCharactersInSet:](?, ?)
+  68f2  r1 = SEL(stringByReplacingOccurrencesOfString:withString:)
+  68fc  r2 = CFSTR(' ')
+  6902  r1 = SEL(stringByReplacingOccurrencesOfString:withString:)
+  6904  r3 = CFSTR('')
+  6906  r0 = [r0 stringByReplacingOccurrencesOfString:withString:](CFSTR(' '), CFSTR(''))
+  6914  r0 = SEL(setG_token:)
+  6916  r1 = SEL(setG_token:)
+  691a  r0 = [r0 setG_token:](?, ?)
+  692e  r0 = SEL(standardUserDefaults)
+  6930  r8 = NSUserDefaults
+  6932  r6 = SEL(standardUserDefaults)
+  6934  r0 = NSUserDefaults
+  693a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6948  r0 = SEL(g_token)
+  694a  r4 = SEL(g_token)
+  6950  r0 = [r0 g_token](?, ?)
+  6962  r0 = SEL(setObject:forKey:)
+  6968  r3 = CFSTR('TOKEN')
+  696a  r1 = SEL(setObject:forKey:)
+  696e  r0 = [r0 setObject:forKey:](?, CFSTR('TOKEN'))
+  697a  r0 = SEL(synchronize)
+  697c  r1 = SEL(synchronize)
+  6980  r0 = [r0 synchronize](?, ?)
+  698e  r0 = NSUserDefaults
+  6992  sl = NSString
+  6994  r5 = NSString
+  6998  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  69a4  r1 = SEL(objectForKey:)
+  69a6  r1 = SEL(objectForKey:)
+  69b2  r2 = CFSTR('BASEURL')
+  69b4  r0 = [r0 ??](CFSTR('BASEURL'), ?)
+  69c6  r0 = SEL(stringWithFormat:)
+  69cc  r2 = CFSTR('%@install.php')
+  69ce  r6 = SEL(stringWithFormat:)
+  69d4  r0 = [NSString stringWithFormat:](CFSTR('%@install.php'), ?)
+  69da  r0 = 0
+  69dc  call _UIAccessibilityIsVoiceOverRunning
+  69e6  r8 = NSString
+  69ea  r0 = [r0 g_token](?, ?)
+  69fa  r2 = CFSTR('blind=%d&token=%@')
+  6a00  r0 = [NSString stringWithFormat:](CFSTR('blind=%d&token=%@'), ?)
+  6a16  r0 = NSData
+  6a18  r1 = SEL(UTF8String)
+  6a1a  r4 = NSData
+  6a1e  r1 = SEL(UTF8String)
+  6a20  r0 = [r0 UTF8String](?, ?)
+  6a2e  r0 = SEL(length)
+  6a30  r1 = SEL(length)
+  6a34  r0 = [r0 length](?, ?)
+  6a44  r0 = SEL(dataWithBytes:length:)
+  6a46  r1 = SEL(dataWithBytes:length:)
+  6a4a  r0 = [NSData dataWithBytes:length:](?, ?)
+  6a60  r0 = SEL(alloc)
+  6a62  r1 = NSMutableURLRequest
+  6a64  r5 = SEL(alloc)
+  6a66  r0 = NSMutableURLRequest
+  6a6a  r0 = [NSMutableURLRequest alloc](?, ?)
+  6a80  r0 = SEL(URLWithString:)
+  6a82  r2 = NSURL
+  6a84  r1 = SEL(URLWithString:)
+  6a86  r0 = NSURL
+  6a8a  r0 = [NSURL URLWithString:](?, ?)
+  6a98  r0 = SEL(initWithURL:)
+  6a9a  r1 = SEL(initWithURL:)
+  6a9e  r0 = [r0 initWithURL:](?, ?)
+  6aae  r0 = SEL(setHTTPBody:)
+  6ab0  r1 = SEL(setHTTPBody:)
+  6ab4  r0 = [r0 setHTTPBody:](?, ?)
+  6ac4  r0 = SEL(setHTTPMethod:)
+  6aca  r2 = CFSTR('POST')
+  6acc  r1 = SEL(setHTTPMethod:)
+  6ad0  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  6ad8  add r3, sp, #0xc
+  6ae6  r0 = SEL(sendSynchronousRequest:returningResponse:error:)
+  6ae8  r2 = NSURLConnection
+  6aea  r1 = SEL(sendSynchronousRequest:returningResponse:error:)
+  6aec  r0 = NSURLConnection
+  6aee  add r2, sp, #0x10
+  6af4  r0 = [NSURLConnection sendSynchronousRequest:returningResponse:error:](?, ?)
+  6b02  r0 = SEL(release)
+  6b04  r1 = SEL(release)
+  6b08  r0 = [r0 release](?, ?)
+  6b0c  cbz r6 -> L_6b74
+  6b18  r0 = NSString
+  6b1a  r0 = NSString
+  6b1c  r0 = [NSString alloc](?, ?)
+  6b2a  r3 = 4
+  6b2c  r1 = SEL(initWithData:encoding:)
+  6b2e  r1 = SEL(initWithData:encoding:)
+  6b30  r0 = [r0 initWithData:encoding:](?, 4)
+  6b3c  r1 = SEL(autorelease)
+  6b3e  r1 = SEL(autorelease)
+  6b40  r0 = [r0 autorelease](?, ?)
+  6b4c  r1 = SEL(objectFromJSONString)
+  6b4e  r1 = SEL(objectFromJSONString)
+  6b50  r0 = [r0 objectFromJSONString](?, ?)
+  6b5e  r2 = CFSTR('code')
+  6b60  r0 = [r0 ??](CFSTR('code'), ?)
+  6b6c  r1 = SEL(intValue)
+  6b6e  r1 = SEL(intValue)
+  6b70  r0 = [r0 intValue](?, ?)
+L_6b74:
+  6b74  add sp, #0x14
+  6b7a  return
+
+//// -[AppDelegate checkPurchasedItems]  0x6b7c..0x6bb0  v8@0:4
+  6b90  r0 = SEL(defaultQueue)
+  6b92  r2 = SKPaymentQueue
+  6b94  r1 = SEL(defaultQueue)
+  6b96  r0 = SKPaymentQueue
+  6b98  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  6ba4  r1 = SEL(restoreCompletedTransactions)
+  6ba6  r1 = SEL(restoreCompletedTransactions)
+  6bac  b L_a90d0
+
+//// -[AppDelegate paymentQueueRestoreCompletedTransactionsFinished:]  0x6bb0..0x6f0c  v12@0:4@8
+  6bb2  add r7, sp, #0xc
+  6bb8  sub sp, #0x84
+  6bc6  r0 = ___stack_chk_guard
+  6bc8  r1 = ___stack_chk_guard
+  6bde  r0 = SEL(alloc)
+  6be0  r2 = NSMutableArray
+  6be4  r1 = SEL(alloc)
+  6be6  r0 = NSMutableArray
+  6be8  r0 = [NSMutableArray alloc](NSMutableArray, ?)
+  6bf4  r1 = SEL(init)
+  6bf6  r1 = SEL(init)
+  6bf8  r0 = [r0 init](?, ?)
+  6c06  r0 = SEL(transactions)
+  6c08  r5 = SEL(transactions)
+  6c0e  r0 = [r0 transactions](?, ?)
+  6c1a  r1 = SEL(count)
+  6c1c  r1 = SEL(count)
+  6c1e  r0 = [r0 count](?, ?)
+  6c22  add r6, sp, #0x60
+  6c24  vmov.i32 q8, #0
+  6c28  add.w r0, r6, #0x10
+  6c2e  vst1.32 {d16, d17}, [r0]
+  6c34  vst1.32 {d16, d17}, [r6]
+  6c38  r0 = [r0 transactions](?, ?)
+  6c46  r2 = 16
+  6c48  r1 = SEL(countByEnumeratingWithState:objects:count:)
+  6c4a  add r3, sp, #0x20
+  6c50  r1 = SEL(countByEnumeratingWithState:objects:count:)
+  6c54  r0 = [r0 ??](?, ?)
+  6c5a  cmp r6, 0
+  6c5c  beq L_6cfe
+  6c7c  r3 = SEL(productIdentifier)
+  6c82  r1 = SEL(caseInsensitiveCompare:)
+  6c84  r5 = SEL(payment)
+  6c86  r2 = SEL(addObject:)
+  6c88  sl = SEL(productIdentifier)
+  6c8c  fp = SEL(payment)
+  6c92  r1 = SEL(caseInsensitiveCompare:)
+  6c96  r1 = SEL(addObject:)
+L_6c9a:
+  6c9a  r8 = 0
+L_6c9e:
+  6ca2  cmp r0, r4
+  6cb4  r0 = [r0 payment](SEL(addObject:), SEL(productIdentifier))
+  6cba  r0 = [r0 productIdentifier](?, ?)
+  6cc6  r0 = [r0 ??](?, ?)
+  6cd6  r2 = CFSTR('SixthSense.AllWeapon')
+  6cd8  r0 = [r0 ??](CFSTR('SixthSense.AllWeapon'), ?)
+  6cdc  cmp r0, 0
+  6cde  bne L_6d30
+  6ce0  add.w r8, r8, #1
+  6ce4  cmp r8, r6
+  6ce6  blo L_6c9e
+  6ce8  r0 = 16
+  6cee  add r2, sp, #0x60
+  6cf2  add r3, sp, #0x20
+  6cf4  r0 = [r0 ??](?, ?)
+  6cfa  cmp r6, 0
+  6cfc  bne L_6c9a
+L_6cfe:
+  6d0e  r0 = SEL(defaultCenter)
+  6d10  r2 = NSNotificationCenter
+  6d12  r1 = SEL(defaultCenter)
+  6d14  r0 = NSNotificationCenter
+  6d16  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  6d2a  r1 = SEL(postNotificationName:object:)
+  6d2c  r2 = CFSTR('buyAllWeaponsRestoreNON')
+  6d2e  b L_6eec
+L_6d30:
+  6d40  r0 = SEL(standardUserDefaults)
+  6d42  r8 = NSUserDefaults
+  6d44  r5 = SEL(standardUserDefaults)
+  6d46  r0 = NSUserDefaults
+  6d4c  r0 = [NSUserDefaults standardUserDefaults](CFSTR('buyAllWeaponsRestoreNON'), ?)
+  6d5c  r1 = SEL(setObject:forKey:)
+  6d66  r6 = CFSTR('1')
+  6d68  r4 = SEL(setObject:forKey:)
+  6d6e  r3 = CFSTR('SHOTGUNUSE')
+  6d74  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('SHOTGUNUSE'))
+  6d78  r0 = NSUserDefaults
+  6d7e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6d8e  r3 = CFSTR('SHOTGUN')
+  6d90  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('SHOTGUN'))
+  6d94  r0 = NSUserDefaults
+  6d9a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6daa  r3 = CFSTR('M4USE')
+  6dac  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('M4USE'))
+  6db0  r0 = NSUserDefaults
+  6db6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6dc6  r3 = CFSTR('M4')
+  6dc8  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('M4'))
+  6dcc  r0 = NSUserDefaults
+  6dd2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6de2  r3 = CFSTR('AK47USE')
+  6de4  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('AK47USE'))
+  6de8  r0 = NSUserDefaults
+  6dee  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6dfe  r3 = CFSTR('AK47')
+  6e00  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('AK47'))
+  6e04  r0 = NSUserDefaults
+  6e0a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6e1a  r3 = CFSTR('MG80USE')
+  6e1c  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('MG80USE'))
+  6e20  r0 = NSUserDefaults
+  6e26  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6e36  r3 = CFSTR('MG80')
+  6e38  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('MG80'))
+  6e3c  r0 = NSUserDefaults
+  6e42  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6e52  r3 = CFSTR('JAPAN')
+  6e54  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('JAPAN'))
+  6e58  r0 = NSUserDefaults
+  6e5e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6e6e  r3 = CFSTR('JAPANUSE')
+  6e70  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('JAPANUSE'))
+  6e74  r0 = NSUserDefaults
+  6e7a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6e8a  r3 = CFSTR('SAW')
+  6e8c  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('SAW'))
+  6e90  r0 = NSUserDefaults
+  6e96  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6ea2  r1 = SEL(synchronize)
+  6ea4  r1 = SEL(synchronize)
+  6ea6  r0 = [r0 synchronize](?, ?)
+  6eb2  r0 = SEL(weaponHave)
+  6eb4  r1 = SEL(weaponHave)
+  6eb8  r0 = [r0 weaponHave](?, ?)
+  6ecc  r0 = SEL(defaultCenter)
+  6ece  r2 = NSNotificationCenter
+  6ed0  r1 = SEL(defaultCenter)
+  6ed2  r0 = NSNotificationCenter
+  6ed4  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  6ee8  r1 = SEL(postNotificationName:object:)
+  6eea  r2 = CFSTR('buyAllWeaponsRestore')
+L_6eec:
+  6eec  r1 = SEL(postNotificationName:object:)
+  6eee  r3 = 0
+  6ef0  r0 = [r0 postNotificationName:object:](CFSTR('buyAllWeaponsRestore'), 0)
+  6efa  cmp r0, r1
+  6f06  call ___stack_chk_fail
+
+//// -[AppDelegate ItemPriceCheck:]  0x6f0c..0x6fa4  v12@0:4@8
+  6f1a  r0 = SEL(setBPriceCheck:)
+  6f1c  r2 = 1
+  6f1e  add r7, sp, #0xc
+  6f20  r1 = SEL(setBPriceCheck:)
+  6f24  r0 = [r0 setBPriceCheck:](1, ?)
+  6f38  r0 = SEL(alloc)
+  6f3a  r2 = SKProductsRequest
+  6f3c  r1 = SEL(alloc)
+  6f3e  r0 = SKProductsRequest
+  6f40  r0 = [SKProductsRequest alloc](SKProductsRequest, ?)
+  6f56  r0 = SEL(setWithObject:)
+  6f58  r2 = NSSet
+  6f5a  r1 = SEL(setWithObject:)
+  6f5c  r0 = NSSet
+  6f60  r0 = [NSSet setWithObject:](?, ?)
+  6f6e  r0 = SEL(initWithProductIdentifiers:)
+  6f70  r1 = SEL(initWithProductIdentifiers:)
+  6f74  r0 = [r0 initWithProductIdentifiers:](?, ?)
+  6f84  r0 = SEL(setDelegate:)
+  6f86  r1 = SEL(setDelegate:)
+  6f8a  r0 = [r0 setDelegate:](?, ?)
+  6f96  r0 = SEL(start)
+  6f98  r1 = SEL(start)
+  6fa0  b L_a90d0
+
+//// -[AppDelegate BuyItem:]  0x6fa4..0x703c  v12@0:4@8
+  6fb2  r0 = SEL(setBPriceCheck:)
+  6fb4  r2 = 0
+  6fb6  add r7, sp, #0xc
+  6fb8  r1 = SEL(setBPriceCheck:)
+  6fbc  r0 = [r0 setBPriceCheck:](0, ?)
+  6fd0  r0 = SEL(alloc)
+  6fd2  r2 = SKProductsRequest
+  6fd4  r1 = SEL(alloc)
+  6fd6  r0 = SKProductsRequest
+  6fd8  r0 = [SKProductsRequest alloc](SKProductsRequest, ?)
+  6fee  r0 = SEL(setWithObject:)
+  6ff0  r2 = NSSet
+  6ff2  r1 = SEL(setWithObject:)
+  6ff4  r0 = NSSet
+  6ff8  r0 = [NSSet setWithObject:](?, ?)
+  7006  r0 = SEL(initWithProductIdentifiers:)
+  7008  r1 = SEL(initWithProductIdentifiers:)
+  700c  r0 = [r0 initWithProductIdentifiers:](?, ?)
+  701c  r0 = SEL(setDelegate:)
+  701e  r1 = SEL(setDelegate:)
+  7022  r0 = [r0 setDelegate:](?, ?)
+  702e  r0 = SEL(start)
+  7030  r1 = SEL(start)
+  7038  b L_a90d0
+
+//// -[AppDelegate checkProducts]  0x703c..0x70e8  v8@0:4
+  703e  add r7, sp, #4
+  7040  sub sp, #0xc
+  7052  r0 = SEL(canMakePayments)
+  7054  r2 = SKPaymentQueue
+  7056  r1 = SEL(canMakePayments)
+  7058  r0 = SKPaymentQueue
+  705a  r0 = [SKPaymentQueue canMakePayments](SKPaymentQueue, ?)
+  7078  r0 = SEL(alloc)
+  707a  r2 = UIAlertView
+  707c  r1 = SEL(alloc)
+  707e  r0 = UIAlertView
+  7080  r0 = [UIAlertView alloc](UIAlertView, ?)
+  7088  r4 = 0
+  7092  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  709c  r2 = CFSTR('error')
+  70a6  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  70ac  r3 = CFSTR('Error occurred in the purchasing process.')
+  70ae  sb = CFSTR('ok')
+  70b6  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('error'), CFSTR('Error occurred in the purchasing process.'))
+  70c4  r0 = SEL(show)
+  70c6  r1 = SEL(show)
+  70ca  r0 = [r0 show](?, ?)
+  70d6  r0 = SEL(release)
+  70d8  r1 = SEL(release)
+  70dc  add sp, #0xc
+  70e2  b L_a90d0
+
+//// -[AppDelegate productsRequest:didReceiveResponse:]  0x70e8..0x7340  v16@0:4@8@12
+  70ea  add r7, sp, #0xc
+  70f0  sub sp, #0x7c
+  70fe  r0 = ___stack_chk_guard
+  7100  r1 = ___stack_chk_guard
+  710c  r0 = SEL(products)
+  7112  r6 = SEL(products)
+  7118  r0 = [r0 products](?, ?)
+  7124  r1 = SEL(count)
+  7126  r4 = SEL(count)
+  712a  r0 = [r0 count](?, ?)
+  7136  r0 = SEL(invalidProductIdentifiers)
+  7138  r1 = SEL(invalidProductIdentifiers)
+  713c  r0 = [r0 invalidProductIdentifiers](?, ?)
+  7144  r0 = [r0 products](?, ?)
+  714a  r0 = [r0 count](?, ?)
+  714e  cmp r0, 0
+  7150  beq L_71e6
+  715a  r0 = SEL(bPriceCheck)
+  715c  r1 = SEL(bPriceCheck)
+  7160  r0 = [r0 bPriceCheck](?, ?)
+  7166  cmp r0, 1
+  7168  bne L_7260
+  716e  r0 = [r0 products](?, ?)
+  7176  r2 = 0
+  717c  r1 = SEL(objectAtIndex:)
+  717e  r1 = SEL(objectAtIndex:)
+  7180  r0 = [r0 objectAtIndex:](0, ?)
+  7194  r1 = NSString
+  7196  r2 = SEL(price)
+  7198  r4 = NSString
+  719a  r1 = SEL(price)
+  719c  r0 = [r0 price](SEL(price), ?)
+  71ae  r0 = SEL(stringWithFormat:)
+  71b4  r2 = CFSTR('$%@')
+  71b6  r1 = SEL(stringWithFormat:)
+  71ba  r0 = [NSString stringWithFormat:](CFSTR('$%@'), ?)
+  71c8  r0 = SEL(setG_allweaponPrice:)
+  71ca  r1 = SEL(setG_allweaponPrice:)
+  71ce  r0 = [r0 setG_allweaponPrice:](?, ?)
+  71da  r0 = SEL(g_allweaponPrice)
+  71dc  r1 = SEL(g_allweaponPrice)
+  71e0  r0 = [r0 g_allweaponPrice](?, ?)
+  71e4  b L_732a
+L_71e6:
+  71f6  r0 = SEL(alloc)
+  71f8  r2 = UIAlertView
+  71fa  r1 = SEL(alloc)
+  71fc  r0 = UIAlertView
+  71fe  r0 = [UIAlertView alloc](UIAlertView, ?)
+  7206  r5 = 0
+  7210  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  721a  r2 = CFSTR('error')
+  7224  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  722a  r3 = CFSTR('Error occurred in the purchasing process.')
+  722c  r6 = CFSTR('ok')
+  7234  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('error'), CFSTR('Error occurred in the purchasing process.'))
+  7242  r0 = SEL(show)
+  7244  r1 = SEL(show)
+  7248  r0 = [r0 show](?, ?)
+  7254  r0 = SEL(release)
+  7256  r1 = SEL(release)
+  725a  r0 = [r0 release](?, ?)
+  725e  b L_732a
+L_7260:
+  7270  r0 = SEL(defaultQueue)
+  7272  r2 = SKPaymentQueue
+  7274  r1 = SEL(defaultQueue)
+  7276  r0 = SKPaymentQueue
+  7278  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  727c  vmov.i32 q8, #0
+  7280  add r4, sp, #0x58
+  7284  add.w r0, r4, #0x10
+  728a  vst1.32 {d16, d17}, [r0]
+  7290  vst1.32 {d16, d17}, [r4]
+  7294  r0 = [r0 ??](?, ?)
+  72a2  add r3, sp, #0x18
+  72a4  r0 = SEL(countByEnumeratingWithState:objects:count:)
+  72a8  r1 = SEL(countByEnumeratingWithState:objects:count:)
+  72aa  r0 = 16
+  72b2  r0 = [r0 ??](?, ?)
+  72b8  cbz r6 -> L_732a
+  72cc  r0 = SEL(addPayment:)
+  72ce  r1 = SEL(paymentWithProduct:)
+  72d0  r4 = SEL(addPayment:)
+  72d2  r5 = SEL(paymentWithProduct:)
+L_72d8:
+  72d8  sl = 0
+L_72dc:
+  72e0  cmp r0, r8
+  72fa  r0 = SKPayment
+  72fc  r0 = SKPayment
+  72fe  r0 = [SKPayment paymentWithProduct:](?, ?)
+  7308  r0 = [r0 addPayment:](?, ?)
+  730c  add.w sl, sl, #1
+  7310  cmp sl, r6
+  7312  blo L_72dc
+  7316  r0 = 16
+  7318  add r2, sp, #0x58
+  731a  add r3, sp, #0x18
+  7320  r0 = [r0 ??](?, ?)
+  7326  cmp r6, 0
+  7328  bne L_72d8
+L_732a:
+  7330  cmp r0, r1
+  733c  call ___stack_chk_fail
+
+//// -[AppDelegate request:didFailWithError:]  0x7340..0x7344  v16@0:4@8@12
+
+//// -[AppDelegate requestDidFinish:]  0x7344..0x7348  v12@0:4@8
+
+//// -[AppDelegate completeTransaction:]  0x7348..0x76b0  v12@0:4@8
+  734a  add r7, sp, #0xc
+  7362  r0 = NSString
+  7364  r1 = SEL(transactionReceipt)
+  7368  r4 = NSString
+  736c  r1 = SEL(transactionReceipt)
+  736e  r0 = [r0 transactionReceipt](?, ?)
+  7380  r0 = SEL(stringWithFormat:)
+  7386  r2 = CFSTR('%@')
+  7388  r1 = SEL(stringWithFormat:)
+  738c  r0 = [NSString stringWithFormat:](CFSTR('%@'), ?)
+  739a  r0 = SEL(payment)
+  739c  r4 = SEL(payment)
+  73a2  r0 = [r0 payment](?, ?)
+  73ae  r1 = SEL(productIdentifier)
+  73b0  r5 = SEL(productIdentifier)
+  73b4  r0 = [r0 productIdentifier](?, ?)
+  73c4  r1 = SEL(isEqualToString:)
+  73ca  r2 = CFSTR('SixthSense.Coin2')
+  73cc  r6 = SEL(isEqualToString:)
+  73d0  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Coin2'), ?)
+  73d8  beq L_7404
+  73e2  r0 = SEL(g_network_Buy)
+  73e4  r1 = SEL(g_network_Buy)
+  73e8  r0 = [r0 g_network_Buy](?, ?)
+  73f8  r1 = SEL(BuySerialNumber:count:)
+  73fe  r3 = CFSTR('1')
+  7400  r1 = SEL(BuySerialNumber:count:)
+  7402  b L_7672
+L_7404:
+  7408  r0 = [r0 payment](?, CFSTR('1'))
+  740e  r0 = [r0 productIdentifier](?, ?)
+  741c  r2 = CFSTR('SixthSense.Coin3')
+  741e  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Coin3'), ?)
+  7426  beq L_7452
+  7430  r0 = SEL(g_network_Buy)
+  7432  r1 = SEL(g_network_Buy)
+  7436  r0 = [r0 g_network_Buy](?, ?)
+  7446  r1 = SEL(BuySerialNumber:count:)
+  744c  r3 = CFSTR('2')
+  744e  r1 = SEL(BuySerialNumber:count:)
+  7450  b L_7672
+L_7452:
+  7456  r0 = [r0 payment](?, CFSTR('2'))
+  745c  r0 = [r0 productIdentifier](?, ?)
+  746a  r2 = CFSTR('SixthSense.Coin4')
+  746c  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Coin4'), ?)
+  7474  beq L_74a0
+  747e  r0 = SEL(g_network_Buy)
+  7480  r1 = SEL(g_network_Buy)
+  7484  r0 = [r0 g_network_Buy](?, ?)
+  7494  r1 = SEL(BuySerialNumber:count:)
+  749a  r3 = CFSTR('3')
+  749c  r1 = SEL(BuySerialNumber:count:)
+  749e  b L_7672
+L_74a0:
+  74a4  r0 = [r0 payment](?, CFSTR('3'))
+  74aa  r0 = [r0 productIdentifier](?, ?)
+  74b8  r2 = CFSTR('SixthSense.Coin5')
+  74ba  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Coin5'), ?)
+  74c2  beq L_74ee
+  74cc  r0 = SEL(g_network_Buy)
+  74ce  r1 = SEL(g_network_Buy)
+  74d2  r0 = [r0 g_network_Buy](?, ?)
+  74e2  r1 = SEL(BuySerialNumber:count:)
+  74e8  r3 = CFSTR('4')
+  74ea  r1 = SEL(BuySerialNumber:count:)
+  74ec  b L_7672
+L_74ee:
+  74f2  r0 = [r0 payment](?, CFSTR('4'))
+  74f8  r0 = [r0 productIdentifier](?, ?)
+  7506  r2 = CFSTR('SixthSense.Gold1')
+  7508  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Gold1'), ?)
+  7510  beq L_753c
+  751a  r0 = SEL(g_network_Buy)
+  751c  r1 = SEL(g_network_Buy)
+  7520  r0 = [r0 g_network_Buy](?, ?)
+  7530  r1 = SEL(BuySerialNumber:count:)
+  7536  r3 = CFSTR('5')
+  7538  r1 = SEL(BuySerialNumber:count:)
+  753a  b L_7672
+L_753c:
+  7540  r0 = [r0 payment](?, CFSTR('5'))
+  7546  r0 = [r0 productIdentifier](?, ?)
+  7554  r2 = CFSTR('SixthSense.Gold2')
+  7556  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Gold2'), ?)
+  755e  beq L_758a
+  7568  r0 = SEL(g_network_Buy)
+  756a  r1 = SEL(g_network_Buy)
+  756e  r0 = [r0 g_network_Buy](?, ?)
+  757e  r1 = SEL(BuySerialNumber:count:)
+  7584  r3 = CFSTR('6')
+  7586  r1 = SEL(BuySerialNumber:count:)
+  7588  b L_7672
+L_758a:
+  758e  r0 = [r0 payment](?, CFSTR('6'))
+  7594  r0 = [r0 productIdentifier](?, ?)
+  75a2  r2 = CFSTR('SixthSense.Gold3')
+  75a4  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Gold3'), ?)
+  75ac  beq L_75d8
+  75b6  r0 = SEL(g_network_Buy)
+  75b8  r1 = SEL(g_network_Buy)
+  75bc  r0 = [r0 g_network_Buy](?, ?)
+  75cc  r1 = SEL(BuySerialNumber:count:)
+  75d2  r3 = CFSTR('7')
+  75d4  r1 = SEL(BuySerialNumber:count:)
+  75d6  b L_7672
+L_75d8:
+  75dc  r0 = [r0 payment](?, CFSTR('7'))
+  75e2  r0 = [r0 productIdentifier](?, ?)
+  75f0  r2 = CFSTR('SixthSense.Gold4')
+  75f2  r0 = [r0 isEqualToString:](CFSTR('SixthSense.Gold4'), ?)
+  75fa  beq L_7626
+  7604  r0 = SEL(g_network_Buy)
+  7606  r1 = SEL(g_network_Buy)
+  760a  r0 = [r0 g_network_Buy](?, ?)
+  761a  r1 = SEL(BuySerialNumber:count:)
+  7620  r3 = CFSTR('8')
+  7622  r1 = SEL(BuySerialNumber:count:)
+  7624  b L_7672
+L_7626:
+  762a  r0 = [r0 payment](?, CFSTR('8'))
+  7630  r0 = [r0 productIdentifier](?, ?)
+  763e  r2 = CFSTR('SixthSense.AllWeapon')
+  7640  r0 = [r0 isEqualToString:](CFSTR('SixthSense.AllWeapon'), ?)
+  7648  beq L_7678
+  7652  r0 = SEL(g_network_Buy)
+  7654  r1 = SEL(g_network_Buy)
+  7658  r0 = [r0 g_network_Buy](?, ?)
+  7668  r1 = SEL(BuySerialNumber:count:)
+  766e  r3 = CFSTR('10')
+  7670  r1 = SEL(BuySerialNumber:count:)
+L_7672:
+  7674  r0 = [r0 BuySerialNumber:count:](?, CFSTR('10'))
+L_7678:
+  7688  r0 = SEL(defaultQueue)
+  768a  r2 = SKPaymentQueue
+  768c  r1 = SEL(defaultQueue)
+  768e  r0 = SKPaymentQueue
+  7690  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  769e  r1 = SEL(finishTransaction:)
+  76a0  r1 = SEL(finishTransaction:)
+  76aa  b L_a90d0
+
+//// -[AppDelegate restoreTransaction:]  0x76b0..0x76e8  v12@0:4@8
+  76c4  r0 = SEL(defaultQueue)
+  76c6  r2 = SKPaymentQueue
+  76c8  add r7, sp, #4
+  76ca  r1 = SEL(defaultQueue)
+  76cc  r0 = SKPaymentQueue
+  76ce  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  76dc  r1 = SEL(finishTransaction:)
+  76de  r1 = SEL(finishTransaction:)
+  76e4  b L_a90d0
+
+//// -[AppDelegate failedTransaction:]  0x76e8..0x77fc  v12@0:4@8
+  76ea  add r7, sp, #0xc
+  76ec  sub sp, #0xc
+  76f8  r0 = SEL(error)
+  76fa  r1 = SEL(error)
+  76fe  r0 = [r0 error](?, ?)
+  770a  r1 = SEL(code)
+  770c  r1 = SEL(code)
+  770e  r0 = [r0 code](?, ?)
+  7712  cmp r0, 2
+  7714  beq L_778e
+  7726  r0 = SEL(alloc)
+  7728  r2 = UIAlertView
+  772a  r1 = SEL(alloc)
+  772c  r0 = UIAlertView
+  772e  r0 = [UIAlertView alloc](UIAlertView, ?)
+  7736  r4 = 0
+  7740  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  774a  r2 = CFSTR('error')
+  7754  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  775a  r3 = CFSTR('Error occurred in the purchasing process.')
+  775c  r5 = CFSTR('ok')
+  7764  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('error'), CFSTR('Error occurred in the purchasing process.'))
+  7772  r0 = SEL(show)
+  7774  r1 = SEL(show)
+  7778  r0 = [r0 show](?, ?)
+  7784  r0 = SEL(release)
+  7786  r1 = SEL(release)
+  778a  r0 = [r0 release](?, ?)
+L_778e:
+  779e  r0 = SEL(defaultCenter)
+  77a0  r2 = NSNotificationCenter
+  77a2  r1 = SEL(defaultCenter)
+  77a4  r0 = NSNotificationCenter
+  77a6  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  77ae  r3 = 0
+  77b8  r1 = SEL(postNotificationName:object:)
+  77be  r2 = CFSTR('buyItemError')
+  77c0  r1 = SEL(postNotificationName:object:)
+  77c2  r0 = [r0 postNotificationName:object:](CFSTR('buyItemError'), 0)
+  77d6  r0 = SEL(defaultQueue)
+  77d8  r2 = SKPaymentQueue
+  77da  r1 = SEL(defaultQueue)
+  77dc  r0 = SKPaymentQueue
+  77de  r0 = [SKPaymentQueue defaultQueue](SKPaymentQueue, ?)
+  77ec  r1 = SEL(finishTransaction:)
+  77ee  r1 = SEL(finishTransaction:)
+  77f0  add sp, #0xc
+  77f6  b L_a90d0
+
+//// -[AppDelegate paymentQueue:updatedTransactions:]  0x77fc..0x7908  v16@0:4@8@12
+  77fe  add r7, sp, #0xc
+  7804  sub sp, #0x80
+  7814  vmov.i32 q8, #0
+  7818  r0 = ___stack_chk_guard
+  781a  add r2, sp, #0x5c
+  781c  add r3, sp, #0x1c
+  781e  r1 = ___stack_chk_guard
+  782c  r0 = SEL(countByEnumeratingWithState:objects:count:)
+  7830  add.w r1, r2, #0x10
+  7834  vst1.32 {d16, d17}, [r1]
+  7838  r1 = SEL(countByEnumeratingWithState:objects:count:)
+  783a  r0 = 16
+  7840  vst1.32 {d16, d17}, [r2]
+  7846  r0 = [r0 ??](?, ?)
+  784c  cmp r6, 0
+  784e  beq L_78f0
+  786e  r1 = SEL(failedTransaction:)
+  7874  r2 = SEL(completeTransaction:)
+  7876  r4 = SEL(transactionState)
+  7878  r3 = SEL(restoreTransaction:)
+  787a  sb = SEL(completeTransaction:)
+  787e  sl = SEL(transactionState)
+  7884  r1 = SEL(failedTransaction:)
+  7886  r2 = SEL(restoreTransaction:)
+L_7890:
+  7890  r8 = 0
+L_7894:
+  7898  cmp r0, r4
+  78ac  r0 = [r0 transactionState](?, SEL(restoreTransaction:))
+  78b0  cmp r0, 3
+  78b2  beq L_78be
+  78b4  cmp r0, 2
+  78b6  bne L_78c4
+  78bc  b L_78cc
+L_78be:
+  78c2  b L_78cc
+L_78c4:
+  78c4  cmp r0, 1
+  78c6  bne L_78d2
+L_78cc:
+  78ce  r0 = [r0 ??](?, ?)
+L_78d2:
+  78d2  add.w r8, r8, #1
+  78d6  cmp r8, r6
+  78d8  blo L_7894
+  78da  r0 = 16
+  78e0  add r2, sp, #0x5c
+  78e4  add r3, sp, #0x1c
+  78e6  r0 = [r0 ??](?, ?)
+  78ec  cmp r6, 0
+  78ee  bne L_7890
+L_78f0:
+  78f6  cmp r0, r1
+  7902  call ___stack_chk_fail
+
+//// -[AppDelegate isGameCenterAvailable]  0x7908..0x7978  c8@0:4
+  790e  add r7, sp, #4
+  7914  r0 = CFSTR('GKLocalPlayer')
+  7916  call _NSClassFromString
+  792c  r0 = SEL(currentDevice)
+  792e  r2 = UIDevice
+  7930  r1 = SEL(currentDevice)
+  7932  r0 = UIDevice
+  7934  r0 = [UIDevice currentDevice](UIDevice, ?)
+  7940  r1 = SEL(systemVersion)
+  7942  r1 = SEL(systemVersion)
+  7944  r0 = [r0 systemVersion](?, ?)
+  794c  r3 = 64
+  7956  r1 = SEL(compare:options:)
+  795c  r2 = CFSTR('5.0')
+  795e  r1 = SEL(compare:options:)
+  7960  r0 = [r0 compare:options:](CFSTR('5.0'), 64)
+  7966  r0 = 0
+  7968  cmp r4, 0
+  796e  cmp r1, -1
+  7976  return
+
+//// -[AppDelegate authenticateLocalPlayerShowReader:]  0x7978..0x7b5c  v12@0:4c8
+  797a  add r7, sp, #4
+  797c  sub sp, #0x18
+  7990  r0 = SEL(localPlayer)
+  7992  r2 = GKLocalPlayer
+  7994  r1 = SEL(localPlayer)
+  7996  r0 = GKLocalPlayer
+  7998  r0 = [GKLocalPlayer localPlayer](GKLocalPlayer, ?)
+  79a0  add.w ip, sp, #8
+  79ac  r1 = __NSConcreteStackBlock
+  79c0  r1 = __NSConcreteStackBlock
+  79c8  r1 = 1073741824
+  79cc  sb = SEL(authenticateWithCompletionHandler:)
+  79d2  r1 = 0
+  79da  r1 = SEL(authenticateWithCompletionHandler:)
+  79e2  r0 = [r0 authenticateWithCompletionHandler:](?, 0xe1a80/f1.2952e-39)
+  79e6  add sp, #0x18
+  79e8  return
+  79f0  add r7, sp, #0xc
+  79f2  cmp r1, 0
+  79f4  bne L_7ad8
+  7a06  r0 = SEL(localPlayer)
+  7a08  r6 = GKLocalPlayer
+  7a0a  r5 = SEL(localPlayer)
+  7a0c  r0 = GKLocalPlayer
+  7a10  r0 = [GKLocalPlayer localPlayer](?, ?)
+  7a1c  r1 = SEL(alias)
+  7a1e  r1 = SEL(alias)
+  7a20  r0 = [r0 alias](?, ?)
+  7a24  r0 = GKLocalPlayer
+  7a28  r0 = [GKLocalPlayer localPlayer](?, ?)
+  7a34  r1 = SEL(isAuthenticated)
+  7a36  r1 = SEL(isAuthenticated)
+  7a38  r0 = [r0 isAuthenticated](?, ?)
+  7a3c  r0 = GKLocalPlayer
+  7a40  r0 = [GKLocalPlayer localPlayer](?, ?)
+  7a4c  r1 = SEL(isFriend)
+  7a4e  r1 = SEL(isFriend)
+  7a50  r0 = [r0 isFriend](?, ?)
+  7a54  r0 = GKLocalPlayer
+  7a58  r0 = [GKLocalPlayer localPlayer](?, ?)
+  7a64  r1 = SEL(playerID)
+  7a66  r1 = SEL(playerID)
+  7a68  r0 = [r0 playerID](?, ?)
+  7a6c  r0 = GKLocalPlayer
+  7a70  r0 = [GKLocalPlayer localPlayer](?, ?)
+  7a7c  r1 = SEL(isUnderage)
+  7a7e  r1 = SEL(isUnderage)
+  7a80  r0 = [r0 isUnderage](?, ?)
+  7a86  cmp r0, 1
+  7a9c  r0 = SEL(standardUserDefaults)
+  7a9e  r5 = NSUserDefaults
+  7aa0  r4 = SEL(standardUserDefaults)
+  7aa2  r0 = NSUserDefaults
+  7aa6  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7ab6  r1 = SEL(objectForKey:)
+  7abc  r2 = CFSTR('GAMECENTER')
+  7abe  r1 = SEL(objectForKey:)
+  7ac0  r0 = [r0 objectForKey:](CFSTR('GAMECENTER'), ?)
+  7acc  r1 = SEL(intValue)
+  7ace  r1 = SEL(intValue)
+  7ad0  r0 = [r0 intValue](?, ?)
+  7ad4  cmp r0, 1
+  7ad6  bne L_7ada
+L_7ad8:
+  7ad8  return
+L_7ada:
+  7ada  r0 = NSUserDefaults
+  7ade  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7aee  r1 = SEL(setObject:forKey:)
+  7af8  r2 = CFSTR('1')
+  7afe  r1 = SEL(setObject:forKey:)
+  7b00  r3 = CFSTR('GAMECENTER')
+  7b02  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('GAMECENTER'))
+  7b06  r0 = NSUserDefaults
+  7b0a  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7b16  r1 = SEL(synchronize)
+  7b18  r1 = SEL(synchronize)
+  7b1a  r0 = [r0 synchronize](?, ?)
+  7b2e  r0 = SEL(defaultCenter)
+  7b30  r2 = NSNotificationCenter
+  7b32  r1 = SEL(defaultCenter)
+  7b34  r0 = NSNotificationCenter
+  7b36  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  7b3e  r3 = 0
+  7b48  r1 = SEL(postNotificationName:object:)
+  7b4e  r2 = CFSTR('ShowLeaderBoard')
+  7b50  r1 = SEL(postNotificationName:object:)
+  7b56  b L_a90d0
+
+//// -[AppDelegate sendScoreToGameCenter:]  0x7b5c..0x7c48  v12@0:4i8
+  7b70  r0 = SEL(alloc)
+  7b72  r2 = GKScore
+  7b74  add r7, sp, #0xc
+  7b76  r1 = SEL(alloc)
+  7b78  r0 = GKScore
+  7b7a  r0 = [GKScore alloc](GKScore, ?)
+  7b8a  r1 = SEL(initWithCategory:)
+  7b90  r2 = CFSTR('TopScore')
+  7b92  r1 = SEL(initWithCategory:)
+  7b94  r0 = [r0 initWithCategory:](CFSTR('TopScore'), ?)
+  7ba0  r1 = SEL(autorelease)
+  7ba2  r1 = SEL(autorelease)
+  7ba4  r0 = [r0 autorelease](?, ?)
+  7bb2  asrs r3, r4, #0x1f
+  7bb4  r0 = SEL(setValue:)
+  7bb8  r1 = SEL(setValue:)
+  7bbc  r0 = [r0 setValue:](?, ?)
+  7bd0  r0 = SEL(defaultHandler)
+  7bd2  r2 = GKAchievementHandler
+  7bd4  r1 = SEL(defaultHandler)
+  7bd6  r0 = GKAchievementHandler
+  7bd8  r0 = [GKAchievementHandler defaultHandler](GKAchievementHandler, ?)
+  7bee  r0 = SEL(stringWithFormat:)
+  7bf0  r2 = NSString
+  7bf4  r1 = SEL(stringWithFormat:)
+  7bf6  r0 = NSString
+  7c00  r2 = CFSTR('%')
+  7c02  r0 = [NSString stringWithFormat:](CFSTR('%'), ?)
+  7c14  r0 = SEL(notifyAchievementTitle:andMessage:)
+  7c1a  r2 = CFSTR('��X�i�Ȳ�.')
+  7c1c  r1 = SEL(notifyAchievementTitle:andMessage:)
+  7c20  r0 = [r0 notifyAchievementTitle:andMessage:](CFSTR('��X�i�Ȳ�.'), ?)
+  7c30  r0 = SEL(reportScoreWithCompletionHandler:)
+  7c36  r2 = __NSConcreteGlobalBlock
+  7c38  r1 = SEL(reportScoreWithCompletionHandler:)
+  7c40  b L_a90d0
+
+//// -[AppDelegate window]  0x7c48..0x7c58  @8@0:4
+  7c50  r1 = IVOFF(_window)
+  7c52  r1 = IVOFF(_window)
+  7c54  r0 = self->_window
+
+//// -[AppDelegate setWindow:]  0x7c58..0x7c7c  v12@0:4@8
+  7c5c  sub sp, #8
+  7c68  r3 = 0
+  7c6a  r2 = IVOFF(_window)
+  7c72  r2 = IVOFF(_window)
+  7c74  call _objc_setProperty
+  7c78  add sp, #8
+  7c7a  return
+
+//// -[AppDelegate mainNaviController]  0x7c7c..0x7c8c  @8@0:4
+  7c84  r1 = IVOFF(mainNaviController)
+  7c86  r1 = IVOFF(mainNaviController)
+  7c88  r0 = self->mainNaviController
+
+//// -[AppDelegate setMainNaviController:]  0x7c8c..0x7cb0  v12@0:4@8
+  7c90  sub sp, #8
+  7c9c  r3 = 0
+  7c9e  r2 = IVOFF(mainNaviController)
+  7ca6  r2 = IVOFF(mainNaviController)
+  7ca8  call _objc_setProperty
+  7cac  add sp, #8
+  7cae  return
+
+//// -[AppDelegate bgURL]  0x7cb0..0x7cc0  @8@0:4
+  7cb8  r1 = IVOFF(bgURL)
+  7cba  r1 = IVOFF(bgURL)
+  7cbc  r0 = self->bgURL
+
+//// -[AppDelegate setBgURL:]  0x7cc0..0x7ce4  v12@0:4@8
+  7cc4  sub sp, #8
+  7cd0  r3 = 0
+  7cd2  r2 = IVOFF(bgURL)
+  7cda  r2 = IVOFF(bgURL)
+  7cdc  call _objc_setProperty
+  7ce0  add sp, #8
+  7ce2  return
+
+//// -[AppDelegate bgPlayer]  0x7ce4..0x7cf4  @8@0:4
+  7cec  r1 = IVOFF(bgPlayer)
+  7cee  r1 = IVOFF(bgPlayer)
+  7cf0  r0 = self->bgPlayer
+
+//// -[AppDelegate setBgPlayer:]  0x7cf4..0x7d18  v12@0:4@8
+  7cf8  sub sp, #8
+  7d04  r3 = 0
+  7d06  r2 = IVOFF(bgPlayer)
+  7d0e  r2 = IVOFF(bgPlayer)
+  7d10  call _objc_setProperty
+  7d14  add sp, #8
+  7d16  return
+
+//// -[AppDelegate iPodIsPlaying]  0x7d18..0x7d2c  L8@0:4
+  7d20  r1 = IVOFF(iPodIsPlaying)
+  7d22  r1 = IVOFF(iPodIsPlaying)
+  7d24  r0 = self->iPodIsPlaying
+
+//// -[AppDelegate setIPodIsPlaying:]  0x7d2c..0x7d44  v12@0:4L8
+  7d38  r1 = IVOFF(iPodIsPlaying)
+  7d3a  r1 = IVOFF(iPodIsPlaying)
+  7d3c  self->iPodIsPlaying = r2
+
+//// -[AppDelegate mode]  0x7d44..0x7d5c  c8@0:4
+  7d4c  r1 = IVOFF(mode)
+  7d4e  r1 = IVOFF(mode)
+  7d50  r0 = self->mode
+
+//// -[AppDelegate setMode:]  0x7d5c..0x7d74  v12@0:4c8
+  7d68  r1 = IVOFF(mode)
+  7d6a  r1 = IVOFF(mode)
+  7d6c  self->mode = r2
+
+//// -[AppDelegate playback]  0x7d74..0x7d88  @8@0:4
+  7d7c  r1 = IVOFF(playback)
+  7d7e  r1 = IVOFF(playback)
+  7d80  r0 = self->playback
+
+//// -[AppDelegate setPlayback:]  0x7d88..0x7da0  v12@0:4@8
+  7d94  r1 = IVOFF(playback)
+  7d96  r1 = IVOFF(playback)
+  7d98  self->playback = r2
+
+//// -[AppDelegate numberBackUp]  0x7da0..0x7db0  @8@0:4
+  7da8  r1 = IVOFF(numberBackUp)
+  7daa  r1 = IVOFF(numberBackUp)
+  7dac  r0 = self->numberBackUp
+
+//// -[AppDelegate setNumberBackUp:]  0x7db0..0x7dd4  v12@0:4@8
+  7db4  sub sp, #8
+  7dc0  r3 = 0
+  7dc2  r2 = IVOFF(numberBackUp)
+  7dca  r2 = IVOFF(numberBackUp)
+  7dcc  call _objc_setProperty
+  7dd0  add sp, #8
+  7dd2  return
+
+//// -[AppDelegate haveGold]  0x7dd4..0x7de8  i8@0:4
+  7ddc  r1 = IVOFF(haveGold)
+  7dde  r1 = IVOFF(haveGold)
+  7de0  r0 = self->haveGold
+
+//// -[AppDelegate setHaveGold:]  0x7de8..0x7e00  v12@0:4i8
+  7df4  r1 = IVOFF(haveGold)
+  7df6  r1 = IVOFF(haveGold)
+  7df8  self->haveGold = r2
+
+//// -[AppDelegate haveWeapon]  0x7e00..0x7e10  @8@0:4
+  7e08  r1 = IVOFF(haveWeapon)
+  7e0a  r1 = IVOFF(haveWeapon)
+  7e0c  r0 = self->haveWeapon
+
+//// -[AppDelegate setHaveWeapon:]  0x7e10..0x7e34  v12@0:4@8
+  7e14  sub sp, #8
+  7e20  r3 = 0
+  7e22  r2 = IVOFF(haveWeapon)
+  7e2a  r2 = IVOFF(haveWeapon)
+  7e2c  call _objc_setProperty
+  7e30  add sp, #8
+  7e32  return
+
+//// -[AppDelegate stage]  0x7e34..0x7e48  i8@0:4
+  7e3c  r1 = IVOFF(stage)
+  7e3e  r1 = IVOFF(stage)
+  7e40  r0 = self->stage
+
+//// -[AppDelegate setStage:]  0x7e48..0x7e60  v12@0:4i8
+  7e54  r1 = IVOFF(stage)
+  7e56  r1 = IVOFF(stage)
+  7e58  self->stage = r2
+
+//// -[AppDelegate aSoundBufControlData]  0x7e60..0x7e70  @8@0:4
+  7e68  r1 = IVOFF(aSoundBufControlData)
+  7e6a  r1 = IVOFF(aSoundBufControlData)
+  7e6c  r0 = self->aSoundBufControlData
+
+//// -[AppDelegate setASoundBufControlData:]  0x7e70..0x7e94  v12@0:4@8
+  7e74  sub sp, #8
+  7e80  r3 = 0
+  7e82  r2 = IVOFF(aSoundBufControlData)
+  7e8a  r2 = IVOFF(aSoundBufControlData)
+  7e8c  call _objc_setProperty
+  7e90  add sp, #8
+  7e92  return
+
+//// -[AppDelegate bDevice]  0x7e94..0x7eac  c8@0:4
+  7e9c  r1 = IVOFF(bDevice)
+  7e9e  r1 = IVOFF(bDevice)
+  7ea0  r0 = self->bDevice
+
+//// -[AppDelegate setBDevice:]  0x7eac..0x7ec4  v12@0:4c8
+  7eb8  r1 = IVOFF(bDevice)
+  7eba  r1 = IVOFF(bDevice)
+  7ebc  self->bDevice = r2
+
+//// -[AppDelegate Coin]  0x7ec4..0x7ed8  i8@0:4
+  7ecc  r1 = IVOFF(Coin)
+  7ece  r1 = IVOFF(Coin)
+  7ed0  r0 = self->Coin
+
+//// -[AppDelegate setCoin:]  0x7ed8..0x7ef0  v12@0:4i8
+  7ee4  r1 = IVOFF(Coin)
+  7ee6  r1 = IVOFF(Coin)
+  7ee8  self->Coin = r2
+
+//// -[AppDelegate g_token]  0x7ef0..0x7f00  @8@0:4
+  7ef8  r1 = IVOFF(g_token)
+  7efa  r1 = IVOFF(g_token)
+  7efc  r0 = self->g_token
+
+//// -[AppDelegate setG_token:]  0x7f00..0x7f24  v12@0:4@8
+  7f04  sub sp, #8
+  7f10  r3 = 0
+  7f12  r2 = IVOFF(g_token)
+  7f1a  r2 = IVOFF(g_token)
+  7f1c  call _objc_setProperty
+  7f20  add sp, #8
+  7f22  return
+
+//// -[AppDelegate g_key]  0x7f24..0x7f34  @8@0:4
+  7f2c  r1 = IVOFF(g_key)
+  7f2e  r1 = IVOFF(g_key)
+  7f30  r0 = self->g_key
+
+//// -[AppDelegate setG_key:]  0x7f34..0x7f58  v12@0:4@8
+  7f38  sub sp, #8
+  7f44  r3 = 0
+  7f46  r2 = IVOFF(g_key)
+  7f4e  r2 = IVOFF(g_key)
+  7f50  call _objc_setProperty
+  7f54  add sp, #8
+  7f56  return
+
+//// -[AppDelegate g_email]  0x7f58..0x7f68  @8@0:4
+  7f60  r1 = IVOFF(g_email)
+  7f62  r1 = IVOFF(g_email)
+  7f64  r0 = self->g_email
+
+//// -[AppDelegate setG_email:]  0x7f68..0x7f8c  v12@0:4@8
+  7f6c  sub sp, #8
+  7f78  r3 = 0
+  7f7a  r2 = IVOFF(g_email)
+  7f82  r2 = IVOFF(g_email)
+  7f84  call _objc_setProperty
+  7f88  add sp, #8
+  7f8a  return
+
+//// -[AppDelegate g_facebook]  0x7f8c..0x7f9c  @8@0:4
+  7f94  r1 = IVOFF(g_facebook)
+  7f96  r1 = IVOFF(g_facebook)
+  7f98  r0 = self->g_facebook
+
+//// -[AppDelegate setG_facebook:]  0x7f9c..0x7fc0  v12@0:4@8
+  7fa0  sub sp, #8
+  7fac  r3 = 0
+  7fae  r2 = IVOFF(g_facebook)
+  7fb6  r2 = IVOFF(g_facebook)
+  7fb8  call _objc_setProperty
+  7fbc  add sp, #8
+  7fbe  return
+
+//// -[AppDelegate g_name]  0x7fc0..0x7fd0  @8@0:4
+  7fc8  r1 = IVOFF(g_name)
+  7fca  r1 = IVOFF(g_name)
+  7fcc  r0 = self->g_name
+
+//// -[AppDelegate setG_name:]  0x7fd0..0x7ff4  v12@0:4@8
+  7fd4  sub sp, #8
+  7fe0  r3 = 0
+  7fe2  r2 = IVOFF(g_name)
+  7fea  r2 = IVOFF(g_name)
+  7fec  call _objc_setProperty
+  7ff0  add sp, #8
+  7ff2  return
+
+//// -[AppDelegate g_loginController]  0x7ff4..0x8004  @8@0:4
+  7ffc  r1 = IVOFF(_g_loginController)
+  7ffe  r1 = IVOFF(_g_loginController)
+  8000  r0 = self->_g_loginController
+
+//// -[AppDelegate setG_loginController:]  0x8004..0x8028  v12@0:4@8
+  8008  sub sp, #8
+  8014  r3 = 0
+  8016  r2 = IVOFF(_g_loginController)
+  801e  r2 = IVOFF(_g_loginController)
+  8020  call _objc_setProperty
+  8024  add sp, #8
+  8026  return
+
+//// -[AppDelegate g_network_Buy]  0x8028..0x8038  @8@0:4
+  8030  r1 = IVOFF(_g_network_Buy)
+  8032  r1 = IVOFF(_g_network_Buy)
+  8034  r0 = self->_g_network_Buy
+
+//// -[AppDelegate setG_network_Buy:]  0x8038..0x805c  v12@0:4@8
+  803c  sub sp, #8
+  8048  r3 = 0
+  804a  r2 = IVOFF(_g_network_Buy)
+  8052  r2 = IVOFF(_g_network_Buy)
+  8054  call _objc_setProperty
+  8058  add sp, #8
+  805a  return
+
+//// -[AppDelegate session]  0x805c..0x806c  @8@0:4
+  8064  r1 = IVOFF(_session)
+  8066  r1 = IVOFF(_session)
+  8068  r0 = self->_session
+
+//// -[AppDelegate setSession:]  0x806c..0x8090  v12@0:4@8
+  8070  sub sp, #8
+  807c  r3 = 0
+  807e  r2 = IVOFF(_session)
+  8086  r2 = IVOFF(_session)
+  8088  call _objc_setProperty
+  808c  add sp, #8
+  808e  return
+
+//// -[AppDelegate loginview]  0x8090..0x80a0  @8@0:4
+  8098  r1 = IVOFF(_loginview)
+  809a  r1 = IVOFF(_loginview)
+  809c  r0 = self->_loginview
+
+//// -[AppDelegate setLoginview:]  0x80a0..0x80c4  v12@0:4@8
+  80a4  sub sp, #8
+  80b0  r3 = 0
+  80b2  r2 = IVOFF(_loginview)
+  80ba  r2 = IVOFF(_loginview)
+  80bc  call _objc_setProperty
+  80c0  add sp, #8
+  80c2  return
+
+//// -[AppDelegate useWeapon]  0x80c4..0x80d4  @8@0:4
+  80cc  r1 = IVOFF(useWeapon)
+  80ce  r1 = IVOFF(useWeapon)
+  80d0  r0 = self->useWeapon
+
+//// -[AppDelegate setUseWeapon:]  0x80d4..0x80f8  v12@0:4@8
+  80d8  sub sp, #8
+  80e4  r3 = 0
+  80e6  r2 = IVOFF(useWeapon)
+  80ee  r2 = IVOFF(useWeapon)
+  80f0  call _objc_setProperty
+  80f4  add sp, #8
+  80f6  return
+
+//// -[AppDelegate CheckVoiceOver]  0x80f8..0x8110  c8@0:4
+  8100  r1 = IVOFF(CheckVoiceOver)
+  8102  r1 = IVOFF(CheckVoiceOver)
+  8104  r0 = self->CheckVoiceOver
+
+//// -[AppDelegate setCheckVoiceOver:]  0x8110..0x8128  v12@0:4c8
+  811c  r1 = IVOFF(CheckVoiceOver)
+  811e  r1 = IVOFF(CheckVoiceOver)
+  8120  self->CheckVoiceOver = r2
+
+//// -[AppDelegate bCall]  0x8128..0x8140  c8@0:4
+  8130  r1 = IVOFF(bCall)
+  8132  r1 = IVOFF(bCall)
+  8134  r0 = self->bCall
+
+//// -[AppDelegate setBCall:]  0x8140..0x8158  v12@0:4c8
+  814c  r1 = IVOFF(bCall)
+  814e  r1 = IVOFF(bCall)
+  8150  self->bCall = r2
+
+//// -[AppDelegate bPriceCheck]  0x8158..0x8170  c8@0:4
+  8160  r1 = IVOFF(bPriceCheck)
+  8162  r1 = IVOFF(bPriceCheck)
+  8164  r0 = self->bPriceCheck
+
+//// -[AppDelegate setBPriceCheck:]  0x8170..0x8188  v12@0:4c8
+  817c  r1 = IVOFF(bPriceCheck)
+  817e  r1 = IVOFF(bPriceCheck)
+  8180  self->bPriceCheck = r2
+
+//// -[AppDelegate g_allweaponPrice]  0x8188..0x8198  @8@0:4
+  8190  r1 = IVOFF(g_allweaponPrice)
+  8192  r1 = IVOFF(g_allweaponPrice)
+  8194  r0 = self->g_allweaponPrice
+
+//// -[AppDelegate setG_allweaponPrice:]  0x8198..0x81bc  v12@0:4@8
+  819c  sub sp, #8
+  81a8  r3 = 0
+  81aa  r2 = IVOFF(g_allweaponPrice)
+  81b2  r2 = IVOFF(g_allweaponPrice)
+  81b4  call _objc_setProperty
+  81b8  add sp, #8
+  81ba  return
+
+//// -[AppDelegate PHPSESSID]  0x81bc..0x81cc  @8@0:4
+  81c4  r1 = IVOFF(_PHPSESSID)
+  81c6  r1 = IVOFF(_PHPSESSID)
+  81c8  r0 = self->_PHPSESSID
+
+//// -[AppDelegate setPHPSESSID:]  0x81cc..0x81f0  v12@0:4@8
+  81d0  sub sp, #8
+  81dc  r3 = 0
+  81de  r2 = IVOFF(_PHPSESSID)
+  81e6  r2 = IVOFF(_PHPSESSID)
+  81e8  call _objc_setProperty
+  81ec  add sp, #8
+  81ee  return

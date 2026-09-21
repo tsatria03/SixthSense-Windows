@@ -1,0 +1,4 @@
+Fix a bug where the play button doesn't work because of not having coins.
+Fix a bug where in the tutorial screen when shaking the device.
+When you shoot, and when the enemy dies, it will repeately tell you to shake the device.
+Fix a bug where the intro overlaps with the menu speech.

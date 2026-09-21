@@ -1,0 +1,445 @@
+
+//// -init  0xd470..0xd56c  @8@0:4
+  0xd494: [r0 init]  args=(0xdb0a4, ?)
+  0xd49a: cmp r4, #0
+  0xd49c: beq L_d566
+  ; r1 = OFFSETOF(oalPlayback.listenerPos)
+  0xd4c4: str r5 -> self.listenerPos
+  ; r0 = OFFSETOF(oalPlayback.listenerRotation)
+  0xd4d8: str r5 -> self.listenerRotation
+  0xd4dc: call _AudioSessionInitialize
+  ; r6 = OFFSETOF(oalPlayback.iPodIsPlaying)
+  0xd4fe: call _AudioSessionGetProperty
+  0xd50c: cmp r1, #0
+  0xd526: call _AudioSessionSetProperty
+  0xd53e: call _AudioSessionAddPropertyListener
+  0xd544: call _AudioSessionSetActive
+  ; r0 = OFFSETOF(oalPlayback._initialized)
+  0xd560: strb r2 -> self._initialized
+  ; r0 = OFFSETOF(oalPlayback.wasInterrupted)
+  0xd564: strb r5 -> self.wasInterrupted
+  L_d566:
+
+//// -dealloc  0xd56c..0xd5e0  v8@0:4
+  0xd592: [r0 dealloc]  args=(?, ?)
+  0xd5a4: [r0 teardownOpenAL]  args=(?, ?)
+  ; r0 = OFFSETOF(oalPlayback.bgURL)
+  0xd5c4: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(oalPlayback.bgPlayer)
+  0xd5d8: [r0 release]  args=(?, ?)
+
+//// -startBGPlayer:type:soundGain:Loop:  0xd5e0..0xd738  v24@0:4@8@12f16c20
+  ; r5 = OFFSETOF(oalPlayback.bgPlayer)
+  0xd60e: [r0 isPlaying]  args=(?, ?)
+  0xd616: beq L_d640
+  0xd626: [r0 stop]  args=(?, ?)
+  0xd638: [r0 release]  args=(?, ?)
+  0xd63e: str r0 -> self.bgPlayer
+  L_d640:
+  0xd642: cmp r0, #0
+  0xd644: bne L_d72c
+  0xd666: [r0 mainBundle]  args=(_OBJC_CLASS_$_NSBundle, ?)
+  0xd67a: [r0 pathForResource:ofType:]  args=(?, ?)
+  0xd698: [r0 alloc]  args=(_OBJC_CLASS_$_AVAudioPlayer, ?)
+  0xd6b8: [r0 fileURLWithPath:]  args=(0, ?)
+  0xd6ce: [r0 initWithContentsOfURL:error:]  args=(0, 0)
+  0xd6de: str r0 -> self.bgPlayer
+  0xd6ee: [r0 setNumberOfLoops:]  args=(?, 0)
+  0xd704: [r0 setVolume:]  args=(?, 0)
+  0xd716: [r0 prepareToPlay]  args=(?, 0)
+  0xd728: [r0 play]  args=(?, 0)
+  L_d72c:
+
+//// -backgroundSoundStop  0xd738..0xd790  v8@0:4
+  ; r5 = OFFSETOF(oalPlayback.bgPlayer)
+  0xd75a: [r0 isPlaying]  args=(?, ?)
+  0xd774: [r0 stop]  args=(?, ?)
+  0xd786: [r0 release]  args=(?, ?)
+  0xd78c: str r0 -> self.bgPlayer
+
+//// -startAMBPlayer:type:soundGain:Loop:  0xd790..0xd8e8  v24@0:4@8@12f16c20
+  ; r5 = OFFSETOF(oalPlayback.ambPlayer)
+  0xd7be: [r0 isPlaying]  args=(?, ?)
+  0xd7c6: beq L_d7f0
+  0xd7d6: [r0 stop]  args=(?, ?)
+  0xd7e8: [r0 release]  args=(?, ?)
+  0xd7ee: str r0 -> self.ambPlayer
+  L_d7f0:
+  0xd7f2: cmp r0, #0
+  0xd7f4: bne L_d8dc
+  0xd816: [r0 mainBundle]  args=(_OBJC_CLASS_$_NSBundle, ?)
+  0xd82a: [r0 pathForResource:ofType:]  args=(?, ?)
+  0xd848: [r0 alloc]  args=(_OBJC_CLASS_$_AVAudioPlayer, ?)
+  0xd868: [r0 fileURLWithPath:]  args=(0, ?)
+  0xd87e: [r0 initWithContentsOfURL:error:]  args=(0, 0)
+  0xd88e: str r0 -> self.ambPlayer
+  0xd89e: [r0 setNumberOfLoops:]  args=(?, 0)
+  0xd8b4: [r0 setVolume:]  args=(?, 0)
+  0xd8c6: [r0 prepareToPlay]  args=(?, 0)
+  0xd8d8: [r0 play]  args=(?, 0)
+  L_d8dc:
+
+//// -AMBSoundStop  0xd8e8..0xd940  v8@0:4
+  ; r5 = OFFSETOF(oalPlayback.ambPlayer)
+  0xd90a: [r0 isPlaying]  args=(?, ?)
+  0xd924: [r0 stop]  args=(?, ?)
+  0xd936: [r0 release]  args=(?, ?)
+  0xd93c: str r0 -> self.ambPlayer
+
+//// -setSoundBank:type:  0xd940..0xd9d0  v16@0:4@8@12
+  ; r5 = OFFSETOF(oalPlayback._soundBankName)
+  0xd96a: [r0 isEqualToString:]  args=(?, ?)
+  0xd988: [r0 copy]  args=(?, ?)
+  0xd994: str r0 -> self._soundBankName
+  0xd99c: [r0 tearDownAudio]  args=(?, ?)
+  0xd9b2: [r0 loadSoundBank:fileType:]  args=(?, ?)
+  0xd9cc: b.w L_a90d0
+
+//// -setUpAudio  0xd9d0..0xda28  v8@0:4
+  ; r5 = OFFSETOF(oalPlayback._initialized)
+  0xd9e2: ldrb r0 -> self._initialized
+  0xd9e4: cmp r0, #0
+  0xd9f8: [r0 setUpOpenAL]  args=(?, ?)
+  0xda0a: [r0 initBuffers]  args=(?, ?)
+  0xda1c: [r0 initSources]  args=(?, ?)
+  0xda22: strb r0 -> self._initialized
+
+//// -tearDownAudio  0xda28..0xda80  v8@0:4
+  ; r5 = OFFSETOF(oalPlayback._initialized)
+  0xda3a: ldrb r0 -> self._initialized
+  0xda3c: cmp r0, #0
+  0xda50: [r0 freeSources]  args=(?, ?)
+  0xda62: [r0 freeBuffers]  args=(?, ?)
+  0xda74: [r0 teardownOpenAL]  args=(?, ?)
+  0xda7a: strb r0 -> self._initialized
+
+//// -loadSoundBank:fileType:  0xda80..0xdbd4  v16@0:4@8@12
+  0xdaae: [r0 mainBundle]  args=(?, ?)
+  0xdacc: [r0 pathForResource:ofType:]  args=(?, @"plist")
+  0xdaea: [r0 arrayWithContentsOfFile:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0xdaf0: cmp fp, #0
+  0xdaf4: beq L_dbcc
+  0xdb06: [r0 count]  args=(0, _OBJC_CLASS_$_NSArray)
+  ; r1 = OFFSETOF(oalPlayback._numBuffers)
+  0xdb1c: str r0 -> self._numBuffers
+  0xdb20: cmp r0, #129
+  0xdb22: blt L_db2c
+  0xdb26: str r0 -> self._numBuffers
+  ; r1 = OFFSETOF(oalPlayback._numBuffers)
+  L_db2c:
+  0xdb36: cmp r0, #1
+  0xdb38: blt L_dbcc
+  ; r0 = OFFSETOF(oalPlayback._buffers)
+  L_db78:
+  0xdb7c: [r0 mainBundle]  args=("objectAtIndex:", @selector(objectAtIndex:))
+  0xdb98: [r0 ?]  args=(0, @selector(objectAtIndex:))
+  0xdba8: [r0 ?]  args=(?, ?)
+  0xdbae: [r0 ?]  args=(?, ?)
+  0xdbb8: [r0 ?]  args=(0, ?)
+  0xdbca: blt L_db78
+  L_dbcc:
+
+//// -setUpOpenAL  0xdbd4..0xdc18  v8@0:4
+  0xdbdc: call _alcOpenDevice
+  0xdbe4: cmp r0, #0
+  ; r1 = OFFSETOF(oalPlayback.device)
+  0xdbee: str r0 -> self.device
+  0xdbf8: call _alcCreateContext
+  0xdc00: cmp r0, #0
+  ; r1 = OFFSETOF(oalPlayback.context)
+  0xdc0a: str r0 -> self.context
+  0xdc10: blxne L_c2d90
+
+//// -freeBufferOne:  0xdc4c..0xdc80  v12@0:4i8
+  ; r1 = OFFSETOF(oalPlayback._buffers)
+  0xdc6a: call _alDeleteBuffers
+  0xdc70: call _free
+
+//// -initBufferOne:FileName:Type:  0xdc80..0xdd50  v20@0:4i8@12@16
+  0xdca8: [r0 mainBundle]  args=(_OBJC_CLASS_$_NSBundle, ?)
+  0xdcc8: [r0 pathForResource:ofType:]  args=(?, ?)
+  0xdcd8: [r0 retain]  args=(?, ?)
+  0xdcec: [r0 fileURLWithPath:]  args=(0, ?)
+  ; r1 = OFFSETOF(oalPlayback._buffers)
+  0xdd06: call _alGetError
+  0xdd12: call _alGenBuffers
+  0xdd16: call _alGetError
+  0xdd26: call sub_d210
+  0xdd3e: call sub_d1b8
+  0xdd42: call _alGetError
+
+//// -initBuffers  0xdd50..0xddd8  v8@0:4
+  ; r0 = OFFSETOF(oalPlayback._buffers)
+  ; fp = OFFSETOF(oalPlayback._numBuffers)
+  L_dd7e:
+  0xdd88: bge L_ddce
+  0xdd8a: call _alGetError
+  0xdd92: call _alGenBuffers
+  0xdd96: call _alGetError
+  0xdda6: call sub_d210
+  0xddac: cmp r2, #0
+  0xddb0: beq L_ddce
+  0xddc0: call sub_d1b8
+  0xddc4: call _alGetError
+  0xddca: cmp r0, #0
+  0xddcc: beq L_dd7e
+  L_ddce:
+
+//// -freeBuffers  0xddd8..0xde3c  v8@0:4
+  0xddde: call sub_3ccc
+  0xddee: [r0 aSoundBufControlData]  args=(?, ?)
+  0xddfe: [r0 count]  args=(?, ?)
+  0xde04: cmp r4, #1
+  ; r0 = OFFSETOF(oalPlayback._buffers)
+  L_de1c:
+  0xde20: call _alDeleteBuffers
+  0xde26: call _free
+  0xde38: bne L_de1c
+
+//// -initSourceOne:  0xde3c..0xde78  v12@0:4i8
+  0xde44: call _alGetError
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  0xde5e: call _alGenSources
+  0xde62: call _alGetError
+  0xde66: cmp r0, #0
+
+//// -freeSourceOne:  0xde78..0xdeb0  v12@0:4i8
+  ; r1 = OFFSETOF(oalPlayback._sources)
+  0xde90: call _alSourceStop
+  0xde9c: call _alSourcei
+  0xdeaa: b.w L_a90e8
+
+//// -initSources  0xdeb0..0xdf14  v8@0:4
+  ; fp = OFFSETOF(oalPlayback.sourceNumber)
+  0xdecc: cmp r0, #1
+  0xdece: blt L_df0e
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  L_dee8:
+  0xdee8: call _alGetError
+  0xdef0: call _alGenSources
+  0xdef4: call _alGetError
+  0xdf0c: blt L_dee8
+  L_df0e:
+
+//// -freeSources  0xdf14..0xdf7c  v8@0:4
+  0xdf1a: call sub_3ccc
+  0xdf2a: [r0 aSoundBufControlData]  args=(?, ?)
+  0xdf3a: [r0 count]  args=(?, ?)
+  0xdf40: cmp r4, #1
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  L_df54:
+  0xdf56: call _alSourceStop
+  0xdf66: call _alSourcei
+  0xdf6e: call _alDeleteSources
+  0xdf76: bne L_df54
+
+//// -findAvailableSource  0xdf7c..0xe018  i8@0:4
+  0xdf88: call _alGetError
+  ; sl = OFFSETOF(oalPlayback.sourceNumber)
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  0xdfb0: cmp r0, #1
+  0xdfb2: blt L_e002
+  L_dfbc:
+  0xdfc6: call _alGetSourcei
+  0xdfd2: beq L_dfdc
+  0xdfd8: cmp r0, #0
+  0xdfda: beq L_e00c
+  L_dfdc:
+  0xe000: blt L_dfbc
+  L_e002:
+  0xe006: call _alSourceStop
+  0xe00a: b L_e00e
+  L_e00c:
+  L_e00e:
+
+//// -noteOn:gain:sourcePos:  0xe018..0xe028  v24@0:4i8f12{CGPoint=ff}16
+  0xe024: b.w L_a90d0
+
+//// -queueNote:gain:sourcePos:defaultZ:repeats:  0xe028..0xe188  v32@0:4i8f12{CGPoint=ff}16i24c28
+  ; r0 = OFFSETOF(oalPlayback._initialized)
+  0xe05a: ldrb r0 -> self._initialized
+  0xe05c: cmp r0, #0
+  0xe064: beq.w L_e16e
+  0xe06c: call _alGetError
+  ; r8 = OFFSETOF(oalPlayback._buffers)
+  ; r3 = OFFSETOF(oalPlayback._sources)
+  0xe0a6: [r0 timeIntervalSinceReferenceDate]  args=(_OBJC_CLASS_$_NSDate, 0x604)
+  0xe0c6: beq L_e0d0
+  0xe0ce: b L_e0d6
+  L_e0d0:
+  L_e0d6:
+  0xe0d6: call _alSourcei
+  0xe0e6: call _alSourcef
+  0xe0f6: call _alSourcef
+  0xe104: call _alSourcef
+  0xe112: call _alSourcef
+  0xe120: call _alSourcef
+  0xe146: call _alSourcefv
+  0xe152: call _alSourcei
+  0xe166: call _alSourcei
+  0xe16a: call _alGetError
+  L_e16e:
+  0xe184: call ___stack_chk_fail
+
+//// -MonsterQueueNote:gain:sourcePos:defaultZ:repeats:  0xe188..0xe2d8  v32@0:4i8f12{CGPoint=ff}16i24c28
+  ; r0 = OFFSETOF(oalPlayback._initialized)
+  0xe1ba: ldrb r0 -> self._initialized
+  0xe1bc: cmp r0, #0
+  0xe1c4: beq L_e2be
+  0xe1ca: call _alGetError
+  ; r8 = OFFSETOF(oalPlayback._buffers)
+  ; r3 = OFFSETOF(oalPlayback._sources)
+  0xe204: [r0 timeIntervalSinceReferenceDate]  args=(_OBJC_CLASS_$_NSDate, 0x604)
+  0xe224: beq L_e22e
+  0xe22c: b L_e234
+  L_e22e:
+  L_e234:
+  0xe234: call _alSourcei
+  0xe244: call _alSourcef
+  0xe254: call _alSourcef
+  0xe262: call _alSourcef
+  0xe270: call _alSourcef
+  0xe296: call _alSourcefv
+  0xe2a2: call _alSourcei
+  0xe2b6: call _alSourcei
+  0xe2ba: call _alGetError
+  L_e2be:
+  0xe2d4: call ___stack_chk_fail
+
+//// -MosterPos:QuereNote:defaultZ:  0xe2d8..0xe3bc  v24@0:4{CGPoint=ff}8i16i20
+  0xe2f4: cmp r6, #-1
+  0xe302: beq L_e3a4
+  0xe308: call _alGetError
+  ; r5 = OFFSETOF(oalPlayback._sources)
+  ; r3 = OFFSETOF(oalPlayback._buffers)
+  0xe33e: [r0 timeIntervalSinceReferenceDate]  args=(_OBJC_CLASS_$_NSDate, 4)
+  0xe378: call _alSourcefv
+  0xe386: call _alSourcei
+  0xe3a0: call _alSourcei
+  L_e3a4:
+  0xe3b6: call ___stack_chk_fail
+
+//// -stopSound:  0xe3bc..0xe3f0  v12@0:4i8
+  ; r1 = OFFSETOF(oalPlayback._sources)
+  0xe3d4: call _alSourceStop
+  0xe3d8: call _alGetError
+  0xe3dc: call _alGetError
+  0xe3e0: cmp r0, #0
+
+//// -stopSoundArea:  0xe3f0..0xe49c  v12@0:4@8
+  ; r1 = OFFSETOF(oalPlayback.sourceNumber)
+  0xe40e: cmp r0, #1
+  0xe410: blt L_e492
+  ; r5 = OFFSETOF(oalPlayback._sources)
+  L_e450:
+  0xe45e: [r0 count]  args=(@selector(objectAtIndex:), @selector(count))
+  L_e466:
+  0xe46c: [r0 objectAtIndex:]  args=(0, @selector(count))
+  0xe472: [r0 intValue]  args=(0, @selector(count))
+  0xe47a: [r0 count]  args=(0, @selector(count))
+  0xe482: blo L_e466
+  0xe490: blt L_e450
+  L_e492:
+
+//// -startSound:Postion:  0xe49c..0xe524  v20@0:4i8{CGPoint=ff}12
+  ; r1 = OFFSETOF(oalPlayback._sources)
+  0xe4d2: cmp r0, #0
+  0xe4d4: beq L_e4e2
+  0xe4e0: b L_e50a
+  L_e4e2:
+  0xe4ec: call _memset
+  0xe4fc: call _alSourcePlayv
+  0xe500: call _alGetError
+  0xe504: cmp r0, #0
+  L_e50a:
+  0xe51e: call ___stack_chk_fail
+
+//// -startSound:Postion:soundGain:  0xe524..0xe60c  v24@0:4i8{CGPoint=ff}12f20
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  0xe562: cmp r0, #0
+  0xe564: beq L_e5c6
+  0xe582: call _alSourcefv
+  0xe590: call _alSourcef
+  0xe59c: call _alSourcei
+  ; r0 = OFFSETOF(oalPlayback._buffers)
+  0xe5c0: call _alSourcei
+  0xe5c4: b L_e5f0
+  L_e5c6:
+  0xe5d2: call _memset
+  0xe5e2: call _alSourcePlayv
+  0xe5e6: call _alGetError
+  0xe5ea: cmp r0, #0
+  L_e5f0:
+  0xe608: call ___stack_chk_fail
+
+//// -startSoundPostion:SoundNumber:  0xe60c..0xe62c  v20@0:4{CGPoint=ff}8i16
+  ; r3 = OFFSETOF(oalPlayback._sources)
+
+//// -playQueuedNotes  0xe62c..0xe6c8  v8@0:4
+  0xe65c: call _memset
+  ; r1 = OFFSETOF(oalPlayback.sourceNumber)
+  0xe670: cmp r2, #1
+  0xe672: blt L_e6a6
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  L_e68a:
+  0xe6a4: blt L_e68a
+  L_e6a6:
+  0xe6a8: call _alSourcePlayv
+  0xe6ac: call _alGetError
+  0xe6c4: call ___stack_chk_fail
+
+//// -noteOff:  0xe6c8..0xe734  v12@0:4i8
+  ; r0 = OFFSETOF(oalPlayback._initialized)
+  0xe6e0: ldrb r0 -> self._initialized
+  0xe6e4: call _alGetError
+  ; sl = OFFSETOF(oalPlayback.sourceNumber)
+  0xe6fa: cmp r0, #1
+  0xe6fc: blt L_e72e
+  ; r1 = OFFSETOF(oalPlayback._sources)
+  L_e710:
+  0xe714: bne L_e726
+  0xe71a: call _alSourceStop
+  0xe71e: call _alGetError
+  L_e726:
+  0xe72c: blt L_e710
+  L_e72e:
+
+//// -allNotesOff  0xe734..0xe798  v8@0:4
+  ; r0 = OFFSETOF(oalPlayback._initialized)
+  0xe750: call _alGetError
+  ; r5 = OFFSETOF(oalPlayback.sourceNumber)
+  0xe764: cmp r0, #1
+  0xe766: blt L_e790
+  ; r0 = OFFSETOF(oalPlayback._sources)
+  L_e77a:
+  0xe77e: call _alSourceStop
+  0xe782: call _alGetError
+  0xe78e: blt L_e77a
+  L_e790:
+
+//// -setListenerRotation:Pos:  0xe7b0..0xe890  v16@0:4f8i12
+  ; d17 = 3370280550400.0
+  ; r1 = OFFSETOF(oalPlayback.listenerRotation)
+  0xe7e6: str r2 -> self.listenerRotation
+  0xe7ec: cmp r0, #3
+  0xe7f2: bne L_e82e
+  0xe7f8: call _cos
+  0xe804: call _sin
+  0xe82c: b L_e866
+  L_e82e:
+  0xe832: call _cos
+  0xe83e: call _sin
+  L_e866:
+  0xe86a: call _alListenerfv
+  0xe87e: call ___stack_chk_fail
+  0xe888: cmp r5, #24
+
+//// -setListenerRotation:  0xe890..0xe938  v12@0:4f8
+  ; d17 = 3370280550400.0
+  0xe8ba: call _cos
+  0xe8d0: call _sin
+  ; r0 = OFFSETOF(oalPlayback.listenerRotation)
+  0xe8f6: str.w r4 -> self.listenerRotation
+  0xe914: call _alListenerfv
+  0xe92c: call ___stack_chk_fail
+  0xe930: cmp r5, #24

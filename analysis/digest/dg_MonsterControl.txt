@@ -1,0 +1,746 @@
+
+//// -initWithMonsterPatern:soundController:comingSound:hitSound:damageSound:diesound:shakeApproach:shakwPush:HPGain:  0x10618..0x10ca8  @44@0:4i8@12i16i20i24i28i32i36f40
+  0x10628: cmp r4, #0
+  0x1062a: beq.w L_10c42
+  0x10650: [r0 stringWithFormat:]  args=(@"type%d", ?)
+  0x1066e: [r0 mainBundle]  args=(_OBJC_CLASS_$_NSBundle, ?)
+  0x1068a: [r0 pathForResource:ofType:]  args=(0, @"plist")
+  0x106a8: [r0 arrayWithContentsOfFile:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x106ae: cmp r5, #0
+  0x106b0: beq.w L_10c42
+  0x106d2: [r0 objectAtIndex:]  args=(1, _OBJC_CLASS_$_NSArray)
+  0x106e6: [r0 intValue]  args=(1, _OBJC_CLASS_$_NSArray)
+  0x106fa: [r0 setMovingType:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10704: [r0 objectAtIndex:]  args=(3, _OBJC_CLASS_$_NSArray)
+  0x1070a: [r0 intValue]  args=(3, _OBJC_CLASS_$_NSArray)
+  0x10730: [r0 setHP:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x1073a: [r0 objectAtIndex:]  args=(5, _OBJC_CLASS_$_NSArray)
+  0x10740: [r0 intValue]  args=(5, _OBJC_CLASS_$_NSArray)
+  0x10754: [r0 setDamage:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10758: call sub_3ccc
+  0x1076a: [r0 playSoundBufNumber:]  args=(?, _OBJC_CLASS_$_NSArray)
+  ; r1 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x10784: str r0 -> self.comingMonsterStopSoundNumber
+  0x1078c: [r0 setComingSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10796: [r0 objectAtIndex:]  args=(9, _OBJC_CLASS_$_NSArray)
+  0x107aa: [r0 floatValue]  args=(9, _OBJC_CLASS_$_NSArray)
+  ; s0 = 0.20000000298023224
+  0x107cc: [r0 setComingSoundGain:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x107d6: [r0 objectAtIndex:]  args=(0xb, _OBJC_CLASS_$_NSArray)
+  0x107dc: [r0 floatValue]  args=(0xb, _OBJC_CLASS_$_NSArray)
+  0x107f0: [r0 setComingSoundTime:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x107fa: [r0 objectAtIndex:]  args=(0xd, _OBJC_CLASS_$_NSArray)
+  0x10800: [r0 floatValue]  args=(0xd, _OBJC_CLASS_$_NSArray)
+  0x1081e: [r0 setComingSoundInWalk:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10828: [r0 objectAtIndex:]  args=(0xf, _OBJC_CLASS_$_NSArray)
+  0x1082e: [r0 intValue]  args=(0xf, _OBJC_CLASS_$_NSArray)
+  0x10854: [r0 setComingRange:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10868: [r0 setHitSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10872: [r0 objectAtIndex:]  args=(0x13, _OBJC_CLASS_$_NSArray)
+  0x10878: [r0 floatValue]  args=(0x13, _OBJC_CLASS_$_NSArray)
+  0x1089a: [r0 setHitSoundGain:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x108a4: [r0 objectAtIndex:]  args=(0x15, _OBJC_CLASS_$_NSArray)
+  0x108aa: [r0 floatValue]  args=(0x15, _OBJC_CLASS_$_NSArray)
+  0x108be: [r0 setHitSoundTime:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x108d2: [r0 setDieSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x108dc: [r0 objectAtIndex:]  args=(0x19, _OBJC_CLASS_$_NSArray)
+  0x108e2: [r0 floatValue]  args=(0x19, _OBJC_CLASS_$_NSArray)
+  0x108f6: [r0 setDieSoundgain:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10900: [r0 objectAtIndex:]  args=(0x1b, _OBJC_CLASS_$_NSArray)
+  0x10906: [r0 floatValue]  args=(0x1b, _OBJC_CLASS_$_NSArray)
+  0x1091a: [r0 setDieSoundTime:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x1092e: [r0 setPlayerHitSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10938: [r0 objectAtIndex:]  args=(0x1f, _OBJC_CLASS_$_NSArray)
+  0x1093e: [r0 floatValue]  args=(0x1f, _OBJC_CLASS_$_NSArray)
+  0x10952: [r0 setPlayerHitSoundGain:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x1095c: [r0 objectAtIndex:]  args=(0x21, _OBJC_CLASS_$_NSArray)
+  0x10962: [r0 floatValue]  args=(0x21, _OBJC_CLASS_$_NSArray)
+  0x10976: [r0 setPlayerHitSoundtimer:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10980: [r0 objectAtIndex:]  args=(0x23, _OBJC_CLASS_$_NSArray)
+  0x1099a: [r0 componentsSeparatedByString:]  args=(@",", _OBJC_CLASS_$_NSArray)
+  0x109ae: [r0 count]  args=(@",", _OBJC_CLASS_$_NSArray)
+  0x109b2: cmp r0, #2
+  0x109b4: blt L_109e8
+  0x109d0: [r0 arrayWithArray:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x109e0: b L_10a04
+  L_109e8:
+  0x109ee: [r0 objectAtIndex:]  args=(0x23, _OBJC_CLASS_$_NSArray)
+  0x109f4: [r0 floatValue]  args=(0x23, _OBJC_CLASS_$_NSArray)
+  L_10a04:
+  0x10a08: [r0 setHeadShotTimeStart:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10a12: [r0 objectAtIndex:]  args=(0x25, _OBJC_CLASS_$_NSArray)
+  0x10a18: [r0 floatValue]  args=(0x25, _OBJC_CLASS_$_NSArray)
+  0x10a2c: [r0 setHeadShotTimeEndHowLong:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10a36: [r0 objectAtIndex:]  args=(0x27, _OBJC_CLASS_$_NSArray)
+  0x10a3c: [r0 intValue]  args=(0x27, _OBJC_CLASS_$_NSArray)
+  0x10a50: [r0 setShakeMonsterFlag:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10a5a: [r0 objectAtIndex:]  args=(0x29, _OBJC_CLASS_$_NSArray)
+  0x10a60: [r0 intValue]  args=(0x29, _OBJC_CLASS_$_NSArray)
+  0x10a74: [r0 setMonsterNumber:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10a86: [r0 shakeMonsterFlag]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10a8e: beq L_10b48
+  0x10aa0: [r0 setShakeMonsterApproachSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10aaa: [r0 objectAtIndex:]  args=(0x2d, _OBJC_CLASS_$_NSArray)
+  0x10ab0: [r0 floatValue]  args=(0x2d, _OBJC_CLASS_$_NSArray)
+  0x10ac4: [r0 setShakeMonsterApproachTime:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10ace: [r0 objectAtIndex:]  args=(0x2f, _OBJC_CLASS_$_NSArray)
+  0x10ad4: [r0 floatValue]  args=(0x2f, _OBJC_CLASS_$_NSArray)
+  0x10ae8: [r0 setShakeMonsterApproachGain:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10afc: [r0 setShakeMonsterPushSound:]  args=(?, _OBJC_CLASS_$_NSArray)
+  0x10b06: [r0 objectAtIndex:]  args=(0x33, _OBJC_CLASS_$_NSArray)
+  0x10b0c: [r0 floatValue]  args=(0x33, _OBJC_CLASS_$_NSArray)
+  0x10b20: [r0 setShakeMonsterPushTime:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x10b2a: [r0 objectAtIndex:]  args=(0x35, _OBJC_CLASS_$_NSArray)
+  0x10b30: [r0 floatValue]  args=(0x35, _OBJC_CLASS_$_NSArray)
+  0x10b44: [r0 setShakeMoneterPushGain:]  args=(0, _OBJC_CLASS_$_NSArray)
+  L_10b48:
+  0x10b5a: [r0 setMonsterChangeAngle:]  args=(-1, _OBJC_CLASS_$_NSArray)
+  0x10b6e: [r0 setMonsterFlag:]  args=(1, _OBJC_CLASS_$_NSArray)
+  0x10b82: [r0 MovingType]  args=(1, _OBJC_CLASS_$_NSArray)
+  0x10b86: cmp r0, #1
+  0x10b88: beq L_10b96
+  0x10b8e: [r0 MovingType]  args=(1, _OBJC_CLASS_$_NSArray)
+  0x10b92: cmp r0, #11
+  0x10b94: bne L_10bae
+  L_10b96:
+  L_10ba8:
+  0x10bac: b L_10c12
+  L_10bae:
+  0x10bb2: [r0 MovingType]  args=(0xc47a0000, 0)
+  0x10bb6: cmp r0, #2
+  0x10bb8: beq L_10bc6
+  0x10bbe: [r0 MovingType]  args=(0xc47a0000, 0)
+  0x10bc2: cmp r0, #22
+  0x10bc4: bne L_10be4
+  L_10bc6:
+  L_10bd8:
+  0x10be2: b L_10c12
+  L_10be4:
+  0x10be8: [r0 MovingType]  args=(0xc3fa0000, 0x44588000)
+  0x10bec: cmp r0, #3
+  0x10bee: beq L_10bfc
+  0x10bf4: [r0 MovingType]  args=(0xc3fa0000, 0x44588000)
+  0x10bf8: cmp r0, #33
+  0x10bfa: bne L_10c4e
+  L_10bfc:
+  L_10c12:
+  0x10c12: [r0 setPos:]  args=(0, 0x447a0000)
+  L_10c16:
+  0x10c2a: [r0 setMonsterRange:]  args=(0x447a0000, 0x447a0000)
+  0x10c3e: [r0 MonsterStart:]  args=(0, 0x447a0000)
+  L_10c42:
+  L_10c4e:
+  0x10c52: [r0 MovingType]  args=(0, 0x447a0000)
+  0x10c56: cmp r0, #4
+  0x10c58: beq L_10c66
+  0x10c5e: [r0 MovingType]  args=(0, 0x447a0000)
+  0x10c62: cmp r0, #44
+  0x10c64: bne L_10c7a
+  L_10c66:
+  0x10c78: b L_10bd8
+  L_10c7a:
+  0x10c7e: [r0 MovingType]  args=(0x43fa0000, 0x447a0000)
+  0x10c82: cmp r0, #5
+  0x10c84: beq L_10c92
+  0x10c8a: [r0 MovingType]  args=(0x43fa0000, 0x447a0000)
+  0x10c8e: cmp r0, #55
+  0x10c90: bne L_10c16
+  L_10c92:
+  0x10ca4: b L_10ba8
+
+//// -StopPlayGame  0x10ca8..0x10d98  v8@0:4
+  ; r5 = OFFSETOF(MonsterControl.MainMonsterTimer)
+  0x10cca: [r0 isValid]  args=(?, ?)
+  0x10cd2: beq L_10cea
+  0x10ce2: [r0 invalidate]  args=(?, ?)
+  0x10ce8: str r0 -> self.MainMonsterTimer
+  L_10cea:
+  ; r5 = OFFSETOF(MonsterControl.comingBreathTimer)
+  0x10d06: [r0 isValid]  args=(?, ?)
+  0x10d0e: beq L_10d26
+  0x10d1e: [r0 invalidate]  args=(?, ?)
+  0x10d24: str r0 -> self.comingBreathTimer
+  L_10d26:
+  ; r5 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x10d42: [r0 isValid]  args=(?, ?)
+  0x10d4a: beq L_10d62
+  0x10d5a: [r0 invalidate]  args=(?, ?)
+  0x10d60: str r0 -> self.MonsterMovingAngleTimer
+  L_10d62:
+  0x10d62: call sub_3ccc
+  0x10d72: [r0 playback]  args=(?, ?)
+  ; r1 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x10d94: b.w L_a90d0
+
+//// -MonsterStart:  0x10dac..0x10f38  v12@0:4@8
+  0x10dda: [r0 performSelector:]  args=("MonsterComing:", ?)
+  0x10dde: call sub_3ccc
+  0x10df2: [r0 playback]  args=("MonsterComing:", ?)
+  ; r3 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x10e10: [r0 stopSound:]  args=(?, 0x20)
+  0x10e22: [r0 comingSound]  args=(?, 0x20)
+  0x10e36: [r0 comingSoundGain]  args=(?, 0x20)
+  0x10e52: [r0 ?]  args=("Pos", 0x20)
+  0x10e7e: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, ?)
+  0x10e88: [r0 ?]  args=("Pos", ?)
+  0x10e92: [r0 ?]  args=("Pos", ?)
+  0x10e96: b L_10ed0
+  0x10ec4: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, ?)
+  L_10ed0:
+  0x10eea: [r0 comingSoundTime]  args=(?, ?)
+  0x10f14: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  ; r1 = OFFSETOF(MonsterControl.MainMonsterTimer)
+  0x10f24: str r0 -> self.MainMonsterTimer
+
+//// -MonsterMoving:  0x10f38..0x11920  v12@0:4@8
+  0x10f5e: cmp r4, #0
+  ; fp = OFFSETOF(MonsterControl.MovingCount)
+  0x10f6e: str.w r0 -> self.MovingCount
+  0x10f72: beq L_10f9e
+  0x10f86: [r0 ?]  args=("Pos", ?)
+  0x10f94: [r0 ?]  args=("Pos", ?)
+  0x10f9c: b L_10fb0
+  L_10f9e:
+  L_10fb0:
+  0x10fd4: [r0 setMonsterRange:]  args=(?, ?)
+  0x10fea: [r0 monsterRange]  args=(?, ?)
+  0x10ffe: ble L_11032
+  0x1100e: [r0 comingRange]  args=(?, ?)
+  0x11018: [r0 monsterRange]  args=(?, ?)
+  0x11030: b L_11038
+  L_11032:
+  L_11038:
+  0x1103c: [r0 setMonsterRange:]  args=(0x41a00000, ?)
+  0x11050: [r0 MovingType]  args=(0x41a00000, ?)
+  0x11054: cmp r0, #1
+  0x11056: bne L_110e0
+  0x1106a: [r0 monsterChangeAngle]  args=(0x41a00000, ?)
+  0x1106e: cmp r0, #-1
+  0x11072: bne.w L_11342
+  0x1108e: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x110a8: [r0 objectForKey:]  args=(@"WZ", ?)
+  0x110b2: [r0 MovingType]  args=(@"WZ", ?)
+  0x110c4: [r0 length]  args=(@"WZ", ?)
+  0x110c8: cmp r0, #0
+  0x110ca: bne.w L_1131c
+  0x110de: b L_1133e
+  L_110e0:
+  0x110e4: [r0 MovingType]  args=(0xb4, ?)
+  0x110e8: cmp r0, #2
+  0x110ea: bne L_11174
+  0x110fe: [r0 monsterChangeAngle]  args=(0xb4, ?)
+  0x11102: cmp r0, #-1
+  0x11106: bne.w L_11342
+  0x11122: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x1113c: [r0 objectForKey:]  args=(@"WNZ", ?)
+  0x11146: [r0 MovingType]  args=(@"WNZ", ?)
+  0x11158: [r0 length]  args=(@"WNZ", ?)
+  0x1115c: cmp r0, #0
+  0x1115e: bne.w L_1131c
+  0x11172: b L_1133e
+  L_11174:
+  0x11178: [r0 MovingType]  args=(0x7b, ?)
+  0x1117c: cmp r0, #3
+  0x1117e: bne L_11208
+  0x11192: [r0 monsterChangeAngle]  args=(0x7b, ?)
+  0x11196: cmp r0, #-1
+  0x1119a: bne.w L_11342
+  0x111b6: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x111d0: [r0 objectForKey:]  args=(@"NZ", ?)
+  0x111da: [r0 MovingType]  args=(@"NZ", ?)
+  0x111ec: [r0 length]  args=(@"NZ", ?)
+  0x111f0: cmp r0, #0
+  0x111f2: bne.w L_1131c
+  0x11206: b L_1133e
+  L_11208:
+  0x1120c: [r0 MovingType]  args=(0x5a, ?)
+  0x11210: cmp r0, #4
+  0x11212: bne L_1129a
+  0x11226: [r0 monsterChangeAngle]  args=(0x5a, ?)
+  0x1122a: cmp r0, #-1
+  0x1122e: bne.w L_11342
+  0x1124a: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x11264: [r0 objectForKey:]  args=(@"ENZ", ?)
+  0x1126e: [r0 MovingType]  args=(@"ENZ", ?)
+  0x11280: [r0 length]  args=(@"ENZ", ?)
+  0x11284: cmp r0, #0
+  0x11286: bne L_1131c
+  0x11298: b L_1133e
+  L_1129a:
+  0x1129e: [r0 MovingType]  args=(0x39, ?)
+  0x112a2: cmp r0, #5
+  0x112a4: bne.w L_1155e
+  0x112ba: [r0 monsterChangeAngle]  args=(0x39, ?)
+  0x112be: cmp r0, #-1
+  0x112c2: bne L_11342
+  0x112dc: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x112f6: [r0 objectForKey:]  args=(@"EZ", ?)
+  0x11300: [r0 MovingType]  args=(@"EZ", ?)
+  0x11312: [r0 length]  args=(@"EZ", ?)
+  0x11316: cmp r0, #0
+  0x11318: beq.w L_1160a
+  L_1131c:
+  0x1132a: [r0 intValue]  args=(@"EZ", ?)
+  L_1133e:
+  0x1133e: [r0 setMonsterChangeAngle:]  args=(0, ?)
+  L_11342:
+  0x11346: [r0 monsterChangeAngle]  args=(0, ?)
+  0x1135a: [r0 setMovingPosAngle:]  args=(?, ?)
+  0x11362: [r0 monsterRange]  args=(?, ?)
+  ; r0 = OFFSETOF(MonsterControl.MovingPosAngle)
+  0x1137e: [r0 monsterRange]  args=(?, ?)
+  ; d16 = 3370280550400.0
+  ; d19 = 0.0
+  0x113bc: call _cos
+  0x113cc: call _sin
+  L_113e4:
+  0x113f2: [r0 MovingPosAngle]  args=("monsterRange", ?)
+  ; d17 = 3370280550400.0
+  ; d17 = 0.0
+  0x11424: [r0 setMonsterPi:]  args=(?, ?)
+  0x1143a: [r0 comingSoundGain]  args=(?, ?)
+  ; d17 = -1.5881868392106856e-23
+  0x11464: [r0 setComingSoundGain:]  args=(?, ?)
+  0x1147e: [r0 setPos:]  args=(?, ?)
+  0x11482: call sub_3ccc
+  0x11492: [r0 playback]  args=(?, ?)
+  0x114a0: cmp r4, #0
+  ; r0 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x114a8: beq L_114c0
+  0x114ba: [r0 ?]  args=("Pos", ?)
+  0x114be: b L_114c6
+  L_114c0:
+  L_114c6:
+  0x114ca: [r0 comingSoundGain]  args=("Pos", ?)
+  0x114e8: [r0 startSound:Postion:soundGain:]  args=(?, ?)
+  0x114fe: [r0 comingSoundInWalk]  args=(?, ?)
+  0x11504: blt L_11548
+  0x11510: str.w r1 -> self.MovingCount
+  ; r5 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x11528: [r0 isValid]  args=(?, ?)
+  0x11530: beq L_11548
+  0x11540: [r0 invalidate]  args=(?, ?)
+  0x11546: str r0 -> self.MonsterMovingAngleTimer
+  L_11548:
+  L_1155e:
+  0x11562: [r0 ?]  args=(?, ?)
+  0x11566: cmp r0, #11
+  0x11568: bne L_11590
+  ; r1 = OFFSETOF(MonsterControl.MovingAngleTurn)
+  0x1157a: ldrb r2 -> self.MovingAngleTurn
+  0x1157c: cmp r2, #0
+  0x1157e: beq L_1161c
+  0x11580: cmp r0, #1
+  0x11582: bne L_1162c
+  0x1158e: b L_1174e
+  L_11590:
+  0x11594: [r0 ?]  args=(?, ?)
+  0x11598: cmp r0, #22
+  0x1159a: bne L_115cc
+  ; r1 = OFFSETOF(MonsterControl.MovingAngleTurn)
+  0x115ac: ldrb r2 -> self.MovingAngleTurn
+  0x115ae: cmp r2, #0
+  0x115b0: beq L_1167e
+  0x115b2: cmp r0, #1
+  0x115b4: beq.w L_116e8
+  0x115b8: cmp r0, #4
+  0x115ba: beq.w L_1176e
+  0x115be: cmp r0, #3
+  0x115c0: beq.w L_117e8
+  0x115c4: cmp r0, #2
+  0x115c6: bne.w L_1187c
+  0x115ca: b L_11712
+  L_115cc:
+  0x115d0: [r0 ?]  args=(?, ?)
+  0x115d4: cmp r0, #33
+  0x115d6: bne L_1163e
+  ; r1 = OFFSETOF(MonsterControl.MovingAngleTurn)
+  0x115e8: ldrb r2 -> self.MovingAngleTurn
+  0x115ea: cmp r2, #0
+  0x115ec: beq.w L_116e4
+  0x115f0: cmp r0, #1
+  0x115f2: beq.w L_11798
+  0x115f6: cmp r0, #4
+  0x115f8: beq.w L_11784
+  0x115fc: cmp r0, #3
+  0x115fe: beq.w L_11826
+  0x11602: cmp r0, #2
+  0x11604: bne.w L_1187c
+  0x11608: b L_117bc
+  L_1160a:
+  0x1161a: b L_1133e
+  L_1161c:
+  0x1161c: cmp r0, #1
+  0x1161e: bne L_1168e
+  0x1162a: b L_11702
+  L_1162c:
+  0x1162c: cmp r0, #4
+  0x1162e: beq L_116f4
+  0x11630: cmp r0, #3
+  0x11632: beq.w L_1175c
+  0x11636: cmp r0, #2
+  0x11638: bne.w L_1187c
+  0x1163c: b L_11696
+  L_1163e:
+  0x11642: [r0 ?]  args=(0, ?)
+  0x11646: cmp r0, #44
+  0x11648: bne L_116a8
+  ; r1 = OFFSETOF(MonsterControl.MovingAngleTurn)
+  0x1165a: ldrb r2 -> self.MovingAngleTurn
+  0x1165c: cmp r2, #0
+  0x1165e: beq.w L_11794
+  0x11662: cmp r0, #1
+  0x11664: beq.w L_117a8
+  0x11668: cmp r0, #4
+  0x1166a: bne.w L_1180c
+  0x11678: strb r2 -> self.MovingAngleTurn
+  0x1167c: b L_1185c
+  L_1167e:
+  0x1167e: cmp r0, #1
+  0x11680: bne L_1170a
+  0x1168c: b L_1177c
+  L_1168e:
+  0x1168e: cmp r0, #4
+  0x11690: beq L_11740
+  0x11692: cmp r0, #3
+  0x11694: bne L_11756
+  L_11696:
+  0x116a6: b L_11878
+  L_116a8:
+  0x116ac: [r0 ?]  args=(0x8c, ?)
+  0x116b0: cmp r0, #55
+  0x116b2: bne.w L_113e4
+  ; r1 = OFFSETOF(MonsterControl.MovingAngleTurn)
+  0x116c6: ldrb r2 -> self.MovingAngleTurn
+  0x116c8: cmp r2, #0
+  0x116ca: beq L_117a4
+  0x116cc: cmp r0, #1
+  0x116ce: beq L_11798
+  0x116d0: cmp r0, #4
+  0x116d2: bne.w L_117fe
+  0x116e2: b L_11844
+  L_116e4:
+  0x116e4: cmp r0, #1
+  0x116e6: bne L_117b4
+  L_116e8:
+  0x116f2: b L_117dc
+  L_116f4:
+  0x116fe: strb r2 -> self.MovingAngleTurn
+  L_11702:
+  0x11708: b L_11878
+  L_1170a:
+  0x1170a: cmp r0, #4
+  0x1170c: beq L_117ce
+  0x1170e: cmp r0, #3
+  0x11710: bne L_117e4
+  L_11712:
+  0x11722: b L_11878
+  0x11728: cmp r5, #24
+  L_11740:
+  L_1174e:
+  0x11754: b L_11878
+  L_11756:
+  0x11756: cmp r0, #2
+  0x11758: bne.w L_1187c
+  L_1175c:
+  0x1176c: b L_11878
+  L_1176e:
+  L_1177c:
+  0x11782: b L_11878
+  L_11784:
+  0x11792: b L_117dc
+  L_11794:
+  0x11794: cmp r0, #1
+  0x11796: bne L_117fa
+  L_11798:
+  0x117a2: b L_1185c
+  L_117a4:
+  0x117a4: cmp r0, #1
+  0x117a6: bne L_11808
+  L_117a8:
+  0x117b2: b L_11846
+  L_117b4:
+  0x117b4: cmp r0, #4
+  0x117b6: beq L_1184e
+  0x117b8: cmp r0, #3
+  0x117ba: bne L_11822
+  L_117bc:
+  0x117cc: b L_11878
+  L_117ce:
+  L_117dc:
+  0x117e2: b L_11878
+  L_117e4:
+  0x117e4: cmp r0, #2
+  0x117e6: bne L_1187c
+  L_117e8:
+  0x117f8: b L_11878
+  L_117fa:
+  0x117fa: cmp r0, #4
+  0x117fc: beq L_11838
+  L_117fe:
+  0x117fe: cmp r0, #3
+  0x11800: beq L_11868
+  0x11802: cmp r0, #2
+  0x11804: bne L_1187c
+  0x11806: b L_11810
+  L_11808:
+  0x11808: cmp r0, #4
+  0x1180a: beq L_1184e
+  L_1180c:
+  0x1180c: cmp r0, #3
+  0x1180e: bne L_11864
+  L_11810:
+  0x11820: b L_11878
+  L_11822:
+  0x11822: cmp r0, #2
+  0x11824: bne L_1187c
+  L_11826:
+  0x11836: b L_11878
+  L_11838:
+  L_11844:
+  L_11846:
+  0x1184c: b L_11878
+  L_1184e:
+  L_1185c:
+  0x11862: b L_11878
+  L_11864:
+  0x11864: cmp r0, #2
+  0x11866: bne L_1187c
+  L_11868:
+  L_11878:
+  0x11878: [r0 setMovingPosAngle:]  args=(0xf, ?)
+  L_1187c:
+  0x11880: [r0 ?]  args=(0xf, ?)
+  0x11896: [r0 MovingPosAngle]  args=(0xf, ?)
+  0x118a0: [r0 ?]  args=(0xf, ?)
+  0x118aa: [r0 MovingPosAngle]  args=(0xf, ?)
+  ; d17 = 3370280550400.0
+  ; d19 = 0.0
+  0x118ee: call _cosf
+  0x118f8: call _sinf
+  0x11908: b L_113e4
+  0x11910: cmp r5, #24
+
+//// -MonsterComing:  0x11920..0x11b30  v12@0:4@8
+  0x1194c: [r0 performSelector:]  args=("MonsterMoving:", ?)
+  0x1196a: [r0 comingSoundTime]  args=("MonsterMoving:", ?)
+  0x11984: [r0 comingSoundInWalk]  args=("MonsterMoving:", ?)
+  ; d16 = -1.5881868392106856e-23
+  0x119c0: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  ; r1 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x119dc: str r0 -> self.MonsterMovingAngleTimer
+  0x119e2: [r0 monsterHeadShotArray]  args=(@selector(monsterHeadShotArray), ?)
+  0x119f4: [r0 count]  args=(@selector(monsterHeadShotArray), ?)
+  ; fp = OFFSETOF(MonsterControl.monsterHeadShotArrayCount)
+  0x11a08: str.w r0 -> self.monsterHeadShotArrayCount
+  0x11a0e: [r0 monsterHeadShotArray]  args=(@selector(monsterHeadShotArray), ?)
+  0x11a14: [r0 count]  args=(@selector(monsterHeadShotArray), ?)
+  0x11a18: cmp r0, #2
+  0x11a1a: blo L_11ada
+  ; sl = OFFSETOF(MonsterControl.headShotTimer)
+  0x11a2e: cmp r0, #0
+  0x11a30: bne L_11b1a
+  0x11a42: [r0 isValid]  args=(@selector(monsterHeadShotArray), ?)
+  0x11a4a: bne L_11b1a
+  ; r8 = OFFSETOF(MonsterControl.monsterHeadShotTimeCount)
+  0x11a5c: str.w r5 -> self.monsterHeadShotTimeCount
+  0x11a6e: [r0 monsterHeadShotArray]  args=(@selector(monsterHeadShotArray), ?)
+  0x11a82: [r0 objectAtIndex:]  args=(?, ?)
+  0x11a92: [r0 floatValue]  args=(?, ?)
+  0x11abc: [r0 ?]  args=(?, ?)
+  0x11ac0: str.w r0 -> self.headShotTimer
+  0x11aca: str.w r0 -> self.monsterHeadShotArrayCount
+  0x11ad4: str.w r0 -> self.monsterHeadShotTimeCount
+  0x11ad8: b L_11b1a
+  L_11ada:
+  0x11af4: [r0 headShotTimeStart]  args=(?, ?)
+  0x11b16: [r0 performSelector:withObject:afterDelay:]  args=("headShot:", 0)
+  L_11b1a:
+
+//// -headShot:  0x11b30..0x11ccc  v12@0:4@8
+  ; r5 = OFFSETOF(MonsterControl.headShotTimer)
+  0x11b58: [r0 isValid]  args=(?, ?)
+  0x11b60: beq L_11b78
+  0x11b70: [r0 invalidate]  args=(?, ?)
+  0x11b76: str r0 -> self.headShotTimer
+  L_11b78:
+  ; r0 = OFFSETOF(MonsterControl.monsterHeadShotArrayCount)
+  0x11b88: cmp r0, #1
+  0x11b8a: blt L_11c70
+  0x11b8e: cmp r0, #0
+  0x11b90: bne L_11c70
+  0x11ba0: [r0 isValid]  args=(?, ?)
+  0x11ba8: bne L_11c70
+  0x11bbc: [r0 monsterHeadShotArray]  args=(?, ?)
+  ; fp = OFFSETOF(MonsterControl.monsterHeadShotTimeCount)
+  0x11be0: [r0 objectAtIndex:]  args=(?, ?)
+  0x11bf4: [r0 floatValue]  args=(?, ?)
+  0x11bfe: [r0 monsterHeadShotArray]  args=(?, ?)
+  0x11c0a: [r0 objectAtIndex:]  args=(?, ?)
+  0x11c10: [r0 floatValue]  args=(?, ?)
+  0x11c56: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  0x11c6c: str.w r0 -> self.monsterHeadShotTimeCount
+  L_11c70:
+  0x11c80: [r0 setHeadShotFlag:]  args=(1, ?)
+  0x11c9e: [r0 headShotTimeEndHowLong]  args=(1, ?)
+  0x11cc0: [r0 performSelector:withObject:afterDelay:]  args=("headShotEnd:", 0)
+
+//// -headShotEnd:  0x11ccc..0x11ce0  v12@0:4@8
+  0x11cda: b.w L_a90d0
+
+//// -shakeMonster  0x11ce0..0x11e44  v8@0:4
+  ; r5 = OFFSETOF(MonsterControl.comingBreathTimer)
+  0x11d04: [r0 isValid]  args=(?, ?)
+  0x11d0c: beq L_11d24
+  0x11d1c: [r0 invalidate]  args=(?, ?)
+  0x11d22: str r0 -> self.comingBreathTimer
+  L_11d24:
+  0x11d24: call sub_3ccc
+  0x11d34: [r0 playback]  args=(?, ?)
+  ; r3 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x11d52: [r0 stopSound:]  args=(?, 0x20)
+  ; r5 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x11d72: [r0 isValid]  args=(?, 0x20)
+  0x11d7a: beq L_11d92
+  0x11d8a: [r0 invalidate]  args=(?, 0x20)
+  0x11d90: str r0 -> self.MonsterMovingAngleTimer
+  L_11d92:
+  ; r5 = OFFSETOF(MonsterControl.MainMonsterTimer)
+  0x11dae: [r0 isValid]  args=(?, 0x20)
+  0x11db6: beq L_11dce
+  0x11dc6: [r0 invalidate]  args=(?, 0x20)
+  0x11dcc: str r0 -> self.MainMonsterTimer
+  L_11dce:
+  0x11dce: call sub_3ccc
+  0x11de2: [r0 shakeMonsterApproachSound]  args=(?, 0x20)
+  0x11df6: [r0 shakeMonsterApproachGain]  args=(?, 0x20)
+  0x11e16: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, ?)
+  0x11e28: [r0 bDevice]  args=(?, ?)
+  0x11e30: beq L_11e40
+  0x11e3c: b.w L_a90f4
+  L_11e40:
+
+//// -stopShakeMonsterSound:  0x11e44..0x11e7c  v12@0:4@8
+  0x11e4a: call sub_3ccc
+  0x11e5e: [r0 shakeMonsterApproachSound]  args=(?, ?)
+  0x11e76: b.w L_a90d0
+
+//// -hitPlayer  0x11e7c..0x11fec  v8@0:4
+  ; r5 = OFFSETOF(MonsterControl.comingBreathTimer)
+  0x11ea0: [r0 isValid]  args=(?, ?)
+  0x11ea8: beq L_11ec0
+  0x11eb8: [r0 invalidate]  args=(?, ?)
+  0x11ebe: str r0 -> self.comingBreathTimer
+  L_11ec0:
+  0x11ec0: call sub_3ccc
+  0x11ed0: [r0 playback]  args=(?, ?)
+  ; r3 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x11eee: [r0 stopSound:]  args=(?, 0x20)
+  ; r5 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x11f0e: [r0 isValid]  args=(?, 0x20)
+  0x11f16: beq L_11f2e
+  0x11f26: [r0 invalidate]  args=(?, 0x20)
+  0x11f2c: str r0 -> self.MonsterMovingAngleTimer
+  L_11f2e:
+  ; r5 = OFFSETOF(MonsterControl.MainMonsterTimer)
+  0x11f4a: [r0 isValid]  args=(?, 0x20)
+  0x11f52: beq L_11f6a
+  0x11f62: [r0 invalidate]  args=(?, 0x20)
+  0x11f68: str r0 -> self.MainMonsterTimer
+  L_11f6a:
+  0x11f6a: call sub_3ccc
+  0x11f7e: [r0 playerHitSound]  args=(?, 0x20)
+  0x11fa2: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, 0x3f800000)
+  0x11fc0: [r0 dieSoundTime]  args=(?, 0x3f800000)
+  0x11fe2: [r0 performSelector:withObject:afterDelay:]  args=("MonsterHitAndDead", 0)
+
+//// -MonsterHitAndDead  0x11fec..0x12054  v8@0:4
+  0x11ff2: call sub_3ccc
+  0x12006: [r0 playback]  args=(?, ?)
+  ; r3 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x12024: [r0 stopSound:]  args=(?, 0x20)
+  0x12036: [r0 playerHitSound]  args=(?, 0x20)
+  0x1204e: b.w L_a90d0
+
+//// -stopMonsterComingSound:  0x12054..0x12090  v12@0:4@8
+  0x1205a: call sub_3ccc
+  0x1206a: [r0 playback]  args=(?, ?)
+  ; r1 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x1208c: b.w L_a90d0
+
+//// -MonsterHitSoundDealloc  0x12090..0x120d4  v8@0:4
+  0x12096: call sub_3ccc
+  0x120ae: [r0 stopSoundBufNumber:]  args=(0x38, ?)
+  0x120c0: [r0 hitSound]  args=(0x38, ?)
+  0x120ce: b.w L_a90d0
+
+//// -MonsterHitSound:  0x120d4..0x1222c  v12@0:4@8
+  0x120f2: [r0 HP]  args=(?, ?)
+  0x120f8: call sub_3ccc
+  0x1210c: [r0 playerHitSoundGain]  args=(?, ?)
+  0x12114: cmp r5, #1
+  0x1211e: blt L_12138
+  0x12132: [r0 ?]  args=("Pos", ?)
+  0x12136: b L_12158
+  L_12138:
+  0x12138: cmp r4, #0
+  0x1213a: beq L_121e2
+  0x1214c: [r0 ?]  args=("Pos", ?)
+  0x12150: b L_121e8
+  L_12158:
+  0x1217a: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x38, ?)
+  0x1218c: [r0 hitSound]  args=(0x38, ?)
+  0x121a0: [r0 hitSoundGain]  args=(0x38, ?)
+  0x121ba: [r0 ?]  args=("Pos", ?)
+  0x121be: b L_121c4
+  L_121c4:
+  0x121dc: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, ?)
+  0x121e0: b L_1221e
+  L_121e2:
+  L_121e8:
+  0x12208: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x38, ?)
+  0x1221a: [r0 DieMonster]  args=(0x38, ?)
+  L_1221e:
+
+//// -DieMonster  0x1222c..0x12428  v8@0:4
+  ; r5 = OFFSETOF(MonsterControl.comingBreathTimer)
+  0x12258: [r0 isValid]  args=(?, ?)
+  0x12260: beq L_12278
+  0x12270: [r0 invalidate]  args=(?, ?)
+  0x12276: str r0 -> self.comingBreathTimer
+  L_12278:
+  0x12278: call sub_3ccc
+  0x12288: [r0 playback]  args=(?, ?)
+  ; r3 = OFFSETOF(MonsterControl.comingMonsterStopSoundNumber)
+  0x122a6: [r0 stopSound:]  args=(?, 0x20)
+  ; r5 = OFFSETOF(MonsterControl.MonsterMovingAngleTimer)
+  0x122c6: [r0 isValid]  args=(?, 0x20)
+  0x122ce: beq L_122e6
+  0x122de: [r0 invalidate]  args=(?, 0x20)
+  0x122e4: str r0 -> self.MonsterMovingAngleTimer
+  L_122e6:
+  ; r5 = OFFSETOF(MonsterControl.MainMonsterTimer)
+  0x12302: [r0 isValid]  args=(?, 0x20)
+  0x1230a: beq L_12322
+  0x1231a: [r0 invalidate]  args=(?, 0x20)
+  0x12320: str r0 -> self.MainMonsterTimer
+  L_12322:
+  0x12322: call sub_3ccc
+  0x12336: [r0 comingSound]  args=(?, 0x20)
+  0x1234c: [r0 stopSoundBufNumber:]  args=(?, 0x20)
+  0x12360: [r0 dieSound]  args=(?, 0x20)
+  0x1236a: [r0 stopSoundBufNumber:]  args=(?, 0x20)
+  0x12372: [r0 dieSound]  args=(?, 0x20)
+  0x12386: [r0 dieSoundgain]  args=(?, 0x20)
+  0x123a0: [r0 ?]  args=("Pos", 0x20)
+  0x123a4: b L_123ac
+  L_123ac:
+  0x123ce: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, ?)
+  0x123e2: [r0 dieSoundTime]  args=(?, ?)
+  0x123f6: [r0 dieSoundTime]  args=(?, ?)
+  0x12418: [r0 performSelector:withObject:afterDelay:]  args=("MonsterDead", 0)
+
+//// -dealloc  0x12458..0x124a4  v8@0:4
+  0x1247e: [r0 dealloc]  args=(?, ?)
+  ; r0 = OFFSETOF(MonsterControl.monsterHeadShotArray)
+  0x1249c: [r0 release]  args=(?, ?)

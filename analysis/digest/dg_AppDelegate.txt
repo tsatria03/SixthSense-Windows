@@ -1,0 +1,1155 @@
+
+//// -init  0x3d00..0x3dc0  @8@0:4
+  0x3d24: [r0 init]  args=(0xdb09c, ?)
+  0x3d2a: cmp r4, #0
+  0x3d2c: beq L_3dba
+  0x3d46: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x3d5a: [r0 setASoundBufControlData:]  args=(0, ?)
+  0x3d76: [r0 alloc]  args=(AutoLoginController, ?)
+  0x3d92: [r0 initWithNibName:bundle:]  args=(@"AutoLoginController", 0)
+  0x3da2: [r0 autorelease]  args=(@"AutoLoginController", 0)
+  0x3db6: [r0 setG_loginController:]  args=(0xdb614, 0)
+  L_3dba:
+
+//// -dealloc  0x3dc0..0x3f64  v8@0:4
+  ; r0 = OFFSETOF(AppDelegate._loginview)
+  0x3de4: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate._g_loginController)
+  0x3df8: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate._g_network_Buy)
+  0x3e0c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_facebook)
+  0x3e20: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_token)
+  0x3e34: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_key)
+  0x3e48: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_email)
+  0x3e5c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_name)
+  0x3e70: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate._window)
+  0x3e84: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.bgURL)
+  0x3e98: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.bgPlayer)
+  0x3eac: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.playback)
+  0x3ec0: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.mainNaviController)
+  0x3ed4: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.numberBackUp)
+  0x3ee8: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.haveWeapon)
+  0x3efc: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.aSoundBufControlData)
+  0x3f10: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.useWeapon)
+  0x3f24: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.g_allweaponPrice)
+  0x3f38: [r0 release]  args=(?, ?)
+  0x3f5a: [r0 dealloc]  args=(?, ?)
+
+//// -application:didFinishLaunchingWithOptions:  0x3f64..0x4634  c16@0:4@8@12
+  0x3f72: call _UIAccessibilityIsVoiceOverRunning
+  0x3f7c: blxne L_c2d98
+  0x3f9c: [r0 sharedApplication]  args=(?, ?)
+  0x3fae: [r0 delegate]  args=(?, ?)
+  0x3fc4: [r0 playback]  args=(?, ?)
+  0x3fe2: [r0 alloc]  args=(oalPlayback, ?)
+  0x3ff2: [r0 init]  args=(oalPlayback, ?)
+  0x4006: [r0 setPlayback:]  args=(0xdb1dc, ?)
+  0x4010: [r0 playback]  args=(0xdb1dc, ?)
+  0x4020: [r0 setUpOpenAL]  args=(0xdb1dc, ?)
+  0x403e: [r0 iPodMusicPlayer]  args=(0xdb1dc, ?)
+  0x404e: [r0 playbackState]  args=(0xdb1dc, ?)
+  0x4052: cmp r0, #1
+  0x4054: bne L_406e
+  0x405a: [r0 iPodMusicPlayer]  args=(0xdb1dc, ?)
+  0x406a: [r0 pause]  args=(0xdb1dc, ?)
+  L_406e:
+  0x4076: [r0 sharedApplication]  args=(0xdb1dc, ?)
+  0x4088: [r0 setStatusBarHidden:]  args=(1, ?)
+  0x40a4: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x40b4: [r0 model]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x40ce: [r0 isEqual:]  args=(@"iPhone", ?)
+  ; r1 = OFFSETOF(AppDelegate.bDevice)
+  0x40f4: cmp r0, #0
+  0x4106: [r0 alloc]  args=(@selector(alloc), _OBJC_CLASS_$_UIImageView)
+  0x412c: [r0 initWithFrame:]  args=(0, 0)
+  0x4144: [r0 autorelease]  args=(0, 0)
+  ; r1 = OFFSETOF(AppDelegate.splashView)
+  0x4156: str.w r0 -> self.splashView
+  0x4184: [r0 imageNamed:]  args=(@"Default.png", 0)
+  0x419a: [r0 setImage:]  args=(0, 0)
+  0x41ac: [r0 alloc]  args=(0, 0)
+  0x41ce: [r0 ?]  args=(0x43100000, 0x433d0000)
+  0x41d6: [r0 autorelease]  args=(0x43100000, 0x433d0000)
+  ; r6 = OFFSETOF(AppDelegate.nameImageview)
+  0x41ea: str.w r0 -> self.nameImageview
+  0x4208: [r0 imageNamed:]  args=(@"bitbee.png", 0x433d0000)
+  0x4212: [r0 setImage:]  args=(0, 0x433d0000)
+  0x422a: [r0 setAlpha:]  args=(0, 0x433d0000)
+  0x424c: [r0 standardUserDefaults]  args=(0, 0x433d0000)
+  0x4268: [r0 objectForKey:]  args=(@"FIREST", 0x433d0000)
+  0x4274: [r0 standardUserDefaults]  args=(@"FIREST", 0x433d0000)
+  0x4284: [r0 objectForKey:]  args=(@"COIN", 0x433d0000)
+  0x429a: [r0 intValue]  args=(@"COIN", 0x433d0000)
+  0x42a6: [r0 standardUserDefaults]  args=(@"COIN", 0x433d0000)
+  0x42ce: [r0 setObject:forKey:]  args=(@"10", @"COIN")
+  0x42d8: [r0 standardUserDefaults]  args=(@"10", @"COIN")
+  0x42f2: [r0 setObject:forKey:]  args=(@"1", @"FIREST")
+  0x42fc: [r0 standardUserDefaults]  args=(@"1", @"FIREST")
+  0x430c: [r0 synchronize]  args=(@"1", @"FIREST")
+  0x431e: [r0 ?]  args=(@"1", @"FIREST")
+  0x4324: [r0 ?]  args=(@"1", @"FIREST")
+  0x432e: [___CFConstantStringClassReference ?]  args=(@"1", @"FIREST")
+  0x4342: [r0 setCoin:]  args=(@"10", @"FIREST")
+  0x434c: [r0 standardUserDefaults]  args=(@"10", @"FIREST")
+  0x435c: [r0 objectForKey:]  args=(@"BASEURL", @"FIREST")
+  0x436c: [r0 length]  args=(@"BASEURL", @"FIREST")
+  0x4378: [r0 standardUserDefaults]  args=(@"BASEURL", @"FIREST")
+  0x439c: [r0 setObject:forKey:]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x43a6: [r0 standardUserDefaults]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x43b6: [r0 synchronize]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x43c0: [r0 standardUserDefaults]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x43d4: [r0 objectForKey:]  args=(@"verDatabase", @"BASEURL")
+  0x43de: [r0 ?]  args=(@"verDatabase", @"BASEURL")
+  0x43e2: call sub_78488
+  0x43e6: call sub_7850c
+  0x43ea: call sub_78590
+  0x43ee: call sub_7835c
+  0x43f2: call sub_78474
+  0x4410: [r0 numberWithInt:]  args=(0, @"BASEURL")
+  0x4426: [r0 setObject:forKey:]  args=(0, @"verDatabase")
+  0x4438: [r0 synchronize]  args=(0, @"verDatabase")
+  0x4454: [r0 defaultQueue]  args=(_OBJC_CLASS_$_SKPaymentQueue, @"verDatabase")
+  0x4466: [r0 addTransactionObserver:]  args=(?, @"verDatabase")
+  0x4470: [r0 standardUserDefaults]  args=(?, @"verDatabase")
+  0x4480: [r0 ?]  args=(@"GAMECENTER", @"verDatabase")
+  0x4486: [r0 ?]  args=(@"GAMECENTER", @"verDatabase")
+  0x448a: cmp r0, #1
+  0x448c: bne L_44a2
+  0x449e: [r0 authenticateLocalPlayerShowReader:]  args=(1, @"verDatabase")
+  L_44a2:
+  0x44b0: [r0 ?]  args=(1, @"verDatabase")
+  0x44c0: [r0 init]  args=(1, @"verDatabase")
+  0x44c6: [r0 ?]  args=(1, @"verDatabase")
+  0x44da: [r0 setG_network_Buy:]  args=(0xdb86c, @"verDatabase")
+  0x4502: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x154, 0x3e4ccccd)
+  0x4516: [r0 window]  args=(0x154, 0x3e4ccccd)
+  0x4530: [r0 addSubview:]  args=(?, 0x3e4ccccd)
+  0x4538: [r0 window]  args=(?, 0x3e4ccccd)
+  0x454e: [r0 bringSubviewToFront:]  args=(?, 0x3e4ccccd)
+  0x4556: [r0 window]  args=(?, 0x3e4ccccd)
+  0x4564: [r0 addSubview:]  args=(?, 0x3e4ccccd)
+  0x456c: [r0 window]  args=(?, 0x3e4ccccd)
+  0x4576: [r0 bringSubviewToFront:]  args=(?, 0x3e4ccccd)
+  0x4596: [r0 beginAnimations:context:]  args=(0, 0)
+  0x45b0: [r0 setAnimationDuration:]  args=(?, 0)
+  0x45ba: [r0 window]  args=(?, 0)
+  0x45d4: [r0 setAnimationTransition:forView:cache:]  args=(0, ?)
+  0x45e8: [r0 setAnimationDelegate:]  args=(?, ?)
+  0x4606: [r0 setAnimationDidStopSelector:]  args=("startIntro", ?)
+  0x4614: [r0 ?]  args=(0x3f800000, ?)
+  0x4626: [r0 commitAnimations]  args=(0x3f800000, ?)
+
+//// -VersionCheck  0x4634..0x48b8  v8@0:4
+  0x4666: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x4682: [r0 objectForKey:]  args=(@"BASEURL", ?)
+  0x46a0: [r0 stringWithFormat:]  args=(@"%@version.php", 0)
+  0x46c2: [r0 alloc]  args=(@"%@version.php", 0)
+  0x46e2: [r0 URLWithString:]  args=(0, 0)
+  0x46f6: [r0 initWithURL:]  args=(0, 0)
+  0x4714: [r0 setHTTPMethod:]  args=(@"POST", 0)
+  0x4738: [r0 sendSynchronousRequest:returningResponse:error:]  args=(0, ?)
+  0x4750: [r0 release]  args=(0, ?)
+  0x4754: cmp r5, #0
+  0x4756: beq.w L_48b0
+  0x4760: [r0 alloc]  args=(0, ?)
+  0x4774: [r0 initWithData:encoding:]  args=(0, 4)
+  0x4784: [r0 autorelease]  args=(0, 4)
+  0x4794: [r0 objectFromJSONString]  args=(0, 4)
+  0x47a6: [r0 objectForKey:]  args=(@"code", 4)
+  0x47b8: [r0 intValue]  args=(@"code", 4)
+  0x47bc: cmp r0, #100
+  0x47be: bne L_48b0
+  0x47ce: [r0 objectForKey:]  args=(@"ver", 4)
+  0x47d4: [r0 intValue]  args=(@"ver", 4)
+  0x47d8: cmp r0, #3
+  0x47da: blt L_48b0
+  0x47ea: [r0 objectForKey:]  args=(@"must", 4)
+  0x47f0: [r0 intValue]  args=(@"must", 4)
+  0x4804: [r0 alloc]  args=(@"must", 4)
+  0x480c: cmp r4, #0
+  0x4816: beq L_4850
+  0x4838: [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:]  args=(0, @"A new version is available, You must install the newer version in order to continue")
+  0x484e: b L_4892
+  L_4850:
+  0x487c: [r0 setTag:]  args=(0, @"A new version is available.")
+  L_4892:
+  0x4892: [r0 setTag:]  args=(0xc8, @"A new version is available.")
+  0x48a4: [r0 show]  args=(0xc8, @"A new version is available.")
+  0x48ac: [r0 release]  args=(0xc8, @"A new version is available.")
+  L_48b0:
+
+//// -alertView:clickedButtonAtIndex:  0x48b8..0x49a0  v16@0:4@8i12
+  0x48d0: [r0 tag]  args=(?, ?)
+  0x48d4: cmp r0, #100
+  0x48d6: beq L_4942
+  0x48dc: [r0 tag]  args=(?, ?)
+  0x48e0: cmp r0, #200
+  0x48e6: bne L_4940
+  0x4900: [r0 sharedApplication]  args=(_OBJC_CLASS_$_UIApplication, ?)
+  0x4928: [r0 URLWithString:]  args=(@"https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8", ?)
+  0x493c: [r0 openURL:]  args=(0, ?)
+  L_4940:
+  L_4942:
+  0x495a: [r0 sharedApplication]  args=(_OBJC_CLASS_$_UIApplication, ?)
+  0x4982: [r0 URLWithString:]  args=(@"https://itunes.apple.com/us/app/sixsense/id580417319?l=ko&ls=1&mt=8", ?)
+  0x4996: [r0 openURL:]  args=(0, ?)
+  0x499c: call _exit
+
+//// -startIntro  0x49a0..0x4aa4  v8@0:4
+  0x49b6: [r0 VersionCheck]  args=(?, ?)
+  0x49d6: [r0 beginAnimations:context:]  args=(0, 0)
+  0x49f0: [r0 setAnimationDuration:]  args=(?, 0)
+  0x4a04: [r0 window]  args=(?, 0)
+  0x4a1e: [r0 setAnimationTransition:forView:cache:]  args=(0, ?)
+  0x4a32: [r0 setAnimationDelegate:]  args=(?, ?)
+  0x4a50: [r0 setAnimationDidStopSelector:]  args=("realStartIntro", ?)
+  ; r0 = OFFSETOF(AppDelegate.nameImageview)
+  0x4a72: [r0 setAlpha:]  args=(0, ?)
+  ; r0 = OFFSETOF(AppDelegate.splashView)
+  0x4a88: [r0 setAlpha:]  args=(0, ?)
+  0x4aa0: b.w L_a90d0
+
+//// -realStartIntro  0x4aa4..0x4ce0  v8@0:4
+  ; r0 = OFFSETOF(AppDelegate.splashView)
+  0x4ace: [r0 removeFromSuperview]  args=(?, ?)
+  ; r0 = OFFSETOF(AppDelegate.nameImageview)
+  0x4ae4: [r0 removeFromSuperview]  args=(?, ?)
+  0x4af2: call _NSClassFromString
+  0x4b06: [___CFConstantStringClassReference alloc]  args=(?, ?)
+  0x4b26: [r0 mainScreen]  args=(?, ?)
+  0x4b2c: cmp r1, #0
+  0x4b2e: beq L_4b68
+  0x4b3e: [r0 ?]  args=("bounds", ?)
+  ; s0 = 320.0
+  0x4b52: bne L_4b72
+  ; s2 = 568.0
+  0x4b64: beq L_4bb6
+  0x4b66: b L_4b72
+  L_4b68:
+  L_4b72:
+  0x4b76: [r0 mainScreen]  args=("bounds", ?)
+  0x4b7c: cmp r1, #0
+  0x4b7e: beq L_4bcc
+  0x4b8e: [r0 ?]  args=("bounds", ?)
+  ; s0 = 568.0
+  0x4ba2: bne L_4bd6
+  ; s2 = 320.0
+  0x4bb4: bne L_4bd6
+  L_4bb6:
+  0x4bca: b L_4bea
+  L_4bcc:
+  L_4bd6:
+  L_4bea:
+  0x4bf0: [___CFConstantStringClassReference initWithNibName:bundle:]  args=(@"startIntroPage", 0)
+  0x4c04: [r0 alloc]  args=(@"startIntroPage", 0)
+  0x4c16: [r0 initWithRootViewController:]  args=(@"startIntroPage", 0)
+  0x4c2a: [r0 setMainNaviController:]  args=(0, 0)
+  0x4c3e: [r0 window]  args=(0, 0)
+  0x4c52: [r0 mainNaviController]  args=(0, 0)
+  0x4c66: [r0 setRootViewController:]  args=(?, 0)
+  0x4c6e: [r0 window]  args=(?, 0)
+  0x4c7e: [r0 makeKeyAndVisible]  args=(?, 0)
+  0x4c9a: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, 0)
+  0x4ccc: [r0 addObserver:selector:name:object:]  args=(?, "notified:")
+
+//// -notified:  0x4ce0..0x4ce4  v12@0:4@8
+
+//// -BGMusicStart  0x4ce4..0x4d30  v8@0:4
+  0x4cf6: [r0 playback]  args=(?, ?)
+  0x4d28: [r0 startBGPlayer:type:soundGain:Loop:]  args=(@"bgm_main_menu", @"wav")
+
+//// -applicationWillResignActive:  0x4d58..0x4d5c  v12@0:4@8
+
+//// -applicationDidEnterBackground:  0x4d5c..0x4d9c  v12@0:4@8
+  0x4d78: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, ?)
+  0x4d98: b.w L_a90d0
+
+//// -applicationWillEnterForeground:  0x4d9c..0x4da0  v12@0:4@8
+
+//// -applicationDidBecomeActive:  0x4da0..0x4e7c  v12@0:4@8
+  0x4dc6: [r0 sharedApplication]  args=(?, ?)
+  0x4dd8: [r0 delegate]  args=(?, ?)
+  0x4dec: [r0 g_key]  args=(?, ?)
+  0x4dfe: [r0 length]  args=(?, ?)
+  0x4e12: [r0 g_email]  args=(?, ?)
+  0x4e18: [r0 length]  args=(?, ?)
+  0x4e24: [r0 sharedApplication]  args=(?, ?)
+  0x4e2a: [r0 delegate]  args=(?, ?)
+  0x4e3e: [r0 PHPSESSID]  args=(?, ?)
+  0x4e44: [r0 length]  args=(?, ?)
+  0x4e5e: [r0 g_loginController]  args=(?, ?)
+  0x4e76: b.w L_a90d0
+
+//// -applicationWillTerminate:  0x4e7c..0x4eb0  v12@0:4@8
+  0x4e98: [r0 activeSession]  args=(FBSession, ?)
+  0x4eac: b.w L_a90d0
+
+//// -application:openURL:sourceApplication:annotation:  0x4eb0..0x4ee8  c24@0:4@8@12@16@20
+  0x4ece: [r0 activeSession]  args=(FBSession, ?)
+  0x4ee0: [r0 handleOpenURL:]  args=(?, ?)
+
+//// -weaponHave  0x4ee8..0x5590  v8@0:4
+  0x4f0e: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x4f22: [r0 setHaveWeapon:]  args=(0, ?)
+  0x4f38: [r0 haveWeapon]  args=(0, ?)
+  0x4f58: [r0 addObject:]  args=(@"1", ?)
+  0x4f60: [r0 haveWeapon]  args=(@"1", ?)
+  0x4f68: [r0 addObject:]  args=(@"1", ?)
+  0x4f70: [r0 haveWeapon]  args=(@"1", ?)
+  0x4f78: [r0 addObject:]  args=(@"1", ?)
+  0x4f98: [r0 standardUserDefaults]  args=(@"1", ?)
+  0x4fb4: [r0 objectForKey:]  args=(@"SHOTGUN", ?)
+  0x4fc6: [r0 intValue]  args=(@"SHOTGUN", ?)
+  0x4fd0: [r0 haveWeapon]  args=(@"SHOTGUN", ?)
+  0x4fd4: cmp r6, #1
+  0x4fd6: blt L_4fe4
+  0x4fe2: b L_4fee
+  L_4fe4:
+  L_4fee:
+  0x4ff0: [r0 addObject:]  args=(@"0", ?)
+  0x5002: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x5012: [r0 objectForKey:]  args=(@"M4", ?)
+  0x5018: [r0 ?]  args=(@"M4", ?)
+  0x5022: [r0 haveWeapon]  args=(@"M4", ?)
+  0x5026: cmp r6, #1
+  0x5028: blt L_5036
+  0x5034: b L_5040
+  L_5036:
+  L_5040:
+  0x5042: [r0 addObject:]  args=(@"0", ?)
+  0x5054: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x5064: [r0 objectForKey:]  args=(@"AK47", ?)
+  0x506a: [r0 ?]  args=(@"AK47", ?)
+  0x5074: [r0 haveWeapon]  args=(@"AK47", ?)
+  0x5078: cmp r6, #1
+  0x507a: blt L_5088
+  0x5086: b L_5092
+  L_5088:
+  L_5092:
+  0x5094: [r0 addObject:]  args=(@"0", ?)
+  0x50a6: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x50b6: [r0 objectForKey:]  args=(@"MG80", ?)
+  0x50bc: [r0 ?]  args=(@"MG80", ?)
+  0x50c6: [r0 haveWeapon]  args=(@"MG80", ?)
+  0x50ca: cmp r6, #1
+  0x50cc: blt L_50da
+  0x50d8: b L_50e4
+  L_50da:
+  L_50e4:
+  0x50e6: [r0 addObject:]  args=(@"0", ?)
+  0x50f8: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x5108: [r0 objectForKey:]  args=(@"JAPAN", ?)
+  0x510e: [r0 ?]  args=(@"JAPAN", ?)
+  0x5118: [r0 haveWeapon]  args=(@"JAPAN", ?)
+  0x511c: cmp r6, #1
+  0x511e: blt L_512c
+  0x512a: b L_5136
+  L_512c:
+  L_5136:
+  0x5138: [r0 addObject:]  args=(@"0", ?)
+  0x514a: [r0 ?]  args=(@"0", ?)
+  0x5160: [r0 setUseWeapon:]  args=(0, ?)
+  0x5172: [r0 standardUserDefaults]  args=(0, ?)
+  0x5182: [r0 objectForKey:]  args=(@"GRENADEUSE", ?)
+  0x5188: [r0 ?]  args=(@"GRENADEUSE", ?)
+  0x51a0: [r0 useWeapon]  args=(@"GRENADEUSE", ?)
+  0x51a4: cmp r6, #1
+  0x51a6: blt L_51b4
+  0x51b2: b L_51be
+  L_51b4:
+  L_51be:
+  0x51c0: [r0 addObject:]  args=(@"0", ?)
+  0x51d2: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x51e2: [r0 objectForKey:]  args=(@"KNIFEUSE", ?)
+  0x51e8: [r0 ?]  args=(@"KNIFEUSE", ?)
+  0x51f2: [r0 useWeapon]  args=(@"KNIFEUSE", ?)
+  0x51f6: cmp r6, #1
+  0x51f8: blt L_5206
+  0x5204: b L_5210
+  L_5206:
+  L_5210:
+  0x5212: [r0 addObject:]  args=(@"0", ?)
+  0x5224: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x5234: [r0 objectForKey:]  args=(@"COLTUSE", ?)
+  0x523a: [r0 ?]  args=(@"COLTUSE", ?)
+  0x5244: [r0 useWeapon]  args=(@"COLTUSE", ?)
+  0x5248: cmp r6, #1
+  0x524a: blt L_5258
+  0x5256: b L_5262
+  L_5258:
+  L_5262:
+  0x5264: [r0 addObject:]  args=(@"0", ?)
+  0x5276: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x5286: [r0 objectForKey:]  args=(@"SHOTGUNUSE", ?)
+  0x528c: [r0 ?]  args=(@"SHOTGUNUSE", ?)
+  0x5296: [r0 useWeapon]  args=(@"SHOTGUNUSE", ?)
+  0x529a: cmp r6, #1
+  0x529c: blt L_52aa
+  0x52a8: b L_52b4
+  L_52aa:
+  L_52b4:
+  0x52b6: [r0 addObject:]  args=(@"0", ?)
+  0x52c8: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x52d8: [r0 objectForKey:]  args=(@"M4USE", ?)
+  0x52de: [r0 ?]  args=(@"M4USE", ?)
+  0x52e8: [r0 useWeapon]  args=(@"M4USE", ?)
+  0x52ec: cmp r6, #1
+  0x52ee: blt L_52fc
+  0x52fa: b L_5306
+  L_52fc:
+  L_5306:
+  0x5308: [r0 addObject:]  args=(@"0", ?)
+  0x531a: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x532a: [r0 objectForKey:]  args=(@"AK47USE", ?)
+  0x5330: [r0 ?]  args=(@"AK47USE", ?)
+  0x533a: [r0 useWeapon]  args=(@"AK47USE", ?)
+  0x533e: cmp r6, #1
+  0x5340: blt L_534e
+  0x534c: b L_5358
+  L_534e:
+  L_5358:
+  0x535a: [r0 addObject:]  args=(@"0", ?)
+  0x536c: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x537c: [r0 objectForKey:]  args=(@"MG80USE", ?)
+  0x5382: [r0 ?]  args=(@"MG80USE", ?)
+  0x538c: [r0 useWeapon]  args=(@"MG80USE", ?)
+  0x5390: cmp r6, #1
+  0x5392: blt L_53a0
+  0x539e: b L_53aa
+  L_53a0:
+  L_53aa:
+  0x53ac: [r0 addObject:]  args=(@"0", ?)
+  0x53be: [r0 standardUserDefaults]  args=(@"0", ?)
+  0x53ce: [r0 objectForKey:]  args=(@"JAPANUSE", ?)
+  0x53d4: [r0 ?]  args=(@"JAPANUSE", ?)
+  0x53de: [r0 useWeapon]  args=(@"JAPANUSE", ?)
+  0x53e2: cmp r5, #1
+  0x53e4: blt L_53f6
+  0x53f4: b L_5404
+  L_53f6:
+  L_5404:
+  0x5406: [r0 addObject:]  args=(@"0", ?)
+  0x540e: [r0 useWeapon]  args=(@"0", ?)
+  0x541e: [r0 count]  args=(@"0", ?)
+  L_5434:
+  0x5436: bge L_5458
+  0x543c: [r0 useWeapon]  args=(@"0", ?)
+  0x5444: [r0 objectAtIndex:]  args=(?, ?)
+  0x544a: [r0 ?]  args=(?, ?)
+  0x5452: cmp r0, #0
+  0x5454: beq L_5434
+  0x5456: b L_5586
+  L_5458:
+  0x5466: [r0 ?]  args=(?, ?)
+  0x5470: [r0 ?]  args=(0, ?)
+  0x5478: [r0 useWeapon]  args=(0, ?)
+  0x548a: [r0 addObject:]  args=(@"1", ?)
+  0x5492: [r0 useWeapon]  args=(@"1", ?)
+  0x549a: [r0 addObject:]  args=(@"1", ?)
+  0x54a2: [r0 useWeapon]  args=(@"1", ?)
+  0x54aa: [r0 addObject:]  args=(@"1", ?)
+  0x54b2: [r0 useWeapon]  args=(@"1", ?)
+  0x54c4: [r0 addObject:]  args=(@"0", ?)
+  0x54cc: [r0 useWeapon]  args=(@"0", ?)
+  0x54d4: [r0 addObject:]  args=(@"0", ?)
+  0x54dc: [r0 useWeapon]  args=(@"0", ?)
+  0x54e4: [r0 addObject:]  args=(@"0", ?)
+  0x54ec: [r0 useWeapon]  args=(@"0", ?)
+  0x54f4: [r0 addObject:]  args=(@"0", ?)
+  0x54fc: [r0 useWeapon]  args=(@"0", ?)
+  0x5504: [r0 addObject:]  args=(@"0", ?)
+  0x5518: [r0 ?]  args=(@"0", ?)
+  0x5536: [r0 setObject:forKey:]  args=(@"1", @"GRENADEUSE")
+  0x553e: [r0 ?]  args=(@"1", @"GRENADEUSE")
+  0x5550: [r0 setObject:forKey:]  args=(@"1", @"KNIFEUSE")
+  0x5558: [r0 ?]  args=(@"1", @"KNIFEUSE")
+  0x556a: [r0 setObject:forKey:]  args=(@"1", @"COLTUSE")
+  0x5572: [r0 ?]  args=(@"1", @"COLTUSE")
+  0x5582: [r0 synchronize]  args=(@"1", @"COLTUSE")
+  L_5586:
+
+//// -TTSNumber:type:  0x5590..0x583c  v16@0:4i8i12
+  0x55c4: [r0 stringWithFormat:]  args=(@"%d", ?)
+  ; r0 = OFFSETOF(AppDelegate.tts_type)
+  0x55e6: str r5 -> self.tts_type
+  0x55ec: [r0 length]  args=(@"%d", ?)
+  L_55f8:
+  0x55fc: [r0 length]  args=(@"%d", ?)
+  0x560c: blo L_55f8
+  0x5628: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x563e: [r0 setNumberBackUp:]  args=(0, ?)
+  0x564e: [r0 length]  args=(0, ?)
+  0x5652: cmp r0, #0
+  0x5654: beq.w L_579a
+  L_5676:
+  0x5690: call ___divmodsi4
+  0x569c: cmp r0, #7
+  0x569e: bls L_56bc
+  0x56a4: [r0 numberBackUp]  args=(?, ?)
+  0x56aa: cmp sl, #9
+  0x56ae: bne L_56de
+  0x56ba: b L_5782
+  L_56bc:
+  0x56c2: cmp r3, #32
+  0x56cc: [r0 numberBackUp]  args=(@"9", ?)
+  0x56dc: b L_5782
+  L_56de:
+  0x56e8: b L_5782
+  0x56ee: [r0 numberBackUp]  args=(@"0", ?)
+  0x56fe: b L_5782
+  0x5704: [r0 numberBackUp]  args=(@"2", ?)
+  0x5714: b L_5782
+  0x571a: [r0 numberBackUp]  args=(@"3", ?)
+  0x572a: b L_5782
+  0x5730: [r0 numberBackUp]  args=(@"4", ?)
+  0x5740: b L_5782
+  0x5746: [r0 numberBackUp]  args=(@"5", ?)
+  0x5756: b L_5782
+  0x575c: [r0 numberBackUp]  args=(@"6", ?)
+  0x576c: b L_5782
+  0x5772: [r0 numberBackUp]  args=(@"7", ?)
+  L_5782:
+  0x5784: [r0 insertObject:atIndex:]  args=(@"8", 0)
+  0x578c: [r0 ?]  args=(@"8", 0)
+  0x5796: blo.w L_5676
+  L_579a:
+  0x57a8: [r0 numberBackUp]  args=(@"8", 0)
+  0x57b8: [r0 count]  args=(@"8", 0)
+  ; r1 = OFFSETOF(AppDelegate.ttsArrayCount)
+  ; r5 = OFFSETOF(AppDelegate.ttsTimer)
+  0x57d4: str r0 -> self.ttsArrayCount
+  0x57ec: [r0 isValid]  args=(0xe06b8, 0)
+  0x57f4: bne L_5832
+  0x582c: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, 0)
+  0x5830: str r0 -> self.ttsTimer
+  L_5832:
+
+//// -TTSNumber:type2:  0x583c..0x5ae8  v16@0:4i8i12
+  0x5870: [r0 stringWithFormat:]  args=(@"%d", ?)
+  ; r0 = OFFSETOF(AppDelegate.tts_type)
+  0x5892: str r5 -> self.tts_type
+  0x5898: [r0 length]  args=(@"%d", ?)
+  L_58a4:
+  0x58a8: [r0 length]  args=(@"%d", ?)
+  0x58b8: blo L_58a4
+  0x58d4: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x58ea: [r0 setNumberBackUp:]  args=(0, ?)
+  0x58fa: [r0 length]  args=(0, ?)
+  0x58fe: cmp r0, #0
+  0x5900: beq.w L_5a46
+  L_5922:
+  0x593c: call ___divmodsi4
+  0x5948: cmp r0, #7
+  0x594a: bls L_5968
+  0x5950: [r0 numberBackUp]  args=(?, ?)
+  0x5956: cmp sl, #9
+  0x595a: bne L_598a
+  0x5966: b L_5a2e
+  L_5968:
+  0x596e: cmp r3, #32
+  0x5978: [r0 numberBackUp]  args=(@"9", ?)
+  0x5988: b L_5a2e
+  L_598a:
+  0x5994: b L_5a2e
+  0x599a: [r0 numberBackUp]  args=(@"0", ?)
+  0x59aa: b L_5a2e
+  0x59b0: [r0 numberBackUp]  args=(@"2", ?)
+  0x59c0: b L_5a2e
+  0x59c6: [r0 numberBackUp]  args=(@"3", ?)
+  0x59d6: b L_5a2e
+  0x59dc: [r0 numberBackUp]  args=(@"4", ?)
+  0x59ec: b L_5a2e
+  0x59f2: [r0 numberBackUp]  args=(@"5", ?)
+  0x5a02: b L_5a2e
+  0x5a08: [r0 numberBackUp]  args=(@"6", ?)
+  0x5a18: b L_5a2e
+  0x5a1e: [r0 numberBackUp]  args=(@"7", ?)
+  L_5a2e:
+  0x5a30: [r0 insertObject:atIndex:]  args=(@"8", 0)
+  0x5a38: [r0 ?]  args=(@"8", 0)
+  0x5a42: blo.w L_5922
+  L_5a46:
+  0x5a54: [r0 numberBackUp]  args=(@"8", 0)
+  0x5a64: [r0 count]  args=(@"8", 0)
+  ; r1 = OFFSETOF(AppDelegate.ttsArrayCount)
+  ; r5 = OFFSETOF(AppDelegate.ttsTimer)
+  0x5a80: str r0 -> self.ttsArrayCount
+  0x5a98: [r0 isValid]  args=(0xe06b8, 0)
+  0x5aa0: bne L_5ade
+  0x5ad8: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, 0)
+  0x5adc: str r0 -> self.ttsTimer
+  L_5ade:
+
+//// -readStop  0x5ae8..0x5cbc  v8@0:4
+  0x5b04: [r0 playback]  args=(?, ?)
+  0x5b1e: [r0 playSoundBufNumber:]  args=(0, ?)
+  0x5b34: [r0 stopSound:]  args=(?, ?)
+  0x5b3c: [r0 playback]  args=(?, ?)
+  0x5b48: [r0 playSoundBufNumber:]  args=(1, ?)
+  0x5b52: [r0 stopSound:]  args=(?, ?)
+  0x5b5a: [r0 playback]  args=(?, ?)
+  0x5b66: [r0 playSoundBufNumber:]  args=(2, ?)
+  0x5b70: [r0 stopSound:]  args=(?, ?)
+  0x5b78: [r0 playback]  args=(?, ?)
+  0x5b84: [r0 playSoundBufNumber:]  args=(3, ?)
+  0x5b8e: [r0 stopSound:]  args=(?, ?)
+  0x5b96: [r0 playback]  args=(?, ?)
+  0x5ba2: [r0 playSoundBufNumber:]  args=(4, ?)
+  0x5bac: [r0 stopSound:]  args=(?, ?)
+  0x5bb4: [r0 playback]  args=(?, ?)
+  0x5bc0: [r0 playSoundBufNumber:]  args=(5, ?)
+  0x5bca: [r0 stopSound:]  args=(?, ?)
+  0x5bd2: [r0 playback]  args=(?, ?)
+  0x5bde: [r0 playSoundBufNumber:]  args=(6, ?)
+  0x5be8: [r0 stopSound:]  args=(?, ?)
+  0x5bf0: [r0 playback]  args=(?, ?)
+  0x5bfc: [r0 playSoundBufNumber:]  args=(7, ?)
+  0x5c06: [r0 stopSound:]  args=(?, ?)
+  0x5c0e: [r0 playback]  args=(?, ?)
+  0x5c1a: [r0 playSoundBufNumber:]  args=(8, ?)
+  0x5c24: [r0 stopSound:]  args=(?, ?)
+  0x5c2c: [r0 playback]  args=(?, ?)
+  0x5c38: [r0 playSoundBufNumber:]  args=(9, ?)
+  0x5c42: [r0 stopSound:]  args=(?, ?)
+  ; r5 = OFFSETOF(AppDelegate.ttsTimer)
+  0x5c62: [r0 isValid]  args=(?, ?)
+  0x5c6a: beq L_5c82
+  0x5c7a: [r0 invalidate]  args=(?, ?)
+  0x5c80: str r0 -> self.ttsTimer
+  L_5c82:
+  0x5c9a: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x5cb6: b.w L_a90d0
+
+//// -readNumber:  0x5cbc..0x5ec4  v12@0:4@8
+  ; r5 = OFFSETOF(AppDelegate.ttsArrayCount)
+  0x5cd2: cmp r0, #1
+  0x5cd4: blt L_5d38
+  0x5ce0: str r0 -> self.ttsArrayCount
+  0x5ce8: [r0 numberBackUp]  args=(?, ?)
+  0x5cfa: [r0 objectAtIndex:]  args=(?, ?)
+  0x5d0a: [r0 intValue]  args=(?, ?)
+  0x5d30: [r0 playSound:Gain:Pos:z:reprats:]  args=(?, 0x3e4ccccd)
+  L_5d38:
+  ; r5 = OFFSETOF(AppDelegate.ttsTimer)
+  0x5d46: cmp r0, #0
+  0x5d48: beq.w L_5e8e
+  0x5d58: [r0 isValid]  args=(?, 0x3e4ccccd)
+  0x5d60: beq.w L_5e8e
+  0x5d72: [r0 invalidate]  args=(?, 0x3e4ccccd)
+  0x5d80: str r0 -> self.ttsTimer
+  ; r1 = OFFSETOF(AppDelegate.tts_type)
+  0x5d88: cmp r1, #5
+  0x5d8a: beq L_5dde
+  0x5d8c: cmp r1, #4
+  0x5d8e: bne L_5e02
+  0x5db4: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x150, 0x3e4ccccd)
+  0x5ddc: b L_5e82
+  L_5dde:
+  0x5e00: b L_5e8a
+  L_5e02:
+  0x5e02: cmp r1, #3
+  0x5e04: bne L_5e8e
+  0x5e14: [r0 Coin]  args=(0x151, 0x3e4ccccd)
+  0x5e1c: cmp r0, #5
+  0x5e26: blt L_5e42
+  0x5e40: b L_5e8a
+  L_5e42:
+  0x5e5a: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x153, 0x3e4ccccd)
+  L_5e82:
+  L_5e8a:
+  0x5e8a: [r0 performSelector:withObject:afterDelay:]  args=("readTimeMin", 0)
+  L_5e8e:
+  0x5ea6: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, 0)
+  0x5ec0: b.w L_a90d0
+
+//// -readTimeMin  0x5ec4..0x604c  v8@0:4
+  0x5ee8: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x5f02: [r0 objectForKey:]  args=(@"COIN_TIMER", ?)
+  0x5f20: [r0 alloc]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x5f30: [r0 init]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x5f40: [r0 autorelease]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x5f5e: [r0 setDateFormat:]  args=(@"yyyy-MM-dd HH:mm:ss", ?)
+  0x5f74: [r0 dateFromString:]  args=(0, ?)
+  0x5f92: [r0 date]  args=(_OBJC_CLASS_$_NSDate, ?)
+  0x5fa6: [r0 stringFromDate:]  args=(0, ?)
+  0x5fb0: [r0 dateFromString:]  args=(0, ?)
+  0x5fce: [r0 currentCalendar]  args=(_OBJC_CLASS_$_NSCalendar, ?)
+  0x5fe8: [r0 components:fromDate:toDate:options:]  args=(0x80, 0)
+  0x5ff8: [r0 second]  args=(0x80, 0)
+  0x6046: b.w L_a90d0
+
+//// -readTimeSec  0x604c..0x61dc  v8@0:4
+  0x6070: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0x608a: [r0 objectForKey:]  args=(@"COIN_TIMER", ?)
+  0x60a8: [r0 alloc]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x60b8: [r0 init]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x60c8: [r0 autorelease]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0x60e6: [r0 setDateFormat:]  args=(@"yyyy-MM-dd HH:mm:ss", ?)
+  0x60fc: [r0 dateFromString:]  args=(0, ?)
+  0x611a: [r0 date]  args=(_OBJC_CLASS_$_NSDate, ?)
+  0x612e: [r0 stringFromDate:]  args=(0, ?)
+  0x6138: [r0 dateFromString:]  args=(0, ?)
+  0x6156: [r0 currentCalendar]  args=(_OBJC_CLASS_$_NSCalendar, ?)
+  0x6170: [r0 components:fromDate:toDate:options:]  args=(0x80, 0)
+  0x6180: [r0 second]  args=(0x80, 0)
+  0x61d6: b.w L_a90d0
+
+//// -returnFileName:  0x61dc..0x625c  @12@0:4i8
+  0x61fa: [r0 mainBundle]  args=(_OBJC_CLASS_$_NSBundle, ?)
+  0x621e: [r0 pathForResource:ofType:]  args=(@"SoundList", @"plist")
+  0x623c: [r0 arrayWithContentsOfFile:]  args=(0, _OBJC_CLASS_$_NSArray)
+  0x6252: [r0 objectAtIndex:]  args=(?, _OBJC_CLASS_$_NSArray)
+
+//// -CheckSoundBuf:  0x625c..0x62e8  i12@0:4i8
+  0x627c: [r0 aSoundBufControlData]  args=(?, ?)
+  0x628c: [r0 count]  args=(?, ?)
+  0x6296: cmp r4, #1
+  0x6298: blt L_62e0
+  L_62b6:
+  0x62c0: bge L_62e0
+  0x62c6: [r0 aSoundBufControlData]  args=(?, ?)
+  0x62ce: [r0 objectAtIndex:]  args=(?, ?)
+  0x62d4: [r0 iFileNumber]  args=(?, ?)
+  0x62de: bne L_62b6
+  L_62e0:
+
+//// -findBufFlagNO  0x62e8..0x6370  i8@0:4
+  0x6304: [r0 aSoundBufControlData]  args=(?, ?)
+  0x6314: [r0 count]  args=(?, ?)
+  0x631e: cmp fp, #1
+  0x6322: blt L_6368
+  L_6340:
+  0x6348: bge L_6368
+  0x634e: [r0 aSoundBufControlData]  args=(?, ?)
+  0x6356: [r0 objectAtIndex:]  args=(?, ?)
+  0x635c: [r0 bIsPlaying]  args=(?, ?)
+  0x6366: bne L_6340
+  L_6368:
+
+//// -playSoundBufNumber:  0x6370..0x6580  i12@0:4i8
+  0x638c: [r0 CheckSoundBuf:]  args=(?, ?)
+  0x6392: cmp sl, #-1
+  0x6396: bne L_647e
+  0x63a6: [r0 findBufFlagNO]  args=(?, ?)
+  0x63c4: [r0 alloc]  args=(SoundListControl, ?)
+  0x63d4: [r0 init]  args=(SoundListControl, ?)
+  0x63ea: [r0 setBIsPlaying:]  args=(1, ?)
+  0x63fe: [r0 setIFileNumber:]  args=(?, ?)
+  0x6412: [r0 returnFileName:]  args=(?, ?)
+  0x6426: [r0 setSFileName:]  args=(?, ?)
+  0x643a: [r0 aSoundBufControlData]  args=(?, ?)
+  0x643e: cmp sl, #-1
+  0x6442: bne L_64b6
+  0x6450: [r0 count]  args=(?, ?)
+  0x645a: [r0 aSoundBufControlData]  args=(?, ?)
+  0x646c: [r0 addObject:]  args=(0xdb40c, ?)
+  0x647c: b L_650a
+  L_647e:
+  0x648c: [r0 aSoundBufControlData]  args=(0xdb40c, ?)
+  0x649e: [r0 objectAtIndex:]  args=(?, ?)
+  0x64b0: [r0 setBIsPlaying:]  args=(1, ?)
+  0x64b4: b L_6574
+  L_64b6:
+  0x64c6: [r0 replaceObjectAtIndex:withObject:]  args=(?, 0xdb40c)
+  0x64da: [r0 playback]  args=(?, 0xdb40c)
+  0x64ec: [r0 freeSourceOne:]  args=(?, 0xdb40c)
+  0x64f4: [r0 playback]  args=(?, 0xdb40c)
+  0x6506: [r0 freeBufferOne:]  args=(?, 0xdb40c)
+  L_650a:
+  0x650e: [r0 playback]  args=(?, 0xdb40c)
+  0x6522: [r0 sFileName]  args=(?, 0xdb40c)
+  0x6544: [r0 initBufferOne:FileName:Type:]  args=(?, 0xdb40c)
+  0x654c: [r0 playback]  args=(?, 0xdb40c)
+  0x655e: [r0 initSourceOne:]  args=(?, 0xdb40c)
+  0x6570: [r0 release]  args=(?, 0xdb40c)
+  L_6574:
+
+//// -stopSoundBufNumber:  0x6580..0x6658  v12@0:4i8
+  0x659c: [r0 aSoundBufControlData]  args=(?, ?)
+  0x65b0: [r0 count]  args=(?, ?)
+  0x65b4: cmp r0, #1
+  0x65b6: blt L_65d4
+  0x65c8: [r0 CheckSoundBuf:]  args=(?, ?)
+  0x65ce: cmp r6, #-1
+  0x65d2: bne L_65da
+  L_65d4:
+  L_65da:
+  0x65de: [r0 aSoundBufControlData]  args=(?, ?)
+  0x65f0: [r0 objectAtIndex:]  args=(?, ?)
+  0x6604: [r0 iFileNumber]  args=(?, ?)
+  0x660c: [r0 aSoundBufControlData]  args=(?, ?)
+  0x6612: [r0 ?]  args=(?, ?)
+  0x6624: [r0 playback]  args=(?, ?)
+  0x6636: [r0 stopSound:]  args=(?, ?)
+  0x6652: b.w L_a90d0
+
+//// -playSound:Gain:Pos:z:reprats:  0x6658..0x6748  v32@0:4i8f12{CGPoint=ff}16i24c28
+  0x6678: [r0 playSoundBufNumber:]  args=(?, ?)
+  0x668c: [r0 aSoundBufControlData]  args=(?, ?)
+  0x669e: [r0 objectAtIndex:]  args=(?, ?)
+  0x66ae: [r0 bIsPlaying]  args=(?, ?)
+  0x66c2: beq L_66e8
+  0x66d2: [r0 playback]  args=(?, ?)
+  0x66e4: [r0 stopSound:]  args=(?, ?)
+  L_66e8:
+  0x66f8: [r0 playback]  args=(?, ?)
+  0x6716: [r0 queueNote:gain:sourcePos:defaultZ:repeats:]  args=(?, ?)
+  0x671e: [r0 playback]  args=(?, ?)
+  0x6736: [r0 startSound:Postion:]  args=(?, ?)
+
+//// -application:didRegisterForRemoteNotificationsWithDeviceToken:  0x6748..0x6888  v16@0:4@8@12
+  0x6756: call _UIAccessibilityIsVoiceOverRunning
+  0x676a: beq L_67a8
+  0x6770: [r0 setMode:]  args=(1, ?)
+  0x678e: [r0 standardUserDefaults]  args=(1, ?)
+  0x67a6: b L_67e2
+  L_67a8:
+  0x67ac: [r0 setObject:forKey:]  args=(0, ?)
+  0x67ca: [r0 standardUserDefaults]  args=(0, ?)
+  L_67e2:
+  0x67f2: [r0 setObject:forKey:]  args=(@"0", @"EYEMODE")
+  0x67fa: [r0 standardUserDefaults]  args=(@"0", @"EYEMODE")
+  0x680c: [r0 setObject:forKey:]  args=(@"0", @"DEFAULTEYEMODE")
+  0x682a: [r0 standardUserDefaults]  args=(@"0", @"DEFAULTEYEMODE")
+  0x684e: [r0 setObject:forKey:]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x6856: [r0 standardUserDefaults]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x6866: [r0 synchronize]  args=(@"http://www.evree.net/sixsense/", @"BASEURL")
+  0x6882: b.w L_a90d0
+
+//// -application:didFailToRegisterForRemoteNotificationsWithError:  0x6888..0x688c  v16@0:4@8@12
+
+//// -getTokenString:  0x688c..0x6b7c  v12@0:4@8
+  0x68a6: [r0 description]  args=(?, ?)
+  0x68ce: [r0 characterSetWithCharactersInString:]  args=(@"< >", ?)
+  0x68e2: [r0 stringByTrimmingCharactersInSet:]  args=(0, ?)
+  0x6906: [r0 stringByReplacingOccurrencesOfString:withString:]  args=(@" ", @"")
+  0x691a: [r0 setG_token:]  args=(?, @"")
+  0x693a: [r0 standardUserDefaults]  args=(?, @"")
+  0x6950: [r0 g_token]  args=(?, @"")
+  0x696e: [r0 setObject:forKey:]  args=(?, @"TOKEN")
+  0x6980: [r0 synchronize]  args=(?, @"TOKEN")
+  0x6998: [r0 standardUserDefaults]  args=(?, @"TOKEN")
+  0x69b4: [r0 objectForKey:]  args=(@"BASEURL", @"TOKEN")
+  0x69d4: [r0 stringWithFormat:]  args=(@"%@install.php", 0)
+  0x69dc: call _UIAccessibilityIsVoiceOverRunning
+  0x69ea: [r0 g_token]  args=(@"%@install.php", 0)
+  0x6a00: [r0 stringWithFormat:]  args=(@"blind=%d&token=%@", 0)
+  0x6a20: [r0 UTF8String]  args=(@"blind=%d&token=%@", 0)
+  0x6a34: [r0 length]  args=(@"blind=%d&token=%@", 0)
+  0x6a4a: [r0 dataWithBytes:length:]  args=(0, 0)
+  0x6a6a: [r0 alloc]  args=(0, 0)
+  0x6a8a: [r0 URLWithString:]  args=(?, 0)
+  0x6a9e: [r0 initWithURL:]  args=(0, 0)
+  0x6ab4: [r0 setHTTPBody:]  args=(0, 0)
+  0x6ad0: [r0 setHTTPMethod:]  args=(@"POST", 0)
+  0x6af4: [r0 sendSynchronousRequest:returningResponse:error:]  args=(0, ?)
+  0x6b08: [r0 release]  args=(0, ?)
+  0x6b1c: [r0 alloc]  args=(0, ?)
+  0x6b30: [r0 initWithData:encoding:]  args=(?, 4)
+  0x6b40: [r0 autorelease]  args=(?, 4)
+  0x6b50: [r0 objectFromJSONString]  args=(?, 4)
+  0x6b60: [r0 ?]  args=(@"code", 4)
+  0x6b70: [r0 intValue]  args=(@"code", 4)
+
+//// -paymentQueueRestoreCompletedTransactionsFinished:  0x6bb0..0x6f0c  v12@0:4@8
+  0x6be8: [r0 alloc]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x6bf8: [r0 init]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x6c0e: [r0 transactions]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x6c1e: [r0 count]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x6c38: [r0 transactions]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x6c54: [r0 countByEnumeratingWithState:objects:count:]  args=(?, ?)
+  0x6c5a: cmp r6, #0
+  0x6c5c: beq L_6cfe
+  L_6c9a:
+  L_6c9e:
+  0x6ca8: blxne L_c2e74
+  0x6cb4: [r0 payment]  args=(@selector(addObject:), @selector(productIdentifier))
+  0x6cba: [r0 productIdentifier]  args=(@selector(addObject:), @selector(productIdentifier))
+  0x6cc6: [r0 ?]  args=(?, @selector(productIdentifier))
+  0x6cd8: [r0 ?]  args=(@"SixthSense.AllWeapon", @selector(productIdentifier))
+  0x6cdc: cmp r0, #0
+  0x6cde: bne L_6d30
+  0x6ce6: blo L_6c9e
+  0x6cf4: [r0 ?]  args=(?, ?)
+  0x6cfa: cmp r6, #0
+  0x6cfc: bne L_6c9a
+  L_6cfe:
+  0x6d16: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, ?)
+  0x6d2e: b L_6eec
+  L_6d30:
+  0x6d4c: [r0 standardUserDefaults]  args=(@"buyAllWeaponsRestoreNON", ?)
+  0x6d74: [r0 setObject:forKey:]  args=(@"1", @"SHOTGUNUSE")
+  0x6d7e: [r0 standardUserDefaults]  args=(@"1", @"SHOTGUNUSE")
+  0x6d90: [r0 setObject:forKey:]  args=(@"1", @"SHOTGUN")
+  0x6d9a: [r0 standardUserDefaults]  args=(@"1", @"SHOTGUN")
+  0x6dac: [r0 setObject:forKey:]  args=(@"1", @"M4USE")
+  0x6db6: [r0 standardUserDefaults]  args=(@"1", @"M4USE")
+  0x6dc8: [r0 setObject:forKey:]  args=(@"1", @"M4")
+  0x6dd2: [r0 standardUserDefaults]  args=(@"1", @"M4")
+  0x6de4: [r0 setObject:forKey:]  args=(@"1", @"AK47USE")
+  0x6dee: [r0 standardUserDefaults]  args=(@"1", @"AK47USE")
+  0x6e00: [r0 setObject:forKey:]  args=(@"1", @"AK47")
+  0x6e0a: [r0 standardUserDefaults]  args=(@"1", @"AK47")
+  0x6e1c: [r0 setObject:forKey:]  args=(@"1", @"MG80USE")
+  0x6e26: [r0 standardUserDefaults]  args=(@"1", @"MG80USE")
+  0x6e38: [r0 setObject:forKey:]  args=(@"1", @"MG80")
+  0x6e42: [r0 standardUserDefaults]  args=(@"1", @"MG80")
+  0x6e54: [r0 setObject:forKey:]  args=(@"1", @"JAPAN")
+  0x6e5e: [r0 standardUserDefaults]  args=(@"1", @"JAPAN")
+  0x6e70: [r0 setObject:forKey:]  args=(@"1", @"JAPANUSE")
+  0x6e7a: [r0 standardUserDefaults]  args=(@"1", @"JAPANUSE")
+  0x6e8c: [r0 setObject:forKey:]  args=(@"1", @"SAW")
+  0x6e96: [r0 standardUserDefaults]  args=(@"1", @"SAW")
+  0x6ea6: [r0 synchronize]  args=(@"1", @"SAW")
+  0x6eb8: [r0 weaponHave]  args=(@"1", @"SAW")
+  0x6ed4: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, @"SAW")
+  L_6eec:
+  0x6ef0: [r0 postNotificationName:object:]  args=(@"buyAllWeaponsRestore", 0)
+  0x6f06: call ___stack_chk_fail
+
+//// -ItemPriceCheck:  0x6f0c..0x6fa4  v12@0:4@8
+  0x6f24: [r0 setBPriceCheck:]  args=(1, ?)
+  0x6f40: [r0 alloc]  args=(_OBJC_CLASS_$_SKProductsRequest, ?)
+  0x6f60: [r0 setWithObject:]  args=(?, ?)
+  0x6f74: [r0 initWithProductIdentifiers:]  args=(0, ?)
+  0x6f8a: [r0 setDelegate:]  args=(?, ?)
+  0x6fa0: b.w L_a90d0
+
+//// -BuyItem:  0x6fa4..0x703c  v12@0:4@8
+  0x6fbc: [r0 setBPriceCheck:]  args=(0, ?)
+  0x6fd8: [r0 alloc]  args=(_OBJC_CLASS_$_SKProductsRequest, ?)
+  0x6ff8: [r0 setWithObject:]  args=(?, ?)
+  0x700c: [r0 initWithProductIdentifiers:]  args=(0, ?)
+  0x7022: [r0 setDelegate:]  args=(?, ?)
+  0x7038: b.w L_a90d0
+
+//// -checkProducts  0x703c..0x70e8  v8@0:4
+  0x705a: [r0 canMakePayments]  args=(_OBJC_CLASS_$_SKPaymentQueue, ?)
+  0x7080: [r0 alloc]  args=(_OBJC_CLASS_$_UIAlertView, ?)
+  0x70b6: [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x70ca: [r0 show]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x70e2: b.w L_a90d0
+
+//// -productsRequest:didReceiveResponse:  0x70e8..0x7340  v16@0:4@8@12
+  0x7118: [r0 products]  args=(?, ?)
+  0x712a: [r0 count]  args=(?, ?)
+  0x713c: [r0 invalidProductIdentifiers]  args=(?, ?)
+  0x7144: [r0 products]  args=(?, ?)
+  0x714a: [r0 count]  args=(?, ?)
+  0x714e: cmp r0, #0
+  0x7150: beq L_71e6
+  0x7160: [r0 bPriceCheck]  args=(?, ?)
+  0x7166: cmp r0, #1
+  0x7168: bne L_7260
+  0x716e: [r0 products]  args=(?, ?)
+  0x7180: [r0 objectAtIndex:]  args=(0, ?)
+  0x719c: [r0 price]  args=(@selector(price), ?)
+  0x71ba: [r0 stringWithFormat:]  args=(@"$%@", ?)
+  0x71ce: [r0 setG_allweaponPrice:]  args=(0, ?)
+  0x71e0: [r0 g_allweaponPrice]  args=(0, ?)
+  0x71e4: b L_732a
+  L_71e6:
+  0x71fe: [r0 alloc]  args=(_OBJC_CLASS_$_UIAlertView, ?)
+  0x7234: [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x7248: [r0 show]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x725a: [r0 release]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x725e: b L_732a
+  L_7260:
+  0x7278: [r0 defaultQueue]  args=(_OBJC_CLASS_$_SKPaymentQueue, @"Error occurred in the purchasing process.")
+  0x7294: [r0 ?]  args=(_OBJC_CLASS_$_SKPaymentQueue, @"Error occurred in the purchasing process.")
+  0x72b2: [r0 countByEnumeratingWithState:objects:count:]  args=(?, ?)
+  L_72d8:
+  L_72dc:
+  0x72e6: blxne L_c2e74
+  0x72fe: [r0 paymentWithProduct:]  args=(?, ?)
+  0x7308: [r0 addPayment:]  args=(0, ?)
+  0x7312: blo L_72dc
+  0x7320: [r0 ?]  args=(?, ?)
+  0x7326: cmp r6, #0
+  0x7328: bne L_72d8
+  L_732a:
+  0x733c: call ___stack_chk_fail
+
+//// -request:didFailWithError:  0x7340..0x7344  v16@0:4@8@12
+
+//// -requestDidFinish:  0x7344..0x7348  v12@0:4@8
+
+//// -completeTransaction:  0x7348..0x76b0  v12@0:4@8
+  0x736e: [r0 transactionReceipt]  args=(?, ?)
+  0x738c: [r0 stringWithFormat:]  args=(@"%@", ?)
+  0x73a2: [r0 payment]  args=(@"%@", ?)
+  0x73b4: [r0 productIdentifier]  args=(@"%@", ?)
+  0x73d0: [r0 isEqualToString:]  args=(@"SixthSense.Coin2", ?)
+  0x73d8: beq L_7404
+  0x73e8: [r0 g_network_Buy]  args=(@"SixthSense.Coin2", ?)
+  0x7402: b L_7672
+  L_7404:
+  0x7408: [r0 payment]  args=(@"SixthSense.Coin2", @"1")
+  0x740e: [r0 productIdentifier]  args=(@"SixthSense.Coin2", @"1")
+  0x741e: [r0 isEqualToString:]  args=(@"SixthSense.Coin3", @"1")
+  0x7426: beq L_7452
+  0x7436: [r0 g_network_Buy]  args=(@"SixthSense.Coin3", @"1")
+  0x7450: b L_7672
+  L_7452:
+  0x7456: [r0 payment]  args=(@"SixthSense.Coin3", @"2")
+  0x745c: [r0 productIdentifier]  args=(@"SixthSense.Coin3", @"2")
+  0x746c: [r0 isEqualToString:]  args=(@"SixthSense.Coin4", @"2")
+  0x7474: beq L_74a0
+  0x7484: [r0 g_network_Buy]  args=(@"SixthSense.Coin4", @"2")
+  0x749e: b L_7672
+  L_74a0:
+  0x74a4: [r0 payment]  args=(@"SixthSense.Coin4", @"3")
+  0x74aa: [r0 productIdentifier]  args=(@"SixthSense.Coin4", @"3")
+  0x74ba: [r0 isEqualToString:]  args=(@"SixthSense.Coin5", @"3")
+  0x74c2: beq L_74ee
+  0x74d2: [r0 g_network_Buy]  args=(@"SixthSense.Coin5", @"3")
+  0x74ec: b L_7672
+  L_74ee:
+  0x74f2: [r0 payment]  args=(@"SixthSense.Coin5", @"4")
+  0x74f8: [r0 productIdentifier]  args=(@"SixthSense.Coin5", @"4")
+  0x7508: [r0 isEqualToString:]  args=(@"SixthSense.Gold1", @"4")
+  0x7510: beq L_753c
+  0x7520: [r0 g_network_Buy]  args=(@"SixthSense.Gold1", @"4")
+  0x753a: b L_7672
+  L_753c:
+  0x7540: [r0 payment]  args=(@"SixthSense.Gold1", @"5")
+  0x7546: [r0 productIdentifier]  args=(@"SixthSense.Gold1", @"5")
+  0x7556: [r0 isEqualToString:]  args=(@"SixthSense.Gold2", @"5")
+  0x755e: beq L_758a
+  0x756e: [r0 g_network_Buy]  args=(@"SixthSense.Gold2", @"5")
+  0x7588: b L_7672
+  L_758a:
+  0x758e: [r0 payment]  args=(@"SixthSense.Gold2", @"6")
+  0x7594: [r0 productIdentifier]  args=(@"SixthSense.Gold2", @"6")
+  0x75a4: [r0 isEqualToString:]  args=(@"SixthSense.Gold3", @"6")
+  0x75ac: beq L_75d8
+  0x75bc: [r0 g_network_Buy]  args=(@"SixthSense.Gold3", @"6")
+  0x75d6: b L_7672
+  L_75d8:
+  0x75dc: [r0 payment]  args=(@"SixthSense.Gold3", @"7")
+  0x75e2: [r0 productIdentifier]  args=(@"SixthSense.Gold3", @"7")
+  0x75f2: [r0 isEqualToString:]  args=(@"SixthSense.Gold4", @"7")
+  0x75fa: beq L_7626
+  0x760a: [r0 g_network_Buy]  args=(@"SixthSense.Gold4", @"7")
+  0x7624: b L_7672
+  L_7626:
+  0x762a: [r0 payment]  args=(@"SixthSense.Gold4", @"8")
+  0x7630: [r0 productIdentifier]  args=(@"SixthSense.Gold4", @"8")
+  0x7640: [r0 isEqualToString:]  args=(@"SixthSense.AllWeapon", @"8")
+  0x7648: beq L_7678
+  0x7658: [r0 g_network_Buy]  args=(@"SixthSense.AllWeapon", @"8")
+  L_7672:
+  0x7674: [r0 BuySerialNumber:count:]  args=(0, @"10")
+  L_7678:
+  0x7690: [r0 defaultQueue]  args=(_OBJC_CLASS_$_SKPaymentQueue, @"10")
+  0x76aa: b.w L_a90d0
+
+//// -restoreTransaction:  0x76b0..0x76e8  v12@0:4@8
+  0x76ce: [r0 defaultQueue]  args=(_OBJC_CLASS_$_SKPaymentQueue, ?)
+  0x76e4: b.w L_a90d0
+
+//// -failedTransaction:  0x76e8..0x77fc  v12@0:4@8
+  0x76fe: [r0 error]  args=(?, ?)
+  0x770e: [r0 code]  args=(?, ?)
+  0x7712: cmp r0, #2
+  0x7714: beq L_778e
+  0x772e: [r0 alloc]  args=(_OBJC_CLASS_$_UIAlertView, ?)
+  0x7764: [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x7778: [r0 show]  args=(@"error", @"Error occurred in the purchasing process.")
+  0x778a: [r0 release]  args=(@"error", @"Error occurred in the purchasing process.")
+  L_778e:
+  0x77a6: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, @"Error occurred in the purchasing process.")
+  0x77c2: [r0 postNotificationName:object:]  args=(@"buyItemError", 0)
+  0x77de: [r0 defaultQueue]  args=(_OBJC_CLASS_$_SKPaymentQueue, 0)
+  0x77f6: b.w L_a90d0
+
+//// -paymentQueue:updatedTransactions:  0x77fc..0x7908  v16@0:4@8@12
+  0x7846: [r0 countByEnumeratingWithState:objects:count:]  args=(?, ?)
+  0x784c: cmp r6, #0
+  0x784e: beq L_78f0
+  L_7890:
+  L_7894:
+  0x789e: blxne L_c2e74
+  0x78ac: [r0 transactionState]  args=("restoreTransaction:", @selector(restoreTransaction:))
+  0x78b0: cmp r0, #3
+  0x78b2: beq L_78be
+  0x78b4: cmp r0, #2
+  0x78b6: bne L_78c4
+  0x78bc: b L_78cc
+  L_78be:
+  0x78c2: b L_78cc
+  L_78c4:
+  0x78c4: cmp r0, #1
+  0x78c6: bne L_78d2
+  L_78cc:
+  0x78ce: [r0 ?]  args=(?, @selector(restoreTransaction:))
+  L_78d2:
+  0x78d8: blo L_7894
+  0x78e6: [r0 ?]  args=(?, ?)
+  0x78ec: cmp r6, #0
+  0x78ee: bne L_7890
+  L_78f0:
+  0x7902: call ___stack_chk_fail
+
+//// -isGameCenterAvailable  0x7908..0x7978  c8@0:4
+  0x7916: call _NSClassFromString
+  0x7934: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x7944: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x7960: [r0 compare:options:]  args=(@"5.0", 0x40)
+  0x7968: cmp r4, #0
+  0x796e: cmp r1, #-1
+
+//// -authenticateLocalPlayerShowReader:  0x7978..0x7b5c  v12@0:4c8
+  0x7998: [r0 localPlayer]  args=(_OBJC_CLASS_$_GKLocalPlayer, ?)
+  0x79e2: [r0 authenticateWithCompletionHandler:]  args=(?, 0xe1a80)
+  0x79f2: cmp r1, #0
+  0x79f4: bne L_7ad8
+  0x7a10: [r0 localPlayer]  args=(?, 0xe1a80)
+  0x7a20: [r0 alias]  args=(?, 0xe1a80)
+  0x7a28: [r0 localPlayer]  args=(?, 0xe1a80)
+  0x7a38: [r0 isAuthenticated]  args=(?, 0xe1a80)
+  0x7a40: [r0 localPlayer]  args=(?, 0xe1a80)
+  0x7a50: [r0 isFriend]  args=(?, 0xe1a80)
+  0x7a58: [r0 localPlayer]  args=(?, 0xe1a80)
+  0x7a68: [r0 playerID]  args=(?, 0xe1a80)
+  0x7a70: [r0 localPlayer]  args=(?, 0xe1a80)
+  0x7a80: [r0 isUnderage]  args=(?, 0xe1a80)
+  0x7a86: cmp r0, #1
+  0x7aa6: [r0 standardUserDefaults]  args=(?, 0xe1a80)
+  0x7ac0: [r0 objectForKey:]  args=(@"GAMECENTER", 0xe1a80)
+  0x7ad0: [r0 intValue]  args=(@"GAMECENTER", 0xe1a80)
+  0x7ad4: cmp r0, #1
+  0x7ad6: bne L_7ada
+  L_7ad8:
+  L_7ada:
+  0x7ade: [r0 ?]  args=(@"GAMECENTER", 0xe1a80)
+  0x7b02: [r0 setObject:forKey:]  args=(@"1", @"GAMECENTER")
+  0x7b0a: [r0 ?]  args=(@"1", @"GAMECENTER")
+  0x7b1a: [r0 synchronize]  args=(@"1", @"GAMECENTER")
+  0x7b36: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, @"GAMECENTER")
+  0x7b56: b.w L_a90d0
+
+//// -sendScoreToGameCenter:  0x7b5c..0x7c48  v12@0:4i8
+  0x7b7a: [r0 alloc]  args=(_OBJC_CLASS_$_GKScore, ?)
+  0x7b94: [r0 initWithCategory:]  args=(@"TopScore", ?)
+  0x7ba4: [r0 autorelease]  args=(@"TopScore", ?)
+  0x7bbc: [r0 setValue:]  args=(?, ?)
+  0x7bd8: [r0 defaultHandler]  args=(GKAchievementHandler, ?)
+  0x7c02: [r0 stringWithFormat:]  args=(@"%", ?)
+  0x7c20: [r0 notifyAchievementTitle:andMessage:]  args=(@"��X�i�Ȳ�.", 0)
+  0x7c40: b.w L_a90d0

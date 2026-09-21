@@ -1,0 +1,4239 @@
+
+//// -[MainController initWithNibName:bundle:]  0x81f0..0x835c  @16@0:4@8@12
+  81f2  add r7, sp, #0xc
+  81f8  sub sp, #0x10
+  820c  r1 = SEL(initWithNibName:bundle:)
+  8212  r1 = SEL(initWithNibName:bundle:)
+  8216  add r0, sp, #8
+  8218  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  821e  cmp r4, 0
+  8220  beq L_8352
+  8234  r0 = SEL(defaultCenter)
+  8236  r8 = NSNotificationCenter
+  8238  r6 = SEL(defaultCenter)
+  823a  r0 = NSNotificationCenter
+  8240  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  8248  fp = 0
+  8258  r1 = SEL(addObserver:selector:name:object:)
+  825a  r2 = SEL(LoginClear)
+  8260  r5 = SEL(addObserver:selector:name:object:)
+  8266  r3 = SEL(LoginClear)
+  826a  sl = CFSTR('LoginClear')
+  8272  r0 = [r0 addObserver:selector:name:object:](?, SEL(LoginClear))
+  8276  r0 = NSNotificationCenter
+  827c  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  828e  r1 = SEL(coinTiemrControlStart)
+  8294  sl = CFSTR('coinTiemrControlStart')
+  829a  r3 = SEL(coinTiemrControlStart)
+  829e  r0 = [r0 addObserver:selector:name:object:](?, SEL(coinTiemrControlStart))
+  82a2  r0 = NSNotificationCenter
+  82a8  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  82ba  r1 = SEL(checkVoiceOverApple)
+  82c0  sl = CFSTR('TurnOnVoiceOver')
+  82c6  r3 = SEL(checkVoiceOverApple)
+  82ca  r0 = [r0 addObserver:selector:name:object:](?, SEL(checkVoiceOverApple))
+  82ce  r0 = NSNotificationCenter
+  82d4  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  82e6  r1 = SEL(showLeaderboard)
+  82ec  sl = CFSTR('ShowLeaderBoard')
+  82f2  r3 = SEL(showLeaderboard)
+  82f6  r0 = [r0 addObserver:selector:name:object:](?, SEL(showLeaderboard))
+  82fa  r0 = NSNotificationCenter
+  8300  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  8312  r1 = SEL(interruptRestart)
+  8318  sl = CFSTR('InterruptOff')
+  831e  r3 = SEL(interruptRestart)
+  8322  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+  8326  r0 = NSNotificationCenter
+  832c  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  833e  r1 = SEL(facebookInit)
+  8344  sl = CFSTR('facebookInit')
+  834a  r3 = SEL(facebookInit)
+  834e  r0 = [r0 addObserver:selector:name:object:](?, SEL(facebookInit))
+L_8352:
+  8354  add sp, #0x10
+  835a  return
+
+//// -[MainController facebookInit]  0x835c..0x8370  v8@0:4
+  8360  r2 = 0
+  8366  r1 = SEL(RankingAction:)
+  8368  r1 = SEL(RankingAction:)
+  836a  b L_a90d0
+
+//// -[MainController interruptRestart]  0x8370..0x83a4  v8@0:4
+  8372  add r7, sp, #4
+  8374  sub sp, #8
+  837a  r3 = 0
+  8388  r1 = SEL(performSelector:withObject:afterDelay:)
+  838a  r2 = SEL(audioRestart)
+  838c  r4 = 0
+  838e  r1 = SEL(performSelector:withObject:afterDelay:)
+  8394  r2 = SEL(audioRestart)
+  839a  r3 = 0
+  839c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  83a0  add sp, #8
+  83a2  return
+
+//// -[MainController audioRestart]  0x83a4..0x84ac  v8@0:4
+  83a6  add r7, sp, #8
+  83a8  call sub_3ccc
+  83b6  r0 = SEL(playback)
+  83b8  r5 = SEL(playback)
+  83be  r0 = [r0 playback](?, ?)
+  83ca  r1 = SEL(freeBuffers)
+  83cc  r1 = SEL(freeBuffers)
+  83ce  r0 = [r0 freeBuffers](?, ?)
+  83d6  r0 = [r0 playback](?, ?)
+  83e2  r1 = SEL(freeSources)
+  83e4  r1 = SEL(freeSources)
+  83e6  r0 = [r0 freeSources](?, ?)
+  83fa  r0 = SEL(array)
+  83fc  r2 = NSMutableArray
+  83fe  r1 = SEL(array)
+  8400  r0 = NSMutableArray
+  8402  r0 = [NSMutableArray array](NSMutableArray, ?)
+  8410  r0 = SEL(setASoundBufControlData:)
+  8412  r1 = SEL(setASoundBufControlData:)
+  8416  r0 = [r0 setASoundBufControlData:](?, ?)
+  841e  r0 = [r0 playback](?, ?)
+  8422  cbz r0 -> L_8450
+  8428  r0 = [r0 playback](?, ?)
+  8434  r1 = SEL(release)
+  8436  r1 = SEL(release)
+  8438  r0 = [r0 release](?, ?)
+  8440  r2 = 0
+  8446  r0 = SEL(setPlayback:)
+  8448  r1 = SEL(setPlayback:)
+  844c  r0 = [r0 setPlayback:](0, ?)
+L_8450:
+  8460  r0 = SEL(alloc)
+  8462  r2 = oalPlayback
+  8464  r1 = SEL(alloc)
+  8466  r0 = oalPlayback
+  8468  r0 = [oalPlayback alloc](oalPlayback, ?)
+  8474  r1 = SEL(init)
+  8476  r1 = SEL(init)
+  8478  r0 = [r0 init](?, ?)
+  8486  r0 = SEL(setPlayback:)
+  8488  r1 = SEL(setPlayback:)
+  848c  r0 = [r0 setPlayback:](?, ?)
+  8494  r0 = [r0 playback](?, ?)
+  84a0  r1 = SEL(setUpOpenAL)
+  84a2  r1 = SEL(setUpOpenAL)
+  84a8  b L_a90d0
+
+//// -[MainController didReceiveMemoryWarning]  0x84ac..0x84d8  v8@0:4
+  84b0  sub sp, #8
+  84c4  r1 = SEL(didReceiveMemoryWarning)
+  84ca  r1 = SEL(didReceiveMemoryWarning)
+  84d0  r0 = [r0 didReceiveMemoryWarning](0xdb0a0/f1.25722e-39, ?) SUPER
+  84d4  add sp, #8
+  84d6  return
+
+//// -[MainController LoginClear]  0x84d8..0x8554  v8@0:4
+  84ec  r0 = SEL(alloc)
+  84ee  r2 = RankingViewController
+  84f0  add r7, sp, #8
+  84f2  r1 = SEL(alloc)
+  84f4  r0 = RankingViewController
+  84f6  r0 = [RankingViewController alloc](RankingViewController, ?)
+  84fe  r3 = 0
+  8508  r1 = SEL(initWithNibName:bundle:)
+  850e  r2 = CFSTR('RankingViewController')
+  8510  r1 = SEL(initWithNibName:bundle:)
+  8512  r0 = [r0 initWithNibName:bundle:](CFSTR('RankingViewController'), 0)
+  8520  r0 = SEL(navigationController)
+  8522  r1 = SEL(navigationController)
+  8526  r0 = [r0 navigationController](?, ?)
+  8534  r3 = 0
+  8536  r1 = SEL(pushViewController:animated:)
+  8538  r1 = SEL(pushViewController:animated:)
+  853a  r0 = [r0 pushViewController:animated:](?, 0)
+  8546  r0 = SEL(release)
+  8548  r1 = SEL(release)
+  8550  b L_a90d0
+
+//// -[MainController viewWillAppear:]  0x8554..0x8594  v12@0:4c8
+  8556  add r7, sp, #4
+  8558  sub sp, #8
+  856e  r0 = SEL(viewWillAppear:)
+  8576  r1 = SEL(viewWillAppear:)
+  857a  r0 = [r0 viewWillAppear:](?, ?) SUPER
+  8586  r0 = SEL(coinViewController)
+  8588  r1 = SEL(coinViewController)
+  858c  r0 = [r0 coinViewController](?, ?)
+  8590  add sp, #8
+  8592  return
+
+//// -[MainController viewWillDisappear:]  0x8594..0x85c0  v12@0:4c8
+  8598  sub sp, #8
+  85ac  r1 = SEL(viewWillDisappear:)
+  85b2  r1 = SEL(viewWillDisappear:)
+  85b8  r0 = [r0 viewWillDisappear:](?, 0xdb0a0/f1.25722e-39) SUPER
+  85bc  add sp, #8
+  85be  return
+
+//// -[MainController viewDidLoad]  0x85c0..0x8d14  v8@0:4
+  85c2  add r7, sp, #0xc
+  85c8  sub sp, #0x38
+  85de  r0 = SEL(viewDidLoad)
+  85e6  r1 = SEL(viewDidLoad)
+  85e8  add r0, sp, #0x30
+  85ea  r0 = [r0 viewDidLoad](?, ?) SUPER
+  85ee  call sub_3ccc
+  8602  r0 = SEL(ItemPriceCheck:)
+  8608  r2 = CFSTR('SixthSense.AllWeapon')
+  860a  r1 = SEL(ItemPriceCheck:)
+  860e  r0 = [r0 ItemPriceCheck:](CFSTR('SixthSense.AllWeapon'), ?)
+  861a  r0 = SEL(maskView1)
+  861c  r6 = SEL(maskView1)
+  8622  r0 = [r0 maskView1](?, ?)
+  862e  r1 = SEL(layer)
+  8630  sl = SEL(layer)
+  8636  r0 = [r0 layer](?, ?)
+  863e  r2 = 0
+  8648  r1 = SEL(setCornerRadius:)
+  864a  fp = SEL(setCornerRadius:)
+  8650  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  8658  r0 = [r0 maskView1](?, ?)
+  865e  r0 = [r0 layer](?, ?)
+  8666  r2 = 1
+  866c  r1 = SEL(setMasksToBounds:)
+  866e  r8 = SEL(setMasksToBounds:)
+  8674  r0 = [r0 setMasksToBounds:](1, ?)
+  867c  r0 = [r0 maskView1](?, ?)
+  8684  r2 = 0
+  868a  r1 = SEL(setAlpha:)
+  868c  r6 = SEL(setAlpha:)
+  8690  r0 = [r0 setAlpha:](0, ?)
+  869c  r0 = SEL(navigationController)
+  869e  r1 = SEL(navigationController)
+  86a2  r0 = [r0 navigationController](?, ?)
+  86aa  r2 = 1
+  86b0  r1 = SEL(setNavigationBarHidden:)
+  86b2  r1 = SEL(setNavigationBarHidden:)
+  86b4  r0 = [r0 setNavigationBarHidden:](1, ?)
+  86c0  r0 = SEL(mode)
+  86c2  r1 = SEL(mode)
+  86c8  r0 = [r0 ??](?, ?)
+  86d6  r0 = SEL(modeLabel)
+  86d8  r1 = SEL(modeLabel)
+  86dc  r0 = [r0 modeLabel](?, ?)
+  86ea  cmp r2, 1
+  86ec  r1 = SEL(setText:)
+  86ee  r1 = SEL(setText:)
+  86f0  bne L_86fe
+  86fa  r2 = CFSTR('Voice-Over On')
+  86fc  b L_8708
+L_86fe:
+  8706  r2 = CFSTR('Voice-Over Off')
+L_8708:
+  8708  r0 = [r0 setText:](CFSTR('Voice-Over Off'), ?)
+  8714  r0 = SEL(buttonSelectImage)
+  8716  r1 = SEL(buttonSelectImage)
+  871a  r0 = [r0 buttonSelectImage](?, ?)
+  8726  r0 = SEL(maskView)
+  8728  r4 = SEL(maskView)
+  872e  r0 = [r0 maskView](?, ?)
+  8734  r2 = 0
+  8736  r0 = [r0 setAlpha:](0, ?)
+  873e  r0 = [r0 maskView](?, ?)
+  8744  r0 = [r0 layer](?, ?)
+  8748  r2 = 0
+  8750  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  8758  r0 = [r0 maskView](?, ?)
+  875e  r0 = [r0 layer](?, ?)
+  8764  r2 = 1
+  8766  r0 = [r0 setMasksToBounds:](1, ?)
+  877a  r0 = SEL(currentDevice)
+  877c  r2 = UIDevice
+  877e  r1 = SEL(currentDevice)
+  8780  r0 = UIDevice
+  8782  r0 = [UIDevice currentDevice](UIDevice, ?)
+  878e  r1 = SEL(systemVersion)
+  8790  r1 = SEL(systemVersion)
+  8792  r0 = [r0 systemVersion](?, ?)
+  879e  r1 = SEL(floatValue)
+  87a0  r1 = SEL(floatValue)
+  87a2  r0 = [r0 floatValue](?, ?)
+  87a6  vmov.f32 d0, #5.000000e+00
+  87aa  vmov d1, r0, r0
+  87ae  vcmpe.f32 s2, s0
+  87b2  vmrs apsr_nzcv, fpscr
+  87b6  blt L_88aa
+  87bc  r0 = [r0 ??](?, ?)
+  87c2  cmp r0, 1
+  87c4  bne L_88aa
+  87d6  r0 = SEL(alloc)
+  87d8  r2 = UIPanGestureRecognizer
+  87da  r1 = SEL(alloc)
+  87dc  r0 = UIPanGestureRecognizer
+  87e0  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  87f4  r1 = SEL(initWithTarget:action:)
+  87f6  r2 = SEL(Menu:)
+  87f8  r6 = SEL(initWithTarget:action:)
+  87fa  r3 = SEL(Menu:)
+  8800  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  880c  r1 = SEL(autorelease)
+  880e  r4 = SEL(autorelease)
+  8812  r0 = [r0 autorelease](?, ?)
+  8820  r2 = 1
+  8822  r0 = SEL(setEnabled:)
+  8824  r1 = SEL(setEnabled:)
+  8828  r0 = [r0 setEnabled:](1, ?)
+  8836  r0 = SEL(setDelegate:)
+  8838  r1 = SEL(setDelegate:)
+  883c  r0 = [r0 setDelegate:](?, ?)
+  8848  r0 = SEL(view)
+  884a  fp = SEL(view)
+  8852  r0 = [r0 view](?, ?)
+  8860  r1 = SEL(addGestureRecognizer:)
+  8862  r8 = SEL(addGestureRecognizer:)
+  8868  r0 = [r0 addGestureRecognizer:](?, ?)
+  8876  r0 = UITapGestureRecognizer
+  8878  r0 = UITapGestureRecognizer
+  887a  r0 = [UITapGestureRecognizer ??](?, ?)
+  8888  r1 = SEL(tapSelect:)
+  888a  r3 = SEL(tapSelect:)
+  888e  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  8894  r0 = [r0 autorelease](?, ?)
+  889e  r0 = [r0 view](?, ?)
+  88a6  r0 = [r0 addGestureRecognizer:](?, ?)
+L_88aa:
+  88b4  r0 = SEL(weaponHave)
+  88b6  r1 = SEL(weaponHave)
+  88ba  r0 = [r0 weaponHave](?, ?)
+  88c2  r0 = [r0 ??](?, ?)
+  88d0  cmp r0, 1
+  88d2  r1 = IVOFF(selectMenu)
+  88d4  r1 = IVOFF(selectMenu)
+  88d6  bne L_8928
+  88dc  r2 = 2
+  88e2  self->selectMenu = 2
+  88e4  r0 = SEL(blindModeSelectedMenu)
+  88e6  r1 = SEL(blindModeSelectedMenu)
+  88ea  r0 = [r0 blindModeSelectedMenu](2, ?)
+  88f6  r0 = SEL(StopElseSpeak)
+  88f8  r1 = SEL(StopElseSpeak)
+  88fc  r0 = [r0 StopElseSpeak](?, ?)
+  8910  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  8912  r2 = 16
+  8914  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  8916  r0 = 0
+  8922  r0 = [r0 playSound:Gain:Pos:z:reprats:](16, 0x3e4ccccd/f0.2)
+  8926  b L_893e
+L_8928:
+  892c  r2 = 0
+  8934  r0 = SEL(blindModeSelectedMenu)
+  8936  r1 = SEL(blindModeSelectedMenu)
+  893a  r0 = [r0 blindModeSelectedMenu](0, ?)
+L_893e:
+  8946  r0 = SEL(Coin)
+  8948  r6 = SEL(Coin)
+  894e  r0 = [r0 Coin](?, ?)
+  8952  cmp r0, 4
+  8954  bgt L_8bc8
+  8968  r0 = SEL(standardUserDefaults)
+  8970  r6 = NSUserDefaults
+  8972  r5 = SEL(standardUserDefaults)
+  8974  r0 = NSUserDefaults
+  8978  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  8988  r1 = SEL(objectForKey:)
+  898e  r2 = CFSTR('COIN_TIMER_START')
+  8990  r4 = SEL(objectForKey:)
+  8994  r0 = [r0 objectForKey:](CFSTR('COIN_TIMER_START'), ?)
+  89a0  r1 = SEL(intValue)
+  89a2  r1 = SEL(intValue)
+  89a4  r0 = [r0 intValue](?, ?)
+  89a8  cmp r0, 0
+  89aa  beq L_8d0c
+  89ae  r0 = NSUserDefaults
+  89b4  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  89c2  r2 = CFSTR('COIN_TIMER')
+  89c4  r0 = [r0 objectForKey:](CFSTR('COIN_TIMER'), ?)
+  89da  r0 = SEL(alloc)
+  89dc  r2 = NSDateFormatter
+  89de  r1 = SEL(alloc)
+  89e0  r0 = NSDateFormatter
+  89e4  r0 = [NSDateFormatter ??](NSDateFormatter, ?)
+  89f0  r1 = SEL(init)
+  89f2  r1 = SEL(init)
+  89f6  r0 = [r0 ??](?, ?)
+  8a02  r1 = SEL(autorelease)
+  8a04  r1 = SEL(autorelease)
+  8a06  r0 = [r0 autorelease](?, ?)
+  8a1a  r0 = SEL(setDateFormat:)
+  8a20  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  8a22  r1 = SEL(setDateFormat:)
+  8a26  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  8a34  r0 = SEL(dateFromString:)
+  8a36  r5 = SEL(dateFromString:)
+  8a3c  r0 = [r0 dateFromString:](?, ?)
+  8a52  r0 = SEL(date)
+  8a54  r2 = NSDate
+  8a56  r1 = SEL(date)
+  8a58  r0 = NSDate
+  8a5c  r0 = [NSDate ??](NSDate, ?)
+  8a6a  r0 = SEL(stringFromDate:)
+  8a6c  r1 = SEL(stringFromDate:)
+  8a72  r0 = [r0 ??](?, ?)
+  8a7c  r0 = [r0 dateFromString:](?, ?)
+  8a92  r0 = SEL(currentCalendar)
+  8a94  r2 = NSCalendar
+  8a96  r1 = SEL(currentCalendar)
+  8a98  r0 = NSCalendar
+  8a9a  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  8aa2  r3 = 0
+  8aaa  r1 = SEL(components:fromDate:toDate:options:)
+  8aae  r2 = 128
+  8ab2  r1 = SEL(components:fromDate:toDate:options:)
+  8ab4  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  8ac0  r1 = SEL(second)
+  8ac2  r1 = SEL(second)
+  8ac4  r0 = [r0 second](?, ?)
+  8aca  cmp fp, 1800
+  8ace  ble L_8cfa
+  8ad6  r0 = [r0 Coin](?, ?)
+  8aee  r2 = SEL(setCoin:)
+  8af0  r6 = SEL(setCoin:)
+  8af2  asrs r2, r1, #0xa
+  8af4  add.w r4, r2, r1, lsr #31
+  8af8  adds r2, r0, r4
+  8afe  r0 = [r0 setCoin:](?, ?)
+  8b06  r0 = [r0 Coin](?, ?)
+  8b0a  cmp r0, 6
+  8b0c  blt L_8bd8
+  8b12  r2 = 5
+  8b14  r0 = [r0 setCoin:](5, ?)
+  8b22  r4 = NSUserDefaults
+  8b24  r0 = NSUserDefaults
+  8b28  r0 = [NSUserDefaults ??](?, ?)
+  8b38  r1 = SEL(setObject:forKey:)
+  8b42  r2 = CFSTR('0')
+  8b44  fp = SEL(setObject:forKey:)
+  8b4c  r3 = CFSTR('COIN_TIMER_START')
+  8b50  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('COIN_TIMER_START'))
+  8b54  r0 = NSUserDefaults
+  8b58  r0 = [NSUserDefaults ??](?, ?)
+  8b68  r0 = NSString
+  8b6a  r6 = NSString
+  8b6e  r0 = [r0 Coin](?, ?)
+  8b80  r0 = SEL(stringWithFormat:)
+  8b86  r2 = CFSTR('%d')
+  8b88  r1 = SEL(stringWithFormat:)
+  8b8c  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  8b9c  r3 = CFSTR('COIN')
+  8ba0  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  8ba4  r0 = NSUserDefaults
+  8ba8  r0 = [NSUserDefaults ??](?, ?)
+  8bb4  r1 = SEL(synchronize)
+  8bb6  r1 = SEL(synchronize)
+  8bb8  r0 = [r0 synchronize](?, ?)
+  8bc4  r0 = SEL(coinViewController)
+  8bc6  b L_8d04
+L_8bc8:
+  8bd0  r0 = SEL(coinViewController)
+  8bd2  r1 = SEL(coinViewController)
+  8bd6  b L_8d08
+L_8bd8:
+  8be2  r0 = NSDate
+  8be4  r0 = NSDate
+  8be6  r0 = [NSDate ??](?, ?)
+  8bf4  r0 = [r0 ??](?, ?)
+  8bfe  r0 = [r0 ??](?, ?)
+  8c0e  r0 = NSCalendar
+  8c10  r0 = NSCalendar
+  8c14  r0 = [NSCalendar ??](?, ?)
+  8c28  r1 = SEL(initWithCalendarIdentifier:)
+  8c2a  r2 = _NSGregorianCalendar
+  8c2c  r1 = SEL(initWithCalendarIdentifier:)
+  8c2e  r2 = _NSGregorianCalendar
+  8c32  r0 = [r0 initWithCalendarIdentifier:](?, ?)
+  8c42  r0 = NSDateComponents
+  8c44  r0 = NSDateComponents
+  8c46  r0 = [NSDateComponents ??](?, ?)
+  8c4a  r1 = 1800
+  8c54  r0 = [r0 ??](?, ?)
+  8c62  rsbs r2, r6, #0
+  8c64  r0 = SEL(setSecond:)
+  8c66  r1 = SEL(setSecond:)
+  8c6a  r0 = [r0 setSecond:](?, ?)
+  8c7a  r0 = SEL(dateByAddingComponents:toDate:options:)
+  8c7c  r1 = SEL(dateByAddingComponents:toDate:options:)
+  8c7e  r0 = 0
+  8c84  r0 = [r0 dateByAddingComponents:toDate:options:](?, ?)
+  8c92  r0 = SEL(release)
+  8c94  r6 = SEL(release)
+  8c9a  r0 = [r0 release](?, ?)
+  8ca2  r0 = [r0 release](?, ?)
+  8cac  r0 = [r0 ??](?, ?)
+  8cbc  r6 = NSUserDefaults
+  8cbe  r0 = NSUserDefaults
+  8cc2  r0 = [NSUserDefaults ??](?, ?)
+  8cd4  r1 = SEL(setObject:forKey:)
+  8cda  r3 = CFSTR('COIN_TIMER')
+  8cdc  r1 = SEL(setObject:forKey:)
+  8cde  r0 = [r0 setObject:forKey:](?, CFSTR('COIN_TIMER'))
+  8ce2  r0 = NSUserDefaults
+  8ce6  r0 = [NSUserDefaults ??](?, ?)
+  8cf2  r1 = SEL(synchronize)
+  8cf4  r1 = SEL(synchronize)
+  8cf6  r0 = [r0 synchronize](?, ?)
+L_8cfa:
+  8d02  r0 = SEL(coinTimerControlStartBackGroundRestart)
+L_8d04:
+  8d04  r1 = SEL(coinTimerControlStartBackGroundRestart)
+L_8d08:
+  8d08  r0 = [r0 coinTimerControlStartBackGroundRestart](?, ?)
+L_8d0c:
+  8d0c  add sp, #0x38
+  8d12  return
+
+//// -[MainController buttonSelectImage]  0x8d14..0x90d0  v8@0:4
+  8d16  add r7, sp, #0xc
+  8d1c  sub sp, #0x20
+  8d20  call sub_3ccc
+  8d2e  r0 = SEL(startGame)
+  8d30  r6 = SEL(startGame)
+  8d38  r0 = [r0 ??](?, ?)
+  8d4e  r0 = SEL(imageNamed:)
+  8d50  r8 = UIImage
+  8d52  sl = SEL(imageNamed:)
+  8d56  r0 = UIImage
+  8d62  r2 = CFSTR('2_main_btn1_inact.png')
+  8d66  r0 = [UIImage imageNamed:](CFSTR('2_main_btn1_inact.png'), ?)
+  8d74  r3 = 0
+  8d76  r0 = SEL(setBackgroundImage:forState:)
+  8d78  fp = SEL(setBackgroundImage:forState:)
+  8d80  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8d88  r0 = [r0 ??](?, ?)
+  8d8e  r0 = UIImage
+  8d9c  r2 = CFSTR('2_main_btn1_act.png')
+  8d9e  r0 = [UIImage imageNamed:](CFSTR('2_main_btn1_act.png'), ?)
+  8da8  r3 = 1
+  8daa  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8db6  r0 = SEL(storeButton)
+  8db8  r6 = SEL(storeButton)
+  8dc0  r0 = [r0 ??](?, ?)
+  8dc6  r0 = UIImage
+  8dd4  r2 = CFSTR('2_main_btn2_inact.png')
+  8dd6  r0 = [UIImage imageNamed:](CFSTR('2_main_btn2_inact.png'), ?)
+  8de0  r3 = 0
+  8de2  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8dea  r0 = [r0 ??](?, ?)
+  8df0  r0 = UIImage
+  8dfe  r2 = CFSTR('2_main_btn2_act.png')
+  8e00  r0 = [UIImage imageNamed:](CFSTR('2_main_btn2_act.png'), ?)
+  8e0a  r3 = 1
+  8e0c  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8e18  r0 = SEL(mode)
+  8e1a  r1 = SEL(mode)
+  8e20  r0 = [r0 ??](?, ?)
+  8e2e  r0 = SEL(modeChangeButton)
+  8e30  r1 = SEL(modeChangeButton)
+  8e36  r0 = [r0 ??](?, ?)
+  8e3c  r0 = UIImage
+  8e42  cmp r1, 1
+  8e44  bne L_8e52
+  8e4e  r2 = CFSTR('btn_voice_on1.png')
+  8e50  b L_8e5c
+L_8e52:
+  8e5a  r2 = CFSTR('2_main_btn6_inact.png')
+L_8e5c:
+  8e5e  r0 = [UIImage imageNamed:](CFSTR('2_main_btn6_inact.png'), ?)
+  8e68  r3 = 0
+  8e6a  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8e72  r0 = [r0 ??](?, ?)
+  8e78  r0 = UIImage
+  8e86  r2 = CFSTR('2_main_btn6_act.png')
+  8e88  r0 = [UIImage imageNamed:](CFSTR('2_main_btn6_act.png'), ?)
+  8e92  r3 = 1
+  8e94  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8ea0  r0 = SEL(rankButton)
+  8ea2  r6 = SEL(rankButton)
+  8eaa  r0 = [r0 ??](?, ?)
+  8eb0  r0 = UIImage
+  8ebe  r2 = CFSTR('2_main_btn5_inact.png')
+  8ec0  r0 = [UIImage imageNamed:](CFSTR('2_main_btn5_inact.png'), ?)
+  8eca  r3 = 0
+  8ecc  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8ed4  r0 = [r0 ??](?, ?)
+  8eda  r0 = UIImage
+  8ee8  r2 = CFSTR('2_main_btn5_act.png')
+  8eea  r0 = [UIImage imageNamed:](CFSTR('2_main_btn5_act.png'), ?)
+  8ef4  r3 = 1
+  8ef6  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8f02  r0 = SEL(exitButton)
+  8f04  r6 = SEL(exitButton)
+  8f0c  r0 = [r0 ??](?, ?)
+  8f12  r0 = UIImage
+  8f20  r2 = CFSTR('2_main_btn4_inact.png')
+  8f22  r0 = [UIImage imageNamed:](CFSTR('2_main_btn4_inact.png'), ?)
+  8f2c  r3 = 0
+  8f2e  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8f36  r0 = [r0 ??](?, ?)
+  8f3c  r0 = UIImage
+  8f4a  r2 = CFSTR('2_main_btn4_act.png')
+  8f4c  r0 = [UIImage imageNamed:](CFSTR('2_main_btn4_act.png'), ?)
+  8f56  r3 = 1
+  8f58  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8f64  r0 = SEL(tutorialButton)
+  8f66  r6 = SEL(tutorialButton)
+  8f6e  r0 = [r0 ??](?, ?)
+  8f74  r0 = UIImage
+  8f82  r2 = CFSTR('btn_tutorial.PNG')
+  8f84  r0 = [UIImage imageNamed:](CFSTR('btn_tutorial.PNG'), ?)
+  8f8e  r3 = 0
+  8f90  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  8f98  r0 = [r0 ??](?, ?)
+  8f9e  r0 = UIImage
+  8fac  r2 = CFSTR('btn_tutorial_click.PNG')
+  8fae  r0 = [UIImage imageNamed:](CFSTR('btn_tutorial_click.PNG'), ?)
+  8fb8  r3 = 1
+  8fba  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  8fc2  r0 = [r0 ??](?, ?)
+  8fcc  r0 = [r0 ??](?, ?)
+  8fd8  r1 = SEL(setEnabled:)
+  8fda  r5 = SEL(setEnabled:)
+  8fde  cmp r1, 1
+  8fe0  bne L_9052
+  8fe4  r2 = 0
+  8fe6  r0 = [r0 setEnabled:](0, ?)
+  8fee  r0 = [r0 ??](?, ?)
+  8ff4  r2 = 0
+  8ff6  r0 = [r0 setEnabled:](0, ?)
+  8ffe  r0 = [r0 ??](?, ?)
+  9004  r2 = 0
+  9006  r0 = [r0 setEnabled:](0, ?)
+  900e  r0 = [r0 ??](?, ?)
+  9014  r2 = 0
+  9016  r0 = [r0 setEnabled:](0, ?)
+  901e  r0 = [r0 ??](?, ?)
+  9024  r2 = 0
+  9026  r0 = [r0 setEnabled:](0, ?)
+  9032  r0 = SEL(gameCenterButton)
+  9034  r1 = SEL(gameCenterButton)
+  9038  r0 = [r0 gameCenterButton](?, ?)
+  903e  r2 = 0
+  9040  r0 = [r0 setEnabled:](0, ?)
+  9048  r0 = [r0 ??](?, ?)
+  904e  r2 = 0
+  9050  b L_90c0
+L_9052:
+  9054  r2 = 1
+  9056  r0 = [r0 setEnabled:](1, ?)
+  905e  r0 = [r0 ??](?, ?)
+  9064  r2 = 1
+  9066  r0 = [r0 setEnabled:](1, ?)
+  906e  r0 = [r0 ??](?, ?)
+  9074  r2 = 1
+  9076  r0 = [r0 setEnabled:](1, ?)
+  907e  r0 = [r0 ??](?, ?)
+  9084  r2 = 1
+  9086  r0 = [r0 setEnabled:](1, ?)
+  908e  r0 = [r0 ??](?, ?)
+  9094  r2 = 1
+  9096  r0 = [r0 setEnabled:](1, ?)
+  90a2  r0 = SEL(gameCenterButton)
+  90a4  r1 = SEL(gameCenterButton)
+  90a8  r0 = [r0 gameCenterButton](?, ?)
+  90ae  r2 = 1
+  90b0  r0 = [r0 setEnabled:](1, ?)
+  90b8  r0 = [r0 ??](?, ?)
+  90be  r2 = 1
+L_90c0:
+  90c0  add sp, #0x20
+  90ca  b L_a90d0
+
+//// -[MainController blindModeSelectedMenu]  0x90d0..0x9260  v8@0:4
+  90d2  add r7, sp, #0xc
+  90d8  sub sp, #0x14
+  90e4  r0 = SEL(round1)
+  90e6  r1 = SEL(round1)
+  90ec  r0 = [r0 ??](?, ?)
+  90f4  r2 = 1
+  90fa  r1 = SEL(setHidden:)
+  90fc  r4 = SEL(setHidden:)
+  9100  r0 = [r0 setHidden:](1, ?)
+  910c  r0 = SEL(round2)
+  910e  r1 = SEL(round2)
+  9114  r0 = [r0 ??](?, ?)
+  911a  r2 = 1
+  911c  r0 = [r0 setHidden:](1, ?)
+  9128  r0 = SEL(round3)
+  912a  r1 = SEL(round3)
+  9130  r0 = [r0 ??](?, ?)
+  9136  r2 = 1
+  9138  r0 = [r0 setHidden:](1, ?)
+  9144  r0 = SEL(round4)
+  9146  r1 = SEL(round4)
+  914c  r0 = [r0 ??](?, ?)
+  9152  r2 = 1
+  9154  r0 = [r0 setHidden:](1, ?)
+  9160  r0 = SEL(round5)
+  9162  r1 = SEL(round5)
+  9168  r0 = [r0 ??](?, ?)
+  916e  r2 = 1
+  9170  r0 = [r0 setHidden:](1, ?)
+  917c  r0 = SEL(round6)
+  917e  sl = SEL(round6)
+  9186  r0 = [r0 round6](?, ?)
+  918c  r2 = 1
+  918e  r0 = [r0 setHidden:](1, ?)
+  919a  r0 = SEL(round7)
+  919c  fp = SEL(round7)
+  91a4  r0 = [r0 round7](?, ?)
+  91aa  r2 = 1
+  91ac  r0 = [r0 setHidden:](1, ?)
+  91b8  r0 = SEL(round8)
+  91ba  r6 = SEL(round8)
+  91c0  r0 = [r0 round8](?, ?)
+  91c6  r2 = 1
+  91c8  r0 = [r0 setHidden:](1, ?)
+  91d4  r0 = SEL(round9)
+  91d6  r8 = SEL(round9)
+  91de  r0 = [r0 round9](?, ?)
+  91e4  r2 = 1
+  91e6  r0 = [r0 setHidden:](1, ?)
+  91f2  r0 = IVOFF(selectMenu)
+  91f4  r0 = IVOFF(selectMenu)
+  91f6  r0 = self->selectMenu
+  91f8  subs r0, #1
+  91fa  cmp r0, 8
+  91fc  bls L_9206
+  91fe  add sp, #0x14
+  9204  return
+L_9206:
+  920a  lsrs r5, r0, #0x20
+  920c  lsrs r3, r1, #0x18
+  920e  asrs r1, r2, #0x10
+  9210  subs r7, r2, r0
+  9218  b L_9248
+  921e  b L_9248
+  9224  b L_9248
+  922a  b L_9248
+  9230  b L_9248
+  9236  b L_9248
+  923c  b L_9248
+  9242  b L_9248
+L_9248:
+  9248  r0 = [r0 round9](?, ?)
+  924e  r2 = 0
+  9250  add sp, #0x14
+  925a  b L_a90d0
+
+//// -[MainController tapSelect:]  0x9260..0x9350  v12@0:4@8
+  9262  add r7, sp, #8
+  9264  sub sp, #0x18
+  9272  r0 = SEL(view)
+  9274  r1 = SEL(view)
+  9278  r0 = [r0 view](?, ?)
+  927e  cbz r5 -> L_929e
+  928a  r0 = SEL(locationInView:)
+  928c  r2 = SEL(locationInView:)
+  928e  add r0, sp, #0x10
+  9290  r0 = [r0 ??](SEL(locationInView:), ?)
+  9294  vldr s2, [sp, #0x10]
+  9298  vldr s0, [sp, #0x14]
+  929c  b L_92ac
+L_929e:
+  929e  vmov.i32 d0, #0
+  92a2  r0 = 0
+  92a8  vmov.f32 s2, s0
+L_92ac:
+  92b0  d16 = 0.35
+  92b8  ip = 0
+  92bc  r0 = IVOFF(posX)
+  92be  vmov r2, r3, d16
+  92c2  r1 = IVOFF(posX)
+  92cc  add r1, r4
+  92ce  r0 = IVOFF(posY)
+  92d0  vstr s2, [r1]
+  92d4  r1 = IVOFF(posY)
+  92de  add r1, r4
+  92e0  r0 = IVOFF(tapCount)
+  92e2  vstr s0, [r1]
+  92ea  r1 = IVOFF(tapCount)
+  92f0  r5 = IVOFF(tapOrGesture)
+  92f2  r0 = self->tapCount
+  92fc  adds r0, #1
+  92fe  self->tapCount = r0
+  930c  r1 = IVOFF(tapOrGesture)
+  9312  lr = NSTimer
+  9314  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  9316  sb = SEL(tapCount)
+  9318  self->tapOrGesture = 0
+  931c  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  931e  r0 = NSTimer
+  9322  r5 = SEL(tapCount)
+  932e  vorr d0, d0, d0
+  9332  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  933e  r1 = IVOFF(tapTimer)
+  9340  r1 = IVOFF(tapTimer)
+  9342  self->tapTimer = r0
+  9344  add sp, #0x18
+  9346  return
+  934e  subs r7, #0xd6
+
+//// -[MainController tapCount]  0x9350..0x948c  v8@0:4
+  9352  add r7, sp, #0xc
+  9354  sub sp, #0x10
+  9360  r0 = IVOFF(tapCount)
+  9362  r6 = IVOFF(tapCount)
+  9364  r0 = self->tapCount
+  9366  cmp self->tapCount, 2
+  9368  bne L_9400
+  936a  call sub_3ccc
+  9378  r0 = SEL(bDevice)
+  937a  r1 = SEL(bDevice)
+  937e  r0 = [r0 bDevice](?, ?)
+  9398  r0 = IVOFF(selectMenu)
+  939a  r0 = IVOFF(selectMenu)
+  939c  r0 = self->selectMenu
+  939e  subs r0, #2
+  93a0  cmp r0, 7
+  93a2  bhi L_9468
+  93a8  subs r0, #4
+  93aa  add r6, r7
+  93b8  r0 = IVOFF(start_game_flag)
+  93ba  r0 = IVOFF(start_game_flag)
+  93bc  r1 = self->start_game_flag
+  93be  cmp self->start_game_flag, 0
+  93c0  bne L_9468
+  93c6  r2 = 1
+  93cc  self->start_game_flag = 1
+  93ce  r1 = SEL(StopElseSpeak)
+  93d2  r1 = SEL(StopElseSpeak)
+  93d4  r0 = [r0 StopElseSpeak](1, ?)
+  93e8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  93ea  r2 = 16
+  93ec  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  93ee  r0 = 0
+  93fa  r0 = [r0 playSound:Gain:Pos:z:reprats:](16, 0x3e4ccccd/f0.2)
+  93fe  b L_9468
+L_9400:
+  9400  cmp r0, 1
+  9402  bne L_9468
+  940c  r0 = SEL(selectTapPointSoundStart)
+  940e  r1 = SEL(selectTapPointSoundStart)
+  9412  r0 = [r0 selectTapPointSoundStart](?, ?)
+  9416  b L_9468
+  9420  r0 = SEL(StartGame:)
+  9422  b L_945e
+  942c  r0 = SEL(RankingAction:)
+  942e  b L_945e
+  9438  r0 = SEL(Store:)
+  943a  b L_945e
+  9444  r0 = SEL(ModeChageAction:)
+  9446  b L_945e
+  9450  r0 = SEL(gameCenterAction:)
+  9452  b L_945e
+  945c  r0 = SEL(TutorialAction:)
+L_945e:
+  945e  r1 = SEL(TutorialAction:)
+  9462  r2 = 0
+  9464  r0 = [r0 TutorialAction:](0, ?)
+L_9468:
+  946c  r0 = 0
+  9474  r1 = IVOFF(posX)
+  947e  r1 = IVOFF(posX)
+  9480  r2 = IVOFF(posY)
+  9482  self->posX = 0
+  9484  r1 = IVOFF(posY)
+  9486  self->posY = 0
+  9488  add sp, #0x10
+  948a  return
+
+//// -[MainController Menu:]  0x948c..0x96e8  v12@0:4@8
+  948e  add r7, sp, #0xc
+  9494  sub sp, #0x14
+  949a  call sub_3ccc
+  94a6  r1 = SEL(mode)
+  94a8  r1 = SEL(mode)
+  94aa  r0 = [r0 mode](?, ?)
+  94b2  beq L_96e0
+  94be  r0 = SEL(view)
+  94c0  r6 = SEL(view)
+  94c6  r0 = [r0 view](?, ?)
+  94d4  r0 = SEL(state)
+  94d6  sl = SEL(state)
+  94de  r0 = [r0 state](?, ?)
+  94e2  cmp r0, 1
+  94e4  beq L_94f4
+  94ea  r0 = [r0 state](?, ?)
+  94ee  cmp r0, 2
+  94f0  bne L_962a
+L_94f4:
+  94f8  r0 = [r0 state](?, ?)
+  94fc  cmp r0, 1
+  94fe  bne L_9570
+  9504  r0 = [r0 view](?, ?)
+  950a  cbz r5 -> L_952a
+  9516  r0 = SEL(locationInView:)
+  9518  r2 = SEL(locationInView:)
+  951a  add r0, sp, #0xc
+  951c  r0 = [r0 ??](SEL(locationInView:), ?)
+  9520  vldr s2, [sp, #0xc]
+  9524  vldr s0, [sp, #0x10]
+  9528  b L_9538
+L_952a:
+  952a  vmov.i32 d0, #0
+  952e  r0 = 0
+  9534  vmov.f32 s2, s0
+L_9538:
+  9540  r0 = IVOFF(posX)
+  9542  r1 = IVOFF(posX)
+  954c  add r1, r4
+  954e  r0 = IVOFF(posY)
+  9550  vstr s2, [r1]
+  9554  r1 = IVOFF(posY)
+  955e  r0 = IVOFF(tapOrGesture)
+  9560  add r1, r4
+  9562  r0 = IVOFF(tapOrGesture)
+  9564  vstr s0, [r1]
+  9568  r1 = 1
+  956a  self->tapOrGesture = 1
+  956c  vorr d0, d0, d0
+L_9570:
+  9578  r0 = SEL(superview)
+  957a  r6 = SEL(superview)
+  9580  r0 = [r0 superview](?, ?)
+  9586  cbz r5 -> L_95a6
+  9592  r0 = SEL(translationInView:)
+  9594  r2 = SEL(translationInView:)
+  9596  add r0, sp, #4
+  9598  r0 = [r0 ??](SEL(translationInView:), ?)
+  959c  vldr s2, [sp, #4]
+  95a0  vldr s0, [sp, #8]
+  95a4  b L_95b4
+L_95a6:
+  95a6  vmov.i32 d0, #0
+  95aa  r0 = 0
+  95ae  vorr d1, d0, d0
+L_95b4:
+  95bc  r0 = IVOFF(posX)
+  95be  r1 = IVOFF(posX)
+  95c8  add r1, r4
+  95ca  r0 = IVOFF(posY)
+  95cc  vldr s4, [r1]
+  95d0  r0 = IVOFF(posY)
+  95d2  vadd.f32 d1, d1, d2
+  95d6  add r0, r4
+  95d8  vstr s2, [r1]
+  95de  vldr s2, [r0]
+  95e2  vadd.f32 d0, d0, d1
+  95e6  vstr s0, [r0]
+  95ec  vorr d0, d0, d0
+  95f0  r0 = [r0 superview](?, ?)
+  9600  r1 = _CGPointZero
+  9606  r2 = SEL(setTranslation:inView:)
+  960a  r3 = _CGPointZero
+  960e  r1 = SEL(setTranslation:inView:)
+  9614  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  9620  r0 = SEL(selectTapPointSoundStart)
+  9622  r1 = SEL(selectTapPointSoundStart)
+  9626  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_962a:
+  962e  r0 = [r0 state](?, ?)
+  9632  cmp r0, 3
+  9634  bne L_96e0
+  9642  r0 = IVOFF(start_game_flag)
+  9648  r2 = IVOFF(store_flag)
+  964a  r1 = IVOFF(start_game_flag)
+  964c  r0 = 0
+  964e  self->start_game_flag = 0
+  9650  r1 = IVOFF(store_flag)
+  965a  r2 = IVOFF(exit_flag)
+  965c  self->store_flag = 0
+  965e  r1 = IVOFF(exit_flag)
+  9668  r2 = IVOFF(modechange_flag)
+  966a  self->exit_flag = 0
+  966c  r1 = IVOFF(modechange_flag)
+  9676  r2 = IVOFF(main_title_flag)
+  9678  self->modechange_flag = 0
+  967a  r1 = IVOFF(main_title_flag)
+  9684  r2 = IVOFF(coin_flag)
+  9686  self->main_title_flag = 0
+  9688  r1 = IVOFF(coin_flag)
+  9692  r2 = IVOFF(ranking_flag)
+  9694  self->coin_flag = 0
+  9696  r1 = IVOFF(ranking_flag)
+  96a0  r2 = IVOFF(gamecenter_flag)
+  96a2  self->ranking_flag = 0
+  96a4  r1 = IVOFF(gamecenter_flag)
+  96ae  r2 = IVOFF(tutorial_flag)
+  96b0  self->gamecenter_flag = 0
+  96b2  r1 = IVOFF(tutorial_flag)
+  96bc  r2 = IVOFF(posX)
+  96be  self->tutorial_flag = 0
+  96c0  r1 = IVOFF(posX)
+  96ca  r2 = IVOFF(posY)
+  96cc  self->posX = 0
+  96ce  r1 = IVOFF(posY)
+  96d8  r2 = IVOFF(tapOrGesture)
+  96da  self->posY = 0
+  96dc  r1 = IVOFF(tapOrGesture)
+  96de  self->tapOrGesture = 0
+L_96e0:
+  96e0  add sp, #0x14
+  96e6  return
+
+//// -[MainController StopElseSpeak]  0x96e8..0x97ec  v8@0:4
+  96ea  add r7, sp, #0xc
+  96ec  sub sp, #4
+  96f0  call sub_3ccc
+  96fe  r2 = 16
+  9700  r0 = SEL(stopSoundBufNumber:)
+  9702  r6 = SEL(stopSoundBufNumber:)
+  9708  r0 = [r0 stopSoundBufNumber:](16, ?)
+  9710  r2 = 17
+  9712  r0 = [r0 stopSoundBufNumber:](17, ?)
+  971a  r2 = 18
+  971c  r0 = [r0 stopSoundBufNumber:](18, ?)
+  9724  r2 = 19
+  9726  r0 = [r0 stopSoundBufNumber:](19, ?)
+  972e  r2 = 20
+  9730  r0 = [r0 stopSoundBufNumber:](20, ?)
+  9738  r2 = 21
+  973a  r0 = [r0 stopSoundBufNumber:](21, ?)
+  9742  r2 = 22
+  9744  r0 = [r0 stopSoundBufNumber:](22, ?)
+  9750  r0 = [r0 stopSoundBufNumber:](331, ?)
+  9758  r2 = 332
+  975c  r0 = [r0 stopSoundBufNumber:](332, ?)
+  9768  r0 = [r0 stopSoundBufNumber:](333, ?)
+  9770  r2 = 334
+  9774  r0 = [r0 stopSoundBufNumber:](334, ?)
+  9780  r0 = [r0 stopSoundBufNumber:](365, ?)
+  9788  r2 = 364
+  978c  r0 = [r0 stopSoundBufNumber:](364, ?)
+  9798  r0 = [r0 stopSoundBufNumber:](367, ?)
+  97a0  r2 = 23
+  97a2  r0 = [r0 stopSoundBufNumber:](23, ?)
+  97ae  r0 = SEL(readStop)
+  97b0  r1 = SEL(readStop)
+  97b4  r0 = [r0 readStop](?, ?)
+  97d0  r0 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  97d2  r2 = SEL(readNumberOfCoin)
+  97d4  r6 = NSObject
+  97d6  r1 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  97d8  r3 = SEL(readNumberOfCoin)
+  97da  r2 = 0
+  97dc  r0 = NSObject
+  97e2  r0 = [NSObject cancelPreviousPerformRequestsWithTarget:selector:object:](?, SEL(readNumberOfCoin))
+  97e6  add sp, #4
+  97e8  return
+
+//// -[MainController readNumberOfCoin]  0x97ec..0x9824  v8@0:4
+  97ee  add r7, sp, #4
+  97f0  call sub_3ccc
+  97fe  r0 = SEL(Coin)
+  9800  r1 = SEL(Coin)
+  9804  r0 = [r0 Coin](?, ?)
+  9812  r3 = 3
+  9814  r0 = SEL(TTSNumber:type:)
+  9816  r1 = SEL(TTSNumber:type:)
+  981e  b L_a90d0
+
+//// -[MainController selectTapPointSoundStart]  0x9824..0xa560  v8@0:4
+  9826  add r7, sp, #0xc
+  982c  sub sp, #0x30
+  9830  call sub_3ccc
+  9846  r0 = SEL(mainScreen)
+  9848  r5 = UIScreen
+  984a  r6 = SEL(mainScreen)
+  984c  r0 = UIScreen
+  9850  r0 = [UIScreen mainScreen](?, ?)
+  9856  cmp r1, 0
+  9858  beq L_9892
+  9862  r0 = SEL(bounds)
+  9864  r2 = SEL(bounds)
+  9866  add r0, sp, #0x20
+  9868  r0 = [r0 ??](SEL(bounds), ?)
+  986c  s0 = 320
+  9870  vldr s2, [sp, #0x28]
+  9874  vcmpe.f32 s2, s0
+  9878  vmrs apsr_nzcv, fpscr
+  987c  bne L_989c
+  987e  vldr s0, [sp, #0x2c]
+  9882  s2 = 568
+  9886  vcmpe.f32 s0, s2
+  988a  vmrs apsr_nzcv, fpscr
+  988e  beq L_98e6
+  9890  b L_989c
+L_9892:
+  9892  vmov.i32 q8, #0
+  9896  add r0, sp, #0x20
+  9898  vst1.32 {d16, d17}, [r0]
+L_989c:
+  989c  r0 = UIScreen
+  98a0  r0 = [UIScreen mainScreen](?, ?)
+  98a6  cmp r1, 0
+  98a8  beq L_9a04
+  98b4  r0 = SEL(bounds)
+  98b6  r2 = SEL(bounds)
+  98b8  add r0, sp, #0x10
+  98ba  r0 = [r0 ??](SEL(bounds), ?)
+  98be  s0 = 568
+  98c2  vldr s2, [sp, #0x18]
+  98c6  vcmpe.f32 s2, s0
+  98ca  vmrs apsr_nzcv, fpscr
+  98ce  bne L_9a0e
+  98d2  vldr s0, [sp, #0x1c]
+  98d6  s2 = 320
+  98da  vcmpe.f32 s0, s2
+  98de  vmrs apsr_nzcv, fpscr
+  98e2  bne L_9a0e
+L_98e6:
+  98ea  s2 = 40
+  98f6  r1 = IVOFF(posY)
+  98fc  r0 = IVOFF(tapOrGesture)
+  98fe  vmov.i32 d2, #0
+  9902  r1 = IVOFF(posY)
+  9904  r2 = 0
+  9906  r0 = IVOFF(tapOrGesture)
+  9908  add r1, r4
+  990a  vldr s0, [r1]
+  990e  r1 = 0
+  9910  r0 = self->tapOrGesture
+  9912  vcmpe.f32 s0, s2
+  9916  vmrs apsr_nzcv, fpscr
+  991a  vcmpe.f32 s0, s4
+  9922  vmrs apsr_nzcv, fpscr
+  992a  cmp self->tapOrGesture, 0
+  992c  orr.w r1, r1, r2
+  9930  beq L_9d66
+  9934  cmp r1, 0
+  9936  beq L_9b88
+  993a  s2 = 64
+  993e  vcmpe.f32 s0, s2
+  9942  vmrs apsr_nzcv, fpscr
+  9946  blt L_9958
+  9948  s2 = 139
+  994c  vcmpe.f32 s0, s2
+  9950  vmrs apsr_nzcv, fpscr
+  9954  bls L_9ee0
+L_9958:
+  9958  s2 = 161
+  995c  vcmpe.f32 s0, s2
+  9960  vmrs apsr_nzcv, fpscr
+  9964  blt L_9976
+  9966  s2 = 215
+  996a  vcmpe.f32 s0, s2
+  996e  vmrs apsr_nzcv, fpscr
+  9972  bls L_9f42
+L_9976:
+  9976  s2 = 227
+  997a  vcmpe.f32 s0, s2
+  997e  vmrs apsr_nzcv, fpscr
+  9982  blt L_9994
+  9984  s2 = 281
+  9988  vcmpe.f32 s0, s2
+  998c  vmrs apsr_nzcv, fpscr
+  9990  bls L_a006
+L_9994:
+  9994  s2 = 293
+  9998  vcmpe.f32 s0, s2
+  999c  vmrs apsr_nzcv, fpscr
+  99a0  blt L_99b2
+  99a2  s2 = 347
+  99a6  vcmpe.f32 s0, s2
+  99aa  vmrs apsr_nzcv, fpscr
+  99ae  bls L_a0ca
+L_99b2:
+  99b2  s2 = 358
+  99b6  vcmpe.f32 s0, s2
+  99ba  vmrs apsr_nzcv, fpscr
+  99be  blt L_99d0
+  99c0  s2 = 412
+  99c4  vcmpe.f32 s0, s2
+  99c8  vmrs apsr_nzcv, fpscr
+  99cc  bls L_a190
+L_99d0:
+  99d0  s2 = 424
+  99d4  vcmpe.f32 s0, s2
+  99d8  vmrs apsr_nzcv, fpscr
+  99dc  blt L_99ee
+  99de  s2 = 478
+  99e2  vcmpe.f32 s0, s2
+  99e6  vmrs apsr_nzcv, fpscr
+  99ea  bls L_a256
+L_99ee:
+  99ee  s2 = 493
+  99f2  vcmpe.f32 s0, s2
+  99f6  vmrs apsr_nzcv, fpscr
+  99fa  blt L_9b34
+  99fe  s2 = 543
+  9a02  b L_9b28
+L_9a04:
+  9a04  vmov.i32 q8, #0
+  9a08  add r0, sp, #0x10
+  9a0a  vst1.32 {d16, d17}, [r0]
+L_9a0e:
+  9a12  s2 = 40
+  9a1e  r1 = IVOFF(posY)
+  9a24  r0 = IVOFF(tapOrGesture)
+  9a26  vmov.i32 d2, #0
+  9a2a  r1 = IVOFF(posY)
+  9a2c  r2 = 0
+  9a2e  r0 = IVOFF(tapOrGesture)
+  9a30  add r1, r4
+  9a32  vldr s0, [r1]
+  9a36  r1 = 0
+  9a38  r0 = self->tapOrGesture
+  9a3a  vcmpe.f32 s0, s2
+  9a3e  vmrs apsr_nzcv, fpscr
+  9a42  vcmpe.f32 s0, s4
+  9a4a  vmrs apsr_nzcv, fpscr
+  9a52  cmp self->tapOrGesture, 0
+  9a54  orr.w r1, r1, r2
+  9a58  beq L_9c8c
+  9a5c  cmp r1, 0
+  9a5e  beq L_9b88
+  9a62  s2 = 54
+  9a66  vcmpe.f32 s0, s2
+  9a6a  vmrs apsr_nzcv, fpscr
+  9a6e  blt L_9a80
+  9a70  s2 = 94
+  9a74  vcmpe.f32 s0, s2
+  9a78  vmrs apsr_nzcv, fpscr
+  9a7c  bls L_9ee0
+L_9a80:
+  9a80  s2 = 102
+  9a84  vcmpe.f32 s0, s2
+  9a88  vmrs apsr_nzcv, fpscr
+  9a8c  blt L_9a9e
+  9a8e  s2 = 156
+  9a92  vcmpe.f32 s0, s2
+  9a96  vmrs apsr_nzcv, fpscr
+  9a9a  bls L_9f42
+L_9a9e:
+  9a9e  s2 = 161
+  9aa2  vcmpe.f32 s0, s2
+  9aa6  vmrs apsr_nzcv, fpscr
+  9aaa  blt L_9abc
+  9aac  s2 = 215
+  9ab0  vcmpe.f32 s0, s2
+  9ab4  vmrs apsr_nzcv, fpscr
+  9ab8  bls L_a006
+L_9abc:
+  9abc  s2 = 222
+  9ac0  vcmpe.f32 s0, s2
+  9ac4  vmrs apsr_nzcv, fpscr
+  9ac8  blt L_9ada
+  9aca  s2 = 276
+  9ace  vcmpe.f32 s0, s2
+  9ad2  vmrs apsr_nzcv, fpscr
+  9ad6  bls L_a0ca
+L_9ada:
+  9ada  s2 = 281
+  9ade  vcmpe.f32 s0, s2
+  9ae2  vmrs apsr_nzcv, fpscr
+  9ae6  blt L_9af8
+  9ae8  s2 = 335
+  9aec  vcmpe.f32 s0, s2
+  9af0  vmrs apsr_nzcv, fpscr
+  9af4  bls L_a190
+L_9af8:
+  9af8  s2 = 341
+  9afc  vcmpe.f32 s0, s2
+  9b00  vmrs apsr_nzcv, fpscr
+  9b04  blt L_9b16
+  9b06  s2 = 395
+  9b0a  vcmpe.f32 s0, s2
+  9b0e  vmrs apsr_nzcv, fpscr
+  9b12  bls L_a256
+L_9b16:
+  9b16  s2 = 403
+  9b1a  vcmpe.f32 s0, s2
+  9b1e  vmrs apsr_nzcv, fpscr
+  9b22  blt L_9b34
+  9b24  s2 = 453
+L_9b28:
+  9b28  vcmpe.f32 s0, s2
+  9b2c  vmrs apsr_nzcv, fpscr
+  9b30  bls L_a33c
+L_9b34:
+  9b40  r0 = IVOFF(start_game_flag)
+  9b46  r2 = IVOFF(store_flag)
+  9b48  r1 = IVOFF(start_game_flag)
+  9b4a  r0 = 0
+  9b4c  self->start_game_flag = 0
+  9b4e  r1 = IVOFF(store_flag)
+  9b58  r2 = IVOFF(modechange_flag)
+  9b5a  self->store_flag = 0
+  9b5c  r1 = IVOFF(modechange_flag)
+  9b66  r2 = IVOFF(main_title_flag)
+  9b68  self->modechange_flag = 0
+  9b6a  r1 = IVOFF(main_title_flag)
+  9b74  r2 = IVOFF(ranking_flag)
+  9b76  self->main_title_flag = 0
+  9b78  r1 = IVOFF(ranking_flag)
+  9b82  r2 = IVOFF(coin_flag)
+  9b84  b L_a4fe
+L_9b88:
+  9b94  r0 = IVOFF(selectMenu)
+  9b9a  r2 = IVOFF(coin_flag)
+  9b9c  r1 = IVOFF(selectMenu)
+  9b9e  r0 = 1
+  9ba0  self->selectMenu = 1
+  9ba2  r1 = IVOFF(coin_flag)
+  9ba4  r2 = self->coin_flag
+  9ba6  cmp self->coin_flag, 0
+  9ba8  bne L_a52e
+  9bb4  self->coin_flag = 1
+  9bb6  r2 = SEL(StopElseSpeak)
+  9bba  r1 = SEL(StopElseSpeak)
+  9bbc  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  9bd0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  9bd2  r2 = 334
+  9bd6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  9bd8  r0 = 0
+  9be4  r0 = [r0 playSound:Gain:Pos:z:reprats:](334, 0x3e4ccccd/f0.2)
+  9bfc  r0 = SEL(performSelector:withObject:afterDelay:)
+  9bfe  r2 = SEL(readNumberOfCoin)
+  9c04  r1 = SEL(performSelector:withObject:afterDelay:)
+  9c06  r0 = -1610612736
+  9c0a  r2 = SEL(readNumberOfCoin)
+  9c12  r3 = 0
+  9c14  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readNumberOfCoin), 0)
+  9c18  b L_a52e
+  9c22  add r6, r1
+  9c2a  cmp r0, r0
+  9c36  muls r7, r2, r7
+  9c3a  muls r3, r4, r3
+  9c5e  add r7, r0
+  9c62  rsbs r0, r3, #0
+  9c66  cmp r4, r7
+  9c6a  cmp r4, r1
+  9c72  muls r6, r3, r6
+L_9c8c:
+  9c8c  cmp r1, 0
+  9c8e  beq L_9e4e
+  9c92  s2 = 54
+  9c96  vcmpe.f32 s0, s2
+  9c9a  vmrs apsr_nzcv, fpscr
+  9c9e  blt L_9cb0
+  9ca0  s2 = 94
+  9ca4  vcmpe.f32 s0, s2
+  9ca8  vmrs apsr_nzcv, fpscr
+  9cac  bls L_9fa4
+L_9cb0:
+  9cb0  s2 = 102
+  9cb4  vcmpe.f32 s0, s2
+  9cb8  vmrs apsr_nzcv, fpscr
+  9cbc  blt L_9cce
+  9cbe  s2 = 156
+  9cc2  vcmpe.f32 s0, s2
+  9cc6  vmrs apsr_nzcv, fpscr
+  9cca  bls L_a068
+L_9cce:
+  9cce  s2 = 161
+  9cd2  vcmpe.f32 s0, s2
+  9cd6  vmrs apsr_nzcv, fpscr
+  9cda  blt L_9cec
+  9cdc  s2 = 215
+  9ce0  vcmpe.f32 s0, s2
+  9ce4  vmrs apsr_nzcv, fpscr
+  9ce8  bls L_a12e
+L_9cec:
+  9cec  s2 = 222
+  9cf0  vcmpe.f32 s0, s2
+  9cf4  vmrs apsr_nzcv, fpscr
+  9cf8  blt L_9d0a
+  9cfa  s2 = 276
+  9cfe  vcmpe.f32 s0, s2
+  9d02  vmrs apsr_nzcv, fpscr
+  9d06  bls L_a1f2
+L_9d0a:
+  9d0a  s2 = 281
+  9d0e  vcmpe.f32 s0, s2
+  9d12  vmrs apsr_nzcv, fpscr
+  9d16  blt L_9d28
+  9d18  s2 = 335
+  9d1c  vcmpe.f32 s0, s2
+  9d20  vmrs apsr_nzcv, fpscr
+  9d24  bls L_a2da
+L_9d28:
+  9d28  s2 = 341
+  9d2c  vcmpe.f32 s0, s2
+  9d30  vmrs apsr_nzcv, fpscr
+  9d34  blt L_9d46
+  9d36  s2 = 395
+  9d3a  vcmpe.f32 s0, s2
+  9d3e  vmrs apsr_nzcv, fpscr
+  9d42  bls L_a3a0
+L_9d46:
+  9d4a  s2 = 403
+  9d52  r0 = IVOFF(selectMenu)
+  9d54  vcmpe.f32 s0, s2
+  9d58  vmrs apsr_nzcv, fpscr
+  9d5c  r0 = IVOFF(selectMenu)
+  9d5e  blt L_9e48
+  9d60  s2 = 453
+  9d64  b L_9e3c
+L_9d66:
+  9d66  cmp r1, 0
+  9d68  beq L_9e4e
+  9d6a  s2 = 64
+  9d6e  vcmpe.f32 s0, s2
+  9d72  vmrs apsr_nzcv, fpscr
+  9d76  blt L_9d88
+  9d78  s2 = 139
+  9d7c  vcmpe.f32 s0, s2
+  9d80  vmrs apsr_nzcv, fpscr
+  9d84  bls L_9fa4
+L_9d88:
+  9d88  s2 = 161
+  9d8c  vcmpe.f32 s0, s2
+  9d90  vmrs apsr_nzcv, fpscr
+  9d94  blt L_9da6
+  9d96  s2 = 215
+  9d9a  vcmpe.f32 s0, s2
+  9d9e  vmrs apsr_nzcv, fpscr
+  9da2  bls L_a068
+L_9da6:
+  9da6  s2 = 227
+  9daa  vcmpe.f32 s0, s2
+  9dae  vmrs apsr_nzcv, fpscr
+  9db2  blt L_9dc4
+  9db4  s2 = 281
+  9db8  vcmpe.f32 s0, s2
+  9dbc  vmrs apsr_nzcv, fpscr
+  9dc0  bls L_a12e
+L_9dc4:
+  9dc4  s2 = 293
+  9dc8  vcmpe.f32 s0, s2
+  9dcc  vmrs apsr_nzcv, fpscr
+  9dd0  blt L_9de2
+  9dd2  s2 = 347
+  9dd6  vcmpe.f32 s0, s2
+  9dda  vmrs apsr_nzcv, fpscr
+  9dde  bls L_a1f2
+L_9de2:
+  9de2  s2 = 358
+  9de6  vcmpe.f32 s0, s2
+  9dea  vmrs apsr_nzcv, fpscr
+  9dee  blt L_9e00
+  9df0  s2 = 412
+  9df4  vcmpe.f32 s0, s2
+  9df8  vmrs apsr_nzcv, fpscr
+  9dfc  bls L_a2da
+L_9e00:
+  9e00  s2 = 424
+  9e04  vcmpe.f32 s0, s2
+  9e08  vmrs apsr_nzcv, fpscr
+  9e0c  blt L_9e1e
+  9e0e  s2 = 478
+  9e12  vcmpe.f32 s0, s2
+  9e16  vmrs apsr_nzcv, fpscr
+  9e1a  bls L_a3a0
+L_9e1e:
+  9e22  s2 = 493
+  9e2a  r0 = IVOFF(selectMenu)
+  9e2c  vcmpe.f32 s0, s2
+  9e30  vmrs apsr_nzcv, fpscr
+  9e34  r0 = IVOFF(selectMenu)
+  9e36  blt L_9e48
+  9e38  s2 = 543
+L_9e3c:
+  9e3c  vcmpe.f32 s0, s2
+  9e40  vmrs apsr_nzcv, fpscr
+  9e44  bls L_a420
+L_9e48:
+  9e48  r1 = 0
+  9e4a  self->selectMenu = 0
+  9e4c  b L_a4ae
+L_9e4e:
+  9e5a  r0 = IVOFF(selectMenu)
+  9e60  r2 = IVOFF(coin_flag)
+  9e62  r1 = IVOFF(selectMenu)
+  9e64  r0 = 1
+  9e66  self->selectMenu = 1
+  9e68  r1 = IVOFF(coin_flag)
+  9e6a  r2 = self->coin_flag
+  9e6c  cmp self->coin_flag, 0
+  9e6e  bne L_a4ae
+  9e7a  self->coin_flag = 1
+  9e7c  r2 = SEL(StopElseSpeak)
+  9e80  r1 = SEL(StopElseSpeak)
+  9e82  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  9e96  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  9e98  r2 = 334
+  9e9c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  9e9e  r0 = 0
+  9eaa  r0 = [r0 playSound:Gain:Pos:z:reprats:](334, 0x3e4ccccd/f0.2)
+  9ec2  r0 = SEL(performSelector:withObject:afterDelay:)
+  9ec4  r2 = SEL(readNumberOfCoin)
+  9eca  r1 = SEL(performSelector:withObject:afterDelay:)
+  9ecc  r0 = -1610612736
+  9ed0  r2 = SEL(readNumberOfCoin)
+  9ed8  r3 = 0
+  9eda  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readNumberOfCoin), 0)
+  9ede  b L_a4ae
+L_9ee0:
+  9ee4  r2 = 2
+  9eee  r0 = IVOFF(selectMenu)
+  9ef4  r1 = IVOFF(main_title_flag)
+  9ef6  r0 = IVOFF(selectMenu)
+  9ef8  self->selectMenu = 2
+  9efa  r0 = IVOFF(main_title_flag)
+  9efc  r1 = self->main_title_flag
+  9efe  cmp self->main_title_flag, 0
+  9f00  bne L_a52e
+  9f08  r2 = 1
+  9f0e  self->main_title_flag = 1
+  9f10  r1 = SEL(StopElseSpeak)
+  9f14  r1 = SEL(StopElseSpeak)
+  9f16  r0 = [r0 StopElseSpeak](1, ?)
+  9f2a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  9f2c  r2 = 16
+  9f2e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  9f30  r0 = 0
+  9f3c  r0 = [r0 playSound:Gain:Pos:z:reprats:](16, 0x3e4ccccd/f0.2)
+  9f40  b L_a52e
+L_9f42:
+  9f46  r2 = 3
+  9f50  r0 = IVOFF(selectMenu)
+  9f56  r1 = IVOFF(start_game_flag)
+  9f58  r0 = IVOFF(selectMenu)
+  9f5a  self->selectMenu = 3
+  9f5c  r0 = IVOFF(start_game_flag)
+  9f5e  r1 = self->start_game_flag
+  9f60  cmp self->start_game_flag, 0
+  9f62  bne L_a52e
+  9f6a  r2 = 1
+  9f70  self->start_game_flag = 1
+  9f72  r1 = SEL(StopElseSpeak)
+  9f76  r1 = SEL(StopElseSpeak)
+  9f78  r0 = [r0 StopElseSpeak](1, ?)
+  9f8c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  9f8e  r2 = 17
+  9f90  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  9f92  r0 = 0
+  9f9e  r0 = [r0 playSound:Gain:Pos:z:reprats:](17, 0x3e4ccccd/f0.2)
+  9fa2  b L_a52e
+L_9fa4:
+  9fa8  r2 = 2
+  9fb2  r0 = IVOFF(selectMenu)
+  9fb8  r1 = IVOFF(main_title_flag)
+  9fba  r0 = IVOFF(selectMenu)
+  9fbc  self->selectMenu = 2
+  9fbe  r0 = IVOFF(main_title_flag)
+  9fc0  r1 = self->main_title_flag
+  9fc2  cmp self->main_title_flag, 0
+  9fc4  bne L_a4ae
+  9fcc  r2 = 1
+  9fd2  self->main_title_flag = 1
+  9fd4  r1 = SEL(StopElseSpeak)
+  9fd8  r1 = SEL(StopElseSpeak)
+  9fda  r0 = [r0 StopElseSpeak](1, ?)
+  9fee  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  9ff0  r2 = 16
+  9ff2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  9ff4  r0 = 0
+  a000  r0 = [r0 playSound:Gain:Pos:z:reprats:](16, 0x3e4ccccd/f0.2)
+  a004  b L_a4ae
+L_a006:
+  a00a  r2 = 9
+  a014  r0 = IVOFF(selectMenu)
+  a01a  r1 = IVOFF(tutorial_flag)
+  a01c  r0 = IVOFF(selectMenu)
+  a01e  self->selectMenu = 9
+  a020  r0 = IVOFF(tutorial_flag)
+  a022  r1 = self->tutorial_flag
+  a024  cmp self->tutorial_flag, 0
+  a026  bne L_a52e
+  a02e  r2 = 1
+  a034  self->tutorial_flag = 1
+  a036  r1 = SEL(StopElseSpeak)
+  a03a  r1 = SEL(StopElseSpeak)
+  a03c  r0 = [r0 StopElseSpeak](1, ?)
+  a050  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a052  r2 = 23
+  a054  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a056  r0 = 0
+  a062  r0 = [r0 playSound:Gain:Pos:z:reprats:](23, 0x3e4ccccd/f0.2)
+  a066  b L_a52e
+L_a068:
+  a06c  r2 = 3
+  a076  r0 = IVOFF(selectMenu)
+  a07c  r1 = IVOFF(start_game_flag)
+  a07e  r0 = IVOFF(selectMenu)
+  a080  self->selectMenu = 3
+  a082  r0 = IVOFF(start_game_flag)
+  a084  r1 = self->start_game_flag
+  a086  cmp self->start_game_flag, 0
+  a088  bne L_a4ae
+  a090  r2 = 1
+  a096  self->start_game_flag = 1
+  a098  r1 = SEL(StopElseSpeak)
+  a09c  r1 = SEL(StopElseSpeak)
+  a09e  r0 = [r0 StopElseSpeak](1, ?)
+  a0b2  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a0b4  r2 = 17
+  a0b6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a0b8  r0 = 0
+  a0c4  r0 = [r0 playSound:Gain:Pos:z:reprats:](17, 0x3e4ccccd/f0.2)
+  a0c8  b L_a4ae
+L_a0ca:
+  a0ce  r2 = 4
+  a0d8  r0 = IVOFF(selectMenu)
+  a0de  r1 = IVOFF(ranking_flag)
+  a0e0  r0 = IVOFF(selectMenu)
+  a0e2  self->selectMenu = 4
+  a0e4  r0 = IVOFF(ranking_flag)
+  a0e6  r1 = self->ranking_flag
+  a0e8  cmp self->ranking_flag, 0
+  a0ea  bne L_a52e
+  a0f2  r2 = 1
+  a0f8  self->ranking_flag = 1
+  a0fa  r1 = SEL(StopElseSpeak)
+  a0fe  r1 = SEL(StopElseSpeak)
+  a100  r0 = [r0 StopElseSpeak](1, ?)
+  a114  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a11a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a11c  r0 = 0
+  a128  r0 = [r0 playSound:Gain:Pos:z:reprats:](333, 0x3e4ccccd/f0.2)
+  a12c  b L_a52e
+L_a12e:
+  a132  r2 = 9
+  a13c  r0 = IVOFF(selectMenu)
+  a142  r1 = IVOFF(tutorial_flag)
+  a144  r0 = IVOFF(selectMenu)
+  a146  self->selectMenu = 9
+  a148  r0 = IVOFF(tutorial_flag)
+  a14a  r1 = self->tutorial_flag
+  a14c  cmp self->tutorial_flag, 0
+  a14e  bne L_a4ae
+  a156  r2 = 1
+  a15c  self->tutorial_flag = 1
+  a15e  r1 = SEL(StopElseSpeak)
+  a162  r1 = SEL(StopElseSpeak)
+  a164  r0 = [r0 StopElseSpeak](1, ?)
+  a178  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a17a  r2 = 23
+  a17c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a17e  r0 = 0
+  a18a  r0 = [r0 playSound:Gain:Pos:z:reprats:](23, 0x3e4ccccd/f0.2)
+  a18e  b L_a4ae
+L_a190:
+  a194  r2 = 5
+  a19e  r0 = IVOFF(selectMenu)
+  a1a4  r1 = IVOFF(store_flag)
+  a1a6  r0 = IVOFF(selectMenu)
+  a1a8  self->selectMenu = 5
+  a1aa  r0 = IVOFF(store_flag)
+  a1ac  r1 = self->store_flag
+  a1ae  cmp self->store_flag, 0
+  a1b0  bne L_a52e
+  a1b8  r2 = 1
+  a1be  self->store_flag = 1
+  a1c0  r1 = SEL(StopElseSpeak)
+  a1c4  r1 = SEL(StopElseSpeak)
+  a1c6  r0 = [r0 StopElseSpeak](1, ?)
+  a1da  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a1dc  r2 = 18
+  a1de  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a1e0  r0 = 0
+  a1ec  r0 = [r0 playSound:Gain:Pos:z:reprats:](18, 0x3e4ccccd/f0.2)
+  a1f0  b L_a52e
+L_a1f2:
+  a1f6  r2 = 4
+  a200  r0 = IVOFF(selectMenu)
+  a206  r1 = IVOFF(ranking_flag)
+  a208  r0 = IVOFF(selectMenu)
+  a20a  self->selectMenu = 4
+  a20c  r0 = IVOFF(ranking_flag)
+  a20e  r1 = self->ranking_flag
+  a210  cmp self->ranking_flag, 0
+  a212  bne L_a4ae
+  a21a  r2 = 1
+  a220  self->ranking_flag = 1
+  a222  r1 = SEL(StopElseSpeak)
+  a226  r1 = SEL(StopElseSpeak)
+  a228  r0 = [r0 StopElseSpeak](1, ?)
+  a23c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a242  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a244  r0 = 0
+  a250  r0 = [r0 playSound:Gain:Pos:z:reprats:](333, 0x3e4ccccd/f0.2)
+  a254  b L_a4ae
+L_a256:
+  a25a  r2 = 6
+  a264  r0 = IVOFF(selectMenu)
+  a26a  r1 = IVOFF(modechange_flag)
+  a26c  r0 = IVOFF(selectMenu)
+  a26e  self->selectMenu = 6
+  a270  r0 = IVOFF(modechange_flag)
+  a272  r1 = self->modechange_flag
+  a274  cmp self->modechange_flag, 0
+  a276  bne L_a52e
+  a27e  r2 = 1
+  a284  self->modechange_flag = 1
+  a286  r1 = SEL(StopElseSpeak)
+  a28a  r1 = SEL(StopElseSpeak)
+  a28c  r0 = [r0 StopElseSpeak](1, ?)
+  a290  call sub_3ccc
+  a29e  r0 = SEL(mode)
+  a2a0  r1 = SEL(mode)
+  a2a4  r0 = [r0 mode](?, ?)
+  a2b4  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a2b6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a2b8  beq L_a474
+  a2c0  r0 = 0
+  a2ca  r2 = 332
+  a2d4  r0 = [r0 playSound:Gain:Pos:z:reprats:](332, 0x3e4ccccd/f0.2)
+  a2d8  b L_a52e
+L_a2da:
+  a2de  r2 = 5
+  a2e8  r0 = IVOFF(selectMenu)
+  a2ee  r1 = IVOFF(store_flag)
+  a2f0  r0 = IVOFF(selectMenu)
+  a2f2  self->selectMenu = 5
+  a2f4  r0 = IVOFF(store_flag)
+  a2f6  r1 = self->store_flag
+  a2f8  cmp self->store_flag, 0
+  a2fa  bne L_a4ae
+  a302  r2 = 1
+  a308  self->store_flag = 1
+  a30a  r1 = SEL(StopElseSpeak)
+  a30e  r1 = SEL(StopElseSpeak)
+  a310  r0 = [r0 StopElseSpeak](1, ?)
+  a324  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a326  r2 = 18
+  a328  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a32a  r0 = 0
+  a336  r0 = [r0 playSound:Gain:Pos:z:reprats:](18, 0x3e4ccccd/f0.2)
+  a33a  b L_a4ae
+L_a33c:
+  a340  r2 = 8
+  a34a  r0 = IVOFF(selectMenu)
+  a350  r1 = IVOFF(gamecenter_flag)
+  a352  r0 = IVOFF(selectMenu)
+  a354  self->selectMenu = 8
+  a356  r0 = IVOFF(gamecenter_flag)
+  a358  r1 = self->gamecenter_flag
+  a35a  cmp self->gamecenter_flag, 0
+  a35c  bne L_a52e
+  a364  r2 = 1
+  a36a  self->gamecenter_flag = 1
+  a36c  r1 = SEL(StopElseSpeak)
+  a370  r1 = SEL(StopElseSpeak)
+  a372  r0 = [r0 StopElseSpeak](1, ?)
+  a386  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a38c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a38e  r0 = 0
+  a39a  r0 = [r0 playSound:Gain:Pos:z:reprats:](367, 0x3e4ccccd/f0.2)
+  a39e  b L_a52e
+L_a3a0:
+  a3a4  r2 = 6
+  a3ae  r0 = IVOFF(selectMenu)
+  a3b4  r1 = IVOFF(modechange_flag)
+  a3b6  r0 = IVOFF(selectMenu)
+  a3b8  self->selectMenu = 6
+  a3ba  r0 = IVOFF(modechange_flag)
+  a3bc  r1 = self->modechange_flag
+  a3be  cmp self->modechange_flag, 0
+  a3c0  bne L_a4ae
+  a3c6  r2 = 1
+  a3cc  self->modechange_flag = 1
+  a3ce  r1 = SEL(StopElseSpeak)
+  a3d2  r1 = SEL(StopElseSpeak)
+  a3d4  r0 = [r0 StopElseSpeak](1, ?)
+  a3d8  call sub_3ccc
+  a3e6  r0 = SEL(mode)
+  a3e8  r1 = SEL(mode)
+  a3ec  r0 = [r0 mode](?, ?)
+  a3fc  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a3fe  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a400  beq L_a492
+  a406  r0 = 0
+  a410  r2 = 332
+  a41a  r0 = [r0 playSound:Gain:Pos:z:reprats:](332, 0x3e4ccccd/f0.2)
+  a41e  b L_a4ae
+L_a420:
+  a424  r2 = 8
+  a42c  r1 = IVOFF(gamecenter_flag)
+  a42e  r0 = IVOFF(gamecenter_flag)
+  a430  r1 = self->gamecenter_flag
+  a432  cbnz self->gamecenter_flag -> L_a4ae
+  a438  r2 = 1
+  a43e  self->gamecenter_flag = 1
+  a440  r1 = SEL(StopElseSpeak)
+  a444  r1 = SEL(StopElseSpeak)
+  a446  r0 = [r0 StopElseSpeak](1, ?)
+  a45a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  a460  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  a462  r0 = 0
+  a46e  r0 = [r0 playSound:Gain:Pos:z:reprats:](367, 0x3e4ccccd/f0.2)
+  a472  b L_a4ae
+L_a474:
+  a478  r0 = 0
+  a48c  r0 = [r0 ??](331, 0x3e4ccccd/f0.2)
+  a490  b L_a52e
+L_a492:
+  a496  r0 = 0
+  a4aa  r0 = [r0 ??](331, 0x3e4ccccd/f0.2)
+L_a4ae:
+  a4ba  r0 = IVOFF(coin_flag)
+  a4c0  r2 = IVOFF(start_game_flag)
+  a4c2  r1 = IVOFF(coin_flag)
+  a4c4  r0 = 0
+  a4c6  self->coin_flag = 0
+  a4c8  r1 = IVOFF(start_game_flag)
+  a4d2  r2 = IVOFF(store_flag)
+  a4d4  self->start_game_flag = 0
+  a4d6  r1 = IVOFF(store_flag)
+  a4e0  r2 = IVOFF(modechange_flag)
+  a4e2  self->store_flag = 0
+  a4e4  r1 = IVOFF(modechange_flag)
+  a4ee  r2 = IVOFF(main_title_flag)
+  a4f0  self->modechange_flag = 0
+  a4f2  r1 = IVOFF(main_title_flag)
+  a4fc  r2 = IVOFF(ranking_flag)
+L_a4fe:
+  a4fe  self->main_title_flag = 0
+  a500  r1 = IVOFF(ranking_flag)
+  a50a  r2 = IVOFF(exit_flag)
+  a50c  self->ranking_flag = 0
+  a50e  r1 = IVOFF(exit_flag)
+  a518  r2 = IVOFF(gamecenter_flag)
+  a51a  self->exit_flag = 0
+  a51c  r1 = IVOFF(gamecenter_flag)
+  a526  r2 = IVOFF(tutorial_flag)
+  a528  self->gamecenter_flag = 0
+  a52a  r1 = IVOFF(tutorial_flag)
+  a52c  self->tutorial_flag = 0
+L_a52e:
+  a536  r0 = SEL(mode)
+  a538  r1 = SEL(mode)
+  a53c  r0 = [r0 mode](IVOFF(tutorial_flag), ?)
+  a544  beq L_a558
+  a54e  r0 = SEL(blindModeSelectedMenu)
+  a550  r1 = SEL(blindModeSelectedMenu)
+  a554  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_a558:
+  a558  add sp, #0x30
+  a55e  return
+
+//// -[MainController viewDidAppear:]  0xa560..0xa58c  v12@0:4c8
+  a564  sub sp, #8
+  a578  r1 = SEL(viewDidAppear:)
+  a57e  r1 = SEL(viewDidAppear:)
+  a584  r0 = [r0 viewDidAppear:](?, 0xdb0a0/f1.25722e-39) SUPER
+  a588  add sp, #8
+  a58a  return
+
+//// -[MainController viewDidUnload]  0xa58c..0xa7d8  v8@0:4
+  a58e  add r7, sp, #4
+  a590  sub sp, #8
+  a59c  r2 = 0
+  a59e  r0 = SEL(setStartGame:)
+  a5a0  r1 = SEL(setStartGame:)
+  a5a4  r0 = [r0 setStartGame:](0, ?)
+  a5ac  r2 = 0
+  a5b2  r0 = SEL(setStoreButton:)
+  a5b4  r1 = SEL(setStoreButton:)
+  a5b8  r0 = [r0 setStoreButton:](0, ?)
+  a5c0  r2 = 0
+  a5c6  r0 = SEL(setModeChangeButton:)
+  a5c8  r1 = SEL(setModeChangeButton:)
+  a5cc  r0 = [r0 setModeChangeButton:](0, ?)
+  a5d4  r2 = 0
+  a5da  r0 = SEL(setModeLabel:)
+  a5dc  r1 = SEL(setModeLabel:)
+  a5e0  r0 = [r0 setModeLabel:](0, ?)
+  a5e8  r2 = 0
+  a5ee  r0 = SEL(setExitButton:)
+  a5f0  r1 = SEL(setExitButton:)
+  a5f4  r0 = [r0 setExitButton:](0, ?)
+  a5fc  r2 = 0
+  a602  r0 = SEL(setRound1:)
+  a604  r1 = SEL(setRound1:)
+  a608  r0 = [r0 setRound1:](0, ?)
+  a610  r2 = 0
+  a616  r0 = SEL(setRound2:)
+  a618  r1 = SEL(setRound2:)
+  a61c  r0 = [r0 setRound2:](0, ?)
+  a624  r2 = 0
+  a62a  r0 = SEL(setRound3:)
+  a62c  r1 = SEL(setRound3:)
+  a630  r0 = [r0 setRound3:](0, ?)
+  a638  r2 = 0
+  a63e  r0 = SEL(setRound4:)
+  a640  r1 = SEL(setRound4:)
+  a644  r0 = [r0 setRound4:](0, ?)
+  a64c  r2 = 0
+  a652  r0 = SEL(setRound5:)
+  a654  r1 = SEL(setRound5:)
+  a658  r0 = [r0 setRound5:](0, ?)
+  a660  r2 = 0
+  a666  r0 = SEL(setRound6:)
+  a668  r1 = SEL(setRound6:)
+  a66c  r0 = [r0 setRound6:](0, ?)
+  a674  r2 = 0
+  a67a  r0 = SEL(setMaskView:)
+  a67c  r1 = SEL(setMaskView:)
+  a680  r0 = [r0 setMaskView:](0, ?)
+  a688  r2 = 0
+  a68e  r0 = SEL(setRankButton:)
+  a690  r1 = SEL(setRankButton:)
+  a694  r0 = [r0 setRankButton:](0, ?)
+  a69c  r2 = 0
+  a6a2  r0 = SEL(setCoinImageView1:)
+  a6a4  r1 = SEL(setCoinImageView1:)
+  a6a8  r0 = [r0 setCoinImageView1:](0, ?)
+  a6b0  r2 = 0
+  a6b6  r0 = SEL(setCoinImageView2:)
+  a6b8  r1 = SEL(setCoinImageView2:)
+  a6bc  r0 = [r0 setCoinImageView2:](0, ?)
+  a6c4  r2 = 0
+  a6ca  r0 = SEL(setCoinImageView3:)
+  a6cc  r1 = SEL(setCoinImageView3:)
+  a6d0  r0 = [r0 setCoinImageView3:](0, ?)
+  a6d8  r2 = 0
+  a6de  r0 = SEL(setCoinImageView4:)
+  a6e0  r1 = SEL(setCoinImageView4:)
+  a6e4  r0 = [r0 setCoinImageView4:](0, ?)
+  a6ec  r2 = 0
+  a6f2  r0 = SEL(setCoinImageView5:)
+  a6f4  r1 = SEL(setCoinImageView5:)
+  a6f8  r0 = [r0 setCoinImageView5:](0, ?)
+  a700  r2 = 0
+  a706  r0 = SEL(setManyCoinLabel:)
+  a708  r1 = SEL(setManyCoinLabel:)
+  a70c  r0 = [r0 setManyCoinLabel:](0, ?)
+  a714  r2 = 0
+  a71a  r0 = SEL(setCoinTimeLabel:)
+  a71c  r1 = SEL(setCoinTimeLabel:)
+  a720  r0 = [r0 setCoinTimeLabel:](0, ?)
+  a728  r2 = 0
+  a72e  r0 = SEL(setRound7:)
+  a730  r1 = SEL(setRound7:)
+  a734  r0 = [r0 setRound7:](0, ?)
+  a73c  r2 = 0
+  a742  r0 = SEL(setMaskView1:)
+  a744  r1 = SEL(setMaskView1:)
+  a748  r0 = [r0 setMaskView1:](0, ?)
+  a750  r2 = 0
+  a756  r0 = SEL(setMaskLabel1:)
+  a758  r1 = SEL(setMaskLabel1:)
+  a75c  r0 = [r0 setMaskLabel1:](0, ?)
+  a764  r2 = 0
+  a76a  r0 = SEL(setGameCenterButton:)
+  a76c  r1 = SEL(setGameCenterButton:)
+  a770  r0 = [r0 setGameCenterButton:](0, ?)
+  a778  r2 = 0
+  a77e  r0 = SEL(setRound8:)
+  a780  r1 = SEL(setRound8:)
+  a784  r0 = [r0 setRound8:](0, ?)
+  a78c  r2 = 0
+  a792  r0 = SEL(setTutorialButton:)
+  a794  r1 = SEL(setTutorialButton:)
+  a798  r0 = [r0 setTutorialButton:](0, ?)
+  a7a0  r2 = 0
+  a7a6  r0 = SEL(setRound9:)
+  a7a8  r1 = SEL(setRound9:)
+  a7ac  r0 = [r0 setRound9:](0, ?)
+  a7c2  r0 = SEL(viewDidUnload)
+  a7ca  r1 = SEL(viewDidUnload)
+  a7ce  r0 = [r0 viewDidUnload](?, ?) SUPER
+  a7d2  add sp, #8
+  a7d4  return
+
+//// -[MainController dealloc]  0xa7d8..0xaa30  v8@0:4
+  a7da  add r7, sp, #8
+  a7dc  sub sp, #8
+  a7ec  r0 = IVOFF(startGame)
+  a7f2  r1 = SEL(release)
+  a7f4  r0 = IVOFF(startGame)
+  a7f6  r5 = SEL(release)
+  a7f8  r0 = self->startGame
+  a7fc  r0 = [self->startGame release](?, ?)
+  a80a  r0 = IVOFF(storeButton)
+  a80c  r0 = IVOFF(storeButton)
+  a80e  r0 = self->storeButton
+  a810  r0 = [self->storeButton release](?, ?)
+  a81e  r0 = IVOFF(modeChangeButton)
+  a820  r0 = IVOFF(modeChangeButton)
+  a822  r0 = self->modeChangeButton
+  a824  r0 = [self->modeChangeButton release](?, ?)
+  a832  r0 = IVOFF(modeLabel)
+  a834  r0 = IVOFF(modeLabel)
+  a836  r0 = self->modeLabel
+  a838  r0 = [self->modeLabel release](?, ?)
+  a846  r0 = IVOFF(exitButton)
+  a848  r0 = IVOFF(exitButton)
+  a84a  r0 = self->exitButton
+  a84c  r0 = [self->exitButton release](?, ?)
+  a85a  r0 = IVOFF(round1)
+  a85c  r0 = IVOFF(round1)
+  a85e  r0 = self->round1
+  a860  r0 = [self->round1 release](?, ?)
+  a86e  r0 = IVOFF(round2)
+  a870  r0 = IVOFF(round2)
+  a872  r0 = self->round2
+  a874  r0 = [self->round2 release](?, ?)
+  a882  r0 = IVOFF(round3)
+  a884  r0 = IVOFF(round3)
+  a886  r0 = self->round3
+  a888  r0 = [self->round3 release](?, ?)
+  a896  r0 = IVOFF(round4)
+  a898  r0 = IVOFF(round4)
+  a89a  r0 = self->round4
+  a89c  r0 = [self->round4 release](?, ?)
+  a8aa  r0 = IVOFF(round5)
+  a8ac  r0 = IVOFF(round5)
+  a8ae  r0 = self->round5
+  a8b0  r0 = [self->round5 release](?, ?)
+  a8be  r0 = IVOFF(round6)
+  a8c0  r0 = IVOFF(round6)
+  a8c2  r0 = self->round6
+  a8c4  r0 = [self->round6 release](?, ?)
+  a8d2  r0 = IVOFF(_maskView)
+  a8d4  r0 = IVOFF(_maskView)
+  a8d6  r0 = self->_maskView
+  a8d8  r0 = [self->_maskView release](?, ?)
+  a8e6  r0 = IVOFF(_rankButton)
+  a8e8  r0 = IVOFF(_rankButton)
+  a8ea  r0 = self->_rankButton
+  a8ec  r0 = [self->_rankButton release](?, ?)
+  a8fa  r0 = IVOFF(_coinImageView1)
+  a8fc  r0 = IVOFF(_coinImageView1)
+  a8fe  r0 = self->_coinImageView1
+  a900  r0 = [self->_coinImageView1 release](?, ?)
+  a90e  r0 = IVOFF(_coinImageView2)
+  a910  r0 = IVOFF(_coinImageView2)
+  a912  r0 = self->_coinImageView2
+  a914  r0 = [self->_coinImageView2 release](?, ?)
+  a922  r0 = IVOFF(_coinImageView3)
+  a924  r0 = IVOFF(_coinImageView3)
+  a926  r0 = self->_coinImageView3
+  a928  r0 = [self->_coinImageView3 release](?, ?)
+  a936  r0 = IVOFF(_coinImageView4)
+  a938  r0 = IVOFF(_coinImageView4)
+  a93a  r0 = self->_coinImageView4
+  a93c  r0 = [self->_coinImageView4 release](?, ?)
+  a94a  r0 = IVOFF(_coinImageView5)
+  a94c  r0 = IVOFF(_coinImageView5)
+  a94e  r0 = self->_coinImageView5
+  a950  r0 = [self->_coinImageView5 release](?, ?)
+  a95e  r0 = IVOFF(_manyCoinLabel)
+  a960  r0 = IVOFF(_manyCoinLabel)
+  a962  r0 = self->_manyCoinLabel
+  a964  r0 = [self->_manyCoinLabel release](?, ?)
+  a972  r0 = IVOFF(_coinTimeLabel)
+  a974  r0 = IVOFF(_coinTimeLabel)
+  a976  r0 = self->_coinTimeLabel
+  a978  r0 = [self->_coinTimeLabel release](?, ?)
+  a986  r0 = IVOFF(_round7)
+  a988  r0 = IVOFF(_round7)
+  a98a  r0 = self->_round7
+  a98c  r0 = [self->_round7 release](?, ?)
+  a99a  r0 = IVOFF(_maskView1)
+  a99c  r0 = IVOFF(_maskView1)
+  a99e  r0 = self->_maskView1
+  a9a0  r0 = [self->_maskView1 release](?, ?)
+  a9ae  r0 = IVOFF(_maskLabel1)
+  a9b0  r0 = IVOFF(_maskLabel1)
+  a9b2  r0 = self->_maskLabel1
+  a9b4  r0 = [self->_maskLabel1 release](?, ?)
+  a9c2  r0 = IVOFF(_gameCenterButton)
+  a9c4  r0 = IVOFF(_gameCenterButton)
+  a9c6  r0 = self->_gameCenterButton
+  a9c8  r0 = [self->_gameCenterButton release](?, ?)
+  a9d6  r0 = IVOFF(_round8)
+  a9d8  r0 = IVOFF(_round8)
+  a9da  r0 = self->_round8
+  a9dc  r0 = [self->_round8 release](?, ?)
+  a9ea  r0 = IVOFF(_tutorialButton)
+  a9ec  r0 = IVOFF(_tutorialButton)
+  a9ee  r0 = self->_tutorialButton
+  a9f0  r0 = [self->_tutorialButton release](?, ?)
+  a9fe  r0 = IVOFF(_round9)
+  aa00  r0 = IVOFF(_round9)
+  aa02  r0 = self->_round9
+  aa04  r0 = [self->_round9 release](?, ?)
+  aa1a  r0 = SEL(dealloc)
+  aa22  r1 = SEL(dealloc)
+  aa26  r0 = [r0 dealloc](?, ?) SUPER
+  aa2a  add sp, #8
+  aa2c  return
+
+//// -[MainController shouldAutorotateToInterfaceOrientation:]  0xaa30..0xaa3c  c12@0:4i8
+  aa30  cmp r2, 1
+
+//// -[MainController useHeadPhone]  0xaa3c..0xab24  c8@0:4
+  aa3e  add r7, sp, #8
+  aa40  sub sp, #0x30
+  aa42  r0 = 4
+  aa44  r1 = 0
+  aa48  r0 = 0
+  aa4a  r2 = 0
+  aa4c  r3 = 0
+  aa4e  r4 = 0
+  aa50  call _AudioSessionInitialize
+  aa58  add r1, sp, #0x28
+  aa5a  add r2, sp, #0x2c
+  aa60  call _AudioSessionGetProperty
+  aa66  cmp r0, 0
+  aa68  beq L_ab1c
+  aa6a  call _CFStringGetLength
+  aa6e  r4 = 0
+  aa70  cmp r0, 0
+  aa72  beq L_ab1c
+  aa76  cmp r4, 0
+  aa78  beq L_ab04
+  aa88  r0 = SEL(rangeOfString:)
+  aa8e  r3 = CFSTR('Headphone')
+  aa90  r5 = SEL(rangeOfString:)
+  aa92  add r0, sp, #0x20
+  aa96  r0 = [r0 ??](SEL(rangeOfString:), CFSTR('Headphone'))
+  aa9e  add r0, sp, #0x18
+  aaa6  r3 = CFSTR('Headset')
+  aaaa  r0 = [r0 ??](SEL(rangeOfString:), CFSTR('Headset'))
+  aab2  add r0, sp, #0x10
+  aaba  r3 = CFSTR('Receiver')
+  aabe  r0 = [r0 ??](SEL(rangeOfString:), CFSTR('Receiver'))
+  aac6  add r0, sp, #8
+  aace  r3 = CFSTR('Speaker')
+  aad2  r0 = [r0 ??](SEL(rangeOfString:), CFSTR('Speaker'))
+  aae2  r3 = CFSTR('Lineout')
+  aae6  r0 = [r0 ??](SEL(rangeOfString:), CFSTR('Lineout'))
+  aaec  r1 = 2147483647
+  aaf0  r4 = 1
+  aaf2  cmp r0, 2147483647
+  aaf4  bne L_ab1c
+  aaf8  r0 = 0
+  aafa  cmp r2, 2147483647
+  ab00  add sp, #0x30
+  ab02  return
+L_ab04:
+  ab04  r0 = 0
+  ab06  r4 = 1
+L_ab1c:
+  ab1e  add sp, #0x30
+  ab20  return
+
+//// -[MainController soundYouMustUseEarPhone]  0xab24..0xac50  v8@0:4
+  ab26  add r7, sp, #0xc
+  ab2c  sub sp, #0x10
+  ab38  r0 = SEL(maskView)
+  ab3a  r5 = SEL(maskView)
+  ab40  r0 = [r0 maskView](?, ?)
+  ab54  r1 = SEL(setAlpha:)
+  ab56  r8 = SEL(setAlpha:)
+  ab5c  r0 = [r0 setAlpha:](0x3f333333/f0.7, ?)
+  ab64  r2 = 0
+  ab72  r0 = SEL(beginAnimations:context:)
+  ab74  fp = UIView
+  ab76  r3 = 0
+  ab78  r1 = SEL(beginAnimations:context:)
+  ab7a  sl = 0
+  ab7e  r0 = UIView
+  ab82  r0 = [UIView beginAnimations:context:](0, 0)
+  ab86  vmov.f64 d16, #3.000000e+00
+  ab92  r0 = SEL(setAnimationDuration:)
+  ab94  vmov r2, r3, d16
+  ab98  r1 = SEL(setAnimationDuration:)
+  ab9a  r0 = UIView
+  ab9e  r0 = [UIView setAnimationDuration:](?, ?)
+  aba6  r6 = UIView
+  abaa  r0 = [r0 maskView](?, ?)
+  abb8  r2 = 0
+  abba  r0 = SEL(setAnimationTransition:forView:cache:)
+  abbc  r1 = SEL(setAnimationTransition:forView:cache:)
+  abbe  r0 = 1
+  abc4  r0 = [UIView setAnimationTransition:forView:cache:](0, ?)
+  abd2  r0 = SEL(setAnimationDelegate:)
+  abd4  r1 = SEL(setAnimationDelegate:)
+  abd6  r0 = UIView
+  abda  r0 = [UIView setAnimationDelegate:](?, ?)
+  abe2  r0 = [r0 maskView](?, ?)
+  abe8  r2 = 0
+  abea  r0 = [r0 setAlpha:](0, ?)
+  abf6  r0 = SEL(commitAnimations)
+  abf8  r1 = SEL(commitAnimations)
+  abfa  r0 = UIView
+  abfe  r0 = [UIView commitAnimations](?, ?)
+  ac02  call sub_3ccc
+  ac10  r0 = SEL(StopElseSpeak)
+  ac12  r1 = SEL(StopElseSpeak)
+  ac16  r0 = [r0 StopElseSpeak](?, ?)
+  ac2a  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  ac2c  r2 = 234
+  ac32  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  ac42  r0 = [r0 playSound:Gain:Pos:z:reprats:](234, 0x3e4ccccd/f0.2)
+  ac46  add sp, #0x10
+  ac4c  return
+
+//// -[MainController StartGame:]  0xac50..0xad5c  v12@0:4@8
+  ac52  add r7, sp, #8
+  ac54  sub sp, #0x10
+  ac60  r0 = SEL(useHeadPhone)
+  ac62  r1 = SEL(useHeadPhone)
+  ac66  r0 = [r0 useHeadPhone](?, ?)
+  ac6e  beq L_ace6
+  ac70  r0 = 0
+  ac72  r5 = 0
+  ac74  call _UIAccessibilityIsVoiceOverRunning
+  ac7c  beq L_acfe
+  ac8e  r0 = SEL(alloc)
+  ac90  r2 = UIAlertView
+  ac92  r1 = SEL(alloc)
+  ac94  r0 = UIAlertView
+  ac96  r0 = [UIAlertView alloc](UIAlertView, ?)
+  aca6  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  acb0  r3 = CFSTR('Please turn off Voice Over function for normal game progress. If you set up Triple-click Home(1. Go into Settings and then General. \n 2.Scroll down to Accessibility. \n 3. Scroll all the way to the bottom again and select Triple-Click Home \n 4. From here you can set it to toggle a VoiceOver.), You can easily turn on and off.')
+  acb6  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  acb8  r2 = CFSTR('ok')
+  acbe  r2 = 0
+  acc2  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Please turn off Voice Over function for normal game progress. If you set up Triple-click Home(1. Go into Settings and then General. \n 2.Scroll down to Accessibility. \n 3. Scroll all the way to the bottom again and select Triple-Click Home \n 4. From here you can set it to toggle a VoiceOver.), You can easily turn on and off.'))
+  acd0  r0 = SEL(show)
+  acd2  r1 = SEL(show)
+  acd6  r0 = [r0 show](?, ?)
+  ace2  r0 = SEL(release)
+  ace4  b L_acf0
+L_ace6:
+  acee  r0 = SEL(soundYouMustUseEarPhone)
+L_acf0:
+  acf0  r1 = SEL(soundYouMustUseEarPhone)
+  acf4  add sp, #0x10
+  acfa  b L_a90d0
+L_acfe:
+  ad06  r0 = SEL(StopElseSpeak)
+  ad08  r1 = SEL(StopElseSpeak)
+  ad0c  r0 = [r0 StopElseSpeak](?, ?)
+  ad10  call sub_3ccc
+  ad24  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  ad26  r2 = 10
+  ad2a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  ad32  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  ad46  r0 = SEL(performSelector:)
+  ad48  r2 = SEL(StartGameAction:)
+  ad4a  r1 = SEL(performSelector:)
+  ad4e  r2 = SEL(StartGameAction:)
+  ad50  add sp, #0x10
+  ad56  b L_a90d0
+
+//// -[MainController TutorialAction:]  0xad5c..0xaef4  v12@0:4@8
+  ad5e  add r7, sp, #0xc
+  ad64  sub sp, #0x30
+  ad70  r0 = SEL(StopElseSpeak)
+  ad72  r1 = SEL(StopElseSpeak)
+  ad76  r0 = [r0 StopElseSpeak](?, ?)
+  ad7a  call sub_3ccc
+  ad8a  r2 = 0
+  ad8c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  ad96  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  ad9c  r2 = 10
+  ad9e  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  adaa  r0 = CFSTR('Stage_Tutorial')
+  adac  call _NSClassFromString
+  adb8  r1 = SEL(alloc)
+  adba  r1 = SEL(alloc)
+  adbc  r0 = [r0 alloc](?, ?)
+  add2  r0 = SEL(mainScreen)
+  add4  r4 = UIScreen
+  add6  r6 = SEL(mainScreen)
+  add8  r0 = UIScreen
+  addc  r0 = [UIScreen mainScreen](?, ?)
+  ade2  cmp r1, 0
+  ade4  beq L_ae1e
+  adee  r0 = SEL(bounds)
+  adf0  r2 = SEL(bounds)
+  adf2  add r0, sp, #0x20
+  adf4  r0 = [r0 ??](SEL(bounds), ?)
+  adf8  s0 = 320
+  adfc  vldr s2, [sp, #0x28]
+  ae00  vcmpe.f32 s2, s0
+  ae04  vmrs apsr_nzcv, fpscr
+  ae08  bne L_ae28
+  ae0a  vldr s0, [sp, #0x2c]
+  ae0e  s2 = 568
+  ae12  vcmpe.f32 s0, s2
+  ae16  vmrs apsr_nzcv, fpscr
+  ae1a  beq L_ae6c
+  ae1c  b L_ae28
+L_ae1e:
+  ae1e  vmov.i32 q8, #0
+  ae22  add r0, sp, #0x20
+  ae24  vst1.32 {d16, d17}, [r0]
+L_ae28:
+  ae28  r0 = UIScreen
+  ae2c  r0 = [UIScreen mainScreen](?, ?)
+  ae32  cmp r1, 0
+  ae34  beq L_ae82
+  ae3e  r0 = SEL(bounds)
+  ae40  r2 = SEL(bounds)
+  ae42  add r0, sp, #0x10
+  ae44  r0 = [r0 ??](SEL(bounds), ?)
+  ae48  s0 = 568
+  ae4c  vldr s2, [sp, #0x18]
+  ae50  vcmpe.f32 s2, s0
+  ae54  vmrs apsr_nzcv, fpscr
+  ae58  bne L_ae8c
+  ae5a  vldr s0, [sp, #0x1c]
+  ae5e  s2 = 320
+  ae62  vcmpe.f32 s0, s2
+  ae66  vmrs apsr_nzcv, fpscr
+  ae6a  bne L_ae8c
+L_ae6c:
+  ae7c  r0 = SEL(initWithNibName:bundle:)
+  ae7e  r2 = CFSTR('Stage_Tutorial~568h')
+  ae80  b L_aea0
+L_ae82:
+  ae82  vmov.i32 q8, #0
+  ae86  add r0, sp, #0x10
+  ae88  vst1.32 {d16, d17}, [r0]
+L_ae8c:
+  ae9c  r0 = SEL(initWithNibName:bundle:)
+  ae9e  r2 = CFSTR('Stage_Tutorial')
+L_aea0:
+  aea0  r1 = SEL(initWithNibName:bundle:)
+  aea4  r3 = 0
+  aea6  r0 = [r0 initWithNibName:bundle:](CFSTR('Stage_Tutorial'), 0)
+  aeb4  r0 = SEL(navigationController)
+  aeb6  r1 = SEL(navigationController)
+  aeba  r0 = [r0 navigationController](?, ?)
+  aec8  r3 = 0
+  aeca  r1 = SEL(pushViewController:animated:)
+  aecc  r1 = SEL(pushViewController:animated:)
+  aece  r0 = [r0 pushViewController:animated:](?, 0)
+  aeda  r0 = SEL(release)
+  aedc  r1 = SEL(release)
+  aee0  r0 = [r0 release](?, ?)
+  aee4  add sp, #0x30
+  aeea  return
+  aef2  add r6, r1
+
+//// -[MainController RankingAction:]  0xaef4..0xb2ec  v12@0:4@8
+  aef6  add r7, sp, #0xc
+  aefc  sub sp, #0x50
+  af00  r0 = 0
+  af02  r5 = 0
+  af04  call _UIAccessibilityIsVoiceOverRunning
+  af0c  bne L_af98
+  af1e  r0 = SEL(standardUserDefaults)
+  af20  r2 = NSUserDefaults
+  af22  r1 = SEL(standardUserDefaults)
+  af24  r0 = NSUserDefaults
+  af26  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  af36  r1 = SEL(objectForKey:)
+  af3c  r2 = CFSTR('DEFAULTEYEMODE')
+  af3e  r1 = SEL(objectForKey:)
+  af40  r0 = [r0 objectForKey:](CFSTR('DEFAULTEYEMODE'), ?)
+  af4c  r1 = SEL(integerValue)
+  af4e  r1 = SEL(integerValue)
+  af50  r0 = [r0 integerValue](?, ?)
+  af58  beq L_af98
+  af62  r0 = SEL(StopElseSpeak)
+  af64  r1 = SEL(StopElseSpeak)
+  af68  r0 = [r0 StopElseSpeak](?, ?)
+  af6c  call sub_3ccc
+  af7c  r2 = 0
+  af7e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  af88  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  af8e  r2 = 364
+  af92  r0 = [r0 playSound:Gain:Pos:z:reprats:](364, 0x3e4ccccd/f0.2)
+  af96  b L_b2da
+L_af98:
+  afa8  r0 = SEL(standardUserDefaults)
+  afaa  r2 = NSUserDefaults
+  afac  r1 = SEL(standardUserDefaults)
+  afae  r0 = NSUserDefaults
+  afb0  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  afc0  r1 = SEL(objectForKey:)
+  afc6  r2 = CFSTR('RANKING')
+  afc8  r1 = SEL(objectForKey:)
+  afca  r0 = [r0 objectForKey:](CFSTR('RANKING'), ?)
+  afd6  r1 = SEL(intValue)
+  afd8  r1 = SEL(intValue)
+  afda  r0 = [r0 intValue](?, ?)
+  afe8  r0 = SEL(StopElseSpeak)
+  afea  r1 = SEL(StopElseSpeak)
+  afee  r0 = [r0 StopElseSpeak](?, ?)
+  aff2  call sub_3ccc
+  b006  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b008  r2 = 10
+  b00c  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b014  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  b018  cmp r4, 0
+  b01a  beq L_b098
+  b024  r0 = CFSTR('RankingViewController')
+  b026  call _NSClassFromString
+  b032  r1 = SEL(alloc)
+  b034  r1 = SEL(alloc)
+  b036  r0 = [r0 alloc](?, ?)
+  b04c  r0 = SEL(mainScreen)
+  b04e  r4 = UIScreen
+  b050  r6 = SEL(mainScreen)
+  b052  r0 = UIScreen
+  b056  r0 = [UIScreen mainScreen](?, ?)
+  b05c  cmp r1, 0
+  b05e  beq L_b11c
+  b068  r0 = SEL(bounds)
+  b06a  r2 = SEL(bounds)
+  b06c  add r0, sp, #0x40
+  b06e  r0 = [r0 ??](SEL(bounds), ?)
+  b072  s0 = 320
+  b076  vldr s2, [sp, #0x48]
+  b07a  vcmpe.f32 s2, s0
+  b07e  vmrs apsr_nzcv, fpscr
+  b082  bne L_b126
+  b084  vldr s0, [sp, #0x4c]
+  b088  s2 = 568
+  b08c  vcmpe.f32 s0, s2
+  b090  vmrs apsr_nzcv, fpscr
+  b094  beq L_b16a
+  b096  b L_b126
+L_b098:
+  b0a0  r0 = CFSTR('FriendJoinViewController')
+  b0a2  call _NSClassFromString
+  b0ae  r1 = SEL(alloc)
+  b0b0  sl = SEL(alloc)
+  b0b6  r0 = [r0 alloc](?, ?)
+  b0cc  r0 = SEL(mainScreen)
+  b0ce  r5 = UIScreen
+  b0d0  r4 = SEL(mainScreen)
+  b0d2  r0 = UIScreen
+  b0d6  r0 = [UIScreen mainScreen](?, ?)
+  b0dc  cmp r1, 0
+  b0de  beq L_b1e0
+  b0ea  r0 = SEL(bounds)
+  b0ec  r2 = SEL(bounds)
+  b0ee  add r0, sp, #0x20
+  b0f0  r0 = [r0 ??](SEL(bounds), ?)
+  b0f4  s0 = 320
+  b0f8  vldr s2, [sp, #0x28]
+  b0fc  vcmpe.f32 s2, s0
+  b100  vmrs apsr_nzcv, fpscr
+  b104  bne L_b1ea
+  b106  vldr s0, [sp, #0x2c]
+  b10a  s2 = 568
+  b10e  vcmpe.f32 s0, s2
+  b112  vmrs apsr_nzcv, fpscr
+  b116  beq L_b22e
+  b11a  b L_b1ea
+L_b11c:
+  b11c  vmov.i32 q8, #0
+  b120  add r0, sp, #0x40
+  b122  vst1.32 {d16, d17}, [r0]
+L_b126:
+  b126  r0 = 'mainScreen'
+  b12a  r0 = ['mainScreen' ??](?, ?)
+  b130  cmp r1, 0
+  b132  beq L_b180
+  b13c  r0 = SEL(bounds)
+  b13e  r2 = SEL(bounds)
+  b140  add r0, sp, #0x30
+  b142  r0 = [r0 ??](SEL(bounds), ?)
+  b146  s0 = 568
+  b14a  vldr s2, [sp, #0x38]
+  b14e  vcmpe.f32 s2, s0
+  b152  vmrs apsr_nzcv, fpscr
+  b156  bne L_b18a
+  b158  vldr s0, [sp, #0x3c]
+  b15c  s2 = 320
+  b160  vcmpe.f32 s0, s2
+  b164  vmrs apsr_nzcv, fpscr
+  b168  bne L_b18a
+L_b16a:
+  b17a  r0 = SEL(initWithNibName:bundle:)
+  b17c  r2 = CFSTR('RankingViewController~568h')
+  b17e  b L_b19e
+L_b180:
+  b180  vmov.i32 q8, #0
+  b184  add r0, sp, #0x30
+  b186  vst1.32 {d16, d17}, [r0]
+L_b18a:
+  b19a  r0 = SEL(initWithNibName:bundle:)
+  b19c  r2 = CFSTR('RankingViewController')
+L_b19e:
+  b19e  r1 = SEL(initWithNibName:bundle:)
+  b1a2  r3 = 0
+  b1a4  r0 = [UIScreen initWithNibName:bundle:](CFSTR('RankingViewController'), 0)
+  b1b2  r0 = SEL(navigationController)
+  b1b4  r1 = SEL(navigationController)
+  b1b8  r0 = [r0 navigationController](?, ?)
+  b1c6  r3 = 0
+  b1c8  r1 = SEL(pushViewController:animated:)
+  b1ca  r1 = SEL(pushViewController:animated:)
+  b1cc  r0 = [r0 pushViewController:animated:](?, 0)
+  b1d8  r0 = SEL(release)
+  b1da  r1 = SEL(release)
+  b1de  b L_b2d6
+L_b1e0:
+  b1e0  vmov.i32 q8, #0
+  b1e4  add r0, sp, #0x20
+  b1e6  vst1.32 {d16, d17}, [r0]
+L_b1ea:
+  b1ea  r0 = UIScreen
+  b1ee  r0 = [UIScreen ??](?, ?)
+  b1f4  cmp r1, 0
+  b1f6  beq L_b244
+  b200  r0 = SEL(bounds)
+  b202  r2 = SEL(bounds)
+  b204  add r0, sp, #0x10
+  b206  r0 = [r0 ??](SEL(bounds), ?)
+  b20a  s0 = 568
+  b20e  vldr s2, [sp, #0x18]
+  b212  vcmpe.f32 s2, s0
+  b216  vmrs apsr_nzcv, fpscr
+  b21a  bne L_b24e
+  b21c  vldr s0, [sp, #0x1c]
+  b220  s2 = 320
+  b224  vcmpe.f32 s0, s2
+  b228  vmrs apsr_nzcv, fpscr
+  b22c  bne L_b24e
+L_b22e:
+  b23e  r0 = SEL(initWithNibName:bundle:)
+  b240  r2 = CFSTR('FriendJoinViewController~568h')
+  b242  b L_b262
+L_b244:
+  b244  vmov.i32 q8, #0
+  b248  add r0, sp, #0x10
+  b24a  vst1.32 {d16, d17}, [r0]
+L_b24e:
+  b25e  r0 = SEL(initWithNibName:bundle:)
+  b260  r2 = CFSTR('FriendJoinViewController')
+L_b262:
+  b262  r1 = SEL(initWithNibName:bundle:)
+  b266  r3 = 0
+  b268  r0 = [r0 initWithNibName:bundle:](CFSTR('FriendJoinViewController'), 0)
+  b278  r0 = UINavigationController
+  b27a  r0 = UINavigationController
+  b27c  r0 = [UINavigationController alloc](?, ?)
+  b28a  r1 = SEL(initWithRootViewController:)
+  b28c  r1 = SEL(initWithRootViewController:)
+  b28e  r0 = [r0 initWithRootViewController:](?, ?)
+  b29c  r2 = 1
+  b29e  r0 = SEL(setNavigationBarHidden:)
+  b2a0  r1 = SEL(setNavigationBarHidden:)
+  b2a4  r0 = [r0 setNavigationBarHidden:](1, ?)
+  b2b2  r3 = 1
+  b2b4  r0 = SEL(presentModalViewController:animated:)
+  b2b6  r1 = SEL(presentModalViewController:animated:)
+  b2ba  r0 = [r0 presentModalViewController:animated:](?, 1)
+  b2c6  r0 = SEL(release)
+  b2c8  r5 = SEL(release)
+  b2ce  r0 = [r0 release](?, ?)
+L_b2d6:
+  b2d6  r0 = [r0 release](?, ?)
+L_b2da:
+  b2da  add sp, #0x50
+  b2e0  return
+  b2ea  add r6, r1
+
+//// -[MainController StartGameAction:]  0xb2ec..0xb67c  v12@0:4@8
+  b2ee  add r7, sp, #0xc
+  b2f4  sub sp, #0x30
+  b300  r0 = SEL(StopElseSpeak)
+  b302  r1 = SEL(StopElseSpeak)
+  b306  r0 = [r0 StopElseSpeak](?, ?)
+  b30a  call sub_3ccc
+  b318  r0 = SEL(Coin)
+  b31a  r6 = SEL(Coin)
+  b320  r0 = [r0 Coin](?, ?)
+  b324  cmp r0, 1
+  b326  blt L_b472
+  b32e  r0 = [r0 Coin](?, ?)
+  b336  subs r2, r0, #1
+  b33e  r1 = SEL(setCoin:)
+  b340  r1 = SEL(setCoin:)
+  b342  r0 = [r0 setCoin:](?, ?)
+  b356  r0 = SEL(standardUserDefaults)
+  b358  r1 = NSUserDefaults
+  b35a  fp = SEL(standardUserDefaults)
+  b35e  r0 = NSUserDefaults
+  b362  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  b372  r0 = NSString
+  b376  r4 = NSString
+  b37a  r0 = [r0 Coin](?, ?)
+  b38c  r0 = SEL(stringWithFormat:)
+  b392  r2 = CFSTR('%d')
+  b394  r1 = SEL(stringWithFormat:)
+  b398  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  b3aa  r0 = SEL(setObject:forKey:)
+  b3b0  r3 = CFSTR('COIN')
+  b3b2  r1 = SEL(setObject:forKey:)
+  b3b6  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  b3c4  r0 = NSUserDefaults
+  b3c6  r0 = NSUserDefaults
+  b3c8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  b3d4  r1 = SEL(synchronize)
+  b3d6  r1 = SEL(synchronize)
+  b3d8  r0 = [r0 synchronize](?, ?)
+  b3e6  r0 = SEL(coinTiemrControlStart)
+  b3e8  r1 = SEL(coinTiemrControlStart)
+  b3ec  r0 = [r0 coinTiemrControlStart](?, ?)
+  b3f8  r0 = CFSTR('Stage_1_E')
+  b3fa  call _NSClassFromString
+  b406  r1 = SEL(alloc)
+  b408  r1 = SEL(alloc)
+  b40a  r0 = [r0 alloc](?, ?)
+  b420  r0 = SEL(mainScreen)
+  b422  r4 = UIScreen
+  b424  r6 = SEL(mainScreen)
+  b426  r0 = UIScreen
+  b42a  r0 = [UIScreen mainScreen](?, ?)
+  b430  cmp r1, 0
+  b432  beq L_b5a6
+  b43e  r0 = SEL(bounds)
+  b440  r2 = SEL(bounds)
+  b442  add r0, sp, #0x20
+  b444  r0 = [r0 ??](SEL(bounds), ?)
+  b448  s0 = 320
+  b44c  vldr s2, [sp, #0x28]
+  b450  vcmpe.f32 s2, s0
+  b454  vmrs apsr_nzcv, fpscr
+  b458  bne L_b5b0
+  b45c  vldr s0, [sp, #0x2c]
+  b460  s2 = 568
+  b464  vcmpe.f32 s0, s2
+  b468  vmrs apsr_nzcv, fpscr
+  b46c  beq L_b5f4
+  b470  b L_b5b0
+L_b472:
+  b47a  r0 = SEL(maskLabel1)
+  b47c  r1 = SEL(maskLabel1)
+  b480  r0 = [UIScreen maskLabel1](?, ?)
+  b490  r1 = SEL(setText:)
+  b496  r2 = CFSTR('No coin. You can buy coin at the store or share with friends at the ranking page.')
+  b498  r1 = SEL(setText:)
+  b49a  r0 = [r0 setText:](CFSTR('No coin. You can buy coin at the store or share with friends at the ranking page.'), ?)
+  b4a6  r0 = SEL(maskView1)
+  b4a8  fp = SEL(maskView1)
+  b4b0  r0 = [UIScreen maskView1](?, ?)
+  b4c4  r1 = SEL(setAlpha:)
+  b4c6  r8 = SEL(setAlpha:)
+  b4cc  r0 = [r0 setAlpha:](0x3f333333/f0.7, ?)
+  b4d4  r2 = 0
+  b4e2  r0 = SEL(beginAnimations:context:)
+  b4e4  r5 = UIView
+  b4e6  r3 = 0
+  b4e8  r1 = SEL(beginAnimations:context:)
+  b4ea  sl = 0
+  b4ee  r0 = UIView
+  b4f0  r0 = [UIView beginAnimations:context:](0, 0)
+  b4f4  vmov.f64 d16, #7.000000e+00
+  b500  r0 = SEL(setAnimationDuration:)
+  b502  vmov r2, r3, d16
+  b506  r1 = SEL(setAnimationDuration:)
+  b508  r0 = UIView
+  b50a  r0 = [UIView setAnimationDuration:](?, ?)
+  b518  r4 = UIView
+  b51a  r0 = SEL(maskView)
+  b51c  r1 = SEL(maskView)
+  b520  r0 = [UIScreen maskView](?, ?)
+  b52e  r2 = 0
+  b530  r0 = SEL(setAnimationTransition:forView:cache:)
+  b532  r1 = SEL(setAnimationTransition:forView:cache:)
+  b534  r0 = 1
+  b53a  r0 = [UIView setAnimationTransition:forView:cache:](0, ?)
+  b548  r0 = SEL(setAnimationDelegate:)
+  b54a  r1 = SEL(setAnimationDelegate:)
+  b54c  r0 = UIView
+  b54e  r0 = [UIView setAnimationDelegate:](UIScreen, ?)
+  b556  r0 = [UIScreen maskView1](?, ?)
+  b55c  r2 = 0
+  b55e  r0 = [r0 setAlpha:](0, ?)
+  b56a  r0 = SEL(commitAnimations)
+  b56c  r1 = SEL(commitAnimations)
+  b56e  r0 = UIView
+  b570  r0 = [UIView commitAnimations](?, ?)
+  b574  call sub_3ccc
+  b588  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b58a  r2 = 358
+  b592  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b5a0  r0 = [r0 playSound:Gain:Pos:z:reprats:](358, 0x3e4ccccd/f0.2)
+  b5a4  b L_b66c
+L_b5a6:
+  b5a6  vmov.i32 q8, #0
+  b5aa  add r0, sp, #0x20
+  b5ac  vst1.32 {d16, d17}, [r0]
+L_b5b0:
+  b5b4  r0 = [r0 ??](?, ?)
+  b5ba  cmp r1, 0
+  b5bc  beq L_b60a
+  b5c6  r0 = SEL(bounds)
+  b5c8  r2 = SEL(bounds)
+  b5ca  add r0, sp, #0x10
+  b5cc  r0 = [r0 ??](SEL(bounds), ?)
+  b5d0  s0 = 568
+  b5d4  vldr s2, [sp, #0x18]
+  b5d8  vcmpe.f32 s2, s0
+  b5dc  vmrs apsr_nzcv, fpscr
+  b5e0  bne L_b614
+  b5e2  vldr s0, [sp, #0x1c]
+  b5e6  s2 = 320
+  b5ea  vcmpe.f32 s0, s2
+  b5ee  vmrs apsr_nzcv, fpscr
+  b5f2  bne L_b614
+L_b5f4:
+  b604  r0 = SEL(initWithNibName:bundle:)
+  b606  r2 = CFSTR('Stage_1_E~568h')
+  b608  b L_b628
+L_b60a:
+  b60a  vmov.i32 q8, #0
+  b60e  add r0, sp, #0x10
+  b610  vst1.32 {d16, d17}, [r0]
+L_b614:
+  b624  r0 = SEL(initWithNibName:bundle:)
+  b626  r2 = CFSTR('Stage_1_E')
+L_b628:
+  b628  r1 = SEL(initWithNibName:bundle:)
+  b62c  r3 = 0
+  b62e  r0 = [UIView initWithNibName:bundle:](CFSTR('Stage_1_E'), 0)
+  b63c  r0 = SEL(navigationController)
+  b63e  r1 = SEL(navigationController)
+  b642  r0 = [SEL(setAlpha:) navigationController](?, ?)
+  b650  r3 = 0
+  b652  r1 = SEL(pushViewController:animated:)
+  b654  r1 = SEL(pushViewController:animated:)
+  b656  r0 = [r0 pushViewController:animated:](?, 0)
+  b662  r0 = SEL(release)
+  b664  r1 = SEL(release)
+  b668  r0 = [r0 release](?, ?)
+L_b66c:
+  b66c  add sp, #0x30
+  b672  return
+  b67a  add r6, r1
+
+//// -[MainController Store:]  0xb67c..0xb6d0  v12@0:4@8
+  b67e  add r7, sp, #4
+  b680  sub sp, #0x10
+  b684  call sub_3ccc
+  b694  r2 = 0
+  b696  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b6a0  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b6a6  r2 = 10
+  b6a8  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  b6bc  r0 = SEL(performSelector:)
+  b6be  r2 = SEL(StoreAction:)
+  b6c0  r1 = SEL(performSelector:)
+  b6c4  r2 = SEL(StoreAction:)
+  b6c6  add sp, #0x10
+  b6cc  b L_a90d0
+
+//// -[MainController StoreAction:]  0xb6d0..0xb830  v12@0:4@8
+  b6d2  add r7, sp, #0xc
+  b6d8  sub sp, #0x20
+  b6e4  r0 = CFSTR('mainStoreController')
+  b6e6  call _NSClassFromString
+  b6f2  r1 = SEL(alloc)
+  b6f4  r1 = SEL(alloc)
+  b6f6  r0 = [r0 alloc](?, ?)
+  b70c  r0 = SEL(mainScreen)
+  b70e  r4 = UIScreen
+  b710  r6 = SEL(mainScreen)
+  b712  r0 = UIScreen
+  b716  r0 = [UIScreen mainScreen](?, ?)
+  b71c  cmp r1, 0
+  b71e  beq L_b758
+  b728  r0 = SEL(bounds)
+  b72a  r2 = SEL(bounds)
+  b72c  add r0, sp, #0x10
+  b72e  r0 = [r0 ??](SEL(bounds), ?)
+  b732  s0 = 320
+  b736  vldr s2, [sp, #0x18]
+  b73a  vcmpe.f32 s2, s0
+  b73e  vmrs apsr_nzcv, fpscr
+  b742  bne L_b762
+  b744  vldr s0, [sp, #0x1c]
+  b748  s2 = 568
+  b74c  vcmpe.f32 s0, s2
+  b750  vmrs apsr_nzcv, fpscr
+  b754  beq L_b7a6
+  b756  b L_b762
+L_b758:
+  b758  vmov.i32 q8, #0
+  b75c  add r0, sp, #0x10
+  b75e  vst1.32 {d16, d17}, [r0]
+L_b762:
+  b762  r0 = UIScreen
+  b766  r0 = [UIScreen mainScreen](?, ?)
+  b76c  cmp r1, 0
+  b76e  beq L_b7bc
+  b778  r0 = SEL(bounds)
+  b77a  r2 = SEL(bounds)
+  b77e  r0 = [r0 ??](SEL(bounds), ?)
+  b782  s0 = 568
+  b786  vldr s2, [sp, #8]
+  b78a  vcmpe.f32 s2, s0
+  b78e  vmrs apsr_nzcv, fpscr
+  b792  bne L_b7c6
+  b794  vldr s0, [sp, #0xc]
+  b798  s2 = 320
+  b79c  vcmpe.f32 s0, s2
+  b7a0  vmrs apsr_nzcv, fpscr
+  b7a4  bne L_b7c6
+L_b7a6:
+  b7b6  r0 = SEL(initWithNibName:bundle:)
+  b7b8  r2 = CFSTR('mainStoreController~568h')
+  b7ba  b L_b7da
+L_b7bc:
+  b7bc  vmov.i32 q8, #0
+  b7c2  vst1.32 {d16, d17}, [r0]
+L_b7c6:
+  b7d6  r0 = SEL(initWithNibName:bundle:)
+  b7d8  r2 = CFSTR('mainStoreController')
+L_b7da:
+  b7da  r1 = SEL(initWithNibName:bundle:)
+  b7de  r3 = 0
+  b7e0  r0 = [r0 initWithNibName:bundle:](CFSTR('mainStoreController'), 0)
+  b7ee  r0 = SEL(navigationController)
+  b7f0  r1 = SEL(navigationController)
+  b7f4  r0 = [r0 navigationController](?, ?)
+  b802  r3 = 0
+  b804  r1 = SEL(pushViewController:animated:)
+  b806  r1 = SEL(pushViewController:animated:)
+  b808  r0 = [r0 pushViewController:animated:](?, 0)
+  b814  r0 = SEL(release)
+  b816  r1 = SEL(release)
+  b81a  r0 = [r0 release](?, ?)
+  b81e  add sp, #0x20
+  b824  return
+  b82e  add r6, r1
+
+//// -[MainController ModeChageAction:]  0xb830..0xbcf0  v12@0:4@8
+  b832  add r7, sp, #0xc
+  b838  sub sp, #0x14
+  b83c  call sub_3ccc
+  b852  r0 = SEL(standardUserDefaults)
+  b854  r8 = NSUserDefaults
+  b856  r6 = SEL(standardUserDefaults)
+  b858  r0 = NSUserDefaults
+  b85e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  b86e  r1 = SEL(objectForKey:)
+  b874  r2 = CFSTR('DEFAULTEYEMODE')
+  b876  r1 = SEL(objectForKey:)
+  b878  r0 = [r0 objectForKey:](CFSTR('DEFAULTEYEMODE'), ?)
+  b884  r1 = SEL(intValue)
+  b886  r1 = SEL(intValue)
+  b888  r0 = [r0 intValue](?, ?)
+  b88c  cmp r0, 0
+  b88e  beq L_b898
+  b890  add sp, #0x14
+  b896  return
+L_b898:
+  b8a0  r0 = SEL(mode)
+  b8a2  r1 = SEL(mode)
+  b8a6  r0 = [r0 mode](?, ?)
+  b8b6  r1 = SEL(setMode:)
+  b8b8  r1 = SEL(setMode:)
+  b8ba  beq L_ba9a
+  b8c0  r2 = 0
+  b8c2  r4 = 0
+  b8c4  r0 = [r0 setMode:](0, ?)
+  b8d0  r0 = SEL(modeLabel)
+  b8d2  r1 = SEL(modeLabel)
+  b8d6  r0 = [r0 modeLabel](?, ?)
+  b8e6  r1 = SEL(setText:)
+  b8ec  r2 = CFSTR('Voice Over : Off')
+  b8ee  r1 = SEL(setText:)
+  b8f0  r0 = [r0 setText:](CFSTR('Voice Over : Off'), ?)
+  b8f4  r0 = NSUserDefaults
+  b8fa  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  b90a  r1 = SEL(setObject:forKey:)
+  b914  r2 = CFSTR('0')
+  b91a  r1 = SEL(setObject:forKey:)
+  b91c  r3 = CFSTR('EYEMODE')
+  b91e  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('EYEMODE'))
+  b922  r0 = NSUserDefaults
+  b928  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  b934  r1 = SEL(synchronize)
+  b936  r1 = SEL(synchronize)
+  b938  r0 = [r0 synchronize](?, ?)
+  b948  r0 = IVOFF(selectMenu)
+  b94e  r1 = SEL(blindModeSelectedMenu)
+  b950  r0 = IVOFF(selectMenu)
+  b952  r1 = SEL(blindModeSelectedMenu)
+  b954  self->selectMenu = 0
+  b95a  r0 = [r0 blindModeSelectedMenu](?, ?)
+  b966  r0 = SEL(StopElseSpeak)
+  b968  r1 = SEL(StopElseSpeak)
+  b96c  r0 = [r0 StopElseSpeak](?, ?)
+  b980  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  b982  r2 = 22
+  b986  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  b990  r0 = [r0 playSound:Gain:Pos:z:reprats:](22, 0x3e4ccccd/f0.2)
+  b9a4  r0 = SEL(currentDevice)
+  b9a6  r2 = UIDevice
+  b9a8  r1 = SEL(currentDevice)
+  b9aa  r0 = UIDevice
+  b9ac  r0 = [UIDevice currentDevice](UIDevice, ?)
+  b9b8  r1 = SEL(systemVersion)
+  b9ba  r1 = SEL(systemVersion)
+  b9bc  r0 = [r0 systemVersion](?, ?)
+  b9c8  r1 = SEL(floatValue)
+  b9ca  r1 = SEL(floatValue)
+  b9cc  r0 = [r0 floatValue](?, ?)
+  b9d0  vmov.f32 d0, #5.000000e+00
+  b9d4  vmov d1, r0, r0
+  b9d8  vcmpe.f32 s2, s0
+  b9dc  vmrs apsr_nzcv, fpscr
+  b9e0  blt L_bca2
+  b9ec  r0 = SEL(view)
+  b9ee  r5 = SEL(view)
+  b9f4  r0 = [r0 view](?, ?)
+  ba00  r1 = SEL(gestureRecognizers)
+  ba02  r6 = SEL(gestureRecognizers)
+  ba06  r0 = [r0 gestureRecognizers](?, ?)
+  ba12  r1 = SEL(count)
+  ba14  r1 = SEL(count)
+  ba16  r0 = [r0 count](?, ?)
+  ba1a  cmp r0, 0
+  ba1c  beq L_bca2
+  ba24  r0 = [r0 view](?, ?)
+  ba2a  r0 = [r0 gestureRecognizers](?, ?)
+  ba32  r2 = 0
+  ba38  r1 = SEL(objectAtIndex:)
+  ba3a  r4 = SEL(objectAtIndex:)
+  ba3e  r0 = [r0 objectAtIndex:](0, ?)
+  ba4c  r2 = 0
+  ba4e  r0 = SEL(setEnabled:)
+  ba50  r1 = SEL(setEnabled:)
+  ba54  r0 = [r0 setEnabled:](0, ?)
+  ba5c  r0 = [r0 view](?, ?)
+  ba62  r0 = [r0 gestureRecognizers](?, ?)
+  ba68  r2 = 1
+  ba6a  r0 = [r0 objectAtIndex:](1, ?)
+  ba74  r0 = [r0 view](?, ?)
+  ba82  r1 = SEL(removeGestureRecognizer:)
+  ba84  r6 = SEL(removeGestureRecognizer:)
+  ba88  r0 = [r0 removeGestureRecognizer:](?, ?)
+  ba90  r0 = [r0 view](?, ?)
+  ba98  b L_bc9e
+L_ba9a:
+  ba9c  r2 = 1
+  ba9e  r4 = 1
+  baa0  r0 = [SEL(view) removeGestureRecognizer:](1, ?)
+  baac  r0 = SEL(modeLabel)
+  baae  r1 = SEL(modeLabel)
+  bab2  r0 = [r0 modeLabel](?, ?)
+  bac2  r1 = SEL(setText:)
+  bac8  r2 = CFSTR('Voice Over : On')
+  baca  r1 = SEL(setText:)
+  bacc  r0 = [r0 setText:](CFSTR('Voice Over : On'), ?)
+  bad6  r0 = [r0 removeGestureRecognizer:](?, ?)
+  bae6  r1 = SEL(setObject:forKey:)
+  baf0  r2 = CFSTR('1')
+  baf6  r1 = SEL(setObject:forKey:)
+  baf8  r3 = CFSTR('EYEMODE')
+  bafa  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('EYEMODE'))
+  bb04  r0 = [r0 removeGestureRecognizer:](?, ?)
+  bb10  r1 = SEL(synchronize)
+  bb12  r1 = SEL(synchronize)
+  bb14  r0 = [r0 synchronize](?, ?)
+  bb24  r0 = IVOFF(selectMenu)
+  bb2a  r1 = SEL(blindModeSelectedMenu)
+  bb2c  r0 = IVOFF(selectMenu)
+  bb2e  r1 = SEL(blindModeSelectedMenu)
+  bb30  self->selectMenu = 1
+  bb36  r0 = [r0 blindModeSelectedMenu](?, ?)
+  bb42  r0 = SEL(StopElseSpeak)
+  bb44  r1 = SEL(StopElseSpeak)
+  bb48  r0 = [r0 StopElseSpeak](?, ?)
+  bb5c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  bb5e  r2 = 21
+  bb60  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  bb62  r0 = 0
+  bb6e  r0 = [SEL(view) playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  bb82  r0 = SEL(currentDevice)
+  bb84  r2 = UIDevice
+  bb86  r1 = SEL(currentDevice)
+  bb88  r0 = UIDevice
+  bb8a  r0 = [UIDevice currentDevice](UIDevice, ?)
+  bb96  r1 = SEL(systemVersion)
+  bb98  r1 = SEL(systemVersion)
+  bb9a  r0 = [r0 systemVersion](?, ?)
+  bba6  r1 = SEL(floatValue)
+  bba8  r1 = SEL(floatValue)
+  bbaa  r0 = [r0 floatValue](?, ?)
+  bbae  vmov.f32 d0, #5.000000e+00
+  bbb2  vmov d1, r0, r0
+  bbb6  vcmpe.f32 s2, s0
+  bbba  vmrs apsr_nzcv, fpscr
+  bbbe  blt L_bca2
+  bbd0  r0 = SEL(alloc)
+  bbd2  r2 = UIPanGestureRecognizer
+  bbd4  r1 = SEL(alloc)
+  bbd6  r0 = UIPanGestureRecognizer
+  bbda  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  bbee  r1 = SEL(initWithTarget:action:)
+  bbf0  r2 = SEL(Menu:)
+  bbf2  sl = SEL(initWithTarget:action:)
+  bbf6  r3 = SEL(Menu:)
+  bbfc  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  bc08  r1 = SEL(autorelease)
+  bc0a  r5 = SEL(autorelease)
+  bc0e  r0 = [r0 autorelease](?, ?)
+  bc1c  r2 = 1
+  bc1e  r0 = SEL(setEnabled:)
+  bc20  r1 = SEL(setEnabled:)
+  bc24  r0 = [r0 setEnabled:](1, ?)
+  bc32  r0 = SEL(setDelegate:)
+  bc34  r1 = SEL(setDelegate:)
+  bc38  r0 = [r0 setDelegate:](?, ?)
+  bc44  r0 = SEL(view)
+  bc46  r6 = SEL(view)
+  bc4c  r0 = [r0 view](?, ?)
+  bc5a  r1 = SEL(addGestureRecognizer:)
+  bc5c  r4 = SEL(addGestureRecognizer:)
+  bc60  r0 = [r0 addGestureRecognizer:](?, ?)
+  bc6e  r0 = UITapGestureRecognizer
+  bc70  r0 = UITapGestureRecognizer
+  bc72  r0 = [UITapGestureRecognizer ??](?, ?)
+  bc80  r1 = SEL(tapSelect:)
+  bc82  r3 = SEL(tapSelect:)
+  bc86  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  bc8c  r0 = [r0 autorelease](?, ?)
+  bc96  r0 = [r0 view](?, ?)
+L_bc9e:
+  bc9e  r0 = [r0 addGestureRecognizer:](?, ?)
+L_bca2:
+  bcaa  r0 = SEL(view)
+  bcac  r1 = SEL(view)
+  bcb0  r0 = [r0 view](?, ?)
+  bcbc  r1 = SEL(gestureRecognizers)
+  bcbe  r1 = SEL(gestureRecognizers)
+  bcc0  r0 = [r0 gestureRecognizers](?, ?)
+  bccc  r1 = SEL(count)
+  bcce  r1 = SEL(count)
+  bcd0  r0 = [r0 count](?, ?)
+  bcdc  r0 = SEL(buttonSelectImage)
+  bcde  r1 = SEL(buttonSelectImage)
+  bce2  add sp, #0x14
+  bcec  b L_a90d0
+
+//// -[MainController Exit:]  0xbcf0..0xbcfc  v12@0:4@8
+  bcf2  r0 = 1
+  bcf6  call _exit
+
+//// -[MainController coinTimerControlStartBackGroundRestart]  0xbcfc..0xbe00  v8@0:4
+  bcfe  add r7, sp, #0xc
+  bd04  sub sp, #0x10
+  bd10  r0 = IVOFF(coinTimer)
+  bd12  r6 = IVOFF(coinTimer)
+  bd14  r0 = self->coinTimer
+  bd16  cmp self->coinTimer, 0
+  bd18  bne L_bdf8
+  bd1e  r8 = 0
+  bd26  r0 = SEL(isValid)
+  bd28  r1 = SEL(isValid)
+  bd2a  r0 = 0
+  bd2c  r0 = [r0 isValid](?, ?)
+  bd34  bne L_bdf8
+  bd36  vmov.f64 d16, #1.000000e+00
+  bd4e  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  bd50  r5 = NSTimer
+  bd52  vmov r2, r3, d16
+  bd5a  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  bd5c  sb = SEL(coinUpTimer)
+  bd5e  r0 = NSTimer
+  bd60  r5 = SEL(coinUpTimer)
+  bd64  sb = 1
+  bd6c  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  bd78  self->coinTimer = r0
+  bd7a  r1 = SEL(coinTimeLabel)
+  bd7e  r1 = SEL(coinTimeLabel)
+  bd80  r0 = [r0 coinTimeLabel](?, ?)
+  bd88  r2 = 0
+  bd8e  r1 = SEL(setHidden:)
+  bd90  r1 = SEL(setHidden:)
+  bd92  r0 = [r0 setHidden:](0, ?)
+  bd9a  r0 = [r0 coinUpTimer](?, ?)
+  bdae  r0 = SEL(standardUserDefaults)
+  bdb0  r5 = NSUserDefaults
+  bdb2  r4 = SEL(standardUserDefaults)
+  bdb4  r0 = NSUserDefaults
+  bdb8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  bdc8  r1 = SEL(setObject:forKey:)
+  bdd2  r2 = CFSTR('1')
+  bdd8  r1 = SEL(setObject:forKey:)
+  bdda  r3 = CFSTR('COIN_TIMER_START')
+  bddc  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('COIN_TIMER_START'))
+  bde0  r0 = NSUserDefaults
+  bde4  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  bdf0  r1 = SEL(synchronize)
+  bdf2  r1 = SEL(synchronize)
+  bdf4  r0 = [r0 synchronize](?, ?)
+L_bdf8:
+  bdf8  add sp, #0x10
+  bdfe  return
+
+//// -[MainController coinTiemrControlStart]  0xbe00..0xc068  v8@0:4
+  be02  add r7, sp, #0xc
+  be08  sub sp, #0x10
+  be0c  call sub_3ccc
+  be1a  r0 = SEL(Coin)
+  be1c  r6 = SEL(Coin)
+  be22  r0 = [r0 Coin](?, ?)
+  be26  cmp r0, 4
+  be28  bgt L_bfee
+  be34  r0 = IVOFF(coinTimer)
+  be36  r5 = IVOFF(coinTimer)
+  be38  r0 = self->coinTimer
+  be3a  cmp self->coinTimer, 0
+  be3c  bne L_c042
+  be44  r8 = 0
+  be4c  r0 = SEL(isValid)
+  be4e  r1 = SEL(isValid)
+  be50  r0 = 0
+  be52  r0 = [r0 isValid](?, ?)
+  be5a  bne L_c042
+  be5e  vmov.f64 d16, #1.000000e+00
+  be76  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  be78  r6 = NSTimer
+  be7a  vmov r2, r3, d16
+  be82  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  be84  sb = SEL(coinUpTimer)
+  be86  r0 = NSTimer
+  be88  r6 = SEL(coinUpTimer)
+  be8c  sb = 1
+  be94  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  bea0  self->coinTimer = r0
+  bea2  r1 = SEL(coinTimeLabel)
+  bea6  r5 = SEL(coinTimeLabel)
+  beaa  r0 = [r0 coinTimeLabel](?, ?)
+  beb2  r2 = 0
+  beb8  r1 = SEL(setHidden:)
+  beba  r1 = SEL(setHidden:)
+  bebc  r0 = [r0 setHidden:](0, ?)
+  bec4  r0 = [r0 coinTimeLabel](?, ?)
+  bed4  r1 = SEL(setText:)
+  beda  r2 = CFSTR('10:00')
+  bedc  r1 = SEL(setText:)
+  bede  r0 = [r0 setText:](CFSTR('10:00'), ?)
+  bef2  r0 = SEL(date)
+  bef4  r2 = NSDate
+  bef6  r1 = SEL(date)
+  bef8  r0 = NSDate
+  befa  r0 = [NSDate date](NSDate, ?)
+  bf10  r0 = SEL(alloc)
+  bf12  r2 = NSDateFormatter
+  bf14  r1 = SEL(alloc)
+  bf16  r0 = NSDateFormatter
+  bf18  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  bf24  r1 = SEL(init)
+  bf26  r1 = SEL(init)
+  bf28  r0 = [r0 init](?, ?)
+  bf34  r1 = SEL(autorelease)
+  bf36  r1 = SEL(autorelease)
+  bf38  r0 = [r0 autorelease](?, ?)
+  bf4a  r0 = SEL(setDateFormat:)
+  bf50  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  bf52  r1 = SEL(setDateFormat:)
+  bf56  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  bf64  r0 = SEL(stringFromDate:)
+  bf66  r1 = SEL(stringFromDate:)
+  bf6a  r0 = [r0 stringFromDate:](?, ?)
+  bf80  r0 = SEL(standardUserDefaults)
+  bf82  r8 = NSUserDefaults
+  bf84  r4 = SEL(standardUserDefaults)
+  bf86  r0 = NSUserDefaults
+  bf8c  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  bf9c  r1 = SEL(setObject:forKey:)
+  bfa6  r2 = CFSTR('1')
+  bfa8  r6 = SEL(setObject:forKey:)
+  bfae  r3 = CFSTR('COIN_TIMER_START')
+  bfb2  r0 = [r0 setObject:forKey:](CFSTR('1'), CFSTR('COIN_TIMER_START'))
+  bfb6  r0 = NSUserDefaults
+  bfbc  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  bfcc  r3 = CFSTR('COIN_TIMER')
+  bfce  r0 = [r0 setObject:forKey:](?, CFSTR('COIN_TIMER'))
+  bfd2  r0 = NSUserDefaults
+  bfd8  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  bfe4  r1 = SEL(synchronize)
+  bfe6  r1 = SEL(synchronize)
+  bfe8  r0 = [r0 synchronize](?, ?)
+  bfec  b L_c042
+L_bfee:
+  bff2  r0 = [r0 setObject:forKey:](?, ?)
+  bff6  cmp r0, 5
+  bff8  blt L_c04a
+  c002  r0 = IVOFF(coinTimer)
+  c004  r5 = IVOFF(coinTimer)
+  c006  r0 = self->coinTimer
+  c008  cbz self->coinTimer -> L_c042
+  c012  r1 = SEL(isValid)
+  c014  r1 = SEL(isValid)
+  c016  r0 = [self->coinTimer isValid](?, ?)
+  c01e  beq L_c042
+  c028  r0 = SEL(invalidate)
+  c02a  r1 = SEL(invalidate)
+  c02c  r0 = self->coinTimer
+  c02e  r0 = [self->coinTimer invalidate](?, ?)
+  c036  r1 = 0
+  c03c  self->coinTimer = 0
+  c03e  r0 = SEL(coinViewController)
+  c040  b L_c054
+L_c042:
+  c042  add sp, #0x10
+  c048  return
+L_c04a:
+  c052  r0 = SEL(coinViewController)
+L_c054:
+  c054  r1 = SEL(coinViewController)
+  c058  add sp, #0x10
+  c062  b L_a90d0
+
+//// -[MainController coinTiemrControlEnd]  0xc068..0xc0b0  v8@0:4
+  c074  add r7, sp, #8
+  c076  r0 = IVOFF(coinTimer)
+  c078  r5 = IVOFF(coinTimer)
+  c07a  r0 = self->coinTimer
+  c07c  cbz self->coinTimer -> L_c0ac
+  c086  r1 = SEL(isValid)
+  c088  r1 = SEL(isValid)
+  c08a  r0 = [self->coinTimer isValid](?, ?)
+  c09e  r0 = SEL(invalidate)
+  c0a0  r1 = SEL(invalidate)
+  c0a2  r0 = self->coinTimer
+  c0a4  r0 = [self->coinTimer invalidate](?, ?)
+  c0a8  r0 = 0
+  c0aa  self->coinTimer = 0
+L_c0ac:
+  c0ac  return
+
+//// -[MainController coinUpTimer]  0xc0b0..0xc41c  v8@0:4
+  c0b2  add r7, sp, #0xc
+  c0b8  sub sp, #0x18
+  c0cc  r0 = SEL(standardUserDefaults)
+  c0ce  r2 = NSUserDefaults
+  c0d0  r1 = SEL(standardUserDefaults)
+  c0d2  r0 = NSUserDefaults
+  c0d6  r0 = [NSUserDefaults ??](NSUserDefaults, ?)
+  c0e6  r1 = SEL(objectForKey:)
+  c0ec  r2 = CFSTR('COIN_TIMER')
+  c0ee  r1 = SEL(objectForKey:)
+  c0f0  r0 = [r0 objectForKey:](CFSTR('COIN_TIMER'), ?)
+  c106  r0 = SEL(alloc)
+  c108  r2 = NSDateFormatter
+  c10a  r1 = SEL(alloc)
+  c10c  r0 = NSDateFormatter
+  c10e  r0 = [NSDateFormatter alloc](NSDateFormatter, ?)
+  c11a  r1 = SEL(init)
+  c11c  r1 = SEL(init)
+  c11e  r0 = [r0 init](?, ?)
+  c12a  r1 = SEL(autorelease)
+  c12c  r1 = SEL(autorelease)
+  c12e  r0 = [r0 autorelease](?, ?)
+  c140  r0 = SEL(setDateFormat:)
+  c146  r2 = CFSTR('yyyy-MM-dd HH:mm:ss')
+  c148  r1 = SEL(setDateFormat:)
+  c14c  r0 = [r0 setDateFormat:](CFSTR('yyyy-MM-dd HH:mm:ss'), ?)
+  c15a  r0 = SEL(dateFromString:)
+  c15c  r6 = SEL(dateFromString:)
+  c162  r0 = [r0 dateFromString:](?, ?)
+  c178  r0 = SEL(date)
+  c17a  r2 = NSDate
+  c17c  r1 = SEL(date)
+  c17e  r0 = NSDate
+  c180  r0 = [NSDate date](NSDate, ?)
+  c18e  r0 = SEL(stringFromDate:)
+  c190  r1 = SEL(stringFromDate:)
+  c194  r0 = [r0 stringFromDate:](?, ?)
+  c19e  r0 = [r0 dateFromString:](?, ?)
+  c1b4  r0 = SEL(currentCalendar)
+  c1b6  r2 = NSCalendar
+  c1b8  r1 = SEL(currentCalendar)
+  c1ba  r0 = NSCalendar
+  c1bc  r0 = [NSCalendar currentCalendar](NSCalendar, ?)
+  c1c4  r5 = 0
+  c1ca  r2 = 128
+  c1cc  r1 = SEL(components:fromDate:toDate:options:)
+  c1d2  r1 = SEL(components:fromDate:toDate:options:)
+  c1d6  r0 = [r0 components:fromDate:toDate:options:](128, ?)
+  c1e2  r1 = SEL(second)
+  c1e4  r1 = SEL(second)
+  c1e6  r0 = [r0 second](?, ?)
+  c1ee  rsb.w r2, r0, #0x708
+  c1fe  asrs r1, r0, #0xb
+  c200  add.w r0, r1, r0, lsr #31
+  c204  r1 = 3600
+  c21c  r1 = IVOFF(min)
+  c22a  r2 = IVOFF(sec)
+  c22c  r4 = IVOFF(min)
+  c232  r2 = IVOFF(sec)
+  c238  r1 = SEL(stringWithFormat:)
+  c23a  asrs r6, r3, #5
+  c23c  add.w r3, r6, r3, lsr #31
+  c240  self->min = r3
+  c248  rsb r3, r3, r3, lsl #4
+  c250  r6 = SEL(stringWithFormat:)
+  c252  sub.w r0, r0, r3, lsl #2
+  c256  self->sec = r0
+  c25a  sl = NSString
+  c25c  r3 = self->sec
+  c260  r0 = NSString
+  c264  cmp self->sec, 9
+  c266  bgt L_c274
+  c270  r2 = CFSTR('0%d')
+  c272  b L_c27e
+L_c274:
+  c27c  r2 = CFSTR('%d')
+L_c27e:
+  c280  r0 = [NSString stringWithFormat:](CFSTR('%d'), self->sec)
+  c284  r3 = self->min
+  c288  r0 = NSString
+  c28e  cmp self->min, 9
+  c290  bgt L_c29e
+  c29a  r2 = CFSTR('0%d')
+  c29c  b L_c2a8
+L_c29e:
+  c2a6  r2 = CFSTR('%d')
+L_c2a8:
+  c2aa  r0 = [NSString stringWithFormat:](CFSTR('%d'), self->min)
+  c2b8  r0 = SEL(coinTimeLabel)
+  c2ba  r1 = SEL(coinTimeLabel)
+  c2be  r0 = [r0 coinTimeLabel](?, ?)
+  c2c8  r0 = NSString
+  c2d8  r2 = CFSTR('%@:%@')
+  c2de  r0 = [NSString stringWithFormat:](CFSTR('%@:%@'), ?)
+  c2ec  r0 = SEL(setText:)
+  c2ee  r1 = SEL(setText:)
+  c2f2  r0 = [r0 setText:](?, ?)
+  c2f8  cmp r0, 0
+  c2fa  ble L_c304
+  c2fc  add sp, #0x18
+  c302  return
+L_c304:
+  c304  call sub_3ccc
+  c314  r0 = SEL(Coin)
+  c316  r1 = SEL(Coin)
+  c31e  r0 = [r0 ??](?, ?)
+  c326  adds r2, r0, #1
+  c32e  r1 = SEL(setCoin:)
+  c330  r1 = SEL(setCoin:)
+  c332  r0 = [r0 setCoin:](?, ?)
+  c342  fp = NSUserDefaults
+  c344  r0 = NSUserDefaults
+  c34a  r0 = [NSUserDefaults ??](?, ?)
+  c354  r8 = NSString
+  c358  r0 = [r0 ??](?, ?)
+  c368  r2 = CFSTR('%d')
+  c36c  r0 = [NSString ??](CFSTR('%d'), ?)
+  c37e  r0 = SEL(setObject:forKey:)
+  c384  r3 = CFSTR('COIN')
+  c386  r6 = SEL(setObject:forKey:)
+  c38c  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  c390  r0 = NSUserDefaults
+  c396  r0 = [NSUserDefaults ??](?, ?)
+  c3ac  r2 = CFSTR('0')
+  c3ae  r3 = CFSTR('COIN_TIMER_START')
+  c3b0  r0 = [r0 setObject:forKey:](CFSTR('0'), CFSTR('COIN_TIMER_START'))
+  c3b4  r0 = NSUserDefaults
+  c3ba  r0 = [NSUserDefaults ??](?, ?)
+  c3c6  r1 = SEL(synchronize)
+  c3c8  r1 = SEL(synchronize)
+  c3ca  r0 = [r0 synchronize](?, ?)
+  c3d8  r0 = SEL(coinTiemrControlEnd)
+  c3da  r1 = SEL(coinTiemrControlEnd)
+  c3de  r0 = [r0 coinTiemrControlEnd](?, ?)
+  c3e6  r0 = [r0 ??](?, ?)
+  c3ea  cmp r0, 4
+  c3ec  bgt L_c400
+  c3f6  r0 = SEL(coinTiemrControlStart)
+  c3f8  r1 = SEL(coinTiemrControlStart)
+  c3fc  r0 = [r0 coinTiemrControlStart](?, ?)
+L_c400:
+  c408  r0 = SEL(coinViewController)
+  c40a  r1 = SEL(coinViewController)
+  c40e  add sp, #0x18
+  c418  b L_a90d0
+
+//// -[MainController coinViewController]  0xc41c..0xc734  v8@0:4
+  c41e  add r7, sp, #0xc
+  c424  sub sp, #0x18
+  c428  call sub_3ccc
+  c43a  r0 = SEL(coinImageView1)
+  c43c  r6 = SEL(coinImageView1)
+  c442  r0 = [r0 coinImageView1](?, ?)
+  c44a  r2 = 1
+  c450  r1 = SEL(setHidden:)
+  c452  r4 = SEL(setHidden:)
+  c456  r0 = [r0 setHidden:](1, ?)
+  c462  r0 = SEL(coinImageView2)
+  c464  r1 = SEL(coinImageView2)
+  c46a  r0 = [r0 ??](?, ?)
+  c470  r2 = 1
+  c472  r0 = [r0 setHidden:](1, ?)
+  c47e  r0 = SEL(coinImageView3)
+  c480  r1 = SEL(coinImageView3)
+  c486  r0 = [r0 ??](?, ?)
+  c48c  r2 = 1
+  c48e  r0 = [r0 setHidden:](1, ?)
+  c49a  r0 = SEL(coinImageView4)
+  c49c  r1 = SEL(coinImageView4)
+  c4a2  r0 = [r0 ??](?, ?)
+  c4a8  r2 = 1
+  c4aa  r0 = [r0 setHidden:](1, ?)
+  c4b6  r0 = SEL(coinImageView5)
+  c4b8  r1 = SEL(coinImageView5)
+  c4be  r0 = [r0 ??](?, ?)
+  c4c4  r2 = 1
+  c4c6  r0 = [r0 setHidden:](1, ?)
+  c4d2  r0 = SEL(coinTimeLabel)
+  c4d4  r8 = SEL(coinTimeLabel)
+  c4dc  r0 = [r0 coinTimeLabel](?, ?)
+  c4e2  r2 = 1
+  c4e4  r0 = [r0 setHidden:](1, ?)
+  c4f0  r0 = SEL(manyCoinLabel)
+  c4f2  r1 = SEL(manyCoinLabel)
+  c4f8  r0 = [r0 ??](?, ?)
+  c4fe  r2 = 1
+  c500  r0 = [r0 setHidden:](1, ?)
+  c50c  r0 = SEL(Coin)
+  c50e  fp = SEL(Coin)
+  c516  r0 = [r0 Coin](?, ?)
+  c51a  cmp r0, 5
+  c51c  blt L_c5ee
+  c522  r0 = [r0 coinTimeLabel](?, ?)
+  c528  r2 = 1
+  c52a  r0 = [r0 setHidden:](1, ?)
+  c532  r0 = [r0 coinImageView1](?, ?)
+  c538  r2 = 0
+  c53a  r0 = [r0 setHidden:](0, ?)
+  c542  r0 = [r0 ??](?, ?)
+  c548  r2 = 0
+  c54a  r0 = [r0 setHidden:](0, ?)
+  c552  r0 = [r0 ??](?, ?)
+  c558  r2 = 0
+  c55a  r0 = [r0 setHidden:](0, ?)
+  c562  r0 = [r0 ??](?, ?)
+  c568  r2 = 0
+  c56a  r0 = [r0 setHidden:](0, ?)
+  c572  r0 = [r0 ??](?, ?)
+  c578  r2 = 0
+  c57a  r0 = [r0 setHidden:](0, ?)
+  c582  r0 = [r0 Coin](?, ?)
+  c586  subs r0, #5
+  c588  cmp r0, 1
+  c58a  blt L_c684
+  c594  r0 = [r0 ??](?, ?)
+  c59a  r2 = 0
+  c59c  r0 = [r0 setHidden:](0, ?)
+  c5a4  r0 = [r0 ??](?, ?)
+  c5b4  r0 = NSString
+  c5b6  r5 = NSString
+  c5ba  r0 = [r0 Coin](?, ?)
+  c5c2  subs r3, r0, #5
+  c5cc  r1 = SEL(stringWithFormat:)
+  c5d2  r2 = CFSTR('+%d')
+  c5d6  r1 = SEL(stringWithFormat:)
+  c5d8  r0 = [NSString stringWithFormat:](CFSTR('+%d'), ?)
+  c5e6  r0 = SEL(setText:)
+  c5e8  r1 = SEL(setText:)
+  c5ec  b L_c726
+L_c5ee:
+  c5f8  r0 = [r0 Coin](?, ?)
+  c5fc  cmp r0, 4
+  c5fe  bne L_c63e
+  c604  r0 = [NSString ??](?, ?)
+  c60a  r2 = 0
+  c60c  r0 = [r0 ??](0, ?)
+  c614  r0 = [NSString ??](?, ?)
+  c61a  r2 = 0
+  c61c  r0 = [r0 ??](0, ?)
+  c624  r0 = [NSString ??](?, ?)
+  c62a  r2 = 0
+  c62c  r0 = [r0 ??](0, ?)
+  c634  r0 = [NSString ??](?, ?)
+  c63a  r2 = 0
+  c63c  b L_c706
+L_c63e:
+  c642  r0 = [r0 Coin](0, ?)
+  c64a  cmp r0, 3
+  c64c  bne L_c68c
+  c652  r0 = [NSString ??](?, ?)
+  c658  r2 = 0
+  c65a  r0 = [r0 ??](0, ?)
+  c662  r0 = [NSString ??](?, ?)
+  c668  r2 = 0
+  c66a  r0 = [r0 ??](0, ?)
+  c672  r0 = [NSString ??](?, ?)
+  c678  r2 = 0
+  c67a  r0 = [r0 ??](0, ?)
+  c682  b L_c6fe
+L_c684:
+  c684  add sp, #0x18
+  c68a  return
+L_c68c:
+  c690  r0 = [r0 Coin](?, ?)
+  c698  cmp r0, 2
+  c69a  bne L_c6ba
+  c6a0  r0 = [NSString ??](?, ?)
+  c6a6  r2 = 0
+  c6a8  r0 = [r0 ??](0, ?)
+  c6b0  r0 = [NSString ??](?, ?)
+  c6b6  r2 = 0
+  c6b8  b L_c6e6
+L_c6ba:
+  c6be  r0 = [r0 Coin](0, ?)
+  c6c8  r0 = [NSString ??](?, ?)
+  c6cc  cmp r6, 1
+  c6d6  r0 = [r0 ??](?, ?)
+  c6de  r0 = [NSString ??](?, ?)
+  c6e4  r2 = 1
+L_c6e6:
+  c6e6  r0 = [r0 ??](1, ?)
+  c6ee  r0 = [NSString ??](?, ?)
+  c6f4  r2 = 1
+  c6f6  r0 = [r0 ??](1, ?)
+L_c6fe:
+  c6fe  r0 = [NSString ??](?, ?)
+  c704  r2 = 1
+L_c706:
+  c706  r0 = [r0 ??](1, ?)
+  c70e  r0 = [NSString ??](?, ?)
+  c714  r2 = 1
+  c716  r0 = [r0 ??](1, ?)
+  c71e  r0 = [NSString ??](?, ?)
+  c724  r2 = 0
+L_c726:
+  c726  add sp, #0x18
+  c730  b L_a90d0
+
+//// -[MainController checkVoiceOverApple]  0xc734..0xcad0  v8@0:4
+  c736  add r7, sp, #0xc
+  c73c  sub sp, #0x14
+  c740  call sub_3ccc
+  c74e  r0 = SEL(mode)
+  c750  r1 = SEL(mode)
+  c754  r0 = [r0 mode](?, ?)
+  c764  r1 = IVOFF(selectMenu)
+  c766  r1 = IVOFF(selectMenu)
+  c768  beq L_c8f0
+  c770  r2 = 1
+  c776  self->selectMenu = 1
+  c77a  r0 = SEL(blindModeSelectedMenu)
+  c77c  r1 = SEL(blindModeSelectedMenu)
+  c780  r0 = [r0 blindModeSelectedMenu](1, ?)
+  c78c  r0 = SEL(StopElseSpeak)
+  c78e  r1 = SEL(StopElseSpeak)
+  c792  r0 = [r0 StopElseSpeak](?, ?)
+  c7a6  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  c7a8  r2 = 21
+  c7aa  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  c7ac  r0 = 0
+  c7b8  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  c7cc  r0 = SEL(currentDevice)
+  c7ce  r2 = UIDevice
+  c7d0  r1 = SEL(currentDevice)
+  c7d2  r0 = UIDevice
+  c7d4  r0 = [UIDevice currentDevice](UIDevice, ?)
+  c7e0  r1 = SEL(systemVersion)
+  c7e2  r1 = SEL(systemVersion)
+  c7e4  r0 = [r0 systemVersion](?, ?)
+  c7f0  r1 = SEL(floatValue)
+  c7f2  r1 = SEL(floatValue)
+  c7f4  r0 = [r0 floatValue](?, ?)
+  c7f8  vmov.f32 d0, #5.000000e+00
+  c7fc  vmov d1, r0, r0
+  c800  vcmpe.f32 s2, s0
+  c804  vmrs apsr_nzcv, fpscr
+  c808  blt L_ca80
+  c81c  r0 = SEL(alloc)
+  c81e  r2 = UIPanGestureRecognizer
+  c820  r1 = SEL(alloc)
+  c822  r0 = UIPanGestureRecognizer
+  c826  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  c83a  r1 = SEL(initWithTarget:action:)
+  c83c  r2 = SEL(Menu:)
+  c83e  fp = SEL(initWithTarget:action:)
+  c842  r3 = SEL(Menu:)
+  c848  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  c854  r1 = SEL(autorelease)
+  c856  r5 = SEL(autorelease)
+  c85a  r0 = [r0 autorelease](?, ?)
+  c868  r2 = 1
+  c86a  r0 = SEL(setEnabled:)
+  c86c  r1 = SEL(setEnabled:)
+  c870  r0 = [r0 setEnabled:](1, ?)
+  c87e  r0 = SEL(setDelegate:)
+  c880  r1 = SEL(setDelegate:)
+  c884  r0 = [r0 setDelegate:](?, ?)
+  c890  r0 = SEL(view)
+  c892  r4 = SEL(view)
+  c898  r0 = [r0 view](?, ?)
+  c8a6  r1 = SEL(addGestureRecognizer:)
+  c8a8  r6 = SEL(addGestureRecognizer:)
+  c8ac  r0 = [r0 addGestureRecognizer:](?, ?)
+  c8ba  r0 = UITapGestureRecognizer
+  c8bc  r0 = UITapGestureRecognizer
+  c8be  r0 = [UITapGestureRecognizer ??](?, ?)
+  c8cc  r1 = SEL(tapSelect:)
+  c8ce  r3 = SEL(tapSelect:)
+  c8d2  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  c8d8  r0 = [r0 autorelease](?, ?)
+  c8e2  r0 = [r0 view](?, ?)
+L_c8ea:
+  c8ea  r0 = [r0 addGestureRecognizer:](?, ?)
+  c8ee  b L_ca80
+L_c8f0:
+  c8f4  r2 = 0
+  c8fe  r0 = SEL(blindModeSelectedMenu)
+  c900  r1 = SEL(blindModeSelectedMenu)
+  c904  r0 = [r0 blindModeSelectedMenu](0, ?)
+  c918  r0 = SEL(currentDevice)
+  c91a  r2 = UIDevice
+  c91c  r1 = SEL(currentDevice)
+  c91e  r0 = UIDevice
+  c920  r0 = [UIDevice currentDevice](UIDevice, ?)
+  c92c  r1 = SEL(systemVersion)
+  c92e  r1 = SEL(systemVersion)
+  c930  r0 = [r0 systemVersion](?, ?)
+  c93c  r1 = SEL(floatValue)
+  c93e  r1 = SEL(floatValue)
+  c940  r0 = [r0 floatValue](?, ?)
+  c944  vmov.f32 d0, #5.000000e+00
+  c948  vmov d1, r0, r0
+  c94c  vcmpe.f32 s2, s0
+  c950  vmrs apsr_nzcv, fpscr
+  c954  blt L_ca80
+  c960  r0 = SEL(view)
+  c962  fp = SEL(view)
+  c96a  r0 = [r0 view](?, ?)
+  c976  r1 = SEL(gestureRecognizers)
+  c978  r6 = SEL(gestureRecognizers)
+  c97c  r0 = [r0 gestureRecognizers](?, ?)
+  c988  r1 = SEL(count)
+  c98a  r4 = SEL(count)
+  c98e  r0 = [r0 count](?, ?)
+  c992  cmp r0, 0
+  c994  beq L_ca80
+  c99a  r0 = [r0 view](?, ?)
+  c9a0  r0 = [r0 gestureRecognizers](?, ?)
+  c9a6  r0 = [r0 count](?, ?)
+  c9b0  r0 = [r0 view](?, ?)
+  c9b6  r0 = [r0 gestureRecognizers](?, ?)
+  c9ba  cmp r5, 2
+  c9bc  blo L_ca2a
+  c9c2  r2 = 1
+  c9c8  r1 = SEL(objectAtIndex:)
+  c9ca  r4 = SEL(objectAtIndex:)
+  c9ce  r0 = [r0 objectAtIndex:](1, ?)
+  c9d8  r0 = [r0 view](?, ?)
+  c9de  r0 = [r0 gestureRecognizers](?, ?)
+  c9e4  r2 = 0
+  c9e6  r0 = [r0 objectAtIndex:](0, ?)
+  c9f4  r2 = 0
+  c9f6  r0 = SEL(setEnabled:)
+  c9f8  r1 = SEL(setEnabled:)
+  c9fc  r0 = [r0 setEnabled:](0, ?)
+  ca04  r0 = [r0 view](?, ?)
+  ca12  r1 = SEL(removeGestureRecognizer:)
+  ca14  r4 = SEL(removeGestureRecognizer:)
+  ca18  r0 = [r0 removeGestureRecognizer:](?, ?)
+  ca20  r0 = [r0 view](?, ?)
+  ca28  b L_c8ea
+L_ca2a:
+  ca2c  r0 = [r0 removeGestureRecognizer:](?, ?)
+  ca30  cbz r0 -> L_ca80
+  ca36  r0 = [r0 view](?, ?)
+  ca3c  r0 = [r0 ??](?, ?)
+  ca44  r2 = 0
+  ca4a  r1 = SEL(objectAtIndex:)
+  ca4c  r1 = SEL(objectAtIndex:)
+  ca4e  r0 = [r0 objectAtIndex:](0, ?)
+  ca5c  r2 = 0
+  ca5e  r0 = SEL(setEnabled:)
+  ca60  r1 = SEL(setEnabled:)
+  ca64  r0 = [r0 setEnabled:](0, ?)
+  ca6c  r0 = [r0 view](?, ?)
+  ca7a  r1 = SEL(removeGestureRecognizer:)
+  ca7c  r1 = SEL(removeGestureRecognizer:)
+  ca7e  b L_c8ea
+L_ca80:
+  ca88  r0 = SEL(view)
+  ca8a  r1 = SEL(view)
+  ca8e  r0 = [r0 view](?, ?)
+  ca9a  r1 = SEL(gestureRecognizers)
+  ca9c  r1 = SEL(gestureRecognizers)
+  ca9e  r0 = [r0 gestureRecognizers](?, ?)
+  caaa  r1 = SEL(count)
+  caac  r1 = SEL(count)
+  caae  r0 = [r0 count](?, ?)
+  caba  r0 = SEL(buttonSelectImage)
+  cabc  r1 = SEL(buttonSelectImage)
+  cac0  add sp, #0x14
+  caca  b L_a90d0
+
+//// -[MainController gameCenterAction:]  0xcad0..0xcbb0  v12@0:4@8
+  cad2  add r7, sp, #8
+  cad4  sub sp, #0x10
+  cae0  r0 = SEL(StopElseSpeak)
+  cae2  r1 = SEL(StopElseSpeak)
+  cae6  r0 = [r0 StopElseSpeak](?, ?)
+  caea  call sub_3ccc
+  cafc  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  cb02  r2 = 10
+  cb04  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  cb06  r0 = 0
+  cb12  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  cb26  r0 = SEL(standardUserDefaults)
+  cb28  r2 = NSUserDefaults
+  cb2a  r1 = SEL(standardUserDefaults)
+  cb2c  r0 = NSUserDefaults
+  cb2e  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  cb3e  r1 = SEL(objectForKey:)
+  cb44  r2 = CFSTR('GAMECENTER')
+  cb46  r1 = SEL(objectForKey:)
+  cb48  r0 = [r0 objectForKey:](CFSTR('GAMECENTER'), ?)
+  cb54  r1 = SEL(intValue)
+  cb56  r1 = SEL(intValue)
+  cb58  r0 = [r0 intValue](?, ?)
+  cb5c  cmp r0, 1
+  cb5e  bne L_cb78
+  cb68  r0 = SEL(showLeaderboard)
+  cb6a  r1 = SEL(showLeaderboard)
+  cb6e  add sp, #0x10
+  cb74  b L_a90d0
+L_cb78:
+  cb80  r0 = SEL(isGameCenterAvailable)
+  cb82  r1 = SEL(isGameCenterAvailable)
+  cb86  r0 = [r0 isGameCenterAvailable](?, ?)
+  cb98  r2 = 1
+  cb9e  r0 = SEL(authenticateLocalPlayerShowReader:)
+  cba0  r1 = SEL(authenticateLocalPlayerShowReader:)
+  cba4  add sp, #0x10
+  cbaa  b L_a90d0
+
+//// -[MainController showLeaderboard]  0xcbb0..0xcc28  v8@0:4
+  cbc4  r0 = SEL(alloc)
+  cbc6  r2 = GKLeaderboardViewController
+  cbc8  add r7, sp, #8
+  cbca  r1 = SEL(alloc)
+  cbcc  r0 = GKLeaderboardViewController
+  cbce  r0 = [GKLeaderboardViewController alloc](GKLeaderboardViewController, ?)
+  cbda  r1 = SEL(init)
+  cbdc  r1 = SEL(init)
+  cbde  r0 = [r0 init](?, ?)
+  cbea  r1 = SEL(autorelease)
+  cbec  r1 = SEL(autorelease)
+  cbee  r0 = [r0 autorelease](?, ?)
+  cbf4  cmp r5, 0
+  cc04  r0 = SEL(setLeaderboardDelegate:)
+  cc06  r1 = SEL(setLeaderboardDelegate:)
+  cc0a  r0 = [r0 setLeaderboardDelegate:](?, ?)
+  cc18  r3 = 1
+  cc1a  r0 = SEL(presentModalViewController:animated:)
+  cc1c  r1 = SEL(presentModalViewController:animated:)
+  cc24  b L_a90d0
+
+//// -[MainController leaderboardViewControllerDidFinish:]  0xcc28..0xcc3c  v12@0:4@8
+  cc2c  r2 = 1
+  cc32  r1 = SEL(dismissModalViewControllerAnimated:)
+  cc34  r1 = SEL(dismissModalViewControllerAnimated:)
+  cc36  b L_a90d0
+
+//// -[MainController modeLabel]  0xcc3c..0xcc4c  @8@0:4
+  cc44  r1 = IVOFF(modeLabel)
+  cc46  r1 = IVOFF(modeLabel)
+  cc48  r0 = self->modeLabel
+
+//// -[MainController setModeLabel:]  0xcc4c..0xcc70  v12@0:4@8
+  cc50  sub sp, #8
+  cc5c  r3 = 0
+  cc5e  r2 = IVOFF(modeLabel)
+  cc66  r2 = IVOFF(modeLabel)
+  cc68  call _objc_setProperty
+  cc6c  add sp, #8
+  cc6e  return
+
+//// -[MainController startGame]  0xcc70..0xcc80  @8@0:4
+  cc78  r1 = IVOFF(startGame)
+  cc7a  r1 = IVOFF(startGame)
+  cc7c  r0 = self->startGame
+
+//// -[MainController setStartGame:]  0xcc80..0xcca4  v12@0:4@8
+  cc84  sub sp, #8
+  cc90  r3 = 0
+  cc92  r2 = IVOFF(startGame)
+  cc9a  r2 = IVOFF(startGame)
+  cc9c  call _objc_setProperty
+  cca0  add sp, #8
+  cca2  return
+
+//// -[MainController storeButton]  0xcca4..0xccb4  @8@0:4
+  ccac  r1 = IVOFF(storeButton)
+  ccae  r1 = IVOFF(storeButton)
+  ccb0  r0 = self->storeButton
+
+//// -[MainController setStoreButton:]  0xccb4..0xccd8  v12@0:4@8
+  ccb8  sub sp, #8
+  ccc4  r3 = 0
+  ccc6  r2 = IVOFF(storeButton)
+  ccce  r2 = IVOFF(storeButton)
+  ccd0  call _objc_setProperty
+  ccd4  add sp, #8
+  ccd6  return
+
+//// -[MainController modeChangeButton]  0xccd8..0xcce8  @8@0:4
+  cce0  r1 = IVOFF(modeChangeButton)
+  cce2  r1 = IVOFF(modeChangeButton)
+  cce4  r0 = self->modeChangeButton
+
+//// -[MainController setModeChangeButton:]  0xcce8..0xcd0c  v12@0:4@8
+  ccec  sub sp, #8
+  ccf8  r3 = 0
+  ccfa  r2 = IVOFF(modeChangeButton)
+  cd02  r2 = IVOFF(modeChangeButton)
+  cd04  call _objc_setProperty
+  cd08  add sp, #8
+  cd0a  return
+
+//// -[MainController round1]  0xcd0c..0xcd1c  @8@0:4
+  cd14  r1 = IVOFF(round1)
+  cd16  r1 = IVOFF(round1)
+  cd18  r0 = self->round1
+
+//// -[MainController setRound1:]  0xcd1c..0xcd40  v12@0:4@8
+  cd20  sub sp, #8
+  cd2c  r3 = 0
+  cd2e  r2 = IVOFF(round1)
+  cd36  r2 = IVOFF(round1)
+  cd38  call _objc_setProperty
+  cd3c  add sp, #8
+  cd3e  return
+
+//// -[MainController round2]  0xcd40..0xcd50  @8@0:4
+  cd48  r1 = IVOFF(round2)
+  cd4a  r1 = IVOFF(round2)
+  cd4c  r0 = self->round2
+
+//// -[MainController setRound2:]  0xcd50..0xcd74  v12@0:4@8
+  cd54  sub sp, #8
+  cd60  r3 = 0
+  cd62  r2 = IVOFF(round2)
+  cd6a  r2 = IVOFF(round2)
+  cd6c  call _objc_setProperty
+  cd70  add sp, #8
+  cd72  return
+
+//// -[MainController round3]  0xcd74..0xcd84  @8@0:4
+  cd7c  r1 = IVOFF(round3)
+  cd7e  r1 = IVOFF(round3)
+  cd80  r0 = self->round3
+
+//// -[MainController setRound3:]  0xcd84..0xcda8  v12@0:4@8
+  cd88  sub sp, #8
+  cd94  r3 = 0
+  cd96  r2 = IVOFF(round3)
+  cd9e  r2 = IVOFF(round3)
+  cda0  call _objc_setProperty
+  cda4  add sp, #8
+  cda6  return
+
+//// -[MainController round4]  0xcda8..0xcdb8  @8@0:4
+  cdb0  r1 = IVOFF(round4)
+  cdb2  r1 = IVOFF(round4)
+  cdb4  r0 = self->round4
+
+//// -[MainController setRound4:]  0xcdb8..0xcddc  v12@0:4@8
+  cdbc  sub sp, #8
+  cdc8  r3 = 0
+  cdca  r2 = IVOFF(round4)
+  cdd2  r2 = IVOFF(round4)
+  cdd4  call _objc_setProperty
+  cdd8  add sp, #8
+  cdda  return
+
+//// -[MainController round5]  0xcddc..0xcdec  @8@0:4
+  cde4  r1 = IVOFF(round5)
+  cde6  r1 = IVOFF(round5)
+  cde8  r0 = self->round5
+
+//// -[MainController setRound5:]  0xcdec..0xce10  v12@0:4@8
+  cdf0  sub sp, #8
+  cdfc  r3 = 0
+  cdfe  r2 = IVOFF(round5)
+  ce06  r2 = IVOFF(round5)
+  ce08  call _objc_setProperty
+  ce0c  add sp, #8
+  ce0e  return
+
+//// -[MainController round6]  0xce10..0xce20  @8@0:4
+  ce18  r1 = IVOFF(round6)
+  ce1a  r1 = IVOFF(round6)
+  ce1c  r0 = self->round6
+
+//// -[MainController setRound6:]  0xce20..0xce44  v12@0:4@8
+  ce24  sub sp, #8
+  ce30  r3 = 0
+  ce32  r2 = IVOFF(round6)
+  ce3a  r2 = IVOFF(round6)
+  ce3c  call _objc_setProperty
+  ce40  add sp, #8
+  ce42  return
+
+//// -[MainController exitButton]  0xce44..0xce54  @8@0:4
+  ce4c  r1 = IVOFF(exitButton)
+  ce4e  r1 = IVOFF(exitButton)
+  ce50  r0 = self->exitButton
+
+//// -[MainController setExitButton:]  0xce54..0xce78  v12@0:4@8
+  ce58  sub sp, #8
+  ce64  r3 = 0
+  ce66  r2 = IVOFF(exitButton)
+  ce6e  r2 = IVOFF(exitButton)
+  ce70  call _objc_setProperty
+  ce74  add sp, #8
+  ce76  return
+
+//// -[MainController coinImageView4]  0xce78..0xce88  @8@0:4
+  ce80  r1 = IVOFF(_coinImageView4)
+  ce82  r1 = IVOFF(_coinImageView4)
+  ce84  r0 = self->_coinImageView4
+
+//// -[MainController setCoinImageView4:]  0xce88..0xceac  v12@0:4@8
+  ce8c  sub sp, #8
+  ce98  r3 = 0
+  ce9a  r2 = IVOFF(_coinImageView4)
+  cea2  r2 = IVOFF(_coinImageView4)
+  cea4  call _objc_setProperty
+  cea8  add sp, #8
+  ceaa  return
+
+//// -[MainController rankButton]  0xceac..0xcebc  @8@0:4
+  ceb4  r1 = IVOFF(_rankButton)
+  ceb6  r1 = IVOFF(_rankButton)
+  ceb8  r0 = self->_rankButton
+
+//// -[MainController setRankButton:]  0xcebc..0xcee0  v12@0:4@8
+  cec0  sub sp, #8
+  cecc  r3 = 0
+  cece  r2 = IVOFF(_rankButton)
+  ced6  r2 = IVOFF(_rankButton)
+  ced8  call _objc_setProperty
+  cedc  add sp, #8
+  cede  return
+
+//// -[MainController coinImageView3]  0xcee0..0xcef0  @8@0:4
+  cee8  r1 = IVOFF(_coinImageView3)
+  ceea  r1 = IVOFF(_coinImageView3)
+  ceec  r0 = self->_coinImageView3
+
+//// -[MainController setCoinImageView3:]  0xcef0..0xcf14  v12@0:4@8
+  cef4  sub sp, #8
+  cf00  r3 = 0
+  cf02  r2 = IVOFF(_coinImageView3)
+  cf0a  r2 = IVOFF(_coinImageView3)
+  cf0c  call _objc_setProperty
+  cf10  add sp, #8
+  cf12  return
+
+//// -[MainController coinTimeLabel]  0xcf14..0xcf24  @8@0:4
+  cf1c  r1 = IVOFF(_coinTimeLabel)
+  cf1e  r1 = IVOFF(_coinTimeLabel)
+  cf20  r0 = self->_coinTimeLabel
+
+//// -[MainController setCoinTimeLabel:]  0xcf24..0xcf48  v12@0:4@8
+  cf28  sub sp, #8
+  cf34  r3 = 0
+  cf36  r2 = IVOFF(_coinTimeLabel)
+  cf3e  r2 = IVOFF(_coinTimeLabel)
+  cf40  call _objc_setProperty
+  cf44  add sp, #8
+  cf46  return
+
+//// -[MainController gameCenterButton]  0xcf48..0xcf58  @8@0:4
+  cf50  r1 = IVOFF(_gameCenterButton)
+  cf52  r1 = IVOFF(_gameCenterButton)
+  cf54  r0 = self->_gameCenterButton
+
+//// -[MainController setGameCenterButton:]  0xcf58..0xcf7c  v12@0:4@8
+  cf5c  sub sp, #8
+  cf68  r3 = 0
+  cf6a  r2 = IVOFF(_gameCenterButton)
+  cf72  r2 = IVOFF(_gameCenterButton)
+  cf74  call _objc_setProperty
+  cf78  add sp, #8
+  cf7a  return
+
+//// -[MainController tutorialButton]  0xcf7c..0xcf8c  @8@0:4
+  cf84  r1 = IVOFF(_tutorialButton)
+  cf86  r1 = IVOFF(_tutorialButton)
+  cf88  r0 = self->_tutorialButton
+
+//// -[MainController setTutorialButton:]  0xcf8c..0xcfb0  v12@0:4@8
+  cf90  sub sp, #8
+  cf9c  r3 = 0
+  cf9e  r2 = IVOFF(_tutorialButton)
+  cfa6  r2 = IVOFF(_tutorialButton)
+  cfa8  call _objc_setProperty
+  cfac  add sp, #8
+  cfae  return
+
+//// -[MainController manyCoinLabel]  0xcfb0..0xcfc0  @8@0:4
+  cfb8  r1 = IVOFF(_manyCoinLabel)
+  cfba  r1 = IVOFF(_manyCoinLabel)
+  cfbc  r0 = self->_manyCoinLabel
+
+//// -[MainController setManyCoinLabel:]  0xcfc0..0xcfe4  v12@0:4@8
+  cfc4  sub sp, #8
+  cfd0  r3 = 0
+  cfd2  r2 = IVOFF(_manyCoinLabel)
+  cfda  r2 = IVOFF(_manyCoinLabel)
+  cfdc  call _objc_setProperty
+  cfe0  add sp, #8
+  cfe2  return
+
+//// -[MainController round7]  0xcfe4..0xcff4  @8@0:4
+  cfec  r1 = IVOFF(_round7)
+  cfee  r1 = IVOFF(_round7)
+  cff0  r0 = self->_round7
+
+//// -[MainController setRound7:]  0xcff4..0xd018  v12@0:4@8
+  cff8  sub sp, #8
+  d004  r3 = 0
+  d006  r2 = IVOFF(_round7)
+  d00e  r2 = IVOFF(_round7)
+  d010  call _objc_setProperty
+  d014  add sp, #8
+  d016  return
+
+//// -[MainController coinImageView5]  0xd018..0xd028  @8@0:4
+  d020  r1 = IVOFF(_coinImageView5)
+  d022  r1 = IVOFF(_coinImageView5)
+  d024  r0 = self->_coinImageView5
+
+//// -[MainController setCoinImageView5:]  0xd028..0xd04c  v12@0:4@8
+  d02c  sub sp, #8
+  d038  r3 = 0
+  d03a  r2 = IVOFF(_coinImageView5)
+  d042  r2 = IVOFF(_coinImageView5)
+  d044  call _objc_setProperty
+  d048  add sp, #8
+  d04a  return
+
+//// -[MainController maskView]  0xd04c..0xd05c  @8@0:4
+  d054  r1 = IVOFF(_maskView)
+  d056  r1 = IVOFF(_maskView)
+  d058  r0 = self->_maskView
+
+//// -[MainController setMaskView:]  0xd05c..0xd080  v12@0:4@8
+  d060  sub sp, #8
+  d06c  r3 = 0
+  d06e  r2 = IVOFF(_maskView)
+  d076  r2 = IVOFF(_maskView)
+  d078  call _objc_setProperty
+  d07c  add sp, #8
+  d07e  return
+
+//// -[MainController round9]  0xd080..0xd090  @8@0:4
+  d088  r1 = IVOFF(_round9)
+  d08a  r1 = IVOFF(_round9)
+  d08c  r0 = self->_round9
+
+//// -[MainController setRound9:]  0xd090..0xd0b4  v12@0:4@8
+  d094  sub sp, #8
+  d0a0  r3 = 0
+  d0a2  r2 = IVOFF(_round9)
+  d0aa  r2 = IVOFF(_round9)
+  d0ac  call _objc_setProperty
+  d0b0  add sp, #8
+  d0b2  return
+
+//// -[MainController round8]  0xd0b4..0xd0c4  @8@0:4
+  d0bc  r1 = IVOFF(_round8)
+  d0be  r1 = IVOFF(_round8)
+  d0c0  r0 = self->_round8
+
+//// -[MainController setRound8:]  0xd0c4..0xd0e8  v12@0:4@8
+  d0c8  sub sp, #8
+  d0d4  r3 = 0
+  d0d6  r2 = IVOFF(_round8)
+  d0de  r2 = IVOFF(_round8)
+  d0e0  call _objc_setProperty
+  d0e4  add sp, #8
+  d0e6  return
+
+//// -[MainController maskLabel1]  0xd0e8..0xd0f8  @8@0:4
+  d0f0  r1 = IVOFF(_maskLabel1)
+  d0f2  r1 = IVOFF(_maskLabel1)
+  d0f4  r0 = self->_maskLabel1
+
+//// -[MainController setMaskLabel1:]  0xd0f8..0xd11c  v12@0:4@8
+  d0fc  sub sp, #8
+  d108  r3 = 0
+  d10a  r2 = IVOFF(_maskLabel1)
+  d112  r2 = IVOFF(_maskLabel1)
+  d114  call _objc_setProperty
+  d118  add sp, #8
+  d11a  return
+
+//// -[MainController coinImageView2]  0xd11c..0xd12c  @8@0:4
+  d124  r1 = IVOFF(_coinImageView2)
+  d126  r1 = IVOFF(_coinImageView2)
+  d128  r0 = self->_coinImageView2
+
+//// -[MainController setCoinImageView2:]  0xd12c..0xd150  v12@0:4@8
+  d130  sub sp, #8
+  d13c  r3 = 0
+  d13e  r2 = IVOFF(_coinImageView2)
+  d146  r2 = IVOFF(_coinImageView2)
+  d148  call _objc_setProperty
+  d14c  add sp, #8
+  d14e  return
+
+//// -[MainController maskView1]  0xd150..0xd160  @8@0:4
+  d158  r1 = IVOFF(_maskView1)
+  d15a  r1 = IVOFF(_maskView1)
+  d15c  r0 = self->_maskView1
+
+//// -[MainController setMaskView1:]  0xd160..0xd184  v12@0:4@8
+  d164  sub sp, #8
+  d170  r3 = 0
+  d172  r2 = IVOFF(_maskView1)
+  d17a  r2 = IVOFF(_maskView1)
+  d17c  call _objc_setProperty
+  d180  add sp, #8
+  d182  return
+
+//// -[MainController coinImageView1]  0xd184..0xd194  @8@0:4
+  d18c  r1 = IVOFF(_coinImageView1)
+  d18e  r1 = IVOFF(_coinImageView1)
+  d190  r0 = self->_coinImageView1
+
+//// -[MainController setCoinImageView1:]  0xd194..0xd470  v12@0:4@8
+  d198  sub sp, #8
+  d1a4  r3 = 0
+  d1a6  r2 = IVOFF(_coinImageView1)
+  d1ae  r2 = IVOFF(_coinImageView1)
+  d1b0  call _objc_setProperty
+  d1b4  add sp, #8
+  d1b6  return
+  d1ba  add r7, sp, #0xc
+  d1d6  cmp sb, 0
+  d1da  bne L_d1f8
+  d1e0  r0 = 0
+  d1e6  r1 = 'alBufferDataStatic'
+  d1e8  call _alcGetProcAddress
+  d1ee  cmp sb, 0
+  d1f6  beq L_d20a
+L_d1f8:
+L_d20a:
+  d20e  return
+  d212  add r7, sp, #0xc
+  d218  sub sp, #0x70
+  d224  r1 = 0
+  d22c  r2 = 40
+  d230  add r1, sp, #0x38
+  d236  call _ExtAudioFileOpenURL
+  d23c  cmp r1, 0
+  d23e  beq L_d24c
+  d248  r0 = 'MyGetOpenALAudioData: ExtAudioFileOpenURL FAILED, Error = %ld\n'
+  d24a  b L_d26c
+L_d24c:
+  d252  add r2, sp, #0x3c
+  d254  add r3, sp, #0x40
+  d25a  call _ExtAudioFileGetProperty
+  d260  cbz r1 -> L_d28a
+  d26a  r0 = 'MyGetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = %ld\n'
+L_d26c:
+  d26c  call _printf
+L_d270:
+  d270  r5 = 0
+L_d272:
+  d274  cmp r0, 0
+  d27e  sub.w r4, r7, #0x18
+  d288  return
+L_d28a:
+  d28c  cmp r0, 3
+  d28e  blo L_d2a0
+  d298  r0 = 'MyGetOpenALAudioData - Unsupported Format, channel count is greater than stereo'
+  d29a  call _puts
+  d29e  b L_d270
+L_d2a0:
+  d2a4  vldr d16, [sp, #0x40]
+  d2ac  add r3, sp, #0x10
+  d2ae  vstr d16, [sp, #0x10]
+  d2b2  r2 = 40
+  d2b6  lsls r0, r0, #1
+  d2ba  r1 = 1
+  d2c6  r0 = 16
+  d2ca  r0 = 12
+  d2d4  call _ExtAudioFileSetProperty
+  d2da  cbz r1 -> L_d2e8
+  d2e4  r0 = 'MyGetOpenALAudioData: ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = %ld\n'
+  d2e6  b L_d26c
+L_d2e8:
+  d2e8  r0 = 8
+  d2f0  add r2, sp, #0x3c
+  d2f4  add r3, sp, #0x68
+  d2fa  call _ExtAudioFileGetProperty
+  d300  cbz r1 -> L_d30e
+  d30a  r0 = 'MyGetOpenALAudioData: ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = %ld\n'
+  d30c  b L_d26c
+L_d30e:
+  d312  mul r6, r1, r0
+  d318  call _malloc
+  d31e  r5 = 0
+  d320  cmp r4, 0
+  d322  beq L_d272
+  d324  r0 = 1
+  d332  add r1, sp, #0x68
+  d336  call _ExtAudioFileRead
+  d33c  cmp r5, 0
+  d33e  beq L_d354
+  d342  call _free
+  d350  r0 = 'MyGetOpenALAudioData: ExtAudioFileRead FAILED, Error = %ld\n'
+  d352  b L_d26c
+L_d354:
+  d360  cmp r1, 1
+  d36c  vldr d16, [sp, #0x10]
+  d370  vcvt.s32.f64 s0, d16
+  d374  vstr s0, [r8]
+  d378  b L_d272
+  d384  add r7, sp, #4
+  d386  cmp r1, 0
+  d388  bne L_d3f4
+  d38a  r0 = 1
+  d38c  call _AudioSessionSetActive
+  d398  r0 = IVOFF(context)
+  d39a  r0 = IVOFF(context)
+  d39c  r0 = self->context
+  d39e  call _alcMakeContextCurrent
+  d3a2  call sub_3ccc
+  d3aa  r2 = 1
+  d3b0  r1 = SEL(setBCall:)
+  d3b2  r1 = SEL(setBCall:)
+  d3b4  r0 = [r0 setBCall:](1, ?)
+  d3c8  r0 = SEL(defaultCenter)
+  d3ca  r2 = NSNotificationCenter
+  d3cc  r1 = SEL(defaultCenter)
+  d3ce  r0 = NSNotificationCenter
+  d3d0  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  d3d8  r3 = 0
+  d3e2  r1 = SEL(postNotificationName:object:)
+  d3e8  r2 = CFSTR('InterruptOff')
+  d3ea  r1 = SEL(postNotificationName:object:)
+  d3f0  b L_a90d0
+L_d3f4:
+  d3f4  cmp SEL(postNotificationName:object:), 1
+  d40a  r0 = SEL(defaultCenter)
+  d40c  r2 = NSNotificationCenter
+  d40e  r1 = SEL(defaultCenter)
+  d410  r0 = NSNotificationCenter
+  d412  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, 0)
+  d41a  r3 = 0
+  d424  r1 = SEL(postNotificationName:object:)
+  d42a  r2 = CFSTR('InterruptON')
+  d42c  r1 = SEL(postNotificationName:object:)
+  d42e  r0 = [r0 postNotificationName:object:](CFSTR('InterruptON'), 0)
+  d432  r0 = 0
+  d434  call _AudioSessionSetActive
+  d438  r0 = 0
+  d43a  call _alcMakeContextCurrent
+  d43e  return
+  d444  sub sp, #8
+  d450  r1 = CFSTR('OutputDeviceDidChange_OldRoute')
+  d452  call _CFDictionaryGetValue
+  d456  r0 = 4
+  d458  add r1, sp, #4
+  d466  call _AudioSessionGetProperty
+  d46a  add sp, #8
+  d46c  return

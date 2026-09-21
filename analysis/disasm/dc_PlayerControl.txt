@@ -1,0 +1,228 @@
+
+//// -[PlayerControl dealloc]  0x12b94..0x12bc0  v8@0:4
+  12b98  sub sp, #8
+  12bac  r1 = SEL(dealloc)
+  12bb2  r1 = SEL(dealloc)
+  12bb8  r0 = [r0 dealloc](0xdb0b8/f1.25726e-39, ?) SUPER
+  12bbc  add sp, #8
+  12bbe  return
+
+//// -[PlayerControl HP]  0x12bc0..0x12bd4  i8@0:4
+  12bc8  r1 = IVOFF(HP)
+  12bca  r1 = IVOFF(HP)
+  12bcc  r0 = self->HP
+
+//// -[PlayerControl setHP:]  0x12bd4..0x12bec  v12@0:4i8
+  12be0  r1 = IVOFF(HP)
+  12be2  r1 = IVOFF(HP)
+  12be4  self->HP = r2
+
+//// -[PlayerControl useWepon]  0x12bec..0x12c00  i8@0:4
+  12bf4  r1 = IVOFF(useWepon)
+  12bf6  r1 = IVOFF(useWepon)
+  12bf8  r0 = self->useWepon
+
+//// -[PlayerControl setUseWepon:]  0x12c00..0x12c18  v12@0:4i8
+  12c0c  r1 = IVOFF(useWepon)
+  12c0e  r1 = IVOFF(useWepon)
+  12c10  self->useWepon = r2
+
+//// -[PlayerControl killMonsterCount]  0x12c18..0x12c2c  i8@0:4
+  12c20  r1 = IVOFF(killMonsterCount)
+  12c22  r1 = IVOFF(killMonsterCount)
+  12c24  r0 = self->killMonsterCount
+
+//// -[PlayerControl setKillMonsterCount:]  0x12c2c..0x12c44  v12@0:4i8
+  12c38  r1 = IVOFF(killMonsterCount)
+  12c3a  r1 = IVOFF(killMonsterCount)
+  12c3c  self->killMonsterCount = r2
+
+//// -[PlayerControl HeadShotCount]  0x12c44..0x12c58  i8@0:4
+  12c4c  r1 = IVOFF(HeadShotCount)
+  12c4e  r1 = IVOFF(HeadShotCount)
+  12c50  r0 = self->HeadShotCount
+
+//// -[PlayerControl setHeadShotCount:]  0x12c58..0x12c70  v12@0:4i8
+  12c64  r1 = IVOFF(HeadShotCount)
+  12c66  r1 = IVOFF(HeadShotCount)
+  12c68  self->HeadShotCount = r2
+
+//// -[PlayerControl playerXplot]  0x12c70..0x12c84  i8@0:4
+  12c78  r1 = IVOFF(playerXplot)
+  12c7a  r1 = IVOFF(playerXplot)
+  12c7c  r0 = self->playerXplot
+
+//// -[PlayerControl setPlayerXplot:]  0x12c84..0x12c9c  v12@0:4i8
+  12c90  r1 = IVOFF(playerXplot)
+  12c92  r1 = IVOFF(playerXplot)
+  12c94  self->playerXplot = r2
+
+//// -[PlayerControl playerYplot]  0x12c9c..0x12cb0  i8@0:4
+  12ca4  r1 = IVOFF(playerYplot)
+  12ca6  r1 = IVOFF(playerYplot)
+  12ca8  r0 = self->playerYplot
+
+//// -[PlayerControl setPlayerYplot:]  0x12cb0..0x12cc8  v12@0:4i8
+  12cbc  r1 = IVOFF(playerYplot)
+  12cbe  r1 = IVOFF(playerYplot)
+  12cc0  self->playerYplot = r2
+
+//// -[PlayerControl gunEggCountAll]  0x12cc8..0x12cdc  i8@0:4
+  12cd0  r1 = IVOFF(gunEggCountAll)
+  12cd2  r1 = IVOFF(gunEggCountAll)
+  12cd4  r0 = self->gunEggCountAll
+
+//// -[PlayerControl setGunEggCountAll:]  0x12cdc..0x12cf4  v12@0:4i8
+  12ce8  r1 = IVOFF(gunEggCountAll)
+  12cea  r1 = IVOFF(gunEggCountAll)
+  12cec  self->gunEggCountAll = r2
+
+//// -[PlayerControl gunEggCountShot]  0x12cf4..0x12d08  i8@0:4
+  12cfc  r1 = IVOFF(gunEggCountShot)
+  12cfe  r1 = IVOFF(gunEggCountShot)
+  12d00  r0 = self->gunEggCountShot
+
+//// -[PlayerControl setGunEggCountShot:]  0x12d08..0x12d20  v12@0:4i8
+  12d14  r1 = IVOFF(gunEggCountShot)
+  12d16  r1 = IVOFF(gunEggCountShot)
+  12d18  self->gunEggCountShot = r2
+
+//// -[PlayerControl gunEggCout]  0x12d20..0x12d34  i8@0:4
+  12d28  r1 = IVOFF(gunEggCout)
+  12d2a  r1 = IVOFF(gunEggCout)
+  12d2c  r0 = self->gunEggCout
+
+//// -[PlayerControl setGunEggCout:]  0x12d34..0x12d4c  v12@0:4i8
+  12d40  r1 = IVOFF(gunEggCout)
+  12d42  r1 = IVOFF(gunEggCout)
+  12d44  self->gunEggCout = r2
+
+//// -[PlayerControl gunDamage]  0x12d4c..0x12d60  i8@0:4
+  12d54  r1 = IVOFF(gunDamage)
+  12d56  r1 = IVOFF(gunDamage)
+  12d58  r0 = self->gunDamage
+
+//// -[PlayerControl setGunDamage:]  0x12d60..0x12d78  v12@0:4i8
+  12d6c  r1 = IVOFF(gunDamage)
+  12d6e  r1 = IVOFF(gunDamage)
+  12d70  self->gunDamage = r2
+
+//// -[PlayerControl killMonster1count]  0x12d78..0x12d8c  i8@0:4
+  12d80  r1 = IVOFF(killMonster1count)
+  12d82  r1 = IVOFF(killMonster1count)
+  12d84  r0 = self->killMonster1count
+
+//// -[PlayerControl setKillMonster1count:]  0x12d8c..0x12da4  v12@0:4i8
+  12d98  r1 = IVOFF(killMonster1count)
+  12d9a  r1 = IVOFF(killMonster1count)
+  12d9c  self->killMonster1count = r2
+
+//// -[PlayerControl killMonster2count]  0x12da4..0x12db8  i8@0:4
+  12dac  r1 = IVOFF(killMonster2count)
+  12dae  r1 = IVOFF(killMonster2count)
+  12db0  r0 = self->killMonster2count
+
+//// -[PlayerControl setKillMonster2count:]  0x12db8..0x12dd0  v12@0:4i8
+  12dc4  r1 = IVOFF(killMonster2count)
+  12dc6  r1 = IVOFF(killMonster2count)
+  12dc8  self->killMonster2count = r2
+
+//// -[PlayerControl killMonster3count]  0x12dd0..0x12de4  i8@0:4
+  12dd8  r1 = IVOFF(killMonster3count)
+  12dda  r1 = IVOFF(killMonster3count)
+  12ddc  r0 = self->killMonster3count
+
+//// -[PlayerControl setKillMonster3count:]  0x12de4..0x12dfc  v12@0:4i8
+  12df0  r1 = IVOFF(killMonster3count)
+  12df2  r1 = IVOFF(killMonster3count)
+  12df4  self->killMonster3count = r2
+
+//// -[PlayerControl killMonster4count]  0x12dfc..0x12e10  i8@0:4
+  12e04  r1 = IVOFF(killMonster4count)
+  12e06  r1 = IVOFF(killMonster4count)
+  12e08  r0 = self->killMonster4count
+
+//// -[PlayerControl setKillMonster4count:]  0x12e10..0x12e28  v12@0:4i8
+  12e1c  r1 = IVOFF(killMonster4count)
+  12e1e  r1 = IVOFF(killMonster4count)
+  12e20  self->killMonster4count = r2
+
+//// -[PlayerControl killMonster5count]  0x12e28..0x12e3c  i8@0:4
+  12e30  r1 = IVOFF(killMonster5count)
+  12e32  r1 = IVOFF(killMonster5count)
+  12e34  r0 = self->killMonster5count
+
+//// -[PlayerControl setKillMonster5count:]  0x12e3c..0x12e54  v12@0:4i8
+  12e48  r1 = IVOFF(killMonster5count)
+  12e4a  r1 = IVOFF(killMonster5count)
+  12e4c  self->killMonster5count = r2
+
+//// -[PlayerControl killMonster6count]  0x12e54..0x12e68  i8@0:4
+  12e5c  r1 = IVOFF(killMonster6count)
+  12e5e  r1 = IVOFF(killMonster6count)
+  12e60  r0 = self->killMonster6count
+
+//// -[PlayerControl setKillMonster6count:]  0x12e68..0x12e80  v12@0:4i8
+  12e74  r1 = IVOFF(killMonster6count)
+  12e76  r1 = IVOFF(killMonster6count)
+  12e78  self->killMonster6count = r2
+
+//// -[PlayerControl killMonster7count]  0x12e80..0x12e94  i8@0:4
+  12e88  r1 = IVOFF(killMonster7count)
+  12e8a  r1 = IVOFF(killMonster7count)
+  12e8c  r0 = self->killMonster7count
+
+//// -[PlayerControl setKillMonster7count:]  0x12e94..0x12eac  v12@0:4i8
+  12ea0  r1 = IVOFF(killMonster7count)
+  12ea2  r1 = IVOFF(killMonster7count)
+  12ea4  self->killMonster7count = r2
+
+//// -[PlayerControl killMonster8count]  0x12eac..0x12ec0  i8@0:4
+  12eb4  r1 = IVOFF(killMonster8count)
+  12eb6  r1 = IVOFF(killMonster8count)
+  12eb8  r0 = self->killMonster8count
+
+//// -[PlayerControl setKillMonster8count:]  0x12ec0..0x12ed8  v12@0:4i8
+  12ecc  r1 = IVOFF(killMonster8count)
+  12ece  r1 = IVOFF(killMonster8count)
+  12ed0  self->killMonster8count = r2
+
+//// -[PlayerControl killMonster9count]  0x12ed8..0x12eec  i8@0:4
+  12ee0  r1 = IVOFF(killMonster9count)
+  12ee2  r1 = IVOFF(killMonster9count)
+  12ee4  r0 = self->killMonster9count
+
+//// -[PlayerControl setKillMonster9count:]  0x12eec..0x12f04  v12@0:4i8
+  12ef8  r1 = IVOFF(killMonster9count)
+  12efa  r1 = IVOFF(killMonster9count)
+  12efc  self->killMonster9count = r2
+
+//// -[PlayerControl killMonster10count]  0x12f04..0x12f18  i8@0:4
+  12f0c  r1 = IVOFF(killMonster10count)
+  12f0e  r1 = IVOFF(killMonster10count)
+  12f10  r0 = self->killMonster10count
+
+//// -[PlayerControl setKillMonster10count:]  0x12f18..0x12f30  v12@0:4i8
+  12f24  r1 = IVOFF(killMonster10count)
+  12f26  r1 = IVOFF(killMonster10count)
+  12f28  self->killMonster10count = r2
+
+//// -[PlayerControl killMonster11count]  0x12f30..0x12f44  i8@0:4
+  12f38  r1 = IVOFF(killMonster11count)
+  12f3a  r1 = IVOFF(killMonster11count)
+  12f3c  r0 = self->killMonster11count
+
+//// -[PlayerControl setKillMonster11count:]  0x12f44..0x12f5c  v12@0:4i8
+  12f50  r1 = IVOFF(killMonster11count)
+  12f52  r1 = IVOFF(killMonster11count)
+  12f54  self->killMonster11count = r2
+
+//// -[PlayerControl killMonster5000count]  0x12f5c..0x12f70  i8@0:4
+  12f64  r1 = IVOFF(killMonster5000count)
+  12f66  r1 = IVOFF(killMonster5000count)
+  12f68  r0 = self->killMonster5000count
+
+//// -[PlayerControl setKillMonster5000count:]  0x12f70..0x12f88  v12@0:4i8
+  12f7c  r1 = IVOFF(killMonster5000count)
+  12f7e  r1 = IVOFF(killMonster5000count)
+  12f80  self->killMonster5000count = r2

@@ -1,0 +1,22 @@
+# What PyInstaller leaves behind
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Tools and editors
+.claude/
+.venv/
+venv/
+.vscode/
+.idea/
+
+# Logs and crash reports, wherever they are run from
+*.log
+crash.txt
+
+# A binary dropped next to the tools by hand; analysis/bin has the real one
+tools/sixsense

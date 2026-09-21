@@ -1,0 +1,1326 @@
+
+//// -[getCoinListController initWithNibName:bundle:]  0x79124..0x79154  @16@0:4@8@12
+  79128  sub sp, #8
+  7913c  sb = SEL(initWithNibName:bundle:)
+  79142  r1 = SEL(initWithNibName:bundle:)
+  7914a  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  7914e  add sp, #8
+  79150  return
+
+//// -[getCoinListController viewDidLoad]  0x79154..0x79368  v8@0:4
+  79156  add r7, sp, #0xc
+  7915c  sub sp, #8
+  79172  r0 = SEL(viewDidLoad)
+  7917c  r1 = SEL(viewDidLoad)
+  79180  r0 = [r0 viewDidLoad](?, ?) SUPER
+  79194  r0 = SEL(array)
+  79196  sl = NSMutableArray
+  79198  r1 = SEL(array)
+  7919a  r0 = NSMutableArray
+  7919e  r0 = [NSMutableArray array](?, ?)
+  791ac  r0 = SEL(setMylist:)
+  791ae  r1 = SEL(setMylist:)
+  791b2  r0 = [r0 setMylist:](?, ?)
+  791b6  r0 = 0
+  791b8  call sub_788f0
+  791c6  r0 = SEL(count)
+  791c8  r1 = SEL(count)
+  791cc  r0 = [r0 count](?, ?)
+  791d0  cmp r0, 0
+  791d2  beq L_7929c
+  791dc  r0 = SEL(mylist)
+  791de  r5 = SEL(mylist)
+  791e4  r0 = [r0 mylist](?, ?)
+  791f2  r1 = SEL(addObjectsFromArray:)
+  791f4  r1 = SEL(addObjectsFromArray:)
+  791f6  r0 = [r0 addObjectsFromArray:](?, ?)
+  7920a  r0 = SEL(alloc)
+  7920c  r2 = NSSortDescriptor
+  7920e  r1 = SEL(alloc)
+  79210  r0 = NSSortDescriptor
+  79212  r0 = [NSSortDescriptor alloc](NSSortDescriptor, ?)
+  7921a  r3 = 1
+  79224  r1 = SEL(initWithKey:ascending:)
+  7922a  r2 = CFSTR('date')
+  7922c  r1 = SEL(initWithKey:ascending:)
+  7922e  r0 = [r0 initWithKey:ascending:](CFSTR('date'), 1)
+  79238  r0 = [r0 mylist](?, ?)
+  79248  r0 = SEL(arrayWithObject:)
+  7924a  r1 = SEL(arrayWithObject:)
+  7924c  r0 = NSMutableArray
+  79250  r0 = [NSMutableArray arrayWithObject:](?, ?)
+  7925e  r0 = SEL(sortUsingDescriptors:)
+  79260  r1 = SEL(sortUsingDescriptors:)
+  79264  r0 = [r0 sortUsingDescriptors:](?, ?)
+  79270  r0 = SEL(release)
+  79272  r1 = SEL(release)
+  79276  r0 = [r0 release](?, ?)
+  79282  r0 = SEL(mainTableView)
+  79284  r1 = SEL(mainTableView)
+  79288  r0 = [r0 mainTableView](?, ?)
+  79294  r1 = SEL(reloadData)
+  79296  r1 = SEL(reloadData)
+  79298  r0 = [r0 reloadData](?, ?)
+L_7929c:
+  792a4  r0 = SEL(getAllButton)
+  792a6  r5 = SEL(getAllButton)
+  792ac  r0 = [r0 getAllButton](?, ?)
+  792c2  r0 = SEL(imageNamed:)
+  792c4  fp = UIImage
+  792c6  r6 = SEL(imageNamed:)
+  792c8  r0 = UIImage
+  792d4  r2 = CFSTR('btn_coin_acceptall_inact.png')
+  792d8  r0 = [UIImage imageNamed:](CFSTR('btn_coin_acceptall_inact.png'), ?)
+  792e6  r3 = 0
+  792e8  r0 = SEL(setBackgroundImage:forState:)
+  792ea  r4 = SEL(setBackgroundImage:forState:)
+  792f0  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  792f8  r0 = [r0 getAllButton](?, ?)
+  792fe  r0 = UIImage
+  7930c  r2 = CFSTR('btn_coin_acceptall_act.png')
+  7930e  r0 = [UIImage imageNamed:](CFSTR('btn_coin_acceptall_act.png'), ?)
+  79318  r3 = 1
+  7931a  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  79326  r0 = SEL(LoadGetCoinData)
+  79328  r1 = SEL(LoadGetCoinData)
+  7932c  r0 = [r0 LoadGetCoinData](?, ?)
+  79340  r0 = SEL(dictionary)
+  79342  r2 = NSMutableDictionary
+  79344  r1 = SEL(dictionary)
+  79346  r0 = NSMutableDictionary
+  79348  r0 = [NSMutableDictionary dictionary](NSMutableDictionary, ?)
+  79356  r0 = SEL(setImageDownloadsInProgress:)
+  79358  r1 = SEL(setImageDownloadsInProgress:)
+  7935c  r0 = [r0 setImageDownloadsInProgress:](?, ?)
+  79360  add sp, #8
+  79366  return
+
+//// -[getCoinListController alertView:clickedButtonAtIndex:]  0x79368..0x7939c  v16@0:4@8i12
+  79374  add r7, sp, #4
+  79376  r0 = SEL(tag)
+  79378  r1 = SEL(tag)
+  7937c  r0 = [r0 tag](?, ?)
+  79380  cmp r0, 10
+  7938e  r0 = SEL(LoadGetCoinData)
+  79390  r1 = SEL(LoadGetCoinData)
+  79398  b L_a90d0
+
+//// -[getCoinListController didReceiveMemoryWarning]  0x7939c..0x793c8  v8@0:4
+  793a0  sub sp, #8
+  793b4  r1 = SEL(didReceiveMemoryWarning)
+  793ba  r1 = SEL(didReceiveMemoryWarning)
+  793c0  r0 = [r0 didReceiveMemoryWarning](0xdb128/f1.25741e-39, ?) SUPER
+  793c4  add sp, #8
+  793c6  return
+
+//// -[getCoinListController dealloc]  0x793c8..0x79490  v8@0:4
+  793ca  add r7, sp, #8
+  793cc  sub sp, #8
+  793dc  r0 = IVOFF(rawData)
+  793e2  r1 = SEL(release)
+  793e4  r0 = IVOFF(rawData)
+  793e6  r5 = SEL(release)
+  793e8  r0 = self->rawData
+  793ec  r0 = [self->rawData release](?, ?)
+  793fa  r0 = IVOFF(urlCon)
+  793fc  r0 = IVOFF(urlCon)
+  793fe  r0 = self->urlCon
+  79400  r0 = [self->urlCon release](?, ?)
+  7940e  r0 = IVOFF(mylist)
+  79410  r0 = IVOFF(mylist)
+  79412  r0 = self->mylist
+  79414  r0 = [self->mylist release](?, ?)
+  79422  r0 = IVOFF(_goBackButton)
+  79424  r0 = IVOFF(_goBackButton)
+  79426  r0 = self->_goBackButton
+  79428  r0 = [self->_goBackButton release](?, ?)
+  79436  r0 = IVOFF(_mainTableView)
+  79438  r0 = IVOFF(_mainTableView)
+  7943a  r0 = self->_mainTableView
+  7943c  r0 = [self->_mainTableView release](?, ?)
+  7944a  r0 = IVOFF(_getAllButton)
+  7944c  r0 = IVOFF(_getAllButton)
+  7944e  r0 = self->_getAllButton
+  79450  r0 = [self->_getAllButton release](?, ?)
+  7945e  r0 = IVOFF(imageDownloadsInProgress)
+  79460  r0 = IVOFF(imageDownloadsInProgress)
+  79462  r0 = self->imageDownloadsInProgress
+  79464  r0 = [self->imageDownloadsInProgress release](?, ?)
+  7947a  r0 = SEL(dealloc)
+  79482  r1 = SEL(dealloc)
+  79486  r0 = [r0 dealloc](?, ?) SUPER
+  7948a  add sp, #8
+  7948c  return
+
+//// -[getCoinListController viewDidUnload]  0x79490..0x7954c  v8@0:4
+  79492  add r7, sp, #4
+  79494  sub sp, #8
+  794a0  r2 = 0
+  794a2  r0 = SEL(setGoBackButton:)
+  794a4  r1 = SEL(setGoBackButton:)
+  794a8  r0 = [r0 setGoBackButton:](0, ?)
+  794b0  r2 = 0
+  794b6  r0 = SEL(setMainTableView:)
+  794b8  r1 = SEL(setMainTableView:)
+  794bc  r0 = [r0 setMainTableView:](0, ?)
+  794c4  r2 = 0
+  794ca  r0 = SEL(setRawData:)
+  794cc  r1 = SEL(setRawData:)
+  794d0  r0 = [r0 setRawData:](0, ?)
+  794d8  r2 = 0
+  794de  r0 = SEL(setUrlCon:)
+  794e0  r1 = SEL(setUrlCon:)
+  794e4  r0 = [r0 setUrlCon:](0, ?)
+  794ec  r2 = 0
+  794f2  r0 = SEL(setMylist:)
+  794f4  r1 = SEL(setMylist:)
+  794f8  r0 = [r0 setMylist:](0, ?)
+  79500  r2 = 0
+  79506  r0 = SEL(setImageDownloadsInProgress:)
+  79508  r1 = SEL(setImageDownloadsInProgress:)
+  7950c  r0 = [r0 setImageDownloadsInProgress:](0, ?)
+  79514  r2 = 0
+  7951a  r0 = SEL(setGetAllButton:)
+  7951c  r1 = SEL(setGetAllButton:)
+  79520  r0 = [r0 setGetAllButton:](0, ?)
+  79536  r0 = SEL(viewDidUnload)
+  7953e  r1 = SEL(viewDidUnload)
+  79542  r0 = [r0 viewDidUnload](?, ?) SUPER
+  79546  add sp, #8
+  79548  return
+
+//// -[getCoinListController goBackAction:]  0x7954c..0x795b0  v12@0:4@8
+  7954e  add r7, sp, #8
+  79550  sub sp, #0x10
+  79554  call sub_3ccc
+  79566  r0 = SEL(stopSoundBufNumber:)
+  79568  r1 = SEL(stopSoundBufNumber:)
+  7956c  r0 = [r0 stopSoundBufNumber:](363, ?)
+  79580  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  79582  r2 = 10
+  79584  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  79586  r0 = 0
+  79592  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  7959a  r2 = 1
+  795a0  r0 = SEL(dismissModalViewControllerAnimated:)
+  795a2  r1 = SEL(dismissModalViewControllerAnimated:)
+  795a6  add sp, #0x10
+  795ac  b L_a90d0
+
+//// -[getCoinListController tableView:numberOfRowsInSection:]  0x795b0..0x795dc  i16@0:4@8i12
+  795bc  r1 = SEL(mylist)
+  795be  r1 = SEL(mylist)
+  795c0  r0 = [r0 mylist](?, ?)
+  795cc  r1 = SEL(count)
+  795ce  r1 = SEL(count)
+  795d0  r0 = [r0 count](?, ?)
+  795d4  cmp r0, 1
+  795da  return
+
+//// -[getCoinListController numberOfSectionsInTableView:]  0x795dc..0x795e0  i12@0:4@8
+  795dc  r0 = 1
+
+//// -[getCoinListController tableView:heightForRowAtIndexPath:]  0x795e0..0x795e8  f16@0:4@8@12
+  795e0  r0 = 0
+
+//// -[getCoinListController tableView:cellForRowAtIndexPath:]  0x795e8..0x79ec0  @16@0:4@8@12
+  795ea  add r7, sp, #0xc
+  795f0  sub sp, #0x54
+  795fe  r0 = SEL(row)
+  79600  r1 = SEL(row)
+  79606  r0 = [r0 ??](?, ?)
+  79614  r0 = SEL(mylist)
+  79616  r5 = SEL(mylist)
+  7961c  r0 = [r0 mylist](?, ?)
+  79628  r1 = SEL(count)
+  7962a  r1 = SEL(count)
+  7962c  r0 = [r0 count](?, ?)
+  79630  cmp r0, r4
+  79632  bls L_79cea
+  7963a  r0 = [r0 mylist](?, ?)
+  79648  r1 = SEL(objectAtIndex:)
+  7964a  r5 = SEL(objectAtIndex:)
+  7964e  r0 = [r0 objectAtIndex:](?, ?)
+  7965c  r1 = SEL(objectForKey:)
+  7965e  r1 = SEL(objectForKey:)
+  7966a  r2 = CFSTR('name')
+  7966c  r0 = [r0 ??](CFSTR('name'), ?)
+  7967c  r0 = SEL(mainTableView)
+  7967e  r1 = SEL(mainTableView)
+  79682  r0 = [r0 mainTableView](?, ?)
+  79692  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  79698  r2 = CFSTR('CellIdentifier')
+  7969a  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  7969c  r0 = [r0 dequeueReusableCellWithIdentifier:](CFSTR('CellIdentifier'), ?)
+  796a2  cmp r4, 0
+  796a4  bne L_79ba6
+  796b8  r0 = SEL(mainBundle)
+  796ba  r2 = NSBundle
+  796bc  r1 = SEL(mainBundle)
+  796be  r0 = NSBundle
+  796c0  r0 = [NSBundle mainBundle](NSBundle, ?)
+  796c8  r3 = 0
+  796d2  r1 = SEL(loadNibNamed:owner:options:)
+  796d8  r2 = CFSTR('RankingViewControllerCells')
+  796dc  r1 = SEL(loadNibNamed:owner:options:)
+  796de  r3 = 0
+  796e0  r0 = [r0 loadNibNamed:owner:options:](CFSTR('RankingViewControllerCells'), 0)
+  796e6  r2 = 0
+  796e8  r0 = [r0 objectAtIndex:](0, ?)
+  796f6  r2 = 0
+  796f8  r1 = SEL(setAccessoryType:)
+  796fc  r1 = SEL(setAccessoryType:)
+  796fe  r0 = [r0 setAccessoryType:](0, ?)
+  79712  r0 = SEL(clearColor)
+  79714  r6 = UIColor
+  79716  r1 = SEL(clearColor)
+  79718  r0 = UIColor
+  7971e  r0 = [UIColor ??](?, ?)
+  7972e  r0 = SEL(setBackgroundColor:)
+  79730  r1 = SEL(setBackgroundColor:)
+  79738  r0 = [r0 ??](?, ?)
+  7974c  r0 = SEL(alloc)
+  7974e  r2 = UILabel
+  79750  r1 = SEL(alloc)
+  79752  r0 = UILabel
+  79756  r0 = [UILabel ??](UILabel, ?)
+  7975e  r3 = 0
+  79764  r2 = 0
+  79766  r1 = SEL(initWithFrame:)
+  79770  r1 = SEL(initWithFrame:)
+  79776  r2 = 0
+  79778  r3 = 0
+  79784  r0 = [r0 ??](0x425c0000/f55, 0x41a00000/f20)
+  79792  r2 = 1
+  79794  r0 = SEL(setTag:)
+  79796  r1 = SEL(setTag:)
+  7979c  r0 = [r0 ??](1, ?)
+  797a4  r3 = 1098907648
+  797b4  r0 = SEL(fontWithName:size:)
+  797b6  r2 = UIFont
+  797b8  r1 = SEL(fontWithName:size:)
+  797bc  r0 = UIFont
+  797c6  r2 = CFSTR('Helvetica-Bold')
+  797c8  r0 = [UIFont ??](CFSTR('Helvetica-Bold'), 0x41800000/f16)
+  797d6  r0 = SEL(setFont:)
+  797d8  r1 = SEL(setFont:)
+  797de  r0 = [r0 ??](?, ?)
+  797e6  r2 = 0
+  797ec  r0 = SEL(setNumberOfLines:)
+  797ee  r1 = SEL(setNumberOfLines:)
+  797f4  r0 = [r0 ??](0, ?)
+  797f8  r0 = UIColor
+  797fc  r0 = [UIColor ??](?, ?)
+  79806  r0 = [r0 ??](?, ?)
+  7980e  r2 = 0
+  79814  r0 = SEL(setTextAlignment:)
+  79816  r1 = SEL(setTextAlignment:)
+  7981c  r0 = [r0 ??](0, ?)
+  79824  r3 = 1065353216
+  7982c  r2 = 0
+  7982e  r0 = SEL(colorWithRed:green:blue:alpha:)
+  79830  r1 = SEL(colorWithRed:green:blue:alpha:)
+  79832  r0 = UIColor
+  79848  r0 = [UIColor colorWithRed:green:blue:alpha:](0x3f6147ae/f0.88, 0x3f333333/f0.7)
+  79856  r0 = SEL(setTextColor:)
+  79858  sl = SEL(setTextColor:)
+  79860  r0 = [r0 setTextColor:](?, ?)
+  7986c  r0 = SEL(contentView)
+  7986e  r1 = SEL(contentView)
+  79874  r0 = [r0 ??](?, ?)
+  79882  r1 = SEL(addSubview:)
+  79884  r1 = SEL(addSubview:)
+  79888  r0 = [r0 ??](?, ?)
+  79894  r0 = SEL(release)
+  79896  r1 = SEL(release)
+  7989e  r0 = [r0 ??](?, ?)
+  798ae  r0 = UILabel
+  798b0  r0 = UILabel
+  798b4  r0 = [UILabel ??](?, ?)
+  798b8  r1 = 0
+  798ba  r2 = 0
+  798c6  r2 = 0
+  798d0  r3 = 1073741824
+  798d4  r0 = [r0 ??](0x425c0000/f55, 0x40000000/f2)
+  798da  r2 = 2
+  798de  r0 = [r0 ??](2, ?)
+  798e6  r3 = 0
+  798ee  r0 = UIFont
+  798f4  r0 = UIFont
+  798fe  r2 = CFSTR('Helvetica-Bold')
+  79900  r0 = [UIFont ??](CFSTR('Helvetica-Bold'), 0x41500000/f13)
+  7990a  r0 = [r0 ??](?, ?)
+  79912  r2 = 0
+  79914  r0 = [r0 ??](0, ?)
+  79920  r0 = SEL(whiteColor)
+  79922  r1 = SEL(whiteColor)
+  79924  r0 = UIColor
+  79926  r0 = [UIColor whiteColor](?, ?)
+  79930  r0 = [r0 setTextColor:](?, ?)
+  79934  r0 = UIColor
+  79938  r0 = [UIColor ??](?, ?)
+  79942  r0 = [r0 ??](?, ?)
+  7994a  r2 = 0
+  7994c  r0 = [r0 ??](0, ?)
+  79956  r0 = [r0 ??](?, ?)
+  79962  r0 = [r0 ??](?, ?)
+  7996a  r0 = [r0 ??](?, ?)
+  79978  r0 = UIImageView
+  7997a  r0 = UIImageView
+  7997c  r0 = [UIImageView ??](?, ?)
+  79980  r1 = 0
+  79982  r2 = 0
+  7998e  r3 = 1065353216
+  79996  r0 = [r0 ??](0x40a00000/f5, 0x3f800000/f1)
+  799a4  r0 = SEL(layer)
+  799a6  r4 = SEL(layer)
+  799ac  r0 = [r0 layer](?, ?)
+  799b4  r2 = 1082130432
+  799bc  r1 = SEL(setCornerRadius:)
+  799be  r1 = SEL(setCornerRadius:)
+  799c0  r0 = [r0 setCornerRadius:](0x40800000/f4, ?)
+  799c8  r0 = [r0 layer](?, ?)
+  799d0  r2 = 1
+  799d6  r1 = SEL(setMasksToBounds:)
+  799d8  r1 = SEL(setMasksToBounds:)
+  799da  r0 = [r0 setMasksToBounds:](1, ?)
+  799e2  r2 = 4
+  799e6  r0 = [r0 ??](4, ?)
+  799ee  r0 = [r0 ??](?, ?)
+  799f6  r0 = [r0 ??](?, ?)
+  79a04  r0 = UIActivityIndicatorView
+  79a06  r0 = UIActivityIndicatorView
+  79a08  r0 = [UIActivityIndicatorView ??](?, ?)
+  79a10  r2 = 2
+  79a16  r1 = SEL(initWithActivityIndicatorStyle:)
+  79a18  r1 = SEL(initWithActivityIndicatorStyle:)
+  79a1a  r0 = [r0 initWithActivityIndicatorStyle:](2, ?)
+  79a28  r2 = 0
+  79a2a  r0 = SEL(setFrame:)
+  79a2c  r3 = 0
+  79a36  r8 = SEL(setFrame:)
+  79a3a  r0 = 0
+  79a48  r0 = [r0 setFrame:](0x42340000/f45, 0x41900000/f18)
+  79a50  r2 = 5
+  79a52  r0 = [r0 ??](5, ?)
+  79a5a  r2 = 1
+  79a60  r0 = SEL(setHidesWhenStopped:)
+  79a62  r1 = SEL(setHidesWhenStopped:)
+  79a66  r0 = [r0 setHidesWhenStopped:](1, ?)
+  79a72  r0 = SEL(startAnimating)
+  79a74  r1 = SEL(startAnimating)
+  79a78  r0 = [r0 startAnimating](?, ?)
+  79a84  r0 = [r0 ??](?, ?)
+  79a8e  r0 = [r0 ??](?, ?)
+  79a96  r0 = [r0 ??](?, ?)
+  79a9e  r2 = 0
+  79aa4  r0 = SEL(buttonWithType:)
+  79aa6  r1 = SEL(buttonWithType:)
+  79ab0  r0 = UIButton
+  79ab2  r0 = UIButton
+  79ab4  r0 = [UIButton buttonWithType:](0, ?)
+  79abe  r0 = [r0 ??](?, ?)
+  79ac2  add.w r2, r0, #0x64
+  79aca  r0 = [r0 ??](?, ?)
+  79ada  r0 = SEL(setAccessibilityLabel:)
+  79ae0  r2 = CFSTR('Get coin')
+  79ae2  r1 = SEL(setAccessibilityLabel:)
+  79ae6  r0 = [r0 setAccessibilityLabel:](CFSTR('Get coin'), ?)
+  79afa  r0 = SEL(imageNamed:)
+  79afc  sl = UIImage
+  79afe  r4 = SEL(imageNamed:)
+  79b00  r0 = UIImage
+  79b0c  r2 = CFSTR('btn_coin_accept_inact.png')
+  79b10  r0 = [UIImage imageNamed:](CFSTR('btn_coin_accept_inact.png'), ?)
+  79b1e  r3 = 0
+  79b20  r0 = SEL(setBackgroundImage:forState:)
+  79b22  r6 = SEL(setBackgroundImage:forState:)
+  79b28  r0 = [r0 setBackgroundImage:forState:](?, 0)
+  79b2c  r0 = UIImage
+  79b3a  r2 = CFSTR('btn_coin_accept_act.png')
+  79b3c  r0 = [UIImage imageNamed:](CFSTR('btn_coin_accept_act.png'), ?)
+  79b46  r3 = 1
+  79b4a  r0 = [r0 setBackgroundImage:forState:](?, 1)
+  79b4e  r1 = 0
+  79b50  r0 = 0
+  79b52  r2 = 0
+  79b54  r3 = 0
+  79b6e  r0 = [r0 setFrame:](0x43700000/f240, 0x40c00000/f6)
+  79b82  r0 = SEL(addTarget:action:forControlEvents:)
+  79b84  r2 = SEL(getCoin:)
+  79b86  r1 = SEL(addTarget:action:forControlEvents:)
+  79b88  r0 = 64
+  79b8a  r3 = SEL(getCoin:)
+  79b92  r0 = [r0 addTarget:action:forControlEvents:](?, SEL(getCoin:))
+  79b9a  r0 = [r0 ??](?, ?)
+  79ba2  r0 = [r0 ??](?, ?)
+L_79ba6:
+  79bb0  r0 = SEL(contentView)
+  79bb2  r1 = SEL(contentView)
+  79bba  r0 = [r0 ??](?, ?)
+  79bc2  r2 = 1
+  79bc8  r1 = SEL(viewWithTag:)
+  79bca  r6 = SEL(viewWithTag:)
+  79bd0  r0 = [r0 ??](1, ?)
+  79be6  r0 = SEL(stringWithFormat:)
+  79be8  r8 = NSString
+  79bea  sl = SEL(stringWithFormat:)
+  79bf2  r0 = NSString
+  79c00  r2 = CFSTR('Received coins.')
+  79c02  r0 = [NSString ??](CFSTR('Received coins.'), ?)
+  79c10  r0 = SEL(setText:)
+  79c12  r1 = SEL(setText:)
+  79c18  r0 = [r0 ??](?, ?)
+  79c20  r0 = [r0 ??](?, ?)
+  79c26  r2 = 2
+  79c28  r0 = [r0 ??](2, ?)
+  79c2e  r8 = NSString
+  79c40  r2 = CFSTR('name')
+  79c46  r0 = [r0 ??](CFSTR('name'), ?)
+  79c56  r2 = CFSTR('%@')
+  79c5a  r0 = [NSString ??](CFSTR('%@'), ?)
+  79c64  r0 = [r0 ??](?, ?)
+  79c6c  r0 = [r0 ??](?, ?)
+  79c72  r2 = 4
+  79c74  r0 = [r0 ??](4, ?)
+  79c86  r0 = SEL(imageDownloadsInProgress)
+  79c88  r1 = SEL(imageDownloadsInProgress)
+  79c8c  r0 = [r0 imageDownloadsInProgress](?, ?)
+  79c9c  sl = CFSTR('facebook_id')
+  79ca2  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  79cac  r0 = [r0 ??](?, ?)
+  79cb8  r0 = [r0 ??](CFSTR('facebook_id'), ?)
+  79cbc  cmp r6, 0
+  79cbe  beq L_79e4c
+  79cce  r2 = CFSTR('image')
+  79cd0  r0 = [r0 ??](CFSTR('image'), ?)
+  79cde  r0 = SEL(setImage:)
+  79ce0  r1 = SEL(setImage:)
+  79ce4  r0 = [r0 setImage:](?, ?)
+  79ce8  b L_79e80
+L_79cea:
+  79cf2  r0 = SEL(mainTableView)
+  79cf4  r1 = SEL(mainTableView)
+  79cf8  r0 = [r0 mainTableView](?, ?)
+  79d08  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  79d0e  r2 = CFSTR('NoMessage')
+  79d10  r1 = SEL(dequeueReusableCellWithIdentifier:)
+  79d12  r0 = [r0 dequeueReusableCellWithIdentifier:](CFSTR('NoMessage'), ?)
+  79d18  cmp r6, 0
+  79d1a  bne L_79e22
+  79d2e  r0 = SEL(mainBundle)
+  79d30  r2 = NSBundle
+  79d32  r1 = SEL(mainBundle)
+  79d34  r0 = NSBundle
+  79d36  r0 = [NSBundle mainBundle](NSBundle, ?)
+  79d3e  r3 = 0
+  79d48  r1 = SEL(loadNibNamed:owner:options:)
+  79d4e  r2 = CFSTR('RankingViewControllerCells')
+  79d52  r1 = SEL(loadNibNamed:owner:options:)
+  79d54  r3 = 0
+  79d56  r0 = [r0 loadNibNamed:owner:options:](CFSTR('RankingViewControllerCells'), 0)
+  79d5e  r2 = 0
+  79d64  r1 = SEL(objectAtIndex:)
+  79d66  r1 = SEL(objectAtIndex:)
+  79d68  r0 = [r0 objectAtIndex:](0, ?)
+  79d76  r2 = 0
+  79d78  r0 = SEL(setAccessoryType:)
+  79d7a  r1 = SEL(setAccessoryType:)
+  79d7e  r0 = [r0 setAccessoryType:](0, ?)
+  79d8a  r0 = SEL(textLabel)
+  79d8c  r5 = SEL(textLabel)
+  79d92  r0 = [r0 textLabel](?, ?)
+  79da8  r0 = SEL(whiteColor)
+  79daa  r2 = UIColor
+  79dac  r1 = SEL(whiteColor)
+  79dae  r0 = UIColor
+  79db0  r0 = [UIColor whiteColor](UIColor, ?)
+  79dbe  r0 = SEL(setTextColor:)
+  79dc0  r1 = SEL(setTextColor:)
+  79dc4  r0 = [r0 setTextColor:](?, ?)
+  79dcc  r0 = [r0 textLabel](?, ?)
+  79dd4  r2 = 1
+  79dda  r1 = SEL(setTextAlignment:)
+  79ddc  r1 = SEL(setTextAlignment:)
+  79dde  r0 = [r0 setTextAlignment:](1, ?)
+  79de6  r0 = [r0 textLabel](?, ?)
+  79dfc  r0 = SEL(boldSystemFontOfSize:)
+  79dfe  r2 = UIFont
+  79e00  r1 = SEL(boldSystemFontOfSize:)
+  79e02  r0 = UIFont
+  79e04  r2 = 0
+  79e0a  r0 = [UIFont boldSystemFontOfSize:](0x41a00000/f20, ?)
+  79e18  r0 = SEL(setFont:)
+  79e1a  r1 = SEL(setFont:)
+  79e1e  r0 = [r0 setFont:](?, ?)
+L_79e22:
+  79e2a  r0 = SEL(textLabel)
+  79e2c  r1 = SEL(textLabel)
+  79e30  r0 = [r0 textLabel](?, ?)
+  79e40  r1 = SEL(setText:)
+  79e46  r2 = CFSTR('No message')
+  79e48  r1 = SEL(setText:)
+  79e4a  b L_79eb0
+L_79e4c:
+  79e50  r2 = 1
+  79e52  r0 = [r0 ??](1, ?)
+  79e62  r0 = SEL(startIconDownload:forIndexPath:)
+  79e66  r1 = SEL(startIconDownload:forIndexPath:)
+  79e6a  r0 = [r0 startIconDownload:forIndexPath:](?, ?)
+  79e76  r0 = SEL(startAnimating)
+  79e78  r1 = SEL(startAnimating)
+  79e7c  r0 = [r0 startAnimating](?, ?)
+L_79e80:
+  79e88  r0 = NSString
+  79e8a  r0 = NSString
+  79e98  r2 = CFSTR('You received coins from %@ \n Get coin button')
+  79e9a  r0 = [NSString ??](CFSTR('You received coins from %@ \n Get coin button'), ?)
+  79eaa  r0 = SEL(setAccessibilityLabel:)
+  79eac  r1 = SEL(setAccessibilityLabel:)
+L_79eb0:
+  79eb0  r0 = [r0 setAccessibilityLabel:](?, ?)
+  79eb6  add sp, #0x54
+  79ebc  return
+
+//// -[getCoinListController getCoin:]  0x79ec0..0x7a054  v12@0:4@8
+  79ec2  add r7, sp, #0xc
+  79ec8  sub sp, #0x10
+  79ece  call sub_3ccc
+  79ee0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  79eea  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  79eec  r0 = 0
+  79ef8  r0 = [r0 playSound:Gain:Pos:z:reprats:](363, 0x3e4ccccd/f0.2)
+  79f04  r0 = SEL(tag)
+  79f06  r1 = SEL(tag)
+  79f0a  r0 = [r0 tag](?, ?)
+  79f18  r0 = SEL(mylist)
+  79f1a  r6 = SEL(mylist)
+  79f20  r0 = [r0 mylist](?, ?)
+  79f28  sub.w r2, r4, #0x64
+  79f30  r1 = SEL(objectAtIndex:)
+  79f32  r1 = SEL(objectAtIndex:)
+  79f34  r0 = [r0 objectAtIndex:](?, ?)
+  79f46  r0 = SEL(objectForKey:)
+  79f4c  r2 = CFSTR('index')
+  79f4e  r1 = SEL(objectForKey:)
+  79f52  r0 = [r0 objectForKey:](CFSTR('index'), ?)
+  79f56  call sub_79024
+  79f5e  r0 = [r0 mylist](?, ?)
+  79f6c  r1 = SEL(removeObject:)
+  79f6e  r1 = SEL(removeObject:)
+  79f70  r0 = [r0 removeObject:](?, ?)
+  79f7c  r0 = SEL(mainTableView)
+  79f7e  r1 = SEL(mainTableView)
+  79f82  r0 = [r0 mainTableView](?, ?)
+  79f8e  r1 = SEL(reloadData)
+  79f90  r1 = SEL(reloadData)
+  79f92  r0 = [r0 reloadData](?, ?)
+  79f9e  r0 = SEL(Coin)
+  79fa0  r6 = SEL(Coin)
+  79fa6  r0 = [r0 Coin](?, ?)
+  79fae  adds r2, r0, #1
+  79fb6  r1 = SEL(setCoin:)
+  79fb8  r1 = SEL(setCoin:)
+  79fba  r0 = [r0 setCoin:](?, ?)
+  79fce  r0 = SEL(standardUserDefaults)
+  79fd0  fp = NSUserDefaults
+  79fd2  r5 = SEL(standardUserDefaults)
+  79fd4  r0 = NSUserDefaults
+  79fda  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  79fea  r0 = NSString
+  79fec  r4 = NSString
+  79ff0  r0 = [r0 Coin](?, ?)
+  7a002  r0 = SEL(stringWithFormat:)
+  7a008  r2 = CFSTR('%d')
+  7a00a  r1 = SEL(stringWithFormat:)
+  7a00e  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  7a020  r0 = SEL(setObject:forKey:)
+  7a026  r3 = CFSTR('COIN')
+  7a028  r1 = SEL(setObject:forKey:)
+  7a02c  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  7a030  r0 = NSUserDefaults
+  7a036  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7a042  r1 = SEL(synchronize)
+  7a044  r1 = SEL(synchronize)
+  7a046  add sp, #0x10
+  7a050  b L_a90d0
+
+//// -[getCoinListController getAllAction:]  0x7a054..0x7a1e8  v12@0:4@8
+  7a056  add r7, sp, #0xc
+  7a05c  sub sp, #0x18
+  7a062  call sub_3ccc
+  7a074  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  7a07e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  7a080  r0 = 0
+  7a08c  r0 = [r0 playSound:Gain:Pos:z:reprats:](363, 0x3e4ccccd/f0.2)
+  7a098  r0 = SEL(mylist)
+  7a09a  r1 = SEL(mylist)
+  7a0a0  r0 = [r0 ??](?, ?)
+  7a0ac  r1 = SEL(count)
+  7a0ae  r1 = SEL(count)
+  7a0b0  r0 = [r0 count](?, ?)
+  7a0be  r0 = SEL(Coin)
+  7a0c0  r4 = SEL(Coin)
+  7a0c6  r0 = [r0 Coin](?, ?)
+  7a0ce  adds r2, r0, r5
+  7a0d6  r1 = SEL(setCoin:)
+  7a0d8  r1 = SEL(setCoin:)
+  7a0da  r0 = [r0 setCoin:](?, ?)
+  7a0ee  r0 = SEL(standardUserDefaults)
+  7a0f0  sl = NSUserDefaults
+  7a0f2  r5 = SEL(standardUserDefaults)
+  7a0f4  r0 = NSUserDefaults
+  7a0fa  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7a10a  r0 = NSString
+  7a10c  r8 = NSString
+  7a112  r0 = [r0 Coin](?, ?)
+  7a124  r0 = SEL(stringWithFormat:)
+  7a12a  r2 = CFSTR('%d')
+  7a12c  r1 = SEL(stringWithFormat:)
+  7a130  r0 = [NSString stringWithFormat:](CFSTR('%d'), ?)
+  7a142  r0 = SEL(setObject:forKey:)
+  7a148  r3 = CFSTR('COIN')
+  7a14a  r1 = SEL(setObject:forKey:)
+  7a14e  r0 = [r0 setObject:forKey:](?, CFSTR('COIN'))
+  7a152  r0 = NSUserDefaults
+  7a158  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  7a164  r1 = SEL(synchronize)
+  7a166  r1 = SEL(synchronize)
+  7a168  r0 = [r0 synchronize](?, ?)
+  7a16c  call sub_790b4
+  7a176  r0 = [r0 ??](?, ?)
+  7a182  r1 = SEL(removeAllObjects)
+  7a184  r1 = SEL(removeAllObjects)
+  7a186  r0 = [r0 removeAllObjects](?, ?)
+  7a19a  r0 = SEL(array)
+  7a19c  r2 = NSMutableArray
+  7a19e  r1 = SEL(array)
+  7a1a0  r0 = NSMutableArray
+  7a1a2  r0 = [NSMutableArray array](NSMutableArray, ?)
+  7a1b0  r0 = SEL(setMylist:)
+  7a1b2  r1 = SEL(setMylist:)
+  7a1b6  r0 = [r0 setMylist:](?, ?)
+  7a1c2  r0 = SEL(mainTableView)
+  7a1c4  r1 = SEL(mainTableView)
+  7a1c8  r0 = [r0 mainTableView](?, ?)
+  7a1d4  r1 = SEL(reloadData)
+  7a1d6  r1 = SEL(reloadData)
+  7a1d8  add sp, #0x18
+  7a1e2  b L_a90d0
+
+//// -[getCoinListController tableView:didSelectRowAtIndexPath:]  0x7a1e8..0x7a200  v16@0:4@8@12
+  7a1f0  r0 = SEL(deselectRowAtIndexPath:animated:)
+  7a1f2  r1 = SEL(deselectRowAtIndexPath:animated:)
+  7a1f8  r3 = 0
+  7a1fa  b L_a90d0
+
+//// -[getCoinListController LoadGetCoinData]  0x7a200..0x7a454  v8@0:4
+  7a202  add r7, sp, #0xc
+  7a208  sub sp, #0x10
+  7a20c  call sub_3ccc
+  7a22a  r1 = SEL(standardUserDefaults)
+  7a22c  r0 = NSString
+  7a22e  r2 = NSUserDefaults
+  7a230  r1 = SEL(standardUserDefaults)
+  7a232  r5 = NSString
+  7a234  r0 = NSUserDefaults
+  7a236  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  7a246  r1 = SEL(objectForKey:)
+  7a24c  r2 = CFSTR('BASEURL')
+  7a24e  r1 = SEL(objectForKey:)
+  7a250  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  7a262  r0 = SEL(stringWithFormat:)
+  7a268  r2 = CFSTR('%@getCoin.php')
+  7a26a  r1 = SEL(stringWithFormat:)
+  7a26e  r0 = [NSString stringWithFormat:](CFSTR('%@getCoin.php'), ?)
+  7a284  r0 = SEL(alloc)
+  7a286  r1 = NSMutableURLRequest
+  7a288  sl = SEL(alloc)
+  7a28c  r0 = NSMutableURLRequest
+  7a290  r0 = [NSMutableURLRequest alloc](?, ?)
+  7a2a6  r0 = SEL(URLWithString:)
+  7a2a8  r2 = NSURL
+  7a2aa  r1 = SEL(URLWithString:)
+  7a2ac  r0 = NSURL
+  7a2b0  r0 = [NSURL URLWithString:](?, ?)
+  7a2be  r0 = SEL(initWithURL:)
+  7a2c0  r1 = SEL(initWithURL:)
+  7a2c4  r0 = [r0 initWithURL:](?, ?)
+  7a2d6  r0 = SEL(setHTTPMethod:)
+  7a2dc  r2 = CFSTR('POST')
+  7a2de  r1 = SEL(setHTTPMethod:)
+  7a2e2  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  7a2ee  r0 = SEL(PHPSESSID)
+  7a2f0  r1 = SEL(PHPSESSID)
+  7a2f4  r0 = [r0 PHPSESSID](?, ?)
+  7a300  r1 = SEL(length)
+  7a302  r1 = SEL(length)
+  7a304  r0 = [r0 length](?, ?)
+  7a308  cbnz r0 -> L_7a32c
+  7a312  r0 = SEL(g_loginController)
+  7a314  r1 = SEL(g_loginController)
+  7a318  r0 = [r0 g_loginController](?, ?)
+  7a324  r1 = SEL(Login)
+  7a326  r1 = SEL(Login)
+  7a328  r0 = [r0 Login](?, ?)
+L_7a32c:
+  7a336  r0 = NSURLConnection
+  7a338  r0 = NSURLConnection
+  7a33a  r0 = [NSURLConnection alloc](?, ?)
+  7a34a  r1 = SEL(initWithRequest:delegate:)
+  7a34c  r1 = SEL(initWithRequest:delegate:)
+  7a34e  r0 = [r0 initWithRequest:delegate:](?, ?)
+  7a35a  r1 = SEL(autorelease)
+  7a35c  r1 = SEL(autorelease)
+  7a35e  r0 = [r0 autorelease](?, ?)
+  7a36c  r0 = SEL(setUrlCon:)
+  7a36e  r1 = SEL(setUrlCon:)
+  7a372  r0 = [r0 setUrlCon:](?, ?)
+  7a386  r0 = SEL(sharedApplication)
+  7a388  r2 = UIApplication
+  7a38a  r1 = SEL(sharedApplication)
+  7a38c  r0 = UIApplication
+  7a38e  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  7a396  r2 = 1
+  7a39c  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a39e  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a3a0  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  7a3ac  r0 = SEL(release)
+  7a3ae  r1 = SEL(release)
+  7a3b2  r0 = [r0 release](?, ?)
+  7a3ba  r8 = 0
+  7a3c6  r0 = IVOFF(timerEnd)
+  7a3cc  r1 = IVOFF(reqTimer)
+  7a3ce  r0 = IVOFF(timerEnd)
+  7a3d0  r6 = IVOFF(reqTimer)
+  7a3d2  self->timerEnd = 0
+  7a3d6  r0 = self->reqTimer
+  7a3da  cbnz self->reqTimer -> L_7a43a
+  7a3e0  sl = 0
+  7a3e8  r0 = SEL(isValid)
+  7a3ea  r1 = SEL(isValid)
+  7a3ec  r0 = 0
+  7a3ee  r0 = [r0 isValid](?, ?)
+  7a3f6  bne L_7a43a
+  7a3f8  vmov.f64 d16, #3.000000e+01
+  7a410  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  7a412  r5 = NSTimer
+  7a414  vmov r2, r3, d16
+  7a41c  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  7a41e  r4 = SEL(reqTimerMethod:)
+  7a420  r0 = NSTimer
+  7a422  r5 = SEL(reqTimerMethod:)
+  7a432  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  7a436  self->reqTimer = r0
+L_7a43a:
+  7a442  r0 = IVOFF(reqOK)
+  7a444  r0 = IVOFF(reqOK)
+  7a446  self->reqOK = 0
+  7a44a  add sp, #0x10
+  7a450  return
+
+//// -[getCoinListController reqTimerMethod:]  0x7a454..0x7a580  v12@0:4@8
+  7a456  add r7, sp, #0xc
+  7a458  sub sp, #0xc
+  7a464  r0 = IVOFF(reqOK)
+  7a466  r0 = IVOFF(reqOK)
+  7a468  r1 = self->reqOK
+  7a46a  cmp self->reqOK, 0
+  7a476  r3 = 1
+  7a484  r2 = UIApplication
+  7a486  r1 = SEL(sharedApplication)
+  7a488  self->reqOK = 1
+  7a48a  r1 = SEL(sharedApplication)
+  7a48c  r0 = UIApplication
+  7a48e  r0 = [UIApplication sharedApplication](UIApplication, 1)
+  7a496  r2 = 0
+  7a49c  r6 = 0
+  7a49e  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a4a0  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a4a2  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  7a4ae  r0 = SEL(urlCon)
+  7a4b0  r1 = SEL(urlCon)
+  7a4b4  r0 = [r0 urlCon](?, ?)
+  7a4c0  r1 = SEL(cancel)
+  7a4c2  r1 = SEL(cancel)
+  7a4c4  r0 = [r0 cancel](?, ?)
+  7a4cc  r2 = 0
+  7a4d2  r0 = SEL(setUrlCon:)
+  7a4d4  r1 = SEL(setUrlCon:)
+  7a4d8  r0 = [r0 setUrlCon:](0, ?)
+  7a4e0  r2 = 0
+  7a4e6  r0 = SEL(setRawData:)
+  7a4e8  r1 = SEL(setRawData:)
+  7a4ec  r0 = [r0 setRawData:](0, ?)
+  7a500  r0 = SEL(alloc)
+  7a502  r2 = UIAlertView
+  7a504  r1 = SEL(alloc)
+  7a506  r0 = UIAlertView
+  7a508  r0 = [UIAlertView alloc](UIAlertView, ?)
+  7a518  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7a522  r2 = CFSTR('No Connection Error')
+  7a52c  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7a532  r3 = CFSTR('Please, try again.')
+  7a534  r5 = CFSTR('try')
+  7a53a  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), CFSTR('Please, try again.'))
+  7a548  r2 = 10
+  7a54a  r0 = SEL(setTag:)
+  7a54c  r1 = SEL(setTag:)
+  7a550  r0 = [r0 setTag:](10, ?)
+  7a55c  r0 = SEL(show)
+  7a55e  r1 = SEL(show)
+  7a562  r0 = [r0 show](?, ?)
+  7a56e  r0 = SEL(release)
+  7a570  r1 = SEL(release)
+  7a574  add sp, #0xc
+  7a57a  b L_a90d0
+
+//// -[getCoinListController connection:didReceiveResponse:]  0x7a580..0x7a5bc  v16@0:4@8@12
+  7a594  r0 = SEL(data)
+  7a596  r2 = NSMutableData
+  7a598  add r7, sp, #4
+  7a59a  r1 = SEL(data)
+  7a59c  r0 = NSMutableData
+  7a59e  r0 = [NSMutableData data](NSMutableData, ?)
+  7a5ac  r0 = SEL(setRawData:)
+  7a5ae  r1 = SEL(setRawData:)
+  7a5b6  b L_a90d0
+
+//// -[getCoinListController connection:didReceiveData:]  0x7a5bc..0x7a5e8  v16@0:4@8@12
+  7a5c2  add r7, sp, #4
+  7a5ca  r1 = SEL(rawData)
+  7a5cc  r1 = SEL(rawData)
+  7a5ce  r0 = [r0 rawData](?, ?)
+  7a5dc  r1 = SEL(appendData:)
+  7a5de  r1 = SEL(appendData:)
+  7a5e4  b L_a90d0
+
+//// -[getCoinListController connection:didFailWithError:]  0x7a5e8..0x7a718  v16@0:4@8@12
+  7a5ea  add r7, sp, #0xc
+  7a5ec  sub sp, #4
+  7a5fc  r0 = IVOFF(reqOK)
+  7a602  r2 = IVOFF(timerEnd)
+  7a606  r1 = IVOFF(reqOK)
+  7a608  r0 = 1
+  7a60a  self->reqOK = 1
+  7a60c  r1 = IVOFF(timerEnd)
+  7a60e  r2 = self->timerEnd
+  7a610  cbnz self->timerEnd -> L_7a650
+  7a61a  self->timerEnd = 1
+  7a61c  r2 = IVOFF(reqTimer)
+  7a61e  r6 = IVOFF(reqTimer)
+  7a620  r0 = self->reqTimer
+  7a622  cbz self->reqTimer -> L_7a650
+  7a62c  r1 = SEL(isValid)
+  7a62e  r1 = SEL(isValid)
+  7a630  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  7a638  beq L_7a650
+  7a642  r0 = SEL(invalidate)
+  7a644  r1 = SEL(invalidate)
+  7a646  r0 = self->reqTimer
+  7a648  r0 = [self->reqTimer invalidate](?, ?)
+  7a64c  r0 = 0
+  7a64e  self->reqTimer = 0
+L_7a650:
+  7a660  r0 = SEL(sharedApplication)
+  7a662  r2 = UIApplication
+  7a664  r1 = SEL(sharedApplication)
+  7a666  r0 = UIApplication
+  7a668  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  7a670  r2 = 0
+  7a676  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a678  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  7a67a  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  7a686  r0 = SEL(code)
+  7a688  r1 = SEL(code)
+  7a68c  r0 = [r0 code](?, ?)
+  7a690  r1 = -1009
+  7a694  cmp r0, 4294966287
+  7a696  bne L_7a6fe
+  7a6a4  r1 = _NSLocalizedDescriptionKey
+  7a6ae  r2 = SEL(dictionaryWithObject:forKey:)
+  7a6b0  r3 = _NSLocalizedDescriptionKey
+  7a6b6  r0 = NSDictionary
+  7a6b8  r1 = SEL(dictionaryWithObject:forKey:)
+  7a6c2  r0 = NSDictionary
+  7a6c6  r2 = CFSTR('No Connection Error')
+  7a6c8  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  7a6e0  r1 = _NSCocoaErrorDomain
+  7a6e6  r3 = NSError
+  7a6e8  r2 = SEL(errorWithDomain:code:userInfo:)
+  7a6ea  r6 = _NSCocoaErrorDomain
+  7a6ec  r3 = NSError
+  7a6ee  r1 = SEL(errorWithDomain:code:userInfo:)
+  7a6f6  r3 = -1009
+  7a6fa  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_7a6fe:
+  7a702  r2 = 0
+  7a708  r0 = SEL(setUrlCon:)
+  7a70a  r1 = SEL(setUrlCon:)
+  7a70e  add sp, #4
+  7a714  b L_a90d0
+
+//// -[getCoinListController connectionDidFinishLoading:]  0x7a718..0x7aacc  v12@0:4@8
+  7a71a  add r7, sp, #0xc
+  7a720  sub sp, #0x14
+  7a730  r0 = IVOFF(reqOK)
+  7a736  r2 = IVOFF(timerEnd)
+  7a738  r1 = IVOFF(reqOK)
+  7a73a  r0 = 1
+  7a73c  self->reqOK = 1
+  7a740  r1 = IVOFF(timerEnd)
+  7a742  r2 = self->timerEnd
+  7a746  cbnz self->timerEnd -> L_7a78e
+  7a750  self->timerEnd = 1
+  7a754  r2 = IVOFF(reqTimer)
+  7a756  r4 = IVOFF(reqTimer)
+  7a758  r0 = self->reqTimer
+  7a75c  cbz self->reqTimer -> L_7a78e
+  7a766  r1 = SEL(isValid)
+  7a768  r1 = SEL(isValid)
+  7a76a  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  7a772  beq L_7a78e
+  7a77c  r0 = SEL(invalidate)
+  7a77e  r1 = SEL(invalidate)
+  7a780  r0 = self->reqTimer
+  7a784  r0 = [self->reqTimer invalidate](?, ?)
+  7a788  r0 = 0
+  7a78a  self->reqTimer = 0
+L_7a78e:
+  7a796  r0 = SEL(rawData)
+  7a798  r5 = SEL(rawData)
+  7a79e  r0 = [r0 rawData](?, ?)
+  7a7a2  cmp r0, 0
+  7a7a4  beq L_7a998
+  7a7b8  r0 = SEL(alloc)
+  7a7ba  r2 = NSString
+  7a7bc  r1 = SEL(alloc)
+  7a7be  r0 = NSString
+  7a7c2  r0 = [NSString ??](NSString, ?)
+  7a7cc  r0 = [r0 rawData](?, ?)
+  7a7da  r3 = 4
+  7a7dc  r0 = SEL(initWithData:encoding:)
+  7a7de  r1 = SEL(initWithData:encoding:)
+  7a7e2  r0 = [r0 initWithData:encoding:](?, 4)
+  7a7ee  r1 = SEL(autorelease)
+  7a7f0  r1 = SEL(autorelease)
+  7a7f2  r0 = [r0 autorelease](?, ?)
+  7a7fe  r1 = SEL(objectFromJSONString)
+  7a800  r1 = SEL(objectFromJSONString)
+  7a802  r0 = [r0 objectFromJSONString](?, ?)
+  7a814  r0 = SEL(objectForKey:)
+  7a81a  r2 = CFSTR('code')
+  7a81c  r5 = SEL(objectForKey:)
+  7a822  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  7a82e  r1 = SEL(intValue)
+  7a830  r1 = SEL(intValue)
+  7a832  r0 = [r0 intValue](?, ?)
+  7a842  r2 = CFSTR('comment')
+  7a846  r0 = [r0 objectForKey:](CFSTR('comment'), ?)
+  7a856  r0 = NSMutableArray
+  7a858  r4 = NSMutableArray
+  7a864  r2 = CFSTR('recv')
+  7a866  r0 = [r0 objectForKey:](CFSTR('recv'), ?)
+  7a874  r0 = SEL(arrayWithArray:)
+  7a876  r5 = SEL(arrayWithArray:)
+  7a87c  r0 = [NSMutableArray arrayWithArray:](?, ?)
+  7a88a  r0 = SEL(count)
+  7a88c  r8 = SEL(count)
+  7a894  r0 = [r0 count](?, ?)
+  7a898  cmp fp, 100
+  7a89c  bne L_7aa24
+  7a8a0  cmp r0, 1
+  7a8a2  blt L_7aaa0
+  7a8b2  r0 = NSMutableArray
+  7a8b4  r0 = NSMutableArray
+  7a8b6  r0 = [NSMutableArray arrayWithArray:](?, ?)
+  7a8be  r0 = [r0 count](?, ?)
+  7a8c4  cmp r5, 1
+  7a8c6  blt L_7a8ea
+  7a8cc  r6 = 0
+  7a8d2  r0 = SEL(objectAtIndex:)
+  7a8d4  r4 = SEL(objectAtIndex:)
+L_7a8d6:
+  7a8dc  r0 = [r0 objectAtIndex:](0, ?)
+  7a8e0  call sub_78ca0
+  7a8e4  adds r6, #1
+  7a8e6  cmp r5, r6
+  7a8e8  bne L_7a8d6
+L_7a8ea:
+  7a8ea  r0 = 0
+  7a8ec  call sub_788f0
+  7a8fa  r0 = SEL(setMylist:)
+  7a8fc  r1 = SEL(setMylist:)
+  7a900  r0 = [r0 setMylist:](?, ?)
+  7a90e  r0 = NSSortDescriptor
+  7a910  r0 = NSSortDescriptor
+  7a912  r0 = [NSSortDescriptor ??](?, ?)
+  7a91a  r3 = 1
+  7a924  r1 = SEL(initWithKey:ascending:)
+  7a92a  r2 = CFSTR('date')
+  7a92c  r1 = SEL(initWithKey:ascending:)
+  7a92e  r0 = [r0 initWithKey:ascending:](CFSTR('date'), 1)
+  7a93c  r0 = SEL(mylist)
+  7a93e  r5 = SEL(mylist)
+  7a944  r0 = [r0 mylist](?, ?)
+  7a954  r0 = SEL(arrayWithObject:)
+  7a956  r1 = SEL(arrayWithObject:)
+  7a960  r0 = NSMutableArray
+  7a962  r0 = NSMutableArray
+  7a964  r0 = [NSMutableArray arrayWithObject:](?, ?)
+  7a972  r0 = SEL(sortUsingDescriptors:)
+  7a974  r1 = SEL(sortUsingDescriptors:)
+  7a978  r0 = [r0 sortUsingDescriptors:](?, ?)
+  7a984  r0 = SEL(release)
+  7a986  r1 = SEL(release)
+  7a98a  r0 = [r0 release](?, ?)
+  7a992  r0 = [r0 mylist](?, ?)
+  7a996  b L_7aaa0
+L_7a998:
+  7a9a8  r0 = SEL(alloc)
+  7a9aa  r2 = UIAlertView
+  7a9ac  r1 = SEL(alloc)
+  7a9ae  r0 = UIAlertView
+  7a9b0  r0 = [UIAlertView alloc](UIAlertView, ?)
+  7a9b8  r5 = 0
+  7a9c2  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7a9cc  r2 = CFSTR('No Connection Error')
+  7a9d2  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7a9d8  r3 = CFSTR('Please, try again.')
+  7a9e2  r6 = CFSTR('try')
+  7a9e8  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), CFSTR('Please, try again.'))
+  7a9f6  r2 = 10
+  7a9f8  r0 = SEL(setTag:)
+  7a9fa  r1 = SEL(setTag:)
+  7a9fe  r0 = [r0 setTag:](10, ?)
+  7aa0a  r0 = SEL(show)
+  7aa0c  r1 = SEL(show)
+  7aa10  r0 = [r0 show](?, ?)
+  7aa1c  r0 = SEL(release)
+  7aa1e  r1 = SEL(release)
+  7aa22  b L_7aabe
+L_7aa24:
+  7aa2e  r0 = UIAlertView
+  7aa30  r0 = UIAlertView
+  7aa32  r0 = [UIAlertView ??](?, ?)
+  7aa3a  r6 = 0
+  7aa50  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7aa52  r3 = CFSTR('try')
+  7aa5a  r2 = CFSTR('No Connection Error')
+  7aa5c  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  7aa62  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), ?)
+  7aa70  r2 = 10
+  7aa72  r0 = SEL(setTag:)
+  7aa74  r1 = SEL(setTag:)
+  7aa78  r0 = [r0 setTag:](10, ?)
+  7aa84  r0 = SEL(show)
+  7aa86  r1 = SEL(show)
+  7aa8a  r0 = [r0 show](?, ?)
+  7aa96  r0 = SEL(release)
+  7aa98  r1 = SEL(release)
+  7aa9c  r0 = [r0 release](?, ?)
+L_7aaa0:
+  7aaa8  r0 = SEL(mainTableView)
+  7aaaa  r1 = SEL(mainTableView)
+  7aaae  r0 = [r0 mainTableView](?, ?)
+  7aaba  r1 = SEL(reloadData)
+  7aabc  r1 = SEL(reloadData)
+L_7aabe:
+  7aabe  add sp, #0x14
+  7aac8  b L_a90d0
+
+//// -[getCoinListController startIconDownload:forIndexPath:]  0x7aacc..0x7ac28  v16@0:4@8@12
+  7aace  add r7, sp, #0xc
+  7aae0  r0 = SEL(imageDownloadsInProgress)
+  7aae4  sl = SEL(imageDownloadsInProgress)
+  7aaec  r0 = [r0 imageDownloadsInProgress](?, ?)
+  7aafe  r0 = SEL(objectForKey:)
+  7ab04  r2 = CFSTR('facebook_id')
+  7ab06  r6 = SEL(objectForKey:)
+  7ab0c  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  7ab16  r0 = [r0 objectForKey:](?, ?)
+  7ab1a  cbz r0 -> L_7ab32
+  7ab28  r2 = CFSTR('download')
+  7ab2a  r0 = [r0 objectForKey:](CFSTR('download'), ?)
+  7ab2e  cmp r0, 0
+  7ab30  bne L_7ac20
+L_7ab32:
+  7ab3e  r2 = CFSTR('facebook_id')
+  7ab40  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  7ab4c  r1 = SEL(length)
+  7ab4e  r1 = SEL(length)
+  7ab50  r0 = [r0 length](?, ?)
+  7ab54  cmp r0, 0
+  7ab56  beq L_7ac20
+  7ab68  r0 = SEL(alloc)
+  7ab6a  r2 = IconDownloader
+  7ab6c  r1 = SEL(alloc)
+  7ab6e  r0 = IconDownloader
+  7ab70  r0 = [IconDownloader alloc](IconDownloader, ?)
+  7ab7c  r1 = SEL(init)
+  7ab7e  r1 = SEL(init)
+  7ab80  r0 = [r0 init](?, ?)
+  7ab90  r0 = SEL(setAppRecord:)
+  7ab92  r1 = SEL(setAppRecord:)
+  7ab96  r0 = [r0 setAppRecord:](?, ?)
+  7aba4  r0 = SEL(setDelegate:)
+  7aba6  r1 = SEL(setDelegate:)
+  7abaa  r0 = [r0 setDelegate:](?, ?)
+  7abb8  r0 = SEL(setIndexPathInTableView:)
+  7abba  r1 = SEL(setIndexPathInTableView:)
+  7abbe  r0 = [r0 setIndexPathInTableView:](?, ?)
+  7abc6  r0 = [r0 imageDownloadsInProgress](?, ?)
+  7abd6  r2 = CFSTR('facebook_id')
+  7abda  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  7abea  r0 = SEL(setObject:forKey:)
+  7abec  r1 = SEL(setObject:forKey:)
+  7abf0  r0 = [r0 setObject:forKey:](?, ?)
+  7abfc  r0 = SEL(startDownload)
+  7abfe  r1 = SEL(startDownload)
+  7ac02  r0 = [r0 startDownload](?, ?)
+  7ac0e  r0 = SEL(release)
+  7ac10  r1 = SEL(release)
+  7ac1c  b L_a90d0
+L_7ac20:
+  7ac24  return
+
+//// -[getCoinListController appImageDidLoad:indexPath:]  0x7ac28..0x7ad28  v16@0:4@8@12
+  7ac2a  add r7, sp, #0xc
+  7ac3c  r0 = SEL(imageDownloadsInProgress)
+  7ac40  r1 = SEL(imageDownloadsInProgress)
+  7ac44  r0 = [r0 imageDownloadsInProgress](?, ?)
+  7ac56  r0 = SEL(objectForKey:)
+  7ac5c  r2 = CFSTR('facebook_id')
+  7ac5e  fp = SEL(objectForKey:)
+  7ac66  r0 = [r0 objectForKey:](CFSTR('facebook_id'), ?)
+  7ac70  r0 = [r0 objectForKey:](?, ?)
+  7ac76  cmp sl, 0
+  7ac7a  beq L_7ad22
+  7ac84  r0 = SEL(mainTableView)
+  7ac86  r1 = SEL(mainTableView)
+  7ac8a  r0 = [r0 mainTableView](?, ?)
+  7ac98  r1 = SEL(cellForRowAtIndexPath:)
+  7ac9a  r1 = SEL(cellForRowAtIndexPath:)
+  7ac9c  r0 = [r0 cellForRowAtIndexPath:](?, ?)
+  7aca0  cmp r0, 0
+  7aca2  beq L_7ad22
+  7acac  r1 = SEL(contentView)
+  7acae  r1 = SEL(contentView)
+  7acb0  r0 = [r0 contentView](?, ?)
+  7acb8  r2 = 4
+  7acbe  r1 = SEL(viewWithTag:)
+  7acc0  r6 = SEL(viewWithTag:)
+  7acc4  r0 = [r0 viewWithTag:](4, ?)
+  7acd2  r0 = SEL(appRecord)
+  7acd4  r1 = SEL(appRecord)
+  7acd8  r0 = [r0 appRecord](?, ?)
+  7ace6  r2 = CFSTR('image')
+  7ace8  r0 = [r0 objectForKey:](CFSTR('image'), ?)
+  7acf6  r0 = SEL(setImage:)
+  7acf8  r1 = SEL(setImage:)
+  7acfc  r0 = [r0 setImage:](?, ?)
+  7ad04  r2 = 5
+  7ad06  r0 = [r0 viewWithTag:](5, ?)
+  7ad12  r1 = SEL(stopAnimating)
+  7ad14  r1 = SEL(stopAnimating)
+  7ad1e  b L_a90d0
+L_7ad22:
+  7ad26  return
+
+//// -[getCoinListController rawData]  0x7ad28..0x7ad38  @8@0:4
+  7ad30  r1 = IVOFF(rawData)
+  7ad32  r1 = IVOFF(rawData)
+  7ad34  r0 = self->rawData
+
+//// -[getCoinListController setRawData:]  0x7ad38..0x7ad5c  v12@0:4@8
+  7ad3c  sub sp, #8
+  7ad48  r3 = 0
+  7ad4a  r2 = IVOFF(rawData)
+  7ad52  r2 = IVOFF(rawData)
+  7ad54  call _objc_setProperty
+  7ad58  add sp, #8
+  7ad5a  return
+
+//// -[getCoinListController urlCon]  0x7ad5c..0x7ad6c  @8@0:4
+  7ad64  r1 = IVOFF(urlCon)
+  7ad66  r1 = IVOFF(urlCon)
+  7ad68  r0 = self->urlCon
+
+//// -[getCoinListController setUrlCon:]  0x7ad6c..0x7ad90  v12@0:4@8
+  7ad70  sub sp, #8
+  7ad7c  r3 = 0
+  7ad7e  r2 = IVOFF(urlCon)
+  7ad86  r2 = IVOFF(urlCon)
+  7ad88  call _objc_setProperty
+  7ad8c  add sp, #8
+  7ad8e  return
+
+//// -[getCoinListController mylist]  0x7ad90..0x7ada0  @8@0:4
+  7ad98  r1 = IVOFF(mylist)
+  7ad9a  r1 = IVOFF(mylist)
+  7ad9c  r0 = self->mylist
+
+//// -[getCoinListController setMylist:]  0x7ada0..0x7adc4  v12@0:4@8
+  7ada4  sub sp, #8
+  7adb0  r3 = 0
+  7adb2  r2 = IVOFF(mylist)
+  7adba  r2 = IVOFF(mylist)
+  7adbc  call _objc_setProperty
+  7adc0  add sp, #8
+  7adc2  return
+
+//// -[getCoinListController imageDownloadsInProgress]  0x7adc4..0x7add4  @8@0:4
+  7adcc  r1 = IVOFF(imageDownloadsInProgress)
+  7adce  r1 = IVOFF(imageDownloadsInProgress)
+  7add0  r0 = self->imageDownloadsInProgress
+
+//// -[getCoinListController setImageDownloadsInProgress:]  0x7add4..0x7adf8  v12@0:4@8
+  7add8  sub sp, #8
+  7ade4  r3 = 0
+  7ade6  r2 = IVOFF(imageDownloadsInProgress)
+  7adee  r2 = IVOFF(imageDownloadsInProgress)
+  7adf0  call _objc_setProperty
+  7adf4  add sp, #8
+  7adf6  return
+
+//// -[getCoinListController mainTableView]  0x7adf8..0x7ae08  @8@0:4
+  7ae00  r1 = IVOFF(_mainTableView)
+  7ae02  r1 = IVOFF(_mainTableView)
+  7ae04  r0 = self->_mainTableView
+
+//// -[getCoinListController setMainTableView:]  0x7ae08..0x7ae2c  v12@0:4@8
+  7ae0c  sub sp, #8
+  7ae18  r3 = 0
+  7ae1a  r2 = IVOFF(_mainTableView)
+  7ae22  r2 = IVOFF(_mainTableView)
+  7ae24  call _objc_setProperty
+  7ae28  add sp, #8
+  7ae2a  return
+
+//// -[getCoinListController getAllButton]  0x7ae2c..0x7ae3c  @8@0:4
+  7ae34  r1 = IVOFF(_getAllButton)
+  7ae36  r1 = IVOFF(_getAllButton)
+  7ae38  r0 = self->_getAllButton
+
+//// -[getCoinListController setGetAllButton:]  0x7ae3c..0x7ae60  v12@0:4@8
+  7ae40  sub sp, #8
+  7ae4c  r3 = 0
+  7ae4e  r2 = IVOFF(_getAllButton)
+  7ae56  r2 = IVOFF(_getAllButton)
+  7ae58  call _objc_setProperty
+  7ae5c  add sp, #8
+  7ae5e  return
+
+//// -[getCoinListController goBackButton]  0x7ae60..0x7ae70  @8@0:4
+  7ae68  r1 = IVOFF(_goBackButton)
+  7ae6a  r1 = IVOFF(_goBackButton)
+  7ae6c  r0 = self->_goBackButton
+
+//// -[getCoinListController setGoBackButton:]  0x7ae70..0x7ae94  v12@0:4@8
+  7ae74  sub sp, #8
+  7ae80  r3 = 0
+  7ae82  r2 = IVOFF(_goBackButton)
+  7ae8a  r2 = IVOFF(_goBackButton)
+  7ae8c  call _objc_setProperty
+  7ae90  add sp, #8
+  7ae92  return

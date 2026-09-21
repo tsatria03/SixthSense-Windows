@@ -1,0 +1,59 @@
+
+//// -[AccelerometerFilter addAcceleration:]  0xea08..0xea80  v12@0:4@8
+  ea16  r0 = SEL(x)
+  ea18  add r7, sp, #8
+  ea1a  r1 = SEL(x)
+  ea1e  r0 = [r0 x](?, ?)
+  ea2a  r2 = IVOFF(x)
+  ea2c  r3 = IVOFF(x)
+  ea36  r2 = SEL(y)
+  ea38  self->x = r0
+  ea3a  adds r0, r4, r3
+  ea40  r1 = SEL(y)
+  ea42  r0 = [r0 y](SEL(y), x)
+  ea4e  r2 = IVOFF(y)
+  ea50  r3 = IVOFF(y)
+  ea5a  r2 = SEL(z)
+  ea5c  self->y = r0
+  ea5e  adds r0, r4, r3
+  ea64  r1 = SEL(z)
+  ea66  r0 = [r0 z](SEL(z), y)
+  ea72  r2 = IVOFF(z)
+  ea74  r2 = IVOFF(z)
+  ea76  self->z = r0
+  ea78  adds r0, r4, r2
+  ea7c  return
+
+//// -[AccelerometerFilter name]  0xea80..0xea8c  @8@0:4
+  ea88  r0 = CFSTR('You should not see this')
+
+//// -[AccelerometerFilter x]  0xea8c..0xeaa4  d8@0:4
+  ea94  r1 = IVOFF(x)
+  ea96  r1 = IVOFF(x)
+  ea98  add r0, r1
+  ea9a  vldr d16, [r0]
+  ea9e  vmov r0, r1, d16
+
+//// -[AccelerometerFilter y]  0xeaa4..0xeabc  d8@0:4
+  eaac  r1 = IVOFF(y)
+  eaae  r1 = IVOFF(y)
+  eab0  add r0, r1
+  eab2  vldr d16, [r0]
+  eab6  vmov r0, r1, d16
+
+//// -[AccelerometerFilter z]  0xeabc..0xead4  d8@0:4
+  eac4  r1 = IVOFF(z)
+  eac6  r1 = IVOFF(z)
+  eac8  add r0, r1
+  eaca  vldr d16, [r0]
+  eace  vmov r0, r1, d16
+
+//// -[AccelerometerFilter isAdaptive]  0xead4..0xeae4  c8@0:4
+  eadc  r1 = IVOFF(adaptive)
+  eade  r1 = IVOFF(adaptive)
+  eae0  r0 = self->adaptive
+
+//// -[AccelerometerFilter setAdaptive:]  0xeae4..0xeaf4  v12@0:4c8
+  eaec  r1 = IVOFF(adaptive)
+  eaee  r1 = IVOFF(adaptive)
+  eaf0  self->adaptive = r2

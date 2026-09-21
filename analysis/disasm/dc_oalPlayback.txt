@@ -1,0 +1,1163 @@
+
+//// -[oalPlayback init]  0xd470..0xd56c  @8@0:4
+  d472  add r7, sp, #0xc
+  d474  sub sp, #0x10
+  d488  r1 = SEL(init)
+  d48e  r1 = SEL(init)
+  d492  add r0, sp, #8
+  d494  r0 = [r0 init](0xdb0a4/f1.25723e-39, ?) SUPER
+  d49a  cmp r4, 0
+  d49c  beq L_d566
+  d4a2  r5 = 0
+  d4ac  r0 = IVOFF(listenerPos)
+  d4b2  r2 = _kCFRunLoopDefaultMode
+  d4b6  r1 = IVOFF(listenerPos)
+  d4c0  r2 = _kCFRunLoopDefaultMode
+  d4c2  r0 = IVOFF(listenerRotation)
+  d4c4  self->listenerPos = 0
+  d4c6  add r1, r4
+  d4d0  r0 = IVOFF(listenerRotation)
+  d4d8  self->listenerRotation = r5
+  d4da  r0 = 0
+  d4dc  call _AudioSessionInitialize
+  d4e0  cbnz r0 -> L_d548
+  d4e6  r1 = 4
+  d4ee  r0 = IVOFF(iPodIsPlaying)
+  d4f0  add r1, sp, #4
+  d4f2  r6 = IVOFF(iPodIsPlaying)
+  d4fc  adds r2, r4, r6
+  d4fe  call _AudioSessionGetProperty
+  d506  r1 = self->iPodIsPlaying
+  d50c  cmp self->iPodIsPlaying, 0
+  d51a  r1 = 4
+  d526  call _AudioSessionSetProperty
+  d53e  call _AudioSessionAddPropertyListener
+  d542  r0 = 1
+  d544  call _AudioSessionSetActive
+L_d548:
+  d54c  r2 = 1
+  d556  r0 = IVOFF(_initialized)
+  d55c  r1 = IVOFF(wasInterrupted)
+  d55e  r0 = IVOFF(_initialized)
+  d560  self->_initialized = 1
+  d562  r0 = IVOFF(wasInterrupted)
+  d564  self->wasInterrupted = r5
+L_d566:
+  d568  add sp, #0x10
+  d56a  return
+
+//// -[oalPlayback dealloc]  0xd56c..0xd5e0  v8@0:4
+  d56e  add r7, sp, #8
+  d570  sub sp, #8
+  d586  r0 = SEL(dealloc)
+  d58e  r1 = SEL(dealloc)
+  d592  r0 = [r0 dealloc](?, ?) SUPER
+  d59e  r0 = SEL(teardownOpenAL)
+  d5a0  r1 = SEL(teardownOpenAL)
+  d5a4  r0 = [r0 teardownOpenAL](?, ?)
+  d5b4  r0 = IVOFF(bgURL)
+  d5ba  r1 = SEL(release)
+  d5bc  r0 = IVOFF(bgURL)
+  d5be  r5 = SEL(release)
+  d5c0  r0 = self->bgURL
+  d5c4  r0 = [self->bgURL release](?, ?)
+  d5d2  r0 = IVOFF(bgPlayer)
+  d5d4  r0 = IVOFF(bgPlayer)
+  d5d6  r0 = self->bgPlayer
+  d5d8  r0 = [self->bgPlayer release](?, ?)
+  d5dc  add sp, #8
+  d5de  return
+
+//// -[oalPlayback startBGPlayer:type:soundGain:Loop:]  0xd5e0..0xd738  v24@0:4@8@12f16c20
+  d5e2  add r7, sp, #0xc
+  d5e8  vpush {d8}
+  d5f8  r0 = IVOFF(bgPlayer)
+  d5fc  r5 = IVOFF(bgPlayer)
+  d5fe  r0 = self->bgPlayer
+  d600  cbz self->bgPlayer -> L_d640
+  d60a  r1 = SEL(isPlaying)
+  d60c  r1 = SEL(isPlaying)
+  d60e  r0 = [self->bgPlayer isPlaying](?, ?)
+  d616  beq L_d640
+  d620  r0 = SEL(stop)
+  d622  r1 = SEL(stop)
+  d624  r0 = self->bgPlayer
+  d626  r0 = [self->bgPlayer stop](?, ?)
+  d632  r0 = SEL(release)
+  d634  r1 = SEL(release)
+  d636  r0 = self->bgPlayer
+  d638  r0 = [self->bgPlayer release](?, ?)
+  d63c  r0 = 0
+  d63e  self->bgPlayer = 0
+L_d640:
+  d640  r0 = self->bgPlayer
+  d642  cmp self->bgPlayer, 0
+  d644  bne L_d72c
+  d65a  r0 = SEL(mainBundle)
+  d65c  r2 = NSBundle
+  d65e  vldr s16, [r7, #8]
+  d662  r1 = SEL(mainBundle)
+  d664  r0 = NSBundle
+  d666  r0 = [NSBundle mainBundle](NSBundle, ?)
+  d676  r1 = SEL(pathForResource:ofType:)
+  d678  r1 = SEL(pathForResource:ofType:)
+  d67a  r0 = [r0 pathForResource:ofType:](?, ?)
+  d690  r0 = SEL(alloc)
+  d692  r2 = AVAudioPlayer
+  d694  r1 = SEL(alloc)
+  d696  r0 = AVAudioPlayer
+  d698  r0 = [AVAudioPlayer alloc](AVAudioPlayer, ?)
+  d6ae  r0 = SEL(fileURLWithPath:)
+  d6b0  r2 = NSURL
+  d6b2  r1 = SEL(fileURLWithPath:)
+  d6b4  r0 = NSURL
+  d6b8  r0 = [NSURL fileURLWithPath:](?, ?)
+  d6c6  r3 = 0
+  d6c8  r0 = SEL(initWithContentsOfURL:error:)
+  d6ca  r1 = SEL(initWithContentsOfURL:error:)
+  d6ce  r0 = [r0 initWithContentsOfURL:error:](?, 0)
+  d6de  self->bgPlayer = r0
+  d6e0  r1 = SEL(setNumberOfLoops:)
+  d6e2  r0 = self->bgPlayer
+  d6ec  r1 = SEL(setNumberOfLoops:)
+  d6ee  r0 = [self->bgPlayer setNumberOfLoops:](?, ?)
+  d6fe  r0 = SEL(setVolume:)
+  d700  r1 = SEL(setVolume:)
+  d702  r0 = self->bgPlayer
+  d704  r0 = [self->bgPlayer setVolume:](?, ?)
+  d710  r0 = SEL(prepareToPlay)
+  d712  r1 = SEL(prepareToPlay)
+  d714  r0 = self->bgPlayer
+  d716  r0 = [self->bgPlayer prepareToPlay](?, ?)
+  d722  r0 = SEL(play)
+  d724  r1 = SEL(play)
+  d726  r0 = self->bgPlayer
+  d728  r0 = [self->bgPlayer play](?, ?)
+L_d72c:
+  d72c  vpop {d8}
+  d734  return
+
+//// -[oalPlayback backgroundSoundStop]  0xd738..0xd790  v8@0:4
+  d744  add r7, sp, #8
+  d746  r0 = IVOFF(bgPlayer)
+  d748  r5 = IVOFF(bgPlayer)
+  d74a  r0 = self->bgPlayer
+  d74c  cbz self->bgPlayer -> L_d78e
+  d756  r1 = SEL(isPlaying)
+  d758  r1 = SEL(isPlaying)
+  d75a  r0 = [self->bgPlayer isPlaying](?, ?)
+  d76e  r0 = SEL(stop)
+  d770  r1 = SEL(stop)
+  d772  r0 = self->bgPlayer
+  d774  r0 = [self->bgPlayer stop](?, ?)
+  d780  r0 = SEL(release)
+  d782  r1 = SEL(release)
+  d784  r0 = self->bgPlayer
+  d786  r0 = [self->bgPlayer release](?, ?)
+  d78a  r0 = 0
+  d78c  self->bgPlayer = 0
+L_d78e:
+  d78e  return
+
+//// -[oalPlayback startAMBPlayer:type:soundGain:Loop:]  0xd790..0xd8e8  v24@0:4@8@12f16c20
+  d792  add r7, sp, #0xc
+  d798  vpush {d8}
+  d7a8  r0 = IVOFF(ambPlayer)
+  d7ac  r5 = IVOFF(ambPlayer)
+  d7ae  r0 = self->ambPlayer
+  d7b0  cbz self->ambPlayer -> L_d7f0
+  d7ba  r1 = SEL(isPlaying)
+  d7bc  r1 = SEL(isPlaying)
+  d7be  r0 = [self->ambPlayer isPlaying](?, ?)
+  d7c6  beq L_d7f0
+  d7d0  r0 = SEL(stop)
+  d7d2  r1 = SEL(stop)
+  d7d4  r0 = self->ambPlayer
+  d7d6  r0 = [self->ambPlayer stop](?, ?)
+  d7e2  r0 = SEL(release)
+  d7e4  r1 = SEL(release)
+  d7e6  r0 = self->ambPlayer
+  d7e8  r0 = [self->ambPlayer release](?, ?)
+  d7ec  r0 = 0
+  d7ee  self->ambPlayer = 0
+L_d7f0:
+  d7f0  r0 = self->ambPlayer
+  d7f2  cmp self->ambPlayer, 0
+  d7f4  bne L_d8dc
+  d80a  r0 = SEL(mainBundle)
+  d80c  r2 = NSBundle
+  d80e  vldr s16, [r7, #8]
+  d812  r1 = SEL(mainBundle)
+  d814  r0 = NSBundle
+  d816  r0 = [NSBundle mainBundle](NSBundle, ?)
+  d826  r1 = SEL(pathForResource:ofType:)
+  d828  r1 = SEL(pathForResource:ofType:)
+  d82a  r0 = [r0 pathForResource:ofType:](?, ?)
+  d840  r0 = SEL(alloc)
+  d842  r2 = AVAudioPlayer
+  d844  r1 = SEL(alloc)
+  d846  r0 = AVAudioPlayer
+  d848  r0 = [AVAudioPlayer alloc](AVAudioPlayer, ?)
+  d85e  r0 = SEL(fileURLWithPath:)
+  d860  r2 = NSURL
+  d862  r1 = SEL(fileURLWithPath:)
+  d864  r0 = NSURL
+  d868  r0 = [NSURL fileURLWithPath:](?, ?)
+  d876  r3 = 0
+  d878  r0 = SEL(initWithContentsOfURL:error:)
+  d87a  r1 = SEL(initWithContentsOfURL:error:)
+  d87e  r0 = [r0 initWithContentsOfURL:error:](?, 0)
+  d88e  self->ambPlayer = r0
+  d890  r1 = SEL(setNumberOfLoops:)
+  d892  r0 = self->ambPlayer
+  d89c  r1 = SEL(setNumberOfLoops:)
+  d89e  r0 = [self->ambPlayer setNumberOfLoops:](?, ?)
+  d8ae  r0 = SEL(setVolume:)
+  d8b0  r1 = SEL(setVolume:)
+  d8b2  r0 = self->ambPlayer
+  d8b4  r0 = [self->ambPlayer setVolume:](?, ?)
+  d8c0  r0 = SEL(prepareToPlay)
+  d8c2  r1 = SEL(prepareToPlay)
+  d8c4  r0 = self->ambPlayer
+  d8c6  r0 = [self->ambPlayer prepareToPlay](?, ?)
+  d8d2  r0 = SEL(play)
+  d8d4  r1 = SEL(play)
+  d8d6  r0 = self->ambPlayer
+  d8d8  r0 = [self->ambPlayer play](?, ?)
+L_d8dc:
+  d8dc  vpop {d8}
+  d8e4  return
+
+//// -[oalPlayback AMBSoundStop]  0xd8e8..0xd940  v8@0:4
+  d8f4  add r7, sp, #8
+  d8f6  r0 = IVOFF(ambPlayer)
+  d8f8  r5 = IVOFF(ambPlayer)
+  d8fa  r0 = self->ambPlayer
+  d8fc  cbz self->ambPlayer -> L_d93e
+  d906  r1 = SEL(isPlaying)
+  d908  r1 = SEL(isPlaying)
+  d90a  r0 = [self->ambPlayer isPlaying](?, ?)
+  d91e  r0 = SEL(stop)
+  d920  r1 = SEL(stop)
+  d922  r0 = self->ambPlayer
+  d924  r0 = [self->ambPlayer stop](?, ?)
+  d930  r0 = SEL(release)
+  d932  r1 = SEL(release)
+  d934  r0 = self->ambPlayer
+  d936  r0 = [self->ambPlayer release](?, ?)
+  d93a  r0 = 0
+  d93c  self->ambPlayer = 0
+L_d93e:
+  d93e  return
+
+//// -[oalPlayback setSoundBank:type:]  0xd940..0xd9d0  v16@0:4@8@12
+  d942  add r7, sp, #0xc
+  d956  r0 = IVOFF(_soundBankName)
+  d95c  r1 = SEL(isEqualToString:)
+  d960  r5 = IVOFF(_soundBankName)
+  d964  r1 = SEL(isEqualToString:)
+  d968  r2 = self->_soundBankName
+  d96a  r0 = [r0 isEqualToString:](self->_soundBankName, ?)
+  d982  r0 = SEL(copy)
+  d984  r1 = SEL(copy)
+  d988  r0 = [r0 copy](?, ?)
+  d994  self->_soundBankName = r0
+  d996  r1 = SEL(tearDownAudio)
+  d99a  r1 = SEL(tearDownAudio)
+  d99c  r0 = [r0 tearDownAudio](?, ?)
+  d9aa  r2 = self->_soundBankName
+  d9ac  r0 = SEL(loadSoundBank:fileType:)
+  d9ae  r1 = SEL(loadSoundBank:fileType:)
+  d9b2  r0 = [r0 loadSoundBank:fileType:](self->_soundBankName, ?)
+  d9be  r0 = SEL(setUpAudio)
+  d9c0  r1 = SEL(setUpAudio)
+  d9cc  b L_a90d0
+
+//// -[oalPlayback setUpAudio]  0xd9d0..0xda28  v8@0:4
+  d9dc  add r7, sp, #8
+  d9de  r0 = IVOFF(_initialized)
+  d9e0  r5 = IVOFF(_initialized)
+  d9e2  r0 = self->_initialized
+  d9e4  cmp self->_initialized, 0
+  d9f2  r0 = SEL(setUpOpenAL)
+  d9f4  r1 = SEL(setUpOpenAL)
+  d9f8  r0 = [r0 setUpOpenAL](?, ?)
+  da04  r0 = SEL(initBuffers)
+  da06  r1 = SEL(initBuffers)
+  da0a  r0 = [r0 initBuffers](?, ?)
+  da16  r0 = SEL(initSources)
+  da18  r1 = SEL(initSources)
+  da1c  r0 = [r0 initSources](?, ?)
+  da20  r0 = 1
+  da22  self->_initialized = 1
+  da24  return
+
+//// -[oalPlayback tearDownAudio]  0xda28..0xda80  v8@0:4
+  da34  add r7, sp, #8
+  da36  r0 = IVOFF(_initialized)
+  da38  r5 = IVOFF(_initialized)
+  da3a  r0 = self->_initialized
+  da3c  cmp self->_initialized, 0
+  da4a  r0 = SEL(freeSources)
+  da4c  r1 = SEL(freeSources)
+  da50  r0 = [r0 freeSources](?, ?)
+  da5c  r0 = SEL(freeBuffers)
+  da5e  r1 = SEL(freeBuffers)
+  da62  r0 = [r0 freeBuffers](?, ?)
+  da6e  r0 = SEL(teardownOpenAL)
+  da70  r1 = SEL(teardownOpenAL)
+  da74  r0 = [r0 teardownOpenAL](?, ?)
+  da78  r0 = 0
+  da7a  self->_initialized = 0
+  da7c  return
+
+//// -[oalPlayback loadSoundBank:fileType:]  0xda80..0xdbd4  v16@0:4@8@12
+  da82  add r7, sp, #0xc
+  da88  sub sp, #0x20
+  daa0  r0 = SEL(mainBundle)
+  daa2  r8 = NSBundle
+  daa6  r5 = SEL(mainBundle)
+  daa8  r0 = NSBundle
+  daae  r0 = [NSBundle mainBundle](?, ?)
+  dac0  r1 = SEL(pathForResource:ofType:)
+  dac6  r3 = CFSTR('plist')
+  dac8  r6 = SEL(pathForResource:ofType:)
+  dacc  r0 = [r0 pathForResource:ofType:](?, CFSTR('plist'))
+  dae2  r0 = SEL(arrayWithContentsOfFile:)
+  dae4  r3 = NSArray
+  dae6  r1 = SEL(arrayWithContentsOfFile:)
+  dae8  r0 = NSArray
+  daea  r0 = [NSArray arrayWithContentsOfFile:](?, NSArray)
+  daf0  cmp fp, 0
+  daf4  beq L_dbcc
+  db00  r0 = SEL(count)
+  db02  r1 = SEL(count)
+  db06  r0 = [r0 count](?, ?)
+  db16  r6 = IVOFF(_numBuffers)
+  db1a  r1 = IVOFF(_numBuffers)
+  db1c  self->_numBuffers = r0
+  db1e  r0 = self->_numBuffers
+  db20  cmp self->_numBuffers, 129
+  db22  blt L_db2c
+  db24  r0 = 128
+  db26  self->_numBuffers = 128
+  db28  r1 = IVOFF(_numBuffers)
+  db2a  r0 = self->_numBuffers
+L_db2c:
+  db36  cmp self->_numBuffers, 1
+  db38  blt L_dbcc
+  db3e  fp = 0
+  db4e  r0 = SEL(fileURLWithPath:)
+  db54  r1 = IVOFF(_buffers)
+  db5e  r0 = SEL(fileURLWithPath:)
+  db66  r2 = SEL(retain)
+  db68  r0 = IVOFF(_buffers)
+  db6a  r3 = SEL(objectAtIndex:)
+  db6c  r1 = SEL(retain)
+  db6e  add.w r8, r4, r0
+  db72  r2 = SEL(objectAtIndex:)
+L_db78:
+  db78  r0 = NSBundle
+  db7c  r0 = [NSBundle mainBundle](?, SEL(objectAtIndex:))
+  db90  r0 = NSURL
+  db92  r0 = NSURL
+  db98  r0 = [r0 ??](0, ?)
+  dba8  r0 = [r0 ??](?, ?)
+  dbae  r0 = [r0 ??](?, ?)
+  dbb8  r0 = [r0 ??](?, ?)
+  dbbe  add.w fp, fp, #1
+  dbc8  cmp fp, r0
+  dbca  blt L_db78
+L_dbcc:
+  dbcc  add sp, #0x20
+  dbd2  return
+
+//// -[oalPlayback setUpOpenAL]  0xdbd4..0xdc18  v8@0:4
+  dbd8  r0 = 0
+  dbda  add r7, sp, #4
+  dbdc  call _alcOpenDevice
+  dbe4  cmp r0, 0
+  dbea  r1 = IVOFF(device)
+  dbec  r1 = IVOFF(device)
+  dbee  self->device = r0
+  dbf4  r0 = self->device
+  dbf6  r1 = 0
+  dbf8  call _alcCreateContext
+  dc00  cmp r0, 0
+  dc06  r1 = IVOFF(context)
+  dc08  r1 = IVOFF(context)
+  dc0a  self->context = r0
+  dc14  return
+
+//// -[oalPlayback teardownOpenAL]  0xdc18..0xdc4c  v8@0:4
+  dc1c  r0 = 0
+  dc1e  add r7, sp, #4
+  dc20  call _alcMakeContextCurrent
+  dc2c  r0 = IVOFF(context)
+  dc2e  r0 = IVOFF(context)
+  dc30  r0 = self->context
+  dc32  call _alcDestroyContext
+  dc3e  r0 = IVOFF(device)
+  dc40  r0 = IVOFF(device)
+  dc42  r0 = self->device
+  dc48  b L_a90dc
+
+//// -[oalPlayback freeBufferOne:]  0xdc4c..0xdc80  v12@0:4i8
+  dc52  add.w r6, r2, r2, lsl #1
+  dc5a  add r7, sp, #0xc
+  dc5c  r1 = IVOFF(_buffers)
+  dc5e  r1 = IVOFF(_buffers)
+  dc60  adds r4, r0, r1
+  dc62  r0 = 1
+  dc64  add.w r5, r4, r6, lsl #2
+  dc68  adds r1, r5, #4
+  dc6a  call _alDeleteBuffers
+  dc70  call _free
+  dc74  r0 = 0
+  dc7e  return
+
+//// -[oalPlayback initBufferOne:FileName:Type:]  0xdc80..0xdd50  v20@0:4i8@12@16
+  dc82  add r7, sp, #0xc
+  dc88  sub sp, #0x10
+  dc9a  r0 = SEL(mainBundle)
+  dca2  r2 = NSBundle
+  dca4  r1 = SEL(mainBundle)
+  dca6  r0 = NSBundle
+  dca8  r0 = [NSBundle mainBundle](NSBundle, ?)
+  dcbe  r1 = NSURL
+  dcc0  r2 = SEL(pathForResource:ofType:)
+  dcc2  r6 = NSURL
+  dcc4  r1 = SEL(pathForResource:ofType:)
+  dcc8  r0 = [r0 pathForResource:ofType:](?, ?)
+  dcd4  r1 = SEL(retain)
+  dcd6  r1 = SEL(retain)
+  dcd8  r0 = [r0 retain](?, ?)
+  dce6  r0 = SEL(fileURLWithPath:)
+  dce8  r1 = SEL(fileURLWithPath:)
+  dcec  r0 = [NSURL fileURLWithPath:](?, ?)
+  dcf8  r1 = IVOFF(_buffers)
+  dcfa  r1 = IVOFF(_buffers)
+  dcfc  adds r4, r5, r1
+  dcfe  add.w r5, r8, r8, lsl #1
+  dd06  call _alGetError
+  dd0a  add.w r6, r4, r5, lsl #2
+  dd0e  r0 = 1
+  dd10  adds r1, r6, #4
+  dd12  call _alGenBuffers
+  dd16  call _alGetError
+  dd1a  cbnz r0 -> L_dd46
+  dd20  add r1, sp, #8
+  dd22  add r2, sp, #0xc
+  dd24  add r3, sp, #4
+  dd26  call sub_d210
+  dd2e  cbz r2 -> L_dd46
+  dd30  add.w r0, r4, r5, lsl #2
+  dd3e  call sub_d1b8
+  dd42  call _alGetError
+L_dd46:
+  dd46  add sp, #0x10
+  dd4c  return
+
+//// -[oalPlayback initBuffers]  0xdd50..0xddd8  v8@0:4
+  dd52  add r7, sp, #0xc
+  dd58  sub sp, #0x10
+  dd68  r0 = IVOFF(_buffers)
+  dd6e  r1 = IVOFF(_numBuffers)
+  dd70  r8 = -1
+  dd74  r0 = IVOFF(_buffers)
+  dd76  fp = IVOFF(_numBuffers)
+  dd7a  add r0, r4
+  dd7c  adds r6, r0, #4
+L_dd7e:
+  dd7e  add.w r8, r8, #1
+  dd82  r0 = self->_numBuffers
+  dd86  cmp r8, self->_numBuffers
+  dd88  bge L_ddce
+  dd8a  call _alGetError
+  dd8e  r0 = 1
+  dd92  call _alGenBuffers
+  dd96  call _alGetError
+  dd9a  cbnz r0 -> L_ddce
+  dda0  add r1, sp, #8
+  dda2  add r2, sp, #0xc
+  dda4  add r3, sp, #4
+  dda6  call sub_d210
+  ddac  cmp r2, 0
+  ddb0  beq L_ddce
+  ddb4  add.w sl, r6, #0xc
+  ddc0  call sub_d1b8
+  ddc4  call _alGetError
+  ddca  cmp r0, 0
+  ddcc  beq L_dd7e
+L_ddce:
+  ddce  add sp, #0x10
+  ddd4  return
+
+//// -[oalPlayback freeBuffers]  0xddd8..0xde3c  v8@0:4
+  ddda  add r7, sp, #0xc
+  ddde  call sub_3ccc
+  ddea  r1 = SEL(aSoundBufControlData)
+  ddec  r1 = SEL(aSoundBufControlData)
+  ddee  r0 = [r0 aSoundBufControlData](?, ?)
+  ddfa  r1 = SEL(count)
+  ddfc  r1 = SEL(count)
+  ddfe  r0 = [r0 count](?, ?)
+  de04  cmp r4, 1
+  de0e  r6 = 0
+  de14  r0 = IVOFF(_buffers)
+  de16  r0 = IVOFF(_buffers)
+  de18  add r0, r5
+  de1a  adds r5, r0, #4
+L_de1c:
+  de1c  r0 = 1
+  de20  call _alDeleteBuffers
+  de26  call _free
+  de2e  subs r4, #1
+  de34  add.w r5, r5, #0xc
+  de38  bne L_de1c
+  de3a  return
+
+//// -[oalPlayback initSourceOne:]  0xde3c..0xde78  v12@0:4i8
+  de3e  add r7, sp, #8
+  de44  call _alGetError
+  de50  r0 = IVOFF(_sources)
+  de52  r0 = IVOFF(_sources)
+  de54  add r0, r5
+  de56  add.w r4, r0, r4, lsl #5
+  de5a  r0 = 1
+  de5e  call _alGenSources
+  de62  call _alGetError
+  de66  cmp r0, 0
+  de6c  r0 = -1
+  de70  r1 = 0
+  de76  return
+
+//// -[oalPlayback freeSourceOne:]  0xde78..0xdeb0  v12@0:4i8
+  de84  lsls r6, r4, #5
+  de86  r1 = IVOFF(_sources)
+  de88  add r7, sp, #0xc
+  de8a  r1 = IVOFF(_sources)
+  de8c  adds r5, r0, r1
+  de90  call _alSourceStop
+  de9a  r2 = 0
+  de9c  call _alSourcei
+  dea0  add.w r1, r5, r4, lsl #5
+  dea4  r0 = 1
+  deaa  b L_a90e8
+
+//// -[oalPlayback initSources]  0xdeb0..0xdf14  v8@0:4
+  deb2  add r7, sp, #0xc
+  dec2  r0 = IVOFF(sourceNumber)
+  dec4  fp = IVOFF(sourceNumber)
+  dec8  r0 = self->sourceNumber
+  decc  cmp self->sourceNumber, 1
+  dece  blt L_df0e
+  ded4  r8 = 0
+  dedc  sl = -1
+  dee0  r0 = IVOFF(_sources)
+  dee4  r0 = IVOFF(_sources)
+  dee6  adds r5, r4, r0
+L_dee8:
+  dee8  call _alGetError
+  deec  r0 = 1
+  def0  call _alGenSources
+  def4  call _alGetError
+  def8  cbnz r0 -> L_df0e
+  defe  adds r6, #1
+  df04  adds r5, #0x20
+  df06  r0 = self->sourceNumber
+  df0a  cmp r6, self->sourceNumber
+  df0c  blt L_dee8
+L_df0e:
+  df12  return
+
+//// -[oalPlayback freeSources]  0xdf14..0xdf7c  v8@0:4
+  df16  add r7, sp, #0xc
+  df1a  call sub_3ccc
+  df26  r1 = SEL(aSoundBufControlData)
+  df28  r1 = SEL(aSoundBufControlData)
+  df2a  r0 = [r0 aSoundBufControlData](?, ?)
+  df36  r1 = SEL(count)
+  df38  r1 = SEL(count)
+  df3a  r0 = [r0 count](?, ?)
+  df40  cmp r4, 1
+  df4e  r0 = IVOFF(_sources)
+  df50  r0 = IVOFF(_sources)
+  df52  add r5, r0
+L_df54:
+  df56  call _alSourceStop
+  df64  r2 = 0
+  df66  call _alSourcei
+  df6a  r0 = 1
+  df6e  call _alDeleteSources
+  df72  subs r4, #1
+  df76  bne L_df54
+  df78  return
+
+//// -[oalPlayback findAvailableSource]  0xdf7c..0xe018  i8@0:4
+  df7e  add r7, sp, #0xc
+  df84  sub sp, #4
+  df88  call _alGetError
+  df90  r4 = 0
+  df9e  r0 = IVOFF(sourceNumber)
+  dfa0  r1 = IVOFF(_sources)
+  dfa2  sl = IVOFF(sourceNumber)
+  dfa6  r0 = IVOFF(_sources)
+  dfa8  add.w r6, fp, r0
+  dfac  r0 = self->sourceNumber
+  dfb0  cmp self->sourceNumber, 1
+  dfb2  blt L_e002
+  dfb4  add.w r8, r6, #8
+  dfb8  r5 = 0
+  dfba  r4 = 0
+L_dfbc:
+  dfc6  call _alGetSourcei
+  dfd0  cmp r0, 4114
+  dfd2  beq L_dfdc
+  dfd8  cmp r0, 0
+  dfda  beq L_e00c
+L_dfdc:
+  dfdc  add.w r1, r6, r4, lsl #5
+  dfe0  vldr d17, [r8, #4]
+  dfe4  r0 = self->sourceNumber
+  dfe8  add.w r8, r8, #0x20
+  dfec  vldr d16, [r1, #0xc]
+  dff0  vcmpe.f64 d17, d16
+  dff4  vmrs apsr_nzcv, fpscr
+  dffc  adds r5, #1
+  dffe  cmp r5, self->sourceNumber
+  e000  blt L_dfbc
+L_e002:
+  e002  lsls r0, r4, #5
+  e006  call _alSourceStop
+  e00a  b L_e00e
+L_e00c:
+L_e00e:
+  e010  add sp, #4
+  e016  return
+
+//// -[oalPlayback noteOn:gain:sourcePos:]  0xe018..0xe028  v24@0:4i8f12{CGPoint=ff}16
+  e020  r1 = SEL(playQueuedNotes)
+  e022  r1 = SEL(playQueuedNotes)
+  e024  b L_a90d0
+
+//// -[oalPlayback queueNote:gain:sourcePos:defaultZ:repeats:]  0xe028..0xe188  v32@0:4i8f12{CGPoint=ff}16i24c28
+  e02a  add r7, sp, #0xc
+  e030  vpush {d8}
+  e034  sub sp, #0x10
+  e042  r0 = ___stack_chk_guard
+  e044  fp = ___stack_chk_guard
+  e050  r0 = IVOFF(_initialized)
+  e056  r0 = IVOFF(_initialized)
+  e05a  r0 = self->_initialized
+  e05c  cmp self->_initialized, 0
+  e064  beq L_e16e
+  e068  vmov d8, r3, r3
+  e06c  call _alGetError
+  e090  r1 = SEL(timeIntervalSinceReferenceDate)
+  e092  r0 = IVOFF(_buffers)
+  e094  r2 = NSDate
+  e096  r3 = IVOFF(_sources)
+  e098  r1 = SEL(timeIntervalSinceReferenceDate)
+  e09a  r8 = IVOFF(_buffers)
+  e09e  r0 = NSDate
+  e0a0  r3 = IVOFF(_sources)
+  e0a2  add.w sl, r5, r3
+  e0a6  r0 = [NSDate timeIntervalSinceReferenceDate](NSDate, _sources)
+  e0aa  add.w r6, sl, r4, lsl #5
+  e0ae  r2 = 1
+  e0b0  add r5, r8
+  e0b6  lsls r1, r4, #5
+  e0c6  beq L_e0d0
+  e0cc  r2 = 1
+  e0ce  b L_e0d6
+L_e0d0:
+  e0d4  r2 = 0
+L_e0d6:
+  e0d6  call _alSourcei
+  e0dc  r2 = 0
+  e0e2  r1 = 4128
+  e0e6  call _alSourcef
+  e0ec  r2 = 0
+  e0f6  call _alSourcef
+  e104  call _alSourcef
+  e10e  r2 = 1065353216
+  e112  call _alSourcef
+  e11c  r2 = 1065353216
+  e120  call _alSourcef
+  e12c  vmov d16, r0, r0
+  e132  vcvt.f32.s32 d0, d16
+  e13a  vstr s0, [sp, #4]
+  e142  vorr d0, d0, d0
+  e146  call _alSourcefv
+  e150  r2 = 0
+  e152  call _alSourcei
+  e156  add.w r0, r4, r4, lsl #1
+  e15e  add.w r0, r5, r0, lsl #2
+  e166  call _alSourcei
+  e16a  call _alGetError
+L_e16e:
+  e174  cmp r0, r1
+  e17a  vpopeq {d8}
+  e184  call ___stack_chk_fail
+
+//// -[oalPlayback MonsterQueueNote:gain:sourcePos:defaultZ:repeats:]  0xe188..0xe2d8  v32@0:4i8f12{CGPoint=ff}16i24c28
+  e18a  add r7, sp, #0xc
+  e190  vpush {d8}
+  e194  sub sp, #0x10
+  e1a2  r0 = ___stack_chk_guard
+  e1a4  fp = ___stack_chk_guard
+  e1b0  r0 = IVOFF(_initialized)
+  e1b6  r0 = IVOFF(_initialized)
+  e1ba  r0 = self->_initialized
+  e1bc  cmp self->_initialized, 0
+  e1c4  beq L_e2be
+  e1c6  vmov d8, r3, r3
+  e1ca  call _alGetError
+  e1ee  r1 = SEL(timeIntervalSinceReferenceDate)
+  e1f0  r0 = IVOFF(_buffers)
+  e1f2  r2 = NSDate
+  e1f4  r3 = IVOFF(_sources)
+  e1f6  r1 = SEL(timeIntervalSinceReferenceDate)
+  e1f8  r8 = IVOFF(_buffers)
+  e1fc  r0 = NSDate
+  e1fe  r3 = IVOFF(_sources)
+  e200  add.w sl, r5, r3
+  e204  r0 = [NSDate timeIntervalSinceReferenceDate](NSDate, _sources)
+  e208  add.w r6, sl, r4, lsl #5
+  e20c  r2 = 1
+  e20e  add r5, r8
+  e214  lsls r1, r4, #5
+  e224  beq L_e22e
+  e22a  r2 = 1
+  e22c  b L_e234
+L_e22e:
+  e232  r2 = 0
+L_e234:
+  e234  call _alSourcei
+  e23a  r2 = 0
+  e240  r1 = 4128
+  e244  call _alSourcef
+  e24a  r2 = 0
+  e254  call _alSourcef
+  e262  call _alSourcef
+  e26c  r2 = 1065353216
+  e270  call _alSourcef
+  e27c  vmov d16, r0, r0
+  e282  vcvt.f32.s32 d0, d16
+  e28a  vstr s0, [sp, #4]
+  e292  vorr d0, d0, d0
+  e296  call _alSourcefv
+  e2a0  r2 = 0
+  e2a2  call _alSourcei
+  e2a6  add.w r0, r4, r4, lsl #1
+  e2ae  add.w r0, r5, r0, lsl #2
+  e2b6  call _alSourcei
+  e2ba  call _alGetError
+L_e2be:
+  e2c4  cmp r0, r1
+  e2ca  vpopeq {d8}
+  e2d4  call ___stack_chk_fail
+
+//// -[oalPlayback MosterPos:QuereNote:defaultZ:]  0xe2d8..0xe3bc  v24@0:4{CGPoint=ff}8i16i20
+  e2da  add r7, sp, #0xc
+  e2e0  sub sp, #0x18
+  e2f2  r0 = ___stack_chk_guard
+  e2f4  cmp r6, -1
+  e2f8  fp = ___stack_chk_guard
+  e302  beq L_e3a4
+  e308  call _alGetError
+  e32c  r1 = SEL(timeIntervalSinceReferenceDate)
+  e32e  r0 = IVOFF(_sources)
+  e330  r2 = NSDate
+  e332  r3 = IVOFF(_buffers)
+  e334  r1 = SEL(timeIntervalSinceReferenceDate)
+  e336  r5 = IVOFF(_sources)
+  e338  r0 = NSDate
+  e33a  r3 = IVOFF(_buffers)
+  e33e  r0 = [NSDate timeIntervalSinceReferenceDate](NSDate, ?)
+  e342  vmov d16, r8, r8
+  e346  add.w r8, r4, r5
+  e34a  vcvt.f32.s32 d0, d16
+  e34e  add.w r3, r8, r6, lsl #5
+  e352  r2 = 1
+  e354  lsls r5, r6, #5
+  e364  add r2, sp, #8
+  e36a  vstr s0, [sp, #0xc]
+  e374  vorr d0, d0, d0
+  e378  call _alSourcefv
+  e384  r2 = 0
+  e386  call _alSourcei
+  e38c  add.w r2, r6, r6, lsl #1
+  e390  adds r1, r4, r0
+  e396  add.w r1, r1, r2, lsl #2
+  e3a0  call _alSourcei
+L_e3a4:
+  e3aa  cmp r0, r1
+  e3b6  call ___stack_chk_fail
+
+//// -[oalPlayback stopSound:]  0xe3bc..0xe3f0  v12@0:4i8
+  e3c8  add r7, sp, #8
+  e3ca  r1 = IVOFF(_sources)
+  e3cc  r1 = IVOFF(_sources)
+  e3ce  adds r5, r0, r1
+  e3d0  lsls r0, r4, #5
+  e3d4  call _alSourceStop
+  e3d8  call _alGetError
+  e3dc  call _alGetError
+  e3e0  cmp r0, 0
+  e3ec  return
+
+//// -[oalPlayback stopSoundArea:]  0xe3f0..0xe49c  v12@0:4@8
+  e3f2  add r7, sp, #0xc
+  e3f8  sub sp, #0xc
+  e406  r1 = IVOFF(sourceNumber)
+  e408  r1 = IVOFF(sourceNumber)
+  e40e  cmp r0, 1
+  e410  blt L_e492
+  e416  r8 = 0
+  e436  r1 = SEL(intValue)
+  e438  r6 = IVOFF(_sources)
+  e43a  r2 = SEL(objectAtIndex:)
+  e43c  r3 = SEL(count)
+  e43e  sl = SEL(intValue)
+  e442  r5 = IVOFF(_sources)
+  e444  fp = SEL(objectAtIndex:)
+  e448  r6 = SEL(count)
+  e44c  add r1, r5
+L_e450:
+  e452  add.w r1, r1, r8, lsl #5
+  e458  cbz r1 -> L_e48a
+  e45e  r0 = [r0 count](SEL(objectAtIndex:), SEL(count))
+  e462  r5 = 0
+  e464  cbz r0 -> L_e484
+L_e466:
+  e46c  r0 = [r0 objectAtIndex:](0, ?)
+  e472  r0 = [r0 intValue](?, ?)
+  e47a  r0 = [r0 count](?, ?)
+  e47e  adds r5, #1
+  e480  cmp r5, r0
+  e482  blo L_e466
+L_e484:
+L_e48a:
+  e48a  add.w r8, r8, #1
+  e48e  cmp r8, r0
+  e490  blt L_e450
+L_e492:
+  e492  add sp, #0xc
+  e498  return
+
+//// -[oalPlayback startSound:Postion:]  0xe49c..0xe524  v20@0:4i8{CGPoint=ff}12
+  e49e  add r7, sp, #0xc
+  e4a4  sub.w sp, sp, #0x204
+  e4b2  r1 = ___stack_chk_guard
+  e4b4  sl = ___stack_chk_guard
+  e4c0  r1 = IVOFF(_sources)
+  e4c6  r1 = IVOFF(_sources)
+  e4ca  adds r6, r0, r1
+  e4cc  add.w r5, r6, r4, lsl #5
+  e4d2  cmp r0, 0
+  e4d4  beq L_e4e2
+  e4d6  add.w r0, r6, r4, lsl #5
+  e4e0  b L_e50a
+L_e4e2:
+  e4e4  r1 = 0
+  e4e8  r2 = 512
+  e4ec  call _memset
+  e4f0  lsls r0, r4, #5
+  e4f6  r4 = 1
+  e4fa  r0 = 1
+  e4fc  call _alSourcePlayv
+  e500  call _alGetError
+  e504  cmp r0, 0
+L_e50a:
+  e510  cmp r0, r1
+  e51e  call ___stack_chk_fail
+
+//// -[oalPlayback startSound:Postion:soundGain:]  0xe524..0xe60c  v24@0:4i8{CGPoint=ff}12f20
+  e526  add r7, sp, #0xc
+  e52c  vpush {d8}
+  e530  sub.w sp, sp, #0x210
+  e540  r0 = ___stack_chk_guard
+  e542  r8 = ___stack_chk_guard
+  e54e  r0 = IVOFF(_sources)
+  e554  r0 = IVOFF(_sources)
+  e558  add.w r6, sl, r0
+  e55c  add.w r5, r6, r4, lsl #5
+  e562  cmp r0, 0
+  e564  beq L_e5c6
+  e566  r1 = 0
+  e572  lsls r5, r4, #5
+  e57e  vldr s16, [r7, #0xc]
+  e582  call _alSourcefv
+  e590  call _alSourcef
+  e59a  r2 = 0
+  e59c  call _alSourcei
+  e5a4  add.w r2, r4, r4, lsl #1
+  e5ac  r0 = IVOFF(_buffers)
+  e5ae  r0 = IVOFF(_buffers)
+  e5b0  add.w r1, sl, r0
+  e5b6  add.w r1, r1, r2, lsl #2
+  e5c0  call _alSourcei
+  e5c4  b L_e5f0
+L_e5c6:
+  e5c6  add.w sl, sp, #0xc
+  e5ca  r1 = 0
+  e5cc  r2 = 512
+  e5d2  call _memset
+  e5d6  lsls r0, r4, #5
+  e5dc  r4 = 1
+  e5e0  r0 = 1
+  e5e2  call _alSourcePlayv
+  e5e6  call _alGetError
+  e5ea  cmp r0, 0
+L_e5f0:
+  e5f6  cmp r0, r1
+  e5fe  vpopeq {d8}
+  e608  call ___stack_chk_fail
+
+//// -[oalPlayback startSoundPostion:SoundNumber:]  0xe60c..0xe62c  v20@0:4{CGPoint=ff}8i16
+  e61a  r3 = IVOFF(_sources)
+  e61c  r3 = IVOFF(_sources)
+  e61e  add r0, r3
+  e620  add.w r0, r0, sb, lsl #5
+
+//// -[oalPlayback playQueuedNotes]  0xe62c..0xe6c8  v8@0:4
+  e62e  add r7, sp, #0xc
+  e634  sub.w sp, sp, #0x204
+  e644  r0 = ___stack_chk_guard
+  e646  r1 = 0
+  e648  r2 = 512
+  e64c  fp = 0
+  e650  r8 = ___stack_chk_guard
+  e65c  call _memset
+  e668  r0 = IVOFF(sourceNumber)
+  e66a  r1 = IVOFF(sourceNumber)
+  e66c  r0 = 0
+  e66e  r2 = self->sourceNumber
+  e670  cmp self->sourceNumber, 1
+  e672  blt L_e6a6
+  e67e  r0 = IVOFF(_sources)
+  e680  r0 = IVOFF(_sources)
+  e682  add r0, r4
+  e684  add.w r3, r0, #8
+  e688  r0 = 0
+L_e68a:
+  e68c  cbz r5 -> L_e69e
+  e696  adds r0, #1
+  e69c  r2 = self->sourceNumber
+L_e69e:
+  e69e  adds r6, #1
+  e6a0  adds r3, #0x20
+  e6a2  cmp r6, self->sourceNumber
+  e6a4  blt L_e68a
+L_e6a6:
+  e6a8  call _alSourcePlayv
+  e6ac  call _alGetError
+  e6b6  cmp r0, r1
+  e6c4  call ___stack_chk_fail
+
+//// -[oalPlayback noteOff:]  0xe6c8..0xe734  v12@0:4i8
+  e6ca  add r7, sp, #0xc
+  e6dc  r0 = IVOFF(_initialized)
+  e6de  r0 = IVOFF(_initialized)
+  e6e0  r0 = self->_initialized
+  e6e2  cbz self->_initialized -> L_e72e
+  e6e4  call _alGetError
+  e6f0  r0 = IVOFF(sourceNumber)
+  e6f2  sl = IVOFF(sourceNumber)
+  e6f6  r0 = self->sourceNumber
+  e6fa  cmp self->sourceNumber, 1
+  e6fc  blt L_e72e
+  e702  r6 = 0
+  e708  r1 = IVOFF(_sources)
+  e70a  r1 = IVOFF(_sources)
+  e70c  add r1, r5
+  e70e  adds r4, r1, #4
+L_e710:
+  e712  cmp r1, r8
+  e714  bne L_e726
+  e71a  call _alSourceStop
+  e71e  call _alGetError
+  e722  r0 = self->sourceNumber
+L_e726:
+  e726  adds r6, #1
+  e728  adds r4, #0x20
+  e72a  cmp r6, self->sourceNumber
+  e72c  blt L_e710
+L_e72e:
+  e732  return
+
+//// -[oalPlayback allNotesOff]  0xe734..0xe798  v8@0:4
+  e736  add r7, sp, #0xc
+  e746  r0 = IVOFF(_initialized)
+  e748  r0 = IVOFF(_initialized)
+  e74a  r0 = self->_initialized
+  e74e  cbz self->_initialized -> L_e790
+  e750  call _alGetError
+  e75c  r0 = IVOFF(sourceNumber)
+  e75e  r5 = IVOFF(sourceNumber)
+  e760  r0 = self->sourceNumber
+  e764  cmp self->sourceNumber, 1
+  e766  blt L_e790
+  e76c  r4 = 0
+  e772  r0 = IVOFF(_sources)
+  e774  r0 = IVOFF(_sources)
+  e776  add.w r6, r8, r0
+L_e77a:
+  e77e  call _alSourceStop
+  e782  call _alGetError
+  e786  adds r4, #1
+  e788  r0 = self->sourceNumber
+  e78c  cmp r4, self->sourceNumber
+  e78e  blt L_e77a
+L_e790:
+  e794  return
+
+//// -[oalPlayback listenerPos]  0xe798..0xe7b0  {CGPoint=ff}8@0:4
+  e7a0  r2 = IVOFF(listenerPos)
+  e7a2  r3 = IVOFF(listenerPos)
+  e7a4  r2 = self->listenerPos
+  e7a6  add r1, r3
+
+//// -[oalPlayback setListenerRotation:Pos:]  0xe7b0..0xe890  v16@0:4f8i12
+  e7b2  add r7, sp, #0xc
+  e7b4  vpush {d8}
+  e7b8  sub sp, #0x34
+  e7ba  vmov d0, r2, r2
+  e7be  d17 = 1.5708
+  e7c6  vcvt.f64.f32 d16, s0
+  e7ce  r1 = ___stack_chk_guard
+  e7d0  r6 = ___stack_chk_guard
+  e7da  vadd.f64 d16, d16, d17
+  e7de  r1 = IVOFF(listenerRotation)
+  e7e4  r1 = IVOFF(listenerRotation)
+  e7e6  self->listenerRotation = r2
+  e7e8  orr r0, r3, #2
+  e7ec  cmp r0, 3
+  e7ee  vmov r5, r4, d16
+  e7f2  bne L_e82e
+  e7f8  call _cos
+  e7fc  vmov d8, r0, r1
+  e804  call _sin
+  e808  vmov d16, r0, r1
+  e80c  r0 = 0
+  e80e  vcvt.f32.f64 s0, d8
+  e812  add r1, sp, #0x18
+  e814  vcvt.f32.f64 s2, d16
+  e818  vstr s0, [sp, #0x18]
+  e81c  vstr s2, [sp, #0x1c]
+  e824  r0 = 1065353216
+  e82c  b L_e866
+L_e82e:
+  e832  call _cos
+  e836  vmov d8, r0, r1
+  e83e  call _sin
+  e842  vmov d16, r0, r1
+  e846  r0 = 0
+  e848  vcvt.f32.f64 s0, d8
+  e84c  r1 = 1065353216
+  e850  vcvt.f32.f64 s2, d16
+  e854  vstr s0, [sp]
+  e858  vstr s2, [sp, #4]
+L_e866:
+  e86a  call _alListenerfv
+  e872  cmp r0, r1
+  e878  vpopeq {d8}
+  e87e  call ___stack_chk_fail
+  e888  cmp r5, 24
+  e88c  r1 = 251
+  e88e  subs r7, #0xf9
+
+//// -[oalPlayback setListenerRotation:]  0xe890..0xe938  v12@0:4f8
+  e892  add r7, sp, #0xc
+  e898  vpush {d8}
+  e89c  sub sp, #0x1c
+  e8a0  d17 = 1.5708
+  e8a4  vmov d0, r4, r4
+  e8aa  vcvt.f64.f32 d16, s0
+  e8ae  vadd.f64 d16, d16, d17
+  e8b2  vmov r5, r6, d16
+  e8ba  call _cos
+  e8c2  vmov d8, r0, r1
+  e8ce  sl = ___stack_chk_guard
+  e8d0  call _sin
+  e8d4  vmov d16, r0, r1
+  e8dc  r5 = ___stack_chk_guard
+  e8e4  vcvt.f32.f64 s0, d8
+  e8e8  r2 = IVOFF(listenerRotation)
+  e8f0  r0 = IVOFF(listenerRotation)
+  e8f2  vcvt.f32.f64 s2, d16
+  e8f6  self->listenerRotation = r4
+  e8fa  r0 = 0
+  e8fc  vstr s0, [sp]
+  e900  vstr s2, [sp, #4]
+  e908  r0 = 1065353216
+  e914  call _alListenerfv
+  e91c  cmp r0, r1
+  e922  vpopeq {d8}
+  e92c  call ___stack_chk_fail
+  e930  cmp ___stack_chk_guard, 24
+  e934  r1 = 251
+  e936  subs r7, #0xf9
+
+//// -[oalPlayback isPlaying]  0xe938..0xe948  c8@0:4
+  e940  r1 = IVOFF(isPlaying)
+  e942  r1 = IVOFF(isPlaying)
+  e944  r0 = self->isPlaying
+
+//// -[oalPlayback setIsPlaying:]  0xe948..0xe958  v12@0:4c8
+  e950  r1 = IVOFF(isPlaying)
+  e952  r1 = IVOFF(isPlaying)
+  e954  self->isPlaying = r2
+
+//// -[oalPlayback wasInterrupted]  0xe958..0xe968  c8@0:4
+  e960  r1 = IVOFF(wasInterrupted)
+  e962  r1 = IVOFF(wasInterrupted)
+  e964  r0 = self->wasInterrupted
+
+//// -[oalPlayback setWasInterrupted:]  0xe968..0xe978  v12@0:4c8
+  e970  r1 = IVOFF(wasInterrupted)
+  e972  r1 = IVOFF(wasInterrupted)
+  e974  self->wasInterrupted = r2
+
+//// -[oalPlayback listenerRotation]  0xe978..0xe988  f8@0:4
+  e980  r1 = IVOFF(listenerRotation)
+  e982  r1 = IVOFF(listenerRotation)
+  e984  r0 = self->listenerRotation
+
+//// -[oalPlayback iPodIsPlaying]  0xe988..0xe998  L8@0:4
+  e990  r1 = IVOFF(iPodIsPlaying)
+  e992  r1 = IVOFF(iPodIsPlaying)
+  e994  r0 = self->iPodIsPlaying
+
+//// -[oalPlayback setIPodIsPlaying:]  0xe998..0xe9a8  v12@0:4L8
+  e9a0  r1 = IVOFF(iPodIsPlaying)
+  e9a2  r1 = IVOFF(iPodIsPlaying)
+  e9a4  self->iPodIsPlaying = r2
+
+//// -[oalPlayback loopNotes]  0xe9a8..0xe9b8  c8@0:4
+  e9b0  r1 = IVOFF(loopNotes)
+  e9b2  r1 = IVOFF(loopNotes)
+  e9b4  r0 = self->loopNotes
+
+//// -[oalPlayback setLoopNotes:]  0xe9b8..0xe9c8  v12@0:4c8
+  e9c0  r1 = IVOFF(loopNotes)
+  e9c2  r1 = IVOFF(loopNotes)
+  e9c4  self->loopNotes = r2
+
+//// -[oalPlayback setListenerPos:]  0xe9c8..0xe9dc  v16@0:4{CGPoint=ff}8
+  e9d0  r1 = IVOFF(listenerPos)
+  e9d2  r1 = IVOFF(listenerPos)
+  e9d4  self->listenerPos = r2
+  e9d6  add r0, r1
+
+//// -[oalPlayback sourceNumber]  0xe9dc..0xe9f0  i8@0:4
+  e9e4  r1 = IVOFF(sourceNumber)
+  e9e6  r1 = IVOFF(sourceNumber)
+  e9e8  r0 = self->sourceNumber
+
+//// -[oalPlayback setSourceNumber:]  0xe9f0..0xea08  v12@0:4i8
+  e9fc  r1 = IVOFF(sourceNumber)
+  e9fe  r1 = IVOFF(sourceNumber)
+  ea00  self->sourceNumber = r2

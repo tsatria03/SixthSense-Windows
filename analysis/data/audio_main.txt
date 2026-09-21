@@ -1,0 +1,215 @@
+====================================================================================================
+@interface oalPlayback : ?0x0   // instanceSize=0x1580 start=0x4
+-- IVARS (17) --
+  +0x4    _buffers                     [128{?="filename"^{__CFURL}"bufferId"I"data"^v}]
+  +0x604  _sources                     [122{?="sourceId"I"noteIndex"i"queued"B"time"d"sourcePos"{CGPoint="x"f"y"f}"isPlaying"c}]
+  +0x1544 _initialized                 c
+  +0x1548 _numBuffers                  i
+  +0x154c _soundBankName               @"NSString"
+  +0x1550 context                      ^{ALCcontext_struct=}
+  +0x1554 device                       ^{ALCdevice_struct=}
+  +0x1558 listenerPos                  {CGPoint="x"f"y"f}
+  +0x1560 listenerRotation             f
+  +0x1564 wasInterrupted               c
+  +0x1568 bgURL                        @"NSURL"
+  +0x156c bgPlayer                     @"AVAudioPlayer"
+  +0x1570 ambPlayer                    @"AVAudioPlayer"
+  +0x1574 iPodIsPlaying                L
+  +0x1578 isPlaying                    c
+  +0x1579 loopNotes                    c
+  +0x157c sourceNumber                 i
+-- METHODS (48) --
+  - 0x0000d471  init                                               @8@0:4
+  - 0x0000d56d  dealloc                                            v8@0:4
+  - 0x0000d5e1  startBGPlayer:type:soundGain:Loop:                 v24@0:4@8@12f16c20
+  - 0x0000d739  backgroundSoundStop                                v8@0:4
+  - 0x0000d791  startAMBPlayer:type:soundGain:Loop:                v24@0:4@8@12f16c20
+  - 0x0000d8e9  AMBSoundStop                                       v8@0:4
+  - 0x0000d941  setSoundBank:type:                                 v16@0:4@8@12
+  - 0x0000d9d1  setUpAudio                                         v8@0:4
+  - 0x0000da29  tearDownAudio                                      v8@0:4
+  - 0x0000da81  loadSoundBank:fileType:                            v16@0:4@8@12
+  - 0x0000dbd5  setUpOpenAL                                        v8@0:4
+  - 0x0000dc19  teardownOpenAL                                     v8@0:4
+  - 0x0000dc4d  freeBufferOne:                                     v12@0:4i8
+  - 0x0000dc81  initBufferOne:FileName:Type:                       v20@0:4i8@12@16
+  - 0x0000dd51  initBuffers                                        v8@0:4
+  - 0x0000ddd9  freeBuffers                                        v8@0:4
+  - 0x0000de3d  initSourceOne:                                     v12@0:4i8
+  - 0x0000de79  freeSourceOne:                                     v12@0:4i8
+  - 0x0000deb1  initSources                                        v8@0:4
+  - 0x0000df15  freeSources                                        v8@0:4
+  - 0x0000df7d  findAvailableSource                                i8@0:4
+  - 0x0000e019  noteOn:gain:sourcePos:                             v24@0:4i8f12{CGPoint=ff}16
+  - 0x0000e029  queueNote:gain:sourcePos:defaultZ:repeats:         v32@0:4i8f12{CGPoint=ff}16i24c28
+  - 0x0000e189  MonsterQueueNote:gain:sourcePos:defaultZ:repeats:  v32@0:4i8f12{CGPoint=ff}16i24c28
+  - 0x0000e2d9  MosterPos:QuereNote:defaultZ:                      v24@0:4{CGPoint=ff}8i16i20
+  - 0x0000e3bd  stopSound:                                         v12@0:4i8
+  - 0x0000e3f1  stopSoundArea:                                     v12@0:4@8
+  - 0x0000e49d  startSound:Postion:                                v20@0:4i8{CGPoint=ff}12
+  - 0x0000e525  startSound:Postion:soundGain:                      v24@0:4i8{CGPoint=ff}12f20
+  - 0x0000e60d  startSoundPostion:SoundNumber:                     v20@0:4{CGPoint=ff}8i16
+  - 0x0000e62d  playQueuedNotes                                    v8@0:4
+  - 0x0000e6c9  noteOff:                                           v12@0:4i8
+  - 0x0000e735  allNotesOff                                        v8@0:4
+  - 0x0000e799  listenerPos                                        {CGPoint=ff}8@0:4
+  - 0x0000e7b1  setListenerRotation:Pos:                           v16@0:4f8i12
+  - 0x0000e891  setListenerRotation:                               v12@0:4f8
+  - 0x0000e939  isPlaying                                          c8@0:4
+  - 0x0000e949  setIsPlaying:                                      v12@0:4c8
+  - 0x0000e959  wasInterrupted                                     c8@0:4
+  - 0x0000e969  setWasInterrupted:                                 v12@0:4c8
+  - 0x0000e979  listenerRotation                                   f8@0:4
+  - 0x0000e989  iPodIsPlaying                                      L8@0:4
+  - 0x0000e999  setIPodIsPlaying:                                  v12@0:4L8
+  - 0x0000e9a9  loopNotes                                          c8@0:4
+  - 0x0000e9b9  setLoopNotes:                                      v12@0:4c8
+  - 0x0000e9c9  setListenerPos:                                    v16@0:4{CGPoint=ff}8
+  - 0x0000e9dd  sourceNumber                                       i8@0:4
+  - 0x0000e9f1  setSourceNumber:                                   v12@0:4i8
+====================================================================================================
+@interface MainController : ?0x0   // instanceSize=0x140 start=0x99
+-- IVARS (48) --
+  +0x99   tutorialFlag                 c
+  +0x9c   posX                         f
+  +0xa0   posY                         f
+  +0xa4   shakeCount                   i
+  +0xa8   selectMenu                   i
+  +0xac   coin_flag                    c
+  +0xad   main_title_flag              c
+  +0xae   start_game_flag              c
+  +0xaf   ranking_flag                 c
+  +0xb0   store_flag                   c
+  +0xb1   modechange_flag              c
+  +0xb2   exit_flag                    c
+  +0xb3   gamecenter_flag              c
+  +0xb4   tutorial_flag                c
+  +0xb8   tapCount                     i
+  +0xbc   tapTimer                     @"NSTimer"
+  +0xc0   tapOrGesture                 c
+  +0xc4   coinTimer                    @"NSTimer"
+  +0xc8   coinTimeCounter              i
+  +0xcc   min                          i
+  +0xd0   sec                          i
+  +0xd4   modeLabel                    @"UILabel"
+  +0xd8   startGame                    @"UIButton"
+  +0xdc   storeButton                  @"UIButton"
+  +0xe0   modeChangeButton             @"UIButton"
+  +0xe4   round1                       @"UIImageView"
+  +0xe8   round2                       @"UIImageView"
+  +0xec   round3                       @"UIImageView"
+  +0xf0   round4                       @"UIImageView"
+  +0xf4   round5                       @"UIImageView"
+  +0xf8   round6                       @"UIImageView"
+  +0xfc   exitButton                   @"UIButton"
+  +0x100  _coinImageView4              @"UIImageView"
+  +0x104  _rankButton                  @"UIButton"
+  +0x108  _coinImageView3              @"UIImageView"
+  +0x10c  _coinTimeLabel               @"UILabel"
+  +0x110  _gameCenterButton            @"UIButton"
+  +0x114  _tutorialButton              @"UIButton"
+  +0x118  _manyCoinLabel               @"UILabel"
+  +0x11c  _round7                      @"UIImageView"
+  +0x120  _coinImageView5              @"UIImageView"
+  +0x124  _maskView                    @"UIView"
+  +0x128  _round9                      @"UIImageView"
+  +0x12c  _round8                      @"UIImageView"
+  +0x130  _maskLabel1                  @"UILabel"
+  +0x134  _coinImageView2              @"UIImageView"
+  +0x138  _maskView1                   @"UIView"
+  +0x13c  _coinImageView1              @"UIImageView"
+-- METHODS (94) --
+  - 0x000081f1  initWithNibName:bundle:                            @16@0:4@8@12
+  - 0x0000835d  facebookInit                                       v8@0:4
+  - 0x00008371  interruptRestart                                   v8@0:4
+  - 0x000083a5  audioRestart                                       v8@0:4
+  - 0x000084ad  didReceiveMemoryWarning                            v8@0:4
+  - 0x000084d9  LoginClear                                         v8@0:4
+  - 0x00008555  viewWillAppear:                                    v12@0:4c8
+  - 0x00008595  viewWillDisappear:                                 v12@0:4c8
+  - 0x000085c1  viewDidLoad                                        v8@0:4
+  - 0x00008d15  buttonSelectImage                                  v8@0:4
+  - 0x000090d1  blindModeSelectedMenu                              v8@0:4
+  - 0x00009261  tapSelect:                                         v12@0:4@8
+  - 0x00009351  tapCount                                           v8@0:4
+  - 0x0000948d  Menu:                                              v12@0:4@8
+  - 0x000096e9  StopElseSpeak                                      v8@0:4
+  - 0x000097ed  readNumberOfCoin                                   v8@0:4
+  - 0x00009825  selectTapPointSoundStart                           v8@0:4
+  - 0x0000a561  viewDidAppear:                                     v12@0:4c8
+  - 0x0000a58d  viewDidUnload                                      v8@0:4
+  - 0x0000a7d9  dealloc                                            v8@0:4
+  - 0x0000aa31  shouldAutorotateToInterfaceOrientation:            c12@0:4i8
+  - 0x0000aa3d  useHeadPhone                                       c8@0:4
+  - 0x0000ab25  soundYouMustUseEarPhone                            v8@0:4
+  - 0x0000ac51  StartGame:                                         v12@0:4@8
+  - 0x0000ad5d  TutorialAction:                                    v12@0:4@8
+  - 0x0000aef5  RankingAction:                                     v12@0:4@8
+  - 0x0000b2ed  StartGameAction:                                   v12@0:4@8
+  - 0x0000b67d  Store:                                             v12@0:4@8
+  - 0x0000b6d1  StoreAction:                                       v12@0:4@8
+  - 0x0000b831  ModeChageAction:                                   v12@0:4@8
+  - 0x0000bcf1  Exit:                                              v12@0:4@8
+  - 0x0000bcfd  coinTimerControlStartBackGroundRestart             v8@0:4
+  - 0x0000be01  coinTiemrControlStart                              v8@0:4
+  - 0x0000c069  coinTiemrControlEnd                                v8@0:4
+  - 0x0000c0b1  coinUpTimer                                        v8@0:4
+  - 0x0000c41d  coinViewController                                 v8@0:4
+  - 0x0000c735  checkVoiceOverApple                                v8@0:4
+  - 0x0000cad1  gameCenterAction:                                  v12@0:4@8
+  - 0x0000cbb1  showLeaderboard                                    v8@0:4
+  - 0x0000cc29  leaderboardViewControllerDidFinish:                v12@0:4@8
+  - 0x0000cc3d  modeLabel                                          @8@0:4
+  - 0x0000cc4d  setModeLabel:                                      v12@0:4@8
+  - 0x0000cc71  startGame                                          @8@0:4
+  - 0x0000cc81  setStartGame:                                      v12@0:4@8
+  - 0x0000cca5  storeButton                                        @8@0:4
+  - 0x0000ccb5  setStoreButton:                                    v12@0:4@8
+  - 0x0000ccd9  modeChangeButton                                   @8@0:4
+  - 0x0000cce9  setModeChangeButton:                               v12@0:4@8
+  - 0x0000cd0d  round1                                             @8@0:4
+  - 0x0000cd1d  setRound1:                                         v12@0:4@8
+  - 0x0000cd41  round2                                             @8@0:4
+  - 0x0000cd51  setRound2:                                         v12@0:4@8
+  - 0x0000cd75  round3                                             @8@0:4
+  - 0x0000cd85  setRound3:                                         v12@0:4@8
+  - 0x0000cda9  round4                                             @8@0:4
+  - 0x0000cdb9  setRound4:                                         v12@0:4@8
+  - 0x0000cddd  round5                                             @8@0:4
+  - 0x0000cded  setRound5:                                         v12@0:4@8
+  - 0x0000ce11  round6                                             @8@0:4
+  - 0x0000ce21  setRound6:                                         v12@0:4@8
+  - 0x0000ce45  exitButton                                         @8@0:4
+  - 0x0000ce55  setExitButton:                                     v12@0:4@8
+  - 0x0000ce79  coinImageView4                                     @8@0:4
+  - 0x0000ce89  setCoinImageView4:                                 v12@0:4@8
+  - 0x0000cead  rankButton                                         @8@0:4
+  - 0x0000cebd  setRankButton:                                     v12@0:4@8
+  - 0x0000cee1  coinImageView3                                     @8@0:4
+  - 0x0000cef1  setCoinImageView3:                                 v12@0:4@8
+  - 0x0000cf15  coinTimeLabel                                      @8@0:4
+  - 0x0000cf25  setCoinTimeLabel:                                  v12@0:4@8
+  - 0x0000cf49  gameCenterButton                                   @8@0:4
+  - 0x0000cf59  setGameCenterButton:                               v12@0:4@8
+  - 0x0000cf7d  tutorialButton                                     @8@0:4
+  - 0x0000cf8d  setTutorialButton:                                 v12@0:4@8
+  - 0x0000cfb1  manyCoinLabel                                      @8@0:4
+  - 0x0000cfc1  setManyCoinLabel:                                  v12@0:4@8
+  - 0x0000cfe5  round7                                             @8@0:4
+  - 0x0000cff5  setRound7:                                         v12@0:4@8
+  - 0x0000d019  coinImageView5                                     @8@0:4
+  - 0x0000d029  setCoinImageView5:                                 v12@0:4@8
+  - 0x0000d04d  maskView                                           @8@0:4
+  - 0x0000d05d  setMaskView:                                       v12@0:4@8
+  - 0x0000d081  round9                                             @8@0:4
+  - 0x0000d091  setRound9:                                         v12@0:4@8
+  - 0x0000d0b5  round8                                             @8@0:4
+  - 0x0000d0c5  setRound8:                                         v12@0:4@8
+  - 0x0000d0e9  maskLabel1                                         @8@0:4
+  - 0x0000d0f9  setMaskLabel1:                                     v12@0:4@8
+  - 0x0000d11d  coinImageView2                                     @8@0:4
+  - 0x0000d12d  setCoinImageView2:                                 v12@0:4@8
+  - 0x0000d151  maskView1                                          @8@0:4
+  - 0x0000d161  setMaskView1:                                      v12@0:4@8
+  - 0x0000d185  coinImageView1                                     @8@0:4
+  - 0x0000d195  setCoinImageView1:                                 v12@0:4@8

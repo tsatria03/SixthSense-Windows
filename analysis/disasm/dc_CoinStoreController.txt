@@ -1,0 +1,2772 @@
+
+//// -[CoinStoreController initWithNibName:bundle:]  0x5ae90..0x5b054  @16@0:4@8@12
+  5ae92  add r7, sp, #0xc
+  5ae98  sub sp, #0x10
+  5aeac  r1 = SEL(initWithNibName:bundle:)
+  5aeb2  r1 = SEL(initWithNibName:bundle:)
+  5aeb6  add r0, sp, #8
+  5aeb8  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  5aebe  cmp r4, 0
+  5aec0  beq L_5b04a
+  5aed4  r0 = SEL(defaultCenter)
+  5aed6  r8 = NSNotificationCenter
+  5aed8  r6 = SEL(defaultCenter)
+  5aeda  r0 = NSNotificationCenter
+  5aee0  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5aee8  fp = 0
+  5aef8  r1 = SEL(addObserver:selector:name:object:)
+  5aefa  r2 = SEL(buyCoinItem1Complet)
+  5af00  r5 = SEL(addObserver:selector:name:object:)
+  5af06  r3 = SEL(buyCoinItem1Complet)
+  5af0a  sl = CFSTR('buyCoinItem1Complet')
+  5af12  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyCoinItem1Complet))
+  5af16  r0 = NSNotificationCenter
+  5af1c  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5af2e  r1 = SEL(buyCoinItem2Complet)
+  5af34  sl = CFSTR('buyCoinItem2Complet')
+  5af3a  r3 = SEL(buyCoinItem2Complet)
+  5af3e  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyCoinItem2Complet))
+  5af42  r0 = NSNotificationCenter
+  5af48  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5af5a  r1 = SEL(buyCoinItem3Complet)
+  5af60  sl = CFSTR('buyCoinItem3Complet')
+  5af66  r3 = SEL(buyCoinItem3Complet)
+  5af6a  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyCoinItem3Complet))
+  5af6e  r0 = NSNotificationCenter
+  5af74  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5af86  r1 = SEL(buyCoinItem4Complet)
+  5af8c  sl = CFSTR('buyCoinItem4Complet')
+  5af92  r3 = SEL(buyCoinItem4Complet)
+  5af96  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyCoinItem4Complet))
+  5af9a  r0 = NSNotificationCenter
+  5afa0  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5afb2  r1 = SEL(buyCoinItem5Complet)
+  5afb8  sl = CFSTR('buyCoinItem5Complet')
+  5afbe  r3 = SEL(buyCoinItem5Complet)
+  5afc2  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyCoinItem5Complet))
+  5afc6  r0 = NSNotificationCenter
+  5afcc  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5afde  r1 = SEL(buyItemError)
+  5afe4  sl = CFSTR('buyItemError')
+  5afea  r3 = SEL(buyItemError)
+  5afee  r0 = [r0 addObserver:selector:name:object:](?, SEL(buyItemError))
+  5aff2  r0 = NSNotificationCenter
+  5aff8  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5b00a  r1 = SEL(TurnOnVoiceOver)
+  5b010  sl = CFSTR('TurnOnVoiceOver')
+  5b016  r3 = SEL(TurnOnVoiceOver)
+  5b01a  r0 = [r0 addObserver:selector:name:object:](?, SEL(TurnOnVoiceOver))
+  5b01e  r0 = NSNotificationCenter
+  5b024  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  5b036  r1 = SEL(interruptRestart)
+  5b03c  sl = CFSTR('InterruptOff')
+  5b042  r3 = SEL(interruptRestart)
+  5b046  r0 = [r0 addObserver:selector:name:object:](?, SEL(interruptRestart))
+L_5b04a:
+  5b04c  add sp, #0x10
+  5b052  return
+
+//// -[CoinStoreController interruptRestart]  0x5b054..0x5b088  v8@0:4
+  5b056  add r7, sp, #4
+  5b058  sub sp, #8
+  5b05e  r3 = 0
+  5b06c  r1 = SEL(performSelector:withObject:afterDelay:)
+  5b06e  r2 = SEL(audioRestart)
+  5b070  r4 = 0
+  5b072  r1 = SEL(performSelector:withObject:afterDelay:)
+  5b078  r2 = SEL(audioRestart)
+  5b07e  r3 = 0
+  5b080  r0 = [r0 performSelector:withObject:afterDelay:](SEL(audioRestart), 0)
+  5b084  add sp, #8
+  5b086  return
+
+//// -[CoinStoreController audioRestart]  0x5b088..0x5b190  v8@0:4
+  5b08a  add r7, sp, #8
+  5b08c  call sub_3ccc
+  5b09a  r0 = SEL(playback)
+  5b09c  r5 = SEL(playback)
+  5b0a2  r0 = [r0 playback](?, ?)
+  5b0ae  r1 = SEL(freeBuffers)
+  5b0b0  r1 = SEL(freeBuffers)
+  5b0b2  r0 = [r0 freeBuffers](?, ?)
+  5b0ba  r0 = [r0 playback](?, ?)
+  5b0c6  r1 = SEL(freeSources)
+  5b0c8  r1 = SEL(freeSources)
+  5b0ca  r0 = [r0 freeSources](?, ?)
+  5b0de  r0 = SEL(array)
+  5b0e0  r2 = NSMutableArray
+  5b0e2  r1 = SEL(array)
+  5b0e4  r0 = NSMutableArray
+  5b0e6  r0 = [NSMutableArray array](NSMutableArray, ?)
+  5b0f4  r0 = SEL(setASoundBufControlData:)
+  5b0f6  r1 = SEL(setASoundBufControlData:)
+  5b0fa  r0 = [r0 setASoundBufControlData:](?, ?)
+  5b102  r0 = [r0 playback](?, ?)
+  5b106  cbz r0 -> L_5b134
+  5b10c  r0 = [r0 playback](?, ?)
+  5b118  r1 = SEL(release)
+  5b11a  r1 = SEL(release)
+  5b11c  r0 = [r0 release](?, ?)
+  5b124  r2 = 0
+  5b12a  r0 = SEL(setPlayback:)
+  5b12c  r1 = SEL(setPlayback:)
+  5b130  r0 = [r0 setPlayback:](0, ?)
+L_5b134:
+  5b144  r0 = SEL(alloc)
+  5b146  r2 = oalPlayback
+  5b148  r1 = SEL(alloc)
+  5b14a  r0 = oalPlayback
+  5b14c  r0 = [oalPlayback alloc](oalPlayback, ?)
+  5b158  r1 = SEL(init)
+  5b15a  r1 = SEL(init)
+  5b15c  r0 = [r0 init](?, ?)
+  5b16a  r0 = SEL(setPlayback:)
+  5b16c  r1 = SEL(setPlayback:)
+  5b170  r0 = [r0 setPlayback:](?, ?)
+  5b178  r0 = [r0 playback](?, ?)
+  5b184  r1 = SEL(setUpOpenAL)
+  5b186  r1 = SEL(setUpOpenAL)
+  5b18c  b L_a90d0
+
+//// -[CoinStoreController TurnOnVoiceOver]  0x5b190..0x5b52c  v8@0:4
+  5b192  add r7, sp, #0xc
+  5b198  sub sp, #0x14
+  5b19c  call sub_3ccc
+  5b1aa  r0 = SEL(mode)
+  5b1ac  r1 = SEL(mode)
+  5b1b0  r0 = [r0 mode](?, ?)
+  5b1c0  r1 = IVOFF(selectMenu)
+  5b1c2  r1 = IVOFF(selectMenu)
+  5b1c4  beq L_5b34c
+  5b1cc  r2 = 1
+  5b1d2  self->selectMenu = 1
+  5b1d6  r0 = SEL(blindModeSelectedMenu)
+  5b1d8  r1 = SEL(blindModeSelectedMenu)
+  5b1dc  r0 = [r0 blindModeSelectedMenu](1, ?)
+  5b1e8  r0 = SEL(StopElseSpeak)
+  5b1ea  r1 = SEL(StopElseSpeak)
+  5b1ee  r0 = [r0 StopElseSpeak](?, ?)
+  5b202  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5b204  r2 = 21
+  5b206  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5b208  r0 = 0
+  5b214  r0 = [r0 playSound:Gain:Pos:z:reprats:](21, 0x3e4ccccd/f0.2)
+  5b228  r0 = SEL(currentDevice)
+  5b22a  r2 = UIDevice
+  5b22c  r1 = SEL(currentDevice)
+  5b22e  r0 = UIDevice
+  5b230  r0 = [UIDevice currentDevice](UIDevice, ?)
+  5b23c  r1 = SEL(systemVersion)
+  5b23e  r1 = SEL(systemVersion)
+  5b240  r0 = [r0 systemVersion](?, ?)
+  5b24c  r1 = SEL(floatValue)
+  5b24e  r1 = SEL(floatValue)
+  5b250  r0 = [r0 floatValue](?, ?)
+  5b254  vmov.f32 d0, #5.000000e+00
+  5b258  vmov d1, r0, r0
+  5b25c  vcmpe.f32 s2, s0
+  5b260  vmrs apsr_nzcv, fpscr
+  5b264  blt L_5b4dc
+  5b278  r0 = SEL(alloc)
+  5b27a  r2 = UIPanGestureRecognizer
+  5b27c  r1 = SEL(alloc)
+  5b27e  r0 = UIPanGestureRecognizer
+  5b282  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  5b296  r1 = SEL(initWithTarget:action:)
+  5b298  r2 = SEL(Menu:)
+  5b29a  fp = SEL(initWithTarget:action:)
+  5b29e  r3 = SEL(Menu:)
+  5b2a4  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  5b2b0  r1 = SEL(autorelease)
+  5b2b2  r5 = SEL(autorelease)
+  5b2b6  r0 = [r0 autorelease](?, ?)
+  5b2c4  r2 = 1
+  5b2c6  r0 = SEL(setEnabled:)
+  5b2c8  r1 = SEL(setEnabled:)
+  5b2cc  r0 = [r0 setEnabled:](1, ?)
+  5b2da  r0 = SEL(setDelegate:)
+  5b2dc  r1 = SEL(setDelegate:)
+  5b2e0  r0 = [r0 setDelegate:](?, ?)
+  5b2ec  r0 = SEL(view)
+  5b2ee  r4 = SEL(view)
+  5b2f4  r0 = [r0 view](?, ?)
+  5b302  r1 = SEL(addGestureRecognizer:)
+  5b304  r6 = SEL(addGestureRecognizer:)
+  5b308  r0 = [r0 addGestureRecognizer:](?, ?)
+  5b316  r0 = UITapGestureRecognizer
+  5b318  r0 = UITapGestureRecognizer
+  5b31a  r0 = [UITapGestureRecognizer ??](?, ?)
+  5b328  r1 = SEL(tapSelect:)
+  5b32a  r3 = SEL(tapSelect:)
+  5b32e  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  5b334  r0 = [r0 autorelease](?, ?)
+  5b33e  r0 = [r0 view](?, ?)
+L_5b346:
+  5b346  r0 = [r0 addGestureRecognizer:](?, ?)
+  5b34a  b L_5b4dc
+L_5b34c:
+  5b350  r2 = 0
+  5b35a  r0 = SEL(blindModeSelectedMenu)
+  5b35c  r1 = SEL(blindModeSelectedMenu)
+  5b360  r0 = [r0 blindModeSelectedMenu](0, ?)
+  5b374  r0 = SEL(currentDevice)
+  5b376  r2 = UIDevice
+  5b378  r1 = SEL(currentDevice)
+  5b37a  r0 = UIDevice
+  5b37c  r0 = [UIDevice currentDevice](UIDevice, ?)
+  5b388  r1 = SEL(systemVersion)
+  5b38a  r1 = SEL(systemVersion)
+  5b38c  r0 = [r0 systemVersion](?, ?)
+  5b398  r1 = SEL(floatValue)
+  5b39a  r1 = SEL(floatValue)
+  5b39c  r0 = [r0 floatValue](?, ?)
+  5b3a0  vmov.f32 d0, #5.000000e+00
+  5b3a4  vmov d1, r0, r0
+  5b3a8  vcmpe.f32 s2, s0
+  5b3ac  vmrs apsr_nzcv, fpscr
+  5b3b0  blt L_5b4dc
+  5b3bc  r0 = SEL(view)
+  5b3be  fp = SEL(view)
+  5b3c6  r0 = [r0 view](?, ?)
+  5b3d2  r1 = SEL(gestureRecognizers)
+  5b3d4  r6 = SEL(gestureRecognizers)
+  5b3d8  r0 = [r0 gestureRecognizers](?, ?)
+  5b3e4  r1 = SEL(count)
+  5b3e6  r4 = SEL(count)
+  5b3ea  r0 = [r0 count](?, ?)
+  5b3ee  cmp r0, 0
+  5b3f0  beq L_5b4dc
+  5b3f6  r0 = [r0 view](?, ?)
+  5b3fc  r0 = [r0 gestureRecognizers](?, ?)
+  5b402  r0 = [r0 count](?, ?)
+  5b40c  r0 = [r0 view](?, ?)
+  5b412  r0 = [r0 gestureRecognizers](?, ?)
+  5b416  cmp r5, 2
+  5b418  blo L_5b486
+  5b41e  r2 = 1
+  5b424  r1 = SEL(objectAtIndex:)
+  5b426  r4 = SEL(objectAtIndex:)
+  5b42a  r0 = [r0 objectAtIndex:](1, ?)
+  5b434  r0 = [r0 view](?, ?)
+  5b43a  r0 = [r0 gestureRecognizers](?, ?)
+  5b440  r2 = 0
+  5b442  r0 = [r0 objectAtIndex:](0, ?)
+  5b450  r2 = 0
+  5b452  r0 = SEL(setEnabled:)
+  5b454  r1 = SEL(setEnabled:)
+  5b458  r0 = [r0 setEnabled:](0, ?)
+  5b460  r0 = [r0 view](?, ?)
+  5b46e  r1 = SEL(removeGestureRecognizer:)
+  5b470  r4 = SEL(removeGestureRecognizer:)
+  5b474  r0 = [r0 removeGestureRecognizer:](?, ?)
+  5b47c  r0 = [r0 view](?, ?)
+  5b484  b L_5b346
+L_5b486:
+  5b488  r0 = [r0 removeGestureRecognizer:](?, ?)
+  5b48c  cbz r0 -> L_5b4dc
+  5b492  r0 = [r0 view](?, ?)
+  5b498  r0 = [r0 ??](?, ?)
+  5b4a0  r2 = 0
+  5b4a6  r1 = SEL(objectAtIndex:)
+  5b4a8  r1 = SEL(objectAtIndex:)
+  5b4aa  r0 = [r0 objectAtIndex:](0, ?)
+  5b4b8  r2 = 0
+  5b4ba  r0 = SEL(setEnabled:)
+  5b4bc  r1 = SEL(setEnabled:)
+  5b4c0  r0 = [r0 setEnabled:](0, ?)
+  5b4c8  r0 = [r0 view](?, ?)
+  5b4d6  r1 = SEL(removeGestureRecognizer:)
+  5b4d8  r1 = SEL(removeGestureRecognizer:)
+  5b4da  b L_5b346
+L_5b4dc:
+  5b4e4  r0 = SEL(view)
+  5b4e6  r1 = SEL(view)
+  5b4ea  r0 = [r0 view](?, ?)
+  5b4f6  r1 = SEL(gestureRecognizers)
+  5b4f8  r1 = SEL(gestureRecognizers)
+  5b4fa  r0 = [r0 gestureRecognizers](?, ?)
+  5b506  r1 = SEL(count)
+  5b508  r1 = SEL(count)
+  5b50a  r0 = [r0 count](?, ?)
+  5b516  r0 = SEL(buttonSelectImage)
+  5b518  r1 = SEL(buttonSelectImage)
+  5b51c  add sp, #0x14
+  5b526  b L_a90d0
+
+//// -[CoinStoreController viewDidLoad]  0x5b52c..0x5b880  v8@0:4
+  5b52e  add r7, sp, #0xc
+  5b534  sub sp, #0x18
+  5b54a  r0 = SEL(viewDidLoad)
+  5b554  r1 = SEL(viewDidLoad)
+  5b556  add r0, sp, #0x10
+  5b558  r0 = [r0 viewDidLoad](?, ?) SUPER
+  5b564  r0 = SEL(maskView)
+  5b566  r5 = SEL(maskView)
+  5b56c  r0 = [r0 maskView](?, ?)
+  5b578  r1 = SEL(layer)
+  5b57a  r4 = SEL(layer)
+  5b57e  r0 = [r0 layer](?, ?)
+  5b586  r2 = 0
+  5b590  r1 = SEL(setCornerRadius:)
+  5b592  r1 = SEL(setCornerRadius:)
+  5b594  r0 = [r0 setCornerRadius:](0x41100000/f9, ?)
+  5b59c  r0 = [r0 maskView](?, ?)
+  5b5a2  r0 = [r0 layer](?, ?)
+  5b5aa  r2 = 1
+  5b5b0  r1 = SEL(setMasksToBounds:)
+  5b5b2  r1 = SEL(setMasksToBounds:)
+  5b5b4  r0 = [r0 setMasksToBounds:](1, ?)
+  5b5bc  r0 = [r0 maskView](?, ?)
+  5b5c4  r2 = 1
+  5b5ca  r1 = SEL(setHidden:)
+  5b5cc  r1 = SEL(setHidden:)
+  5b5ce  r0 = [r0 setHidden:](1, ?)
+  5b5d2  call sub_3ccc
+  5b5e0  r0 = SEL(buttonSelectImage)
+  5b5e2  r1 = SEL(buttonSelectImage)
+  5b5e6  r0 = [r0 buttonSelectImage](?, ?)
+  5b5fa  r0 = SEL(currentDevice)
+  5b5fc  r2 = UIDevice
+  5b5fe  r1 = SEL(currentDevice)
+  5b600  r0 = UIDevice
+  5b602  r0 = [UIDevice currentDevice](UIDevice, ?)
+  5b60e  r1 = SEL(systemVersion)
+  5b610  r1 = SEL(systemVersion)
+  5b612  r0 = [r0 systemVersion](?, ?)
+  5b61e  r1 = SEL(floatValue)
+  5b620  r1 = SEL(floatValue)
+  5b622  r0 = [r0 floatValue](?, ?)
+  5b626  vmov.f32 d0, #5.000000e+00
+  5b62a  vmov d1, r0, r0
+  5b62e  vcmpe.f32 s2, s0
+  5b632  vmrs apsr_nzcv, fpscr
+  5b636  blt L_5b744
+  5b642  r0 = SEL(mode)
+  5b644  r4 = SEL(mode)
+  5b64a  r0 = [r0 mode](?, ?)
+  5b652  r0 = [r0 mode](?, ?)
+  5b658  cmp r0, 1
+  5b65a  bne L_5b744
+  5b66c  r0 = SEL(alloc)
+  5b66e  r2 = UIPanGestureRecognizer
+  5b670  r1 = SEL(alloc)
+  5b672  r0 = UIPanGestureRecognizer
+  5b676  r0 = [UIPanGestureRecognizer ??](UIPanGestureRecognizer, ?)
+  5b68a  r1 = SEL(initWithTarget:action:)
+  5b68c  r2 = SEL(Menu:)
+  5b68e  fp = SEL(initWithTarget:action:)
+  5b692  r3 = SEL(Menu:)
+  5b698  r0 = [r0 initWithTarget:action:](?, SEL(Menu:))
+  5b6a4  r1 = SEL(autorelease)
+  5b6a6  r6 = SEL(autorelease)
+  5b6aa  r0 = [r0 autorelease](?, ?)
+  5b6b8  r2 = 1
+  5b6ba  r0 = SEL(setEnabled:)
+  5b6bc  r1 = SEL(setEnabled:)
+  5b6c0  r0 = [r0 setEnabled:](1, ?)
+  5b6ce  r0 = SEL(setDelegate:)
+  5b6d0  r1 = SEL(setDelegate:)
+  5b6d4  r0 = [r0 setDelegate:](?, ?)
+  5b6e2  r0 = SEL(view)
+  5b6e4  r5 = SEL(view)
+  5b6ea  r0 = [r0 view](?, ?)
+  5b6f8  r1 = SEL(addGestureRecognizer:)
+  5b6fa  r8 = SEL(addGestureRecognizer:)
+  5b700  r0 = [r0 addGestureRecognizer:](?, ?)
+  5b70e  r0 = UITapGestureRecognizer
+  5b710  r0 = UITapGestureRecognizer
+  5b712  r0 = [UITapGestureRecognizer ??](?, ?)
+  5b720  r1 = SEL(tapSelect:)
+  5b722  r3 = SEL(tapSelect:)
+  5b726  r0 = [r0 initWithTarget:action:](?, SEL(tapSelect:))
+  5b72c  r0 = [r0 autorelease](?, ?)
+  5b738  r0 = [r0 view](?, ?)
+  5b740  r0 = [r0 addGestureRecognizer:](?, ?)
+L_5b744:
+  5b74e  r0 = SEL(mode)
+  5b750  r1 = SEL(mode)
+  5b754  r0 = [r0 mode](?, ?)
+  5b75a  cmp r0, 1
+  5b75c  bne L_5b7b0
+  5b762  r2 = 1
+  5b76c  r0 = IVOFF(selectMenu)
+  5b772  r1 = SEL(blindModeSelectedMenu)
+  5b774  r0 = IVOFF(selectMenu)
+  5b776  r1 = SEL(blindModeSelectedMenu)
+  5b778  self->selectMenu = 1
+  5b77e  r0 = [r0 blindModeSelectedMenu](1, ?)
+  5b786  r3 = 0
+  5b794  r0 = SEL(performSelector:withObject:afterDelay:)
+  5b796  r2 = SEL(startRead)
+  5b79c  r1 = SEL(performSelector:withObject:afterDelay:)
+  5b79e  r0 = 0
+  5b7a0  r2 = SEL(startRead)
+  5b7a8  r3 = 0
+  5b7aa  r0 = [r0 performSelector:withObject:afterDelay:](SEL(startRead), 0)
+  5b7ae  b L_5b7c2
+L_5b7b0:
+  5b7b8  r0 = SEL(blindModeSelectedMenu)
+  5b7ba  r1 = SEL(blindModeSelectedMenu)
+  5b7be  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_5b7c2:
+  5b7ca  r0 = SEL(coinCountLabel)
+  5b7cc  fp = SEL(coinCountLabel)
+  5b7d4  r0 = [r0 coinCountLabel](?, ?)
+  5b7ea  r1 = NSString
+  5b7ec  r0 = SEL(Coin)
+  5b7f0  r5 = NSString
+  5b7f2  r6 = SEL(Coin)
+  5b7f8  r0 = [r0 Coin](?, ?)
+  5b80a  r0 = SEL(stringWithFormat:)
+  5b810  r2 = CFSTR('x %d')
+  5b812  r4 = SEL(stringWithFormat:)
+  5b818  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5b826  r0 = SEL(setText:)
+  5b828  r1 = SEL(setText:)
+  5b82c  r0 = [r0 setText:](?, ?)
+  5b834  r0 = [r0 coinCountLabel](?, ?)
+  5b844  r0 = NSString
+  5b846  r5 = NSString
+  5b84a  r0 = [r0 Coin](?, ?)
+  5b85a  r2 = CFSTR('Number of coins : %d')
+  5b85e  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5b86c  r0 = SEL(setAccessibilityLabel:)
+  5b86e  r1 = SEL(setAccessibilityLabel:)
+  5b872  r0 = [r0 setAccessibilityLabel:](?, ?)
+  5b876  add sp, #0x18
+  5b87c  return
+
+//// -[CoinStoreController startRead]  0x5b880..0x5b8cc  v8@0:4
+  5b882  add r7, sp, #8
+  5b884  sub sp, #0x10
+  5b888  call sub_3ccc
+  5b896  r0 = SEL(StopElseSpeak)
+  5b898  r1 = SEL(StopElseSpeak)
+  5b89c  r0 = [r0 StopElseSpeak](?, ?)
+  5b8b0  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5b8b2  r2 = 13
+  5b8b4  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5b8b6  r0 = 0
+  5b8c2  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  5b8c6  add sp, #0x10
+  5b8c8  return
+
+//// -[CoinStoreController buttonSelectImage]  0x5b8cc..0x5bce4  v8@0:4
+  5b8ce  add r7, sp, #0xc
+  5b8d4  sub sp, #0x20
+  5b8e0  r0 = SEL(item1Button)
+  5b8e2  r1 = SEL(item1Button)
+  5b8ea  r0 = [r0 ??](?, ?)
+  5b900  r0 = SEL(imageNamed:)
+  5b902  sl = UIImage
+  5b904  r1 = SEL(imageNamed:)
+  5b908  r0 = UIImage
+  5b916  r2 = CFSTR('5_shop_coin_btn1_inact.png')
+  5b918  r0 = [UIImage ??](CFSTR('5_shop_coin_btn1_inact.png'), ?)
+  5b926  r3 = 0
+  5b928  r0 = SEL(setBackgroundImage:forState:)
+  5b92a  r1 = SEL(setBackgroundImage:forState:)
+  5b932  r0 = [r0 ??](?, 0)
+  5b93a  r0 = [r0 ??](?, ?)
+  5b940  r0 = UIImage
+  5b94e  r2 = CFSTR('5_shop_coin_btn1_act.png')
+  5b950  r0 = [UIImage ??](CFSTR('5_shop_coin_btn1_act.png'), ?)
+  5b95a  r3 = 1
+  5b95e  r0 = [r0 ??](?, 1)
+  5b966  r0 = [r0 ??](?, ?)
+  5b972  r1 = SEL(setAccessibilityLabel:)
+  5b974  r1 = SEL(setAccessibilityLabel:)
+  5b980  r2 = CFSTR('10 coins $0.99')
+  5b982  r0 = [r0 ??](CFSTR('10 coins $0.99'), ?)
+  5b98e  r0 = SEL(item2Button)
+  5b990  r6 = SEL(item2Button)
+  5b998  r0 = [r0 ??](?, ?)
+  5b9a8  fp = UIImage
+  5b9aa  r0 = UIImage
+  5b9b6  r2 = CFSTR('coin55_inact.png')
+  5b9b8  r0 = [UIImage ??](CFSTR('coin55_inact.png'), ?)
+  5b9c2  r3 = 0
+  5b9c4  r0 = [r0 ??](?, 0)
+  5b9cc  r0 = [r0 ??](?, ?)
+  5b9d4  r0 = UIImage
+  5b9e0  r2 = CFSTR('coin55_act.png')
+  5b9e2  r0 = [UIImage ??](CFSTR('coin55_act.png'), ?)
+  5b9ec  r3 = 1
+  5b9ee  r0 = [r0 ??](?, 1)
+  5b9f6  r0 = [r0 ??](?, ?)
+  5ba04  r2 = CFSTR('55 coins $0.99')
+  5ba06  r0 = [r0 ??](CFSTR('55 coins $0.99'), ?)
+  5ba12  r0 = SEL(item3Button)
+  5ba14  r6 = SEL(item3Button)
+  5ba1c  r0 = [r0 ??](?, ?)
+  5ba22  r0 = UIImage
+  5ba30  r2 = CFSTR('coin120_inact.png')
+  5ba32  r0 = [UIImage ??](CFSTR('coin120_inact.png'), ?)
+  5ba3c  r3 = 0
+  5ba3e  r0 = [r0 ??](?, 0)
+  5ba46  r0 = [r0 ??](?, ?)
+  5ba4c  r0 = UIImage
+  5ba5a  r2 = CFSTR('coin120_act.png')
+  5ba5c  r0 = [UIImage ??](CFSTR('coin120_act.png'), ?)
+  5ba66  r3 = 1
+  5ba68  r0 = [r0 ??](?, 1)
+  5ba70  r0 = [r0 ??](?, ?)
+  5ba7e  r2 = CFSTR('120 coins $2.99')
+  5ba80  r0 = [r0 ??](CFSTR('120 coins $2.99'), ?)
+  5ba8c  r0 = SEL(item4Button)
+  5ba8e  r8 = SEL(item4Button)
+  5ba9a  r0 = [r0 ??](?, ?)
+  5baa0  r0 = UIImage
+  5bab0  r2 = CFSTR('coin400_inact.png')
+  5bab4  r0 = [UIImage ??](CFSTR('coin400_inact.png'), ?)
+  5babe  r3 = 0
+  5bac2  r0 = [r0 ??](?, 0)
+  5baca  r0 = [r0 ??](?, ?)
+  5bad2  r0 = UIImage
+  5bade  r2 = CFSTR('coin400_act.png')
+  5bae0  r0 = [UIImage ??](CFSTR('coin400_act.png'), ?)
+  5baea  r3 = 1
+  5baee  r0 = [r0 ??](?, 1)
+  5baf6  r0 = [r0 ??](?, ?)
+  5bb04  r2 = CFSTR('400 coins $4.99')
+  5bb06  r0 = [r0 ??](CFSTR('400 coins $4.99'), ?)
+  5bb12  r0 = SEL(item5Button)
+  5bb14  r8 = SEL(item5Button)
+  5bb20  r0 = [r0 ??](?, ?)
+  5bb26  r0 = UIImage
+  5bb32  r2 = CFSTR('coin750_inact.png')
+  5bb36  r0 = [UIImage ??](CFSTR('coin750_inact.png'), ?)
+  5bb40  r3 = 0
+  5bb42  r0 = [r0 ??](?, 0)
+  5bb4a  r0 = [r0 ??](?, ?)
+  5bb50  r0 = UIImage
+  5bb5c  r2 = CFSTR('coin750_btn5_act.png')
+  5bb5e  r0 = [UIImage ??](CFSTR('coin750_btn5_act.png'), ?)
+  5bb68  r3 = 1
+  5bb6a  r0 = [r0 ??](?, 1)
+  5bb72  r0 = [r0 ??](?, ?)
+  5bb80  r2 = CFSTR('750 coins $7.99')
+  5bb82  r0 = [r0 ??](CFSTR('750 coins $7.99'), ?)
+  5bb8e  r0 = SEL(goBackButton)
+  5bb90  r8 = SEL(goBackButton)
+  5bb98  r0 = [r0 goBackButton](?, ?)
+  5bb9e  r0 = UIImage
+  5bbaa  r2 = CFSTR('z_btn_back_act.png')
+  5bbac  r0 = [UIImage ??](CFSTR('z_btn_back_act.png'), ?)
+  5bbb6  r3 = 0
+  5bbb8  r0 = [r0 ??](?, 0)
+  5bbc0  r0 = [r0 goBackButton](?, ?)
+  5bbc6  r0 = UIImage
+  5bbd2  r2 = CFSTR('z_btn_back_inact.png')
+  5bbd4  r0 = [UIImage ??](CFSTR('z_btn_back_inact.png'), ?)
+  5bbde  r3 = 1
+  5bbe0  r0 = [r0 ??](?, 1)
+  5bbe8  r0 = [r0 goBackButton](?, ?)
+  5bbf6  r2 = CFSTR('back')
+  5bbf8  r0 = [r0 ??](CFSTR('back'), ?)
+  5bbfc  call sub_3ccc
+  5bc08  r1 = SEL(mode)
+  5bc0a  r1 = SEL(mode)
+  5bc0c  r0 = [r0 mode](?, ?)
+  5bc16  r0 = [r0 ??](?, ?)
+  5bc22  r1 = SEL(setEnabled:)
+  5bc24  r5 = SEL(setEnabled:)
+  5bc28  cmp r1, 1
+  5bc2a  bne L_5bc82
+  5bc2e  r2 = 0
+  5bc30  r0 = [r0 setEnabled:](0, ?)
+  5bc38  r0 = [r0 ??](?, ?)
+  5bc3e  r2 = 0
+  5bc40  r0 = [r0 setEnabled:](0, ?)
+  5bc48  r0 = [r0 ??](?, ?)
+  5bc4e  r2 = 0
+  5bc50  r0 = [r0 setEnabled:](0, ?)
+  5bc58  r0 = [r0 ??](?, ?)
+  5bc5e  r2 = 0
+  5bc60  r0 = [r0 setEnabled:](0, ?)
+  5bc68  r0 = [r0 ??](?, ?)
+  5bc6e  r2 = 0
+  5bc70  r0 = [r0 setEnabled:](0, ?)
+  5bc78  r0 = [r0 goBackButton](?, ?)
+  5bc7e  r2 = 0
+  5bc80  b L_5bcd6
+L_5bc82:
+  5bc84  r2 = 1
+  5bc86  r0 = [r0 setEnabled:](1, ?)
+  5bc8e  r0 = [r0 ??](?, ?)
+  5bc94  r2 = 1
+  5bc96  r0 = [r0 setEnabled:](1, ?)
+  5bc9e  r0 = [r0 ??](?, ?)
+  5bca4  r2 = 1
+  5bca6  r0 = [r0 setEnabled:](1, ?)
+  5bcae  r0 = [r0 ??](?, ?)
+  5bcb4  r2 = 1
+  5bcb6  r0 = [r0 setEnabled:](1, ?)
+  5bcbe  r0 = [r0 ??](?, ?)
+  5bcc4  r2 = 1
+  5bcc6  r0 = [r0 setEnabled:](1, ?)
+  5bcce  r0 = [r0 goBackButton](?, ?)
+  5bcd4  r2 = 1
+L_5bcd6:
+  5bcd6  add sp, #0x20
+  5bce0  b L_a90d0
+
+//// -[CoinStoreController blindModeSelectedMenu]  0x5bce4..0x5be30  v8@0:4
+  5bce6  add r7, sp, #0xc
+  5bcec  sub sp, #0xc
+  5bcf8  r0 = SEL(round1)
+  5bcfa  r1 = SEL(round1)
+  5bd00  r0 = [r0 ??](?, ?)
+  5bd08  r2 = 1
+  5bd0e  r1 = SEL(setHidden:)
+  5bd10  r4 = SEL(setHidden:)
+  5bd14  r0 = [r0 setHidden:](1, ?)
+  5bd20  r0 = SEL(round2)
+  5bd22  r1 = SEL(round2)
+  5bd28  r0 = [r0 ??](?, ?)
+  5bd2e  r2 = 1
+  5bd30  r0 = [r0 setHidden:](1, ?)
+  5bd3c  r0 = SEL(round3)
+  5bd3e  r1 = SEL(round3)
+  5bd44  r0 = [r0 ??](?, ?)
+  5bd4a  r2 = 1
+  5bd4c  r0 = [r0 setHidden:](1, ?)
+  5bd58  r0 = SEL(round4)
+  5bd5a  r6 = SEL(round4)
+  5bd60  r0 = [r0 round4](?, ?)
+  5bd66  r2 = 1
+  5bd68  r0 = [r0 setHidden:](1, ?)
+  5bd74  r0 = SEL(round5)
+  5bd76  r8 = SEL(round5)
+  5bd7e  r0 = [r0 round5](?, ?)
+  5bd84  r2 = 1
+  5bd86  r0 = [r0 setHidden:](1, ?)
+  5bd92  r0 = SEL(round6)
+  5bd94  sl = SEL(round6)
+  5bd9c  r0 = [r0 round6](?, ?)
+  5bda2  r2 = 1
+  5bda4  r0 = [r0 setHidden:](1, ?)
+  5bdb0  r0 = SEL(round7)
+  5bdb2  fp = SEL(round7)
+  5bdba  r0 = [r0 round7](?, ?)
+  5bdc0  r2 = 1
+  5bdc2  r0 = [r0 setHidden:](1, ?)
+  5bdce  r0 = IVOFF(selectMenu)
+  5bdd0  r0 = IVOFF(selectMenu)
+  5bdd2  r0 = self->selectMenu
+  5bdd4  subs r0, #1
+  5bdd6  cmp r0, 6
+  5bdd8  bls L_5bde2
+  5bdda  add sp, #0xc
+  5bde0  return
+L_5bde2:
+  5bde6  lsls r4, r0, #0x1c
+  5bde8  lsrs r2, r1, #0x14
+  5bdea  asrs r0, r2, #0xc
+  5bdf2  b L_5be16
+  5bdf8  b L_5be16
+  5bdfe  b L_5be16
+  5be04  b L_5be16
+  5be0a  b L_5be16
+  5be10  b L_5be16
+L_5be16:
+  5be16  r0 = [r0 round7](?, ?)
+  5be1c  r2 = 0
+  5be1e  add sp, #0xc
+  5be28  b L_a90d0
+
+//// -[CoinStoreController tapSelect:]  0x5be30..0x5bf20  v12@0:4@8
+  5be32  add r7, sp, #8
+  5be34  sub sp, #0x18
+  5be42  r0 = SEL(view)
+  5be44  r1 = SEL(view)
+  5be48  r0 = [r0 view](?, ?)
+  5be4e  cbz r5 -> L_5be6e
+  5be5a  r0 = SEL(locationInView:)
+  5be5c  r2 = SEL(locationInView:)
+  5be5e  add r0, sp, #0x10
+  5be60  r0 = [r0 ??](SEL(locationInView:), ?)
+  5be64  vldr s2, [sp, #0x10]
+  5be68  vldr s0, [sp, #0x14]
+  5be6c  b L_5be7c
+L_5be6e:
+  5be6e  vmov.i32 d0, #0
+  5be72  r0 = 0
+  5be78  vmov.f32 s2, s0
+L_5be7c:
+  5be80  d16 = 0.35
+  5be88  ip = 0
+  5be8c  r0 = IVOFF(posX)
+  5be8e  vmov r2, r3, d16
+  5be92  r1 = IVOFF(posX)
+  5be9c  add r1, r4
+  5be9e  r0 = IVOFF(posY)
+  5bea0  vstr s2, [r1]
+  5bea4  r1 = IVOFF(posY)
+  5beae  add r1, r4
+  5beb0  r0 = IVOFF(tapCount)
+  5beb2  vstr s0, [r1]
+  5beba  r1 = IVOFF(tapCount)
+  5bec0  r5 = IVOFF(tapOrGesture)
+  5bec2  r0 = self->tapCount
+  5becc  adds r0, #1
+  5bece  self->tapCount = r0
+  5bedc  r1 = IVOFF(tapOrGesture)
+  5bee2  lr = NSTimer
+  5bee4  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  5bee6  sb = SEL(tapCount)
+  5bee8  self->tapOrGesture = 0
+  5beec  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  5beee  r0 = NSTimer
+  5bef2  r5 = SEL(tapCount)
+  5befe  vorr d0, d0, d0
+  5bf02  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  5bf0e  r1 = IVOFF(tapTimer)
+  5bf10  r1 = IVOFF(tapTimer)
+  5bf12  self->tapTimer = r0
+  5bf14  add sp, #0x18
+  5bf16  return
+  5bf1e  subs r7, #0xd6
+
+//// -[CoinStoreController tapCount]  0x5bf20..0x5c0c0  v8@0:4
+  5bf22  add r7, sp, #0xc
+  5bf28  sub sp, #0x10
+  5bf34  r0 = IVOFF(tapCount)
+  5bf36  r8 = IVOFF(tapCount)
+  5bf3a  r0 = self->tapCount
+  5bf3e  cmp self->tapCount, 2
+  5bf40  bne L_5bff4
+  5bf42  call sub_3ccc
+  5bf50  r0 = SEL(bDevice)
+  5bf52  r1 = SEL(bDevice)
+  5bf56  r0 = [r0 bDevice](?, ?)
+  5bf70  r6 = IVOFF(selectMenu)
+  5bf72  r0 = IVOFF(selectMenu)
+  5bf74  r0 = self->selectMenu
+  5bf76  cmp self->selectMenu, 2
+  5bf78  bne L_5bf92
+  5bf7e  r2 = 0
+  5bf84  r0 = SEL(item1Action:)
+  5bf86  r1 = SEL(item1Action:)
+  5bf8a  r0 = [r0 item1Action:](0, ?)
+  5bf8e  r0 = IVOFF(selectMenu)
+  5bf90  r0 = self->selectMenu
+L_5bf92:
+  5bf92  subs r0, #1
+  5bf94  cmp r0, 6
+  5bf96  bhi L_5c0b0
+  5bfa0  subs r5, #0x37
+  5bfa4  lsls r4, r2, #1
+  5bfa6  call sub_3ccc
+  5bfb6  r2 = 0
+  5bfb8  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5bfc2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5bfc8  r2 = 10
+  5bfca  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5bfd6  r0 = SEL(navigationController)
+  5bfd8  r1 = SEL(navigationController)
+  5bfdc  r0 = [r0 navigationController](?, ?)
+  5bfe4  r2 = 0
+  5bfea  r1 = SEL(popViewControllerAnimated:)
+  5bfec  r1 = SEL(popViewControllerAnimated:)
+  5bfee  r0 = [r0 popViewControllerAnimated:](0, ?)
+  5bff2  b L_5c0b0
+L_5bff4:
+  5bff4  cmp r0, 1
+  5bff6  bne L_5c0b0
+  5c000  r0 = SEL(selectTapPointSoundStart)
+  5c002  r1 = SEL(selectTapPointSoundStart)
+  5c006  r0 = [r0 selectTapPointSoundStart](?, ?)
+  5c00a  b L_5c0b0
+  5c014  r0 = SEL(item2Action:)
+  5c016  b L_5c03a
+  5c020  r0 = SEL(item3Action:)
+  5c022  b L_5c03a
+  5c02c  r0 = SEL(item4Action:)
+  5c02e  b L_5c03a
+  5c038  r0 = SEL(item5Action:)
+L_5c03a:
+  5c03a  r1 = SEL(item5Action:)
+  5c03e  r2 = 0
+  5c040  r0 = [r0 item5Action:](0, ?)
+  5c044  b L_5c0b0
+  5c04e  r0 = SEL(StopElseSpeak)
+  5c050  r1 = SEL(StopElseSpeak)
+  5c054  r0 = [r0 StopElseSpeak](?, ?)
+  5c068  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5c06a  r2 = 334
+  5c06e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5c070  r0 = 0
+  5c07c  r0 = [r0 playSound:Gain:Pos:z:reprats:](334, 0x3e4ccccd/f0.2)
+  5c094  r0 = SEL(performSelector:withObject:afterDelay:)
+  5c096  r2 = SEL(readNumberOfCoin)
+  5c09c  r1 = SEL(performSelector:withObject:afterDelay:)
+  5c09e  r0 = -1610612736
+  5c0a2  r2 = SEL(readNumberOfCoin)
+  5c0aa  r3 = 0
+  5c0ac  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readNumberOfCoin), 0)
+L_5c0b0:
+  5c0b0  r0 = 0
+  5c0b2  self->tapCount = 0
+  5c0b6  add sp, #0x10
+  5c0bc  return
+
+//// -[CoinStoreController didReceiveMemoryWarning]  0x5c0c0..0x5c0ec  v8@0:4
+  5c0c4  sub sp, #8
+  5c0d8  r1 = SEL(didReceiveMemoryWarning)
+  5c0de  r1 = SEL(didReceiveMemoryWarning)
+  5c0e4  r0 = [r0 didReceiveMemoryWarning](0xdb100/f1.25736e-39, ?) SUPER
+  5c0e8  add sp, #8
+  5c0ea  return
+
+//// -[CoinStoreController dealloc]  0x5c0ec..0x5c2a4  v8@0:4
+  5c0ee  add r7, sp, #8
+  5c0f0  sub sp, #8
+  5c100  r0 = IVOFF(_item1Button)
+  5c106  r1 = SEL(release)
+  5c108  r0 = IVOFF(_item1Button)
+  5c10a  r5 = SEL(release)
+  5c10c  r0 = self->_item1Button
+  5c110  r0 = [self->_item1Button release](?, ?)
+  5c11e  r0 = IVOFF(_item2Button)
+  5c120  r0 = IVOFF(_item2Button)
+  5c122  r0 = self->_item2Button
+  5c124  r0 = [self->_item2Button release](?, ?)
+  5c132  r0 = IVOFF(_item3Button)
+  5c134  r0 = IVOFF(_item3Button)
+  5c136  r0 = self->_item3Button
+  5c138  r0 = [self->_item3Button release](?, ?)
+  5c146  r0 = IVOFF(_item4Button)
+  5c148  r0 = IVOFF(_item4Button)
+  5c14a  r0 = self->_item4Button
+  5c14c  r0 = [self->_item4Button release](?, ?)
+  5c15a  r0 = IVOFF(_item5Button)
+  5c15c  r0 = IVOFF(_item5Button)
+  5c15e  r0 = self->_item5Button
+  5c160  r0 = [self->_item5Button release](?, ?)
+  5c16e  r0 = IVOFF(_goBackButton)
+  5c170  r0 = IVOFF(_goBackButton)
+  5c172  r0 = self->_goBackButton
+  5c174  r0 = [self->_goBackButton release](?, ?)
+  5c182  r0 = IVOFF(_round1)
+  5c184  r0 = IVOFF(_round1)
+  5c186  r0 = self->_round1
+  5c188  r0 = [self->_round1 release](?, ?)
+  5c196  r0 = IVOFF(_round2)
+  5c198  r0 = IVOFF(_round2)
+  5c19a  r0 = self->_round2
+  5c19c  r0 = [self->_round2 release](?, ?)
+  5c1aa  r0 = IVOFF(_round3)
+  5c1ac  r0 = IVOFF(_round3)
+  5c1ae  r0 = self->_round3
+  5c1b0  r0 = [self->_round3 release](?, ?)
+  5c1be  r0 = IVOFF(_round4)
+  5c1c0  r0 = IVOFF(_round4)
+  5c1c2  r0 = self->_round4
+  5c1c4  r0 = [self->_round4 release](?, ?)
+  5c1d2  r0 = IVOFF(_round5)
+  5c1d4  r0 = IVOFF(_round5)
+  5c1d6  r0 = self->_round5
+  5c1d8  r0 = [self->_round5 release](?, ?)
+  5c1e6  r0 = IVOFF(_round6)
+  5c1e8  r0 = IVOFF(_round6)
+  5c1ea  r0 = self->_round6
+  5c1ec  r0 = [self->_round6 release](?, ?)
+  5c1fa  r0 = IVOFF(urlCon)
+  5c1fc  r0 = IVOFF(urlCon)
+  5c1fe  r0 = self->urlCon
+  5c200  r0 = [self->urlCon release](?, ?)
+  5c20e  r0 = IVOFF(rawData)
+  5c210  r0 = IVOFF(rawData)
+  5c212  r0 = self->rawData
+  5c214  r0 = [self->rawData release](?, ?)
+  5c222  r0 = IVOFF(_maskView)
+  5c224  r0 = IVOFF(_maskView)
+  5c226  r0 = self->_maskView
+  5c228  r0 = [self->_maskView release](?, ?)
+  5c236  r0 = IVOFF(_activityIndicator)
+  5c238  r0 = IVOFF(_activityIndicator)
+  5c23a  r0 = self->_activityIndicator
+  5c23c  r0 = [self->_activityIndicator release](?, ?)
+  5c24a  r0 = IVOFF(_maskLabel)
+  5c24c  r0 = IVOFF(_maskLabel)
+  5c24e  r0 = self->_maskLabel
+  5c250  r0 = [self->_maskLabel release](?, ?)
+  5c25e  r0 = IVOFF(_coinCountLabel)
+  5c260  r0 = IVOFF(_coinCountLabel)
+  5c262  r0 = self->_coinCountLabel
+  5c264  r0 = [self->_coinCountLabel release](?, ?)
+  5c272  r0 = IVOFF(_round7)
+  5c274  r0 = IVOFF(_round7)
+  5c276  r0 = self->_round7
+  5c278  r0 = [self->_round7 release](?, ?)
+  5c28e  r0 = SEL(dealloc)
+  5c296  r1 = SEL(dealloc)
+  5c29a  r0 = [r0 dealloc](?, ?) SUPER
+  5c29e  add sp, #8
+  5c2a0  return
+
+//// -[CoinStoreController viewDidUnload]  0x5c2a4..0x5c450  v8@0:4
+  5c2a6  add r7, sp, #4
+  5c2a8  sub sp, #8
+  5c2b4  r2 = 0
+  5c2b6  r0 = SEL(setItem1Button:)
+  5c2b8  r1 = SEL(setItem1Button:)
+  5c2bc  r0 = [r0 setItem1Button:](0, ?)
+  5c2c4  r2 = 0
+  5c2ca  r0 = SEL(setItem2Button:)
+  5c2cc  r1 = SEL(setItem2Button:)
+  5c2d0  r0 = [r0 setItem2Button:](0, ?)
+  5c2d8  r2 = 0
+  5c2de  r0 = SEL(setItem3Button:)
+  5c2e0  r1 = SEL(setItem3Button:)
+  5c2e4  r0 = [r0 setItem3Button:](0, ?)
+  5c2ec  r2 = 0
+  5c2f2  r0 = SEL(setItem4Button:)
+  5c2f4  r1 = SEL(setItem4Button:)
+  5c2f8  r0 = [r0 setItem4Button:](0, ?)
+  5c300  r2 = 0
+  5c306  r0 = SEL(setItem5Button:)
+  5c308  r1 = SEL(setItem5Button:)
+  5c30c  r0 = [r0 setItem5Button:](0, ?)
+  5c314  r2 = 0
+  5c31a  r0 = SEL(setGoBackButton:)
+  5c31c  r1 = SEL(setGoBackButton:)
+  5c320  r0 = [r0 setGoBackButton:](0, ?)
+  5c328  r2 = 0
+  5c32e  r0 = SEL(setRound1:)
+  5c330  r1 = SEL(setRound1:)
+  5c334  r0 = [r0 setRound1:](0, ?)
+  5c33c  r2 = 0
+  5c342  r0 = SEL(setRound2:)
+  5c344  r1 = SEL(setRound2:)
+  5c348  r0 = [r0 setRound2:](0, ?)
+  5c350  r2 = 0
+  5c356  r0 = SEL(setRound3:)
+  5c358  r1 = SEL(setRound3:)
+  5c35c  r0 = [r0 setRound3:](0, ?)
+  5c364  r2 = 0
+  5c36a  r0 = SEL(setRound4:)
+  5c36c  r1 = SEL(setRound4:)
+  5c370  r0 = [r0 setRound4:](0, ?)
+  5c378  r2 = 0
+  5c37e  r0 = SEL(setRound5:)
+  5c380  r1 = SEL(setRound5:)
+  5c384  r0 = [r0 setRound5:](0, ?)
+  5c38c  r2 = 0
+  5c392  r0 = SEL(setRound6:)
+  5c394  r1 = SEL(setRound6:)
+  5c398  r0 = [r0 setRound6:](0, ?)
+  5c3a0  r2 = 0
+  5c3a6  r0 = SEL(setUrlCon:)
+  5c3a8  r1 = SEL(setUrlCon:)
+  5c3ac  r0 = [r0 setUrlCon:](0, ?)
+  5c3b4  r2 = 0
+  5c3ba  r0 = SEL(setRawData:)
+  5c3bc  r1 = SEL(setRawData:)
+  5c3c0  r0 = [r0 setRawData:](0, ?)
+  5c3c8  r2 = 0
+  5c3ce  r0 = SEL(setMaskView:)
+  5c3d0  r1 = SEL(setMaskView:)
+  5c3d4  r0 = [r0 setMaskView:](0, ?)
+  5c3dc  r2 = 0
+  5c3e2  r0 = SEL(setActivityIndicator:)
+  5c3e4  r1 = SEL(setActivityIndicator:)
+  5c3e8  r0 = [r0 setActivityIndicator:](0, ?)
+  5c3f0  r2 = 0
+  5c3f6  r0 = SEL(setMaskLabel:)
+  5c3f8  r1 = SEL(setMaskLabel:)
+  5c3fc  r0 = [r0 setMaskLabel:](0, ?)
+  5c404  r2 = 0
+  5c40a  r0 = SEL(setCoinCountLabel:)
+  5c40c  r1 = SEL(setCoinCountLabel:)
+  5c410  r0 = [r0 setCoinCountLabel:](0, ?)
+  5c418  r2 = 0
+  5c41e  r0 = SEL(setRound7:)
+  5c420  r1 = SEL(setRound7:)
+  5c424  r0 = [r0 setRound7:](0, ?)
+  5c43a  r0 = SEL(viewDidUnload)
+  5c442  r1 = SEL(viewDidUnload)
+  5c446  r0 = [r0 viewDidUnload](?, ?) SUPER
+  5c44a  add sp, #8
+  5c44c  return
+
+//// -[CoinStoreController shouldAutorotateToInterfaceOrientation:]  0x5c450..0x5c45c  c12@0:4i8
+  5c450  cmp r2, 1
+
+//// -[CoinStoreController StopElseSpeak]  0x5c45c..0x5c518  v8@0:4
+  5c45e  add r7, sp, #0xc
+  5c460  sub sp, #4
+  5c464  call sub_3ccc
+  5c472  r2 = 13
+  5c474  r0 = SEL(stopSoundBufNumber:)
+  5c476  r6 = SEL(stopSoundBufNumber:)
+  5c47c  r0 = [r0 stopSoundBufNumber:](13, ?)
+  5c488  r0 = [r0 stopSoundBufNumber:](343, ?)
+  5c490  r2 = 344
+  5c494  r0 = [r0 stopSoundBufNumber:](344, ?)
+  5c4a0  r0 = [r0 stopSoundBufNumber:](345, ?)
+  5c4a8  r2 = 346
+  5c4ac  r0 = [r0 stopSoundBufNumber:](346, ?)
+  5c4b8  r0 = [r0 stopSoundBufNumber:](347, ?)
+  5c4c0  r2 = 334
+  5c4c4  r0 = [r0 stopSoundBufNumber:](334, ?)
+  5c4cc  r2 = 260
+  5c4d0  r0 = [r0 stopSoundBufNumber:](260, ?)
+  5c4dc  r0 = SEL(readStop)
+  5c4de  r1 = SEL(readStop)
+  5c4e2  r0 = [r0 readStop](?, ?)
+  5c4fe  r0 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  5c500  r2 = SEL(readNumberOfCoin)
+  5c502  r6 = NSObject
+  5c504  r1 = SEL(cancelPreviousPerformRequestsWithTarget:selector:object:)
+  5c506  r3 = SEL(readNumberOfCoin)
+  5c508  r2 = 0
+  5c50a  r0 = NSObject
+  5c510  r0 = [NSObject cancelPreviousPerformRequestsWithTarget:selector:object:](?, SEL(readNumberOfCoin))
+  5c514  add sp, #4
+  5c516  return
+
+//// -[CoinStoreController selectTapPointSoundStart]  0x5c518..0x5cf1c  v8@0:4
+  5c51a  add r7, sp, #0xc
+  5c520  sub sp, #0x30
+  5c524  call sub_3ccc
+  5c53a  r0 = SEL(mainScreen)
+  5c53c  r5 = UIScreen
+  5c53e  r6 = SEL(mainScreen)
+  5c540  r0 = UIScreen
+  5c544  r0 = [UIScreen mainScreen](?, ?)
+  5c54a  cmp r1, 0
+  5c54c  beq L_5c586
+  5c556  r0 = SEL(bounds)
+  5c558  r2 = SEL(bounds)
+  5c55a  add r0, sp, #0x20
+  5c55c  r0 = [r0 ??](SEL(bounds), ?)
+  5c560  s0 = 320
+  5c564  vldr s2, [sp, #0x28]
+  5c568  vcmpe.f32 s2, s0
+  5c56c  vmrs apsr_nzcv, fpscr
+  5c570  bne L_5c590
+  5c572  vldr s0, [sp, #0x2c]
+  5c576  s2 = 568
+  5c57a  vcmpe.f32 s0, s2
+  5c57e  vmrs apsr_nzcv, fpscr
+  5c582  beq L_5c5d8
+  5c584  b L_5c590
+L_5c586:
+  5c586  vmov.i32 q8, #0
+  5c58a  add r0, sp, #0x20
+  5c58c  vst1.32 {d16, d17}, [r0]
+L_5c590:
+  5c590  r0 = UIScreen
+  5c594  r0 = [UIScreen mainScreen](?, ?)
+  5c59a  cmp r1, 0
+  5c59c  beq L_5c6ba
+  5c5a8  r0 = SEL(bounds)
+  5c5aa  r2 = SEL(bounds)
+  5c5ac  add r0, sp, #0x10
+  5c5ae  r0 = [r0 ??](SEL(bounds), ?)
+  5c5b2  s0 = 568
+  5c5b6  vldr s2, [sp, #0x18]
+  5c5ba  vcmpe.f32 s2, s0
+  5c5be  vmrs apsr_nzcv, fpscr
+  5c5c2  bne L_5c6c4
+  5c5c6  vldr s0, [sp, #0x1c]
+  5c5ca  s2 = 320
+  5c5ce  vcmpe.f32 s0, s2
+  5c5d2  vmrs apsr_nzcv, fpscr
+  5c5d6  bne L_5c6c4
+L_5c5d8:
+  5c5dc  s2 = 40
+  5c5e8  r1 = IVOFF(posY)
+  5c5ee  r0 = IVOFF(tapOrGesture)
+  5c5f0  vmov.i32 d2, #0
+  5c5f4  r1 = IVOFF(posY)
+  5c5f6  r2 = 0
+  5c5f8  r0 = IVOFF(tapOrGesture)
+  5c5fa  add r1, r4
+  5c5fc  vldr s0, [r1]
+  5c600  r1 = 0
+  5c602  r0 = self->tapOrGesture
+  5c604  vcmpe.f32 s0, s2
+  5c608  vmrs apsr_nzcv, fpscr
+  5c60c  vcmpe.f32 s0, s4
+  5c614  vmrs apsr_nzcv, fpscr
+  5c61c  cmp self->tapOrGesture, 0
+  5c61e  orr.w r1, r1, r2
+  5c622  beq L_5c958
+  5c626  cmp r1, 0
+  5c628  beq L_5c80e
+  5c62c  s2 = 51
+  5c630  vcmpe.f32 s0, s2
+  5c634  vmrs apsr_nzcv, fpscr
+  5c638  blt L_5c64a
+  5c63a  s2 = 81
+  5c63e  vcmpe.f32 s0, s2
+  5c642  vmrs apsr_nzcv, fpscr
+  5c646  bls L_5cab2
+L_5c64a:
+  5c64a  s2 = 97
+  5c64e  vcmpe.f32 s0, s2
+  5c652  vmrs apsr_nzcv, fpscr
+  5c656  blt L_5c668
+  5c658  s2 = 154
+  5c65c  vcmpe.f32 s0, s2
+  5c660  vmrs apsr_nzcv, fpscr
+  5c664  bls L_5cb46
+L_5c668:
+  5c668  s2 = 163
+  5c66c  vcmpe.f32 s0, s2
+  5c670  vmrs apsr_nzcv, fpscr
+  5c674  blt L_5c686
+  5c676  s2 = 220
+  5c67a  vcmpe.f32 s0, s2
+  5c67e  vmrs apsr_nzcv, fpscr
+  5c682  bls L_5cc3a
+L_5c686:
+  5c686  s2 = 229
+  5c68a  vcmpe.f32 s0, s2
+  5c68e  vmrs apsr_nzcv, fpscr
+  5c692  blt L_5c6a4
+  5c694  s2 = 286
+  5c698  vcmpe.f32 s0, s2
+  5c69c  vmrs apsr_nzcv, fpscr
+  5c6a0  bls L_5ccfe
+L_5c6a4:
+  5c6a4  s2 = 294
+  5c6a8  vcmpe.f32 s0, s2
+  5c6ac  vmrs apsr_nzcv, fpscr
+  5c6b0  blt L_5c7ae
+  5c6b4  s2 = 351
+  5c6b8  b L_5c7a2
+L_5c6ba:
+  5c6ba  vmov.i32 q8, #0
+  5c6be  add r0, sp, #0x10
+  5c6c0  vst1.32 {d16, d17}, [r0]
+L_5c6c4:
+  5c6c8  s2 = 40
+  5c6d4  r1 = IVOFF(posY)
+  5c6da  r0 = IVOFF(tapOrGesture)
+  5c6dc  vmov.i32 d2, #0
+  5c6e0  r1 = IVOFF(posY)
+  5c6e2  r2 = 0
+  5c6e4  r0 = IVOFF(tapOrGesture)
+  5c6e6  add r1, r4
+  5c6e8  vldr s0, [r1]
+  5c6ec  r1 = 0
+  5c6ee  r0 = self->tapOrGesture
+  5c6f0  vcmpe.f32 s0, s2
+  5c6f4  vmrs apsr_nzcv, fpscr
+  5c6f8  vcmpe.f32 s0, s4
+  5c700  vmrs apsr_nzcv, fpscr
+  5c708  cmp self->tapOrGesture, 0
+  5c70a  orr.w r1, r1, r2
+  5c70e  beq L_5c86e
+  5c712  cmp r1, 0
+  5c714  beq L_5c80e
+  5c718  s2 = 51
+  5c71c  vcmpe.f32 s0, s2
+  5c720  vmrs apsr_nzcv, fpscr
+  5c724  blt L_5c736
+  5c726  s2 = 81
+  5c72a  vcmpe.f32 s0, s2
+  5c72e  vmrs apsr_nzcv, fpscr
+  5c732  bls L_5cab2
+L_5c736:
+  5c736  s2 = 92
+  5c73a  vcmpe.f32 s0, s2
+  5c73e  vmrs apsr_nzcv, fpscr
+  5c742  blt L_5c754
+  5c744  s2 = 149
+  5c748  vcmpe.f32 s0, s2
+  5c74c  vmrs apsr_nzcv, fpscr
+  5c750  bls L_5cb46
+L_5c754:
+  5c754  s2 = 153
+  5c758  vcmpe.f32 s0, s2
+  5c75c  vmrs apsr_nzcv, fpscr
+  5c760  blt L_5c772
+  5c762  s2 = 210
+  5c766  vcmpe.f32 s0, s2
+  5c76a  vmrs apsr_nzcv, fpscr
+  5c76e  bls L_5cc3a
+L_5c772:
+  5c772  s2 = 214
+  5c776  vcmpe.f32 s0, s2
+  5c77a  vmrs apsr_nzcv, fpscr
+  5c77e  blt L_5c790
+  5c780  s2 = 271
+  5c784  vcmpe.f32 s0, s2
+  5c788  vmrs apsr_nzcv, fpscr
+  5c78c  bls L_5ccfe
+L_5c790:
+  5c790  s2 = 274
+  5c794  vcmpe.f32 s0, s2
+  5c798  vmrs apsr_nzcv, fpscr
+  5c79c  blt L_5c7ae
+  5c79e  s2 = 331
+L_5c7a2:
+  5c7a2  vcmpe.f32 s0, s2
+  5c7a6  vmrs apsr_nzcv, fpscr
+  5c7aa  bls L_5cdc2
+L_5c7ae:
+  5c7ba  r0 = IVOFF(item1_flag)
+  5c7c0  r2 = IVOFF(item2_flag)
+  5c7c2  r1 = IVOFF(item1_flag)
+  5c7c4  r0 = 0
+  5c7c6  self->item1_flag = 0
+  5c7c8  r1 = IVOFF(item2_flag)
+  5c7d2  r2 = IVOFF(item3_flag)
+  5c7d4  self->item2_flag = 0
+  5c7d6  r1 = IVOFF(item3_flag)
+  5c7e0  r2 = IVOFF(item4_flag)
+  5c7e2  self->item3_flag = 0
+  5c7e4  r1 = IVOFF(item4_flag)
+  5c7ee  r2 = IVOFF(item5_flag)
+  5c7f0  self->item4_flag = 0
+  5c7f2  r1 = IVOFF(item5_flag)
+  5c7fc  r2 = IVOFF(numbercoin_flag)
+  5c7fe  self->item5_flag = 0
+  5c800  r1 = IVOFF(numbercoin_flag)
+  5c80a  r2 = IVOFF(back_flag)
+  5c80c  b L_5cee2
+L_5c80e:
+  5c81a  r0 = IVOFF(selectMenu)
+  5c820  r2 = IVOFF(back_flag)
+  5c822  r1 = IVOFF(selectMenu)
+  5c824  r0 = 1
+  5c826  self->selectMenu = 1
+  5c828  r1 = IVOFF(back_flag)
+  5c82a  r2 = self->back_flag
+  5c82c  cmp self->back_flag, 0
+  5c82e  bne L_5cee8
+  5c83a  self->back_flag = 1
+  5c83c  r2 = SEL(StopElseSpeak)
+  5c840  r1 = SEL(StopElseSpeak)
+  5c842  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), ?)
+  5c856  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5c858  r2 = 13
+  5c85a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5c85c  r0 = 0
+  5c868  r0 = [r0 playSound:Gain:Pos:z:reprats:](13, 0x3e4ccccd/f0.2)
+  5c86c  b L_5cee8
+L_5c86e:
+  5c86e  cmp r1, 0
+  5c870  beq L_5ca56
+  5c874  s2 = 51
+  5c878  vcmpe.f32 s0, s2
+  5c87c  vmrs apsr_nzcv, fpscr
+  5c880  blt L_5c892
+  5c882  s2 = 81
+  5c886  vcmpe.f32 s0, s2
+  5c88a  vmrs apsr_nzcv, fpscr
+  5c88e  bls L_5cbaa
+L_5c892:
+  5c892  s2 = 92
+  5c896  vcmpe.f32 s0, s2
+  5c89a  vmrs apsr_nzcv, fpscr
+  5c89e  blt L_5c8b0
+  5c8a0  s2 = 149
+  5c8a4  vcmpe.f32 s0, s2
+  5c8a8  vmrs apsr_nzcv, fpscr
+  5c8ac  bls L_5cc9e
+L_5c8b0:
+  5c8b0  s2 = 153
+  5c8b4  vcmpe.f32 s0, s2
+  5c8b8  vmrs apsr_nzcv, fpscr
+  5c8bc  blt L_5c8ce
+  5c8be  s2 = 210
+  5c8c2  vcmpe.f32 s0, s2
+  5c8c6  vmrs apsr_nzcv, fpscr
+  5c8ca  bls L_5cd62
+L_5c8ce:
+  5c8ce  s2 = 214
+  5c8d2  vcmpe.f32 s0, s2
+  5c8d6  vmrs apsr_nzcv, fpscr
+  5c8da  blt L_5c8ec
+  5c8dc  s2 = 271
+  5c8e0  vcmpe.f32 s0, s2
+  5c8e4  vmrs apsr_nzcv, fpscr
+  5c8e8  bls L_5ce26
+L_5c8ec:
+  5c8ec  s2 = 274
+  5c8f0  vcmpe.f32 s0, s2
+  5c8f4  vmrs apsr_nzcv, fpscr
+  5c8f8  blt L_5ce84
+  5c8fc  s2 = 331
+  5c900  b L_5c9ea
+  5c90a  add r6, r1
+  5c912  rsbs r4, r1, #0
+  5c916  cmp r2, r4
+  5c91a  cmp r2, r0
+  5c926  muls r4, r3, r4
+  5c92a  muls r5, r4, r5
+  5c93a  cmp r0, r7
+  5c946  muls r2, r2, r2
+  5c94a  muls r6, r2, r6
+L_5c958:
+  5c958  cmp r1, 0
+  5c95a  beq L_5ca56
+  5c95e  s2 = 51
+  5c962  vcmpe.f32 s0, s2
+  5c966  vmrs apsr_nzcv, fpscr
+  5c96a  blt L_5c97c
+  5c96c  s2 = 81
+  5c970  vcmpe.f32 s0, s2
+  5c974  vmrs apsr_nzcv, fpscr
+  5c978  bls L_5cbaa
+L_5c97c:
+  5c97c  s2 = 97
+  5c980  vcmpe.f32 s0, s2
+  5c984  vmrs apsr_nzcv, fpscr
+  5c988  blt L_5c99a
+  5c98a  s2 = 154
+  5c98e  vcmpe.f32 s0, s2
+  5c992  vmrs apsr_nzcv, fpscr
+  5c996  bls L_5cc9e
+L_5c99a:
+  5c99a  s2 = 163
+  5c99e  vcmpe.f32 s0, s2
+  5c9a2  vmrs apsr_nzcv, fpscr
+  5c9a6  blt L_5c9b8
+  5c9a8  s2 = 220
+  5c9ac  vcmpe.f32 s0, s2
+  5c9b0  vmrs apsr_nzcv, fpscr
+  5c9b4  bls L_5cd62
+L_5c9b8:
+  5c9b8  s2 = 229
+  5c9bc  vcmpe.f32 s0, s2
+  5c9c0  vmrs apsr_nzcv, fpscr
+  5c9c4  blt L_5c9d6
+  5c9c6  s2 = 286
+  5c9ca  vcmpe.f32 s0, s2
+  5c9ce  vmrs apsr_nzcv, fpscr
+  5c9d2  bls L_5ce26
+L_5c9d6:
+  5c9d6  s2 = 294
+  5c9da  vcmpe.f32 s0, s2
+  5c9de  vmrs apsr_nzcv, fpscr
+  5c9e2  blt L_5ce84
+  5c9e6  s2 = 351
+L_5c9ea:
+  5c9ea  vcmpe.f32 s0, s2
+  5c9ee  vmrs apsr_nzcv, fpscr
+  5c9f2  bhi L_5ce84
+  5c9fa  r2 = 6
+  5ca04  r0 = IVOFF(selectMenu)
+  5ca0a  r1 = IVOFF(item5_flag)
+  5ca0c  r0 = IVOFF(selectMenu)
+  5ca0e  self->selectMenu = 6
+  5ca10  r0 = IVOFF(item5_flag)
+  5ca12  r1 = self->item5_flag
+  5ca14  cmp self->item5_flag, 0
+  5ca16  bne L_5ce84
+  5ca1e  r2 = 1
+  5ca24  self->item5_flag = 1
+  5ca26  r1 = SEL(StopElseSpeak)
+  5ca2a  r1 = SEL(StopElseSpeak)
+  5ca2c  r0 = [r0 StopElseSpeak](1, ?)
+  5ca40  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ca46  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ca48  r0 = 0
+  5ca54  b L_5ce80
+L_5ca56:
+  5ca62  r0 = IVOFF(selectMenu)
+  5ca68  r2 = IVOFF(back_flag)
+  5ca6a  r1 = IVOFF(selectMenu)
+  5ca6c  r0 = 1
+  5ca6e  self->selectMenu = 1
+  5ca70  r1 = IVOFF(back_flag)
+  5ca72  r2 = self->back_flag
+  5ca74  cmp self->back_flag, 0
+  5ca76  bne L_5ce84
+  5ca82  self->back_flag = 1
+  5ca84  r2 = SEL(StopElseSpeak)
+  5ca88  r1 = SEL(StopElseSpeak)
+  5ca8a  r0 = [r0 StopElseSpeak](SEL(StopElseSpeak), 0x3e4ccccd/f0.2)
+  5ca9e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5caa0  r2 = 13
+  5caa2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5caa4  r0 = 0
+  5cab0  b L_5ce80
+L_5cab2:
+  5cab6  r2 = 7
+  5cac0  r0 = IVOFF(selectMenu)
+  5cac6  r1 = IVOFF(numbercoin_flag)
+  5cac8  r0 = IVOFF(selectMenu)
+  5caca  self->selectMenu = 7
+  5cacc  r0 = IVOFF(numbercoin_flag)
+  5cace  r1 = self->numbercoin_flag
+  5cad0  cmp self->numbercoin_flag, 0
+  5cad2  bne L_5cee8
+  5cada  r2 = 1
+  5cae0  self->numbercoin_flag = 1
+  5cae2  r1 = SEL(StopElseSpeak)
+  5cae6  r1 = SEL(StopElseSpeak)
+  5cae8  r0 = [r0 StopElseSpeak](1, 0x3e4ccccd/f0.2)
+  5cafc  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cafe  r2 = 334
+  5cb02  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cb04  r0 = 0
+  5cb10  r0 = [r0 playSound:Gain:Pos:z:reprats:](334, 0x3e4ccccd/f0.2)
+  5cb28  r0 = SEL(performSelector:withObject:afterDelay:)
+  5cb2a  r2 = SEL(readNumberOfCoin)
+  5cb30  r1 = SEL(performSelector:withObject:afterDelay:)
+  5cb32  r0 = -1610612736
+  5cb36  r2 = SEL(readNumberOfCoin)
+  5cb3e  r3 = 0
+  5cb40  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readNumberOfCoin), 0)
+  5cb44  b L_5cee8
+L_5cb46:
+  5cb4a  r2 = 3
+  5cb54  r0 = IVOFF(selectMenu)
+  5cb5a  r1 = IVOFF(item2_flag)
+  5cb5c  r0 = IVOFF(selectMenu)
+  5cb5e  self->selectMenu = 3
+  5cb60  r0 = IVOFF(item2_flag)
+  5cb62  r1 = self->item2_flag
+  5cb64  cmp self->item2_flag, 0
+  5cb66  bne L_5cee8
+  5cb6e  r2 = 1
+  5cb74  self->item2_flag = 1
+  5cb76  r1 = SEL(StopElseSpeak)
+  5cb7a  r1 = SEL(StopElseSpeak)
+  5cb7c  r0 = [r0 StopElseSpeak](1, ?)
+  5cb90  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cb92  r2 = 344
+  5cb96  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cb98  r0 = 0
+  5cba4  r0 = [r0 playSound:Gain:Pos:z:reprats:](344, 0x3e4ccccd/f0.2)
+  5cba8  b L_5cee8
+L_5cbaa:
+  5cbae  r2 = 7
+  5cbb8  r0 = IVOFF(selectMenu)
+  5cbbe  r1 = IVOFF(numbercoin_flag)
+  5cbc0  r0 = IVOFF(selectMenu)
+  5cbc2  self->selectMenu = 7
+  5cbc4  r0 = IVOFF(numbercoin_flag)
+  5cbc6  r1 = self->numbercoin_flag
+  5cbc8  cmp self->numbercoin_flag, 0
+  5cbca  bne L_5ce84
+  5cbd2  r2 = 1
+  5cbd8  self->numbercoin_flag = 1
+  5cbda  r1 = SEL(StopElseSpeak)
+  5cbde  r1 = SEL(StopElseSpeak)
+  5cbe0  r0 = [r0 StopElseSpeak](1, ?)
+  5cbf4  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cbf6  r2 = 334
+  5cbfa  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cbfc  r0 = 0
+  5cc08  r0 = [r0 playSound:Gain:Pos:z:reprats:](334, 0x3e4ccccd/f0.2)
+  5cc20  r0 = SEL(performSelector:withObject:afterDelay:)
+  5cc22  r2 = SEL(readNumberOfCoin)
+  5cc28  r1 = SEL(performSelector:withObject:afterDelay:)
+  5cc2a  r0 = -1610612736
+  5cc34  r3 = 0
+  5cc36  r2 = SEL(readNumberOfCoin)
+  5cc38  b L_5ce80
+L_5cc3a:
+  5cc3e  r2 = 4
+  5cc48  r0 = IVOFF(selectMenu)
+  5cc4e  r1 = IVOFF(item3_flag)
+  5cc50  r0 = IVOFF(selectMenu)
+  5cc52  self->selectMenu = 4
+  5cc54  r0 = IVOFF(item3_flag)
+  5cc56  r1 = self->item3_flag
+  5cc58  cmp self->item3_flag, 0
+  5cc5a  bne L_5cee8
+  5cc62  r2 = 1
+  5cc68  self->item3_flag = 1
+  5cc6a  r1 = SEL(StopElseSpeak)
+  5cc6e  r1 = SEL(StopElseSpeak)
+  5cc70  r0 = [r0 StopElseSpeak](1, 0)
+  5cc84  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cc8a  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cc8c  r0 = 0
+  5cc98  r0 = [r0 playSound:Gain:Pos:z:reprats:](345, 0x3e4ccccd/f0.2)
+  5cc9c  b L_5cee8
+L_5cc9e:
+  5cca2  r2 = 3
+  5ccac  r0 = IVOFF(selectMenu)
+  5ccb2  r1 = IVOFF(item2_flag)
+  5ccb4  r0 = IVOFF(selectMenu)
+  5ccb6  self->selectMenu = 3
+  5ccb8  r0 = IVOFF(item2_flag)
+  5ccba  r1 = self->item2_flag
+  5ccbc  cmp self->item2_flag, 0
+  5ccbe  bne L_5ce84
+  5ccc6  r2 = 1
+  5cccc  self->item2_flag = 1
+  5ccce  r1 = SEL(StopElseSpeak)
+  5ccd2  r1 = SEL(StopElseSpeak)
+  5ccd4  r0 = [r0 StopElseSpeak](1, ?)
+  5cce8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ccea  r2 = 344
+  5ccee  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ccf0  r0 = 0
+  5ccfc  b L_5ce80
+L_5ccfe:
+  5cd02  r2 = 5
+  5cd0c  r0 = IVOFF(selectMenu)
+  5cd12  r1 = IVOFF(item4_flag)
+  5cd14  r0 = IVOFF(selectMenu)
+  5cd16  self->selectMenu = 5
+  5cd18  r0 = IVOFF(item4_flag)
+  5cd1a  r1 = self->item4_flag
+  5cd1c  cmp self->item4_flag, 0
+  5cd1e  bne L_5cee8
+  5cd26  r2 = 1
+  5cd2c  self->item4_flag = 1
+  5cd2e  r1 = SEL(StopElseSpeak)
+  5cd32  r1 = SEL(StopElseSpeak)
+  5cd34  r0 = [r0 StopElseSpeak](1, 0x3e4ccccd/f0.2)
+  5cd48  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cd4a  r2 = 346
+  5cd4e  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cd50  r0 = 0
+  5cd5c  r0 = [r0 playSound:Gain:Pos:z:reprats:](346, 0x3e4ccccd/f0.2)
+  5cd60  b L_5cee8
+L_5cd62:
+  5cd66  r2 = 4
+  5cd70  r0 = IVOFF(selectMenu)
+  5cd76  r1 = IVOFF(item3_flag)
+  5cd78  r0 = IVOFF(selectMenu)
+  5cd7a  self->selectMenu = 4
+  5cd7c  r0 = IVOFF(item3_flag)
+  5cd7e  r1 = self->item3_flag
+  5cd80  cmp self->item3_flag, 0
+  5cd82  bne L_5ce84
+  5cd8a  r2 = 1
+  5cd90  self->item3_flag = 1
+  5cd92  r1 = SEL(StopElseSpeak)
+  5cd96  r1 = SEL(StopElseSpeak)
+  5cd98  r0 = [r0 StopElseSpeak](1, ?)
+  5cdac  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cdb2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5cdb4  r0 = 0
+  5cdc0  b L_5ce80
+L_5cdc2:
+  5cdc6  r2 = 6
+  5cdd0  r0 = IVOFF(selectMenu)
+  5cdd6  r1 = IVOFF(item5_flag)
+  5cdd8  r0 = IVOFF(selectMenu)
+  5cdda  self->selectMenu = 6
+  5cddc  r0 = IVOFF(item5_flag)
+  5cdde  r1 = self->item5_flag
+  5cde0  cmp self->item5_flag, 0
+  5cde2  bne L_5cee8
+  5cdea  r2 = 1
+  5cdf0  self->item5_flag = 1
+  5cdf2  r1 = SEL(StopElseSpeak)
+  5cdf6  r1 = SEL(StopElseSpeak)
+  5cdf8  r0 = [r0 StopElseSpeak](1, 0x3e4ccccd/f0.2)
+  5ce0c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ce12  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ce14  r0 = 0
+  5ce20  r0 = [r0 playSound:Gain:Pos:z:reprats:](347, 0x3e4ccccd/f0.2)
+  5ce24  b L_5cee8
+L_5ce26:
+  5ce2a  r2 = 5
+  5ce34  r0 = IVOFF(selectMenu)
+  5ce3a  r1 = IVOFF(item4_flag)
+  5ce3c  r0 = IVOFF(selectMenu)
+  5ce3e  self->selectMenu = 5
+  5ce40  r0 = IVOFF(item4_flag)
+  5ce42  r1 = self->item4_flag
+  5ce44  cbnz self->item4_flag -> L_5ce84
+  5ce4a  r2 = 1
+  5ce50  self->item4_flag = 1
+  5ce52  r1 = SEL(StopElseSpeak)
+  5ce56  r1 = SEL(StopElseSpeak)
+  5ce58  r0 = [r0 StopElseSpeak](1, ?)
+  5ce6c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ce6e  r2 = 346
+  5ce72  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5ce74  r0 = 0
+L_5ce80:
+  5ce80  r0 = [r0 playSound:Gain:Pos:z:reprats:](346, 0x3e4ccccd/f0.2)
+L_5ce84:
+  5ce90  r0 = IVOFF(item1_flag)
+  5ce96  r2 = IVOFF(item2_flag)
+  5ce98  r1 = IVOFF(item1_flag)
+  5ce9a  r0 = 0
+  5ce9c  self->item1_flag = 0
+  5ce9e  r1 = IVOFF(item2_flag)
+  5cea8  r2 = IVOFF(item3_flag)
+  5ceaa  self->item2_flag = 0
+  5ceac  r1 = IVOFF(item3_flag)
+  5ceb6  r2 = IVOFF(item4_flag)
+  5ceb8  self->item3_flag = 0
+  5ceba  r1 = IVOFF(item4_flag)
+  5cec4  r2 = IVOFF(item5_flag)
+  5cec6  self->item4_flag = 0
+  5cec8  r1 = IVOFF(item5_flag)
+  5ced2  r2 = IVOFF(back_flag)
+  5ced4  self->item5_flag = 0
+  5ced6  r1 = IVOFF(back_flag)
+  5cee0  r2 = IVOFF(numbercoin_flag)
+L_5cee2:
+  5cee2  self->back_flag = 0
+  5cee4  r1 = IVOFF(numbercoin_flag)
+  5cee6  self->numbercoin_flag = 0
+L_5cee8:
+  5cef0  r0 = SEL(mode)
+  5cef2  r1 = SEL(mode)
+  5cef6  r0 = [r0 mode](IVOFF(numbercoin_flag), ?)
+  5cefe  beq L_5cf12
+  5cf08  r0 = SEL(blindModeSelectedMenu)
+  5cf0a  r1 = SEL(blindModeSelectedMenu)
+  5cf0e  r0 = [r0 blindModeSelectedMenu](?, ?)
+L_5cf12:
+  5cf12  add sp, #0x30
+  5cf18  return
+
+//// -[CoinStoreController readNumberOfCoin]  0x5cf1c..0x5cf54  v8@0:4
+  5cf1e  add r7, sp, #4
+  5cf20  call sub_3ccc
+  5cf2e  r0 = SEL(Coin)
+  5cf30  r1 = SEL(Coin)
+  5cf34  r0 = [r0 Coin](?, ?)
+  5cf42  r3 = 3
+  5cf44  r0 = SEL(TTSNumber:type:)
+  5cf46  r1 = SEL(TTSNumber:type:)
+  5cf4e  b L_a90d0
+
+//// -[CoinStoreController Menu:]  0x5cf54..0x5d194  v12@0:4@8
+  5cf56  add r7, sp, #0xc
+  5cf5c  sub sp, #0x14
+  5cf62  call sub_3ccc
+  5cf6e  r1 = SEL(mode)
+  5cf70  r1 = SEL(mode)
+  5cf72  r0 = [r0 mode](?, ?)
+  5cf7a  beq L_5d18c
+  5cf86  r0 = SEL(view)
+  5cf88  r6 = SEL(view)
+  5cf8e  r0 = [r0 view](?, ?)
+  5cf9c  r0 = SEL(state)
+  5cf9e  sl = SEL(state)
+  5cfa6  r0 = [r0 state](?, ?)
+  5cfaa  cmp r0, 1
+  5cfac  beq L_5cfbc
+  5cfb2  r0 = [r0 state](?, ?)
+  5cfb6  cmp r0, 2
+  5cfb8  bne L_5d0f2
+L_5cfbc:
+  5cfc0  r0 = [r0 state](?, ?)
+  5cfc4  cmp r0, 1
+  5cfc6  bne L_5d038
+  5cfcc  r0 = [r0 view](?, ?)
+  5cfd2  cbz r5 -> L_5cff2
+  5cfde  r0 = SEL(locationInView:)
+  5cfe0  r2 = SEL(locationInView:)
+  5cfe2  add r0, sp, #0xc
+  5cfe4  r0 = [r0 ??](SEL(locationInView:), ?)
+  5cfe8  vldr s2, [sp, #0xc]
+  5cfec  vldr s0, [sp, #0x10]
+  5cff0  b L_5d000
+L_5cff2:
+  5cff2  vmov.i32 d0, #0
+  5cff6  r0 = 0
+  5cffc  vmov.f32 s2, s0
+L_5d000:
+  5d008  r0 = IVOFF(posX)
+  5d00a  r1 = IVOFF(posX)
+  5d014  add r1, r4
+  5d016  r0 = IVOFF(posY)
+  5d018  vstr s2, [r1]
+  5d01c  r1 = IVOFF(posY)
+  5d026  r0 = IVOFF(tapOrGesture)
+  5d028  add r1, r4
+  5d02a  r0 = IVOFF(tapOrGesture)
+  5d02c  vstr s0, [r1]
+  5d030  r1 = 1
+  5d032  self->tapOrGesture = 1
+  5d034  vorr d0, d0, d0
+L_5d038:
+  5d040  r0 = SEL(superview)
+  5d042  r6 = SEL(superview)
+  5d048  r0 = [r0 superview](?, ?)
+  5d04e  cbz r5 -> L_5d06e
+  5d05a  r0 = SEL(translationInView:)
+  5d05c  r2 = SEL(translationInView:)
+  5d05e  add r0, sp, #4
+  5d060  r0 = [r0 ??](SEL(translationInView:), ?)
+  5d064  vldr s2, [sp, #4]
+  5d068  vldr s0, [sp, #8]
+  5d06c  b L_5d07c
+L_5d06e:
+  5d06e  vmov.i32 d0, #0
+  5d072  r0 = 0
+  5d076  vorr d1, d0, d0
+L_5d07c:
+  5d084  r0 = IVOFF(posX)
+  5d086  r1 = IVOFF(posX)
+  5d090  add r1, r4
+  5d092  r0 = IVOFF(posY)
+  5d094  vldr s4, [r1]
+  5d098  r0 = IVOFF(posY)
+  5d09a  vadd.f32 d1, d1, d2
+  5d09e  add r0, r4
+  5d0a0  vstr s2, [r1]
+  5d0a6  vldr s2, [r0]
+  5d0aa  vadd.f32 d0, d0, d1
+  5d0ae  vstr s0, [r0]
+  5d0b4  vorr d0, d0, d0
+  5d0b8  r0 = [r0 superview](?, ?)
+  5d0c8  r1 = _CGPointZero
+  5d0ce  r2 = SEL(setTranslation:inView:)
+  5d0d2  r3 = _CGPointZero
+  5d0d6  r1 = SEL(setTranslation:inView:)
+  5d0dc  r0 = [r0 setTranslation:inView:](?, _CGPointZero)
+  5d0e8  r0 = SEL(selectTapPointSoundStart)
+  5d0ea  r1 = SEL(selectTapPointSoundStart)
+  5d0ee  r0 = [r0 selectTapPointSoundStart](?, ?)
+L_5d0f2:
+  5d0f6  r0 = [r0 state](?, ?)
+  5d0fa  cmp r0, 3
+  5d0fc  bne L_5d18c
+  5d10a  r0 = IVOFF(posX)
+  5d110  r2 = IVOFF(posY)
+  5d112  r1 = IVOFF(posX)
+  5d114  r0 = 0
+  5d116  self->posX = 0
+  5d118  r1 = IVOFF(posY)
+  5d122  r2 = IVOFF(item1_flag)
+  5d124  self->posY = 0
+  5d126  r1 = IVOFF(item1_flag)
+  5d130  r2 = IVOFF(item2_flag)
+  5d132  self->item1_flag = 0
+  5d134  r1 = IVOFF(item2_flag)
+  5d13e  r2 = IVOFF(item3_flag)
+  5d140  self->item2_flag = 0
+  5d142  r1 = IVOFF(item3_flag)
+  5d14c  r2 = IVOFF(item4_flag)
+  5d14e  self->item3_flag = 0
+  5d150  r1 = IVOFF(item4_flag)
+  5d15a  r2 = IVOFF(item5_flag)
+  5d15c  self->item4_flag = 0
+  5d15e  r1 = IVOFF(item5_flag)
+  5d168  r2 = IVOFF(back_flag)
+  5d16a  self->item5_flag = 0
+  5d16c  r1 = IVOFF(back_flag)
+  5d176  r2 = IVOFF(numbercoin_flag)
+  5d178  self->back_flag = 0
+  5d17a  r1 = IVOFF(numbercoin_flag)
+  5d184  r2 = IVOFF(tapOrGesture)
+  5d186  self->numbercoin_flag = 0
+  5d188  r1 = IVOFF(tapOrGesture)
+  5d18a  self->tapOrGesture = 0
+L_5d18c:
+  5d18c  add sp, #0x14
+  5d192  return
+
+//// -[CoinStoreController goBackAction:]  0x5d194..0x5d200  v12@0:4@8
+  5d196  add r7, sp, #4
+  5d198  sub sp, #0x10
+  5d1a4  r0 = SEL(StopElseSpeak)
+  5d1a6  r1 = SEL(StopElseSpeak)
+  5d1aa  r0 = [r0 StopElseSpeak](?, ?)
+  5d1ae  call sub_3ccc
+  5d1be  r2 = 0
+  5d1c0  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d1ca  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d1d0  r2 = 10
+  5d1d2  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d1de  r0 = SEL(navigationController)
+  5d1e0  r1 = SEL(navigationController)
+  5d1e4  r0 = [r0 navigationController](?, ?)
+  5d1ec  r2 = 0
+  5d1f2  r1 = SEL(popViewControllerAnimated:)
+  5d1f4  r1 = SEL(popViewControllerAnimated:)
+  5d1f6  add sp, #0x10
+  5d1fc  b L_a90d0
+
+//// -[CoinStoreController item1Action:]  0x5d200..0x5d2b0  v12@0:4@8
+  5d202  add r7, sp, #0xc
+  5d204  sub sp, #0x10
+  5d210  r0 = SEL(StopElseSpeak)
+  5d212  r1 = SEL(StopElseSpeak)
+  5d216  r0 = [r0 StopElseSpeak](?, ?)
+  5d21a  call sub_3ccc
+  5d22c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d22e  r5 = 0
+  5d234  r2 = 10
+  5d236  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d242  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d24a  r3 = 0
+  5d258  r0 = SEL(performSelector:withObject:afterDelay:)
+  5d25a  r2 = SEL(readInApp)
+  5d260  r1 = SEL(performSelector:withObject:afterDelay:)
+  5d264  r2 = SEL(readInApp)
+  5d26a  r3 = 0
+  5d26c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  5d27c  r0 = SEL(BuyItem:)
+  5d282  r2 = CFSTR('SixthSense.Coin1')
+  5d284  r1 = SEL(BuyItem:)
+  5d288  r0 = [r0 BuyItem:](CFSTR('SixthSense.Coin1'), ?)
+  5d290  r2 = 1
+  5d29a  r0 = SEL(showWaiting:message:)
+  5d2a0  r3 = CFSTR('Loading..')
+  5d2a2  r1 = SEL(showWaiting:message:)
+  5d2a6  add sp, #0x10
+  5d2ac  b L_a90d0
+
+//// -[CoinStoreController item2Action:]  0x5d2b0..0x5d360  v12@0:4@8
+  5d2b2  add r7, sp, #0xc
+  5d2b4  sub sp, #0x10
+  5d2c0  r0 = SEL(StopElseSpeak)
+  5d2c2  r1 = SEL(StopElseSpeak)
+  5d2c6  r0 = [r0 StopElseSpeak](?, ?)
+  5d2ca  call sub_3ccc
+  5d2dc  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d2de  r5 = 0
+  5d2e4  r2 = 10
+  5d2e6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d2f2  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d2fa  r3 = 0
+  5d308  r0 = SEL(performSelector:withObject:afterDelay:)
+  5d30a  r2 = SEL(readInApp)
+  5d310  r1 = SEL(performSelector:withObject:afterDelay:)
+  5d314  r2 = SEL(readInApp)
+  5d31a  r3 = 0
+  5d31c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  5d32c  r0 = SEL(BuyItem:)
+  5d332  r2 = CFSTR('SixthSense.Coin2')
+  5d334  r1 = SEL(BuyItem:)
+  5d338  r0 = [r0 BuyItem:](CFSTR('SixthSense.Coin2'), ?)
+  5d340  r2 = 1
+  5d34a  r0 = SEL(showWaiting:message:)
+  5d350  r3 = CFSTR('Loading..')
+  5d352  r1 = SEL(showWaiting:message:)
+  5d356  add sp, #0x10
+  5d35c  b L_a90d0
+
+//// -[CoinStoreController item3Action:]  0x5d360..0x5d410  v12@0:4@8
+  5d362  add r7, sp, #0xc
+  5d364  sub sp, #0x10
+  5d370  r0 = SEL(StopElseSpeak)
+  5d372  r1 = SEL(StopElseSpeak)
+  5d376  r0 = [r0 StopElseSpeak](?, ?)
+  5d37a  call sub_3ccc
+  5d38c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d38e  r5 = 0
+  5d394  r2 = 10
+  5d396  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d3a2  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d3aa  r3 = 0
+  5d3b8  r0 = SEL(performSelector:withObject:afterDelay:)
+  5d3ba  r2 = SEL(readInApp)
+  5d3c0  r1 = SEL(performSelector:withObject:afterDelay:)
+  5d3c4  r2 = SEL(readInApp)
+  5d3ca  r3 = 0
+  5d3cc  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  5d3dc  r0 = SEL(BuyItem:)
+  5d3e2  r2 = CFSTR('SixthSense.Coin3')
+  5d3e4  r1 = SEL(BuyItem:)
+  5d3e8  r0 = [r0 BuyItem:](CFSTR('SixthSense.Coin3'), ?)
+  5d3f0  r2 = 1
+  5d3fa  r0 = SEL(showWaiting:message:)
+  5d400  r3 = CFSTR('Loading..')
+  5d402  r1 = SEL(showWaiting:message:)
+  5d406  add sp, #0x10
+  5d40c  b L_a90d0
+
+//// -[CoinStoreController item4Action:]  0x5d410..0x5d4c0  v12@0:4@8
+  5d412  add r7, sp, #0xc
+  5d414  sub sp, #0x10
+  5d420  r0 = SEL(StopElseSpeak)
+  5d422  r1 = SEL(StopElseSpeak)
+  5d426  r0 = [r0 StopElseSpeak](?, ?)
+  5d42a  call sub_3ccc
+  5d43c  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d43e  r5 = 0
+  5d444  r2 = 10
+  5d446  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d452  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d45a  r3 = 0
+  5d468  r0 = SEL(performSelector:withObject:afterDelay:)
+  5d46a  r2 = SEL(readInApp)
+  5d470  r1 = SEL(performSelector:withObject:afterDelay:)
+  5d474  r2 = SEL(readInApp)
+  5d47a  r3 = 0
+  5d47c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  5d48c  r0 = SEL(BuyItem:)
+  5d492  r2 = CFSTR('SixthSense.Coin4')
+  5d494  r1 = SEL(BuyItem:)
+  5d498  r0 = [r0 BuyItem:](CFSTR('SixthSense.Coin4'), ?)
+  5d4a0  r2 = 1
+  5d4aa  r0 = SEL(showWaiting:message:)
+  5d4b0  r3 = CFSTR('Loading..')
+  5d4b2  r1 = SEL(showWaiting:message:)
+  5d4b6  add sp, #0x10
+  5d4bc  b L_a90d0
+
+//// -[CoinStoreController item5Action:]  0x5d4c0..0x5d570  v12@0:4@8
+  5d4c2  add r7, sp, #0xc
+  5d4c4  sub sp, #0x10
+  5d4d0  r0 = SEL(StopElseSpeak)
+  5d4d2  r1 = SEL(StopElseSpeak)
+  5d4d6  r0 = [r0 StopElseSpeak](?, ?)
+  5d4da  call sub_3ccc
+  5d4ec  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d4ee  r5 = 0
+  5d4f4  r2 = 10
+  5d4f6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d502  r0 = [r0 playSound:Gain:Pos:z:reprats:](10, 0x3e4ccccd/f0.2)
+  5d50a  r3 = 0
+  5d518  r0 = SEL(performSelector:withObject:afterDelay:)
+  5d51a  r2 = SEL(readInApp)
+  5d520  r1 = SEL(performSelector:withObject:afterDelay:)
+  5d524  r2 = SEL(readInApp)
+  5d52a  r3 = 0
+  5d52c  r0 = [r0 performSelector:withObject:afterDelay:](SEL(readInApp), 0)
+  5d53c  r0 = SEL(BuyItem:)
+  5d542  r2 = CFSTR('SixthSense.Coin5')
+  5d544  r1 = SEL(BuyItem:)
+  5d548  r0 = [r0 BuyItem:](CFSTR('SixthSense.Coin5'), ?)
+  5d550  r2 = 1
+  5d55a  r0 = SEL(showWaiting:message:)
+  5d560  r3 = CFSTR('Loading..')
+  5d562  r1 = SEL(showWaiting:message:)
+  5d566  add sp, #0x10
+  5d56c  b L_a90d0
+
+//// -[CoinStoreController readInApp]  0x5d570..0x5d5d4  v8@0:4
+  5d572  add r7, sp, #8
+  5d574  sub sp, #0x10
+  5d578  call sub_3ccc
+  5d586  r0 = SEL(mode)
+  5d588  r1 = SEL(mode)
+  5d58c  r0 = [r0 mode](?, ?)
+  5d592  cmp r0, 1
+  5d594  bne L_5d5d0
+  5d59e  r0 = SEL(StopElseSpeak)
+  5d5a0  r1 = SEL(StopElseSpeak)
+  5d5a4  r0 = [r0 StopElseSpeak](?, ?)
+  5d5b8  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d5be  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d5c0  r0 = 0
+  5d5cc  r0 = [r0 playSound:Gain:Pos:z:reprats:](261, 0x3e4ccccd/f0.2)
+L_5d5d0:
+  5d5d0  add sp, #0x10
+  5d5d2  return
+
+//// -[CoinStoreController buyCoinItem1Complet]  0x5d5d4..0x5d7c0  v8@0:4
+  5d5d6  add r7, sp, #0xc
+  5d5dc  sub sp, #0x14
+  5d5e0  r2 = 0
+  5d5f0  r0 = SEL(showWaiting:message:)
+  5d5f6  r3 = CFSTR('Loading...')
+  5d5f8  r5 = 0
+  5d5fa  r1 = SEL(showWaiting:message:)
+  5d5fe  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  5d612  r0 = SEL(alloc)
+  5d614  r2 = UIAlertView
+  5d616  r1 = SEL(alloc)
+  5d618  r0 = UIAlertView
+  5d61a  r0 = [UIAlertView alloc](UIAlertView, ?)
+  5d62a  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5d634  r3 = CFSTR('Purchase has been completed.')
+  5d63a  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5d63c  r2 = CFSTR('OK')
+  5d642  r2 = 0
+  5d646  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  5d654  r0 = SEL(show)
+  5d656  r1 = SEL(show)
+  5d65a  r0 = [r0 show](?, ?)
+  5d666  r0 = SEL(release)
+  5d668  r1 = SEL(release)
+  5d66c  r0 = [r0 release](?, ?)
+  5d680  r0 = SEL(defaultCenter)
+  5d682  r2 = NSNotificationCenter
+  5d684  r1 = SEL(defaultCenter)
+  5d686  r0 = NSNotificationCenter
+  5d688  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  5d690  r3 = 0
+  5d69a  r1 = SEL(postNotificationName:object:)
+  5d6a0  r2 = CFSTR('coinTiemrControlStart')
+  5d6a2  r1 = SEL(postNotificationName:object:)
+  5d6a4  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  5d6b6  r0 = SEL(sendBuyLog:)
+  5d6bc  r2 = CFSTR('coin0.99')
+  5d6be  r1 = SEL(sendBuyLog:)
+  5d6c2  r0 = [r0 sendBuyLog:](CFSTR('coin0.99'), ?)
+  5d6c6  call sub_3ccc
+  5d6d4  r0 = SEL(StopElseSpeak)
+  5d6d6  r1 = SEL(StopElseSpeak)
+  5d6da  r0 = [r0 StopElseSpeak](?, ?)
+  5d6ee  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d6f0  r2 = 260
+  5d6f6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d700  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  5d70c  r0 = SEL(coinCountLabel)
+  5d70e  r6 = SEL(coinCountLabel)
+  5d714  r0 = [r0 coinCountLabel](?, ?)
+  5d72a  r1 = NSString
+  5d72c  r0 = SEL(Coin)
+  5d72e  r8 = NSString
+  5d732  r4 = SEL(Coin)
+  5d738  r0 = [r0 Coin](?, ?)
+  5d74a  r0 = SEL(stringWithFormat:)
+  5d750  r2 = CFSTR('x %d')
+  5d752  r5 = SEL(stringWithFormat:)
+  5d758  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5d766  r0 = SEL(setText:)
+  5d768  r1 = SEL(setText:)
+  5d76c  r0 = [r0 setText:](?, ?)
+  5d774  r0 = [r0 coinCountLabel](?, ?)
+  5d784  r0 = NSString
+  5d786  r6 = NSString
+  5d78a  r0 = [r0 Coin](?, ?)
+  5d79a  r2 = CFSTR('Number of coins : %d')
+  5d79e  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5d7ac  r0 = SEL(setAccessibilityLabel:)
+  5d7ae  r1 = SEL(setAccessibilityLabel:)
+  5d7b2  add sp, #0x14
+  5d7bc  b L_a90d0
+
+//// -[CoinStoreController buyCoinItem2Complet]  0x5d7c0..0x5d9ac  v8@0:4
+  5d7c2  add r7, sp, #0xc
+  5d7c8  sub sp, #0x14
+  5d7cc  r2 = 0
+  5d7dc  r0 = SEL(showWaiting:message:)
+  5d7e2  r3 = CFSTR('Loading...')
+  5d7e4  r5 = 0
+  5d7e6  r1 = SEL(showWaiting:message:)
+  5d7ea  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  5d7fe  r0 = SEL(alloc)
+  5d800  r2 = UIAlertView
+  5d802  r1 = SEL(alloc)
+  5d804  r0 = UIAlertView
+  5d806  r0 = [UIAlertView alloc](UIAlertView, ?)
+  5d816  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5d820  r3 = CFSTR('Purchase has been completed.')
+  5d826  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5d828  r2 = CFSTR('OK')
+  5d82e  r2 = 0
+  5d832  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  5d840  r0 = SEL(show)
+  5d842  r1 = SEL(show)
+  5d846  r0 = [r0 show](?, ?)
+  5d852  r0 = SEL(release)
+  5d854  r1 = SEL(release)
+  5d858  r0 = [r0 release](?, ?)
+  5d86c  r0 = SEL(defaultCenter)
+  5d86e  r2 = NSNotificationCenter
+  5d870  r1 = SEL(defaultCenter)
+  5d872  r0 = NSNotificationCenter
+  5d874  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  5d87c  r3 = 0
+  5d886  r1 = SEL(postNotificationName:object:)
+  5d88c  r2 = CFSTR('coinTiemrControlStart')
+  5d88e  r1 = SEL(postNotificationName:object:)
+  5d890  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  5d8a2  r0 = SEL(sendBuyLog:)
+  5d8a8  r2 = CFSTR('coin0.99')
+  5d8aa  r1 = SEL(sendBuyLog:)
+  5d8ae  r0 = [r0 sendBuyLog:](CFSTR('coin0.99'), ?)
+  5d8b2  call sub_3ccc
+  5d8c0  r0 = SEL(StopElseSpeak)
+  5d8c2  r1 = SEL(StopElseSpeak)
+  5d8c6  r0 = [r0 StopElseSpeak](?, ?)
+  5d8da  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d8dc  r2 = 260
+  5d8e2  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5d8ec  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  5d8f8  r0 = SEL(coinCountLabel)
+  5d8fa  r6 = SEL(coinCountLabel)
+  5d900  r0 = [r0 coinCountLabel](?, ?)
+  5d916  r1 = NSString
+  5d918  r0 = SEL(Coin)
+  5d91a  r8 = NSString
+  5d91e  r4 = SEL(Coin)
+  5d924  r0 = [r0 Coin](?, ?)
+  5d936  r0 = SEL(stringWithFormat:)
+  5d93c  r2 = CFSTR('x %d')
+  5d93e  r5 = SEL(stringWithFormat:)
+  5d944  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5d952  r0 = SEL(setText:)
+  5d954  r1 = SEL(setText:)
+  5d958  r0 = [r0 setText:](?, ?)
+  5d960  r0 = [r0 coinCountLabel](?, ?)
+  5d970  r0 = NSString
+  5d972  r6 = NSString
+  5d976  r0 = [r0 Coin](?, ?)
+  5d986  r2 = CFSTR('Number of coins : %d')
+  5d98a  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5d998  r0 = SEL(setAccessibilityLabel:)
+  5d99a  r1 = SEL(setAccessibilityLabel:)
+  5d99e  add sp, #0x14
+  5d9a8  b L_a90d0
+
+//// -[CoinStoreController buyCoinItem3Complet]  0x5d9ac..0x5db98  v8@0:4
+  5d9ae  add r7, sp, #0xc
+  5d9b4  sub sp, #0x14
+  5d9b8  r2 = 0
+  5d9c8  r0 = SEL(showWaiting:message:)
+  5d9ce  r3 = CFSTR('Loading...')
+  5d9d0  r5 = 0
+  5d9d2  r1 = SEL(showWaiting:message:)
+  5d9d6  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  5d9ea  r0 = SEL(alloc)
+  5d9ec  r2 = UIAlertView
+  5d9ee  r1 = SEL(alloc)
+  5d9f0  r0 = UIAlertView
+  5d9f2  r0 = [UIAlertView alloc](UIAlertView, ?)
+  5da02  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5da0c  r3 = CFSTR('Purchase has been completed.')
+  5da12  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5da14  r2 = CFSTR('OK')
+  5da1a  r2 = 0
+  5da1e  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  5da2c  r0 = SEL(show)
+  5da2e  r1 = SEL(show)
+  5da32  r0 = [r0 show](?, ?)
+  5da3e  r0 = SEL(release)
+  5da40  r1 = SEL(release)
+  5da44  r0 = [r0 release](?, ?)
+  5da58  r0 = SEL(defaultCenter)
+  5da5a  r2 = NSNotificationCenter
+  5da5c  r1 = SEL(defaultCenter)
+  5da5e  r0 = NSNotificationCenter
+  5da60  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  5da68  r3 = 0
+  5da72  r1 = SEL(postNotificationName:object:)
+  5da78  r2 = CFSTR('coinTiemrControlStart')
+  5da7a  r1 = SEL(postNotificationName:object:)
+  5da7c  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  5da8e  r0 = SEL(sendBuyLog:)
+  5da94  r2 = CFSTR('coin1.99')
+  5da96  r1 = SEL(sendBuyLog:)
+  5da9a  r0 = [r0 sendBuyLog:](CFSTR('coin1.99'), ?)
+  5da9e  call sub_3ccc
+  5daac  r0 = SEL(StopElseSpeak)
+  5daae  r1 = SEL(StopElseSpeak)
+  5dab2  r0 = [r0 StopElseSpeak](?, ?)
+  5dac6  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5dac8  r2 = 260
+  5dace  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5dad8  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  5dae4  r0 = SEL(coinCountLabel)
+  5dae6  r6 = SEL(coinCountLabel)
+  5daec  r0 = [r0 coinCountLabel](?, ?)
+  5db02  r1 = NSString
+  5db04  r0 = SEL(Coin)
+  5db06  r8 = NSString
+  5db0a  r4 = SEL(Coin)
+  5db10  r0 = [r0 Coin](?, ?)
+  5db22  r0 = SEL(stringWithFormat:)
+  5db28  r2 = CFSTR('x %d')
+  5db2a  r5 = SEL(stringWithFormat:)
+  5db30  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5db3e  r0 = SEL(setText:)
+  5db40  r1 = SEL(setText:)
+  5db44  r0 = [r0 setText:](?, ?)
+  5db4c  r0 = [r0 coinCountLabel](?, ?)
+  5db5c  r0 = NSString
+  5db5e  r6 = NSString
+  5db62  r0 = [r0 Coin](?, ?)
+  5db72  r2 = CFSTR('Number of coins : %d')
+  5db76  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5db84  r0 = SEL(setAccessibilityLabel:)
+  5db86  r1 = SEL(setAccessibilityLabel:)
+  5db8a  add sp, #0x14
+  5db94  b L_a90d0
+
+//// -[CoinStoreController buyCoinItem4Complet]  0x5db98..0x5dd84  v8@0:4
+  5db9a  add r7, sp, #0xc
+  5dba0  sub sp, #0x14
+  5dba4  r2 = 0
+  5dbb4  r0 = SEL(showWaiting:message:)
+  5dbba  r3 = CFSTR('Loading...')
+  5dbbc  r5 = 0
+  5dbbe  r1 = SEL(showWaiting:message:)
+  5dbc2  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  5dbd6  r0 = SEL(alloc)
+  5dbd8  r2 = UIAlertView
+  5dbda  r1 = SEL(alloc)
+  5dbdc  r0 = UIAlertView
+  5dbde  r0 = [UIAlertView alloc](UIAlertView, ?)
+  5dbee  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5dbf8  r3 = CFSTR('Purchase has been completed.')
+  5dbfe  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5dc00  r2 = CFSTR('OK')
+  5dc06  r2 = 0
+  5dc0a  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  5dc18  r0 = SEL(show)
+  5dc1a  r1 = SEL(show)
+  5dc1e  r0 = [r0 show](?, ?)
+  5dc2a  r0 = SEL(release)
+  5dc2c  r1 = SEL(release)
+  5dc30  r0 = [r0 release](?, ?)
+  5dc44  r0 = SEL(defaultCenter)
+  5dc46  r2 = NSNotificationCenter
+  5dc48  r1 = SEL(defaultCenter)
+  5dc4a  r0 = NSNotificationCenter
+  5dc4c  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  5dc54  r3 = 0
+  5dc5e  r1 = SEL(postNotificationName:object:)
+  5dc64  r2 = CFSTR('coinTiemrControlStart')
+  5dc66  r1 = SEL(postNotificationName:object:)
+  5dc68  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  5dc7a  r0 = SEL(sendBuyLog:)
+  5dc80  r2 = CFSTR('coin4.99')
+  5dc82  r1 = SEL(sendBuyLog:)
+  5dc86  r0 = [r0 sendBuyLog:](CFSTR('coin4.99'), ?)
+  5dc8a  call sub_3ccc
+  5dc98  r0 = SEL(StopElseSpeak)
+  5dc9a  r1 = SEL(StopElseSpeak)
+  5dc9e  r0 = [r0 StopElseSpeak](?, ?)
+  5dcb2  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5dcb4  r2 = 260
+  5dcba  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5dcc4  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  5dcd0  r0 = SEL(coinCountLabel)
+  5dcd2  r6 = SEL(coinCountLabel)
+  5dcd8  r0 = [r0 coinCountLabel](?, ?)
+  5dcee  r1 = NSString
+  5dcf0  r0 = SEL(Coin)
+  5dcf2  r8 = NSString
+  5dcf6  r4 = SEL(Coin)
+  5dcfc  r0 = [r0 Coin](?, ?)
+  5dd0e  r0 = SEL(stringWithFormat:)
+  5dd14  r2 = CFSTR('x %d')
+  5dd16  r5 = SEL(stringWithFormat:)
+  5dd1c  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5dd2a  r0 = SEL(setText:)
+  5dd2c  r1 = SEL(setText:)
+  5dd30  r0 = [r0 setText:](?, ?)
+  5dd38  r0 = [r0 coinCountLabel](?, ?)
+  5dd48  r0 = NSString
+  5dd4a  r6 = NSString
+  5dd4e  r0 = [r0 Coin](?, ?)
+  5dd5e  r2 = CFSTR('Number of coins : %d')
+  5dd62  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5dd70  r0 = SEL(setAccessibilityLabel:)
+  5dd72  r1 = SEL(setAccessibilityLabel:)
+  5dd76  add sp, #0x14
+  5dd80  b L_a90d0
+
+//// -[CoinStoreController buyCoinItem5Complet]  0x5dd84..0x5df70  v8@0:4
+  5dd86  add r7, sp, #0xc
+  5dd8c  sub sp, #0x14
+  5dd90  r2 = 0
+  5dda0  r0 = SEL(showWaiting:message:)
+  5dda6  r3 = CFSTR('Loading...')
+  5dda8  r5 = 0
+  5ddaa  r1 = SEL(showWaiting:message:)
+  5ddae  r0 = [r0 showWaiting:message:](0, CFSTR('Loading...'))
+  5ddc2  r0 = SEL(alloc)
+  5ddc4  r2 = UIAlertView
+  5ddc6  r1 = SEL(alloc)
+  5ddc8  r0 = UIAlertView
+  5ddca  r0 = [UIAlertView alloc](UIAlertView, ?)
+  5ddda  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5dde4  r3 = CFSTR('Purchase has been completed.')
+  5ddea  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  5ddec  r2 = CFSTR('OK')
+  5ddf2  r2 = 0
+  5ddf6  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](0, CFSTR('Purchase has been completed.'))
+  5de04  r0 = SEL(show)
+  5de06  r1 = SEL(show)
+  5de0a  r0 = [r0 show](?, ?)
+  5de16  r0 = SEL(release)
+  5de18  r1 = SEL(release)
+  5de1c  r0 = [r0 release](?, ?)
+  5de30  r0 = SEL(defaultCenter)
+  5de32  r2 = NSNotificationCenter
+  5de34  r1 = SEL(defaultCenter)
+  5de36  r0 = NSNotificationCenter
+  5de38  r0 = [NSNotificationCenter defaultCenter](NSNotificationCenter, ?)
+  5de40  r3 = 0
+  5de4a  r1 = SEL(postNotificationName:object:)
+  5de50  r2 = CFSTR('coinTiemrControlStart')
+  5de52  r1 = SEL(postNotificationName:object:)
+  5de54  r0 = [r0 postNotificationName:object:](CFSTR('coinTiemrControlStart'), 0)
+  5de66  r0 = SEL(sendBuyLog:)
+  5de6c  r2 = CFSTR('coin7.99')
+  5de6e  r1 = SEL(sendBuyLog:)
+  5de72  r0 = [r0 sendBuyLog:](CFSTR('coin7.99'), ?)
+  5de76  call sub_3ccc
+  5de84  r0 = SEL(StopElseSpeak)
+  5de86  r1 = SEL(StopElseSpeak)
+  5de8a  r0 = [r0 StopElseSpeak](?, ?)
+  5de9e  r0 = SEL(playSound:Gain:Pos:z:reprats:)
+  5dea0  r2 = 260
+  5dea6  r1 = SEL(playSound:Gain:Pos:z:reprats:)
+  5deb0  r0 = [r0 playSound:Gain:Pos:z:reprats:](260, 0x3e4ccccd/f0.2)
+  5debc  r0 = SEL(coinCountLabel)
+  5debe  r6 = SEL(coinCountLabel)
+  5dec4  r0 = [r0 coinCountLabel](?, ?)
+  5deda  r1 = NSString
+  5dedc  r0 = SEL(Coin)
+  5dede  r8 = NSString
+  5dee2  r4 = SEL(Coin)
+  5dee8  r0 = [r0 Coin](?, ?)
+  5defa  r0 = SEL(stringWithFormat:)
+  5df00  r2 = CFSTR('x %d')
+  5df02  r5 = SEL(stringWithFormat:)
+  5df08  r0 = [NSString stringWithFormat:](CFSTR('x %d'), ?)
+  5df16  r0 = SEL(setText:)
+  5df18  r1 = SEL(setText:)
+  5df1c  r0 = [r0 setText:](?, ?)
+  5df24  r0 = [r0 coinCountLabel](?, ?)
+  5df34  r0 = NSString
+  5df36  r6 = NSString
+  5df3a  r0 = [r0 Coin](?, ?)
+  5df4a  r2 = CFSTR('Number of coins : %d')
+  5df4e  r0 = [NSString stringWithFormat:](CFSTR('Number of coins : %d'), ?)
+  5df5c  r0 = SEL(setAccessibilityLabel:)
+  5df5e  r1 = SEL(setAccessibilityLabel:)
+  5df62  add sp, #0x14
+  5df6c  b L_a90d0
+
+//// -[CoinStoreController buyItemError]  0x5df70..0x5df8c  v8@0:4
+  5df74  r2 = 0
+  5df7e  r1 = SEL(showWaiting:message:)
+  5df84  r3 = CFSTR('Loading...')
+  5df86  r1 = SEL(showWaiting:message:)
+  5df88  b L_a90d0
+
+//// -[CoinStoreController sendBuyLog:]  0x5df8c..0x5e10c  v12@0:4@8
+  5df8e  add r7, sp, #0xc
+  5dfa6  r0 = SEL(stringWithFormat:)
+  5dfa8  r6 = NSString
+  5dfac  r5 = SEL(stringWithFormat:)
+  5dfae  r0 = NSString
+  5dfb8  r2 = CFSTR('http://www.evree.net/post_sale.php')
+  5dfbc  r0 = [NSString stringWithFormat:](CFSTR('http://www.evree.net/post_sale.php'), ?)
+  5dfc2  r0 = NSString
+  5dfd0  r2 = CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY')
+  5dfd2  r0 = [NSString stringWithFormat:](CFSTR('no=137938&msg=%@&key=nmSKeHVJrGGpVVYfmYmpWXZCuuRjTURIglsNuPwLYFKTAdAobNKXKebGavrTpKeY'), ?)
+  5dfe8  r0 = NSData
+  5dfea  r1 = SEL(UTF8String)
+  5dfec  r4 = NSData
+  5dff0  r1 = SEL(UTF8String)
+  5dff2  r0 = [r0 UTF8String](?, ?)
+  5e000  r0 = SEL(length)
+  5e002  r1 = SEL(length)
+  5e006  r0 = [r0 length](?, ?)
+  5e016  r0 = SEL(dataWithBytes:length:)
+  5e018  r1 = SEL(dataWithBytes:length:)
+  5e01c  r0 = [NSData dataWithBytes:length:](?, ?)
+  5e032  r0 = SEL(alloc)
+  5e034  r1 = NSMutableURLRequest
+  5e036  r6 = SEL(alloc)
+  5e038  r0 = NSMutableURLRequest
+  5e03c  r0 = [NSMutableURLRequest alloc](?, ?)
+  5e052  r0 = SEL(URLWithString:)
+  5e054  r2 = NSURL
+  5e056  r1 = SEL(URLWithString:)
+  5e058  r0 = NSURL
+  5e05c  r0 = [NSURL URLWithString:](?, ?)
+  5e06a  r0 = SEL(initWithURL:)
+  5e06c  r1 = SEL(initWithURL:)
+  5e070  r0 = [r0 initWithURL:](?, ?)
+  5e082  r0 = SEL(setHTTPMethod:)
+  5e088  r2 = CFSTR('POST')
+  5e08a  r1 = SEL(setHTTPMethod:)
+  5e08e  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  5e09c  r0 = SEL(setHTTPBody:)
+  5e09e  r1 = SEL(setHTTPBody:)
+  5e0a2  r0 = [r0 setHTTPBody:](?, ?)
+  5e0b0  r0 = NSURLConnection
+  5e0b2  r0 = NSURLConnection
+  5e0b4  r0 = [NSURLConnection alloc](?, ?)
+  5e0c4  r1 = SEL(initWithRequest:delegate:)
+  5e0c6  r1 = SEL(initWithRequest:delegate:)
+  5e0c8  r0 = [r0 initWithRequest:delegate:](?, ?)
+  5e0d4  r1 = SEL(autorelease)
+  5e0d6  r1 = SEL(autorelease)
+  5e0d8  r0 = [r0 autorelease](?, ?)
+  5e0e6  r0 = SEL(setUrlCon:)
+  5e0e8  r1 = SEL(setUrlCon:)
+  5e0ec  r0 = [r0 setUrlCon:](?, ?)
+  5e0f8  r0 = SEL(release)
+  5e0fa  r1 = SEL(release)
+  5e106  b L_a90d0
+
+//// -[CoinStoreController connection:didReceiveResponse:]  0x5e10c..0x5e148  v16@0:4@8@12
+  5e120  r0 = SEL(data)
+  5e122  r2 = NSMutableData
+  5e124  add r7, sp, #4
+  5e126  r1 = SEL(data)
+  5e128  r0 = NSMutableData
+  5e12a  r0 = [NSMutableData data](NSMutableData, ?)
+  5e138  r0 = SEL(setRawData:)
+  5e13a  r1 = SEL(setRawData:)
+  5e142  b L_a90d0
+
+//// -[CoinStoreController connection:didReceiveData:]  0x5e148..0x5e174  v16@0:4@8@12
+  5e14e  add r7, sp, #4
+  5e156  r1 = SEL(rawData)
+  5e158  r1 = SEL(rawData)
+  5e15a  r0 = [r0 rawData](?, ?)
+  5e168  r1 = SEL(appendData:)
+  5e16a  r1 = SEL(appendData:)
+  5e170  b L_a90d0
+
+//// -[CoinStoreController connection:didFailWithError:]  0x5e174..0x5e248  v16@0:4@8@12
+  5e176  add r7, sp, #8
+  5e178  sub sp, #4
+  5e18c  r0 = SEL(sharedApplication)
+  5e18e  r2 = UIApplication
+  5e192  r1 = SEL(sharedApplication)
+  5e194  r0 = UIApplication
+  5e196  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  5e19e  r2 = 0
+  5e1a4  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  5e1a6  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  5e1a8  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  5e1b4  r0 = SEL(code)
+  5e1b6  r1 = SEL(code)
+  5e1ba  r0 = [r0 code](?, ?)
+  5e1be  r1 = -1009
+  5e1c2  cmp r0, 4294966287
+  5e1c4  bne L_5e22c
+  5e1d2  r1 = _NSLocalizedDescriptionKey
+  5e1dc  r2 = SEL(dictionaryWithObject:forKey:)
+  5e1de  r3 = _NSLocalizedDescriptionKey
+  5e1e4  r0 = NSDictionary
+  5e1e6  r1 = SEL(dictionaryWithObject:forKey:)
+  5e1f0  r0 = NSDictionary
+  5e1f4  r2 = CFSTR('No Connection Error')
+  5e1f6  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  5e20e  r1 = _NSCocoaErrorDomain
+  5e214  r3 = NSError
+  5e216  r2 = SEL(errorWithDomain:code:userInfo:)
+  5e218  r5 = _NSCocoaErrorDomain
+  5e21a  r3 = NSError
+  5e21c  r1 = SEL(errorWithDomain:code:userInfo:)
+  5e224  r3 = -1009
+  5e228  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_5e22c:
+  5e230  r2 = 0
+  5e236  r0 = SEL(setUrlCon:)
+  5e238  r1 = SEL(setUrlCon:)
+  5e23c  add sp, #4
+  5e242  b L_a90d0
+
+//// -[CoinStoreController connectionDidFinishLoading:]  0x5e248..0x5e2d0  v12@0:4@8
+  5e25c  r0 = SEL(alloc)
+  5e25e  r2 = NSString
+  5e260  add r7, sp, #8
+  5e262  r1 = SEL(alloc)
+  5e264  r0 = NSString
+  5e266  r0 = [NSString alloc](NSString, ?)
+  5e274  r0 = SEL(rawData)
+  5e276  r1 = SEL(rawData)
+  5e27a  r0 = [r0 rawData](?, ?)
+  5e288  r3 = 4
+  5e28a  r0 = SEL(initWithData:encoding:)
+  5e28c  r1 = SEL(initWithData:encoding:)
+  5e290  r0 = [r0 initWithData:encoding:](?, 4)
+  5e29c  r1 = SEL(autorelease)
+  5e29e  r1 = SEL(autorelease)
+  5e2a0  r0 = [r0 autorelease](?, ?)
+  5e2a8  r2 = 0
+  5e2ae  r0 = SEL(setRawData:)
+  5e2b0  r1 = SEL(setRawData:)
+  5e2b4  r0 = [r0 setRawData:](0, ?)
+  5e2bc  r2 = 0
+  5e2c2  r0 = SEL(setUrlCon:)
+  5e2c4  r1 = SEL(setUrlCon:)
+  5e2cc  b L_a90d0
+
+//// -[CoinStoreController showWaiting:message:]  0x5e2d0..0x5e384  v16@0:4c8@12
+  5e2d2  add r7, sp, #0xc
+  5e2e4  r0 = SEL(maskView)
+  5e2e8  r6 = SEL(maskView)
+  5e2ee  r0 = [r0 maskView](?, ?)
+  5e2f6  r2 = 0
+  5e2fe  r1 = SEL(setHidden:)
+  5e300  cmp r5, 0
+  5e306  r1 = SEL(setHidden:)
+  5e308  r0 = [r0 setHidden:](?, ?)
+  5e314  r0 = SEL(maskLabel)
+  5e316  r1 = SEL(maskLabel)
+  5e31a  r0 = [r0 maskLabel](?, ?)
+  5e328  r1 = SEL(setText:)
+  5e32a  r1 = SEL(setText:)
+  5e32c  r0 = [r0 setText:](?, ?)
+  5e334  r0 = [r0 maskView](?, ?)
+  5e342  r1 = SEL(setAccessibilityLabel:)
+  5e344  r1 = SEL(setAccessibilityLabel:)
+  5e346  r0 = [r0 setAccessibilityLabel:](?, ?)
+  5e352  r0 = SEL(activityIndicator)
+  5e354  r1 = SEL(activityIndicator)
+  5e358  r0 = [r0 activityIndicator](?, ?)
+  5e35c  cbz r5 -> L_5e36a
+  5e366  r1 = SEL(startAnimating)
+  5e368  b L_5e374
+L_5e36a:
+  5e372  r1 = SEL(stopAnimating)
+L_5e374:
+  5e374  r1 = SEL(stopAnimating)
+  5e37e  b L_a90d0
+
+//// -[CoinStoreController urlCon]  0x5e384..0x5e394  @8@0:4
+  5e38c  r1 = IVOFF(urlCon)
+  5e38e  r1 = IVOFF(urlCon)
+  5e390  r0 = self->urlCon
+
+//// -[CoinStoreController setUrlCon:]  0x5e394..0x5e3b8  v12@0:4@8
+  5e398  sub sp, #8
+  5e3a4  r3 = 0
+  5e3a6  r2 = IVOFF(urlCon)
+  5e3ae  r2 = IVOFF(urlCon)
+  5e3b0  call _objc_setProperty
+  5e3b4  add sp, #8
+  5e3b6  return
+
+//// -[CoinStoreController rawData]  0x5e3b8..0x5e3c8  @8@0:4
+  5e3c0  r1 = IVOFF(rawData)
+  5e3c2  r1 = IVOFF(rawData)
+  5e3c4  r0 = self->rawData
+
+//// -[CoinStoreController setRawData:]  0x5e3c8..0x5e3ec  v12@0:4@8
+  5e3cc  sub sp, #8
+  5e3d8  r3 = 0
+  5e3da  r2 = IVOFF(rawData)
+  5e3e2  r2 = IVOFF(rawData)
+  5e3e4  call _objc_setProperty
+  5e3e8  add sp, #8
+  5e3ea  return
+
+//// -[CoinStoreController round6]  0x5e3ec..0x5e3fc  @8@0:4
+  5e3f4  r1 = IVOFF(_round6)
+  5e3f6  r1 = IVOFF(_round6)
+  5e3f8  r0 = self->_round6
+
+//// -[CoinStoreController setRound6:]  0x5e3fc..0x5e420  v12@0:4@8
+  5e400  sub sp, #8
+  5e40c  r3 = 0
+  5e40e  r2 = IVOFF(_round6)
+  5e416  r2 = IVOFF(_round6)
+  5e418  call _objc_setProperty
+  5e41c  add sp, #8
+  5e41e  return
+
+//// -[CoinStoreController item2Button]  0x5e420..0x5e430  @8@0:4
+  5e428  r1 = IVOFF(_item2Button)
+  5e42a  r1 = IVOFF(_item2Button)
+  5e42c  r0 = self->_item2Button
+
+//// -[CoinStoreController setItem2Button:]  0x5e430..0x5e454  v12@0:4@8
+  5e434  sub sp, #8
+  5e440  r3 = 0
+  5e442  r2 = IVOFF(_item2Button)
+  5e44a  r2 = IVOFF(_item2Button)
+  5e44c  call _objc_setProperty
+  5e450  add sp, #8
+  5e452  return
+
+//// -[CoinStoreController activityIndicator]  0x5e454..0x5e464  @8@0:4
+  5e45c  r1 = IVOFF(_activityIndicator)
+  5e45e  r1 = IVOFF(_activityIndicator)
+  5e460  r0 = self->_activityIndicator
+
+//// -[CoinStoreController setActivityIndicator:]  0x5e464..0x5e488  v12@0:4@8
+  5e468  sub sp, #8
+  5e474  r3 = 0
+  5e476  r2 = IVOFF(_activityIndicator)
+  5e47e  r2 = IVOFF(_activityIndicator)
+  5e480  call _objc_setProperty
+  5e484  add sp, #8
+  5e486  return
+
+//// -[CoinStoreController round7]  0x5e488..0x5e498  @8@0:4
+  5e490  r1 = IVOFF(_round7)
+  5e492  r1 = IVOFF(_round7)
+  5e494  r0 = self->_round7
+
+//// -[CoinStoreController setRound7:]  0x5e498..0x5e4bc  v12@0:4@8
+  5e49c  sub sp, #8
+  5e4a8  r3 = 0
+  5e4aa  r2 = IVOFF(_round7)
+  5e4b2  r2 = IVOFF(_round7)
+  5e4b4  call _objc_setProperty
+  5e4b8  add sp, #8
+  5e4ba  return
+
+//// -[CoinStoreController item3Button]  0x5e4bc..0x5e4cc  @8@0:4
+  5e4c4  r1 = IVOFF(_item3Button)
+  5e4c6  r1 = IVOFF(_item3Button)
+  5e4c8  r0 = self->_item3Button
+
+//// -[CoinStoreController setItem3Button:]  0x5e4cc..0x5e4f0  v12@0:4@8
+  5e4d0  sub sp, #8
+  5e4dc  r3 = 0
+  5e4de  r2 = IVOFF(_item3Button)
+  5e4e6  r2 = IVOFF(_item3Button)
+  5e4e8  call _objc_setProperty
+  5e4ec  add sp, #8
+  5e4ee  return
+
+//// -[CoinStoreController round3]  0x5e4f0..0x5e500  @8@0:4
+  5e4f8  r1 = IVOFF(_round3)
+  5e4fa  r1 = IVOFF(_round3)
+  5e4fc  r0 = self->_round3
+
+//// -[CoinStoreController setRound3:]  0x5e500..0x5e524  v12@0:4@8
+  5e504  sub sp, #8
+  5e510  r3 = 0
+  5e512  r2 = IVOFF(_round3)
+  5e51a  r2 = IVOFF(_round3)
+  5e51c  call _objc_setProperty
+  5e520  add sp, #8
+  5e522  return
+
+//// -[CoinStoreController maskLabel]  0x5e524..0x5e534  @8@0:4
+  5e52c  r1 = IVOFF(_maskLabel)
+  5e52e  r1 = IVOFF(_maskLabel)
+  5e530  r0 = self->_maskLabel
+
+//// -[CoinStoreController setMaskLabel:]  0x5e534..0x5e558  v12@0:4@8
+  5e538  sub sp, #8
+  5e544  r3 = 0
+  5e546  r2 = IVOFF(_maskLabel)
+  5e54e  r2 = IVOFF(_maskLabel)
+  5e550  call _objc_setProperty
+  5e554  add sp, #8
+  5e556  return
+
+//// -[CoinStoreController round4]  0x5e558..0x5e568  @8@0:4
+  5e560  r1 = IVOFF(_round4)
+  5e562  r1 = IVOFF(_round4)
+  5e564  r0 = self->_round4
+
+//// -[CoinStoreController setRound4:]  0x5e568..0x5e58c  v12@0:4@8
+  5e56c  sub sp, #8
+  5e578  r3 = 0
+  5e57a  r2 = IVOFF(_round4)
+  5e582  r2 = IVOFF(_round4)
+  5e584  call _objc_setProperty
+  5e588  add sp, #8
+  5e58a  return
+
+//// -[CoinStoreController item4Button]  0x5e58c..0x5e59c  @8@0:4
+  5e594  r1 = IVOFF(_item4Button)
+  5e596  r1 = IVOFF(_item4Button)
+  5e598  r0 = self->_item4Button
+
+//// -[CoinStoreController setItem4Button:]  0x5e59c..0x5e5c0  v12@0:4@8
+  5e5a0  sub sp, #8
+  5e5ac  r3 = 0
+  5e5ae  r2 = IVOFF(_item4Button)
+  5e5b6  r2 = IVOFF(_item4Button)
+  5e5b8  call _objc_setProperty
+  5e5bc  add sp, #8
+  5e5be  return
+
+//// -[CoinStoreController round5]  0x5e5c0..0x5e5d0  @8@0:4
+  5e5c8  r1 = IVOFF(_round5)
+  5e5ca  r1 = IVOFF(_round5)
+  5e5cc  r0 = self->_round5
+
+//// -[CoinStoreController setRound5:]  0x5e5d0..0x5e5f4  v12@0:4@8
+  5e5d4  sub sp, #8
+  5e5e0  r3 = 0
+  5e5e2  r2 = IVOFF(_round5)
+  5e5ea  r2 = IVOFF(_round5)
+  5e5ec  call _objc_setProperty
+  5e5f0  add sp, #8
+  5e5f2  return
+
+//// -[CoinStoreController round1]  0x5e5f4..0x5e604  @8@0:4
+  5e5fc  r1 = IVOFF(_round1)
+  5e5fe  r1 = IVOFF(_round1)
+  5e600  r0 = self->_round1
+
+//// -[CoinStoreController setRound1:]  0x5e604..0x5e628  v12@0:4@8
+  5e608  sub sp, #8
+  5e614  r3 = 0
+  5e616  r2 = IVOFF(_round1)
+  5e61e  r2 = IVOFF(_round1)
+  5e620  call _objc_setProperty
+  5e624  add sp, #8
+  5e626  return
+
+//// -[CoinStoreController round2]  0x5e628..0x5e638  @8@0:4
+  5e630  r1 = IVOFF(_round2)
+  5e632  r1 = IVOFF(_round2)
+  5e634  r0 = self->_round2
+
+//// -[CoinStoreController setRound2:]  0x5e638..0x5e65c  v12@0:4@8
+  5e63c  sub sp, #8
+  5e648  r3 = 0
+  5e64a  r2 = IVOFF(_round2)
+  5e652  r2 = IVOFF(_round2)
+  5e654  call _objc_setProperty
+  5e658  add sp, #8
+  5e65a  return
+
+//// -[CoinStoreController goBackButton]  0x5e65c..0x5e66c  @8@0:4
+  5e664  r1 = IVOFF(_goBackButton)
+  5e666  r1 = IVOFF(_goBackButton)
+  5e668  r0 = self->_goBackButton
+
+//// -[CoinStoreController setGoBackButton:]  0x5e66c..0x5e690  v12@0:4@8
+  5e670  sub sp, #8
+  5e67c  r3 = 0
+  5e67e  r2 = IVOFF(_goBackButton)
+  5e686  r2 = IVOFF(_goBackButton)
+  5e688  call _objc_setProperty
+  5e68c  add sp, #8
+  5e68e  return
+
+//// -[CoinStoreController coinCountLabel]  0x5e690..0x5e6a0  @8@0:4
+  5e698  r1 = IVOFF(_coinCountLabel)
+  5e69a  r1 = IVOFF(_coinCountLabel)
+  5e69c  r0 = self->_coinCountLabel
+
+//// -[CoinStoreController setCoinCountLabel:]  0x5e6a0..0x5e6c4  v12@0:4@8
+  5e6a4  sub sp, #8
+  5e6b0  r3 = 0
+  5e6b2  r2 = IVOFF(_coinCountLabel)
+  5e6ba  r2 = IVOFF(_coinCountLabel)
+  5e6bc  call _objc_setProperty
+  5e6c0  add sp, #8
+  5e6c2  return
+
+//// -[CoinStoreController item5Button]  0x5e6c4..0x5e6d4  @8@0:4
+  5e6cc  r1 = IVOFF(_item5Button)
+  5e6ce  r1 = IVOFF(_item5Button)
+  5e6d0  r0 = self->_item5Button
+
+//// -[CoinStoreController setItem5Button:]  0x5e6d4..0x5e6f8  v12@0:4@8
+  5e6d8  sub sp, #8
+  5e6e4  r3 = 0
+  5e6e6  r2 = IVOFF(_item5Button)
+  5e6ee  r2 = IVOFF(_item5Button)
+  5e6f0  call _objc_setProperty
+  5e6f4  add sp, #8
+  5e6f6  return
+
+//// -[CoinStoreController item1Button]  0x5e6f8..0x5e708  @8@0:4
+  5e700  r1 = IVOFF(_item1Button)
+  5e702  r1 = IVOFF(_item1Button)
+  5e704  r0 = self->_item1Button
+
+//// -[CoinStoreController setItem1Button:]  0x5e708..0x5e72c  v12@0:4@8
+  5e70c  sub sp, #8
+  5e718  r3 = 0
+  5e71a  r2 = IVOFF(_item1Button)
+  5e722  r2 = IVOFF(_item1Button)
+  5e724  call _objc_setProperty
+  5e728  add sp, #8
+  5e72a  return
+
+//// -[CoinStoreController maskView]  0x5e72c..0x5e73c  @8@0:4
+  5e734  r1 = IVOFF(_maskView)
+  5e736  r1 = IVOFF(_maskView)
+  5e738  r0 = self->_maskView
+
+//// -[CoinStoreController setMaskView:]  0x5e73c..0x5e760  v12@0:4@8
+  5e740  sub sp, #8
+  5e74c  r3 = 0
+  5e74e  r2 = IVOFF(_maskView)
+  5e756  r2 = IVOFF(_maskView)
+  5e758  call _objc_setProperty
+  5e75c  add sp, #8
+  5e75e  return

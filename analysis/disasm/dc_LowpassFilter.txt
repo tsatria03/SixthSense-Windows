@@ -1,0 +1,155 @@
+
+//// -[LowpassFilter initWithSampleRate:cutoffFrequency:]  0xeaf4..0xeb58  @24@0:4d8d16
+  eaf6  add r7, sp, #8
+  eaf8  sub sp, #8
+  eb0e  r1 = SEL(init)
+  eb16  r1 = SEL(init)
+  eb1c  r0 = [r0 init](0xdb0a8/f1.25723e-39, ?) SUPER
+  eb20  cbz r0 -> L_eb50
+  eb22  vmov.f64 d18, #1.000000e+00
+  eb2e  r1 = IVOFF(filterConstant)
+  eb30  vldr d17, [r7, #8]
+  eb34  vmov d16, r5, r4
+  eb38  r1 = IVOFF(filterConstant)
+  eb3a  vdiv.f64 d17, d18, d17
+  eb3e  add r1, r0
+  eb40  vdiv.f64 d16, d18, d16
+  eb44  vadd.f64 d17, d16, d17
+  eb48  vdiv.f64 d16, d16, d17
+  eb4c  vstr d16, [r1]
+L_eb50:
+  eb50  add sp, #8
+  eb52  return
+
+//// -[LowpassFilter addAcceleration:]  0xeb58..0xed88  v12@0:4@8
+  eb5a  sub.w r4, sp, #0x28
+  eb5e  add r7, sp, #0xc
+  eb66  vst1.64 {d8, d9, d10, d11}, [r4:0x80]
+  eb6c  vstr d12, [r4, #0x20]
+  eb7a  r0 = IVOFF(adaptive)
+  eb7c  r0 = IVOFF(adaptive)
+  eb7e  r0 = self->adaptive
+  eb80  cmp self->adaptive, 0
+  eb82  beq L_ec9e
+  eb92  r0 = IVOFF(y)
+  eb9c  r1 = IVOFF(z)
+  eb9e  r0 = IVOFF(y)
+  eba4  r2 = IVOFF(x)
+  eba6  r1 = IVOFF(z)
+  eba8  add r0, r4
+  ebaa  r2 = IVOFF(x)
+  ebac  add r1, r4
+  ebae  vldr d16, [r0]
+  ebba  add r2, r4
+  ebbc  r0 = SEL(x)
+  ebbe  vldr d9, [r1]
+  ebc2  vmul.f64 d8, d16, d16
+  ebc6  r1 = SEL(x)
+  ebca  vldr d16, [r2]
+  ebce  vmul.f64 d10, d16, d16
+  ebd2  r0 = [r0 x](?, ?)
+  ebda  vmov d11, r0, r1
+  ebe6  r2 = SEL(y)
+  ebee  r6 = SEL(z)
+  ebf0  r2 = SEL(y)
+  ebf4  r0 = [r0 y](SEL(y), ?)
+  ebfa  r1 = SEL(z)
+  ebfc  vmov d12, r0, r2
+  ec02  r0 = [r0 z](?, ?)
+  ec06  vmul.f64 d17, d11, d11
+  ec0a  vmul.f64 d18, d12, d12
+  ec0e  vmov d16, r0, r1
+  ec12  vmul.f64 d19, d9, d9
+  ec16  vmul.f64 d16, d16, d16
+  ec1a  vadd.f64 d17, d17, d18
+  ec1e  vadd.f64 d20, d10, d8
+  ec22  vadd.f64 d16, d17, d16
+  ec26  vadd.f64 d18, d20, d19
+  ec2a  vsqrt.f64 d17, d18
+  ec2e  vsqrt.f64 d16, d16
+  ec32  vsub.f64 d16, d17, d16
+  ec36  vabs.f64 d16, d16
+  ec3a  d17 = 0.02
+  ec3e  vdiv.f64 d16, d16, d17
+  ec42  vmov.f64 d17, #-1.000000e+00
+  ec46  vadd.f64 d18, d16, d17
+  ec4a  vmov.f64 d16, #1.000000e+00
+  ec4e  vcmpe.f64 d18, d16
+  ec52  vmov.f64 d17, d16
+  ec56  vmrs apsr_nzcv, fpscr
+  ec5a  bgt L_ec72
+  ec5c  vcmpe.f64 d18, #0
+  ec60  vmrs apsr_nzcv, fpscr
+  ec64  d17 = 0
+  ec6a  vmovmi.f64 d18, d17
+  ec6e  vmov.f64 d17, d18
+L_ec72:
+  ec76  vsub.f64 d16, d16, d17
+  ec7e  r0 = IVOFF(filterConstant)
+  ec80  r0 = IVOFF(filterConstant)
+  ec82  add r0, r4
+  ec84  vldr d18, [r0]
+  ec88  vmov.f64 d19, #3.000000e+00
+  ec8c  vmul.f64 d16, d16, d18
+  ec90  vdiv.f64 d16, d16, d19
+  ec94  vmul.f64 d17, d17, d18
+  ec98  vadd.f64 d8, d16, d17
+  ec9c  b L_ecb0
+L_ec9e:
+  eca6  r0 = IVOFF(filterConstant)
+  eca8  r0 = IVOFF(filterConstant)
+  ecaa  add r0, r4
+  ecac  vldr d8, [r0]
+L_ecb0:
+  ecb8  r0 = SEL(x)
+  ecba  r1 = SEL(x)
+  ecbe  r0 = [r0 x](?, ?)
+  ecc2  vmov.f64 d16, #1.000000e+00
+  ecce  r2 = IVOFF(x)
+  ecd0  vsub.f64 d9, d16, d8
+  ecd4  r2 = IVOFF(x)
+  ecd6  vmov d16, r0, r1
+  ecda  adds r0, r4, r2
+  ecdc  vldr d17, [r0]
+  ece4  vmul.f64 d16, d8, d16
+  ecec  r1 = SEL(y)
+  ecee  r1 = SEL(y)
+  ecf0  vmul.f64 d17, d9, d17
+  ecf4  vadd.f64 d16, d16, d17
+  ecf8  vstr d16, [r0]
+  ecfe  r0 = [r0 y](x, ?)
+  ed06  vmov d16, r0, r1
+  ed0e  r2 = IVOFF(y)
+  ed10  vmul.f64 d16, d8, d16
+  ed14  r2 = IVOFF(y)
+  ed16  adds r0, r4, r2
+  ed18  vldr d17, [r0]
+  ed24  vmul.f64 d17, d9, d17
+  ed28  r1 = SEL(z)
+  ed2a  r1 = SEL(z)
+  ed2c  vadd.f64 d16, d16, d17
+  ed30  vstr d16, [r0]
+  ed36  r0 = [r0 z](y, ?)
+  ed3e  vmov d16, r0, r1
+  ed46  r2 = IVOFF(z)
+  ed48  vmul.f64 d16, d8, d16
+  ed4c  r2 = IVOFF(z)
+  ed4e  adds r0, r4, r2
+  ed52  vldr d17, [r0]
+  ed56  vmul.f64 d17, d9, d17
+  ed5a  vadd.f64 d16, d16, d17
+  ed5e  vstr d16, [r0]
+  ed62  vld1.64 {d8, d9, d10, d11}, [r4:0x80]
+  ed66  vldr d12, [r4, #0x20]
+  ed6a  sub.w r4, r7, #0xc
+  ed70  return
+  ed78  asrs r3, r7, #0x11
+  ed7e  subs r7, #0x94
+
+//// -[LowpassFilter name]  0xed88..0xedb4  @8@0:4
+  ed94  r1 = IVOFF(adaptive)
+  ed9a  r2 = CFSTR('Adaptive Lowpass Filter')
+  ed9c  r3 = IVOFF(adaptive)
+  eda6  r1 = CFSTR('Lowpass Filter')
+  eda8  r0 = self->adaptive
+  edaa  cmp self->adaptive, 0

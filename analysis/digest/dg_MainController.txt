@@ -1,0 +1,1380 @@
+
+//// -initWithNibName:bundle:  0x81f0..0x835c  @16@0:4@8@12
+  0x8218: [r0 initWithNibName:bundle:]  args=(?, ?)
+  0x821e: cmp r4, #0
+  0x8220: beq.w L_8352
+  0x8240: [r0 defaultCenter]  args=(?, ?)
+  0x8272: [r0 addObserver:selector:name:object:]  args=(?, "LoginClear")
+  0x827c: [r0 defaultCenter]  args=(?, "LoginClear")
+  0x829e: [r0 addObserver:selector:name:object:]  args=(?, "coinTiemrControlStart")
+  0x82a8: [r0 defaultCenter]  args=(?, "coinTiemrControlStart")
+  0x82ca: [r0 addObserver:selector:name:object:]  args=(?, "checkVoiceOverApple")
+  0x82d4: [r0 defaultCenter]  args=(?, "checkVoiceOverApple")
+  0x82f6: [r0 addObserver:selector:name:object:]  args=(?, "showLeaderboard")
+  0x8300: [r0 defaultCenter]  args=(?, "showLeaderboard")
+  0x8322: [r0 addObserver:selector:name:object:]  args=(?, "interruptRestart")
+  0x832c: [r0 defaultCenter]  args=(?, "interruptRestart")
+  0x834e: [r0 addObserver:selector:name:object:]  args=(?, "facebookInit")
+  L_8352:
+
+//// -audioRestart  0x83a4..0x84ac  v8@0:4
+  0x83a8: call sub_3ccc
+  0x83be: [r0 playback]  args=(?, ?)
+  0x83ce: [r0 freeBuffers]  args=(?, ?)
+  0x83d6: [r0 playback]  args=(?, ?)
+  0x83e6: [r0 freeSources]  args=(?, ?)
+  0x8402: [r0 array]  args=(_OBJC_CLASS_$_NSMutableArray, ?)
+  0x8416: [r0 setASoundBufControlData:]  args=(0, ?)
+  0x841e: [r0 playback]  args=(0, ?)
+  0x8428: [r0 playback]  args=(0, ?)
+  0x8438: [r0 release]  args=(0, ?)
+  0x844c: [r0 setPlayback:]  args=(0, ?)
+  0x8468: [r0 alloc]  args=(oalPlayback, ?)
+  0x8478: [r0 init]  args=(oalPlayback, ?)
+  0x848c: [r0 setPlayback:]  args=(0xdb1dc, ?)
+  0x8494: [r0 playback]  args=(0xdb1dc, ?)
+  0x84a8: b.w L_a90d0
+
+//// -LoginClear  0x84d8..0x8554  v8@0:4
+  0x84f6: [r0 alloc]  args=(RankingViewController, ?)
+  0x8512: [r0 initWithNibName:bundle:]  args=(@"RankingViewController", 0)
+  0x8526: [r0 navigationController]  args=(@"RankingViewController", 0)
+  0x853a: [r0 pushViewController:animated:]  args=(0xdb4fc, 0)
+  0x8550: b.w L_a90d0
+
+//// -viewWillAppear:  0x8554..0x8594  v12@0:4c8
+  0x857a: [r0 viewWillAppear:]  args=(?, ?)
+  0x858c: [r0 coinViewController]  args=(?, ?)
+
+//// -viewWillDisappear:  0x8594..0x85c0  v12@0:4c8
+  0x85b8: [r0 viewWillDisappear:]  args=(?, 0xdb0a0)
+
+//// -viewDidLoad  0x85c0..0x8d14  v8@0:4
+  0x85ea: [r0 viewDidLoad]  args=(?, ?)
+  0x85ee: call sub_3ccc
+  0x860e: [r0 ItemPriceCheck:]  args=(@"SixthSense.AllWeapon", ?)
+  0x8622: [r0 maskView1]  args=(@"SixthSense.AllWeapon", ?)
+  0x8636: [r0 layer]  args=(@"SixthSense.AllWeapon", ?)
+  0x8650: [r0 setCornerRadius:]  args=(0x41100000, ?)
+  0x8658: [r0 maskView1]  args=(0x41100000, ?)
+  0x865e: [r0 layer]  args=(0x41100000, ?)
+  0x8674: [r0 setMasksToBounds:]  args=(1, ?)
+  0x867c: [r0 maskView1]  args=(1, ?)
+  0x8690: [r0 setAlpha:]  args=(0, ?)
+  0x86a2: [r0 navigationController]  args=(0, ?)
+  0x86b4: [r0 setNavigationBarHidden:]  args=(1, ?)
+  0x86c8: [r0 mode]  args=(1, ?)
+  0x86dc: [r0 modeLabel]  args=(1, ?)
+  0x86ea: cmp r2, #1
+  0x86f0: bne L_86fe
+  0x86fc: b L_8708
+  L_86fe:
+  L_8708:
+  0x8708: [r0 setText:]  args=(@"Voice-Over Off", ?)
+  0x871a: [r0 buttonSelectImage]  args=(@"Voice-Over Off", ?)
+  0x872e: [r0 maskView]  args=(@"Voice-Over Off", ?)
+  0x8736: [r0 setAlpha:]  args=(0, ?)
+  0x873e: [r0 maskView]  args=(0, ?)
+  0x8744: [r0 layer]  args=(0, ?)
+  0x8750: [r0 setCornerRadius:]  args=(0x41100000, ?)
+  0x8758: [r0 maskView]  args=(0x41100000, ?)
+  0x875e: [r0 layer]  args=(0x41100000, ?)
+  0x8766: [r0 setMasksToBounds:]  args=(1, ?)
+  0x8782: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x8792: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x87a2: [r0 floatValue]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x87b6: blt L_88aa
+  0x87bc: [r0 ?]  args=(_OBJC_CLASS_$_UIDevice, ?)
+  0x87c2: cmp r0, #1
+  0x87c4: bne L_88aa
+  0x87e0: [r0 alloc]  args=(_OBJC_CLASS_$_UIPanGestureRecognizer, ?)
+  0x8800: [r0 initWithTarget:action:]  args=(?, "Menu:")
+  0x8812: [r0 autorelease]  args=(?, "Menu:")
+  0x8828: [r0 setEnabled:]  args=(1, "Menu:")
+  0x883c: [r0 setDelegate:]  args=(?, "Menu:")
+  0x8852: [r0 view]  args=(?, "Menu:")
+  0x8868: [r0 addGestureRecognizer:]  args=(0, "Menu:")
+  0x887a: [r0 ?]  args=(0, "Menu:")
+  0x888e: [r0 initWithTarget:action:]  args=(?, "tapSelect:")
+  0x8894: [r0 autorelease]  args=(?, "tapSelect:")
+  0x889e: [r0 view]  args=(?, "tapSelect:")
+  0x88a6: [r0 addGestureRecognizer:]  args=(0, "tapSelect:")
+  L_88aa:
+  0x88ba: [r0 weaponHave]  args=(0, "tapSelect:")
+  0x88c2: [r0 ?]  args=(0, "tapSelect:")
+  0x88d0: cmp r0, #1
+  ; r1 = OFFSETOF(MainController.selectMenu)
+  0x88d6: bne L_8928
+  0x88e2: str r2 -> self.selectMenu
+  0x88ea: [r0 blindModeSelectedMenu]  args=(2, "tapSelect:")
+  0x88fc: [r0 StopElseSpeak]  args=(2, "tapSelect:")
+  0x8922: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x10, 0x3e4ccccd)
+  0x8926: b L_893e
+  L_8928:
+  0x893a: [r0 blindModeSelectedMenu]  args=(0, 0x3e4ccccd)
+  L_893e:
+  0x894e: [r0 Coin]  args=(0, 0x3e4ccccd)
+  0x8952: cmp r0, #4
+  0x8954: bgt.w L_8bc8
+  0x8978: [r0 standardUserDefaults]  args=(0, 0x3e4ccccd)
+  0x8994: [r0 objectForKey:]  args=(@"COIN_TIMER_START", 0x3e4ccccd)
+  0x89a4: [r0 intValue]  args=(@"COIN_TIMER_START", 0x3e4ccccd)
+  0x89a8: cmp r0, #0
+  0x89aa: beq.w L_8d0c
+  0x89b4: [r0 standardUserDefaults]  args=(@"COIN_TIMER_START", 0x3e4ccccd)
+  0x89c4: [r0 objectForKey:]  args=(@"COIN_TIMER", 0x3e4ccccd)
+  0x89e4: [r0 alloc]  args=(_OBJC_CLASS_$_NSDateFormatter, 0x3e4ccccd)
+  0x89f6: [r0 init]  args=(_OBJC_CLASS_$_NSDateFormatter, 0x3e4ccccd)
+  0x8a06: [r0 autorelease]  args=(_OBJC_CLASS_$_NSDateFormatter, 0x3e4ccccd)
+  0x8a26: [r0 setDateFormat:]  args=(@"yyyy-MM-dd HH:mm:ss", 0x3e4ccccd)
+  0x8a3c: [r0 dateFromString:]  args=(0, 0x3e4ccccd)
+  0x8a5c: [r0 date]  args=(_OBJC_CLASS_$_NSDate, 0x3e4ccccd)
+  0x8a72: [r0 stringFromDate:]  args=(0, 0x3e4ccccd)
+  0x8a7c: [r0 dateFromString:]  args=(0, 0x3e4ccccd)
+  0x8a9a: [r0 currentCalendar]  args=(_OBJC_CLASS_$_NSCalendar, 0x3e4ccccd)
+  0x8ab4: [r0 components:fromDate:toDate:options:]  args=(0x80, 0)
+  0x8ac4: [r0 second]  args=(0x80, 0)
+  0x8aca: cmp fp, #1800
+  0x8ace: ble.w L_8cfa
+  0x8ad6: [r0 Coin]  args=(0x80, 0)
+  0x8afe: [r0 setCoin:]  args=(?, 0)
+  0x8b06: [r0 Coin]  args=(?, 0)
+  0x8b0a: cmp r0, #6
+  0x8b0c: blt L_8bd8
+  0x8b14: [r0 setCoin:]  args=(5, 0)
+  0x8b28: [r0 ?]  args=(5, 0)
+  0x8b50: [r0 setObject:forKey:]  args=(@"0", @"COIN_TIMER_START")
+  0x8b58: [r0 ?]  args=(@"0", @"COIN_TIMER_START")
+  0x8b6e: [r0 Coin]  args=(@"0", @"COIN_TIMER_START")
+  0x8b8c: [r0 stringWithFormat:]  args=(@"%d", ?)
+  0x8ba0: [r0 setObject:forKey:]  args=(0, @"COIN")
+  0x8ba8: [r0 ?]  args=(0, @"COIN")
+  0x8bb8: [r0 synchronize]  args=(0, @"COIN")
+  0x8bc6: b L_8d04
+  L_8bc8:
+  0x8bd6: b L_8d08
+  L_8bd8:
+  0x8be6: [r0 ?]  args=(0, @"COIN")
+  0x8bf4: [r0 ?]  args=(0, @"COIN")
+  0x8bfe: [r0 ?]  args=(?, @"COIN")
+  0x8c14: [r0 ?]  args=(?, @"COIN")
+  0x8c32: [r0 initWithCalendarIdentifier:]  args=(?, @"COIN")
+  0x8c46: [r0 ?]  args=(?, @"COIN")
+  0x8c54: [r0 ?]  args=(?, @"COIN")
+  0x8c6a: [r0 setSecond:]  args=(?, @"COIN")
+  0x8c84: [r0 dateByAddingComponents:toDate:options:]  args=(0, ?)
+  0x8c9a: [r0 release]  args=(0, ?)
+  0x8ca2: [r0 release]  args=(0, ?)
+  0x8cac: [r0 ?]  args=(0, ?)
+  0x8cc2: [r0 ?]  args=(0, ?)
+  0x8cde: [r0 setObject:forKey:]  args=(?, @"COIN_TIMER")
+  0x8ce6: [r0 ?]  args=(?, @"COIN_TIMER")
+  0x8cf6: [r0 synchronize]  args=(?, @"COIN_TIMER")
+  L_8cfa:
+  L_8d04:
+  L_8d08:
+  0x8d08: [r0 coinTimerControlStartBackGroundRestart]  args=(?, @"COIN_TIMER")
+  L_8d0c:
+
+//// -buttonSelectImage  0x8d14..0x90d0  v8@0:4
+  0x8d20: call sub_3ccc
+  0x8d38: [r0 startGame]  args=(?, ?)
+  0x8d66: [r0 imageNamed:]  args=(@"2_main_btn1_inact.png", ?)
+  0x8d80: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8d88: [r0 startGame]  args=(0, 0)
+  0x8d9e: [r0 imageNamed:]  args=(@"2_main_btn1_act.png", 0)
+  0x8daa: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8dc0: [r0 storeButton]  args=(0, 1)
+  0x8dd6: [r0 imageNamed:]  args=(@"2_main_btn2_inact.png", 1)
+  0x8de2: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8dea: [r0 storeButton]  args=(0, 0)
+  0x8e00: [r0 imageNamed:]  args=(@"2_main_btn2_act.png", 0)
+  0x8e0c: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8e20: [r0 mode]  args=(0, 1)
+  0x8e36: [r0 modeChangeButton]  args=(0, 1)
+  0x8e42: cmp r1, #1
+  0x8e44: bne L_8e52
+  0x8e50: b L_8e5c
+  L_8e52:
+  L_8e5c:
+  0x8e5e: [r0 imageNamed:]  args=(@"2_main_btn6_inact.png", 1)
+  0x8e6a: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8e72: [r0 ?]  args=(0, 0)
+  0x8e88: [r0 imageNamed:]  args=(@"2_main_btn6_act.png", 0)
+  0x8e94: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8eaa: [r0 rankButton]  args=(0, 1)
+  0x8ec0: [r0 imageNamed:]  args=(@"2_main_btn5_inact.png", 1)
+  0x8ecc: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8ed4: [r0 rankButton]  args=(0, 0)
+  0x8eea: [r0 imageNamed:]  args=(@"2_main_btn5_act.png", 0)
+  0x8ef6: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8f0c: [r0 exitButton]  args=(0, 1)
+  0x8f22: [r0 imageNamed:]  args=(@"2_main_btn4_inact.png", 1)
+  0x8f2e: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8f36: [r0 exitButton]  args=(0, 0)
+  0x8f4c: [r0 imageNamed:]  args=(@"2_main_btn4_act.png", 0)
+  0x8f58: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8f6e: [r0 tutorialButton]  args=(0, 1)
+  0x8f84: [r0 imageNamed:]  args=(@"btn_tutorial.PNG", 1)
+  0x8f90: [r0 setBackgroundImage:forState:]  args=(0, 0)
+  0x8f98: [r0 tutorialButton]  args=(0, 0)
+  0x8fae: [r0 imageNamed:]  args=(@"btn_tutorial_click.PNG", 0)
+  0x8fba: [r0 setBackgroundImage:forState:]  args=(0, 1)
+  0x8fc2: [r0 ?]  args=(0, 1)
+  0x8fcc: [r0 ?]  args=(0, 1)
+  0x8fde: cmp r1, #1
+  0x8fe0: bne L_9052
+  0x8fe6: [r0 setEnabled:]  args=(0, 1)
+  0x8fee: [r0 ?]  args=(0, 1)
+  0x8ff6: [r0 setEnabled:]  args=(0, 1)
+  0x8ffe: [r0 ?]  args=(0, 1)
+  0x9006: [r0 setEnabled:]  args=(0, 1)
+  0x900e: [r0 ?]  args=(0, 1)
+  0x9016: [r0 setEnabled:]  args=(0, 1)
+  0x901e: [r0 ?]  args=(0, 1)
+  0x9026: [r0 setEnabled:]  args=(0, 1)
+  0x9038: [r0 gameCenterButton]  args=(0, 1)
+  0x9040: [r0 setEnabled:]  args=(0, 1)
+  0x9048: [r0 ?]  args=(0, 1)
+  0x9050: b L_90c0
+  L_9052:
+  0x9056: [r0 setEnabled:]  args=(1, 1)
+  0x905e: [r0 ?]  args=(1, 1)
+  0x9066: [r0 setEnabled:]  args=(1, 1)
+  0x906e: [r0 ?]  args=(1, 1)
+  0x9076: [r0 setEnabled:]  args=(1, 1)
+  0x907e: [r0 ?]  args=(1, 1)
+  0x9086: [r0 setEnabled:]  args=(1, 1)
+  0x908e: [r0 ?]  args=(1, 1)
+  0x9096: [r0 setEnabled:]  args=(1, 1)
+  0x90a8: [r0 gameCenterButton]  args=(1, 1)
+  0x90b0: [r0 setEnabled:]  args=(1, 1)
+  0x90b8: [r0 ?]  args=(1, 1)
+  L_90c0:
+  0x90ca: b.w L_a90d0
+
+//// -blindModeSelectedMenu  0x90d0..0x9260  v8@0:4
+  0x90ec: [r0 round1]  args=(?, ?)
+  0x9100: [r0 setHidden:]  args=(1, ?)
+  0x9114: [r0 round2]  args=(1, ?)
+  0x911c: [r0 setHidden:]  args=(1, ?)
+  0x9130: [r0 round3]  args=(1, ?)
+  0x9138: [r0 setHidden:]  args=(1, ?)
+  0x914c: [r0 round4]  args=(1, ?)
+  0x9154: [r0 setHidden:]  args=(1, ?)
+  0x9168: [r0 round5]  args=(1, ?)
+  0x9170: [r0 setHidden:]  args=(1, ?)
+  0x9186: [r0 round6]  args=(1, ?)
+  0x918e: [r0 setHidden:]  args=(1, ?)
+  0x91a4: [r0 round7]  args=(1, ?)
+  0x91ac: [r0 setHidden:]  args=(1, ?)
+  0x91c0: [r0 round8]  args=(1, ?)
+  0x91c8: [r0 setHidden:]  args=(1, ?)
+  0x91de: [r0 round9]  args=(1, ?)
+  0x91e6: [r0 setHidden:]  args=(1, ?)
+  ; r0 = OFFSETOF(MainController.selectMenu)
+  0x91fa: cmp r0, #8
+  0x91fc: bls L_9206
+  L_9206:
+  0x9218: b L_9248
+  0x921e: b L_9248
+  0x9224: b L_9248
+  0x922a: b L_9248
+  0x9230: b L_9248
+  0x9236: b L_9248
+  0x923c: b L_9248
+  0x9242: b L_9248
+  L_9248:
+  0x9248: [r0 ?]  args=(1, ?)
+  0x925a: b.w L_a90d0
+
+//// -tapSelect:  0x9260..0x9350  v12@0:4@8
+  0x9278: [r0 view]  args=(?, ?)
+  0x9290: [r0 ?]  args=("locationInView:", ?)
+  0x929c: b L_92ac
+  L_92ac:
+  ; d16 = 3.6893488147419103e+19
+  ; r1 = OFFSETOF(MainController.posX)
+  ; r1 = OFFSETOF(MainController.posY)
+  ; r1 = OFFSETOF(MainController.tapCount)
+  0x92fe: str r0 -> self.tapCount
+  ; r1 = OFFSETOF(MainController.tapOrGesture)
+  0x9332: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  ; r1 = OFFSETOF(MainController.tapTimer)
+  0x9342: str r0 -> self.tapTimer
+
+//// -tapCount  0x9350..0x948c  v8@0:4
+  ; r6 = OFFSETOF(MainController.tapCount)
+  0x9366: cmp r0, #2
+  0x9368: bne L_9400
+  0x936a: call sub_3ccc
+  0x937e: [r0 bDevice]  args=(?, ?)
+  0x938c: blxne L_c2d24
+  ; r0 = OFFSETOF(MainController.selectMenu)
+  0x93a0: cmp r0, #7
+  0x93a2: bhi L_9468
+  ; r0 = OFFSETOF(MainController.start_game_flag)
+  0x93bc: ldrb r1 -> self.start_game_flag
+  0x93be: cmp r1, #0
+  0x93c0: bne L_9468
+  0x93cc: strb r2 -> self.start_game_flag
+  0x93d4: [r0 StopElseSpeak]  args=(1, ?)
+  0x93fa: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x10, 0x3e4ccccd)
+  0x93fe: b L_9468
+  L_9400:
+  0x9400: cmp r0, #1
+  0x9402: bne L_9468
+  0x9412: [r0 selectTapPointSoundStart]  args=(0x10, 0x3e4ccccd)
+  0x9416: b L_9468
+  0x9422: b L_945e
+  0x942e: b L_945e
+  0x943a: b L_945e
+  0x9446: b L_945e
+  0x9452: b L_945e
+  L_945e:
+  0x9464: [r0 TutorialAction:]  args=(0, 0x3e4ccccd)
+  L_9468:
+  ; r1 = OFFSETOF(MainController.posX)
+  0x9482: str r0 -> self.posX
+  ; r1 = OFFSETOF(MainController.posY)
+  0x9486: str r0 -> self.posY
+
+//// -Menu:  0x948c..0x96e8  v12@0:4@8
+  0x949a: call sub_3ccc
+  0x94aa: [r0 mode]  args=(?, ?)
+  0x94b2: beq.w L_96e0
+  0x94c6: [r0 view]  args=(?, ?)
+  0x94de: [r0 state]  args=(?, ?)
+  0x94e2: cmp r0, #1
+  0x94e4: beq L_94f4
+  0x94ea: [r0 state]  args=(?, ?)
+  0x94ee: cmp r0, #2
+  0x94f0: bne.w L_962a
+  L_94f4:
+  0x94f8: [r0 state]  args=(?, ?)
+  0x94fc: cmp r0, #1
+  0x94fe: bne L_9570
+  0x9504: [r0 view]  args=(?, ?)
+  0x951c: [r0 ?]  args=("locationInView:", ?)
+  0x9528: b L_9538
+  L_9538:
+  ; r1 = OFFSETOF(MainController.posX)
+  ; r1 = OFFSETOF(MainController.posY)
+  ; r0 = OFFSETOF(MainController.tapOrGesture)
+  0x956a: strb r1 -> self.tapOrGesture
+  L_9570:
+  0x9580: [r0 superview]  args=("locationInView:", ?)
+  0x9598: [r0 ?]  args=("translationInView:", ?)
+  0x95a4: b L_95b4
+  L_95b4:
+  ; r1 = OFFSETOF(MainController.posX)
+  ; r0 = OFFSETOF(MainController.posY)
+  0x95f0: [r0 superview]  args=("translationInView:", ?)
+  0x9614: [r0 setTranslation:inView:]  args=(?, 0)
+  0x9626: [r0 selectTapPointSoundStart]  args=(?, 0)
+  L_962a:
+  0x962e: [r0 state]  args=(?, 0)
+  0x9632: cmp r0, #3
+  0x9634: bne L_96e0
+  ; r1 = OFFSETOF(MainController.start_game_flag)
+  0x964e: strb r0 -> self.start_game_flag
+  ; r1 = OFFSETOF(MainController.store_flag)
+  0x965c: strb r0 -> self.store_flag
+  ; r1 = OFFSETOF(MainController.exit_flag)
+  0x966a: strb r0 -> self.exit_flag
+  ; r1 = OFFSETOF(MainController.modechange_flag)
+  0x9678: strb r0 -> self.modechange_flag
+  ; r1 = OFFSETOF(MainController.main_title_flag)
+  0x9686: strb r0 -> self.main_title_flag
+  ; r1 = OFFSETOF(MainController.coin_flag)
+  0x9694: strb r0 -> self.coin_flag
+  ; r1 = OFFSETOF(MainController.ranking_flag)
+  0x96a2: strb r0 -> self.ranking_flag
+  ; r1 = OFFSETOF(MainController.gamecenter_flag)
+  0x96b0: strb r0 -> self.gamecenter_flag
+  ; r1 = OFFSETOF(MainController.tutorial_flag)
+  0x96be: strb r0 -> self.tutorial_flag
+  ; r1 = OFFSETOF(MainController.posX)
+  0x96cc: str r0 -> self.posX
+  ; r1 = OFFSETOF(MainController.posY)
+  0x96da: str r0 -> self.posY
+  ; r1 = OFFSETOF(MainController.tapOrGesture)
+  0x96de: strb r0 -> self.tapOrGesture
+  L_96e0:
+
+//// -StopElseSpeak  0x96e8..0x97ec  v8@0:4
+  0x96f0: call sub_3ccc
+  0x9708: [r0 stopSoundBufNumber:]  args=(0x10, ?)
+  0x9712: [r0 stopSoundBufNumber:]  args=(0x11, ?)
+  0x971c: [r0 stopSoundBufNumber:]  args=(0x12, ?)
+  0x9726: [r0 stopSoundBufNumber:]  args=(0x13, ?)
+  0x9730: [r0 stopSoundBufNumber:]  args=(0x14, ?)
+  0x973a: [r0 stopSoundBufNumber:]  args=(0x15, ?)
+  0x9744: [r0 stopSoundBufNumber:]  args=(0x16, ?)
+  0x9750: [r0 stopSoundBufNumber:]  args=(0x14b, ?)
+  0x975c: [r0 stopSoundBufNumber:]  args=(0x14c, ?)
+  0x9768: [r0 stopSoundBufNumber:]  args=(0x14d, ?)
+  0x9774: [r0 stopSoundBufNumber:]  args=(0x14e, ?)
+  0x9780: [r0 stopSoundBufNumber:]  args=(0x16d, ?)
+  0x978c: [r0 stopSoundBufNumber:]  args=(0x16c, ?)
+  0x9798: [r0 stopSoundBufNumber:]  args=(0x16f, ?)
+  0x97a2: [r0 stopSoundBufNumber:]  args=(0x17, ?)
+  0x97b4: [r0 readStop]  args=(0x17, ?)
+  0x97e2: [r0 cancelPreviousPerformRequestsWithTarget:selector:object:]  args=(?, "readNumberOfCoin")
+
+//// -selectTapPointSoundStart  0x9824..0xa560  v8@0:4
+  0x9830: call sub_3ccc
+  0x9850: [r0 mainScreen]  args=(?, ?)
+  0x9856: cmp r1, #0
+  0x9858: beq L_9892
+  0x9868: [r0 ?]  args=("bounds", ?)
+  ; s0 = 320.0
+  0x987c: bne L_989c
+  ; s2 = 568.0
+  0x988e: beq L_98e6
+  0x9890: b L_989c
+  L_9892:
+  L_989c:
+  0x98a0: [r0 mainScreen]  args=("bounds", ?)
+  0x98a6: cmp r1, #0
+  0x98a8: beq.w L_9a04
+  0x98ba: [r0 ?]  args=("bounds", ?)
+  ; s0 = 568.0
+  0x98ce: bne.w L_9a0e
+  ; s2 = 320.0
+  0x98e2: bne.w L_9a0e
+  L_98e6:
+  ; s2 = 40.0
+  ; r1 = OFFSETOF(MainController.posY)
+  ; r0 = OFFSETOF(MainController.tapOrGesture)
+  0x9910: ldrb r0 -> self.tapOrGesture
+  0x992a: cmp r0, #0
+  0x9930: beq.w L_9d66
+  0x9934: cmp r1, #0
+  0x9936: beq.w L_9b88
+  ; s2 = 64.0
+  0x9946: blt L_9958
+  ; s2 = 139.0
+  0x9954: bls.w L_9ee0
+  L_9958:
+  ; s2 = 161.0
+  0x9964: blt L_9976
+  ; s2 = 215.0
+  0x9972: bls.w L_9f42
+  L_9976:
+  ; s2 = 227.0
+  0x9982: blt L_9994
+  ; s2 = 281.0
+  0x9990: bls.w L_a006
+  L_9994:
+  ; s2 = 293.0
+  0x99a0: blt L_99b2
+  ; s2 = 347.0
+  0x99ae: bls.w L_a0ca
+  L_99b2:
+  ; s2 = 358.0
+  0x99be: blt L_99d0
+  ; s2 = 412.0
+  0x99cc: bls.w L_a190
+  L_99d0:
+  ; s2 = 424.0
+  0x99dc: blt L_99ee
+  ; s2 = 478.0
+  0x99ea: bls.w L_a256
+  L_99ee:
+  ; s2 = 493.0
+  0x99fa: blt.w L_9b34
+  ; s2 = 543.0
+  0x9a02: b L_9b28
+  L_9a04:
+  L_9a0e:
+  ; s2 = 40.0
+  ; r1 = OFFSETOF(MainController.posY)
+  ; r0 = OFFSETOF(MainController.tapOrGesture)
+  0x9a38: ldrb r0 -> self.tapOrGesture
+  0x9a52: cmp r0, #0
+  0x9a58: beq.w L_9c8c
+  0x9a5c: cmp r1, #0
+  0x9a5e: beq.w L_9b88
+  ; s2 = 54.0
+  0x9a6e: blt L_9a80
+  ; s2 = 94.0
+  0x9a7c: bls.w L_9ee0
+  L_9a80:
+  ; s2 = 102.0
+  0x9a8c: blt L_9a9e
+  ; s2 = 156.0
+  0x9a9a: bls.w L_9f42
+  L_9a9e:
+  ; s2 = 161.0
+  0x9aaa: blt L_9abc
+  ; s2 = 215.0
+  0x9ab8: bls.w L_a006
+  L_9abc:
+  ; s2 = 222.0
+  0x9ac8: blt L_9ada
+  ; s2 = 276.0
+  0x9ad6: bls.w L_a0ca
+  L_9ada:
+  ; s2 = 281.0
+  0x9ae6: blt L_9af8
+  ; s2 = 335.0
+  0x9af4: bls.w L_a190
+  L_9af8:
+  ; s2 = 341.0
+  0x9b04: blt L_9b16
+  ; s2 = 395.0
+  0x9b12: bls.w L_a256
+  L_9b16:
+  ; s2 = 403.0
+  0x9b22: blt L_9b34
+  ; s2 = 453.0
+  L_9b28:
+  0x9b30: bls.w L_a33c
+  L_9b34:
+  ; r1 = OFFSETOF(MainController.start_game_flag)
+  0x9b4c: strb r0 -> self.start_game_flag
+  ; r1 = OFFSETOF(MainController.store_flag)
+  0x9b5a: strb r0 -> self.store_flag
+  ; r1 = OFFSETOF(MainController.modechange_flag)
+  0x9b68: strb r0 -> self.modechange_flag
+  ; r1 = OFFSETOF(MainController.main_title_flag)
+  0x9b76: strb r0 -> self.main_title_flag
+  ; r1 = OFFSETOF(MainController.ranking_flag)
+  0x9b84: b.w L_a4fe
+  L_9b88:
+  ; r1 = OFFSETOF(MainController.selectMenu)
+  0x9ba0: str r0 -> self.selectMenu
+  ; r1 = OFFSETOF(MainController.coin_flag)
+  0x9ba4: ldrb r2 -> self.coin_flag
+  0x9ba6: cmp r2, #0
+  0x9ba8: bne.w L_a52e
+  0x9bb4: strb r0 -> self.coin_flag
+  0x9bbc: [r0 StopElseSpeak]  args=(@selector(StopElseSpeak), ?)
+  0x9be4: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x14e, 0x3e4ccccd)
+  0x9c14: [r0 performSelector:withObject:afterDelay:]  args=("readNumberOfCoin", 0)
+  0x9c18: b.w L_a52e
+
+//// -viewDidAppear:  0xa560..0xa58c  v12@0:4c8
+  0xa584: [r0 viewDidAppear:]  args=(?, 0xdb0a0)
+
+//// -viewDidUnload  0xa58c..0xa7d8  v8@0:4
+  0xa5a4: [r0 setStartGame:]  args=(0, ?)
+  0xa5b8: [r0 setStoreButton:]  args=(0, ?)
+  0xa5cc: [r0 setModeChangeButton:]  args=(0, ?)
+  0xa5e0: [r0 setModeLabel:]  args=(0, ?)
+  0xa5f4: [r0 setExitButton:]  args=(0, ?)
+  0xa608: [r0 setRound1:]  args=(0, ?)
+  0xa61c: [r0 setRound2:]  args=(0, ?)
+  0xa630: [r0 setRound3:]  args=(0, ?)
+  0xa644: [r0 setRound4:]  args=(0, ?)
+  0xa658: [r0 setRound5:]  args=(0, ?)
+  0xa66c: [r0 setRound6:]  args=(0, ?)
+  0xa680: [r0 setMaskView:]  args=(0, ?)
+  0xa694: [r0 setRankButton:]  args=(0, ?)
+  0xa6a8: [r0 setCoinImageView1:]  args=(0, ?)
+  0xa6bc: [r0 setCoinImageView2:]  args=(0, ?)
+  0xa6d0: [r0 setCoinImageView3:]  args=(0, ?)
+  0xa6e4: [r0 setCoinImageView4:]  args=(0, ?)
+  0xa6f8: [r0 setCoinImageView5:]  args=(0, ?)
+  0xa70c: [r0 setManyCoinLabel:]  args=(0, ?)
+  0xa720: [r0 setCoinTimeLabel:]  args=(0, ?)
+  0xa734: [r0 setRound7:]  args=(0, ?)
+  0xa748: [r0 setMaskView1:]  args=(0, ?)
+  0xa75c: [r0 setMaskLabel1:]  args=(0, ?)
+  0xa770: [r0 setGameCenterButton:]  args=(0, ?)
+  0xa784: [r0 setRound8:]  args=(0, ?)
+  0xa798: [r0 setTutorialButton:]  args=(0, ?)
+  0xa7ac: [r0 setRound9:]  args=(0, ?)
+  0xa7ce: [r0 viewDidUnload]  args=(0, ?)
+
+//// -dealloc  0xa7d8..0xaa30  v8@0:4
+  ; r0 = OFFSETOF(MainController.startGame)
+  0xa7fc: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.storeButton)
+  0xa810: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.modeChangeButton)
+  0xa824: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.modeLabel)
+  0xa838: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.exitButton)
+  0xa84c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round1)
+  0xa860: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round2)
+  0xa874: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round3)
+  0xa888: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round4)
+  0xa89c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round5)
+  0xa8b0: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController.round6)
+  0xa8c4: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._maskView)
+  0xa8d8: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._rankButton)
+  0xa8ec: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinImageView1)
+  0xa900: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinImageView2)
+  0xa914: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinImageView3)
+  0xa928: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinImageView4)
+  0xa93c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinImageView5)
+  0xa950: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._manyCoinLabel)
+  0xa964: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._coinTimeLabel)
+  0xa978: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._round7)
+  0xa98c: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._maskView1)
+  0xa9a0: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._maskLabel1)
+  0xa9b4: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._gameCenterButton)
+  0xa9c8: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._round8)
+  0xa9dc: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._tutorialButton)
+  0xa9f0: [r0 release]  args=(?, ?)
+  ; r0 = OFFSETOF(MainController._round9)
+  0xaa04: [r0 release]  args=(?, ?)
+  0xaa26: [r0 dealloc]  args=(?, ?)
+
+//// -shouldAutorotateToInterfaceOrientation:  0xaa30..0xaa3c  c12@0:4i8
+  0xaa30: cmp r2, #1
+
+//// -useHeadPhone  0xaa3c..0xab24  c8@0:4
+  0xaa50: call _AudioSessionInitialize
+  0xaa60: call _AudioSessionGetProperty
+  0xaa66: cmp r0, #0
+  0xaa68: beq L_ab1c
+  0xaa6a: call _CFStringGetLength
+  0xaa70: cmp r0, #0
+  0xaa72: beq L_ab1c
+  0xaa76: cmp r4, #0
+  0xaa78: beq L_ab04
+  0xaa96: [r0 ?]  args=("rangeOfString:", @"Headphone")
+  0xaaaa: [r0 ?]  args=("rangeOfString:", @"Headset")
+  0xaabe: [r0 ?]  args=("rangeOfString:", @"Receiver")
+  0xaad2: [r0 ?]  args=("rangeOfString:", @"Speaker")
+  0xaae6: [r0 ?]  args=("rangeOfString:", @"Lineout")
+  0xaaf4: bne L_ab1c
+  L_ab04:
+  L_ab1c:
+
+//// -soundYouMustUseEarPhone  0xab24..0xac50  v8@0:4
+  0xab40: [r0 maskView]  args=(?, ?)
+  0xab5c: [r0 setAlpha:]  args=(0x3f333333, ?)
+  0xab82: [r0 beginAnimations:context:]  args=(0, 0)
+  0xab9e: [r0 setAnimationDuration:]  args=(?, 0)
+  0xabaa: [r0 maskView]  args=(?, 0)
+  0xabc4: [r0 setAnimationTransition:forView:cache:]  args=(0, ?)
+  0xabda: [r0 setAnimationDelegate:]  args=(?, ?)
+  0xabe2: [r0 maskView]  args=(?, ?)
+  0xabea: [r0 setAlpha:]  args=(0, ?)
+  0xabfe: [r0 commitAnimations]  args=(0, ?)
+  0xac02: call sub_3ccc
+  0xac16: [r0 StopElseSpeak]  args=(0, ?)
+  0xac42: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xea, 0x3e4ccccd)
+
+//// -StartGame:  0xac50..0xad5c  v12@0:4@8
+  0xac66: [r0 useHeadPhone]  args=(?, ?)
+  0xac6e: beq L_ace6
+  0xac74: call _UIAccessibilityIsVoiceOverRunning
+  0xac7c: beq L_acfe
+  0xac96: [r0 alloc]  args=(_OBJC_CLASS_$_UIAlertView, ?)
+  0xacc2: [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:]  args=(0, @"Please turn off Voice Over function for normal game progress. If you set up Triple-click Home(1. Go into Settings and then General. 
+ 2.Scroll down to Accessibility. 
+ 3. Scroll all the way to the bottom again and select Triple-Click Home 
+ 4. From here you can set it to toggle a VoiceOver.), You can easily turn on and off.")
+  0xacd6: [r0 show]  args=(0, @"Please turn off Voice Over function for normal game progress. If you set up Triple-click Home(1. Go into Settings and then General. 
+ 2.Scroll down to Accessibility. 
+ 3. Scroll all the way to the bottom again and select Triple-Click Home 
+ 4. From here you can set it to toggle a VoiceOver.), You can easily turn on and off.")
+  0xace4: b L_acf0
+  L_ace6:
+  L_acf0:
+  0xacfa: b.w L_a90d0
+  L_acfe:
+  0xad0c: [r0 StopElseSpeak]  args=(0, @"Please turn off Voice Over function for normal game progress. If you set up Triple-click Home(1. Go into Settings and then General. 
+ 2.Scroll down to Accessibility. 
+ 3. Scroll all the way to the bottom again and select Triple-Click Home 
+ 4. From here you can set it to toggle a VoiceOver.), You can easily turn on and off.")
+  0xad10: call sub_3ccc
+  0xad32: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xa, 0x3e4ccccd)
+  0xad56: b.w L_a90d0
+
+//// -TutorialAction:  0xad5c..0xaef4  v12@0:4@8
+  0xad76: [r0 StopElseSpeak]  args=(?, ?)
+  0xad7a: call sub_3ccc
+  0xad9e: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xa, 0x3e4ccccd)
+  0xadac: call _NSClassFromString
+  0xadbc: [___CFConstantStringClassReference alloc]  args=(0xa, 0x3e4ccccd)
+  0xaddc: [r0 mainScreen]  args=(0xa, 0x3e4ccccd)
+  0xade2: cmp r1, #0
+  0xade4: beq L_ae1e
+  0xadf4: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 320.0
+  0xae08: bne L_ae28
+  ; s2 = 568.0
+  0xae1a: beq L_ae6c
+  0xae1c: b L_ae28
+  L_ae1e:
+  L_ae28:
+  0xae2c: [r0 mainScreen]  args=("bounds", 0x3e4ccccd)
+  0xae32: cmp r1, #0
+  0xae34: beq L_ae82
+  0xae44: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 568.0
+  0xae58: bne L_ae8c
+  ; s2 = 320.0
+  0xae6a: bne L_ae8c
+  L_ae6c:
+  0xae80: b L_aea0
+  L_ae82:
+  L_ae8c:
+  L_aea0:
+  0xaea6: [___CFConstantStringClassReference initWithNibName:bundle:]  args=(@"Stage_Tutorial", 0)
+  0xaeba: [r0 navigationController]  args=(@"Stage_Tutorial", 0)
+  0xaece: [r0 pushViewController:animated:]  args=(@"Stage_Tutorial", 0)
+  0xaee0: [___CFConstantStringClassReference release]  args=(@"Stage_Tutorial", 0)
+
+//// -RankingAction:  0xaef4..0xb2ec  v12@0:4@8
+  0xaf04: call _UIAccessibilityIsVoiceOverRunning
+  0xaf0c: bne L_af98
+  0xaf26: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0xaf40: [r0 objectForKey:]  args=(@"DEFAULTEYEMODE", ?)
+  0xaf50: [r0 integerValue]  args=(@"DEFAULTEYEMODE", ?)
+  0xaf58: beq L_af98
+  0xaf68: [r0 StopElseSpeak]  args=(@"DEFAULTEYEMODE", ?)
+  0xaf6c: call sub_3ccc
+  0xaf92: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x16c, 0x3e4ccccd)
+  0xaf96: b L_b2da
+  L_af98:
+  0xafb0: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, 0x3e4ccccd)
+  0xafca: [r0 objectForKey:]  args=(@"RANKING", 0x3e4ccccd)
+  0xafda: [r0 intValue]  args=(@"RANKING", 0x3e4ccccd)
+  0xafee: [r0 StopElseSpeak]  args=(@"RANKING", 0x3e4ccccd)
+  0xaff2: call sub_3ccc
+  0xb014: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xa, 0x3e4ccccd)
+  0xb018: cmp r4, #0
+  0xb01a: beq L_b098
+  0xb026: call _NSClassFromString
+  0xb036: [___CFConstantStringClassReference alloc]  args=(0xa, 0x3e4ccccd)
+  0xb056: [r0 mainScreen]  args=(0xa, 0x3e4ccccd)
+  0xb05c: cmp r1, #0
+  0xb05e: beq L_b11c
+  0xb06e: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 320.0
+  0xb082: bne L_b126
+  ; s2 = 568.0
+  0xb094: beq L_b16a
+  0xb096: b L_b126
+  L_b098:
+  0xb0a2: call _NSClassFromString
+  0xb0b6: [___CFConstantStringClassReference alloc]  args=("bounds", 0x3e4ccccd)
+  0xb0d6: [r0 mainScreen]  args=("bounds", 0x3e4ccccd)
+  0xb0dc: cmp r1, #0
+  0xb0de: beq.w L_b1e0
+  0xb0f0: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 320.0
+  0xb104: bne L_b1ea
+  ; s2 = 568.0
+  0xb116: beq.w L_b22e
+  0xb11a: b L_b1ea
+  L_b11c:
+  L_b126:
+  0xb12a: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  0xb130: cmp r1, #0
+  0xb132: beq L_b180
+  0xb142: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 568.0
+  0xb156: bne L_b18a
+  ; s2 = 320.0
+  0xb168: bne L_b18a
+  L_b16a:
+  0xb17e: b L_b19e
+  L_b180:
+  L_b18a:
+  L_b19e:
+  0xb1a4: [_OBJC_CLASS_$_UIScreen initWithNibName:bundle:]  args=(@"RankingViewController", 0)
+  0xb1b8: [r0 navigationController]  args=(@"RankingViewController", 0)
+  0xb1cc: [r0 pushViewController:animated:]  args=(_OBJC_CLASS_$_UIScreen, 0)
+  0xb1de: b L_b2d6
+  L_b1e0:
+  L_b1ea:
+  0xb1ee: [r0 ?]  args=(_OBJC_CLASS_$_UIScreen, 0)
+  0xb1f4: cmp r1, #0
+  0xb1f6: beq L_b244
+  0xb206: [r0 ?]  args=("bounds", 0)
+  ; s0 = 568.0
+  0xb21a: bne L_b24e
+  ; s2 = 320.0
+  0xb22c: bne L_b24e
+  L_b22e:
+  0xb242: b L_b262
+  L_b244:
+  L_b24e:
+  L_b262:
+  0xb268: [___CFConstantStringClassReference initWithNibName:bundle:]  args=(@"FriendJoinViewController", 0)
+  0xb27c: [r0 alloc]  args=(@"FriendJoinViewController", 0)
+  0xb28e: [r0 initWithRootViewController:]  args=(@"FriendJoinViewController", 0)
+  0xb2a4: [r0 setNavigationBarHidden:]  args=(1, 0)
+  0xb2ba: [r0 presentModalViewController:animated:]  args=(0, 1)
+  0xb2ce: [r0 release]  args=(0, 1)
+  L_b2d6:
+  0xb2d6: [___CFConstantStringClassReference release]  args=(0, 1)
+  L_b2da:
+
+//// -StartGameAction:  0xb2ec..0xb67c  v12@0:4@8
+  0xb306: [r0 StopElseSpeak]  args=(?, ?)
+  0xb30a: call sub_3ccc
+  0xb320: [r0 Coin]  args=(?, ?)
+  0xb324: cmp r0, #1
+  0xb326: blt.w L_b472
+  0xb32e: [r0 Coin]  args=(?, ?)
+  0xb342: [r0 setCoin:]  args=(?, ?)
+  0xb362: [r0 standardUserDefaults]  args=(?, ?)
+  0xb37a: [r0 Coin]  args=(?, ?)
+  0xb398: [r0 stringWithFormat:]  args=(@"%d", ?)
+  0xb3b6: [r0 setObject:forKey:]  args=(0, @"COIN")
+  0xb3c8: [r0 standardUserDefaults]  args=(0, @"COIN")
+  0xb3d8: [r0 synchronize]  args=(0, @"COIN")
+  0xb3ec: [r0 coinTiemrControlStart]  args=(0, @"COIN")
+  0xb3fa: call _NSClassFromString
+  0xb40a: [___CFConstantStringClassReference alloc]  args=(0, @"COIN")
+  0xb42a: [r0 mainScreen]  args=(0, @"COIN")
+  0xb430: cmp r1, #0
+  0xb432: beq.w L_b5a6
+  0xb444: [r0 ?]  args=("bounds", @"COIN")
+  ; s0 = 320.0
+  0xb458: bne.w L_b5b0
+  ; s2 = 568.0
+  0xb46c: beq.w L_b5f4
+  0xb470: b L_b5b0
+  L_b472:
+  0xb480: [_OBJC_CLASS_$_UIScreen maskLabel1]  args=("bounds", @"COIN")
+  0xb49a: [_OBJC_CLASS_$_UIScreen setText:]  args=(@"No coin. You can buy coin at the store or share with friends at the ranking page.", @"COIN")
+  0xb4b0: [_OBJC_CLASS_$_UIScreen maskView1]  args=(@"No coin. You can buy coin at the store or share with friends at the ranking page.", @"COIN")
+  0xb4cc: [_OBJC_CLASS_$_UIScreen setAlpha:]  args=(0x3f333333, @"COIN")
+  0xb4f0: [r0 beginAnimations:context:]  args=(0, 0)
+  0xb50a: [r0 setAnimationDuration:]  args=(?, 0)
+  0xb520: [_OBJC_CLASS_$_UIScreen maskView]  args=(?, 0)
+  0xb53a: [r0 setAnimationTransition:forView:cache:]  args=(0, _OBJC_CLASS_$_UIScreen)
+  0xb54e: [r0 setAnimationDelegate:]  args=(_OBJC_CLASS_$_UIScreen, _OBJC_CLASS_$_UIScreen)
+  0xb556: [_OBJC_CLASS_$_UIScreen maskView1]  args=(_OBJC_CLASS_$_UIScreen, _OBJC_CLASS_$_UIScreen)
+  0xb55e: [_OBJC_CLASS_$_UIScreen setAlpha:]  args=(0, _OBJC_CLASS_$_UIScreen)
+  0xb570: [r0 commitAnimations]  args=(0, _OBJC_CLASS_$_UIScreen)
+  0xb574: call sub_3ccc
+  0xb5a0: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x166, 0x3e4ccccd)
+  0xb5a4: b L_b66c
+  L_b5a6:
+  L_b5b0:
+  0xb5b4: [r0 ?]  args=(0x166, 0x3e4ccccd)
+  0xb5ba: cmp r1, #0
+  0xb5bc: beq L_b60a
+  0xb5cc: [r0 ?]  args=("bounds", 0x3e4ccccd)
+  ; s0 = 568.0
+  0xb5e0: bne L_b614
+  ; s2 = 320.0
+  0xb5f2: bne L_b614
+  L_b5f4:
+  0xb608: b L_b628
+  L_b60a:
+  L_b614:
+  L_b628:
+  0xb62e: [_OBJC_CLASS_$_UIView initWithNibName:bundle:]  args=(@"Stage_1_E", 0)
+  0xb642: [r0 navigationController]  args=(@"Stage_1_E", 0)
+  0xb656: [r0 pushViewController:animated:]  args=(_OBJC_CLASS_$_UIView, 0)
+  0xb668: [_OBJC_CLASS_$_UIView release]  args=(_OBJC_CLASS_$_UIView, 0)
+  L_b66c:
+
+//// -Store:  0xb67c..0xb6d0  v12@0:4@8
+  0xb684: call sub_3ccc
+  0xb6a8: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xa, 0x3e4ccccd)
+  0xb6cc: b.w L_a90d0
+
+//// -StoreAction:  0xb6d0..0xb830  v12@0:4@8
+  0xb6e6: call _NSClassFromString
+  0xb6f6: [___CFConstantStringClassReference alloc]  args=(?, ?)
+  0xb716: [r0 mainScreen]  args=(?, ?)
+  0xb71c: cmp r1, #0
+  0xb71e: beq L_b758
+  0xb72e: [r0 ?]  args=("bounds", ?)
+  ; s0 = 320.0
+  0xb742: bne L_b762
+  ; s2 = 568.0
+  0xb754: beq L_b7a6
+  0xb756: b L_b762
+  L_b758:
+  L_b762:
+  0xb766: [r0 mainScreen]  args=("bounds", ?)
+  0xb76c: cmp r1, #0
+  0xb76e: beq L_b7bc
+  0xb77e: [r0 ?]  args=("bounds", ?)
+  ; s0 = 568.0
+  0xb792: bne L_b7c6
+  ; s2 = 320.0
+  0xb7a4: bne L_b7c6
+  L_b7a6:
+  0xb7ba: b L_b7da
+  L_b7bc:
+  L_b7c6:
+  L_b7da:
+  0xb7e0: [___CFConstantStringClassReference initWithNibName:bundle:]  args=(@"mainStoreController", 0)
+  0xb7f4: [r0 navigationController]  args=(@"mainStoreController", 0)
+  0xb808: [r0 pushViewController:animated:]  args=(@"mainStoreController", 0)
+  0xb81a: [___CFConstantStringClassReference release]  args=(@"mainStoreController", 0)
+
+//// -ModeChageAction:  0xb830..0xbcf0  v12@0:4@8
+  0xb83c: call sub_3ccc
+  0xb85e: [r0 standardUserDefaults]  args=(?, ?)
+  0xb878: [r0 objectForKey:]  args=(@"DEFAULTEYEMODE", ?)
+  0xb888: [r0 intValue]  args=(@"DEFAULTEYEMODE", ?)
+  0xb88c: cmp r0, #0
+  0xb88e: beq L_b898
+  L_b898:
+  0xb8a6: [r0 mode]  args=(@"DEFAULTEYEMODE", ?)
+  0xb8ba: beq.w L_ba9a
+  0xb8c4: [r0 setMode:]  args=(0, ?)
+  0xb8d6: [r0 modeLabel]  args=(0, ?)
+  0xb8f0: [r0 setText:]  args=(@"Voice Over : Off", ?)
+  0xb8fa: [r0 standardUserDefaults]  args=(@"Voice Over : Off", ?)
+  0xb91e: [r0 setObject:forKey:]  args=(@"0", @"EYEMODE")
+  0xb928: [r0 standardUserDefaults]  args=(@"0", @"EYEMODE")
+  0xb938: [r0 synchronize]  args=(@"0", @"EYEMODE")
+  ; r0 = OFFSETOF(MainController.selectMenu)
+  0xb954: str.w r4 -> self.selectMenu
+  0xb95a: [r0 blindModeSelectedMenu]  args=(@"0", @"EYEMODE")
+  0xb96c: [r0 StopElseSpeak]  args=(@"0", @"EYEMODE")
+  0xb990: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x16, 0x3e4ccccd)
+  0xb9ac: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xb9bc: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xb9cc: [r0 floatValue]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xb9e0: blt.w L_bca2
+  0xb9f4: [r0 view]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xba06: [r0 gestureRecognizers]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xba16: [r0 count]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xba1a: cmp r0, #0
+  0xba1c: beq.w L_bca2
+  0xba24: [r0 view]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xba2a: [r0 gestureRecognizers]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xba3e: [r0 objectAtIndex:]  args=(0, 0x3e4ccccd)
+  0xba54: [r0 setEnabled:]  args=(0, 0x3e4ccccd)
+  0xba5c: [r0 view]  args=(0, 0x3e4ccccd)
+  0xba62: [r0 gestureRecognizers]  args=(0, 0x3e4ccccd)
+  0xba6a: [r0 objectAtIndex:]  args=(1, 0x3e4ccccd)
+  0xba74: [r0 view]  args=(1, 0x3e4ccccd)
+  0xba88: [r0 removeGestureRecognizer:]  args=(?, 0x3e4ccccd)
+  0xba90: [r0 view]  args=(?, 0x3e4ccccd)
+  0xba98: b L_bc9e
+  L_ba9a:
+  0xbaa0: [r0 removeGestureRecognizer:]  args=(1, 0x3e4ccccd)
+  0xbab2: [r0 modeLabel]  args=(1, 0x3e4ccccd)
+  0xbacc: [r0 setText:]  args=(@"Voice Over : On", 0x3e4ccccd)
+  0xbad6: [r0 removeGestureRecognizer:]  args=(@"Voice Over : On", 0x3e4ccccd)
+  0xbafa: [r0 setObject:forKey:]  args=(@"1", @"EYEMODE")
+  0xbb04: [r0 removeGestureRecognizer:]  args=(@"1", @"EYEMODE")
+  0xbb14: [r0 synchronize]  args=(@"1", @"EYEMODE")
+  ; r0 = OFFSETOF(MainController.selectMenu)
+  0xbb30: str.w r4 -> self.selectMenu
+  0xbb36: [r0 blindModeSelectedMenu]  args=(@"1", @"EYEMODE")
+  0xbb48: [r0 StopElseSpeak]  args=(@"1", @"EYEMODE")
+  0xbb6e: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x15, 0x3e4ccccd)
+  0xbb8a: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xbb9a: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xbbaa: [r0 floatValue]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xbbbe: blt L_bca2
+  0xbbda: [r0 alloc]  args=(_OBJC_CLASS_$_UIPanGestureRecognizer, 0x3e4ccccd)
+  0xbbfc: [r0 initWithTarget:action:]  args=(?, "Menu:")
+  0xbc0e: [r0 autorelease]  args=(?, "Menu:")
+  0xbc24: [r0 setEnabled:]  args=(1, "Menu:")
+  0xbc38: [r0 setDelegate:]  args=(?, "Menu:")
+  0xbc4c: [r0 view]  args=(?, "Menu:")
+  0xbc60: [r0 addGestureRecognizer:]  args=(0, "Menu:")
+  0xbc72: [r0 ?]  args=(0, "Menu:")
+  0xbc86: [r0 initWithTarget:action:]  args=(?, "tapSelect:")
+  0xbc8c: [r0 autorelease]  args=(?, "tapSelect:")
+  0xbc96: [r0 view]  args=(?, "tapSelect:")
+  L_bc9e:
+  0xbc9e: [r0 addGestureRecognizer:]  args=(0, "tapSelect:")
+  L_bca2:
+  0xbcb0: [r0 view]  args=(0, "tapSelect:")
+  0xbcc0: [r0 gestureRecognizers]  args=(0, "tapSelect:")
+  0xbcd0: [r0 count]  args=(0, "tapSelect:")
+  0xbcec: b.w L_a90d0
+
+//// -Exit:  0xbcf0..0xbcfc  v12@0:4@8
+  0xbcf6: call _exit
+
+//// -coinTimerControlStartBackGroundRestart  0xbcfc..0xbe00  v8@0:4
+  ; r6 = OFFSETOF(MainController.coinTimer)
+  0xbd16: cmp r0, #0
+  0xbd18: bne L_bdf8
+  0xbd2c: [r0 isValid]  args=(?, ?)
+  0xbd34: bne L_bdf8
+  0xbd6c: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  0xbd78: str r0 -> self.coinTimer
+  0xbd80: [r0 coinTimeLabel]  args=(?, ?)
+  0xbd92: [r0 setHidden:]  args=(0, ?)
+  0xbd9a: [r0 coinUpTimer]  args=(0, ?)
+  0xbdb8: [r0 standardUserDefaults]  args=(0, ?)
+  0xbddc: [r0 setObject:forKey:]  args=(@"1", @"COIN_TIMER_START")
+  0xbde4: [r0 standardUserDefaults]  args=(@"1", @"COIN_TIMER_START")
+  0xbdf4: [r0 synchronize]  args=(@"1", @"COIN_TIMER_START")
+  L_bdf8:
+
+//// -coinTiemrControlStart  0xbe00..0xc068  v8@0:4
+  0xbe0c: call sub_3ccc
+  0xbe22: [r0 Coin]  args=(?, ?)
+  0xbe26: cmp r0, #4
+  0xbe28: bgt.w L_bfee
+  ; r5 = OFFSETOF(MainController.coinTimer)
+  0xbe3a: cmp r0, #0
+  0xbe3c: bne.w L_c042
+  0xbe52: [r0 isValid]  args=(?, ?)
+  0xbe5a: bne.w L_c042
+  0xbe94: [r0 scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]  args=(?, ?)
+  0xbea0: str r0 -> self.coinTimer
+  0xbeaa: [r0 coinTimeLabel]  args=(?, ?)
+  0xbebc: [r0 setHidden:]  args=(0, ?)
+  0xbec4: [r0 coinTimeLabel]  args=(0, ?)
+  0xbede: [r0 setText:]  args=(@"10:00", ?)
+  0xbefa: [r0 date]  args=(_OBJC_CLASS_$_NSDate, ?)
+  0xbf18: [r0 alloc]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xbf28: [r0 init]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xbf38: [r0 autorelease]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xbf56: [r0 setDateFormat:]  args=(@"yyyy-MM-dd HH:mm:ss", ?)
+  0xbf6a: [r0 stringFromDate:]  args=(0, ?)
+  0xbf8c: [r0 standardUserDefaults]  args=(0, ?)
+  0xbfb2: [r0 setObject:forKey:]  args=(@"1", @"COIN_TIMER_START")
+  0xbfbc: [r0 standardUserDefaults]  args=(@"1", @"COIN_TIMER_START")
+  0xbfce: [r0 setObject:forKey:]  args=(0, @"COIN_TIMER")
+  0xbfd8: [r0 standardUserDefaults]  args=(0, @"COIN_TIMER")
+  0xbfe8: [r0 synchronize]  args=(0, @"COIN_TIMER")
+  0xbfec: b L_c042
+  L_bfee:
+  0xbff2: [r0 setObject:forKey:]  args=(0, @"COIN_TIMER")
+  0xbff6: cmp r0, #5
+  0xbff8: blt L_c04a
+  ; r5 = OFFSETOF(MainController.coinTimer)
+  0xc016: [r0 isValid]  args=(0, @"COIN_TIMER")
+  0xc01e: beq L_c042
+  0xc02e: [r0 invalidate]  args=(0, @"COIN_TIMER")
+  0xc03c: str r1 -> self.coinTimer
+  0xc040: b L_c054
+  L_c042:
+  L_c04a:
+  L_c054:
+  0xc062: b.w L_a90d0
+
+//// -coinTiemrControlEnd  0xc068..0xc0b0  v8@0:4
+  ; r5 = OFFSETOF(MainController.coinTimer)
+  0xc08a: [r0 isValid]  args=(?, ?)
+  0xc0a4: [r0 invalidate]  args=(?, ?)
+  0xc0aa: str r0 -> self.coinTimer
+
+//// -coinUpTimer  0xc0b0..0xc41c  v8@0:4
+  0xc0d6: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, ?)
+  0xc0f0: [r0 objectForKey:]  args=(@"COIN_TIMER", ?)
+  0xc10e: [r0 alloc]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xc11e: [r0 init]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xc12e: [r0 autorelease]  args=(_OBJC_CLASS_$_NSDateFormatter, ?)
+  0xc14c: [r0 setDateFormat:]  args=(@"yyyy-MM-dd HH:mm:ss", ?)
+  0xc162: [r0 dateFromString:]  args=(0, ?)
+  0xc180: [r0 date]  args=(_OBJC_CLASS_$_NSDate, ?)
+  0xc194: [r0 stringFromDate:]  args=(0, ?)
+  0xc19e: [r0 dateFromString:]  args=(0, ?)
+  0xc1bc: [r0 currentCalendar]  args=(_OBJC_CLASS_$_NSCalendar, ?)
+  0xc1d6: [r0 components:fromDate:toDate:options:]  args=(0x80, 0)
+  0xc1e6: [r0 second]  args=(0x80, 0)
+  ; r4 = OFFSETOF(MainController.min)
+  ; r2 = OFFSETOF(MainController.sec)
+  0xc240: str.w r3 -> self.min
+  0xc256: str.w r0 -> self.sec
+  0xc264: cmp r3, #9
+  0xc266: bgt L_c274
+  0xc272: b L_c27e
+  L_c274:
+  L_c27e:
+  0xc280: [r0 stringWithFormat:]  args=(@"%d", ?)
+  0xc28e: cmp r3, #9
+  0xc290: bgt L_c29e
+  0xc29c: b L_c2a8
+  L_c29e:
+  L_c2a8:
+  0xc2aa: [r0 stringWithFormat:]  args=(@"%d", ?)
+  0xc2be: [r0 coinTimeLabel]  args=(@"%d", ?)
+  0xc2de: [r0 stringWithFormat:]  args=(@"%@:%@", 0)
+  0xc2f2: [r0 setText:]  args=(0, 0)
+  0xc2f8: cmp r0, #0
+  0xc2fa: ble L_c304
+  L_c304:
+  0xc304: call sub_3ccc
+  0xc31e: [r0 Coin]  args=(0, 0)
+  0xc332: [r0 setCoin:]  args=(?, 0)
+  0xc34a: [r0 ?]  args=(?, 0)
+  0xc358: [r0 Coin]  args=(?, 0)
+  0xc36c: [r0 ?]  args=(@"%d", ?)
+  0xc38c: [r0 setObject:forKey:]  args=(?, @"COIN")
+  0xc396: [r0 ?]  args=(?, @"COIN")
+  0xc3b0: [r0 setObject:forKey:]  args=(@"0", @"COIN_TIMER_START")
+  0xc3ba: [r0 ?]  args=(@"0", @"COIN_TIMER_START")
+  0xc3ca: [r0 synchronize]  args=(@"0", @"COIN_TIMER_START")
+  0xc3de: [r0 coinTiemrControlEnd]  args=(@"0", @"COIN_TIMER_START")
+  0xc3e6: [r0 ?]  args=(@"0", @"COIN_TIMER_START")
+  0xc3ea: cmp r0, #4
+  0xc3ec: bgt L_c400
+  0xc3fc: [r0 coinTiemrControlStart]  args=(@"0", @"COIN_TIMER_START")
+  L_c400:
+  0xc418: b.w L_a90d0
+
+//// -coinViewController  0xc41c..0xc734  v8@0:4
+  0xc428: call sub_3ccc
+  0xc442: [r0 coinImageView1]  args=(?, ?)
+  0xc456: [r0 setHidden:]  args=(1, ?)
+  0xc46a: [r0 coinImageView2]  args=(1, ?)
+  0xc472: [r0 setHidden:]  args=(1, ?)
+  0xc486: [r0 coinImageView3]  args=(1, ?)
+  0xc48e: [r0 setHidden:]  args=(1, ?)
+  0xc4a2: [r0 coinImageView4]  args=(1, ?)
+  0xc4aa: [r0 setHidden:]  args=(1, ?)
+  0xc4be: [r0 coinImageView5]  args=(1, ?)
+  0xc4c6: [r0 setHidden:]  args=(1, ?)
+  0xc4dc: [r0 coinTimeLabel]  args=(1, ?)
+  0xc4e4: [r0 setHidden:]  args=(1, ?)
+  0xc4f8: [r0 manyCoinLabel]  args=(1, ?)
+  0xc500: [r0 setHidden:]  args=(1, ?)
+  0xc516: [r0 Coin]  args=(1, ?)
+  0xc51a: cmp r0, #5
+  0xc51c: blt L_c5ee
+  0xc522: [r0 coinTimeLabel]  args=(1, ?)
+  0xc52a: [r0 setHidden:]  args=(1, ?)
+  0xc532: [r0 coinImageView1]  args=(1, ?)
+  0xc53a: [r0 setHidden:]  args=(0, ?)
+  0xc542: [r0 ?]  args=(0, ?)
+  0xc54a: [r0 setHidden:]  args=(0, ?)
+  0xc552: [r0 ?]  args=(0, ?)
+  0xc55a: [r0 setHidden:]  args=(0, ?)
+  0xc562: [r0 ?]  args=(0, ?)
+  0xc56a: [r0 setHidden:]  args=(0, ?)
+  0xc572: [r0 ?]  args=(0, ?)
+  0xc57a: [r0 setHidden:]  args=(0, ?)
+  0xc582: [r0 Coin]  args=(0, ?)
+  0xc588: cmp r0, #1
+  0xc58a: blt.w L_c684
+  0xc594: [r0 ?]  args=(0, ?)
+  0xc59c: [r0 setHidden:]  args=(0, ?)
+  0xc5a4: [r0 ?]  args=(0, ?)
+  0xc5ba: [r0 Coin]  args=(0, ?)
+  0xc5d8: [r0 stringWithFormat:]  args=(@"+%d", ?)
+  0xc5ec: b L_c726
+  L_c5ee:
+  0xc5f8: [r0 Coin]  args=(0, ?)
+  0xc5fc: cmp r0, #4
+  0xc5fe: bne L_c63e
+  0xc604: [r0 ?]  args=(0, ?)
+  0xc60c: [r0 ?]  args=(0, ?)
+  0xc614: [r0 ?]  args=(0, ?)
+  0xc61c: [r0 ?]  args=(0, ?)
+  0xc624: [r0 ?]  args=(0, ?)
+  0xc62c: [r0 ?]  args=(0, ?)
+  0xc634: [r0 ?]  args=(0, ?)
+  0xc63c: b L_c706
+  L_c63e:
+  0xc642: [r0 Coin]  args=(0, ?)
+  0xc64a: cmp r0, #3
+  0xc64c: bne L_c68c
+  0xc652: [r0 ?]  args=(0, ?)
+  0xc65a: [r0 ?]  args=(0, ?)
+  0xc662: [r0 ?]  args=(0, ?)
+  0xc66a: [r0 ?]  args=(0, ?)
+  0xc672: [r0 ?]  args=(0, ?)
+  0xc67a: [r0 ?]  args=(0, ?)
+  0xc682: b L_c6fe
+  L_c684:
+  L_c68c:
+  0xc690: [r0 Coin]  args=(0, ?)
+  0xc698: cmp r0, #2
+  0xc69a: bne L_c6ba
+  0xc6a0: [r0 ?]  args=(0, ?)
+  0xc6a8: [r0 ?]  args=(0, ?)
+  0xc6b0: [r0 ?]  args=(0, ?)
+  0xc6b8: b L_c6e6
+  L_c6ba:
+  0xc6be: [r0 Coin]  args=(0, ?)
+  0xc6c8: [r0 ?]  args=(0, ?)
+  0xc6cc: cmp r6, #1
+  0xc6d6: [r0 ?]  args=(?, ?)
+  0xc6de: [r0 ?]  args=(?, ?)
+  L_c6e6:
+  0xc6e6: [r0 ?]  args=(1, ?)
+  0xc6ee: [r0 ?]  args=(1, ?)
+  0xc6f6: [r0 ?]  args=(1, ?)
+  L_c6fe:
+  0xc6fe: [r0 ?]  args=(1, ?)
+  L_c706:
+  0xc706: [r0 ?]  args=(1, ?)
+  0xc70e: [r0 ?]  args=(1, ?)
+  0xc716: [r0 ?]  args=(1, ?)
+  0xc71e: [r0 ?]  args=(1, ?)
+  L_c726:
+  0xc730: b.w L_a90d0
+
+//// -checkVoiceOverApple  0xc734..0xcad0  v8@0:4
+  0xc740: call sub_3ccc
+  0xc754: [r0 mode]  args=(?, ?)
+  ; r1 = OFFSETOF(MainController.selectMenu)
+  0xc768: beq.w L_c8f0
+  0xc776: str.w r2 -> self.selectMenu
+  0xc780: [r0 blindModeSelectedMenu]  args=(1, ?)
+  0xc792: [r0 StopElseSpeak]  args=(1, ?)
+  0xc7b8: [r0 playSound:Gain:Pos:z:reprats:]  args=(0x15, 0x3e4ccccd)
+  0xc7d4: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xc7e4: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xc7f4: [r0 floatValue]  args=(_OBJC_CLASS_$_UIDevice, 0x3e4ccccd)
+  0xc808: blt.w L_ca80
+  0xc826: [r0 alloc]  args=(_OBJC_CLASS_$_UIPanGestureRecognizer, 0x3e4ccccd)
+  0xc848: [r0 initWithTarget:action:]  args=(?, "Menu:")
+  0xc85a: [r0 autorelease]  args=(?, "Menu:")
+  0xc870: [r0 setEnabled:]  args=(1, "Menu:")
+  0xc884: [r0 setDelegate:]  args=(?, "Menu:")
+  0xc898: [r0 view]  args=(?, "Menu:")
+  0xc8ac: [r0 addGestureRecognizer:]  args=(0, "Menu:")
+  0xc8be: [r0 ?]  args=(0, "Menu:")
+  0xc8d2: [r0 initWithTarget:action:]  args=(?, "tapSelect:")
+  0xc8d8: [r0 autorelease]  args=(?, "tapSelect:")
+  0xc8e2: [r0 view]  args=(?, "tapSelect:")
+  L_c8ea:
+  0xc8ea: [r0 addGestureRecognizer:]  args=(0, "tapSelect:")
+  0xc8ee: b L_ca80
+  L_c8f0:
+  0xc904: [r0 blindModeSelectedMenu]  args=(0, "tapSelect:")
+  0xc920: [r0 currentDevice]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc930: [r0 systemVersion]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc940: [r0 floatValue]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc954: blt.w L_ca80
+  0xc96a: [r0 view]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc97c: [r0 gestureRecognizers]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc98e: [r0 count]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc992: cmp r0, #0
+  0xc994: beq L_ca80
+  0xc99a: [r0 view]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc9a0: [r0 gestureRecognizers]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc9a6: [r0 count]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc9b0: [r0 view]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc9b6: [r0 gestureRecognizers]  args=(_OBJC_CLASS_$_UIDevice, "tapSelect:")
+  0xc9ba: cmp r5, #2
+  0xc9bc: blo L_ca2a
+  0xc9ce: [r0 objectAtIndex:]  args=(1, "tapSelect:")
+  0xc9d8: [r0 view]  args=(1, "tapSelect:")
+  0xc9de: [r0 gestureRecognizers]  args=(1, "tapSelect:")
+  0xc9e6: [r0 objectAtIndex:]  args=(0, "tapSelect:")
+  0xc9fc: [r0 setEnabled:]  args=(0, "tapSelect:")
+  0xca04: [r0 view]  args=(0, "tapSelect:")
+  0xca18: [r0 removeGestureRecognizer:]  args=(?, "tapSelect:")
+  0xca20: [r0 view]  args=(?, "tapSelect:")
+  0xca28: b L_c8ea
+  L_ca2a:
+  0xca2c: [r0 removeGestureRecognizer:]  args=(?, "tapSelect:")
+  0xca36: [r0 view]  args=(?, "tapSelect:")
+  0xca3c: [r0 ?]  args=(?, "tapSelect:")
+  0xca4e: [r0 objectAtIndex:]  args=(0, "tapSelect:")
+  0xca64: [r0 setEnabled:]  args=(0, "tapSelect:")
+  0xca6c: [r0 view]  args=(0, "tapSelect:")
+  0xca7e: b L_c8ea
+  L_ca80:
+  0xca8e: [r0 view]  args=(?, "tapSelect:")
+  0xca9e: [r0 gestureRecognizers]  args=(?, "tapSelect:")
+  0xcaae: [r0 count]  args=(?, "tapSelect:")
+  0xcaca: b.w L_a90d0
+
+//// -gameCenterAction:  0xcad0..0xcbb0  v12@0:4@8
+  0xcae6: [r0 StopElseSpeak]  args=(?, ?)
+  0xcaea: call sub_3ccc
+  0xcb12: [r0 playSound:Gain:Pos:z:reprats:]  args=(0xa, 0x3e4ccccd)
+  0xcb2e: [r0 standardUserDefaults]  args=(_OBJC_CLASS_$_NSUserDefaults, 0x3e4ccccd)
+  0xcb48: [r0 objectForKey:]  args=(@"GAMECENTER", 0x3e4ccccd)
+  0xcb58: [r0 intValue]  args=(@"GAMECENTER", 0x3e4ccccd)
+  0xcb5c: cmp r0, #1
+  0xcb5e: bne L_cb78
+  0xcb74: b.w L_a90d0
+  L_cb78:
+  0xcb86: [r0 isGameCenterAvailable]  args=(@"GAMECENTER", 0x3e4ccccd)
+  0xcbaa: b.w L_a90d0
+
+//// -showLeaderboard  0xcbb0..0xcc28  v8@0:4
+  0xcbce: [r0 alloc]  args=(_OBJC_CLASS_$_GKLeaderboardViewController, ?)
+  0xcbde: [r0 init]  args=(_OBJC_CLASS_$_GKLeaderboardViewController, ?)
+  0xcbee: [r0 autorelease]  args=(_OBJC_CLASS_$_GKLeaderboardViewController, ?)
+  0xcbf4: cmp r5, #0
+  0xcc0a: [r0 setLeaderboardDelegate:]  args=(?, ?)
+  0xcc24: b.w L_a90d0
+
+//// -leaderboardViewControllerDidFinish:  0xcc28..0xcc3c  v12@0:4@8
+  0xcc36: b.w L_a90d0
+
+//// -setCoinImageView1:  0xd194..0xd470  v12@0:4@8
+  ; r2 = OFFSETOF(MainController._coinImageView1)
+  0xd1b0: call _objc_setProperty
+  0xd1d6: cmp sb, #0
+  0xd1da: bne L_d1f8
+  0xd1e8: call _alcGetProcAddress
+  0xd1ee: cmp sb, #0
+  0xd1f6: beq L_d20a
+  L_d1f8:
+  L_d20a:
+  0xd236: call _ExtAudioFileOpenURL
+  0xd23c: cmp r1, #0
+  0xd23e: beq L_d24c
+  0xd24a: b L_d26c
+  L_d24c:
+  0xd25a: call _ExtAudioFileGetProperty
+  L_d26c:
+  0xd26c: call _printf
+  L_d270:
+  L_d272:
+  0xd274: cmp r0, #0
+  0xd278: blxne L_c2d3c
+  0xd28c: cmp r0, #3
+  0xd28e: blo L_d2a0
+  0xd29a: call _puts
+  0xd29e: b L_d270
+  L_d2a0:
+  0xd2d4: call _ExtAudioFileSetProperty
+  0xd2e6: b L_d26c
+  0xd2fa: call _ExtAudioFileGetProperty
+  0xd30c: b L_d26c
+  0xd318: call _malloc
+  0xd320: cmp r4, #0
+  0xd322: beq L_d272
+  0xd336: call _ExtAudioFileRead
+  0xd33c: cmp r5, #0
+  0xd33e: beq L_d354
+  0xd342: call _free
+  0xd352: b L_d26c
+  L_d354:
+  0xd360: cmp r1, #1
+  0xd378: b L_d272
+  0xd386: cmp r1, #0
+  0xd388: bne L_d3f4
+  0xd38c: call _AudioSessionSetActive
+  ; r0 = OFFSETOF(oalPlayback.context)
+  0xd39e: call _alcMakeContextCurrent
+  0xd3a2: call sub_3ccc
+  0xd3b4: [r0 setBCall:]  args=(1, ?)
+  0xd3d0: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, ?)
+  0xd3f0: b.w L_a90d0
+  L_d3f4:
+  0xd3f4: cmp r1, #1
+  0xd412: [r0 defaultCenter]  args=(_OBJC_CLASS_$_NSNotificationCenter, 0)
+  0xd42e: [r0 postNotificationName:object:]  args=(@"InterruptON", 0)
+  0xd434: call _AudioSessionSetActive
+  0xd43a: call _alcMakeContextCurrent
+  0xd452: call _CFDictionaryGetValue
+  0xd466: call _AudioSessionGetProperty

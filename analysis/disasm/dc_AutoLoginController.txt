@@ -1,0 +1,817 @@
+
+//// -[AutoLoginController initWithNibName:bundle:]  0x6ede4..0x6ee14  @16@0:4@8@12
+  6ede8  sub sp, #8
+  6edfc  sb = SEL(initWithNibName:bundle:)
+  6ee02  r1 = SEL(initWithNibName:bundle:)
+  6ee0a  r0 = [r0 initWithNibName:bundle:](?, ?) SUPER
+  6ee0e  add sp, #8
+  6ee10  return
+
+//// -[AutoLoginController viewDidLoad]  0x6ee14..0x6ee40  v8@0:4
+  6ee18  sub sp, #8
+  6ee2c  r1 = SEL(viewDidLoad)
+  6ee32  r1 = SEL(viewDidLoad)
+  6ee38  r0 = [r0 viewDidLoad](0xdb108/f1.25737e-39, ?) SUPER
+  6ee3c  add sp, #8
+  6ee3e  return
+
+//// -[AutoLoginController didReceiveMemoryWarning]  0x6ee40..0x6ee6c  v8@0:4
+  6ee44  sub sp, #8
+  6ee58  r1 = SEL(didReceiveMemoryWarning)
+  6ee5e  r1 = SEL(didReceiveMemoryWarning)
+  6ee64  r0 = [r0 didReceiveMemoryWarning](0xdb108/f1.25737e-39, ?) SUPER
+  6ee68  add sp, #8
+  6ee6a  return
+
+//// -[AutoLoginController dealloc]  0x6ee6c..0x6eed0  v8@0:4
+  6ee6e  add r7, sp, #8
+  6ee70  sub sp, #8
+  6ee80  r0 = IVOFF(rawData)
+  6ee86  r1 = SEL(release)
+  6ee88  r0 = IVOFF(rawData)
+  6ee8a  r5 = SEL(release)
+  6ee8c  r0 = self->rawData
+  6ee90  r0 = [self->rawData release](?, ?)
+  6ee9e  r0 = IVOFF(urlCon)
+  6eea0  r0 = IVOFF(urlCon)
+  6eea2  r0 = self->urlCon
+  6eea4  r0 = [self->urlCon release](?, ?)
+  6eeba  r0 = SEL(dealloc)
+  6eec2  r1 = SEL(dealloc)
+  6eec6  r0 = [r0 dealloc](?, ?) SUPER
+  6eeca  add sp, #8
+  6eecc  return
+
+//// -[AutoLoginController Login]  0x6eed0..0x6f0e8  v8@0:4
+  6eed2  add r7, sp, #0xc
+  6eed8  sub sp, #0x10
+  6eee8  r1 = IVOFF(bGetLoginKey)
+  6eef2  r0 = SEL(standardUserDefaults)
+  6eef4  r1 = IVOFF(bGetLoginKey)
+  6eefe  r2 = NSUserDefaults
+  6ef00  r6 = 1
+  6ef06  self->bGetLoginKey = 1
+  6ef0a  r3 = NSString
+  6ef0c  r1 = SEL(standardUserDefaults)
+  6ef0e  r0 = NSUserDefaults
+  6ef10  r5 = NSString
+  6ef12  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, NSString)
+  6ef22  r1 = SEL(objectForKey:)
+  6ef28  r2 = CFSTR('BASEURL')
+  6ef2a  r1 = SEL(objectForKey:)
+  6ef2c  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  6ef3e  r0 = SEL(stringWithFormat:)
+  6ef44  r2 = CFSTR('%@preLogin.php')
+  6ef46  r1 = SEL(stringWithFormat:)
+  6ef4a  r0 = [NSString stringWithFormat:](CFSTR('%@preLogin.php'), ?)
+  6ef60  r0 = SEL(alloc)
+  6ef62  r1 = NSMutableURLRequest
+  6ef64  r6 = SEL(alloc)
+  6ef66  r0 = NSMutableURLRequest
+  6ef6a  r0 = [NSMutableURLRequest alloc](?, ?)
+  6ef80  r0 = SEL(URLWithString:)
+  6ef82  r2 = NSURL
+  6ef84  r1 = SEL(URLWithString:)
+  6ef86  r0 = NSURL
+  6ef8a  r0 = [NSURL URLWithString:](?, ?)
+  6ef98  r0 = SEL(initWithURL:)
+  6ef9a  r1 = SEL(initWithURL:)
+  6ef9e  r0 = [r0 initWithURL:](?, ?)
+  6efb0  r0 = SEL(setHTTPMethod:)
+  6efb6  r2 = CFSTR('POST')
+  6efb8  r1 = SEL(setHTTPMethod:)
+  6efbc  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  6efca  r0 = NSURLConnection
+  6efcc  r0 = NSURLConnection
+  6efce  r0 = [NSURLConnection alloc](?, ?)
+  6efde  r1 = SEL(initWithRequest:delegate:)
+  6efe0  r1 = SEL(initWithRequest:delegate:)
+  6efe2  r0 = [r0 initWithRequest:delegate:](?, ?)
+  6efee  r1 = SEL(autorelease)
+  6eff0  r1 = SEL(autorelease)
+  6eff2  r0 = [r0 autorelease](?, ?)
+  6f000  r0 = SEL(setUrlCon:)
+  6f002  r1 = SEL(setUrlCon:)
+  6f006  r0 = [r0 setUrlCon:](?, ?)
+  6f01a  r0 = SEL(sharedApplication)
+  6f01c  r2 = UIApplication
+  6f01e  r1 = SEL(sharedApplication)
+  6f020  r0 = UIApplication
+  6f022  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  6f02a  r2 = 1
+  6f030  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f032  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f034  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  6f040  r0 = SEL(release)
+  6f042  r1 = SEL(release)
+  6f046  r0 = [r0 release](?, ?)
+  6f04e  sl = 0
+  6f05a  r0 = IVOFF(timerEnd)
+  6f060  r1 = IVOFF(reqTimer)
+  6f062  r0 = IVOFF(timerEnd)
+  6f064  r5 = IVOFF(reqTimer)
+  6f066  self->timerEnd = 0
+  6f06a  r0 = self->reqTimer
+  6f06e  cbnz self->reqTimer -> L_6f0ce
+  6f074  fp = 0
+  6f07c  r0 = SEL(isValid)
+  6f07e  r1 = SEL(isValid)
+  6f080  r0 = 0
+  6f082  r0 = [r0 isValid](?, ?)
+  6f08a  bne L_6f0ce
+  6f08c  vmov.f64 d16, #3.000000e+01
+  6f0a4  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  6f0a6  r4 = NSTimer
+  6f0a8  vmov r2, r3, d16
+  6f0b0  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  6f0b2  r6 = SEL(reqTimerMethod:)
+  6f0b4  r0 = NSTimer
+  6f0b6  r4 = SEL(reqTimerMethod:)
+  6f0c6  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  6f0ca  self->reqTimer = r0
+L_6f0ce:
+  6f0d6  r0 = IVOFF(reqOK)
+  6f0d8  r0 = IVOFF(reqOK)
+  6f0da  self->reqOK = 0
+  6f0de  add sp, #0x10
+  6f0e4  return
+
+//// -[AutoLoginController reqTimerMethod:]  0x6f0e8..0x6f184  v12@0:4@8
+  6f0f4  add r7, sp, #4
+  6f0f6  r0 = IVOFF(reqOK)
+  6f0f8  r0 = IVOFF(reqOK)
+  6f0fa  r1 = self->reqOK
+  6f0fc  cmp self->reqOK, 0
+  6f106  r3 = 1
+  6f114  r2 = UIApplication
+  6f116  r1 = SEL(sharedApplication)
+  6f118  self->reqOK = 1
+  6f11a  r1 = SEL(sharedApplication)
+  6f11c  r0 = UIApplication
+  6f11e  r0 = [UIApplication sharedApplication](UIApplication, 1)
+  6f126  r2 = 0
+  6f12c  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f12e  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f130  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  6f13c  r0 = SEL(urlCon)
+  6f13e  r1 = SEL(urlCon)
+  6f142  r0 = [r0 urlCon](?, ?)
+  6f14e  r1 = SEL(cancel)
+  6f150  r1 = SEL(cancel)
+  6f152  r0 = [r0 cancel](?, ?)
+  6f15a  r2 = 0
+  6f160  r0 = SEL(setUrlCon:)
+  6f162  r1 = SEL(setUrlCon:)
+  6f166  r0 = [r0 setUrlCon:](0, ?)
+  6f16e  r2 = 0
+  6f174  r0 = SEL(setRawData:)
+  6f176  r1 = SEL(setRawData:)
+  6f17e  b L_a90d0
+
+//// -[AutoLoginController alertView:clickedButtonAtIndex:]  0x6f184..0x6f1c0  v16@0:4@8i12
+  6f190  add r7, sp, #8
+  6f192  r0 = SEL(tag)
+  6f196  r1 = SEL(tag)
+  6f19a  r0 = [r0 tag](?, ?)
+  6f19e  cmp r0, 10
+  6f1a4  beq L_6f1a8
+  6f1a6  return
+L_6f1a8:
+  6f1b0  r0 = SEL(Login)
+  6f1b2  r1 = SEL(Login)
+  6f1ba  b L_a90d0
+
+//// -[AutoLoginController connection:didReceiveResponse:]  0x6f1c0..0x6f428  v16@0:4@8@12
+  6f1c2  add r7, sp, #0xc
+  6f1c8  sub sp, #0x84
+  6f1d6  r0 = ___stack_chk_guard
+  6f1d8  r1 = ___stack_chk_guard
+  6f1ee  r0 = SEL(data)
+  6f1f0  r2 = NSMutableData
+  6f1f4  r1 = SEL(data)
+  6f1f6  r0 = NSMutableData
+  6f1f8  r0 = [NSMutableData data](NSMutableData, ?)
+  6f206  r0 = SEL(setRawData:)
+  6f208  r1 = SEL(setRawData:)
+  6f20c  r0 = [r0 setRawData:](?, ?)
+  6f220  r0 = NSURL
+  6f222  r1 = SEL(URL)
+  6f224  r5 = NSURL
+  6f228  r1 = SEL(URL)
+  6f22a  r0 = [r0 URL](?, ?)
+  6f236  r1 = SEL(host)
+  6f238  r1 = SEL(host)
+  6f23a  r0 = [r0 host](?, ?)
+  6f248  r0 = SEL(URLWithString:)
+  6f24a  r1 = SEL(URLWithString:)
+  6f24e  r0 = [NSURL URLWithString:](?, ?)
+  6f266  r0 = NSHTTPCookie
+  6f268  r1 = SEL(allHeaderFields)
+  6f26a  r5 = NSHTTPCookie
+  6f26e  r1 = SEL(allHeaderFields)
+  6f270  r0 = [r0 allHeaderFields](?, ?)
+  6f280  r0 = SEL(cookiesWithResponseHeaderFields:forURL:)
+  6f282  r1 = SEL(cookiesWithResponseHeaderFields:forURL:)
+  6f286  r0 = [NSHTTPCookie cookiesWithResponseHeaderFields:forURL:](?, ?)
+  6f29c  r0 = SEL(dictionary)
+  6f29e  r2 = NSMutableDictionary
+  6f2a0  r1 = SEL(dictionary)
+  6f2a2  r0 = NSMutableDictionary
+  6f2a4  r0 = [NSMutableDictionary dictionary](NSMutableDictionary, ?)
+  6f2b2  r0 = SEL(count)
+  6f2b4  r1 = SEL(count)
+  6f2b8  r0 = [r0 count](?, ?)
+  6f2bc  cmp r0, 0
+  6f2be  beq L_6f412
+  6f2c6  add r2, sp, #0x60
+  6f2cc  vmov.i32 q8, #0
+  6f2d0  add.w r1, r2, #0x10
+  6f2d4  r0 = SEL(countByEnumeratingWithState:objects:count:)
+  6f2d6  add r3, sp, #0x20
+  6f2d8  vst1.32 {d16, d17}, [r1]
+  6f2dc  r1 = SEL(countByEnumeratingWithState:objects:count:)
+  6f2de  r0 = 16
+  6f2e4  vst1.32 {d16, d17}, [r2]
+  6f2ea  r0 = [r0 ??](?, ?)
+  6f2f0  cmp r5, 0
+  6f2f2  beq L_6f37e
+  6f30a  r1 = SEL(setObject:forKey:)
+  6f310  r2 = SEL(name)
+  6f312  r3 = SEL(value)
+  6f316  sb = SEL(name)
+  6f31a  r1 = SEL(setObject:forKey:)
+  6f31c  r2 = SEL(value)
+L_6f326:
+  6f326  r8 = 0
+L_6f32a:
+  6f32e  cmp r0, r4
+  6f344  r0 = [r0 ??](?, SEL(value))
+  6f350  r0 = [r0 ??](?, ?)
+  6f35c  r0 = [r0 ??](?, ?)
+  6f360  add.w r8, r8, #1
+  6f364  cmp r8, r5
+  6f366  blo L_6f32a
+  6f36a  r0 = 16
+  6f36c  add r2, sp, #0x60
+  6f36e  add r3, sp, #0x20
+  6f374  r0 = [r0 ??](?, ?)
+  6f37a  cmp r5, 0
+  6f37c  bne L_6f326
+L_6f37e:
+  6f37e  call sub_3ccc
+  6f394  r0 = NSString
+  6f396  r1 = SEL(objectForKey:)
+  6f398  r5 = NSString
+  6f3a2  r1 = SEL(objectForKey:)
+  6f3a6  r2 = CFSTR('PHPSESSID')
+  6f3a8  r0 = [r0 objectForKey:](CFSTR('PHPSESSID'), ?)
+  6f3ba  r0 = SEL(stringWithFormat:)
+  6f3c0  r2 = CFSTR('%@')
+  6f3c2  r1 = SEL(stringWithFormat:)
+  6f3c6  r0 = [NSString stringWithFormat:](CFSTR('%@'), ?)
+  6f3d4  r0 = SEL(setPHPSESSID:)
+  6f3d6  r1 = SEL(setPHPSESSID:)
+  6f3da  r0 = [r0 setPHPSESSID:](?, ?)
+  6f3ee  r0 = SEL(sharedHTTPCookieStorage)
+  6f3f0  r2 = NSHTTPCookieStorage
+  6f3f2  r1 = SEL(sharedHTTPCookieStorage)
+  6f3f4  r0 = NSHTTPCookieStorage
+  6f3f6  r0 = [NSHTTPCookieStorage sharedHTTPCookieStorage](NSHTTPCookieStorage, ?)
+  6f3fe  r2 = 0
+  6f406  r1 = SEL(setCookies:forURL:mainDocumentURL:)
+  6f40c  r1 = SEL(setCookies:forURL:mainDocumentURL:)
+  6f40e  r0 = [r0 setCookies:forURL:mainDocumentURL:](?, ?)
+L_6f412:
+  6f418  cmp r0, r1
+  6f424  call ___stack_chk_fail
+
+//// -[AutoLoginController connection:didReceiveData:]  0x6f428..0x6f454  v16@0:4@8@12
+  6f42e  add r7, sp, #4
+  6f436  r1 = SEL(rawData)
+  6f438  r1 = SEL(rawData)
+  6f43a  r0 = [r0 rawData](?, ?)
+  6f448  r1 = SEL(appendData:)
+  6f44a  r1 = SEL(appendData:)
+  6f450  b L_a90d0
+
+//// -[AutoLoginController connection:didFailWithError:]  0x6f454..0x6f584  v16@0:4@8@12
+  6f456  add r7, sp, #0xc
+  6f458  sub sp, #4
+  6f468  r0 = IVOFF(reqOK)
+  6f46e  r2 = IVOFF(timerEnd)
+  6f472  r1 = IVOFF(reqOK)
+  6f474  r0 = 1
+  6f476  self->reqOK = 1
+  6f478  r1 = IVOFF(timerEnd)
+  6f47a  r2 = self->timerEnd
+  6f47c  cbnz self->timerEnd -> L_6f4bc
+  6f486  self->timerEnd = 1
+  6f488  r2 = IVOFF(reqTimer)
+  6f48a  r6 = IVOFF(reqTimer)
+  6f48c  r0 = self->reqTimer
+  6f48e  cbz self->reqTimer -> L_6f4bc
+  6f498  r1 = SEL(isValid)
+  6f49a  r1 = SEL(isValid)
+  6f49c  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  6f4a4  beq L_6f4bc
+  6f4ae  r0 = SEL(invalidate)
+  6f4b0  r1 = SEL(invalidate)
+  6f4b2  r0 = self->reqTimer
+  6f4b4  r0 = [self->reqTimer invalidate](?, ?)
+  6f4b8  r0 = 0
+  6f4ba  self->reqTimer = 0
+L_6f4bc:
+  6f4cc  r0 = SEL(sharedApplication)
+  6f4ce  r2 = UIApplication
+  6f4d0  r1 = SEL(sharedApplication)
+  6f4d2  r0 = UIApplication
+  6f4d4  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  6f4dc  r2 = 0
+  6f4e2  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f4e4  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6f4e6  r0 = [r0 setNetworkActivityIndicatorVisible:](0, ?)
+  6f4f2  r0 = SEL(code)
+  6f4f4  r1 = SEL(code)
+  6f4f8  r0 = [r0 code](?, ?)
+  6f4fc  r1 = -1009
+  6f500  cmp r0, 4294966287
+  6f502  bne L_6f56a
+  6f510  r1 = _NSLocalizedDescriptionKey
+  6f51a  r2 = SEL(dictionaryWithObject:forKey:)
+  6f51c  r3 = _NSLocalizedDescriptionKey
+  6f522  r0 = NSDictionary
+  6f524  r1 = SEL(dictionaryWithObject:forKey:)
+  6f52e  r0 = NSDictionary
+  6f532  r2 = CFSTR('No Connection Error')
+  6f534  r0 = [NSDictionary dictionaryWithObject:forKey:](CFSTR('No Connection Error'), ?)
+  6f54c  r1 = _NSCocoaErrorDomain
+  6f552  r3 = NSError
+  6f554  r2 = SEL(errorWithDomain:code:userInfo:)
+  6f556  r6 = _NSCocoaErrorDomain
+  6f558  r3 = NSError
+  6f55a  r1 = SEL(errorWithDomain:code:userInfo:)
+  6f562  r3 = -1009
+  6f566  r0 = [NSError errorWithDomain:code:userInfo:](?, 0xfffffc0f/fnan)
+L_6f56a:
+  6f56e  r2 = 0
+  6f574  r0 = SEL(setUrlCon:)
+  6f576  r1 = SEL(setUrlCon:)
+  6f57a  add sp, #4
+  6f580  b L_a90d0
+
+//// -[AutoLoginController connectionDidFinishLoading:]  0x6f584..0x6fb14  v12@0:4@8
+  6f586  add r7, sp, #0xc
+  6f58c  sub sp, #0x10
+  6f59c  r0 = IVOFF(reqOK)
+  6f5a2  r2 = IVOFF(timerEnd)
+  6f5a4  r1 = IVOFF(reqOK)
+  6f5a6  r0 = 1
+  6f5a8  self->reqOK = 1
+  6f5ac  r1 = IVOFF(timerEnd)
+  6f5ae  r2 = self->timerEnd
+  6f5b2  cbnz self->timerEnd -> L_6f5fa
+  6f5bc  self->timerEnd = 1
+  6f5c0  r2 = IVOFF(reqTimer)
+  6f5c2  r4 = IVOFF(reqTimer)
+  6f5c4  r0 = self->reqTimer
+  6f5c8  cbz self->reqTimer -> L_6f5fa
+  6f5d2  r1 = SEL(isValid)
+  6f5d4  r1 = SEL(isValid)
+  6f5d6  r0 = [self->reqTimer isValid](IVOFF(reqTimer), ?)
+  6f5de  beq L_6f5fa
+  6f5e8  r0 = SEL(invalidate)
+  6f5ea  r1 = SEL(invalidate)
+  6f5ec  r0 = self->reqTimer
+  6f5f0  r0 = [self->reqTimer invalidate](?, ?)
+  6f5f4  r0 = 0
+  6f5f6  self->reqTimer = 0
+L_6f5fa:
+  6f602  r0 = IVOFF(bGetLoginKey)
+  6f604  r0 = IVOFF(bGetLoginKey)
+  6f606  r1 = self->bGetLoginKey
+  6f60a  cmp self->bGetLoginKey, 0
+  6f60c  beq L_6f772
+  6f614  r5 = 0
+  6f61a  self->bGetLoginKey = 0
+  6f61e  r1 = SEL(rawData)
+  6f622  r4 = SEL(rawData)
+  6f626  r0 = [r0 rawData](?, ?)
+  6f62a  cmp r0, 0
+  6f62c  beq L_6f936
+  6f640  r0 = SEL(alloc)
+  6f642  fp = NSString
+  6f644  r8 = SEL(alloc)
+  6f648  r0 = NSString
+  6f64e  r0 = [NSString alloc](?, ?)
+  6f658  r0 = [r0 rawData](?, ?)
+  6f666  r3 = 4
+  6f668  r0 = SEL(initWithData:encoding:)
+  6f66a  r1 = SEL(initWithData:encoding:)
+  6f66e  r0 = [r0 initWithData:encoding:](?, 4)
+  6f67a  r1 = SEL(autorelease)
+  6f67c  r1 = SEL(autorelease)
+  6f67e  r0 = [r0 autorelease](?, ?)
+  6f68a  r1 = SEL(objectFromJSONString)
+  6f68c  r1 = SEL(objectFromJSONString)
+  6f68e  r0 = [r0 objectFromJSONString](?, ?)
+  6f6a0  r0 = SEL(objectForKey:)
+  6f6a6  r2 = CFSTR('code')
+  6f6a8  r6 = SEL(objectForKey:)
+  6f6ae  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  6f6ba  r1 = SEL(intValue)
+  6f6bc  r1 = SEL(intValue)
+  6f6be  r0 = [r0 intValue](?, ?)
+  6f6ce  r2 = CFSTR('comment')
+  6f6d2  r0 = [r0 objectForKey:](CFSTR('comment'), ?)
+  6f6d6  cmp r4, 1000
+  6f6da  bne L_6f992
+  6f6de  r4 = NSString
+  6f6ec  r2 = CFSTR('server')
+  6f6f0  r0 = [r0 objectForKey:](CFSTR('server'), ?)
+  6f702  r0 = SEL(stringWithFormat:)
+  6f708  r2 = CFSTR('%@')
+  6f70a  r1 = SEL(stringWithFormat:)
+  6f70e  r0 = [NSString stringWithFormat:](CFSTR('%@'), ?)
+  6f724  r0 = SEL(standardUserDefaults)
+  6f726  r6 = NSUserDefaults
+  6f728  r4 = SEL(standardUserDefaults)
+  6f72a  r0 = NSUserDefaults
+  6f72e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6f740  r1 = SEL(setObject:forKey:)
+  6f746  r3 = CFSTR('BASEURL')
+  6f748  r1 = SEL(setObject:forKey:)
+  6f74a  r0 = [r0 setObject:forKey:](?, CFSTR('BASEURL'))
+  6f74e  r0 = NSUserDefaults
+  6f752  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6f75e  r1 = SEL(synchronize)
+  6f760  r1 = SEL(synchronize)
+  6f762  r0 = [r0 synchronize](?, ?)
+  6f76e  r0 = SEL(Login)
+  6f770  b L_6fa0c
+L_6f772:
+  6f77a  r0 = SEL(rawData)
+  6f77c  r4 = SEL(rawData)
+  6f782  r0 = [r0 rawData](?, ?)
+  6f786  cmp r0, 0
+  6f788  beq L_6fa12
+  6f79c  r0 = SEL(alloc)
+  6f79e  r1 = NSString
+  6f7a0  r8 = SEL(alloc)
+  6f7a4  r0 = NSString
+  6f7a8  r0 = [NSString alloc](?, ?)
+  6f7b2  r0 = [r0 rawData](?, ?)
+  6f7c0  r3 = 4
+  6f7c2  r0 = SEL(initWithData:encoding:)
+  6f7c4  r1 = SEL(initWithData:encoding:)
+  6f7c8  r0 = [r0 initWithData:encoding:](?, 4)
+  6f7d4  r1 = SEL(autorelease)
+  6f7d6  r1 = SEL(autorelease)
+  6f7d8  r0 = [r0 autorelease](?, ?)
+  6f7e4  r1 = SEL(objectFromJSONString)
+  6f7e6  r1 = SEL(objectFromJSONString)
+  6f7e8  r0 = [r0 objectFromJSONString](?, ?)
+  6f7fa  r0 = SEL(objectForKey:)
+  6f800  r2 = CFSTR('code')
+  6f802  r5 = SEL(objectForKey:)
+  6f808  r0 = [r0 objectForKey:](CFSTR('code'), ?)
+  6f814  r1 = SEL(intValue)
+  6f816  r1 = SEL(intValue)
+  6f818  r0 = [r0 intValue](?, ?)
+  6f828  r2 = CFSTR('comment')
+  6f82c  r0 = [r0 objectForKey:](CFSTR('comment'), ?)
+  6f832  cmp r4, 100
+  6f834  bne L_6fa2c
+  6f838  call sub_3ccc
+  6f844  r1 = SEL(g_email)
+  6f846  r1 = SEL(g_email)
+  6f848  r0 = [r0 g_email](?, ?)
+  6f858  r8 = CFSTR('key')
+  6f85e  r0 = [r0 objectForKey:](CFSTR('key'), ?)
+  6f86e  r0 = SEL(getKey:key:)
+  6f870  r1 = SEL(getKey:key:)
+  6f874  r0 = [r0 getKey:key:](?, ?)
+  6f880  r0 = [r0 objectForKey:](CFSTR('key'), ?)
+  6f894  r0 = SEL(standardUserDefaults)
+  6f896  r6 = NSUserDefaults
+  6f898  r5 = SEL(standardUserDefaults)
+  6f89a  r0 = NSUserDefaults
+  6f89e  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6f8b0  r1 = SEL(setObject:forKey:)
+  6f8b6  r3 = CFSTR('SCOREKEY')
+  6f8b8  r1 = SEL(setObject:forKey:)
+  6f8ba  r0 = [r0 setObject:forKey:](?, CFSTR('SCOREKEY'))
+  6f8be  r0 = NSUserDefaults
+  6f8c2  r0 = [NSUserDefaults standardUserDefaults](?, ?)
+  6f8ce  r1 = SEL(synchronize)
+  6f8d0  r1 = SEL(synchronize)
+  6f8d2  r0 = [r0 synchronize](?, ?)
+  6f8e6  r0 = SEL(defaultCenter)
+  6f8e8  r6 = NSNotificationCenter
+  6f8ea  r4 = SEL(defaultCenter)
+  6f8ec  r0 = NSNotificationCenter
+  6f8f0  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  6f8f8  r3 = 0
+  6f902  r1 = SEL(postNotificationName:object:)
+  6f908  r2 = CFSTR('LoadRankingData')
+  6f90a  r5 = SEL(postNotificationName:object:)
+  6f90e  r0 = [r0 postNotificationName:object:](CFSTR('LoadRankingData'), 0)
+  6f912  r0 = NSNotificationCenter
+  6f916  r0 = [NSNotificationCenter defaultCenter](?, ?)
+  6f924  r3 = 0
+  6f926  r2 = CFSTR('LoginScore')
+  6f928  add sp, #0x10
+  6f932  b L_a90d0
+L_6f936:
+  6f946  r0 = SEL(alloc)
+  6f948  r2 = UIAlertView
+  6f94a  r1 = SEL(alloc)
+  6f94c  r0 = UIAlertView
+  6f94e  r0 = [UIAlertView alloc](UIAlertView, 0)
+  6f976  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6f97c  r6 = CFSTR('Cancel')
+  6f982  r2 = CFSTR('No Connection Error')
+  6f984  r3 = CFSTR('Please, try again.')
+  6f986  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6f988  r4 = CFSTR('Try')
+  6f990  b L_6faca
+L_6f992:
+  6f992  cmp r4, 100
+  6f994  bne L_6fa78
+  6f996  call sub_3ccc
+  6f9a8  r8 = CFSTR('key')
+  6f9b0  r0 = [r0 ??](CFSTR('key'), ?)
+  6f9c2  r0 = SEL(stringWithFormat:)
+  6f9c8  r2 = CFSTR('%@')
+  6f9ca  r1 = SEL(stringWithFormat:)
+  6f9ce  r0 = [r0 stringWithFormat:](CFSTR('%@'), ?)
+  6f9dc  r0 = SEL(setG_key:)
+  6f9de  r1 = SEL(setG_key:)
+  6f9e2  r0 = [r0 setG_key:](?, ?)
+  6f9ee  r0 = SEL(g_key)
+  6f9f0  r1 = SEL(g_key)
+  6f9f4  r0 = [r0 g_key](?, ?)
+  6f9fe  r0 = [r0 ??](CFSTR('key'), ?)
+  6fa0a  r0 = SEL(sendMD5LoginKey)
+L_6fa0c:
+  6fa0c  r1 = SEL(sendMD5LoginKey)
+  6fa10  b L_6fb04
+L_6fa12:
+  6fa22  r0 = SEL(alloc)
+  6fa24  r2 = UIAlertView
+  6fa26  r1 = SEL(alloc)
+  6fa28  r0 = UIAlertView
+  6fa2a  b L_6fa86
+L_6fa2c:
+  6fa36  r0 = UIAlertView
+  6fa38  r0 = UIAlertView
+  6fa3a  r0 = [UIAlertView ??](UIAlertView, ?)
+  6fa42  r5 = 0
+  6fa5c  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6fa62  r3 = CFSTR('Cancel')
+  6fa6a  r6 = CFSTR('Try')
+  6fa6e  r2 = CFSTR('No Connection Error')
+  6fa74  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6fa76  b L_6faca
+L_6fa78:
+  6fa82  r0 = UIAlertView
+  6fa84  r0 = UIAlertView
+L_6fa86:
+  6fa86  r0 = [UIAlertView ??](CFSTR('No Connection Error'), ?)
+  6fa8e  r4 = 0
+  6faa0  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6faaa  r2 = CFSTR('No Connection Error')
+  6fab0  r1 = SEL(initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:)
+  6fab6  r3 = CFSTR('Please, try again.')
+  6fabc  r6 = CFSTR('Cancel')
+  6fac2  r5 = CFSTR('Try')
+L_6faca:
+  6faca  r0 = [r0 initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:](CFSTR('No Connection Error'), CFSTR('Please, try again.'))
+  6fad8  r2 = 10
+  6fada  r0 = SEL(setTag:)
+  6fadc  r1 = SEL(setTag:)
+  6fae0  r0 = [r0 setTag:](10, ?)
+  6faec  r0 = SEL(show)
+  6faee  r1 = SEL(show)
+  6faf2  r0 = [r0 show](?, ?)
+  6fafe  r0 = SEL(release)
+  6fb00  r1 = SEL(release)
+L_6fb04:
+  6fb04  add sp, #0x10
+  6fb0e  b L_a90d0
+
+//// -[AutoLoginController sendMD5LoginKey]  0x6fb14..0x6fe64  v8@0:4
+  6fb16  add r7, sp, #0xc
+  6fb1c  sub sp, #0x18
+  6fb20  call sub_3ccc
+  6fb2e  r0 = SEL(g_email)
+  6fb30  fp = SEL(g_email)
+  6fb38  r0 = [r0 g_email](?, ?)
+  6fb44  r1 = SEL(length)
+  6fb46  r8 = SEL(length)
+  6fb4c  r0 = [r0 length](?, ?)
+  6fb50  cbnz r0 -> L_6fb9c
+  6fb62  r0 = SEL(standardUserDefaults)
+  6fb64  r2 = NSUserDefaults
+  6fb66  r1 = SEL(standardUserDefaults)
+  6fb68  r0 = NSUserDefaults
+  6fb6a  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  6fb7a  r1 = SEL(objectForKey:)
+  6fb80  r2 = CFSTR('EMAIL')
+  6fb82  r1 = SEL(objectForKey:)
+  6fb84  r0 = [r0 objectForKey:](CFSTR('EMAIL'), ?)
+  6fb92  r0 = SEL(setG_email:)
+  6fb94  r1 = SEL(setG_email:)
+  6fb98  r0 = [r0 setG_email:](?, ?)
+L_6fb9c:
+  6fbb4  r0 = SEL(standardUserDefaults)
+  6fbb6  r2 = NSUserDefaults
+  6fbb8  r4 = NSString
+  6fbba  r1 = SEL(standardUserDefaults)
+  6fbbc  r0 = NSUserDefaults
+  6fbbe  r5 = NSString
+  6fbc0  r0 = [NSUserDefaults standardUserDefaults](NSUserDefaults, ?)
+  6fbd0  r1 = SEL(objectForKey:)
+  6fbd6  r2 = CFSTR('BASEURL')
+  6fbd8  r1 = SEL(objectForKey:)
+  6fbda  r0 = [r0 objectForKey:](CFSTR('BASEURL'), ?)
+  6fbec  r0 = SEL(stringWithFormat:)
+  6fbf2  r2 = CFSTR('%@login2.php')
+  6fbf4  sl = SEL(stringWithFormat:)
+  6fbfc  r0 = [NSString stringWithFormat:](CFSTR('%@login2.php'), ?)
+  6fc06  r0 = [r0 g_email](?, ?)
+  6fc14  r0 = SEL(g_key)
+  6fc16  r1 = SEL(g_key)
+  6fc1a  r0 = [r0 g_key](?, ?)
+  6fc24  r0 = [r0 length](?, ?)
+  6fc28  cmp r0, 0
+  6fc2e  beq L_6fe5a
+  6fc36  r0 = [r0 length](?, ?)
+  6fc3a  cmp r0, 0
+  6fc40  beq L_6fe5a
+  6fc52  r0 = SEL(getKey:key:)
+  6fc56  r4 = NSString
+  6fc58  r1 = SEL(getKey:key:)
+  6fc5c  r0 = [r0 getKey:key:](?, ?)
+  6fc6c  r2 = CFSTR('email=%@&key=%@')
+  6fc72  r0 = [NSString stringWithFormat:](CFSTR('email=%@&key=%@'), ?)
+  6fc88  r0 = NSData
+  6fc8a  r1 = SEL(UTF8String)
+  6fc8c  r4 = NSData
+  6fc90  r1 = SEL(UTF8String)
+  6fc92  r0 = [r0 UTF8String](?, ?)
+  6fc9c  r0 = [r0 length](?, ?)
+  6fcac  r0 = SEL(dataWithBytes:length:)
+  6fcae  r1 = SEL(dataWithBytes:length:)
+  6fcb2  r0 = [NSData dataWithBytes:length:](?, ?)
+  6fcc8  r0 = SEL(alloc)
+  6fcca  r1 = NSMutableURLRequest
+  6fccc  r5 = SEL(alloc)
+  6fcce  r0 = NSMutableURLRequest
+  6fcd2  r0 = [NSMutableURLRequest alloc](?, ?)
+  6fce8  r0 = SEL(URLWithString:)
+  6fcea  r2 = NSURL
+  6fcec  r1 = SEL(URLWithString:)
+  6fcee  r0 = NSURL
+  6fcf2  r0 = [NSURL URLWithString:](?, ?)
+  6fd00  r0 = SEL(initWithURL:)
+  6fd02  r1 = SEL(initWithURL:)
+  6fd06  r0 = [r0 initWithURL:](?, ?)
+  6fd18  r0 = SEL(setHTTPMethod:)
+  6fd1e  r2 = CFSTR('POST')
+  6fd20  r1 = SEL(setHTTPMethod:)
+  6fd24  r0 = [r0 setHTTPMethod:](CFSTR('POST'), ?)
+  6fd32  r0 = SEL(setHTTPBody:)
+  6fd34  r1 = SEL(setHTTPBody:)
+  6fd38  r0 = [r0 setHTTPBody:](?, ?)
+  6fd46  r0 = NSURLConnection
+  6fd48  r0 = NSURLConnection
+  6fd4a  r0 = [NSURLConnection alloc](?, ?)
+  6fd5a  r1 = SEL(initWithRequest:delegate:)
+  6fd5c  r1 = SEL(initWithRequest:delegate:)
+  6fd5e  r0 = [r0 initWithRequest:delegate:](?, ?)
+  6fd6a  r1 = SEL(autorelease)
+  6fd6c  r1 = SEL(autorelease)
+  6fd6e  r0 = [r0 autorelease](?, ?)
+  6fd7c  r0 = SEL(setUrlCon:)
+  6fd7e  r1 = SEL(setUrlCon:)
+  6fd82  r0 = [r0 setUrlCon:](?, ?)
+  6fd96  r0 = SEL(sharedApplication)
+  6fd98  r2 = UIApplication
+  6fd9a  r1 = SEL(sharedApplication)
+  6fd9c  r0 = UIApplication
+  6fd9e  r0 = [UIApplication sharedApplication](UIApplication, ?)
+  6fda6  r2 = 1
+  6fdac  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6fdae  r1 = SEL(setNetworkActivityIndicatorVisible:)
+  6fdb0  r0 = [r0 setNetworkActivityIndicatorVisible:](1, ?)
+  6fdbc  r0 = SEL(release)
+  6fdbe  r1 = SEL(release)
+  6fdc2  r0 = [r0 release](?, ?)
+  6fdca  r8 = 0
+  6fdd6  r0 = IVOFF(timerEnd)
+  6fddc  r1 = IVOFF(reqTimer)
+  6fdde  r0 = IVOFF(timerEnd)
+  6fde0  r5 = IVOFF(reqTimer)
+  6fde2  self->timerEnd = 0
+  6fde6  r0 = self->reqTimer
+  6fdea  cbnz self->reqTimer -> L_6fe4a
+  6fdf0  sl = 0
+  6fdf8  r0 = SEL(isValid)
+  6fdfa  r1 = SEL(isValid)
+  6fdfc  r0 = 0
+  6fdfe  r0 = [r0 isValid](?, ?)
+  6fe06  bne L_6fe4a
+  6fe08  vmov.f64 d16, #3.000000e+01
+  6fe20  r0 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  6fe22  r4 = NSTimer
+  6fe24  vmov r2, r3, d16
+  6fe2c  r1 = SEL(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)
+  6fe2e  r6 = SEL(reqTimerMethod:)
+  6fe30  r0 = NSTimer
+  6fe32  r4 = SEL(reqTimerMethod:)
+  6fe42  r0 = [NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:](?, ?)
+  6fe46  self->reqTimer = r0
+L_6fe4a:
+  6fe52  r0 = IVOFF(reqOK)
+  6fe54  r0 = IVOFF(reqOK)
+  6fe56  self->reqOK = 0
+L_6fe5a:
+  6fe5a  add sp, #0x18
+  6fe60  return
+
+//// -[AutoLoginController getKey:key:]  0x6fe64..0x6feac  @16@0:4@8@12
+  6fe68  sub sp, #4
+  6fe7a  r0 = SEL(stringWithFormat:)
+  6fe7c  sb = NSString
+  6fe7e  r1 = SEL(stringWithFormat:)
+  6fe80  r0 = NSString
+  6fe8e  sb = CFSTR('%@%@ETAhZgUGfiaVOpRh')
+  6fe92  r0 = [NSString stringWithFormat:](CFSTR('%@%@ETAhZgUGfiaVOpRh'), ?)
+  6fe9e  r1 = SEL(MD5)
+  6fea0  r1 = SEL(MD5)
+  6fea2  add sp, #4
+  6fea8  b L_a90d0
+
+//// -[AutoLoginController rawData]  0x6feac..0x6febc  @8@0:4
+  6feb4  r1 = IVOFF(rawData)
+  6feb6  r1 = IVOFF(rawData)
+  6feb8  r0 = self->rawData
+
+//// -[AutoLoginController setRawData:]  0x6febc..0x6fee0  v12@0:4@8
+  6fec0  sub sp, #8
+  6fecc  r3 = 0
+  6fece  r2 = IVOFF(rawData)
+  6fed6  r2 = IVOFF(rawData)
+  6fed8  call _objc_setProperty
+  6fedc  add sp, #8
+  6fede  return
+
+//// -[AutoLoginController urlCon]  0x6fee0..0x6fef0  @8@0:4
+  6fee8  r1 = IVOFF(urlCon)
+  6feea  r1 = IVOFF(urlCon)
+  6feec  r0 = self->urlCon
+
+//// -[AutoLoginController setUrlCon:]  0x6fef0..0x70020  v12@0:4@8
+  6fef4  sub sp, #8
+  6ff00  r3 = 0
+  6ff02  r2 = IVOFF(urlCon)
+  6ff0a  r2 = IVOFF(urlCon)
+  6ff0c  call _objc_setProperty
+  6ff10  add sp, #8
+  6ff12  return
+  6ff1a  add r7, sp, #0xc
+  6ff30  r0 = SEL(alloc)
+  6ff32  r1 = NSAutoreleasePool
+  6ff34  r6 = SEL(alloc)
+  6ff36  r0 = NSAutoreleasePool
+  6ff3a  r0 = [NSAutoreleasePool alloc](?, ?)
+  6ff46  r1 = SEL(init)
+  6ff48  sl = SEL(init)
+  6ff4e  r0 = [r0 init](?, ?)
+  6ff5c  r0 = 'JKArray'
+  6ff5e  call _objc_getClass
+  6ff6e  call _class_getInstanceSize
+  6ff7c  cmp r1, 16
+  6ff7e  r0 = 'JKDictionary'
+  6ff86  call _objc_getClass
+  6ff8c  call _class_getInstanceSize
+  6ff94  cmp r0, 16
+  6ffa2  r1 = SEL(class)
+  6ffa4  fp = NSNumber
+  6ffac  r1 = SEL(class)
+  6ffae  r0 = NSNumber
+  6ffb2  r0 = [NSNumber class](?, ?)
+  6ffc2  r1 = SEL(methodForSelector:)
+  6ffc4  r0 = NSNumber
+  6ffc8  r4 = SEL(methodForSelector:)
+  6ffcc  r0 = [NSNumber methodForSelector:](SEL(alloc), ?)
+  6ffd4  r0 = NSNumber
+  6ffd8  r0 = [NSNumber alloc](?, ?)
+  6ffe8  r0 = SEL(initWithUnsignedLongLong:)
+  6ffea  r2 = SEL(initWithUnsignedLongLong:)
+  6ffee  r0 = [r0 methodForSelector:](SEL(initWithUnsignedLongLong:), ?)
+  6fff8  r0 = [r0 init](?, ?)
+  70004  r1 = SEL(release)
+  70006  r4 = SEL(release)
+  7000a  r0 = [r0 release](?, ?)
+  7001a  b L_a90d0

@@ -1,0 +1,375 @@
+====================================================================================================
+@interface MakeMaps : ?0x0   // instanceSize=0x10 start=0x4
+-- IVARS (3) --
+  +0x4    dataIN                       c
+  +0x8    maps                         @"NSMutableArray"
+  +0xc    mapsFollowing                @"NSMutableArray"
+-- METHODS (12) --
+  - 0x0000f0ed  DataInMethodXplot:yPlot:data:                      @20@0:4i8i12@16
+  - 0x0000f1d5  initWithMapsX:MapsY:MapsData:                      @20@0:4@8@12@16
+  - 0x0000f3bd  initWithMapGroundFile:soundPosFileName:            @16@0:4@8@12
+  - 0x0000f6b1  initWithMapGroundFileString:soundPosFileName:actionPosFileName: @20@0:4@8@12@16
+  - 0x0000f951  MovingPlotX:PlotY:                                 @16@0:4i8i12
+  - 0x0000fa55  movePlayGroundState:PlotY:                         i16@0:4i8i12
+  - 0x0000fab9  movePlayActionState:PlotY:                         i16@0:4i8i12
+  - 0x0000fb1d  dealloc                                            v8@0:4
+  - 0x0000fb81  maps                                               @8@0:4
+  - 0x0000fb91  setMaps:                                           v12@0:4@8
+  - 0x0000fbb5  mapsFollowing                                      @8@0:4
+  - 0x0000fbc5  setMapsFollowing:                                  v12@0:4@8
+====================================================================================================
+@interface MonsterControl : ?0x0   // instanceSize=0xd0 start=0x4
+-- IVARS (50) --
+  +0x4    MainMonsterTimer             @"NSTimer"
+  +0x8    comingBreathTimer            @"NSTimer"
+  +0xc    monsterCount                 i
+  +0x10   MovingCount                  i
+  +0x14   MonsterSoundNumberInWalk     i
+  +0x18   MonsterMovingAngleTimer      @"NSTimer"
+  +0x1c   MovingAngleTurn              c
+  +0x20   comingMonsterStopSoundNumber i
+  +0x24   headShotTimer                @"NSTimer"
+  +0x28   monsterHeadShotArrayCount    i
+  +0x2c   monsterHeadShotTimeCount     i
+  +0x30   monsterFlag                  c
+  +0x34   Pos                          {CGPoint="x"f"y"f}
+  +0x3c   workingSoundTime             f
+  +0x40   MovingType                   i
+  +0x44   HP                           i
+  +0x48   Damage                       i
+  +0x4c   comingSound                  i
+  +0x50   comingSoundGain              f
+  +0x54   comingSoundTime              f
+  +0x58   comingSoundInWalk            i
+  +0x5c   comingRange                  i
+  +0x60   hitSound                     i
+  +0x64   hitSoundTime                 f
+  +0x68   hitSoundGain                 f
+  +0x6c   dieSound                     i
+  +0x70   dieSoundTime                 f
+  +0x74   dieSoundgain                 f
+  +0x78   playerHitSound               i
+  +0x7c   playerHitSoundGain           f
+  +0x80   playerHitSoundtimer          f
+  +0x84   headShotTimeStart            f
+  +0x88   headShotTimeEndHowLong       f
+  +0x8c   headShotFlag                 c
+  +0x90   monsterNumber                i
+  +0x94   shakeMonsterFlag             c
+  +0x98   shakeMonsterNumber           i
+  +0x9c   shakeMonsterSoundGain        f
+  +0xa0   shakeMonsterApproachSound    i
+  +0xa4   shakeMonsterApproachTime     f
+  +0xa8   shakeMonsterApproachGain     f
+  +0xac   shakeMonsterPushSound        i
+  +0xb0   shakeMonsterPushTime         f
+  +0xb4   shakeMoneterPushGain         f
+  +0xb8   monsterPi                    f
+  +0xbc   monsterRange                 f
+  +0xc0   MovingPosAngle               i
+  +0xc4   monsterHeadShotArray         @"NSMutableArray"
+  +0xc8   isHeadShot                   c
+  +0xcc   monsterChangeAngle           i
+-- METHODS (96) --
+  - 0x00010619  initWithMonsterPatern:soundController:comingSound:hitSound:damageSound:diesound:shakeApproach:shakwPush:HPGain: @44@0:4i8@12i16i20i24i28i32i36f40
+  - 0x00010ca9  StopPlayGame                                       v8@0:4
+  - 0x00010d99  ReplayGame                                         v8@0:4
+  - 0x00010dad  MonsterStart:                                      v12@0:4@8
+  - 0x00010f39  MonsterMoving:                                     v12@0:4@8
+  - 0x00011921  MonsterComing:                                     v12@0:4@8
+  - 0x00011b31  headShot:                                          v12@0:4@8
+  - 0x00011ccd  headShotEnd:                                       v12@0:4@8
+  - 0x00011ce1  shakeMonster                                       v8@0:4
+  - 0x00011e45  stopShakeMonsterSound:                             v12@0:4@8
+  - 0x00011e7d  hitPlayer                                          v8@0:4
+  - 0x00011fed  MonsterHitAndDead                                  v8@0:4
+  - 0x00012055  stopMonsterComingSound:                            v12@0:4@8
+  - 0x00012091  MonsterHitSoundDealloc                             v8@0:4
+  - 0x000120d5  MonsterHitSound:                                   v12@0:4@8
+  - 0x0001222d  DieMonster                                         v8@0:4
+  - 0x00012429  MonsterDead                                        v8@0:4
+  - 0x00012459  dealloc                                            v8@0:4
+  - 0x000124a5  monsterFlag                                        c8@0:4
+  - 0x000124bd  setMonsterFlag:                                    v12@0:4c8
+  - 0x000124d5  Pos                                                {CGPoint=ff}8@0:4
+  - 0x000124f9  setPos:                                            v16@0:4{CGPoint=ff}8
+  - 0x00012525  workingSoundTime                                   f8@0:4
+  - 0x00012539  setWorkingSoundTime:                               v12@0:4f8
+  - 0x00012551  MovingType                                         i8@0:4
+  - 0x00012565  setMovingType:                                     v12@0:4i8
+  - 0x0001257d  HP                                                 i8@0:4
+  - 0x00012591  setHP:                                             v12@0:4i8
+  - 0x000125a9  Damage                                             i8@0:4
+  - 0x000125bd  setDamage:                                         v12@0:4i8
+  - 0x000125d5  comingSound                                        i8@0:4
+  - 0x000125e9  setComingSound:                                    v12@0:4i8
+  - 0x00012601  comingSoundGain                                    f8@0:4
+  - 0x00012615  setComingSoundGain:                                v12@0:4f8
+  - 0x0001262d  comingSoundTime                                    f8@0:4
+  - 0x00012641  setComingSoundTime:                                v12@0:4f8
+  - 0x00012659  comingSoundInWalk                                  i8@0:4
+  - 0x0001266d  setComingSoundInWalk:                              v12@0:4i8
+  - 0x00012685  comingRange                                        i8@0:4
+  - 0x00012699  setComingRange:                                    v12@0:4i8
+  - 0x000126b1  hitSound                                           i8@0:4
+  - 0x000126c5  setHitSound:                                       v12@0:4i8
+  - 0x000126dd  hitSoundTime                                       f8@0:4
+  - 0x000126f1  setHitSoundTime:                                   v12@0:4f8
+  - 0x00012709  hitSoundGain                                       f8@0:4
+  - 0x0001271d  setHitSoundGain:                                   v12@0:4f8
+  - 0x00012735  dieSound                                           i8@0:4
+  - 0x00012749  setDieSound:                                       v12@0:4i8
+  - 0x00012761  dieSoundTime                                       f8@0:4
+  - 0x00012775  setDieSoundTime:                                   v12@0:4f8
+  - 0x0001278d  dieSoundgain                                       f8@0:4
+  - 0x000127a1  setDieSoundgain:                                   v12@0:4f8
+  - 0x000127b9  playerHitSound                                     i8@0:4
+  - 0x000127cd  setPlayerHitSound:                                 v12@0:4i8
+  - 0x000127e5  playerHitSoundGain                                 f8@0:4
+  - 0x000127f9  setPlayerHitSoundGain:                             v12@0:4f8
+  - 0x00012811  playerHitSoundtimer                                f8@0:4
+  - 0x00012825  setPlayerHitSoundtimer:                            v12@0:4f8
+  - 0x0001283d  headShotTimeStart                                  f8@0:4
+  - 0x00012851  setHeadShotTimeStart:                              v12@0:4f8
+  - 0x00012869  headShotTimeEndHowLong                             f8@0:4
+  - 0x0001287d  setHeadShotTimeEndHowLong:                         v12@0:4f8
+  - 0x00012895  headShotFlag                                       c8@0:4
+  - 0x000128ad  setHeadShotFlag:                                   v12@0:4c8
+  - 0x000128c5  monsterNumber                                      i8@0:4
+  - 0x000128d9  setMonsterNumber:                                  v12@0:4i8
+  - 0x000128f1  shakeMonsterFlag                                   c8@0:4
+  - 0x00012909  setShakeMonsterFlag:                               v12@0:4c8
+  - 0x00012921  shakeMonsterNumber                                 i8@0:4
+  - 0x00012935  setShakeMonsterNumber:                             v12@0:4i8
+  - 0x0001294d  shakeMonsterSoundGain                              f8@0:4
+  - 0x00012961  setShakeMonsterSoundGain:                          v12@0:4f8
+  - 0x00012979  shakeMonsterApproachSound                          i8@0:4
+  - 0x0001298d  setShakeMonsterApproachSound:                      v12@0:4i8
+  - 0x000129a5  shakeMonsterApproachTime                           f8@0:4
+  - 0x000129b9  setShakeMonsterApproachTime:                       v12@0:4f8
+  - 0x000129d1  shakeMonsterApproachGain                           f8@0:4
+  - 0x000129e5  setShakeMonsterApproachGain:                       v12@0:4f8
+  - 0x000129fd  shakeMonsterPushSound                              i8@0:4
+  - 0x00012a11  setShakeMonsterPushSound:                          v12@0:4i8
+  - 0x00012a29  shakeMonsterPushTime                               f8@0:4
+  - 0x00012a3d  setShakeMonsterPushTime:                           v12@0:4f8
+  - 0x00012a55  shakeMoneterPushGain                               f8@0:4
+  - 0x00012a69  setShakeMoneterPushGain:                           v12@0:4f8
+  - 0x00012a81  monsterPi                                          f8@0:4
+  - 0x00012a95  setMonsterPi:                                      v12@0:4f8
+  - 0x00012aad  monsterRange                                       f8@0:4
+  - 0x00012ac1  setMonsterRange:                                   v12@0:4f8
+  - 0x00012ad9  MovingPosAngle                                     i8@0:4
+  - 0x00012aed  setMovingPosAngle:                                 v12@0:4i8
+  - 0x00012b05  monsterHeadShotArray                               @8@0:4
+  - 0x00012b15  setMonsterHeadShotArray:                           v12@0:4@8
+  - 0x00012b39  isHeadShot                                         c8@0:4
+  - 0x00012b51  setIsHeadShot:                                     v12@0:4c8
+  - 0x00012b69  monsterChangeAngle                                 i8@0:4
+  - 0x00012b7d  setMonsterChangeAngle:                             v12@0:4i8
+====================================================================================================
+@interface PlayerControl : ?0x0   // instanceSize=0x5c start=0x4
+-- IVARS (22) --
+  +0x4    HP                           i
+  +0x8    useWepon                     i
+  +0xc    killMonsterCount             i
+  +0x10   HeadShotCount                i
+  +0x14   playerXplot                  i
+  +0x18   playerYplot                  i
+  +0x1c   gunEggCountAll               i
+  +0x20   gunEggCountShot              i
+  +0x24   gunEggCout                   i
+  +0x28   gunDamage                    i
+  +0x2c   killMonster1count            i
+  +0x30   killMonster2count            i
+  +0x34   killMonster3count            i
+  +0x38   killMonster4count            i
+  +0x3c   killMonster5count            i
+  +0x40   killMonster6count            i
+  +0x44   killMonster7count            i
+  +0x48   killMonster8count            i
+  +0x4c   killMonster9count            i
+  +0x50   killMonster10count           i
+  +0x54   killMonster11count           i
+  +0x58   killMonster5000count         i
+-- METHODS (45) --
+  - 0x00012b95  dealloc                                            v8@0:4
+  - 0x00012bc1  HP                                                 i8@0:4
+  - 0x00012bd5  setHP:                                             v12@0:4i8
+  - 0x00012bed  useWepon                                           i8@0:4
+  - 0x00012c01  setUseWepon:                                       v12@0:4i8
+  - 0x00012c19  killMonsterCount                                   i8@0:4
+  - 0x00012c2d  setKillMonsterCount:                               v12@0:4i8
+  - 0x00012c45  HeadShotCount                                      i8@0:4
+  - 0x00012c59  setHeadShotCount:                                  v12@0:4i8
+  - 0x00012c71  playerXplot                                        i8@0:4
+  - 0x00012c85  setPlayerXplot:                                    v12@0:4i8
+  - 0x00012c9d  playerYplot                                        i8@0:4
+  - 0x00012cb1  setPlayerYplot:                                    v12@0:4i8
+  - 0x00012cc9  gunEggCountAll                                     i8@0:4
+  - 0x00012cdd  setGunEggCountAll:                                 v12@0:4i8
+  - 0x00012cf5  gunEggCountShot                                    i8@0:4
+  - 0x00012d09  setGunEggCountShot:                                v12@0:4i8
+  - 0x00012d21  gunEggCout                                         i8@0:4
+  - 0x00012d35  setGunEggCout:                                     v12@0:4i8
+  - 0x00012d4d  gunDamage                                          i8@0:4
+  - 0x00012d61  setGunDamage:                                      v12@0:4i8
+  - 0x00012d79  killMonster1count                                  i8@0:4
+  - 0x00012d8d  setKillMonster1count:                              v12@0:4i8
+  - 0x00012da5  killMonster2count                                  i8@0:4
+  - 0x00012db9  setKillMonster2count:                              v12@0:4i8
+  - 0x00012dd1  killMonster3count                                  i8@0:4
+  - 0x00012de5  setKillMonster3count:                              v12@0:4i8
+  - 0x00012dfd  killMonster4count                                  i8@0:4
+  - 0x00012e11  setKillMonster4count:                              v12@0:4i8
+  - 0x00012e29  killMonster5count                                  i8@0:4
+  - 0x00012e3d  setKillMonster5count:                              v12@0:4i8
+  - 0x00012e55  killMonster6count                                  i8@0:4
+  - 0x00012e69  setKillMonster6count:                              v12@0:4i8
+  - 0x00012e81  killMonster7count                                  i8@0:4
+  - 0x00012e95  setKillMonster7count:                              v12@0:4i8
+  - 0x00012ead  killMonster8count                                  i8@0:4
+  - 0x00012ec1  setKillMonster8count:                              v12@0:4i8
+  - 0x00012ed9  killMonster9count                                  i8@0:4
+  - 0x00012eed  setKillMonster9count:                              v12@0:4i8
+  - 0x00012f05  killMonster10count                                 i8@0:4
+  - 0x00012f19  setKillMonster10count:                             v12@0:4i8
+  - 0x00012f31  killMonster11count                                 i8@0:4
+  - 0x00012f45  setKillMonster11count:                             v12@0:4i8
+  - 0x00012f5d  killMonster5000count                               i8@0:4
+  - 0x00012f71  setKillMonster5000count:                           v12@0:4i8
+====================================================================================================
+@interface WeaponControl : ?0x0   // instanceSize=0x7c start=0x4
+-- IVARS (30) --
+  +0x4    firstFlag                    c
+  +0x8    WeaponNumber                 i
+  +0xc    Damage                       i
+  +0x10   Range                        i
+  +0x14   BulletCount                  i
+  +0x18   ShotSpeed                    f
+  +0x1c   ShotSoundNumber              i
+  +0x20   ShotSoundgain                f
+  +0x24   ReloadSoundnumber            i
+  +0x28   ReloadSoundGain              f
+  +0x2c   ShotTime                     f
+  +0x30   ReloadTime                   f
+  +0x34   weaponChangeSoundNumber      i
+  +0x38   weaponChangeSoundGain        f
+  +0x3c   array                        @"NSArray"
+  +0x40   att1SoundNumber              i
+  +0x44   att2SoundNumber              i
+  +0x48   att3SoundNumber              i
+  +0x4c   att4SoundNumber              i
+  +0x50   att5SoundNumber              i
+  +0x54   att1SoundGain                f
+  +0x58   att2SoundGain                f
+  +0x5c   att3SoundGain                f
+  +0x60   att4SoundGain                f
+  +0x64   att5SoundGain                f
+  +0x68   att1SoundTime                f
+  +0x6c   att2SoundTime                f
+  +0x70   att3SoundTime                f
+  +0x74   att4SoundTime                f
+  +0x78   att5SoundTime                f
+-- METHODS (61) --
+  - 0x00022069  dealloc                                            v8@0:4
+  - 0x000220b5  loadWeaponForGun:fileType:                         v16@0:4@8@12
+  - 0x0002274d  ReloadGun                                          i8@0:4
+  - 0x00022789  WeaponNumber                                       i8@0:4
+  - 0x0002279d  setWeaponNumber:                                   v12@0:4i8
+  - 0x000227b5  Damage                                             i8@0:4
+  - 0x000227c9  setDamage:                                         v12@0:4i8
+  - 0x000227e1  Range                                              i8@0:4
+  - 0x000227f5  setRange:                                          v12@0:4i8
+  - 0x0002280d  BulletCount                                        i8@0:4
+  - 0x00022821  setBulletCount:                                    v12@0:4i8
+  - 0x00022839  ShotSpeed                                          f8@0:4
+  - 0x0002284d  setShotSpeed:                                      v12@0:4f8
+  - 0x00022865  ShotSoundNumber                                    i8@0:4
+  - 0x00022879  setShotSoundNumber:                                v12@0:4i8
+  - 0x00022891  ShotSoundgain                                      f8@0:4
+  - 0x000228a5  setShotSoundgain:                                  v12@0:4f8
+  - 0x000228bd  ReloadSoundnumber                                  i8@0:4
+  - 0x000228d1  setReloadSoundnumber:                              v12@0:4i8
+  - 0x000228e9  ReloadSoundGain                                    f8@0:4
+  - 0x000228fd  setReloadSoundGain:                                v12@0:4f8
+  - 0x00022915  ShotTime                                           f8@0:4
+  - 0x00022929  setShotTime:                                       v12@0:4f8
+  - 0x00022941  ReloadTime                                         f8@0:4
+  - 0x00022955  setReloadTime:                                     v12@0:4f8
+  - 0x0002296d  weaponChangeSoundNumber                            i8@0:4
+  - 0x00022981  setWeaponChangeSoundNumber:                        v12@0:4i8
+  - 0x00022999  weaponChangeSoundGain                              f8@0:4
+  - 0x000229ad  setWeaponChangeSoundGain:                          v12@0:4f8
+  - 0x000229c5  array                                              @8@0:4
+  - 0x000229d5  setArray:                                          v12@0:4@8
+  - 0x000229f9  att1SoundNumber                                    i8@0:4
+  - 0x00022a0d  setAtt1SoundNumber:                                v12@0:4i8
+  - 0x00022a25  att2SoundNumber                                    i8@0:4
+  - 0x00022a39  setAtt2SoundNumber:                                v12@0:4i8
+  - 0x00022a51  att3SoundNumber                                    i8@0:4
+  - 0x00022a65  setAtt3SoundNumber:                                v12@0:4i8
+  - 0x00022a7d  att4SoundNumber                                    i8@0:4
+  - 0x00022a91  setAtt4SoundNumber:                                v12@0:4i8
+  - 0x00022aa9  att5SoundNumber                                    i8@0:4
+  - 0x00022abd  setAtt5SoundNumber:                                v12@0:4i8
+  - 0x00022ad5  att1SoundGain                                      f8@0:4
+  - 0x00022ae9  setAtt1SoundGain:                                  v12@0:4f8
+  - 0x00022b01  att2SoundGain                                      f8@0:4
+  - 0x00022b15  setAtt2SoundGain:                                  v12@0:4f8
+  - 0x00022b2d  att3SoundGain                                      f8@0:4
+  - 0x00022b41  setAtt3SoundGain:                                  v12@0:4f8
+  - 0x00022b59  att4SoundGain                                      f8@0:4
+  - 0x00022b6d  setAtt4SoundGain:                                  v12@0:4f8
+  - 0x00022b85  att5SoundGain                                      f8@0:4
+  - 0x00022b99  setAtt5SoundGain:                                  v12@0:4f8
+  - 0x00022bb1  att1SoundTime                                      f8@0:4
+  - 0x00022bc5  setAtt1SoundTime:                                  v12@0:4f8
+  - 0x00022bdd  att2SoundTime                                      f8@0:4
+  - 0x00022bf1  setAtt2SoundTime:                                  v12@0:4f8
+  - 0x00022c09  att3SoundTime                                      f8@0:4
+  - 0x00022c1d  setAtt3SoundTime:                                  v12@0:4f8
+  - 0x00022c35  att4SoundTime                                      f8@0:4
+  - 0x00022c49  setAtt4SoundTime:                                  v12@0:4f8
+  - 0x00022c61  att5SoundTime                                      f8@0:4
+  - 0x00022c75  setAtt5SoundTime:                                  v12@0:4f8
+====================================================================================================
+@interface SoundListControl : ?0x0   // instanceSize=0xd start=0x4
+-- IVARS (3) --
+  +0x4    sFileName                    @"NSString"
+  +0x8    iFileNumber                  i
+  +0xc    bIsPlaying                   c
+-- METHODS (7) --
+  - 0x00022c8d  dealloc                                            v8@0:4
+  - 0x00022cd9  sFileName                                          @8@0:4
+  - 0x00022ce9  setSFileName:                                      v12@0:4@8
+  - 0x00022d0d  iFileNumber                                        i8@0:4
+  - 0x00022d21  setIFileNumber:                                    v12@0:4i8
+  - 0x00022d39  bIsPlaying                                         c8@0:4
+  - 0x00022d51  setBIsPlaying:                                     v12@0:4c8
+====================================================================================================
+@interface MovingAccelerometer : ?0x0   // instanceSize=0x1c start=0x4
+-- IVARS (6) --
+  +0x4    acceler                      @"UIAcceleration"
+  +0x8    Pitch                        f
+  +0xc    Roll                         f
+  +0x10   PostionEWSN                  i
+  +0x14   Angle                        i
+  +0x18   PosType                      i
+-- METHODS (16) --
+  - 0x0000fbe9  initWithAccelermeter:                              @12@0:4f8
+  - 0x0000fc71  accelerometer:didAccelerate:                       v16@0:4@8@12
+  - 0x0000fed9  rotationLeft                                       v8@0:4
+  - 0x00010029  rotationRight                                      v8@0:4
+  - 0x00010179  rotationLeftEight                                  v8@0:4
+  - 0x00010379  rotationRightEight                                 v8@0:4
+  - 0x00010579  Pitch                                              f8@0:4
+  - 0x00010589  setPitch:                                          v12@0:4f8
+  - 0x00010599  Roll                                               f8@0:4
+  - 0x000105a9  setRoll:                                           v12@0:4f8
+  - 0x000105b9  PostionEWSN                                        i8@0:4
+  - 0x000105c9  setPostionEWSN:                                    v12@0:4i8
+  - 0x000105d9  Angle                                              i8@0:4
+  - 0x000105e9  setAngle:                                          v12@0:4i8
+  - 0x000105f9  PosType                                            i8@0:4
+  - 0x00010609  setPosType:                                        v12@0:4i8

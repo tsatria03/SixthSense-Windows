@@ -1,0 +1,639 @@
+
+//// -[MovingAccelerometer initWithAccelermeter:]  0xfbe8..0xfc70  @12@0:4f8
+  fbea  add r7, sp, #0xc
+  fbec  vpush {d8}
+  fbf2  cbz r4 -> L_fc64
+  fbf8  vmov d8, r2, r2
+  fc08  r0 = SEL(sharedAccelerometer)
+  fc0a  r6 = UIAccelerometer
+  fc0c  r5 = SEL(sharedAccelerometer)
+  fc0e  r0 = UIAccelerometer
+  fc12  r0 = [UIAccelerometer sharedAccelerometer](?, ?)
+  fc16  vcvt.f64.f32 d16, s16
+  fc22  r1 = SEL(setUpdateInterval:)
+  fc24  r1 = SEL(setUpdateInterval:)
+  fc26  vmov.f64 d17, #1.000000e+00
+  fc2a  vdiv.f64 d16, d17, d16
+  fc2e  vmov r2, r3, d16
+  fc32  r0 = [r0 setUpdateInterval:](?, ?)
+  fc36  r0 = UIAccelerometer
+  fc3a  r0 = [UIAccelerometer sharedAccelerometer](?, ?)
+  fc48  r1 = SEL(setDelegate:)
+  fc4a  r1 = SEL(setDelegate:)
+  fc4c  r0 = [r0 setDelegate:](?, ?)
+  fc54  r2 = 1
+  fc5a  r0 = SEL(setPostionEWSN:)
+  fc5c  r1 = SEL(setPostionEWSN:)
+  fc60  r0 = [r0 setPostionEWSN:](1, ?)
+L_fc64:
+  fc66  vpop {d8}
+  fc6a  return
+
+//// -[MovingAccelerometer accelerometer:didAccelerate:]  0xfc70..0xfed8  v16@0:4@8@12
+  fc72  add r7, sp, #0xc
+  fc78  sub.w r4, sp, #0x28
+  fc82  vst1.64 {d8, d9, d10, d11}, [r4:0x80]
+  fc86  vstr d12, [r4, #0x20]
+  fc8a  sub sp, #0x10
+  fc9e  r0 = IVOFF(acceler)
+  fca0  r1 = SEL(y)
+  fca4  r0 = IVOFF(acceler)
+  fca6  r8 = SEL(y)
+  fcaa  self->acceler = r5
+  fcb2  r0 = [r0 y](?, ?)
+  fcc2  r0 = SEL(x)
+  fcc4  r4 = SEL(x)
+  fcca  r0 = [r0 x](?, ?)
+  fcd2  vmov d8, r0, r1
+  fcde  r6 = SEL(z)
+  fce0  r0 = [r0 x](?, ?)
+  fce4  r6 = SEL(z)
+  fce6  vmov d9, r0, r1
+  fcee  r0 = [r0 z](?, ?)
+  fcf2  vmov d10, r0, r1
+  fcfa  r0 = [r0 z](?, ?)
+  fcfe  vmov d16, r0, r1
+  fd04  vmul.f64 d17, d8, d9
+  fd08  vmul.f64 d16, d10, d16
+  fd0c  vadd.f64 d16, d17, d16
+  fd10  vsqrt.f64 d16, d16
+  fd14  vmov d17, r0, fp
+  fd18  vdiv.f64 d16, d17, d16
+  fd1c  vmov r0, r1, d16
+  fd20  call _atan
+  fd24  vmov d16, r0, r1
+  fd28  d8 = 180
+  fd2c  d9 = 3.14159
+  fd34  vmul.f64 d16, d16, d8
+  fd3c  r0 = SEL(setPitch:)
+  fd3e  r1 = SEL(setPitch:)
+  fd42  vdiv.f64 d16, d16, d9
+  fd46  vcvt.f32.f64 s0, d16
+  fd4e  r0 = [r0 setPitch:](?, ?)
+  fd56  r0 = [r0 x](?, ?)
+  fd62  r0 = [r0 y](?, ?)
+  fd66  vmov d10, r0, r1
+  fd6e  r0 = [r0 y](?, ?)
+  fd72  vmov d11, r0, r1
+  fd7a  r0 = [r0 z](?, ?)
+  fd7e  vmov d12, r0, r1
+  fd86  r0 = [r0 z](?, ?)
+  fd8a  vmov d16, r0, r1
+  fd8e  vmul.f64 d17, d10, d11
+  fd92  vmul.f64 d16, d12, d16
+  fd96  vadd.f64 d16, d17, d16
+  fd9a  vsqrt.f64 d16, d16
+  fd9e  vmov d17, fp, r4
+  fda2  vdiv.f64 d16, d17, d16
+  fda6  vmov r0, r1, d16
+  fdaa  call _atan
+  fdae  vmov d16, r0, r1
+  fdba  vmul.f64 d16, d16, d8
+  fdbe  r0 = SEL(setRoll:)
+  fdc0  r1 = SEL(setRoll:)
+  fdc4  vdiv.f64 d16, d16, d9
+  fdc8  vcvt.f32.f64 s0, d16
+  fdd0  r0 = [r0 setRoll:](?, ?)
+  fde4  r0 = IVOFF(PosType)
+  fde6  r1 = SEL(Pitch)
+  fde8  r0 = IVOFF(PosType)
+  fdea  r4 = SEL(Pitch)
+  fdec  r5 = self->PosType
+  fdf4  r0 = [r0 Pitch](?, ?)
+  fdf8  vmov.f32 d1, #2.000000e+01
+  fdfc  cmp self->PosType, 0
+  fdfe  vmov d0, r0, r0
+  fe02  vcmpe.f32 s0, s2
+  fe06  beq L_fe24
+  fe08  vmrs apsr_nzcv, fpscr
+  fe0c  blt L_fe40
+  fe1e  r0 = SEL(performSelector:withObject:afterDelay:)
+  fe20  r2 = SEL(rotationRightEight)
+  fe22  b L_fe9e
+L_fe24:
+  fe24  vmrs apsr_nzcv, fpscr
+  fe28  blt L_fe70
+  fe3a  r0 = SEL(performSelector:withObject:afterDelay:)
+  fe3c  r2 = SEL(rotationRight)
+  fe3e  b L_fe9e
+L_fe40:
+  fe44  r0 = [r0 Pitch](SEL(rotationRight), ?)
+  fe48  vmov.f32 d0, #-2.000000e+01
+  fe4c  vmov d1, r0, r0
+  fe50  vcmpe.f32 s2, s0
+  fe54  vmrs apsr_nzcv, fpscr
+  fe58  bhi L_feb0
+  fe6a  r0 = SEL(performSelector:withObject:afterDelay:)
+  fe6c  r2 = SEL(rotationLeftEight)
+  fe6e  b L_fe9e
+L_fe70:
+  fe74  r0 = [r0 Pitch](SEL(rotationLeftEight), ?)
+  fe78  vmov.f32 d0, #-2.000000e+01
+  fe7c  vmov d1, r0, r0
+  fe80  vcmpe.f32 s2, s0
+  fe84  vmrs apsr_nzcv, fpscr
+  fe88  bhi L_feb0
+  fe9a  r0 = SEL(performSelector:withObject:afterDelay:)
+  fe9c  r2 = SEL(rotationLeft)
+L_fe9e:
+  fe9e  r1 = SEL(performSelector:withObject:afterDelay:)
+  fea0  r0 = 0
+  fea2  r2 = SEL(rotationLeft)
+  fea4  r3 = 0
+  feac  r0 = [r0 performSelector:withObject:afterDelay:](SEL(rotationLeft), 0)
+L_feb0:
+  feb0  add r4, sp, #0x10
+  feb2  vld1.64 {d8, d9, d10, d11}, [r4:0x80]
+  feb6  vldr d12, [r4, #0x20]
+  feba  sub.w r4, r7, #0x18
+  fec4  return
+  fed0  cmp self->PosType, 24
+  fed4  r1 = 251
+
+//// -[MovingAccelerometer rotationLeft]  0xfed8..0x10028  v8@0:4
+  fee4  add r7, sp, #0xc
+  fee6  r0 = SEL(Angle)
+  fee8  r5 = SEL(Angle)
+  feee  r0 = [r0 Angle](?, ?)
+  fef6  sub.w r2, r0, #0xa
+  ff00  r1 = SEL(setAngle:)
+  ff02  r6 = SEL(setAngle:)
+  ff06  r0 = [r0 setAngle:](?, ?)
+  ff0e  r0 = [r0 Angle](?, ?)
+  ff12  cmp r0, -10
+  ff16  bne L_ff24
+  ff1c  r2 = 350
+  ff20  r0 = [r0 setAngle:](350, ?)
+L_ff24:
+  ff28  r0 = [r0 Angle](?, ?)
+  ff2c  vmov d0, r0, r0
+  ff30  d17 = 3.14159
+  ff34  vcvt.f64.s32 d16, s0
+  ff38  vmul.f64 d16, d16, d17
+  ff3c  d17 = 180
+  ff40  vdiv.f64 d16, d16, d17
+  ff44  vcvt.f32.f64 s0, d16
+  ff48  vcvt.f64.f32 d16, s0
+  ff4c  d17 = 0.785398
+  ff50  vcmpe.f64 d16, d17
+  ff54  vmrs apsr_nzcv, fpscr
+  ff58  blt L_ff68
+  ff5a  d17 = 2.35619
+  ff5e  vcmpe.f64 d16, d17
+  ff62  vmrs apsr_nzcv, fpscr
+  ff66  bls L_ffb8
+L_ff68:
+  ff68  d17 = 2.35619
+  ff6c  vcmpe.f64 d16, d17
+  ff70  vmrs apsr_nzcv, fpscr
+  ff74  blt L_ff84
+  ff76  d17 = 3.92699
+  ff7a  vcmpe.f64 d16, d17
+  ff7e  vmrs apsr_nzcv, fpscr
+  ff82  bls L_ffd0
+L_ff84:
+  ff88  d17 = 3.92699
+  ff90  r0 = SEL(setPostionEWSN:)
+  ff92  vcmpe.f64 d16, d17
+  ff96  r1 = SEL(setPostionEWSN:)
+  ff98  vmrs apsr_nzcv, fpscr
+  ff9c  blt L_ffac
+  ff9e  d17 = 5.49779
+  ffa2  vcmpe.f64 d16, d17
+  ffa6  vmrs apsr_nzcv, fpscr
+  ffaa  bls L_ffe8
+L_ffac:
+  ffae  r2 = 1
+  ffb4  b L_a90d0
+L_ffb8:
+  ffbc  r2 = 2
+  ffc2  r0 = SEL(setPostionEWSN:)
+  ffc4  r1 = SEL(setPostionEWSN:)
+  ffcc  b L_a90d0
+L_ffd0:
+  ffd4  r2 = 3
+  ffda  r0 = SEL(setPostionEWSN:)
+  ffdc  r1 = SEL(setPostionEWSN:)
+  ffe4  b L_a90d0
+L_ffe8:
+  ffea  r2 = 4
+  fff0  b L_a90d0
+  fff8  cmp SEL(Angle), 24
+  fffc  r1 = 251
+  10008  lsls r2, r7, #1
+  1000e  subs r7, #0xe9
+  10012  subs r5, #0x68
+  10014  bls L_10110
+  10022  b L_10050
+
+//// -[MovingAccelerometer rotationRight]  0x10028..0x10178  v8@0:4
+  10034  add r7, sp, #0xc
+  10036  r0 = SEL(Angle)
+  10038  r5 = SEL(Angle)
+  1003e  r0 = [r0 Angle](?, ?)
+  10046  add.w r2, r0, #0xa
+  10050  r1 = SEL(setAngle:)
+  10052  r6 = SEL(setAngle:)
+  10056  r0 = [r0 setAngle:](?, ?)
+  1005e  r0 = [r0 Angle](?, ?)
+  10062  cmp r0, 360
+  10066  blt L_10072
+  1006c  r2 = 0
+  1006e  r0 = [r0 setAngle:](0, ?)
+L_10072:
+  10076  r0 = [r0 Angle](?, ?)
+  1007a  vmov d0, r0, r0
+  1007e  d17 = 3.14159
+  10082  vcvt.f64.s32 d16, s0
+  10086  vmul.f64 d16, d16, d17
+  1008a  d17 = 180
+  1008e  vdiv.f64 d16, d16, d17
+  10092  vcvt.f32.f64 s0, d16
+  10096  vcvt.f64.f32 d16, s0
+  1009a  d17 = 0.785398
+  1009e  vcmpe.f64 d16, d17
+  100a2  vmrs apsr_nzcv, fpscr
+  100a6  blt L_100b6
+  100a8  d17 = 2.35619
+  100ac  vcmpe.f64 d16, d17
+  100b0  vmrs apsr_nzcv, fpscr
+  100b4  bls L_10106
+L_100b6:
+  100b6  d17 = 2.35619
+  100ba  vcmpe.f64 d16, d17
+  100be  vmrs apsr_nzcv, fpscr
+  100c2  blt L_100d2
+  100c4  d17 = 3.92699
+  100c8  vcmpe.f64 d16, d17
+  100cc  vmrs apsr_nzcv, fpscr
+  100d0  bls L_1011e
+L_100d2:
+  100d6  d17 = 3.92699
+  100de  r0 = SEL(setPostionEWSN:)
+  100e0  vcmpe.f64 d16, d17
+  100e4  r1 = SEL(setPostionEWSN:)
+  100e6  vmrs apsr_nzcv, fpscr
+  100ea  blt L_100fa
+  100ec  d17 = 5.49779
+  100f0  vcmpe.f64 d16, d17
+  100f4  vmrs apsr_nzcv, fpscr
+  100f8  bls L_10136
+L_100fa:
+  100fc  r2 = 1
+  10102  b L_a90d0
+L_10106:
+  1010a  r2 = 2
+  10110  r0 = SEL(setPostionEWSN:)
+  10112  r1 = SEL(setPostionEWSN:)
+  1011a  b L_a90d0
+L_1011e:
+  10122  r2 = 3
+  10128  r0 = SEL(setPostionEWSN:)
+  1012a  r1 = SEL(setPostionEWSN:)
+  10132  b L_a90d0
+L_10136:
+  10138  r2 = 4
+  1013e  b L_a90d0
+  10148  cmp SEL(Angle), 24
+  1014c  r1 = 251
+  10158  lsls r2, r7, #1
+  1015e  subs r7, #0xe9
+  10162  subs r5, #0x68
+  10164  bls L_10260
+  10172  b L_101a0
+
+//// -[MovingAccelerometer rotationLeftEight]  0x10178..0x10378  v8@0:4
+  10184  add r7, sp, #0xc
+  10186  r0 = SEL(Angle)
+  10188  r5 = SEL(Angle)
+  1018e  r0 = [r0 Angle](?, ?)
+  10196  sub.w r2, r0, #0xa
+  101a0  r1 = SEL(setAngle:)
+  101a2  r6 = SEL(setAngle:)
+  101a6  r0 = [r0 setAngle:](?, ?)
+  101ae  r0 = [r0 Angle](?, ?)
+  101b2  cmp r0, -10
+  101b6  bne L_101c4
+  101bc  r2 = 350
+  101c0  r0 = [r0 setAngle:](350, ?)
+L_101c4:
+  101c8  r0 = [r0 Angle](?, ?)
+  101cc  vmov d0, r0, r0
+  101d0  d17 = 3.14159
+  101d4  vcvt.f64.s32 d16, s0
+  101d8  vmul.f64 d16, d16, d17
+  101dc  d17 = 180
+  101e0  vdiv.f64 d16, d16, d17
+  101e4  vcvt.f32.f64 s0, d16
+  101e8  vcvt.f64.f32 d16, s0
+  101ec  d17 = 0.392699
+  101f0  vcmpe.f64 d16, d17
+  101f4  vmrs apsr_nzcv, fpscr
+  101f8  blt L_10208
+  101fa  d17 = 1.1781
+  101fe  vcmpe.f64 d16, d17
+  10202  vmrs apsr_nzcv, fpscr
+  10206  bls L_102c0
+L_10208:
+  10208  d17 = 1.1781
+  1020c  vcmpe.f64 d16, d17
+  10210  vmrs apsr_nzcv, fpscr
+  10214  blt L_10224
+  10216  d17 = 1.96349
+  1021a  vcmpe.f64 d16, d17
+  1021e  vmrs apsr_nzcv, fpscr
+  10222  bls L_102d0
+L_10224:
+  10224  d17 = 1.96349
+  10228  vcmpe.f64 d16, d17
+  1022c  vmrs apsr_nzcv, fpscr
+  10230  blt L_10240
+  10232  d17 = 2.74889
+  10236  vcmpe.f64 d16, d17
+  1023a  vmrs apsr_nzcv, fpscr
+  1023e  bls L_102e0
+L_10240:
+  10240  d17 = 2.74889
+  10244  vcmpe.f64 d16, d17
+  10248  vmrs apsr_nzcv, fpscr
+  1024c  blt L_1025c
+  1024e  d17 = 3.53429
+  10252  vcmpe.f64 d16, d17
+  10256  vmrs apsr_nzcv, fpscr
+  1025a  bls L_102f0
+L_1025c:
+  1025c  d17 = 3.53429
+  10260  vcmpe.f64 d16, d17
+  10264  vmrs apsr_nzcv, fpscr
+  10268  blt L_10278
+  1026a  d17 = 4.31969
+  1026e  vcmpe.f64 d16, d17
+  10272  vmrs apsr_nzcv, fpscr
+  10276  bls L_10300
+L_10278:
+  10278  d17 = 4.31969
+  1027c  vcmpe.f64 d16, d17
+  10280  vmrs apsr_nzcv, fpscr
+  10284  blt L_10294
+  10286  d17 = 5.10509
+  1028a  vcmpe.f64 d16, d17
+  1028e  vmrs apsr_nzcv, fpscr
+  10292  bls L_10310
+L_10294:
+  10298  d17 = 5.10509
+  102a0  r0 = IVOFF(PostionEWSN)
+  102a2  vcmpe.f64 d16, d17
+  102a6  r0 = IVOFF(PostionEWSN)
+  102a8  vmrs apsr_nzcv, fpscr
+  102ac  blt L_102bc
+  102ae  d17 = 5.89049
+  102b2  vcmpe.f64 d16, d17
+  102b6  vmrs apsr_nzcv, fpscr
+  102ba  bls L_10320
+L_102bc:
+  102bc  r1 = 1
+  102be  b L_10322
+L_102c0:
+  102c4  r1 = 5
+  102ca  r0 = IVOFF(PostionEWSN)
+  102cc  r0 = IVOFF(PostionEWSN)
+  102ce  b L_10322
+L_102d0:
+  102d4  r1 = 2
+  102da  r0 = IVOFF(PostionEWSN)
+L_102dc:
+  102dc  r0 = IVOFF(PostionEWSN)
+  102de  b L_10322
+L_102e0:
+  102e4  r1 = 6
+  102ea  r0 = IVOFF(PostionEWSN)
+  102ec  r0 = IVOFF(PostionEWSN)
+  102ee  b L_10322
+L_102f0:
+  102f4  r1 = 3
+  102fa  r0 = IVOFF(PostionEWSN)
+  102fc  r0 = IVOFF(PostionEWSN)
+  102fe  b L_10322
+L_10300:
+  10304  r1 = 7
+  1030a  r0 = IVOFF(PostionEWSN)
+  1030c  r0 = IVOFF(PostionEWSN)
+  1030e  b L_10322
+L_10310:
+  10314  r1 = 4
+  1031a  r0 = IVOFF(PostionEWSN)
+  1031c  r0 = IVOFF(PostionEWSN)
+  1031e  b L_10322
+L_10320:
+  10320  r1 = 8
+L_10322:
+  10322  self->PostionEWSN = 8
+  10324  return
+  10328  cmp SEL(Angle), 24
+  1032c  r1 = 251
+  10338  lsls r2, r7, #1
+  1033e  subs r7, #0xd9
+  10342  subs r5, #0x68
+  10344  bls L_10440
+  10346  subs r7, #0xf2
+  1034a  cbnz r5 -> L_103b8
+  1034e  subs r7, #0xff
+  10352  r3 = 49
+  10358  adds r7, r1, #6
+  1035a  b L_10806
+  10362  beq L_102dc
+  1036a  adds r0, #0x4c
+  10370  cmp r6, 245
+
+//// -[MovingAccelerometer rotationRightEight]  0x10378..0x10578  v8@0:4
+  10384  add r7, sp, #0xc
+  10386  r0 = SEL(Angle)
+  10388  r5 = SEL(Angle)
+  1038e  r0 = [r0 Angle](?, ?)
+  10396  add.w r2, r0, #0xa
+  103a0  r1 = SEL(setAngle:)
+  103a2  r6 = SEL(setAngle:)
+  103a6  r0 = [r0 setAngle:](?, ?)
+  103ae  r0 = [r0 Angle](?, ?)
+  103b2  cmp r0, 360
+  103b6  blt L_103c2
+  103bc  r2 = 0
+  103be  r0 = [r0 setAngle:](0, ?)
+L_103c2:
+  103c6  r0 = [r0 Angle](?, ?)
+  103ca  vmov d0, r0, r0
+  103ce  d17 = 3.14159
+  103d2  vcvt.f64.s32 d16, s0
+  103d6  vmul.f64 d16, d16, d17
+  103da  d17 = 180
+  103de  vdiv.f64 d16, d16, d17
+  103e2  vcvt.f32.f64 s0, d16
+  103e6  vcvt.f64.f32 d16, s0
+  103ea  d17 = 0.392699
+  103ee  vcmpe.f64 d16, d17
+  103f2  vmrs apsr_nzcv, fpscr
+  103f6  blt L_10406
+  103f8  d17 = 1.1781
+  103fc  vcmpe.f64 d16, d17
+  10400  vmrs apsr_nzcv, fpscr
+  10404  bls L_104be
+L_10406:
+  10406  d17 = 1.1781
+  1040a  vcmpe.f64 d16, d17
+  1040e  vmrs apsr_nzcv, fpscr
+  10412  blt L_10422
+  10414  d17 = 1.96349
+  10418  vcmpe.f64 d16, d17
+  1041c  vmrs apsr_nzcv, fpscr
+  10420  bls L_104ce
+L_10422:
+  10422  d17 = 1.96349
+  10426  vcmpe.f64 d16, d17
+  1042a  vmrs apsr_nzcv, fpscr
+  1042e  blt L_1043e
+  10430  d17 = 2.74889
+  10434  vcmpe.f64 d16, d17
+  10438  vmrs apsr_nzcv, fpscr
+  1043c  bls L_104de
+L_1043e:
+  1043e  d17 = 2.74889
+  10442  vcmpe.f64 d16, d17
+  10446  vmrs apsr_nzcv, fpscr
+  1044a  blt L_1045a
+  1044c  d17 = 3.53429
+  10450  vcmpe.f64 d16, d17
+  10454  vmrs apsr_nzcv, fpscr
+  10458  bls L_104ee
+L_1045a:
+  1045a  d17 = 3.53429
+  1045e  vcmpe.f64 d16, d17
+  10462  vmrs apsr_nzcv, fpscr
+  10466  blt L_10476
+  10468  d17 = 4.31969
+  1046c  vcmpe.f64 d16, d17
+  10470  vmrs apsr_nzcv, fpscr
+  10474  bls L_104fe
+L_10476:
+  10476  d17 = 4.31969
+  1047a  vcmpe.f64 d16, d17
+  1047e  vmrs apsr_nzcv, fpscr
+  10482  blt L_10492
+  10484  d17 = 5.10509
+  10488  vcmpe.f64 d16, d17
+  1048c  vmrs apsr_nzcv, fpscr
+  10490  bls L_1050e
+L_10492:
+  10496  d17 = 5.10509
+  1049e  r0 = IVOFF(PostionEWSN)
+  104a0  vcmpe.f64 d16, d17
+  104a4  r0 = IVOFF(PostionEWSN)
+  104a6  vmrs apsr_nzcv, fpscr
+  104aa  blt L_104ba
+  104ac  d17 = 5.89049
+  104b0  vcmpe.f64 d16, d17
+  104b4  vmrs apsr_nzcv, fpscr
+  104b8  bls L_1051e
+L_104ba:
+  104ba  r1 = 1
+  104bc  b L_10520
+L_104be:
+  104c2  r1 = 5
+  104c8  r0 = IVOFF(PostionEWSN)
+  104ca  r0 = IVOFF(PostionEWSN)
+  104cc  b L_10520
+L_104ce:
+  104d2  r1 = 2
+  104d8  r0 = IVOFF(PostionEWSN)
+  104da  r0 = IVOFF(PostionEWSN)
+L_104dc:
+  104dc  b L_10520
+L_104de:
+  104e2  r1 = 6
+  104e8  r0 = IVOFF(PostionEWSN)
+  104ea  r0 = IVOFF(PostionEWSN)
+  104ec  b L_10520
+L_104ee:
+  104f2  r1 = 3
+  104f8  r0 = IVOFF(PostionEWSN)
+  104fa  r0 = IVOFF(PostionEWSN)
+  104fc  b L_10520
+L_104fe:
+  10502  r1 = 7
+  10508  r0 = IVOFF(PostionEWSN)
+  1050a  r0 = IVOFF(PostionEWSN)
+  1050c  b L_10520
+L_1050e:
+  10512  r1 = 4
+  10518  r0 = IVOFF(PostionEWSN)
+  1051a  r0 = IVOFF(PostionEWSN)
+  1051c  b L_10520
+L_1051e:
+  1051e  r1 = 8
+L_10520:
+  10520  self->PostionEWSN = 8
+  10522  return
+  10528  cmp SEL(Angle), 24
+  1052c  r1 = 251
+  10538  lsls r2, r7, #1
+  1053e  subs r7, #0xd9
+  10542  subs r5, #0x68
+  10544  bls L_10640
+  10546  subs r7, #0xf2
+  1054a  cbnz r5 -> L_105b8
+  1054e  subs r7, #0xff
+  10552  r3 = 49
+  10558  adds r7, r1, #6
+  1055a  b L_10a06
+  10562  beq L_104dc
+  1056a  adds r0, #0x4c
+  10570  cmp r6, 245
+
+//// -[MovingAccelerometer Pitch]  0x10578..0x10588  f8@0:4
+  10580  r1 = IVOFF(Pitch)
+  10582  r1 = IVOFF(Pitch)
+  10584  r0 = self->Pitch
+
+//// -[MovingAccelerometer setPitch:]  0x10588..0x10598  v12@0:4f8
+  10590  r1 = IVOFF(Pitch)
+  10592  r1 = IVOFF(Pitch)
+  10594  self->Pitch = r2
+
+//// -[MovingAccelerometer Roll]  0x10598..0x105a8  f8@0:4
+  105a0  r1 = IVOFF(Roll)
+  105a2  r1 = IVOFF(Roll)
+  105a4  r0 = self->Roll
+
+//// -[MovingAccelerometer setRoll:]  0x105a8..0x105b8  v12@0:4f8
+  105b0  r1 = IVOFF(Roll)
+  105b2  r1 = IVOFF(Roll)
+  105b4  self->Roll = r2
+
+//// -[MovingAccelerometer PostionEWSN]  0x105b8..0x105c8  i8@0:4
+  105c0  r1 = IVOFF(PostionEWSN)
+  105c2  r1 = IVOFF(PostionEWSN)
+  105c4  r0 = self->PostionEWSN
+
+//// -[MovingAccelerometer setPostionEWSN:]  0x105c8..0x105d8  v12@0:4i8
+  105d0  r1 = IVOFF(PostionEWSN)
+  105d2  r1 = IVOFF(PostionEWSN)
+  105d4  self->PostionEWSN = r2
+
+//// -[MovingAccelerometer Angle]  0x105d8..0x105e8  i8@0:4
+  105e0  r1 = IVOFF(Angle)
+  105e2  r1 = IVOFF(Angle)
+  105e4  r0 = self->Angle
+
+//// -[MovingAccelerometer setAngle:]  0x105e8..0x105f8  v12@0:4i8
+  105f0  r1 = IVOFF(Angle)
+  105f2  r1 = IVOFF(Angle)
+  105f4  self->Angle = r2
+
+//// -[MovingAccelerometer PosType]  0x105f8..0x10608  i8@0:4
+  10600  r1 = IVOFF(PosType)
+  10602  r1 = IVOFF(PosType)
+  10604  r0 = self->PosType
+
+//// -[MovingAccelerometer setPosType:]  0x10608..0x10618  v12@0:4i8
+  10610  r1 = IVOFF(PosType)
+  10612  r1 = IVOFF(PosType)
+  10614  self->PosType = r2

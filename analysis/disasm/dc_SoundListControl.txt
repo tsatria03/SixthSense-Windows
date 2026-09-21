@@ -1,0 +1,49 @@
+
+//// -[SoundListControl dealloc]  0x22c8c..0x22cd8  v8@0:4
+  22c8e  add r7, sp, #4
+  22c90  sub sp, #8
+  22ca0  r0 = IVOFF(sFileName)
+  22ca6  r1 = SEL(release)
+  22ca8  r0 = IVOFF(sFileName)
+  22caa  r1 = SEL(release)
+  22cac  r0 = self->sFileName
+  22cae  r0 = [self->sFileName release](?, ?)
+  22cc4  r0 = SEL(dealloc)
+  22ccc  r1 = SEL(dealloc)
+  22cd0  r0 = [r0 dealloc](?, ?) SUPER
+  22cd4  add sp, #8
+  22cd6  return
+
+//// -[SoundListControl sFileName]  0x22cd8..0x22ce8  @8@0:4
+  22ce0  r1 = IVOFF(sFileName)
+  22ce2  r1 = IVOFF(sFileName)
+  22ce4  r0 = self->sFileName
+
+//// -[SoundListControl setSFileName:]  0x22ce8..0x22d0c  v12@0:4@8
+  22cec  sub sp, #8
+  22cf8  r3 = 0
+  22cfa  r2 = IVOFF(sFileName)
+  22d02  r2 = IVOFF(sFileName)
+  22d04  call _objc_setProperty
+  22d08  add sp, #8
+  22d0a  return
+
+//// -[SoundListControl iFileNumber]  0x22d0c..0x22d20  i8@0:4
+  22d14  r1 = IVOFF(iFileNumber)
+  22d16  r1 = IVOFF(iFileNumber)
+  22d18  r0 = self->iFileNumber
+
+//// -[SoundListControl setIFileNumber:]  0x22d20..0x22d38  v12@0:4i8
+  22d2c  r1 = IVOFF(iFileNumber)
+  22d2e  r1 = IVOFF(iFileNumber)
+  22d30  self->iFileNumber = r2
+
+//// -[SoundListControl bIsPlaying]  0x22d38..0x22d50  c8@0:4
+  22d40  r1 = IVOFF(bIsPlaying)
+  22d42  r1 = IVOFF(bIsPlaying)
+  22d44  r0 = self->bIsPlaying
+
+//// -[SoundListControl setBIsPlaying:]  0x22d50..0x22d68  v12@0:4c8
+  22d5c  r1 = IVOFF(bIsPlaying)
+  22d5e  r1 = IVOFF(bIsPlaying)
+  22d60  self->bIsPlaying = r2

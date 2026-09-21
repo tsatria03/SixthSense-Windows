@@ -1,0 +1,143 @@
+====================================================================================================
+@interface AppDelegate : ?0x0   // instanceSize=0x84 start=0x4
+-- IVARS (34) --
+  +0x4    ttsTimer                     @"NSTimer"
+  +0x8    ttsArrayCount                i
+  +0xc    tts_type                     i
+  +0x10   splashView                   @"UIImageView"
+  +0x14   nameImageview                @"UIImageView"
+  +0x18   _g_loginController           @"AutoLoginController"
+  +0x1c   _g_network_Buy               @"buyNetworkControl"
+  +0x20   _window                      @"UIWindow"
+  +0x24   mainNaviController           @"UINavigationController"
+  +0x28   bgURL                        @"NSURL"
+  +0x2c   bgPlayer                     @"AVAudioPlayer"
+  +0x30   iPodIsPlaying                L
+  +0x34   mode                         c
+  +0x38   playback                     @"oalPlayback"
+  +0x3c   numberBackUp                 @"NSMutableArray"
+  +0x40   haveGold                     i
+  +0x44   haveWeapon                   @"NSMutableArray"
+  +0x48   stage                        i
+  +0x4c   aSoundBufControlData         @"NSMutableArray"
+  +0x50   bDevice                      c
+  +0x54   Coin                         i
+  +0x58   g_token                      @"NSString"
+  +0x5c   g_key                        @"NSString"
+  +0x60   g_email                      @"NSString"
+  +0x64   g_facebook                   @"NSString"
+  +0x68   g_name                       @"NSString"
+  +0x6c   _session                     @"FBSession"
+  +0x70   _loginview                   @"FBLoginView"
+  +0x74   useWeapon                    @"NSMutableArray"
+  +0x78   CheckVoiceOver               c
+  +0x79   bCall                        c
+  +0x7a   bPriceCheck                  c
+  +0x7c   g_allweaponPrice             @"NSString"
+  +0x80   _PHPSESSID                   @"NSString"
+-- METHODS (105) --
+  - 0x00003d01  init                                               @8@0:4
+  - 0x00003dc1  dealloc                                            v8@0:4
+  - 0x00003f65  application:didFinishLaunchingWithOptions:         c16@0:4@8@12
+  - 0x00004635  VersionCheck                                       v8@0:4
+  - 0x000048b9  alertView:clickedButtonAtIndex:                    v16@0:4@8i12
+  - 0x000049a1  startIntro                                         v8@0:4
+  - 0x00004aa5  realStartIntro                                     v8@0:4
+  - 0x00004ce1  notified:                                          v12@0:4@8
+  - 0x00004ce5  BGMusicStart                                       v8@0:4
+  - 0x00004d31  BGMusicStop                                        v8@0:4
+  - 0x00004d59  applicationWillResignActive:                       v12@0:4@8
+  - 0x00004d5d  applicationDidEnterBackground:                     v12@0:4@8
+  - 0x00004d9d  applicationWillEnterForeground:                    v12@0:4@8
+  - 0x00004da1  applicationDidBecomeActive:                        v12@0:4@8
+  - 0x00004e7d  applicationWillTerminate:                          v12@0:4@8
+  - 0x00004eb1  application:openURL:sourceApplication:annotation:  c24@0:4@8@12@16@20
+  - 0x00004ee9  weaponHave                                         v8@0:4
+  - 0x00005591  TTSNumber:type:                                    v16@0:4i8i12
+  - 0x0000583d  TTSNumber:type2:                                   v16@0:4i8i12
+  - 0x00005ae9  readStop                                           v8@0:4
+  - 0x00005cbd  readNumber:                                        v12@0:4@8
+  - 0x00005ec5  readTimeMin                                        v8@0:4
+  - 0x0000604d  readTimeSec                                        v8@0:4
+  - 0x000061dd  returnFileName:                                    @12@0:4i8
+  - 0x0000625d  CheckSoundBuf:                                     i12@0:4i8
+  - 0x000062e9  findBufFlagNO                                      i8@0:4
+  - 0x00006371  playSoundBufNumber:                                i12@0:4i8
+  - 0x00006581  stopSoundBufNumber:                                v12@0:4i8
+  - 0x00006659  playSound:Gain:Pos:z:reprats:                      v32@0:4i8f12{CGPoint=ff}16i24c28
+  - 0x00006749  application:didRegisterForRemoteNotificationsWithDeviceToken: v16@0:4@8@12
+  - 0x00006889  application:didFailToRegisterForRemoteNotificationsWithError: v16@0:4@8@12
+  - 0x0000688d  getTokenString:                                    v12@0:4@8
+  - 0x00006b7d  checkPurchasedItems                                v8@0:4
+  - 0x00006bb1  paymentQueueRestoreCompletedTransactionsFinished:  v12@0:4@8
+  - 0x00006f0d  ItemPriceCheck:                                    v12@0:4@8
+  - 0x00006fa5  BuyItem:                                           v12@0:4@8
+  - 0x0000703d  checkProducts                                      v8@0:4
+  - 0x000070e9  productsRequest:didReceiveResponse:                v16@0:4@8@12
+  - 0x00007341  request:didFailWithError:                          v16@0:4@8@12
+  - 0x00007345  requestDidFinish:                                  v12@0:4@8
+  - 0x00007349  completeTransaction:                               v12@0:4@8
+  - 0x000076b1  restoreTransaction:                                v12@0:4@8
+  - 0x000076e9  failedTransaction:                                 v12@0:4@8
+  - 0x000077fd  paymentQueue:updatedTransactions:                  v16@0:4@8@12
+  - 0x00007909  isGameCenterAvailable                              c8@0:4
+  - 0x00007979  authenticateLocalPlayerShowReader:                 v12@0:4c8
+  - 0x00007b5d  sendScoreToGameCenter:                             v12@0:4i8
+  - 0x00007c49  window                                             @8@0:4
+  - 0x00007c59  setWindow:                                         v12@0:4@8
+  - 0x00007c7d  mainNaviController                                 @8@0:4
+  - 0x00007c8d  setMainNaviController:                             v12@0:4@8
+  - 0x00007cb1  bgURL                                              @8@0:4
+  - 0x00007cc1  setBgURL:                                          v12@0:4@8
+  - 0x00007ce5  bgPlayer                                           @8@0:4
+  - 0x00007cf5  setBgPlayer:                                       v12@0:4@8
+  - 0x00007d19  iPodIsPlaying                                      L8@0:4
+  - 0x00007d2d  setIPodIsPlaying:                                  v12@0:4L8
+  - 0x00007d45  mode                                               c8@0:4
+  - 0x00007d5d  setMode:                                           v12@0:4c8
+  - 0x00007d75  playback                                           @8@0:4
+  - 0x00007d89  setPlayback:                                       v12@0:4@8
+  - 0x00007da1  numberBackUp                                       @8@0:4
+  - 0x00007db1  setNumberBackUp:                                   v12@0:4@8
+  - 0x00007dd5  haveGold                                           i8@0:4
+  - 0x00007de9  setHaveGold:                                       v12@0:4i8
+  - 0x00007e01  haveWeapon                                         @8@0:4
+  - 0x00007e11  setHaveWeapon:                                     v12@0:4@8
+  - 0x00007e35  stage                                              i8@0:4
+  - 0x00007e49  setStage:                                          v12@0:4i8
+  - 0x00007e61  aSoundBufControlData                               @8@0:4
+  - 0x00007e71  setASoundBufControlData:                           v12@0:4@8
+  - 0x00007e95  bDevice                                            c8@0:4
+  - 0x00007ead  setBDevice:                                        v12@0:4c8
+  - 0x00007ec5  Coin                                               i8@0:4
+  - 0x00007ed9  setCoin:                                           v12@0:4i8
+  - 0x00007ef1  g_token                                            @8@0:4
+  - 0x00007f01  setG_token:                                        v12@0:4@8
+  - 0x00007f25  g_key                                              @8@0:4
+  - 0x00007f35  setG_key:                                          v12@0:4@8
+  - 0x00007f59  g_email                                            @8@0:4
+  - 0x00007f69  setG_email:                                        v12@0:4@8
+  - 0x00007f8d  g_facebook                                         @8@0:4
+  - 0x00007f9d  setG_facebook:                                     v12@0:4@8
+  - 0x00007fc1  g_name                                             @8@0:4
+  - 0x00007fd1  setG_name:                                         v12@0:4@8
+  - 0x00007ff5  g_loginController                                  @8@0:4
+  - 0x00008005  setG_loginController:                              v12@0:4@8
+  - 0x00008029  g_network_Buy                                      @8@0:4
+  - 0x00008039  setG_network_Buy:                                  v12@0:4@8
+  - 0x0000805d  session                                            @8@0:4
+  - 0x0000806d  setSession:                                        v12@0:4@8
+  - 0x00008091  loginview                                          @8@0:4
+  - 0x000080a1  setLoginview:                                      v12@0:4@8
+  - 0x000080c5  useWeapon                                          @8@0:4
+  - 0x000080d5  setUseWeapon:                                      v12@0:4@8
+  - 0x000080f9  CheckVoiceOver                                     c8@0:4
+  - 0x00008111  setCheckVoiceOver:                                 v12@0:4c8
+  - 0x00008129  bCall                                              c8@0:4
+  - 0x00008141  setBCall:                                          v12@0:4c8
+  - 0x00008159  bPriceCheck                                        c8@0:4
+  - 0x00008171  setBPriceCheck:                                    v12@0:4c8
+  - 0x00008189  g_allweaponPrice                                   @8@0:4
+  - 0x00008199  setG_allweaponPrice:                               v12@0:4@8
+  - 0x000081bd  PHPSESSID                                          @8@0:4
+  - 0x000081cd  setPHPSESSID:                                      v12@0:4@8

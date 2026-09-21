@@ -1,0 +1,293 @@
+"""The pause and result panel: the rows, the dispatch table and the three buttons.
+
+Everything here is checked against ``-[Stage_1_E selectTapPointSoundStart]`` (0x30168),
+``-[Stage_1_E tapCount]`` (0x2fec8) and the four action methods behind them.
+"""
+from __future__ import annotations
+
+import os
+import plistlib
+import sys
+import time
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from sixthsense import paths                                    # noqa: E402
+from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
+from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
+from sixthsense.platform.defaults import UserDefaults           # noqa: E402
+from sixthsense.platform.runloop import RunLoop                 # noqa: E402
+
+
+def _new_stage(coins=3):
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'TUTORIAL')
+    d.setObject_forKey_(str(coins), 'COIN')
+    d.removeObjectForKey_('TOPSCORE')
+    d.removeObjectForKey_('TOPSCOREWEEK')
+    d.removeObjectForKey_('NOWRANK')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    app.Coin = coins
+    RunLoop.main().reset()
+    st = Stage_1_E()
+    st.viewDidLoad()
+    return app, st
+
+
+def test_the_rows_are_the_bands_of_the_panel():
+    """0x308b6..0x311ec, top to bottom: header, the five readouts, rank, top score,
+    then the three buttons."""
+    assert Stage_1_E.PAUSE_ROWS == (1, 2, 3, 4, 5, 9, 10, 6, 7, 8)
+    sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
+    for row, sound in Stage_1_E.PAUSE_ROW_SOUND.items():
+        assert os.path.exists(os.path.join(paths.sounds(), sl[sound] + '.wav')), row
+    for sound in (229, 223, 226, 354):
+        assert os.path.exists(os.path.join(paths.sounds(), sl[sound] + '.wav')), sound
+
+
+def test_the_header_and_the_first_button_follow_the_state():
+    """0x308e4 and 0x30efc: the two rows whose label depends on gameState."""
+    _app, st = _new_stage()
+    try:
+        st.gameState = 1
+        assert st.pause_select(1) == 229          # paused
+        assert st.pause_select(6) == 223          # continue button
+        st.gameState = 2
+        assert st.pause_select(1) is None         # silent after a success
+        assert st.pause_select(6) == 226          # next stage button
+        st.gameState = 3
+        assert st.pause_select(1) == 354          # game over
+    finally:
+        st.teardown()
+
+
+def test_there_is_no_continue_row_after_a_death():
+    """0x30efe: gameState 3 leaves row 6 before it speaks."""
+    _app, st = _new_stage()
+    try:
+        st.gameState = 1
+        assert 6 in st.pause_rows()
+        st.gameState = 3
+        assert 6 not in st.pause_rows()
+        assert st.pause_rows() == (1, 2, 3, 4, 5, 9, 10, 7, 8)
+    finally:
+        st.teardown()
+
+
+def test_up_and_down_walk_the_rows_and_wrap():
+    _app, st = _new_stage()
+    try:
+        st.gameState = 1
+        seen = [st.pause_move(1) for _ in range(len(Stage_1_E.PAUSE_ROWS))]
+        assert seen == list(Stage_1_E.PAUSE_ROWS), seen
+        st.selectMenu = 1
+        assert st.pause_move(-1) == 8, 'moving up off the top did not wrap'
+    finally:
+        st.teardown()
+
+
+def test_selecting_a_readout_queues_its_number():
+    """Each band plays its label and schedules its reader 2 s behind it (0x3097c)."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    try:
+        st.gameState = 2
+        st.gamePlayer.killMonsterCount = 7
+        st.pause_select(2)
+        assert Stage_1_E.READ_DELAY == 2.0
+        queued = [q for _d, _s, q in loop._performs
+                  if q.selector == 'ReadNumberOfZombies']
+        assert queued, 'the reader was not queued'
+        st.ReadNumberOfZombies()
+        assert st.killZombiesLabel == '7'
+    finally:
+        st.teardown()
+
+
+def test_the_dispatch_table_is_the_one_in_the_binary():
+    """The ``tbb`` at 0x2ff32 is 04 25 61 30 3b 4b 51 57, so row 3 does nothing and
+    row 4 - the score row - re-reads the headshot count."""
+    _app, st = _new_stage()
+    try:
+        st.gameState = 2
+        p = st.gamePlayer
+        p.killMonsterCount, p.HeadShotCount = 5, 2
+
+        st.selectMenu = 3
+        st.HeadShotLabel = 'untouched'
+        st.pause_activate()
+        assert st.HeadShotLabel == 'untouched', 'row 3 read something'
+
+        st.selectMenu = 4
+        st.ScoreLabel = 'untouched'
+        st.pause_activate()
+        assert st.HeadShotLabel == '2', 'row 4 did not read the headshot count'
+        assert st.ScoreLabel == 'untouched', 'row 4 read the score'
+
+        st.selectMenu = 9            # past the cmp r0, 7 - the rank cannot be re-read
+        st.RankLabel = 'untouched'
+        st.pause_activate()
+        assert st.RankLabel == 'untouched'
+    finally:
+        st.teardown()
+
+
+def test_pausing_works_once_and_only_once():
+    """bStop is set at 0x33e48 and never cleared anywhere in the binary."""
+    _app, st = _new_stage()
+    try:
+        assert st.StopPlayAction_() is True
+        assert st.gameState == 1 and st.bStop is True
+        assert st.MotionSamplingTimer is None, 'the walk timer kept running'
+        assert st.walkXFlag is True and st.brearhFlag is True
+        st.gameState = 0                       # pretend the game resumed
+        assert st.StopPlayAction_() is False, 'it paused a second time'
+    finally:
+        st.teardown()
+
+
+def test_continue_puts_the_walk_back():
+    _app, st = _new_stage()
+    try:
+        st.StopPlayAction_()
+        assert st.continueAction_() is True
+        assert st.gameState == 0
+        assert st.walkXFlag is False and st.brearhFlag is False
+        assert st.MotionSamplingTimer is not None, 'the walk timer did not come back'
+        st.gameState = 2
+        assert st.continueAction_() is False, 'it resumed from the result panel'
+    finally:
+        st.teardown()
+
+
+def test_restart_costs_a_coin_and_resets_the_run():
+    app, st = _new_stage(coins=2)
+    try:
+        st.gamePlayer.killMonsterCount = 9
+        st.gamePlayer.HeadShotCount = 4
+        st.gamePlayer.playerYplot = 500
+        st.gamePlayer.HP = 1
+        st.StopPlayAction_()
+        assert st.gameReplayAction_() is True
+        assert app.Coin == 1, 'the coin was not spent'
+        assert UserDefaults.standardUserDefaults().intForKey_('COIN') == 1
+        assert st.gamePlayer.HP == 3
+        assert st.gamePlayer.playerYplot == 680 and st.gamePlayer.playerXplot == 20
+        assert st.gamePlayer.killMonsterCount == 0
+        assert st.gamePlayer.HeadShotCount == 0
+        assert st.LVUP == 1 and st.monsterHPGain == 1.0
+        assert st.MonsterBuffer == []
+        assert st.gameState == 0 and st.running is True
+    finally:
+        st.teardown()
+
+
+def test_restart_with_no_coin_says_so():
+    app, st = _new_stage(coins=0)
+    try:
+        st.StopPlayAction_()
+        before = st.gamePlayer.playerYplot
+        assert st.gameReplayAction_() is False
+        assert app.Coin == 0
+        assert st.gamePlayer.playerYplot == before, 'it restarted anyway'
+        assert st.gameState == 1, 'the panel went away'
+    finally:
+        st.teardown()
+
+
+def test_the_main_menu_button_ends_the_run():
+    _app, st = _new_stage()
+    try:
+        st.StopPlayAction_()
+        assert st.GameEndAction_() is True
+        assert st.running is False
+        assert st.MonsterBuffer == []
+        assert st.MotionSamplingTimer is None
+    finally:
+        st.teardown()
+
+
+def test_gold_is_twelve_a_kill_and_two_a_headshot():
+    """0x3c616 - and every per-kind tally the method reads first is discarded."""
+    _app, st = _new_stage()
+    try:
+        p = st.gamePlayer
+        p.killMonsterCount, p.HeadShotCount = 10, 3
+        p.killMonster9count = 100          # dead weight in the original too
+        assert st.ObtainedGold() == 12 * 10 + 2 * 3
+        st.ReadObtainedGold()
+        assert st.GoldLabel == '126'
+    finally:
+        st.teardown()
+
+
+def test_a_death_shows_the_panel_eleven_seconds_later():
+    """0x3bd2c stores 11.0, and missionFailTell: is what sets gameState 3."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    try:
+        st.playerDie_()
+        assert st.gameState == 0, 'the panel went up immediately'
+        assert st.missionCompletSounding is True
+        q = [p for _d, _s, p in loop._performs
+             if p.selector == 'missionFailTell_']
+        assert q, 'missionFailTell: was not queued'
+        assert abs((q[0].due - time.monotonic()) - 11.0) < 0.5, 'not an 11 s wait'
+        st.missionFailTell_()
+        assert st.gameState == 3
+        assert st.bStop is True, 'the panel cannot take a button press'
+        assert st.missionCompletSounding is False
+    finally:
+        st.teardown()
+
+
+def test_a_run_that_beats_the_stored_best_saves_it():
+    """0x34c56 / 0x34cc0 - TOPSCORE and TOPSCOREWEEK."""
+    _app, st = _new_stage()
+    d = UserDefaults.standardUserDefaults()
+    try:
+        st.gamePlayer.killMonster9count = 4          # 4 * 300 = 1200
+        st.gamePlayer.killMonsterCount = 4
+        st.SuccessOrFailMission()
+        assert st.score == 1200, st.score
+        assert d.intForKey_('TOPSCORE') == 1200
+        assert d.intForKey_('TOPSCOREWEEK') == 1200
+        assert st.TopScoreLabel == '1200'
+        assert st.ScoreLabel == '1200'
+        assert st.GoldLabel == '48'                  # 12 * 4 kills, no headshots
+    finally:
+        st.teardown()
+
+
+def test_finishing_the_mission_banks_the_gold():
+    app, st = _new_stage()
+    try:
+        before = app.haveGold
+        st.gamePlayer.killMonsterCount = 3
+        st.MissionSuccessTell()
+        assert st.gameState == 2
+        assert app.haveGold == before + 36
+        assert UserDefaults.standardUserDefaults().intForKey_('GOLD') == app.haveGold
+        assert app.stage == 11, 'STAGE was not opened up'
+    finally:
+        st.teardown()
+
+
+if __name__ == '__main__':
+    fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
+    bad = 0
+    for fn in fns:
+        try:
+            fn()
+            print('ok    %s' % fn.__name__)
+        except AssertionError as e:
+            bad += 1
+            print('FAIL  %s: %s' % (fn.__name__, e))
+        except Exception as e:
+            bad += 1
+            print('ERROR %s: %r' % (fn.__name__, e))
+    print('%d/%d passed' % (len(fns) - bad, len(fns)))
+    sys.exit(1 if bad else 0)
