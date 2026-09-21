@@ -1,0 +1,69 @@
+# CLAUDE.md
+
+This file guides Claude Code when it works in this repository. **It is a lean dispatcher.** It says what the project is and how it is laid out, then points to focused memory files (`[[name]]`) for the detail. When you start work in an area, read its linked memory first.
+
+**Memory location:** all memory files (the `[[name]]` links and the `MEMORY.md` index) live in the repo's **`aidocks/`** folder, as `aidocks/<name>.md`. Read memory from there and write new or updated memory there, never to the `~/.claude` memory store. `aidocks/MEMORY.md` is the index, so add a one-line pointer there for every new memory. Keep this file under 40,000 characters and move detail into memory ([[feedback_memory_in_aidocks]]).
+
+## What this is
+
+A Windows port of **Sixth Sense** (`kr.co.bitbee.sixsense` 1.2), a 2013 iPhone audio-only zombie shooter for blind players. You walk down a dark corridor and shoot what you hear coming, in five lanes laid out like a clock face.
+
+There is no source code for the original. The port is **recovered from the ARMv7 binary** and rewritten method by method **entirely in Python**. **lbk2907 created it**, including the binary extraction, and handed it to tsatria03 to publish and develop together; the "Initial commit" is entirely their work ([[project_provenance]]). Each Python module mirrors one Objective-C class and cites the binary address it came from ([[project_python_only]]).
+
+The game plays the original's own 371 recorded WAVs. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA or SAPI.
+
+## Layout
+
+- **`SixthSense.py`**: the entry point and screen loop (stands in for `UINavigationController`).
+- **`sixthsense/game/`**: one module per original class. `stage_1_e.py` is the core loop; the others include `monster_control.py`, `weapon_control.py`, `main_controller.py` (the menu and coin economy), `stage_tutorial.py`, `store.py`, `inventory.py`, `intro.py`, `app_delegate.py` and `oal_playback.py`.
+- **`sixthsense/platform/`**:
+  - `openal.py`: a ctypes binding to OpenAL Soft, with HRTF off.
+  - `runloop.py`: stands in for `NSTimer` and `performSelector:afterDelay:`.
+  - `defaults.py`: stands in for `NSUserDefaults`.
+  - `speech.py`, `keymap.py` and `music.py`.
+- **`sixthsense/ui/`**: the keyboard input for the stage, the menus and the screens, plus the F1 key-bindings screen.
+- **`game/`**: the original app bundle, untouched. **Never write to it.**
+- **`analysis/`**:
+  - `bin/sixsense_armv7`: the binary itself.
+  - `disasm/dc_*.txt`: per-class decompiled listings.
+  - `digest/dg_*.txt`: condensed call summaries.
+  - `data/objc_classes.json`.
+- **`tools/`**: the Mach-O and disassembly tools that produced `analysis/`. `dz.py` and `dc.py` need `capstone`.
+- **`docs/`**: `PORTING_STATUS.md` (done, stubbed, not ported), `DIVERGENCES.md` (where the port differs, and which original bugs it reproduces) and `GAME_STRUCTURE.md`. Some "reproduced" entries are misreadings; see [[project_evaluation_2026_09]].
+- **`tests/`**: plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any.
+- **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
+- **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense` and a release zip ([[project_compiler_py]]).
+- **`user/`** is gitignored private reference material. Read it, but never edit it, and never name what is in it in the todo list, memory, or code and comments ([[feedback_no_other_games]]).
+
+The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.json`, `keys.json`).
+
+## Running and building
+
+**The dev runs and builds, not Claude.** Never build unless told to, and ask before running the game, the tests, `compiler.py`, or anything that executes game code ([[feedback_dont_run_or_build]]).
+
+`python SixthSense.py` opens the splash, then the menu. Flags:
+- `--no-intro` opens straight on the menu.
+- `--stage` and `--tutorial` start those directly.
+- `--skip-tutorial` writes `TUTORIAL=1`.
+- `--no-window` runs headless.
+- `-v` gives verbose logging.
+
+This needs Python 3.12 x64 and pygame. `comtypes` or `accessible_output2` is needed for the SAPI fallback. There is no `requirements.txt` yet.
+
+## Porting rules
+
+- Port from the binary, and cite the address in the code. Record every deliberate difference in `docs/DIVERGENCES.md`.
+- Before "reproducing" anything that hinges on one branch or constant, check the raw bytes. The decompiled listings mislead in known ways, and addresses are VM addresses, so file offset = address - 0x1000 ([[project_binary_analysis_notes]]).
+- Several tests assert current behavior, including some misreadings. Changing that behavior means updating its test in the same change.
+
+## Where the detail lives
+
+- **The current state, the known bugs, the three todo-list root causes, open decisions and the fix order**: [[project_evaluation_2026_09]].
+- **Reading the binary correctly**: [[project_binary_analysis_notes]].
+- **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
+- **Adapting the build script**: [[project_compiler_py]].
+- **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]].
+- **Who made what, the permission to publish, and how to credit contributors in commits**: [[project_provenance]]. Name people by GitHub username only: [[feedback_use_github_usernames]].
+- **Who you're working with**: [[user_screen_reader]]. The dev uses NVDA, so prefer lists and short lines, and never make noise from tools.
+
+`CLAUDE.md` and `aidocks/` are committed, not gitignored.

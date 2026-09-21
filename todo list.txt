@@ -1,0 +1,73 @@
+##unfinished.
+
+Fix a bug where zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
+Fix a bug where coins take 10 minutes to come back instead of 30 minutes, as in the original.
+Fix a bug where only one coin comes back after time away from the game, however long you were gone. The original gives one for every 30 minutes away, up to 5.
+Fix a bug where spending a coin restarts the countdown to your next coin from the beginning.
+Fix a bug where the coin row cannot tell you how long it is until your next coin.
+Fix a bug where starting a game before finishing the tutorial takes a coin and then leaves you standing still in silence. The original runs the tutorial first.
+Fix a bug where the tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
+Fix a bug where pressing P during the tutorial skips it, but the prompts keep playing and you never start walking. The original only lets you stop once the first eight steps are done.
+Fix a bug where tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
+Fix a bug where replaying the tutorial from the menu treats it as already finished.
+Fix a bug where finishing the tutorial starts a walk, instead of going back to the menu as the original does.
+Fix a bug where you can lose health during the tutorial.
+Fix a bug where "Now Loading" plays over the first tutorial prompt.
+Fix a bug where the "no coin" message plays as a recording and is spoken by the screen reader at the same time.
+Fix a bug where the menu reads out your number of coins a couple of seconds after you have already moved to another row.
+Fix a bug where moving between the two rows of the intro screen lets their sounds overlap.
+Fix a bug where the level music and ambience are far too loud and drown out the zombies. The original plays the music 25 times quieter and the ambience 5 times quieter.
+Fix a bug where the rain in the third area stops a second after it starts.
+Fix a bug where leaving a stage with escape leaves zombie footsteps and the ambience playing under the menu.
+Fix a bug where the boss at the end of each level never appears, and the level ends as soon as you reach the end of the corridor.
+Fix a bug where zombies still alive at the end of a level follow you into the next one, and the ambience does not change with the level.
+Fix a bug where the girl who heals you and the woman zombie never appear during a normal game.
+Fix a bug where the second girl uses the woman zombie's voice, reaching you plays her death sound instead of her thank you, and shooting her counts as a kill instead of costing you a heart.
+Fix a bug where switching weapons refills the magazine for free.
+Fix a bug where you can keep firing while reloading and still end up with a full magazine.
+Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
+Fix a bug where shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
+Fix a bug where gunshots are far too quiet, and killing a zombie with a gun does not play its kill sound.
+Fix a bug where dying says "game over" twice, instead of playing the player death sound first.
+Fix a bug where zombies appear faster than in the original, and there is no quiet stretch at the start of each section of corridor.
+Fix a bug where a zombie that has just appeared can be hit from the wrong lane for about a second.
+Fix a bug where the knife and sword do double damage on a headshot, and a miss sounds the same as a hit.
+Fix a bug where shaking free from a grab can kill the wrong zombie when two reach you at the same time.
+Fix a bug where pressing reload with the grenade equipped plays the grenade blast and does nothing, and where reload still works while you are grabbed or dying.
+Fix several small mismatches with the original: the kill tally for zombie type 22, the zombie sound tables, how close a zombie can get, the shake count carrying over between grabs, and the sound for switching to the sword.
+Fix a bug where the store's "not available" messages for the coin store, restore purchases and buy all weapons are silent.
+Fix a bug where the inventory lets you equip weapons you have not bought.
+Fix a bug where the Try button on a weapon's page does nothing and says nothing.
+Fix a bug where "not enough gold" is silent on a new save, and the mode row says voice over is on.
+Fix a bug where the shop and inventory screens only say "back button" when they open, so you cannot tell which screen you are on.
+Fix a bug where your rank always reads 0 and the weekly top score never resets.
+Fix a bug where you cannot rebind a key, because letting go of enter ends the capture before you press the new key.
+Fix a bug where holding one attack key and pressing another attacks the first lane again.
+Fix a bug where a key you were holding when you left a stage stays stuck down in the next one.
+Fix a bug where R on the key bindings screen resets every binding without asking.
+Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
+Ask before escape ends a stage, since leaving loses the coin you paid.
+Fix a bug where closing the window goes back to the menu instead of quitting the game.
+Fix a bug where a damaged save file is wiped and replaced, losing all your gold and weapons.
+Fix a bug where some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
+Add a log file and a crash.txt, and have the game say out loud when it cannot start, instead of failing silently.
+Add an exit after option and a game data line to the log, so the compiler's test build can come back.
+Pause the game when its window loses focus, and recover when the audio device changes.
+Fix a memory leak each time the music or ambience changes.
+Make the SAPI voice work without comtypes, for example through accessible_output2, so players without NVDA still hear the key bindings screen, and add JAWS support.
+Stop pygame from opening a second audio device alongside OpenAL.
+Fix some small platform issues: a wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
+Stop the tests from overwriting the real save file.
+Add a test that checks zombie sounds really move, not just the numbers behind them.
+Add a requirements.txt listing pygame, and comtypes or accessible_output2.
+Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check and the 10 minute coin.
+Fix tools/README.md, which says the addresses are file offsets when they are memory addresses.
+Remove the empty New File.txt.
+Decide whether coins should limit play at all in the Windows port, since the coin store and gifts from friends are gone.
+Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
+Test the compiler with a first build. It has been changed to build Sixth Sense, but it has not been run yet.
+Fix a bug where a new player starts with no coins, so the play button never starts a game. The original gives 10 coins the first time the game is opened, and here the countdown to the next coin never starts while you have none.
+Fix a bug in the tutorial's shaking step, where the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
+Fix a bug where the "you must use earphones" warning and the menu music start as soon as the menu opens, talking over the menu's title and row names. It happens again every time you come back to the menu.
+
+##finished.

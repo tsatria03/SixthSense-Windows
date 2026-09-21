@@ -1,3 +1,6 @@
+#private user data
+user/
+
 # What PyInstaller leaves behind
 build/
 dist/

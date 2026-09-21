@@ -1,0 +1,20 @@
+---
+name: project_safe_test_run
+description: "The tests write the dev's real save and play audio; run them with APPDATA redirected and OpenAL's null driver. Plain scripts, not pytest. Baseline 96/96."
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
+---
+
+The tests in `tests/` write keys such as `TUTORIAL`, `COIN`, `GOLD` and the weapon keys through `UserDefaults`. That class saves to `%APPDATA%\SixthSense\defaults.json` (`paths.user_dir()` reads the `APPDATA` environment variable), which is the dev's real save. `test_gameplay.py` also opens a real OpenAL device and plays about 35 seconds of game audio, and the dev keeps NVDA running while working.
+
+**Why:** Found during the 2026-09-21 evaluation. A plain run would have overwritten the dev's save and played audio over their screen reader.
+
+**How to apply:** Running the tests at all needs the dev's go-ahead first; see [[feedback_dont_run_or_build]]. Once they agree, and until the repo has its own override (a `SIXTHSENSE_USER_DIR` variable read by `paths.user_dir()` and set by each test), run the tests like this, in PowerShell:
+- set `$env:APPDATA` to a folder in the session scratchpad
+- set `$env:ALSOFT_DRIVERS = 'null'` so OpenAL Soft renders silently
+- set `$env:SDL_AUDIODRIVER = 'dummy'`
+- run each file as `python tests\<name>.py`; each is a plain script with its own `__main__` runner
+
+Baseline on 2026-09-21: 96 of 96 pass across the 7 files, in about 90 seconds (`test_gameplay` takes about 35 s because it runs on wall-clock time). Several tests assert behavior the evaluation found to be a misreading, for example `test_check_boos_die_compares_against_gamemode_minus_two`. Fixing that behavior means updating its test in the same change. See [[project_evaluation_2026_09]].
