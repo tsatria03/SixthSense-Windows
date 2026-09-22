@@ -10,6 +10,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from sixthsense.game import stage_1_e as S1E                     # noqa: E402
 from sixthsense.game import stage_tutorial as T                  # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
 from sixthsense.game.stage_tutorial import BEAT_NAMES, Stage_Tutorial  # noqa: E402
@@ -18,11 +19,13 @@ from sixthsense.platform.runloop import RunLoop                  # noqa: E402
 
 LANE = {1: 180.0, 2: 123.0, 3: 90.0, 4: 57.0, 5: 0.0}
 _REAL_BEATS = list(T.BEATS)
+_REAL_LOADING_SECONDS = S1E.LOADING_SECONDS
 
 
 def _tutorial(prompt=0.4):
     """A tutorial with short prompts, and TUTORIAL cleared as on a fresh install."""
     T.BEATS[:] = [(n, s, prompt, sp) for (n, s, _d, sp) in _REAL_BEATS]
+    S1E.LOADING_SECONDS = 0.0
     d = UserDefaults.standardUserDefaults()
     d.setObject_forKey_('0', 'TUTORIAL')
     d.synchronize()
@@ -32,6 +35,7 @@ def _tutorial(prompt=0.4):
     RunLoop.main().reset()
     st = Stage_Tutorial()
     st.viewDidLoad()
+    RunLoop.main().pump()                      # fire the (zeroed) loading delay
     st.gamePlayer.useWepon = 6                 # MG80, 1600 cm - reaches a fresh spawn
     st.weaponSource[6].BulletCount = 50
     return st
@@ -39,6 +43,7 @@ def _tutorial(prompt=0.4):
 
 def _restore():
     T.BEATS[:] = _REAL_BEATS
+    S1E.LOADING_SECONDS = _REAL_LOADING_SECONDS
 
 
 def _pump(loop, seconds, until=None):
@@ -85,6 +90,85 @@ def test_the_tutorial_does_not_walk():
         _restore()
 
 
+def test_replaying_the_tutorial_does_not_read_it_as_finished():
+    """0x7cfd8: the original forces isTutorial to 0. Without it, a save with
+    TUTORIAL already "1" (from a previous completion or skip) made a replay
+    start the walk timer immediately, and made P run the ordinary in-game pause
+    instead of tutorial_skip, since isTutorial is what StopPlayAction_ branches
+    on."""
+    T.BEATS[:] = [(n, s, 0.4, sp) for (n, s, _d, sp) in _REAL_BEATS]
+    S1E.LOADING_SECONDS = 0.0
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'TUTORIAL')          # already finished once before
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    st = Stage_Tutorial()
+    try:
+        st.viewDidLoad()
+        RunLoop.main().pump()                      # fire the (zeroed) loading delay
+        assert st.isTutorial == 0, 'a replay must not read as already finished'
+        assert st.MotionSamplingTimer is None, 'the walk timer started during a replay'
+        assert st.checkTutorialTimer is not None
+
+        st.StopPlayAction_()
+        assert st.checkTutorialTimer is None, 'P ran the ordinary pause, not tutorial_skip'
+    finally:
+        st.teardown()
+        _restore()
+
+
+def test_the_first_prompt_waits_for_now_loading_to_finish():
+    """0x7d6a2: beat One's prompt used to start the instant MapInitInBundle ran,
+    talking over Now Loading (46, played just before it in -[Stage_1_E
+    viewDidLoad]).  It must wait LOADING_SECONDS first."""
+    T.BEATS[:] = [(n, s, 0.4, sp) for (n, s, _d, sp) in _REAL_BEATS]
+    S1E.LOADING_SECONDS = 0.3
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('0', 'TUTORIAL')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    played = []
+    real_play = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = \
+        lambda num, *a, **k: (played.append(num), real_play(num, *a, **k))[-1]
+    st = Stage_Tutorial()
+    try:
+        st.viewDidLoad()
+        assert 46 in played, 'Now Loading did not play'
+        assert 275 not in played, 'beat One spoke before Now Loading had time to finish'
+        _pump(RunLoop.main(), 0.15)
+        assert 275 not in played, 'beat One started before LOADING_SECONDS was up'
+        _pump(RunLoop.main(), 0.3)
+        assert 275 in played, 'beat One never started'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        st.teardown()
+        _restore()
+
+
+def test_leaving_the_tutorial_stops_the_current_prompt():
+    """teardown() invalidated checkTutorialTimer but never stopped whatever beat's
+    prompt was still playing, so it kept going right over the menu."""
+    st = _tutorial(prompt=0.4)
+    real_stop = st.app.stopSoundBufNumber_
+    try:
+        assert st.current_beat == 'One'
+        stopped = []
+        st.app.stopSoundBufNumber_ = \
+            lambda num: (stopped.append(num), real_stop(num))[-1]
+        st.teardown()
+        assert 275 in stopped, "beat One's own prompt was not stopped"
+    finally:
+        st.app.stopSoundBufNumber_ = real_stop
+        _restore()
+
+
 def test_a_beat_prompts_then_sends_its_monster():
     st = _tutorial(prompt=0.4)
     loop = RunLoop.main()
@@ -123,6 +207,52 @@ def test_reload_finishes_beat_six():
     try:
         st.GunReloadAction_()
         assert st.beat_done['Six']
+    finally:
+        st.teardown()
+        _restore()
+
+
+def test_p_silences_the_prompts_when_it_skips():
+    """-[Stage_Tutorial StopPlayAction:] 0x8392a wrote TUTORIAL and played tutorial
+    success without ever stopping CheckTutorial, so the prompts kept nagging after
+    P supposedly skipped the tutorial."""
+    st = _tutorial(prompt=0.4)
+    loop = RunLoop.main()
+    try:
+        assert st.checkTutorialTimer is not None
+        calls = []
+        real_beat = st.tutorial_beat
+        st.tutorial_beat = lambda name: (calls.append(name), real_beat(name))[-1]
+
+        st.StopPlayAction_()
+        assert st.checkTutorialTimer is None, 'CheckTutorial is still running'
+        assert UserDefaults.standardUserDefaults().intForKey_('TUTORIAL') == 1
+
+        _pump(loop, 2.0)
+        assert not calls, 'a prompt restarted after P skipped the tutorial'
+    finally:
+        st.teardown()
+        _restore()
+
+
+def test_a_finished_prompt_does_not_restart_every_second():
+    """tutorial_beat never cleared beat_flag[name], so once a beat's own prompt
+    had finished playing once, tutorial_beat_end restarted it on every
+    CheckTutorial tick forever - most visible on Six, Seven and Nine, which
+    have no monster to gate the restart on."""
+    st = _tutorial(prompt=0.4)
+    try:
+        calls = []
+        real_beat = st.tutorial_beat
+        st.tutorial_beat = lambda name: (calls.append(name), real_beat(name))[-1]
+
+        st.current_beat = 'Six'
+        st.tutorial_sound_stop('Six')          # the prompt has finished playing
+        st.tutorial_beat_end('Six')            # one tick later: restart, as the original does
+        assert calls == ['Six']
+
+        st.tutorial_beat_end('Six')            # another tick, nothing has changed since
+        assert calls == ['Six'], 'the prompt restarted again before its own delay was up'
     finally:
         st.teardown()
         _restore()

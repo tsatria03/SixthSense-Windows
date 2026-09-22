@@ -19,13 +19,14 @@ from sixthsense.platform.runloop import RunLoop                  # noqa: E402
 class _Recorder:
     def __init__(self):
         self.said = []
+        self.stopped = 0
 
     def speak(self, text, interrupt=True):
         self.said.append(text)
         return True
 
     def stop(self):
-        pass
+        self.stopped += 1
 
 
 def _menu(coins=3):
@@ -96,6 +97,38 @@ def test_a_game_costs_a_coin_and_starts_the_clock():
         m.teardown()
 
 
+def test_the_menu_never_plays_the_earphone_warning():
+    """PORT ADDITION: the earphone warning (234) now plays once from the intro
+    screen (see tests/test_intro.py), not from the menu at all - it used to play
+    at menu load, talking over the title, then briefly from Start Game instead,
+    which repeated every time a game was started."""
+    played = []
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'FIREST')
+    d.setObject_forKey_('3', 'COIN')
+    d.setObject_forKey_('1', 'TUTORIAL')
+    d.removeObjectForKey_('COIN_TIMER')
+    d.removeObjectForKey_('COIN_TIMER_START')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    real_play = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = \
+        lambda num, *a, **k: (played.append(num), real_play(num, *a, **k))[-1]
+    m = MainController(speech=_Recorder())
+    try:
+        m.viewDidLoad()
+        assert 234 not in played, 'the earphone warning played at menu load'
+        m.selectMenu = 3
+        m.activate()
+        assert 234 not in played, 'the earphone warning played from Start Game'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        m.teardown()
+
+
 def test_starting_before_the_tutorial_spends_no_coin():
     """0x2e08e-0x2e0dc: the original runs the tutorial before a coin is ever at
     stake. The port sends the player to its own tutorial screen instead."""
@@ -132,12 +165,15 @@ def test_spending_a_coin_does_not_restart_a_running_clock():
 
 
 def test_no_coin_means_no_game():
+    """0xb472-0xb5a0: the original only plays 358 and shows the sentence as text
+    on maskLabel1 - nothing about it is spoken."""
     m = _menu(coins=0)
     try:
         m.selectMenu = 3
         m.activate()
         assert m.next_screen is None, 'it started a game with no coin'
-        assert any('No coin' in s for s in m.speech.said)
+        assert 'No coin' in m.message
+        assert not m.speech.said, 'the recording should not be spoken over'
     finally:
         m.teardown()
 
@@ -265,6 +301,24 @@ def test_the_server_rows_decline_instead_of_pretending():
             assert m.speech.said, '%s said nothing at all' % action
     finally:
         m.teardown()
+
+
+def test_moving_away_from_a_server_row_stops_its_speech():
+    """StopElseSpeak (0x96e9) must cut the sentence off, or it talks over whatever
+    row the player moves to next - it already did this for the WAVs and the
+    coin reader, but not for the screen reader itself."""
+    for num in (5, 8):                        # ranking, gamecenter
+        m = _menu()
+        try:
+            m.selectMenu = num
+            m.activate()
+            assert m.speech.said, 'row %d said nothing at all' % num
+            before = m.speech.stopped
+            m.move(1)
+            assert m.speech.stopped > before, \
+                'moving away from row %d did not stop the speech' % num
+        finally:
+            m.teardown()
 
 
 def test_the_store_row_opens_the_shop():

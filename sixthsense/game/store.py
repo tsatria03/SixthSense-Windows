@@ -312,6 +312,8 @@ class DetailStoreController(BlindScreen):
     def testAction_(self, *_):
         """The Try button pushes ``Stage_1_TEST`` - the one door into it.  It is not
         reachable from the main menu, which is why it reads as a development build,
-        but the shop does get to it."""
+        but the shop does get to it.  ``Stage_1_TEST`` itself is not ported
+        (``docs/PORTING_STATUS.md``), so the port says so instead of doing nothing."""
         self.ui_select()
+        self.say('The weapon test range is not available.')
         self.push('weapon_test', self.weaponType)

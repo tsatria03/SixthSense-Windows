@@ -255,6 +255,8 @@ def _menu_lines(menu):
     from sixthsense.game.main_controller import ROWS
     out = ['SixthSense   headphones recommended', '',
            'coins %d      next coin in %s' % (menu.app.Coin, menu.coin_clock), '']
+    if getattr(menu, 'message', ''):
+        out += [menu.message, '']
     for num, _flag, _sound, action in ROWS:
         out.append('%s %s' % ('>' if num == menu.selectMenu else ' ', action))
     out += ['', 'Up/Down move   Enter choose   F1 key bindings   Esc quit']

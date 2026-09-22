@@ -26,6 +26,19 @@ What has landed so far:
 
   Tests: `test_gameplay`'s magazine-kept, ambience-gain and silent-teardown checks. Batch 1 had also fixed the first-launch grant and the 30-minute interval; those halves were dropped in favor of `a16564f`'s versions.
 
+- **Batch 2, by Claude, 2026-09-22, a vocal-only pass (not yet committed):**
+  - `BlindScreen.say`/`StopElseSpeak` fall back to `Speech.shared()` and call `speech.stop()`, and `StopElseSpeak` now stops every row's own sound unconditionally (from `self.rows()`), not just a hand-kept `STOP_SOUNDS` tuple - closing the gap where restore purchases' own name WAV (370) was missing from `MainStoreController.STOP_SOUNDS` and kept talking after the player moved to another row. `MainController.StopElseSpeak` gained the same `speech.stop()` call, for ranking and Game Center.
+  - The Try button (`DetailStoreController.testAction_`) now says "The weapon test range is not available" instead of silently pushing the unported `weapon_test` screen.
+  - `tutorial_beat` clears `beat_flag[name]` when a prompt (re)starts - part of sub-item (b) above, "the prompt restarts every second."
+  - `Stage_Tutorial.tutorial_skip` now invalidates `checkTutorialTimer` and stops the current beat's own sound - part of sub-item (b), the P-during-tutorial half. The "only after beats One-Eight" gate and the 2 s return to the menu are still open.
+  - `Stage_Tutorial.MapInitInBundle` forces `isTutorial = 0` (0x7cfd8), fixing "replaying the tutorial reads isTutorial=1" and, as a side effect, the P-during-tutorial fix above (P used to fall through to the ordinary in-stage pause instead of `tutorial_skip` whenever a save's `TUTORIAL` was already "1").
+  - `Stage_Tutorial.teardown` now stops whatever beat's prompt was still playing (new finding, not in the original evaluation): leaving the tutorial any other way than P left it running into the menu.
+  - `MainController.StartGameAction_`'s no-coin branch sets `self.message` instead of calling `self._say(...)` - part of sub-item (c), "No coin plays WAV 358 and speaks the same text through NVDA."
+  - `SOUND_EARPHONE` (234) moved out of the menu entirely into `StartIntroPage`, timed to start `WELCOME_SECONDS` after the welcome message and cancelled by `skipAction` - a port addition, not the original's own call site (`StartGameAction:`); see `docs/DIVERGENCES.md`. Fixes part of sub-item (c) and the earphone half of the todo list's last line.
+  - `Stage_1_E.viewDidLoad`/`MapInitInBundle`: Now Loading (46) now plays before anything else touches audio, and `BGMusicStop` moved into the already-`LOADING_SECONDS`-delayed `MapInitInBundle`, so the menu music keeps playing under Now Loading instead of cutting before it, and the level's own ambience/music (or the tutorial's first prompt) waits for the same delay - fixes the todo list's "Now Loading plays over the first tutorial prompt" and a dev-reported ordering bug not in the original evaluation.
+  - Tests: `tests/test_store.py`, `tests/test_menu.py`, `tests/test_tutorial.py`, `tests/test_speech.py`, `tests/test_gameplay.py`, `tests/test_input.py`, `tests/test_pause.py` (LOADING_SECONDS override), and the new `tests/test_intro.py`. 145/145 passing as of this batch.
+  - **Not confirmed by the dev's own ear yet, except:** the StopElseSpeak/row-sound fix ("they work now") and the P-during-tutorial fix ("it works now"). Everything else here landed in this session without a final by-ear check - see [[feedback_dont_run_or_build]] and [[project_safe_test_run]] before assuming more than that.
+
 On 2026-09-21 every item below was also added to `todo list.txt` as a plain sentence, most important first, at the top of `##unfinished.` ([[feedback_todo_list_format]]). The todo file is the dev's checklist; this memory holds the technical detail behind each line.
 
 ## Overall
@@ -55,26 +68,26 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - As a result the grab never happens, isShake is never set, and Space is ignored (`stage_1_e.py` about 983).
   - `tests/test_tutorial.py` about line 152 calls `MonsterAttPlayer()` by hand, which hides this.
 - [R] **`tutorial_sound_stop` doesn't set `noAtt = 1` before spawning type 73 at beat Eight** (original 0x8e1a8), so the grabber can be shot.
-- [R] **The prompt restarts every second.**
+- [R] **The prompt restarts every second. FIXED 2026-09-22 (batch 2).**
   - `tutorial_beat` never clears `beat_flag[name]`, and `tutorial_beat_end` re-prompts every tick. Prompt 282 therefore restarts every second.
   - Each restart also cancels and reschedules the pending `tutorial_sound_stop`, so the next zombie never spawns.
   - Beats Six, Seven and Nine stutter the same way.
-- [R] **P (`tutorial_skip`, `stage_1_e.py` about 1229-1238) writes TUTORIAL=1, but `CheckTutorial` keeps running.** In the original, stop during the tutorial only works once beats One to Eight are done (0x8392a-0x8393c; Stage_1_E 0x33f1e-0x33f30). After that it stops the prompts and timers, writes TUTORIAL, plays 327, and returns to the menu 2 s later.
+- [R] **P (`tutorial_skip`, `stage_1_e.py` about 1229-1238) writes TUTORIAL=1, but `CheckTutorial` keeps running. PARTLY FIXED 2026-09-22 (batch 2):** `Stage_Tutorial.tutorial_skip` now invalidates `checkTutorialTimer` and stops the current beat's sound, so the prompts stop - confirmed by the dev ("it works now"). **Still open:** in the original, stop during the tutorial only works once beats One to Eight are done (0x8392a-0x8393c; Stage_1_E 0x33f1e-0x33f30), and afterward it returns to the menu 2 s later; the port still allows the skip at any point and leaves the player standing there.
 - **Fix:**
-  - Clear `beat_flag[name]` in `tutorial_beat`.
+  - Clear `beat_flag[name]` in `tutorial_beat`. **Done.**
   - Set `noAtt` for beat Eight.
   - End `CheckTutorial` with `if not self.isShake: self.MonsterAttPlayer()`.
   - Give the tutorial its own `MonsterAttPlayer`: grabbers grab, and any other monster is removed and re-prompted with no HP loss.
-  - Give the tutorial its own `StopPlayAction_` as described above.
+  - Give the tutorial its own `StopPlayAction_` as described above. **Half done**: it stops the prompts and timer; it does not yet gate on beats One-Eight or return to the menu.
   - Add a test that pumps `CheckTutorial` instead of calling `MonsterAttPlayer` by hand.
 
 ### (c) The intro overlaps the menu speech. High.
-- [R] **The earphone warning plays at menu load, and the title is read over it.** `main_controller.py` about 116 plays 234 "you must use earphone" in `viewDidLoad`, and the next line reads the title over it. The original plays 234 only from `StartGame:` when no headphones are detected (0xac50-0xacf0).
-- [R] **The menu's `StopElseSpeak` (about 129-135) misses sounds 234, 21 and 22.** The original's list includes them (0x9708-0x97a2). It also doesn't cancel `readNumberOfCoin` (0x97e2) or stop the synthesizer.
-- [R] **`bgm_main_menu` is a port addition.** It starts at about line 115. The original `MainController` never calls `BGMusicStart`; only `GameEndAction:` does (0x330da).
-- [R] **The overlap comes back every time you return to the menu**, because a new `MainController` is built each time.
-- [R] **"No coin" plays WAV 358 and speaks the same text through NVDA at the same moment** (about 231-234).
-- [R] **The intro's `STOP_SOUNDS = (14,)` should be `(14, 266)`** (`intro.py` about 46; original 0x1863c).
+- [R] **The earphone warning plays at menu load, and the title is read over it. FIXED 2026-09-22 (batch 2), differently than suggested:** rather than moving the call to `StartGameAction:` (the original's own site), the dev asked for it to move to `StartIntroPage` instead - it now plays once, timed after the welcome message, and is cancelled if the player skips the intro. See `docs/DIVERGENCES.md`, "Now Loading blocks, and the earphone warning moved to the intro." `main_controller.py` about 116 plays 234 "you must use earphone" in `viewDidLoad`, and the next line reads the title over it. The original plays 234 only from `StartGame:` when no headphones are detected (0xac50-0xacf0).
+- [R] **The menu's `StopElseSpeak` (about 129-135) misses sounds 234, 21 and 22.** The original's list includes them (0x9708-0x97a2). **The synthesizer half is fixed** (batch 2 added `speech.stop()`). 234 no longer plays from the menu at all, so it is moot there; 21 and 22 are not yet checked. It also doesn't cancel `readNumberOfCoin` (0x97e2) - not yet checked either.
+- [R] **`bgm_main_menu` is a port addition.** It starts at about line 115. The original `MainController` never calls `BGMusicStart`; only `GameEndAction:` does (0x330da). **Still open** - this is the todo list's remaining "menu music starts as soon as the menu opens" line.
+- [R] **The overlap comes back every time you return to the menu**, because a new `MainController` is built each time. The earphone half cannot recur any more, since it no longer plays from the menu; the music half still can.
+- [R] **"No coin" plays WAV 358 and speaks the same text through NVDA at the same moment. FIXED 2026-09-22 (batch 2):** `StartGameAction_`'s no-coin branch now sets `self.message` (read by `SixthSense.py`'s window mirror) instead of calling `self._say(...)` (about 231-234).
+- [R] **The intro's `STOP_SOUNDS = (14,)` should be `(14, 266)`** (`intro.py` about 46; original 0x1863c). **Likely fixed as a side effect** of `BlindScreen.StopElseSpeak` now stopping every row's own sound unconditionally (batch 2) - not verified by ear.
 
 ## Critical and high (beyond the todo list)
 
@@ -110,7 +123,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
    - gameMode 3: the original plays only rain, on the ambience player, at 0.5 (0x2ddc8).
    - Port: `stage_1_e.py` about 255-261, 360, 362. The port's own `continueAction_` already uses 0.2 and 0.02.
 7. [R] FIXED (batch 1). **Escape or closing the window from a stage leaves the monster loops and ambience playing under the menu** indefinitely. `teardown` (`stage_1_e.py` about 1036-1043) should call `MonsterStop()` and `AMBSoundStop()`.
-8. [R] **Store screens are built without a speech object**, so "not available" for the coin store, restore and buy-all goes only to the log (`SixthSense.py` about 66-72, `blind_screen.py` about 71-76). Fall back to `Speech.shared()`.
+8. [R] FIXED 2026-09-22 (batch 2). **Store screens are built without a speech object**, so "not available" for the coin store, restore and buy-all goes only to the log (`SixthSense.py` about 66-72, `blind_screen.py` about 71-76). `BlindScreen.say` now falls back to `Speech.shared()`, the same lazy fallback `MainController._say` already used.
 9. [V] **Key rebinding is broken.** Any key-up ends capture (`keybind_screen.py` about 149-151), so releasing Enter reports "Nothing pressed". Finish capture only on the key-up of a captured key. The test never releases Return.
 10. [V] **The tests overwrite the real save.** See [[project_safe_test_run]].
 
@@ -172,7 +185,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **Closing the window doesn't quit.** It goes to the menu, and stacked screens and their coin timers are never torn down (`SixthSense.py` about 221-228).
 - [R] **Several actions are silent or unconfirmed.**
   - R in the bindings screen resets everything without asking.
-  - The weapon Try button is silent.
+  - The weapon Try button is silent. **FIXED 2026-09-22 (batch 2)**, not yet confirmed by ear.
   - Shop screens open by saying only "back button".
   - Escape in a stage drops the run and the coin with no confirmation.
 - [R] **Loading and path issues.**

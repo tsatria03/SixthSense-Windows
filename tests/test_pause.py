@@ -13,6 +13,7 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sixthsense import paths                                    # noqa: E402
+from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform.defaults import UserDefaults           # noqa: E402
@@ -20,6 +21,7 @@ from sixthsense.platform.runloop import RunLoop                 # noqa: E402
 
 
 def _new_stage(coins=3):
+    S1E.LOADING_SECONDS = 0.0
     d = UserDefaults.standardUserDefaults()
     d.setObject_forKey_('1', 'FIREST')          # past the first-launch ten coins
     d.setObject_forKey_('1', 'TUTORIAL')
@@ -35,6 +37,7 @@ def _new_stage(coins=3):
     RunLoop.main().reset()
     st = Stage_1_E()
     st.viewDidLoad()
+    RunLoop.main().pump()                       # fire the (zeroed) loading delay
     return app, st
 
 

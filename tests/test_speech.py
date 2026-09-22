@@ -234,6 +234,23 @@ def test_stop_reaches_whatever_is_speaking():
     assert s.nvda.stopped == 1
 
 
+def test_stopping_a_voice_discards_it_so_stuck_audio_is_torn_down():
+    """A plain voice (SAPI, OneCore) has no cancel as reliable as a real screen
+    reader's, and can keep playing what it already queued even after stop().
+    Freeing it so the next line gets a fresh backend tears down whatever
+    playback is still stuck underneath the old one."""
+    sapi = _Backend('SAPI', braille=False)
+    s, ctx, _clock = _speech({'SAPI': sapi})
+    s.speak('one')
+    s.stop()
+    assert sapi.stopped == 1
+    sapi2 = _Backend('SAPI', braille=False)
+    ctx.backends['SAPI'] = sapi2
+    s.speak('two')
+    assert sapi2.spoken == [('speak', 'two', True)], 'a fresh backend was not built'
+    assert sapi.spoken == [('speak', 'one', True)], 'the old backend was reused'
+
+
 def test_an_empty_line_says_nothing():
     jaws = _Backend('JAWS')
     s, _ctx, _clock = _speech({'JAWS': jaws})

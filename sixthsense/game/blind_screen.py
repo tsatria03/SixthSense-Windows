@@ -69,18 +69,31 @@ class BlindScreen:
         self.play(SOUND_UI_SELECT)
 
     def say(self, text):
-        """For a row the port cannot carry out - the two in-app-purchase screens and
-        the publisher's server.  ``docs/DIVERGENCES.md`` says why this speaks."""
+        """For a row the port cannot carry out - the two in-app-purchase screens, the
+        publisher's server and the weapon test range.  ``docs/DIVERGENCES.md`` says
+        why this speaks."""
         log.info('%s', text)
-        if self.speech is not None:
-            self.speech.speak(text)
+        if self.speech is None:
+            from ..platform.speech import Speech
+            self.speech = Speech.shared()
+        self.speech.speak(text)
 
     # -[X StopElseSpeak]
     def StopElseSpeak(self):
+        # Every row's own name WAV, stopped unconditionally rather than by a
+        # hand-kept list, the way MainController stops all of ROWS - so a row
+        # whose sound a STOP_SOUNDS tuple leaves out (as row 6's did here) can
+        # never again keep talking over whatever the player moves to next.
+        for row in self.rows():
+            sound = self.row_sound(row)
+            if sound:
+                self.app.stopSoundBufNumber_(sound)
         for num in self.STOP_SOUNDS:
             if num:
                 self.app.stopSoundBufNumber_(num)
         self.app.readStop()
+        if self.speech is not None:
+            self.speech.stop()
         loop = RunLoop.main()
         for sel in set(self.ROW_READER.values()):
             loop.cancelPerform(self, sel)

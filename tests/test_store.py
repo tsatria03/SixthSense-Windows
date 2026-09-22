@@ -29,13 +29,14 @@ EQUIPPED = ('GRENADEUSE', 'KNIFEUSE', 'COLTUSE', 'SHOTGUNUSE',
 class _Recorder:
     def __init__(self):
         self.said = []
+        self.stopped = 0
 
     def speak(self, text, interrupt=True):
         self.said.append(text)
         return True
 
     def stop(self):
-        pass
+        self.stopped += 1
 
 
 def _app(gold=0, grenades=0):
@@ -101,6 +102,46 @@ def test_the_shop_menu_pushes_the_two_screens_that_work():
         m.teardown()
 
 
+def test_moving_away_from_a_silent_row_stops_its_speech():
+    """StopElseSpeak must cut the sentence off, or it talks over whatever row
+    the player moves to next - the coin store and restore purchases both say
+    they are not available, and the same fix covers both."""
+    _app()
+    m = MainStoreController(speech=_Recorder())
+    try:
+        for row in (5, 6):                   # coin store, restore purchases
+            m.speech.said.clear()
+            m.select(row)
+            m.activate()
+            assert m.speech.said, 'row %d said nothing at all' % row
+            before = m.speech.stopped
+            m.select(1)                      # move to another row
+            assert m.speech.stopped > before, \
+                'moving away from row %d did not stop the speech' % row
+    finally:
+        m.teardown()
+
+
+def test_moving_away_from_a_row_stops_its_own_name_sound():
+    """STOP_SOUNDS (0x1dc88) leaves out 370, restore purchases' own name WAV, so
+    it kept playing after the player moved to another row.  StopElseSpeak now
+    stops every row's own sound unconditionally, the way MainController stops
+    all of ROWS, so a gap like that one can no longer happen."""
+    _app()
+    m = MainStoreController(speech=_Recorder())
+    stopped = []
+    real_stop = m.app.stopSoundBufNumber_
+    m.app.stopSoundBufNumber_ = lambda num: stopped.append(num)
+    try:
+        m.select(6)                          # restore purchases
+        stopped.clear()
+        m.select(1)                          # move to another row
+        assert 370 in stopped, "restore's own name sound was not stopped"
+    finally:
+        m.app.stopSoundBufNumber_ = real_stop
+        m.teardown()
+
+
 def test_the_weapon_list_opens_each_weapons_page():
     """0x15a90 and its copies: Item1..Item6Action pass 1, 2, 3, 4, 5 and 0."""
     _app()
@@ -119,6 +160,9 @@ def test_the_weapon_list_opens_each_weapons_page():
         s.activate()
         assert s.next_screen is None
         assert s.speech.said
+        before = s.speech.stopped
+        s.select(1)                                       # move to another row
+        assert s.speech.stopped > before, 'moving away did not stop the speech'
     finally:
         s.teardown()
 
@@ -200,13 +244,18 @@ def test_a_thousand_gold_buys_one_grenade():
 
 
 def test_the_try_button_wants_the_test_stage():
-    """0x1c1c0 pushes Stage_1_TEST - the only way into it."""
+    """0x1c1c0 pushes Stage_1_TEST - the only way into it.  Stage_1_TEST is not
+    ported, so the port says so rather than doing nothing."""
     _app()
-    p = DetailStoreController(2)
+    p = DetailStoreController(2, speech=_Recorder())
     try:
         p.select(8)
         p.activate()
         assert p.next_screen == ('weapon_test', 2)
+        assert p.speech.said
+        before = p.speech.stopped
+        p.select(1)                          # move to another row
+        assert p.speech.stopped > before, 'moving away did not stop the speech'
     finally:
         p.teardown()
 

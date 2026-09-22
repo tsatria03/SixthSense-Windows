@@ -29,8 +29,19 @@ SOUND_WELCOME = 14              # 0x17b32
 SOUND_STORY = 15                # 0x171bc
 SOUND_DOUBLE_TAP = 266          # 0x1844e
 
+#: PORT ADDITION: not in the original at all - it only ever plays 234 from
+#: MainController's StartGameAction:, gated on a headphone check Windows cannot
+#: make. Saying it here instead, once, after the welcome message has had time to
+#: finish, keeps the reminder without it colliding with the menu's own title read
+#: - and a player who skips the intro never hears it, same as skipping cuts off
+#: the welcome message itself.
+SOUND_EARPHONE = 234
+
 #: 0x1745c: `mov.w r3, #0x40000000` - the high half of 2.0.
 SPLASH_SECONDS = 2.0
+
+#: PORT ADDITION: measured - 'Welcome to' (14) runs about 28.16 s.
+WELCOME_SECONDS = 28.2
 
 
 class StartIntroPage(BlindScreen):
@@ -87,6 +98,10 @@ class StartIntroPage(BlindScreen):
         self.selectMenu = 1                                   # 0x17ada
         self.StopElseSpeak()
         self.play(SOUND_WELCOME)                              # 0x17b32
+        RunLoop.main().perform(self, 'sound_earphone', None, WELCOME_SECONDS)
+
+    def sound_earphone(self, *_):
+        self.play(SOUND_EARPHONE)
 
     # -[startIntroPage shakeDevice] 0x17178
     def shakeDevice(self):
@@ -113,9 +128,10 @@ class StartIntroPage(BlindScreen):
     # -[startIntroPage skipAction] 0x188bc
     def skipAction(self, *_):
         for num in (SOUND_WELCOME, SOUND_BGM_START_END, SOUND_STORY,
-                    SOUND_DOUBLE_TAP):
+                    SOUND_DOUBLE_TAP, SOUND_EARPHONE):
             self.app.stopSoundBufNumber_(num)
         RunLoop.main().cancelPerform(self, 'shakeDevice')
+        RunLoop.main().cancelPerform(self, 'sound_earphone')
         self.next_screen = 'menu'
         return True
 

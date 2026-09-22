@@ -255,12 +255,22 @@ class _Prism:
             return None
 
     def stop(self):
-        for backend in (None if self.reader is None else self.reader[1], self.voice):
-            if backend is not None:
-                try:
-                    backend.stop()
-                except Exception:
-                    pass
+        if self.reader is not None:
+            try:
+                self.reader[1].stop()
+            except Exception:
+                pass
+        if self.voice is not None:
+            try:
+                self.voice.stop()
+            except Exception:
+                pass
+            # A plain voice (SAPI or OneCore) can keep playing what it had
+            # already queued even after stop(), unlike a real screen reader's
+            # own cancel.  Freeing it and building a fresh one next time tears
+            # down whatever audio is still playing underneath it.
+            self.voice = None
+            self.next_voice_try = 0.0        # so the next line gets it at once
 
 
 class Speech:

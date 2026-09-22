@@ -220,6 +220,26 @@ and never touches `Coin`, matching the original in the one thing a player can
 notice - no coin lost, no silent standing still - without folding the tutorial into
 `Stage_1_E`.
 
+### Now Loading blocks, and the earphone warning moved to the intro
+Two port additions, decided 2026-09-22 after they were heard colliding in play.
+
+`-[Stage_1_E viewDidLoad]` plays *Now Loading* (46) as its very first act, before
+`BGMusicStop` or anything else here touches audio. `BGMusicStop` itself moved into
+`MapInitInBundle`, which `LOADING_SECONDS` (2.8 s, `stage_1_e.LOADING_SECONDS`)
+already holds back - so the menu music keeps playing under *Now Loading* instead of
+cutting to silence before the player hears it, and only stops once the level (or the
+tutorial's first beat) is ready to take over. Nothing in the binary ties these two
+sounds together; this is purely about not leaving dead air or an abrupt cut in a game
+with no picture to fall back on.
+
+*You must use earphone* (234) only ever plays from `MainController StartGameAction:`
+in the original (`useHeadPhone`, 0xaa3d, gated on a headphone check Windows cannot
+make). Playing it there in the port meant repeating the same four-second recording
+every single time a game was started. It now plays once, from `StartIntroPage`, timed
+to start after the welcome message (`WELCOME_SECONDS`, measured from the WAV) - and
+skipping the intro (`skipAction`) cancels or stops it, the same way skipping cuts off
+the welcome message itself, so a player who skips never hears it at all.
+
 ### Key bindings are a port addition
 The original has no key bindings at all — every action is a swipe, a tap or a shake.
 The port binds those actions to keys (`platform/keymap.py`), lets the player change

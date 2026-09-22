@@ -138,6 +138,13 @@ SOUND_GAME_OVER = 354
 SOUND_MISSION_SUCCESS = 227
 SOUND_MISSION_FAIL = 228    # stopped by StopElseSpeak; Stage_1_E never plays it
 SOUND_BGM_GAME_END = 89     # what -[Stage_1_E playerDie:] plays, 0x3bcaa
+SOUND_NOW_LOADING = 46
+
+#: 0x2d45e (0x7d6a2 in Stage_Tutorial) - how long the original waits, after Now
+#: Loading plays, before calling MapInitInBundle - so the recording has time to
+#: finish before the level's own ambience and music start over it (or, for
+#: Stage_Tutorial, before its first prompt does).
+LOADING_SECONDS = 2.8
 
 
 class Stage_1_E:
@@ -210,8 +217,12 @@ class Stage_1_E:
     # ================================================================ loading
     # -[Stage_1_E viewDidLoad] 0x2c784
     def viewDidLoad(self):
+        # Now Loading always plays first, blocking - nothing else here touches
+        # audio, including cutting the menu music, until MapInitInBundle actually
+        # runs (below), well after Now Loading has had time to finish.
+        self.app.playSound_Gain_Pos_z_reprats_(
+            SOUND_NOW_LOADING, 0.2, (0.0, 0.0), 0, False)
         d = UserDefaults.standardUserDefaults()
-        self.app.BGMusicStop()
         self.app.weaponHave()
         self.weaponInit()
         # 0x2cd52: isTutorial is the raw NSUserDefaults value, and the name is the wrong
@@ -236,11 +247,18 @@ class Stage_1_E:
         # 0x2d360: gameMode = arc4random() % 3 + 1
         self.gameMode = arc4random() % 3 + 1
         self.changeGameMode()
-        self.app.playSound_Gain_Pos_z_reprats_(46, 0.2, (0.0, 0.0), 0, False)  # Now Loading
-        self.MapInitInBundle()
+        # Set here rather than left to MapInitInBundle's own assignment, so the frame
+        # loop does not read this as an ended stage and bail to the menu while the
+        # loading delay below is still running.
+        self.running = True
+        RunLoop.main().perform(self, 'MapInitInBundle', None, LOADING_SECONDS)
 
     # -[Stage_1_E MapInitInBundle] 0x2dbbc
     def MapInitInBundle(self):
+        # The menu music stops here, not in viewDidLoad, so it keeps playing under
+        # Now Loading instead of cutting out before the player ever hears it.
+        self.app.BGMusicStop()
+
         def read(name, ext=None):
             p = paths.path_for_resource(name, ext)
             with open(p, 'r', encoding='utf-8', errors='replace') as f:

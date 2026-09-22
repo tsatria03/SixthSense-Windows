@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pygame                                                    # noqa: E402
 
+from sixthsense.game import stage_1_e as S1E                     # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
 from sixthsense.game.stage_1_e import Stage_1_E                  # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
@@ -30,6 +31,7 @@ def _stage():
     if not pygame.get_init():
         pygame.init()
         pygame.display.set_mode((64, 64))
+    S1E.LOADING_SECONDS = 0.0
     d = UserDefaults.standardUserDefaults()
     d.setObject_forKey_('1', 'TUTORIAL')
     d.synchronize()
@@ -39,6 +41,7 @@ def _stage():
     RunLoop.main().reset()
     st = Stage_1_E()
     st.viewDidLoad()
+    RunLoop.main().pump()                     # fire the (zeroed) loading delay
     km = KeyMap(path=os.path.join(tempfile.mkdtemp(), 'keys.json'))
     return st, Input(st, keymap=km)
 

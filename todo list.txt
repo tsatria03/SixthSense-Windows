@@ -5,14 +5,10 @@ Remove the Game Center row from the main menu. In the original it opened Apple's
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
-The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
-Pressing P during the tutorial skips it, but the prompts keep playing and you never start walking. The original only lets you stop once the first eight steps are done.
+Pressing P during the tutorial always skips it and leaves you standing there, instead of only working once the first eight steps are done and returning to the menu two seconds later.
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
-Replaying the tutorial from the menu treats it as already finished.
 Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
 You can lose health during the tutorial.
-"Now Loading" plays over the first tutorial prompt.
-The "no coin" message is spoken by the screen reader on top of its own recording. The original only plays the recording and shows the sentence as text, so the spoken sentence should go.
 Moving between the two rows of the intro screen lets their sounds overlap.
 The boss at the end of each level never appears, and the level ends as soon as you reach the end of the corridor.
 Zombies still alive at the end of a level follow you into the next one, and the ambience does not change with the level.
@@ -31,7 +27,6 @@ Pressing reload with the grenade equipped plays the grenade blast and does nothi
 Several small details do not match the original: the kill tally for zombie type 22, the zombie sound tables, how close a zombie can get, the shake count carrying over between grabs, and the sound for switching to the sword.
 Remove the coin store, restore purchases and buy all weapons rows from the shop. In the original they were paid online purchases, so the Windows port does not need them. Weapons are still bought one at a time with the gold you earn by playing.
 The inventory lets you equip weapons you have not bought.
-The Try button on a weapon's page does nothing and says nothing.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The shop and inventory screens only say "back button" when they open, so you cannot tell which screen you are on.
 Your rank always reads 0 and the weekly top score never resets.
@@ -58,10 +53,20 @@ tools/README.md says the addresses are file offsets, when they are memory addres
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 Test the compiler with a first build. It has been changed to build Sixth Sense, but it has not been run yet.
 In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
-The "you must use earphones" warning and the menu music start as soon as the menu opens, talking over the menu's title and row names. It happens again every time you come back to the menu.
+The menu music starts as soon as the menu opens, talking over the menu's title and row names, every time you come back to the menu.
 
 ##Finished.
 
+The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
+Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
+The tutorial's prompts no longer restart every second once they have already played through once.
+Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.
+Replaying the tutorial from the menu no longer reads it as already finished.
+Leaving the tutorial now stops whatever prompt was still playing, instead of letting it run into the menu.
+The "you must use earphones" warning now plays once, from the opening screen, instead of colliding with the main menu's title or repeating every time you start a game.
+The "no coin" message no longer speaks its own sentence over the recording that already says it.
+"Now Loading" now always plays first, before the menu music stops or the level's own sound and the tutorial's first prompt begin.
+Restore Purchases and Game Center now stop their own sentence when you move to another row, instead of letting it run on into whatever you land on next.
 The key bindings screen and the main menu's spoken messages speak through Prism, so JAWS, ZoomText, System Access, Narrator and other screen readers work as well as NVDA, and a Windows voice speaks when no screen reader is running, without needing comtypes. The build script puts the licenses for Prism, pygame, OpenAL Soft and the NVDA controller client in a licenses folder beside the game.
 The game finds its sounds in game/sounds/used again, so every sound plays, and the compiler and the tests look for them there too.
 Every sound the game uses sits together in game/sounds/used, 329 files covering all 269 of the original's sounds, apart from the 25 in game/sounds/unused.

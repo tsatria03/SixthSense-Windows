@@ -12,3 +12,12 @@ Switching weapons keeps each weapon's own ammo, instead of refilling the magazin
 The game's sounds are sorted into folders inside game\sounds, each under its original name.
 The key bindings screen and the main menu's spoken messages now work with JAWS, ZoomText, System Access, Narrator and other screen readers as well as NVDA, and with a Windows voice when no screen reader is running.
 The game now comes with the licenses for OpenAL Soft, the NVDA controller client, Prism and pygame, in a licenses folder beside the game.
+The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
+Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
+The "you must use earphones" warning now plays once, from the opening screen, instead of colliding with the main menu's title or repeating every time you start a game.
+The "no coin" message no longer speaks its own sentence over the recording that already says it.
+The tutorial's prompts no longer restart every second once they have already played through once.
+Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.
+Replaying the tutorial from the menu no longer reads it as already finished.
+Leaving the tutorial now stops whatever prompt was still playing, instead of letting it run into the menu.
+"Now Loading" now always plays before the menu music stops, and the level's own sound and the tutorial's first prompt wait for it to finish.

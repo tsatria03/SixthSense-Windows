@@ -10,15 +10,18 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform.defaults import UserDefaults           # noqa: E402
 from sixthsense.platform.runloop import RunLoop                 # noqa: E402
 
 LANE = {1: 180.0, 2: 123.0, 3: 90.0, 4: 57.0, 5: 0.0}
+_REAL_LOADING_SECONDS = S1E.LOADING_SECONDS
 
 
 def _new_stage():
+    S1E.LOADING_SECONDS = 0.0
     d = UserDefaults.standardUserDefaults()
     d.setObject_forKey_('1', 'TUTORIAL')      # -[Stage_1_E tutorialEnd:] 0x33fc8
     d.synchronize()
@@ -28,6 +31,7 @@ def _new_stage():
     RunLoop.main().reset()
     st = Stage_1_E()
     st.viewDidLoad()
+    RunLoop.main().pump()                     # fire the (zeroed) loading delay
     return app, st
 
 
@@ -39,6 +43,63 @@ def _run(loop, seconds, until=None):
             return True
         time.sleep(0.004)
     return False
+
+
+def test_the_level_waits_for_now_loading_to_finish():
+    """0x2d45e: the level's own ambience and music used to start the instant
+    MapInitInBundle ran, talking over Now Loading (46) played just before it."""
+    S1E.LOADING_SECONDS = 0.3
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'TUTORIAL')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    played = []
+    real_play = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = \
+        lambda num, *a, **k: (played.append(num), real_play(num, *a, **k))[-1]
+    st = Stage_1_E()
+    try:
+        st.viewDidLoad()
+        assert 46 in played, 'Now Loading did not play'
+        assert st.stage is None, 'the level loaded before Now Loading had time to finish'
+        _run(RunLoop.main(), 0.15)
+        assert st.stage is None, 'MapInitInBundle ran before LOADING_SECONDS was up'
+        _run(RunLoop.main(), 0.3)
+        assert st.stage is not None, 'MapInitInBundle never ran'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        st.teardown()
+        S1E.LOADING_SECONDS = _REAL_LOADING_SECONDS
+
+
+def test_the_menu_music_does_not_stop_before_now_loading_plays():
+    """viewDidLoad used to call BGMusicStop before Now Loading ever played, so the
+    menu music could cut to silence before the player heard anything.  It must
+    keep playing under Now Loading and only stop once MapInitInBundle runs."""
+    S1E.LOADING_SECONDS = 0.3
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'TUTORIAL')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    stopped = []
+    real_stop = app.BGMusicStop
+    app.BGMusicStop = lambda: stopped.append(True) or real_stop()
+    st = Stage_1_E()
+    try:
+        st.viewDidLoad()
+        assert not stopped, 'the menu music stopped before Now Loading played'
+        _run(RunLoop.main(), 0.5, until=lambda: stopped)
+        assert stopped, 'the menu music never stopped'
+    finally:
+        app.BGMusicStop = real_stop
+        st.teardown()
+        S1E.LOADING_SECONDS = _REAL_LOADING_SECONDS
 
 
 def test_player_walks_one_cell_per_second():

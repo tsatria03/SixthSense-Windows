@@ -59,7 +59,6 @@ SOUND_STORE = 18
 SOUND_TUTORIAL = 23
 SOUND_VOICEOVER_ON = 21
 SOUND_VOICEOVER_OFF = 22
-SOUND_EARPHONE = 234
 SOUND_VOICEOVER_ON_BUTTON = 331
 SOUND_VOICEOVER_OFF_BUTTON = 332
 SOUND_RANKING = 333
@@ -103,6 +102,7 @@ class MainController:
         self.next_screen = None             # 'stage' | 'tutorial' | None
         self.quit = False
         self.speech = speech
+        self.message = ''                   # maskLabel1
         self._flags = {f: False for _n, f, _s, _a in ROWS}
 
     # ================================================================ entry
@@ -114,7 +114,6 @@ class MainController:
         self.app.mode = d.intForKey_('EYEMODE') if d.objectForKey_('EYEMODE') is not None \
             else d.intForKey_('DEFAULTEYEMODE')
         self.app.BGMusicStart()
-        self.soundYouMustUseEarPhone()
         self.selectMenu = 2
         self.blindModeSelectedMenu()
         self._coinCatchUp()
@@ -151,13 +150,6 @@ class MainController:
         d.synchronize()
         self.coinTiemrControlStartBackGroundRestart()
 
-    # -[MainController soundYouMustUseEarPhone] 0xab25
-    def soundYouMustUseEarPhone(self):
-        # -[MainController useHeadPhone] 0xaa3d asks AVAudioSession which route is
-        # live. Windows has no equivalent worth trusting, so the port always says it.
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_EARPHONE, 0.2, (0.0, 0.0), 0, False)
-
     # -[MainController StopElseSpeak] 0x96e9 - silence every menu voice
     def StopElseSpeak(self):
         for _n, _f, sound, _a in ROWS:
@@ -166,6 +158,8 @@ class MainController:
                       SOUND_NO_COIN, SOUND_RANKING_NOTICE):
             self.app.stopSoundBufNumber_(sound)
         self.app.readStop()
+        if self.speech is not None:
+            self.speech.stop()
         # 0x97e2: also cancel a pending readNumberOfCoin, or it fires over
         # whatever row the player has since moved to.
         RunLoop.main().cancelPerform(self, 'readNumberOfCoin')
@@ -275,10 +269,13 @@ class MainController:
                 SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
             self.next_screen = 'stage'
         else:
+            # 0xb472-0xb5a0: the original puts the sentence on maskLabel1 and fades it
+            # over 7 s, and plays 358 - nothing about it is spoken. The port used to
+            # add its own spoken line on top of the recording; that was never here.
             self.app.playSound_Gain_Pos_z_reprats_(
                 SOUND_NO_COIN, 0.2, (0.0, 0.0), 0, False)
-            self._say('No coin. You can buy coin at the store or share with friends '
-                      'at the ranking page.')
+            self.message = ('No coin. You can buy coin at the store or share with '
+                            'friends at the ranking page.')
 
     # -[MainController TutorialAction:] 0xad5d
     def TutorialAction_(self, *_):

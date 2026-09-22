@@ -105,13 +105,21 @@ class Stage_Tutorial(Stage_1_E):
     # =============================================================== loading
     # -[Stage_Tutorial MapInitInBundle] 0x7ddcc
     def MapInitInBundle(self):
+        # 0x7cfd8: the original forces isTutorial to 0 here, since a tutorial run
+        # is never "already finished" no matter what the save says. Without this,
+        # replaying the tutorial from the menu with TUTORIAL already "1" reads as
+        # finished: the parent (below) starts the walk timer instead of standing
+        # still, and StopPlayAction_ (P) runs the ordinary pause instead of
+        # tutorial_skip, since isTutorial is what it branches on.
+        self.isTutorial = 0
         super().MapInitInBundle()
-        # the parent starts the walk timer when isTutorial != 0; during the tutorial
-        # it is 0, so there is nothing to undo - but be explicit about it.
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
 
+        # -[Stage_1_E viewDidLoad] already held MapInitInBundle back by
+        # LOADING_SECONDS, so Now Loading has had time to finish by the time this
+        # runs - beat One can start right away.
         self.tutorial_beat('One')                       # 0x7e2fa, called directly
         self.checkTutorialTimer = RunLoop.main().scheduledTimer(
             1.0, self, 'CheckTutorial', None, True)     # 0x7e338
@@ -124,6 +132,7 @@ class Stage_Tutorial(Stage_1_E):
     def tutorial_beat(self, name):
         _n, sound, delay, _spawn = self._beat(name)
         self.current_beat = name
+        self.beat_flag[name] = False           # the prompt is playing again
         self.app.playSound_Gain_Pos_z_reprats_(sound, 0.2, (0.0, 0.0), 0, False)
         RunLoop.main().cancelPerform(self, 'tutorial_sound_stop')
         RunLoop.main().perform(self, 'tutorial_sound_stop', name, delay)
@@ -210,6 +219,18 @@ class Stage_Tutorial(Stage_1_E):
         super().threeTapChangeWeapon_(*a)
         self._complete('Nine')
 
+    # -[Stage_Tutorial StopPlayAction:] 0x8392a - P, while the tutorial is still
+    # running.  Stage_1_E.tutorial_skip writes TUTORIAL and plays tutorial success,
+    # but never silences CheckTutorial, so the prompts kept nagging afterward.
+    def tutorial_skip(self):
+        if self.checkTutorialTimer is not None and self.checkTutorialTimer.isValid():
+            self.checkTutorialTimer.invalidate()
+        self.checkTutorialTimer = None
+        if self.current_beat is not None:
+            _n, sound, _delay, _spawn = self._beat(self.current_beat)
+            self.app.stopSoundBufNumber_(sound)
+        super().tutorial_skip()
+
     # ================================================================== end
     # -[Stage_Tutorial tutorialEndGameStart:] 0x8374c
     def tutorialEndGameStart_(self, *_):
@@ -244,4 +265,9 @@ class Stage_Tutorial(Stage_1_E):
         if self.checkTutorialTimer is not None and self.checkTutorialTimer.isValid():
             self.checkTutorialTimer.invalidate()
         self.checkTutorialTimer = None
+        # Escape (or any other way out) used to leave whatever beat's prompt was
+        # still playing to run out on its own, right over the menu.
+        if self.current_beat is not None:
+            _n, sound, _delay, _spawn = self._beat(self.current_beat)
+            self.app.stopSoundBufNumber_(sound)
         super().teardown()
