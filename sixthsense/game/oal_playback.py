@@ -43,9 +43,11 @@ docs/DIVERGENCES.md.
 """
 from __future__ import annotations
 
+import array
 import logging
 import math
 import os
+import sys
 import time
 import wave
 
@@ -82,18 +84,43 @@ class _Source:
         self.isPlaying = False
 
 
-def _load_wav(path):
+#: PORT DIVERGENCE: stereo sounds the game plays at a monster's position.  OpenAL
+#: never positions a stereo buffer, so these played dead centre at full strength,
+#: which is how the original heard them too.  They are folded to mono as they load,
+#: so they sound where the monster is.  The files themselves are not changed.
+MONO_AT_LOAD = frozenset({
+    'gun_att_sound_1',          # 56, the bullet striking a zombie
+})
+
+
+def _fold_to_mono(pcm):
+    """16-bit stereo to mono, averaging the two channels."""
+    a = array.array('h')
+    a.frombytes(pcm)
+    if sys.byteorder != 'little':
+        a.byteswap()
+    mono = array.array('h', [(l + r) // 2 for l, r in zip(a[0::2], a[1::2])])
+    if sys.byteorder != 'little':
+        mono.byteswap()
+    return mono.tobytes()
+
+
+def _load_wav(path, name=None):
     """What ``-[oalPlayback initBufferOne:FileName:Type:]`` gets from AudioFile/ExtAudioFile.
 
     The bundle's WAVs are 16-bit PCM, mono or stereo.  OpenAL only spatialises mono
     buffers; the original relied on exactly that, which is why the zombie and weapon
-    sounds are mono and the voice/menu/music ones are stereo.  Nothing is converted.
+    sounds are mono and the voice/menu/music ones are stereo.  Only the few in
+    ``MONO_AT_LOAD`` are converted.
     """
     with wave.open(path, 'rb') as w:
         ch = w.getnchannels()
         width = w.getsampwidth()
         rate = w.getframerate()
         pcm = w.readframes(w.getnframes())
+    if name in MONO_AT_LOAD and ch == 2 and width == 2:
+        pcm = _fold_to_mono(pcm)
+        ch = 1
     if width == 1:
         fmt = al.AL_FORMAT_MONO8 if ch == 1 else al.AL_FORMAT_STEREO8
     else:
@@ -185,7 +212,7 @@ class OalPlayback:
         b = self._buffers[index]
         if b.bufferId:
             self.al.delete_buffer(b.bufferId)
-        fmt, pcm, rate, ch = _load_wav(path)
+        fmt, pcm, rate, ch = _load_wav(path, filename)
         b.bufferId = self.al.gen_buffer()
         b.filename = filename
         b.channels = ch
@@ -329,13 +356,28 @@ class OalPlayback:
         self.al.alSourcePlay(s.sourceId)
 
     def startSound_Postion_soundGain_(self, note, pos, gain):
-        """-[oalPlayback startSound:Postion:soundGain:] 0xe524"""
+        """-[oalPlayback startSound:Postion:soundGain:] 0xe524 - a monster's footstep.
+
+        0xe560 tests the source's own ``isPlaying``.  A playing source is moved to
+        (pos.x, 40.0, pos.y) and given the new gain, and keeps playing where it was
+        (0xe566..0xe590); only a stopped one is started (0xe5c6).  Restarting it on
+        every step is what used to pin each zombie where it came in and cut its
+        breathing short.
+        """
         if not (0 <= note < MAX_SOURCES):
             return
         s = self._sources[note]
         if not s.sourceId:
             return
-        self.al.alSourcef(s.sourceId, al.AL_GAIN, volume.master(gain))
+        if s.isPlaying:
+            s.sourcePos = (float(pos[0]), float(pos[1]))
+            self.al.source_fv(s.sourceId, al.AL_POSITION,
+                              (float(pos[0]), 40.0, float(pos[1])))   # 0xe56a: 40.0
+            self.al.alSourcef(s.sourceId, al.AL_GAIN, volume.master(gain))
+            # 0xe59c..0xe5c0 then rebinds AL_BUFFER, which OpenAL refuses on a playing
+            # source, so it changes nothing and is left out.
+            self.al.alGetError()
+            return
         self.startSound_Postion_(note, pos)
 
     def startSoundPostion_SoundNumber_(self, pos, note):

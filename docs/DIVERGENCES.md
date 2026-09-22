@@ -55,10 +55,54 @@ and the depth of every source is the constant `defaultZ`. **Reproduced exactly**
 (`(-500, 866)` / `(500, 866)`), while `MonsterMoving:` walks them at 123° and 57°. A
 monster therefore jumps a couple of degrees on its first footstep. **Reproduced.**
 
-### A monster reports bearing 0 until its first footstep
-`MovingPosAngle` is only written in `MonsterMoving:`, so a monster that has just spawned
-looks like it is in lane 5 to `monsterHitHeadFind`. It corrects itself within one
-footstep interval. **Reproduced.**
+### A new monster takes its first footstep at once
+`-[MonsterControl MonsterComing:]` opens with `performSelector:@selector(MonsterMoving:)`
+(0x1194c), so a monster is on its lane from the moment it appears. An earlier version of
+this file said it read as bearing 0, lane 5, until its first timed footstep; that was a
+misreading, and the port now takes the step the way the original does.
+
+### A zombie stops 20 cm out, not on top of you
+Once a monster is within 25 cm, `MonsterMoving:` sets its range to 20.0 (0x11032:
+`movs r2, #0` / `movt r2, #0x41a0`), not 0, so it stays in its own lane at the end.
+**Reproduced.**
+
+### The walk sample is moved, not restarted
+`-[oalPlayback startSound:Postion:soundGain:]` (0xe524) tests the source's `isPlaying`
+(0xe560). While the walk sample plays, each footstep only moves it to `(x, 40, y)` and
+sets its gain; only a stopped source is started. The port used to restart it every step
+at the spot the zombie came in, so you could not hear a zombie come closer. The rebind of
+`AL_BUFFER` that follows (0xe59c..0xe5c0) is refused by OpenAL on a playing source, so
+the port leaves it out. **Reproduced.**
+
+### The player breathes once every four seconds
+`MainControl` tries to breathe on every second one-second tick, and `breath:`, which
+lets it breathe again, comes 3.0 s later (0x31964: `movt r5, #0x4008`). So every
+other try is skipped, and the breath that tells you your health (80 at three hearts, 81
+at two, 82 at one) comes once every four seconds. The port used 1.0 s, which breathed
+twice as often. **Reproduced.**
+
+### The zig-zag walks cannot be reached
+Types whose id ends in 6 to 0 walk the zig-zags (`MovingType` 11..55), but
+`monsterArray` only holds ids ending in 1 to 5, and the scripted spawns are straight
+walkers too. The walks are ported and their sound sweeps, but no zombie in play uses
+them. **Reproduced.**
+
+### The shake count carries over between grabs
+The only two methods that reset `shakeCount`, `checkShakeMode` (0x323d8) and
+`shakeCheck:` (0x324f8), have no selector reference, so nothing calls them. After the
+first escape in a stage the count stays at ten or more, and every later grab breaks on a
+single shake. **Reproduced.**
+
+### Kind 11 hits you with kind 12's sound
+`MonsterInit:` gives kind 11 the hit-player sounds 307..309, which are
+`zombies_12_hit_player`; 298..300, `zombies_11_hit_player`, are never listed.
+**Reproduced.**
+
+### `ChangeLevel:` loops the other level's ambience
+Going into the forest, `ChangeLevel:` plays note 88, `bgm_cave_amb`, looping at 0.02
+(0x32362); going into the cave, 87, `bgm_forest_amb`. The new level's own ambience is
+already on the ambience player by then, at 0.3. **Reproduced**, and stopped when the
+stage is left.
 
 ### The swipe bands do not tile the circle
 `-[Stage_1_E MovingShot:]` leaves 155.5..156.5 and 222.5..320.5 (242.5..320.5 for guns)
@@ -73,19 +117,28 @@ with `TUTORIAL` unset loads the stage and then stands still. **Reproduced** for
 the key the way the game does. In normal play this is now unreachable: see "Start Game
 sends an unfinished save to the tutorial screen" below.
 
-### `checkBoosDie` compares against `gameMode - 2`
-`-[Stage_1_E checkBoosDie]` (0x3604c) decides whether the level may end. The name says
-boss, but what it actually compares each live monster's `monsterNumber` against is
-`gameMode - 2` (0x360c4, 0x360ec). In gameMode 3 that is 1, so a live kind-1 zombie
-blocks the level; in gameMode 2 it is 0, which no monster is; in gameMode 1 it is -1.
-`bBOSS` is declared on `Stage_1_E` and **never read or written anywhere in the
-binary** — there is no boss check. **Reproduced.**
+### The boss holds the end of each level
+At row 29 `MainControl` sounds the alarm (285); at row 23 it sends the boss down the
+middle lane, type 5008 in the forest and the rain (0x31d1c) or 5003 in the cave
+(0x31e0a), and stops the alarm (0x31e2e). The player stops at row 22, and
+`-[Stage_1_E checkBoosDie]` (0x3604c) holds the level while a monster with
+`monsterNumber` 5001 (0x360d4) or 5000 (0x360e8) is alive, those being the two bosses.
+Once it is dead, every zombie left is killed and counted, the ambience changes, and
+`ChangeLevel:` follows two seconds later. **Reproduced.** This file used to say the check
+compared against `gameMode - 2` and that there was no boss; that was a misreading of the
+`movw` constants. `bBOSS` is declared and never used.
 
 ### `MonsterKillCount:` does not count kills
 Despite the name, `-[Stage_1_E MonsterKillCount:]` (0x39e00) only bumps the per-kind
 tally (`killMonster1count`..`killMonster11count`, `killMonster5000count`). Every call
 site increments `killMonsterCount` itself first (0x39cee, 0x3a3ae, 0x3aad4).
 **Reproduced** — the port does the same, rather than folding the two together.
+
+The chain tallies `monsterNumber` 1 to 10, then 22, the woman zombie, under
+`killMonster11count` (0x3a04c), then the two bosses under `killMonster5000count`. Kind
+11 and 12 zombies are counted as kills but never tallied, so they add nothing to the
+score. The girl who heals you is not a kill at all: killing her costs a heart once the
+tutorial is behind you (0x3a850..0x3a97a). **Reproduced.**
 
 ### Pausing works exactly once
 `bStop` is set by `-[Stage_1_E StopPlayAction:]` (0x33e48), `MissionSuccessTell`
@@ -165,6 +218,33 @@ It walks the array, reads `intValue` off each entry and discards it (0xe466..0xe
 Nothing calls it. **Not ported.**
 
 ---
+
+## Where the port differs on purpose
+
+### Shots and swings are heard down their lane
+The original plays every gunshot from `(0, 0)` at z 40, dead centre (0x2f248 and its
+copies), and a melee miss the same way (0x39c3c). The port places them 40 cm out along
+the lane they are aimed down, at the listener's height. That pans a shot the way a
+zombie in the same lane pans, and 40 cm is the reference distance, so it is exactly as
+loud as before. The grenade and the reload stay in the centre.
+
+### The bullet striking a zombie is heard where the zombie is
+`gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
+original played it in the middle of your head even though it passes the zombie's
+position. `oal_playback.MONO_AT_LOAD` folds it to mono as it loads; the file is not
+changed.
+
+### Shaking free is heard where you are
+`shakingFind` plays the animal zombie's push at the monster's `Pos` (0x3baa0). By then
+it is on top of you and the push is your own doing, so the port plays it at the
+player, the way a kill of your own is heard, rather than out in the lane.
+
+### Two zombies reaching you at once
+`MonsterAttPlayer` collects the monsters it is done with and removes them after the loop
+(0x3b44e), but when one of them grabs you it returns straight away and drops that list,
+so a zombie that hit you on the same tick stayed on top of you and hit again once you
+were free. The port removes them either way. It also keeps the grabbing monster itself
+rather than only its index, so shaking free always frees and kills the one holding you.
 
 ## Where the port necessarily differs
 

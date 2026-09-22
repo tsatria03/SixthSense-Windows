@@ -12,9 +12,10 @@ Two nested timers drive it (``-[MonsterControl MonsterStart:]`` 0x10dac and
     MonsterMovingAngleTimer  every  (comingSoundTime - 0.1) / comingSoundInWalk
                                                                     -> MonsterMoving:
 
-so one cycle of the walk sample is ``comingSoundInWalk`` steps, and each step both moves
-the monster and restarts its looping sample at the new position with the gain scaled by
-1.1 (0x11442) - which is how a monster gets louder as it closes.
+so one cycle of the walk sample is ``comingSoundInWalk`` steps.  The sample itself is
+started once, looping, by ``MonsterStart:``; each step then moves that playing source to
+the monster's new position and scales its gain by 1.1 (0x11442), which is how a monster
+gets louder as it closes (``-[oalPlayback startSound:Postion:soundGain:]``).
 
 The headshot window is the gap in the monster's breathing.  ``MonsterComing:`` either
 performs ``headShot:`` after ``headShotTimeStart`` seconds, or, when the plist gave a
@@ -109,6 +110,18 @@ ZIGZAG_ANGLE = {
     44: (55, 40, 15, 1),             # about lane 4, 57
     55: (1, 15, 40, 55),             # about lane 5, 0 - the same ladder, other phase
 }
+
+
+def lane_bearing(lane):
+    """The bearing a straight walker in ``lane`` takes (0x11050..0x1133e): the
+    NSUserDefaults key if it is set, the built-in default if not, 0 for anything else
+    (0x1160e)."""
+    key_default = MOVING_TYPE_ANGLE.get(lane)
+    if key_default is None:
+        return 0
+    key, default = key_default
+    s = UserDefaults.standardUserDefaults().stringForKey_(key)
+    return _i(s) if s else default
 
 
 class MonsterControl:
@@ -254,10 +267,14 @@ class MonsterControl:
     # -[MonsterControl MonsterComing:] 0x11920
     def MonsterComing_(self, timer=None):
         loop = RunLoop.main()
-        # 0x1194c: cancel the pending MonsterMoving: before re-arming.
+        # 0x1194c: the first step of each cycle is taken at once, so a new monster is on
+        # its lane from the moment it appears instead of reading as bearing 0.
+        self.MonsterMoving_(None)
         interval = self.comingSoundTime - 0.1
         if self.comingSoundInWalk:
             interval = interval / float(self.comingSoundInWalk)
+        # The original leaves any earlier timer running; it has always stopped itself
+        # by now, and cancelling it here just makes sure.
         self._invalidate('MonsterMovingAngleTimer')
         self.MonsterMovingAngleTimer = loop.scheduledTimer(
             max(0.01, interval), self, 'MonsterMoving_', None, True)
@@ -281,11 +298,12 @@ class MonsterControl:
         # 0x10fb0: monsterRange = sqrtf(Pos.x*Pos.x + Pos.y*Pos.y)
         self.monsterRange = math.sqrt(self.Pos[0] * self.Pos[0] +
                                       self.Pos[1] * self.Pos[1])
-        # 0x10fee: while further than 25 cm, close by comingRange; otherwise it is here.
+        # 0x10fee: while further than 25 cm, close by comingRange; otherwise it stops
+        # 20 cm out (0x11032: movs r2, #0 / movt r2, #0x41a0), still in its lane.
         if self.monsterRange > 25.0:
             self.monsterRange = self.monsterRange - float(self.comingRange)
         else:
-            self.monsterRange = 0.0
+            self.monsterRange = 20.0
 
         # 0x11050..0x1133e: the five straight lanes pick their bearing once, from
         # NSUserDefaults if the key is set and from the built-in default if not.
@@ -296,13 +314,7 @@ class MonsterControl:
             self._zigzag_step()
         else:
             if self.monsterChangeAngle == -1:
-                key_default = MOVING_TYPE_ANGLE.get(self.MovingType)
-                if key_default is not None:
-                    key, default = key_default
-                    s = UserDefaults.standardUserDefaults().stringForKey_(key)
-                    self.monsterChangeAngle = _i(s) if s else default
-                else:
-                    self.monsterChangeAngle = 0          # 0x1160e
+                self.monsterChangeAngle = lane_bearing(self.MovingType)
             self.MovingPosAngle = self.monsterChangeAngle
 
         # 0x11362..0x113e0

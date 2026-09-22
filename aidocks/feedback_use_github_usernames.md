@@ -17,5 +17,6 @@ Identify people by their GitHub username, never their real name. The dev is **ts
 
 **How to apply:**
 - The dev's Git name is `tsatria03` everywhere. At their request on 2026-09-21 it was set globally (`git config --global user.name tsatria03`), on top of this repo's own `--local` setting. The email is the GitHub noreply address in both places. Check `git config user.name` before committing. If it has drifted, pass `--author="tsatria03 <156674543+tsatria03@users.noreply.github.com>"`.
+- **Not every session is tsatria03's.** tunmi13productions works on this repo from their own machine, where the global git identity is `tunmi13productions` and there is no repo-local override. There, commit as the configured user. Do not override the author to tsatria03, because that would misattribute their work (batch 2 `503085a` and the 2026-09-22 zombie batch went out this way). Only pass `--author` when the configured name is plainly wrong for whoever is working.
 - Emails stay the GitHub noreply addresses, since those are what link a commit to the right profile.
 - `LICENSE` follows the same rule. At the dev's request on 2026-09-21, its copyright line reads "Copyright (c) 2026 tsatria03 and lbk2907".

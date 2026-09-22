@@ -24,7 +24,7 @@ They handed the repository to the dev, tsatria03, to publish at `github.com/tsat
 - The two local backup branches made during the rewrite (`backup/before-author-rewrite` and `backup/before-username-change`) were deleted on 2026-09-21 at the dev's request, once the dev was happy with the result on GitHub. `main` is the only branch.
 
 **Other contributors:**
-- **tunmi13productions** fixed the coin economy and the spoken-digit order in `a16564f` (2026-09-21), found partly through live testing.
+- **tunmi13productions** fixed the coin economy and the spoken-digit order in `a16564f` (2026-09-21), found partly through live testing. They also committed batch 2, the vocal fixes (`503085a`), and the zombie batch (2026-09-22) from their own machine, under their own git identity.
 - When a contributor's commit and our own work fix the same thing, keep the contributor's version and drop ours. That is the dev's standing preference, first applied to batch 1 on 2026-09-21.
 
 **Why:** Credit and permission matter for this project, and the code itself doesn't say who wrote the initial import.
