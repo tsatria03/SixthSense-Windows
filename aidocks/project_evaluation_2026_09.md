@@ -160,7 +160,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - It plays att2 on a non-lethal hit, att1 on a kill, and the whoosh only on a miss.
   - Port: `stage_1_e.py` about 639-645, 753-759.
 - [R] **A grab can free or kill the wrong monster**, because the port removes monsters while looping over the list (about 530-545). The original defers removal (0x3b44e).
-- [V] **Gunshots are 14 dB too quiet, and a kill sound is missing. FIXED 2026-09-22**, and checked in the listing first: inside `MovingShot:` every gain read is `ReloadSoundGain` (0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930, 0x2fba6) and `ShotSoundgain` is never read at all, so the shot plays at 1.0 (19.0 on the shotgun, clamped). `MonsterDamage`'s killing hit now also plays 79 at 1.0 at the monster's `Pos`, z 40 (0x3a83a); `SoundList` calls 79 `weapon_head_shot`, but 0x3a7fc shows it is the kill, headshot or not. Awaiting the dev's ear.
+- [V] **Gunshots are 14 dB too quiet, and a kill sound is missing. FIXED 2026-09-22**, and checked in the listing first: inside `MovingShot:` every gain read is `ReloadSoundGain` (0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930, 0x2fba6) and `ShotSoundgain` is never read at all, so the shot plays at 1.0 (19.0 on the shotgun, clamped). `MonsterDamage`'s killing hit now also plays 79 at 1.0 at the monster's `Pos`, z 40 (0x3a83a); `SoundList` calls 79 `weapon_head_shot`, but 0x3a7fc shows it is the kill, headshot or not. The dev confirmed all four by ear the same day ("All 4 past").
 - [R] **Continuing after a pause restarts the ambience and the music on the wrong players.** Found in the 2026-09-21 rescan and traced in `dc_Stage_1_E.txt`, not yet byte-checked. It went into `todo list.txt` the same day.
   - The original `continueAction:` (0x33940-0x33bec) never touches the AVAudioPlayers. It plays them as notes, through `playSound:Gain:Pos:z:reprats:`:
     - gameMode 3 plays 368 at 0.5, gameMode 2 plays 87 at 0.2, and gameMode 1 plays 88 at 0.2 (0x33b22-0x33b7a).
@@ -170,7 +170,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
     - The music player now holds the ambience, so the music stops until the next action cell 10.
     - Past row 396 the ambience player switches to the music. The next action cell 9 (`backgroundSoundStop`) then silences the ambience for the rest of the stage.
   - A faithful fix plays the notes the original plays. That likely reproduces the original's own doubled ambience, since its pause never stops the AVAudioPlayer either. This is the fidelity decision below. Check the `reprats:` argument in the raw bytes first.
-- [V] **Death plays the wrong sound. FIXED 2026-09-22.** `MainControl`'s death branch now plays 84 `player_die` at 1.0, z 40 (0x320ae) instead of 354; "game over" still comes from the panel `missionFailTell:` puts up (0x32814), so it is heard once. Awaiting the dev's ear.
+- [V] **Death plays the wrong sound. FIXED 2026-09-22.** `MainControl`'s death branch now plays 84 `player_die` at 1.0, z 40 (0x320ae) instead of 354; "game over" still comes from the panel `missionFailTell:` puts up (0x32814), so it is heard once. The dev confirmed all four by ear the same day ("All 4 past").
 
 **Menus and meta**
 - [R] **The inventory lets you equip weapons you don't own** (`inventory.py` about 55-90, 178-188). The original gates on `itemN_have_flag`.

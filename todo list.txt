@@ -17,8 +17,6 @@ The second girl uses the woman zombie's voice, reaching you plays her death soun
 You can keep firing while reloading and still end up with a full magazine.
 Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
-Gunshots are far too quiet, and killing a zombie with a gun does not play its kill sound.
-Dying says "game over" twice, instead of playing the player death sound first.
 Zombies appear faster than in the original, and there is no quiet stretch at the start of each section of corridor.
 A zombie that has just appeared can be hit from the wrong lane for about a second.
 The knife and sword do double damage on a headshot, and a miss sounds the same as a hit.
@@ -32,7 +30,6 @@ The shop and inventory screens only say "back button" when they open, so you can
 Your rank always reads 0 and the weekly top score never resets.
 You cannot rebind a key, because letting go of enter ends the capture before you press the new key.
 Holding one attack key and pressing another attacks the first lane again.
-A key you were holding when you left a stage stays stuck down in the next one.
 R on the key bindings screen resets every binding without asking.
 Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
 Ask before escape ends a stage, since leaving loses the coin you paid.
@@ -43,7 +40,6 @@ Add a log file and a crash.txt, and have the game say out loud when it cannot st
 Add an exit after option and a game data line to the log, so the compiler's test build can come back.
 Pause the game when its window loses focus, and recover when the audio device changes.
 Memory leaks each time the music or ambience changes.
-Pygame opens a second audio device alongside OpenAL.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
 Add a test that checks zombie sounds really move, not just the numbers behind them.
@@ -54,6 +50,10 @@ In the tutorial's shaking step, the animal zombie never grabs you, so pressing s
 
 ##Finished.
 
+Gunshots are as loud as in the original, and killing a zombie plays its kill sound where it fell.
+Dying plays the player death sound where you fell, and "game over" is said once, by the panel that follows.
+A key you were holding when you left a stage no longer stays pressed in the next one, and nothing stays stuck after you switch away from the window.
+The game opens one audio device, the one it plays through, instead of also starting pygame's mixer.
 The menu music carries on where it was when you come back to the menu, instead of starting over from the beginning.
 The compiler builds a working game. A console build starts and plays, and its release zip opens and holds all 643 files: the game, its data, and the licenses beside it. While it packs the zip, the compiler says so and says how far it has got, so the window is not closed too early.
 A requirements.txt lists the two packages the game needs, pygame and prismatoid, so pip install -r requirements.txt installs both.
