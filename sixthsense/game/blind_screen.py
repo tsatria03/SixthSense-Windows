@@ -51,6 +51,12 @@ class BlindScreen:
     ROW_READER = {}
     #: everything StopElseSpeak silences
     STOP_SOUNDS = ()
+    #: PORT ADDITION: the recording that names this screen, played as it opens so the
+    #: player knows which one they are on.  None keeps the original's silence.
+    TITLE_SOUND = None
+    #: how long the name is given before row 1 is read behind it.  The naming recordings
+    #: run about a second; moving cancels the wait, so it is only ever heard alone.
+    TITLE_DELAY = 1.5
 
     def __init__(self, speech=None):
         self.app = AppDelegate.shared()
@@ -97,6 +103,7 @@ class BlindScreen:
         loop = RunLoop.main()
         for sel in set(self.ROW_READER.values()):
             loop.cancelPerform(self, sel)
+        loop.cancelPerform(self, 'read_first_row')      # the name this screen opened with
 
     # ---- the rows --------------------------------------------------------
     def rows(self):
@@ -118,11 +125,38 @@ class BlindScreen:
             RunLoop.main().perform(self, reader, None, READ_DELAY)
         return sound
 
+    def title_sound(self):
+        """Which recording names this screen, or None.  Overridden per screen."""
+        return self.TITLE_SOUND
+
     # -[X startRead] 0x1d124 / 0x13a78 / 0x1a0ec / ...
     def startRead(self):
-        """What a screen does as it comes up: stop everything and read row 1, which
-        on every one of these screens is Back (sound 13)."""
-        return self.select(self.ROWS[0] if self.ROWS else 0)
+        """What a screen does as it comes up.
+
+        The original stops everything and plays row 1, which on every one of these
+        screens is Back, sound 13 (``-[mainStoreController startRead]`` 0x1d124 is three
+        lines and 13 is the only sound in it).  On a phone the screen itself was the
+        answer to "where am I": the player could feel their way down it.  Here four
+        screens in a row open by saying "back button" and nothing else.
+
+        **DIVERGENCE:** the screen says its own name first, out of the original's own
+        recordings - "Store Button", "Weapon shop Button", "Inventory Button", or the
+        weapon's name on a weapon's page - and then reads row 1 a moment later.  Moving
+        or choosing anything cancels the wait, so it never talks over the player.
+        """
+        first = self.ROWS[0] if self.ROWS else 0
+        title = self.title_sound()
+        if not title:
+            return self.select(first)
+        self.selectMenu = first
+        self.StopElseSpeak()
+        self.play(title)
+        RunLoop.main().perform(self, 'read_first_row', None, self.TITLE_DELAY)
+        return title
+
+    def read_first_row(self, *_):
+        """Row 1, a moment behind the screen's name."""
+        self.select(self.ROWS[0] if self.ROWS else 0)
 
     def move(self, step):
         rows = self.rows()

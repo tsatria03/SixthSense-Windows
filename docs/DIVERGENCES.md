@@ -281,6 +281,20 @@ player alone when it is asked for the file it is already playing, and only takes
 gain and loop setting. The original rebuilds its `AVAudioPlayer` every time and so always
 starts at the top; it has no menu music for this to matter to.
 
+### Every shop and inventory screen says which one it is
+`-[mainStoreController startRead]` (0x1d124) is three lines long and plays one sound, 13
+`back button`; the weapon list, the weapon page and the inventory open the same way. On a
+phone that was enough, because the screen itself was there to feel; here the shop, the
+weapon list, a weapon's page and the inventory all announced themselves as "back button"
+and nothing else.
+
+Each screen now plays its own name as it opens — `Store Button` (18), `Weapon shop Button`
+(235), `Inventory Button` (237), or the weapon's own name on a weapon's page — and reads
+row 1 `TITLE_DELAY` (1.5 s) behind it. All of those are the original's own recordings;
+nothing is synthesised. Moving or choosing cancels the wait, so the name is never talked
+over. `blind_screen.BlindScreen.TITLE_SOUND` is where a screen names itself, and None
+keeps the original's silence.
+
 ### A weapon that has not been bought cannot be equipped
 The original lets you carry any of them for nothing. `-[DetailInventoryController
 equipToggleAction:]` (0x2a618) reads only the `...USE` keys; the `itemN_have_flag`s it

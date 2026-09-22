@@ -61,6 +61,7 @@ class InventoryController(BlindScreen):
     """
 
     ROWS = (1, 2, 3, 4, 5, 6, 7, 8, 9)
+    TITLE_SOUND = 237       # "Inventory Button"
     ROW_SOUND = {1: SOUND_BACK,
                  2: 348,            # Grenade button
                  3: 239,            # knife button
@@ -70,7 +71,7 @@ class InventoryController(BlindScreen):
                  7: 243,            # AK47 button
                  8: 244,            # MG80 button
                  9: 245}            # japanese sword button
-    STOP_SOUNDS = (13, 233, 348, 239, 240, 241, 242, 243, 244, 245, 246)
+    STOP_SOUNDS = (13, 233, 237, 348, 239, 240, 241, 242, 243, 244, 245, 246)
 
     #: 0x25c72, 0x25e2a ... 0x2687a - ItemNAction:'s argument to setWeaponType:.
     ROW_WEAPON = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4, 7: 5, 8: 6, 9: 7}
@@ -131,6 +132,10 @@ class DetailInventoryController(BlindScreen):
         self.type_power = SOUND_DAMAGE                        # 0x28850
         self.type_price = SOUND_PRICE                         # 0x28862
         self.selectMenu = 1                                   # 0x28aca
+
+    def title_sound(self):
+        """A slot's page names its weapon as it opens."""
+        return self.type_image_sound
 
     def row_sound(self, row):
         if row == 2:

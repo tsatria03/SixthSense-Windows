@@ -191,7 +191,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **Several actions are silent or unconfirmed.**
   - R in the bindings screen resets everything without asking. **FIXED 2026-09-22:** it asks, and a second R means it; any other key keeps the bindings (`KeyBindScreen.ask_reset`/`cancel_reset`, `confirm_reset`). Tested by `test_input.test_resetting_every_binding_asks_first`. Awaiting the dev's ear.
   - The weapon Try button is silent. **FIXED 2026-09-22 (batch 2)**, not yet confirmed by ear.
-  - Shop screens open by saying only "back button".
+  - Shop screens open by saying only "back button". **FIXED 2026-09-22** as a divergence: `BlindScreen.TITLE_SOUND` plays the screen's own name recording (18, 235, 237, or the weapon's name on a detail page) and `read_first_row` reads row 1 `TITLE_DELAY` (1.5 s) later; `StopElseSpeak` cancels it, so moving never talks over the name. The original's `startRead` (0x1d124) plays only 13. Tested by `test_store.test_a_screen_says_which_one_it_is`. Awaiting the dev's ear.
   - Escape in a stage drops the run and the coin with no confirmation.
 - [R] **Loading and path issues.**
   - A bad `--game` path silently falls back to `game/`.

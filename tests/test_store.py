@@ -331,6 +331,49 @@ def test_a_weapon_you_have_not_bought_cannot_be_equipped():
         p.teardown()
 
 
+def test_a_screen_says_which_one_it_is():
+    """DIVERGENCE.  The original's startRead plays sound 13 and nothing else
+    (-[mainStoreController startRead] 0x1d124 is three lines long), so four screens in a
+    row opened by saying "back button".  Each one now names itself out of the original's
+    own recordings first, and reads row 1 behind it; moving cancels that wait."""
+    app = _app()
+    loop = RunLoop.main()
+    played = []
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, p, z, r: played.append(n)
+    try:
+        for cls, title in ((MainStoreController, 18),        # Store Button
+                           (StoreController, 235),           # Weapon shop Button
+                           (InventoryController, 237)):      # Inventory Button
+            scr = cls()
+            scr.TITLE_DELAY = 0.0
+            played.clear()
+            try:
+                assert scr.startRead() == title, '%s opened with %r' % (cls.__name__, played)
+                assert played == [title], played
+                loop.pump()
+                assert played == [title, 13], 'row 1 did not follow the name: %r' % played
+
+                played.clear()                                # moving cancels the wait
+                scr.startRead()
+                scr.move(1)
+                loop.pump()
+                assert 13 not in played[1:], 'the name was read over: %r' % played
+            finally:
+                scr.teardown()
+
+        # a weapon's page names the weapon
+        p = DetailStoreController(2)                          # M4A1
+        p.TITLE_DELAY = 0.0
+        played.clear()
+        try:
+            assert p.startRead() == SHOP[2]['image']
+        finally:
+            p.teardown()
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        loop.reset()
+
+
 def test_the_inventory_and_the_shop_disagree_about_prices():
     """Reproduced, not fixed: -[DetailInventoryController viewDidLoad] hard-codes a
     different price, and for the sword a different damage, from the shop's."""

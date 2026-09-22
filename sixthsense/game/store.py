@@ -74,12 +74,13 @@ class MainStoreController(BlindScreen):
     """
 
     ROWS = (1, 2, 4, 5, 6)                       # 3 is the unreachable gold shop
+    TITLE_SOUND = 18                             # "Store Button", as the menu row said
     ROW_SOUND = {1: SOUND_BACK,                  # 0x1dffa back button
                  2: 235,                         # 0x1e276 Weapon shop Button
                  4: 237,                         # 0x1e33c Inventory Button
                  5: 342,                         # 0x1e214 coin store button
                  6: 370}                         # 0x1df9a restore button
-    STOP_SOUNDS = (13, 235, 236, 237, 342)       # 0x1dc88
+    STOP_SOUNDS = (13, 18, 235, 236, 237, 342, 370)     # 0x1dc88, plus the title
 
     #: The row the gold shop would have been, kept so the tbb below reads the way the
     #: binary's does.
@@ -145,6 +146,7 @@ class StoreController(BlindScreen):
     """
 
     ROWS = (1, 2, 3, 4, 5, 6, 7, 8, 9)
+    TITLE_SOUND = 235                # "Weapon shop Button"
     ROW_SOUND = {1: SOUND_BACK,      # 0x159a8 back button
                  2: 233,             # obtained gold
                  3: 241,             # shotgun button
@@ -155,7 +157,7 @@ class StoreController(BlindScreen):
                  8: 348,             # Grenade button
                  9: 366}             # Purchase all weapons change
     ROW_READER = {2: 'readgold'}
-    STOP_SOUNDS = (13, 233, 241, 242, 243, 244, 245, 246, 366, 261, 10, 348)
+    STOP_SOUNDS = (13, 233, 235, 241, 242, 243, 244, 245, 246, 366, 261, 10, 348)
 
     #: 0x15a90, 0x15c4c, ... - Item1..Item6Action's argument to setWeaponType:.
     ROW_WEAPON = {3: 1, 4: 2, 5: 3, 6: 4, 7: 5, 8: 0}
@@ -235,6 +237,10 @@ class DetailStoreController(BlindScreen):
         self.type_price = SOUND_PRICE                         # 0x19b44
         self.selectMenu = 1                                   # 0x19b90
         self.message = ''                                     # maskLabel
+
+    def title_sound(self):
+        """A weapon's page names the weapon as it opens."""
+        return self.type_image_sound
 
     def row_sound(self, row):
         """Rows 2..6 name themselves with the weapon's own WAVs, 0x1afbc onward."""
