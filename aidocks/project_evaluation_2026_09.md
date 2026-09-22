@@ -173,7 +173,12 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [V] **Death plays the wrong sound. FIXED 2026-09-22.** `MainControl`'s death branch now plays 84 `player_die` at 1.0, z 40 (0x320ae) instead of 354; "game over" still comes from the panel `missionFailTell:` puts up (0x32814), so it is heard once. The dev confirmed all four by ear the same day ("All 4 past").
 
 **Menus and meta**
-- [R] **The inventory lets you equip weapons you don't own** (`inventory.py` about 55-90, 178-188). The original gates on `itemN_have_flag`.
+- [V] **The inventory lets you equip weapons you don't own - and so does the original. The reviewer's "the original gates on `itemN_have_flag`" is a misreading**, checked in the listings on 2026-09-22:
+  - `item1_have_flag`..`item8_have_flag` are set from `haveWeapon` in `-[InventoryController viewDidLoad]` (0x235d6-0x2362e) and read in exactly one place, `blindModeSelectedMenu` (0x2424c-0x242f4), where an unset flag skips `round9` - the rounded highlight on a button. Nothing else reads them.
+  - `selectTapPointSoundStart`, `tapCount` and the eight `ItemNAction:` methods never look at them, so every row reads itself and pushes its page whether it is owned or not.
+  - `DetailInventoryController` never reads an ownership key (`SHOTGUN`, `M4`, `AK47`, `MG80`, `JAPAN`) or `haveWeapon` at all; `equipToggleAction:` (0x2a618) only flips the matching `...USE` key.
+  - `Stage_1_E` reads only `useWeapon` - 0x35724 in `startWeapon`, 0x35b54 and 0x35be0 in `gunChangeAction:` - and never `haveWeapon`, so an unowned weapon that is equipped is carried and fired.
+  - So this was the original's own hole. **CLOSED 2026-09-22 at the dev's decision**, as a divergence rather than a fidelity item: `DetailInventoryController.equipToggleAction_` refuses to switch on a weapon that `AppDelegate.haveWeapon` does not have, sets `self.message` and says it through the speech layer; unequipping is always allowed so an old save can be cleared. Written up in `docs/DIVERGENCES.md`, tested by `test_store.test_a_weapon_you_have_not_bought_cannot_be_equipped`, and `test_equipping_writes_the_key_the_stage_reads` now buys the MG80 first. Awaiting the dev's ear.
 - [R] **Tutorial beats can finish out of order** (`stage_tutorial.py` about 169-211).
 - [R] **Replaying the tutorial reads isTutorial=1 from the save.** The original forces it to 0 (0x7cfd8).
 - [R] **The end of the tutorial starts a free walk through `tutorialEndGameStart:`**, which nothing in the binary calls. It should return to the menu.

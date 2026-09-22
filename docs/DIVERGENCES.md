@@ -281,6 +281,21 @@ player alone when it is asked for the file it is already playing, and only takes
 gain and loop setting. The original rebuilds its `AVAudioPlayer` every time and so always
 starts at the top; it has no menu music for this to matter to.
 
+### A weapon that has not been bought cannot be equipped
+The original lets you carry any of them for nothing. `-[DetailInventoryController
+equipToggleAction:]` (0x2a618) reads only the `...USE` keys; the `itemN_have_flag`s it
+could have checked are read in exactly one place, `-[InventoryController
+blindModeSelectedMenu]` (0x2424c-0x242f4), where an unset flag only skips a button's
+rounded corners; and `Stage_1_E` reads `useWeapon` alone (0x35724 in `startWeapon`,
+0x35b54 and 0x35be0 in `gunChangeAction:`) and never `haveWeapon`. So the shop's prices,
+and the gold a run pays, bought nothing that the inventory could not switch on for free.
+
+**Fixed rather than reproduced**, at tsatria03's decision on 2026-09-22: equipping a
+weapon that is not owned refuses, sets the page's message and says so through the speech
+layer. Unequipping is always allowed, so a save that already has one switched on can be
+cleared. The grenade, the knife and the colt count as owned, as `-[AppDelegate
+weaponHave]` (0x4ee8) has it.
+
 ### Key bindings are a port addition
 The original has no key bindings at all — every action is a swipe, a tap or a shake.
 The port binds those actions to keys (`platform/keymap.py`), lets the player change

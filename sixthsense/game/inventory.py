@@ -125,6 +125,7 @@ class DetailInventoryController(BlindScreen):
         else:
             self.ammocapacity = slot['ammo']
         self.used = d.intForKey_(slot['use'])                 # 0x27820 and its copies
+        self.message = ''                                     # maskLabel, for the window
         self.type_ammocapacity = SOUND_AMMO_CAPACITY          # 0x2888c
         self.type_effectiverange = SOUND_EFFECTIVE_RANGE      # 0x28874
         self.type_power = SOUND_DAMAGE                        # 0x28850
@@ -176,13 +177,35 @@ class DetailInventoryController(BlindScreen):
 
     # -[DetailInventoryController equipToggleAction:] 0x2a620
     def equipToggleAction_(self, *_):
-        """Flip the slot's ``...USE`` key and say what it is now."""
+        """Flip the slot's ``...USE`` key and say what it is now.
+
+        **DIVERGENCE: a weapon that has not been bought cannot be equipped.**  The
+        original never checks: `equipToggleAction:` (0x2a618) reads only the `...USE`
+        keys, the `itemN_have_flag`s are read in one place and only decide whether a
+        button gets rounded corners (`-[InventoryController blindModeSelectedMenu]`
+        0x2424c-0x242f4), and `Stage_1_E` reads `useWeapon` alone - 0x35724, 0x35b54,
+        0x35be0 - never `haveWeapon`.  So on the phone every weapon in the shop could be
+        carried for nothing, and the gold a run pays for bought nothing.  Unequipping is
+        always allowed, so an old save that already has one switched on can be cleared.
+        """
         self.ui_select()
         slot = SLOTS[self.weaponType]
         d = UserDefaults.standardUserDefaults()
-        self.used = 0 if d.intForKey_(slot['use']) else 1     # 0x2a6ce
+        want = 0 if d.intForKey_(slot['use']) else 1          # 0x2a6ce
+        if want and not self.owned:
+            self.message = 'You have not bought this weapon yet.'
+            self.say('%s You can buy it in the weapon shop.' % self.message)
+            return self.used
+        self.used = want
         d.setObject_forKey_('1' if self.used else '0', slot['use'])
         d.synchronize()
         self.play(SOUND_BEING_EQUIPPED if self.used else SOUND_NOT_EQUIPPED)
         self.app.weaponHave()
         return self.used
+
+    @property
+    def owned(self):
+        """Whether this slot has been bought.  ``AppDelegate.weaponHave`` (0x4ee8) builds
+        the list in slot order, with the grenade, the knife and the colt always owned."""
+        have = self.app.haveWeapon
+        return self.weaponType < len(have) and have[self.weaponType] == '1'

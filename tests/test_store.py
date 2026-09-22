@@ -276,8 +276,11 @@ def test_the_inventory_lists_all_eight_slots():
 
 def test_equipping_writes_the_key_the_stage_reads():
     app = _app()
-    p = DetailInventoryController(6)                    # MG80
     d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'MG80')                    # bought, so it may be equipped
+    d.synchronize()
+    app.weaponHave()
+    p = DetailInventoryController(6)                    # MG80
     try:
         assert p.used == 0
         assert p.row_sound(8) == 350                    # "use"
@@ -288,6 +291,42 @@ def test_equipping_writes_the_key_the_stage_reads():
         assert p.equipToggleAction_() == 0
         assert d.intForKey_('MG80USE') == 0
         assert app.useWeapon[6] == '0'
+    finally:
+        p.teardown()
+
+
+def test_a_weapon_you_have_not_bought_cannot_be_equipped():
+    """DIVERGENCE.  The original never checks: equipToggleAction: (0x2a618) reads only the
+    ...USE keys, the itemN_have_flags only decide a button's rounded corners (0x2424c), and
+    Stage_1_E reads useWeapon alone (0x35724, 0x35b54, 0x35be0).  Every weapon in the shop
+    could therefore be carried for nothing.  Unequipping is still allowed, so an old save
+    that has one switched on can be cleared."""
+    app = _app()
+    d = UserDefaults.standardUserDefaults()
+    rec = _Recorder()
+    p = DetailInventoryController(7, speech=rec)        # the sword, not bought
+    try:
+        assert not p.owned
+        assert p.equipToggleAction_() == 0, 'an unowned weapon was equipped'
+        assert d.intForKey_('JAPANUSE') == 0
+        assert app.useWeapon[7] == '0'
+        assert 'not bought' in p.message, p.message
+        assert any('weapon shop' in s for s in rec.said), rec.said
+
+        # switched on by an older save, it can still be switched off
+        d.setObject_forKey_('1', 'JAPANUSE')
+        d.synchronize()
+        app.weaponHave()
+        q = DetailInventoryController(7, speech=rec)
+        assert q.used == 1
+        assert q.equipToggleAction_() == 0, 'unequipping was refused too'
+        assert d.intForKey_('JAPANUSE') == 0
+        q.teardown()
+
+        # and the knife, which nobody has to buy, still equips
+        k = DetailInventoryController(1, speech=rec)
+        assert k.owned
+        k.teardown()
     finally:
         p.teardown()
 
