@@ -268,13 +268,12 @@ the lane they are aimed down, at the listener's height. That pans a shot the way
 zombie in the same lane pans, and 40 cm is the reference distance, so it is exactly as
 loud as before. The grenade and the reload stay in the centre.
 
-### The bullet striking a zombie, and the headshot, are heard where the zombie is
-`gun_att_sound_1` (56) and `headshot_4` (330) are stereo files, and OpenAL never places
-stereo sounds, so the original played them in the middle of your head even though it
-passes the zombie's position. `oal_playback.MONO_AT_LOAD` folds them to mono as they
-load; the files are not changed. Because the original heard the headshot at its full
-0.1 whatever the distance, the port plays it 40 cm out in the zombie's direction, the
-reference distance, so it pans toward the zombie without fading.
+### The bullet striking a zombie is heard where the zombie is
+`gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
+original played it in the middle of your head even though it passes the zombie's
+position. `oal_playback.MONO_AT_LOAD` folds it to mono as it loads; the file is not
+changed. The headshot announcement, `headshot_4` (330), is stereo too and is left that
+way: it is meant to be heard in the centre, at 0.1, wherever the zombie is, and it is.
 
 ### Shaking free is heard where you are
 `shakingFind` plays the animal zombie's push at the monster's `Pos` (0x3baa0). By then

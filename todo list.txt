@@ -40,7 +40,7 @@ The inventory refuses to equip a weapon you have not bought and says so, while o
 The shop, the weapon list, a weapon's page and the inventory each say which screen you are on as they open, instead of only saying "back button".
 You can no longer fire while reloading, and a reload refills the gun you started it with, as in the original.
 Reload does nothing with the grenade or a blade, and does not work while a zombie holds you or once the game is over.
-The headshot is heard where the zombie is, and headshots are timed as in the original: the breathing pause counts when you fire, even though the shot takes half a second to land.
+Headshots are timed as in the original: the breathing pause counts when you fire, even though the shot takes half a second to land, and the headshot announcement plays in the centre.
 Zombie sounds move as they walk, so you hear each zombie come closer and louder in its own lane, a zigzag walker's sound sweeps across with it, and the breathing that times a headshot plays through.
 A test checks that zombie sounds really move, by reading each zombie's sound back from OpenAL itself.
 Near the end of each level an alarm sounds and a boss comes down the middle, and the level only ends once the boss is dead.

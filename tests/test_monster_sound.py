@@ -201,10 +201,9 @@ def test_the_bullet_hit_is_heard_where_the_zombie_is():
         st.teardown()
 
 
-def test_the_headshot_is_heard_toward_the_zombie_and_as_loud_as_ever():
-    """headshot_4 (330) is stereo, so the original heard it at its full 0.1 wherever
-    the zombie was.  Folded to mono it pans toward the zombie, and it is placed at the
-    reference distance so it does not fade with the zombie's distance."""
+def test_the_headshot_announcement_is_centred():
+    """headshot_4 (330) is stereo, and OpenAL never places a stereo sound, so the
+    announcement is heard in the centre at 0.1 wherever the zombie is (0x3a24a)."""
     app, st = _new_stage()
     loop = RunLoop.main()
     st.MonsterInit_(1)                      # lane 1, hard left, far out
@@ -229,11 +228,9 @@ def test_the_headshot_is_heard_toward_the_zombie_and_as_loud_as_ever():
         note = app.CheckSoundBuf_(330)
         pb = app.playback
         sid = pb._sources[note].sourceId
-        assert pb._buffers[note].channels == 1, 'the headshot is still stereo'
-        x, h, y = pb.al.source_position(sid)
-        dist = math.sqrt(x * x + h * h + y * y)
-        assert x < -30 and abs(y) < 1.0, 'the headshot is at (%.0f, %.0f)' % (x, y)
-        assert dist <= REFERENCE + 0.5, 'it is %.0f cm out, so it fades' % dist
+        assert pb._buffers[note].channels == 2, 'the announcement was made mono'
+        gain = pb.al.source_float(sid, al.AL_GAIN)
+        assert abs(gain - 0.1) < 1e-6, 'the announcement is at %.3f' % gain
     finally:
         st.teardown()
 

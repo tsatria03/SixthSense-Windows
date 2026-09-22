@@ -834,14 +834,6 @@ class Stage_1_E:
         RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
 
     @staticmethod
-    def _toward(pos):
-        """The point ``SHOT_DISTANCE`` out in the direction of ``pos``."""
-        d = math.hypot(pos[0], pos[1])
-        if d == 0:
-            return (0.0, 0.0)
-        return (SHOT_DISTANCE * pos[0] / d, SHOT_DISTANCE * pos[1] / d)
-
-    @staticmethod
     def _lane_pos(lane):
         """A point ``SHOT_DISTANCE`` out along the lane's bearing, at the listener's
         height (z 0).  A zombie far down the same lane lies in almost exactly that
@@ -937,13 +929,11 @@ class Stage_1_E:
                 m.isHeadShot = False
                 m.HP -= weapon.Damage * 2                       # 0x3a1dc
                 self.gamePlayer.HeadShotCount += 1
-                # 0x3a24a: 0.1 at the monster's Pos.  The file is stereo, so the
-                # original heard it at 0.1 however far off the zombie was.  Folded to
-                # mono (MONO_AT_LOAD) it would fade with distance to almost nothing, so
-                # it is placed at the reference distance in the zombie's direction:
-                # it pans like the zombie and keeps the original's loudness.
+                # 0x3a24a: 0.1 at the monster's Pos, z 40.  headshot_4 is stereo, and
+                # OpenAL never places a stereo sound, so the announcement is heard
+                # in the centre at 0.1, however far off the zombie is.
                 self.app.playSound_Gain_Pos_z_reprats_(
-                    SOUND_HEADSHOT, 0.1, self._toward(m.Pos), 0, False)
+                    SOUND_HEADSHOT, 0.1, m.Pos, 40, False)
             else:
                 m.HP -= weapon.Damage                           # 0x3a796
             self.gamePlayer.gunEggCountShot += 1                # 0x3a7cc

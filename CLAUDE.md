@@ -33,6 +33,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
 - **`tests/`**: plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any.
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense` and a release zip ([[project_compiler_py]]).
+- **`bloopers/`**: short clips of funny bugs, kept for fun and preferably under two minutes. Its README sets the naming and format rules. The build leaves it out; only add clips the dev provides.
 - **`New File.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games that are kept in it, in the todo list, memory, or code and comments ([[feedback_no_other_games]]). The dev's old NVGT remake of this game used to be there; it was deleted on 2026-09-21 ([[project_nvgt_remake_reference]]).
 
