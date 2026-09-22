@@ -1,4 +1,8 @@
 unrelease:
+The headshot is heard in the direction of the zombie, as loud as in the original however far away it is, instead of in the middle of your head.
+You can no longer fire while reloading, and a reload refills the gun you started it with.
+Reload no longer works while a zombie holds you, after the game is over, with the grenade or with a blade.
+A shot takes half a second to land, as in the original, and a headshot counts if you fired while the zombie's breathing paused.
 Shaking the animal zombie off is heard where you are, like a kill of your own, instead of out where the zombie was.
 Your breathing, which tells you how hurt you are, comes once every four seconds as in the original, instead of every two.
 Zombies move as they walk, so you hear each one come closer and louder in its own lane, and its breathing plays through instead of being cut off at every step.

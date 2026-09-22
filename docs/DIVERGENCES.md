@@ -81,6 +81,34 @@ other try is skipped, and the breath that tells you your health (80 at three hea
 at two, 82 at one) comes once every four seconds. The port used 1.0 s, which breathed
 twice as often. **Reproduced.**
 
+### A shot lands half a second after it is fired
+`MovingShot:` schedules `MonsterDamage` 0.5 s after the shot, for every gun (0x2fd70)
+and the grenade (0x2f32a): `movt r1, #0x3fe0`. No weapon's plist changes it, and
+`ShotSpeed` is never read. Whether it is a headshot is decided at the trigger, by the
+breathing gap at that moment (0x2fc0e..0x2fc48 sets `isHeadShot`), and applied when the
+hit lands. The port used to land every shot at once. **Reproduced, and an open
+decision:** `stage_1_e.SHOT_TRAVEL` is the one setting, and 0.0 brings the instant hits
+back.
+
+The mark is put on the monster aimed at when you fire, and taken off by the hit that
+uses it. If a different monster is nearest in that lane when the shot lands, that one
+takes a plain hit and the first keeps its mark, so its next gun hit counts as a
+headshot whenever it comes. **Reproduced.**
+
+The windows themselves match the original: one window `headShotTimeStart` seconds into
+each walk cycle, or, for a list like `"0.3,1.3"`, each time in the list, every cycle
+(`headShot:` sets `headShotTimer` back to nil as it fires, 0x11b74, so `MonsterComing:`
+starts the list again, 0x11a2e), each open for `headShotTimeEndHowLong`.
+
+### Reloading keeps you from firing
+The reload is the 6 o'clock swipe, so it passes `MovingShot:`'s guards: not while a shot
+or reload is still going, not while held, not while attacks are barred, not once the
+game-over music has started. `shotFlag` then stays up until `reloadGun:` drops it
+(0x35f24), so nothing can be fired with the magazine out, and `reloadGun:` refills the
+weapon the reload began with (`reloadWeaponNumber`, 0x35f2a). The grenade is not
+reloaded (0x351c8). The port's reload key called `GunReloadAction:` directly, past all
+of that. **Reproduced**; the key now does nothing with the grenade or a blade.
+
 ### The zig-zag walks cannot be reached
 Types whose id ends in 6 to 0 walk the zig-zags (`MovingType` 11..55), but
 `monsterArray` only holds ids ending in 1 to 5, and the scripted spawns are straight
@@ -228,11 +256,13 @@ the lane they are aimed down, at the listener's height. That pans a shot the way
 zombie in the same lane pans, and 40 cm is the reference distance, so it is exactly as
 loud as before. The grenade and the reload stay in the centre.
 
-### The bullet striking a zombie is heard where the zombie is
-`gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
-original played it in the middle of your head even though it passes the zombie's
-position. `oal_playback.MONO_AT_LOAD` folds it to mono as it loads; the file is not
-changed.
+### The bullet striking a zombie, and the headshot, are heard where the zombie is
+`gun_att_sound_1` (56) and `headshot_4` (330) are stereo files, and OpenAL never places
+stereo sounds, so the original played them in the middle of your head even though it
+passes the zombie's position. `oal_playback.MONO_AT_LOAD` folds them to mono as they
+load; the files are not changed. Because the original heard the headshot at its full
+0.1 whatever the distance, the port plays it 40 cm out in the zombie's direction, the
+reference distance, so it pans toward the zombie without fading.
 
 ### Shaking free is heard where you are
 `shakingFind` plays the animal zombie's push at the monster's `Pos` (0x3baa0). By then

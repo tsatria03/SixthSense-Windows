@@ -90,6 +90,7 @@ class _Source:
 #: so they sound where the monster is.  The files themselves are not changed.
 MONO_AT_LOAD = frozenset({
     'gun_att_sound_1',          # 56, the bullet striking a zombie
+    'headshot_4',               # 330, the headshot
 })
 
 

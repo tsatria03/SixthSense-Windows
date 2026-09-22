@@ -153,7 +153,7 @@ def test_a_shot_in_the_lane_does_damage():
     hp0 = m.HP
     w = st.weaponSource[st.gamePlayer.useWepon]
     st.MovingShot_(LANE[4])
-    loop.pump()
+    _run(loop, S1E.SHOT_TRAVEL + 0.2)
     assert st.shotMonster == 4
     assert m.HP == hp0 - w.Damage or m.HP == hp0 - w.Damage * 2, \
         'HP %d -> %d with damage %d' % (hp0, m.HP, w.Damage)
@@ -168,7 +168,7 @@ def test_a_shot_in_the_wrong_lane_misses():
     _run(loop, 1.5)
     hp0 = m.HP
     st.MovingShot_(LANE[1])                 # aim hard left instead
-    loop.pump()
+    _run(loop, S1E.SHOT_TRAVEL + 0.2)
     assert st.shotMonster == 1
     assert m.HP == hp0
     st.teardown()
@@ -439,7 +439,7 @@ def test_shooting_the_girl_costs_a_heart():
     _freeze(st.MonsterBuffer[0], 100.0)
     hp0, kills = st.gamePlayer.HP, st.gamePlayer.killMonsterCount
     st.MovingShot_(LANE[3])
-    loop.pump()
+    _run(loop, S1E.SHOT_TRAVEL + 0.2)
     assert st.MonsterBuffer == [], 'the shot missed her'
     assert st.gamePlayer.HP == hp0 - 1, 'shooting her cost nothing'
     assert st.gamePlayer.killMonsterCount == kills, 'she counted as a kill'
@@ -669,6 +669,150 @@ def test_six_oclock_reloads_a_gun():
         loop.pump()
         time.sleep(0.004)
     assert w.BulletCount == w.ReloadGun(), 'the 6 oclock swipe did not reload'
+    st.teardown()
+
+
+def _gun_stage():
+    app, st = _new_stage()
+    st.gamePlayer.useWepon = 2              # the colt
+    w = st.weaponSource[2]
+    st.shotFlag = False
+    return app, st, w
+
+
+def test_a_two_window_zombie_opens_both_windows_every_cycle():
+    """MonsterComing: (0x11a18..0x11ad8) starts the list "0.3,1.3" only while
+    headShotTimer is nil, and headShot: (0x11b30) sets it back to nil as it fires, so
+    both windows open again in every cycle, each lasting headShotTimeEndHowLong."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(73)                     # "0.3,1.3", comingSoundTime 1.88
+    m = st.MonsterBuffer[0]
+    assert [float(t) for t in m.monsterHeadShotArray] == [0.3, 1.3]
+    m.comingRange = 0                       # keep it out there; only its timers run
+    st.MotionSamplingTimer.invalidate()     # and nothing reaches you meanwhile
+    t0 = time.monotonic()
+    opens, closes, was = [], [], m.headShotFlag
+    while time.monotonic() - t0 < 3.9:
+        loop.pump()
+        now = m.headShotFlag
+        if now != was:
+            (opens if now else closes).append(time.monotonic() - t0)
+            was = now
+        time.sleep(0.002)
+    cycle = m.comingSoundTime
+    want = [0.3, 1.3, cycle + 0.3, cycle + 1.3]
+    assert len(opens) == 4, 'windows opened at %r' % opens
+    for got, exp in zip(opens, want):
+        assert abs(got - exp) < 0.08, 'windows opened at %r, wanted %r' % (opens, want)
+    for o, c in zip(opens, closes):
+        assert abs((c - o) - m.headShotTimeEndHowLong) < 0.08, (opens, closes)
+    st.teardown()
+
+
+def test_a_shot_lands_half_a_second_later():
+    """MovingShot: 0x2fd70 - MonsterDamage comes 0.5 s after the shot, for every gun."""
+    _app, st, w = _gun_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(3)
+    m = st.MonsterBuffer[0]
+    _freeze(m, 100.0)
+    hp0 = m.HP
+    st.MovingShot_(LANE[3])
+    _run(loop, S1E.SHOT_TRAVEL - 0.25)
+    assert m.HP == hp0, 'the hit landed before the shot got there'
+    _run(loop, 0.5)
+    assert m.HP < hp0, 'the shot never landed'
+    st.teardown()
+
+
+def test_a_headshot_is_judged_when_you_fire():
+    """0x2fc0e..0x2fc48: the breathing gap at the trigger decides the headshot, even
+    if it has closed by the time the shot lands."""
+    _app, st, w = _gun_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(3)
+    m = st.MonsterBuffer[0]
+    _freeze(m, 100.0)
+    m.HP = w.Damage * 10
+    m.headShotFlag = True
+    st.MovingShot_(LANE[3])
+    m.headShotFlag = False                  # the gap closes in flight
+    _run(loop, S1E.SHOT_TRAVEL + 0.2)
+    assert m.HP == w.Damage * 8, 'not a headshot: %d damage' % (w.Damage * 10 - m.HP)
+    assert st.gamePlayer.HeadShotCount == 1
+    st.teardown()
+
+
+def test_no_firing_while_reloading():
+    """GunReloadAction: leaves shotFlag up until reloadGun: (0x35f24) drops it, so
+    a shot fired during the reload does nothing and wastes nothing."""
+    _app, st, w = _gun_stage()
+    loop = RunLoop.main()
+    w.BulletCount = 1
+    assert st.ReloadGesture()
+    st.MovingShot_(LANE[3])
+    assert w.BulletCount == 1, 'a round was fired during the reload'
+    _run(loop, w.ReloadTime + 0.3)
+    assert w.BulletCount == w.ReloadGun()
+    assert st.shotFlag is False, 'firing is still barred after the reload'
+    st.teardown()
+
+
+def test_no_reload_while_grabbed_dying_or_mid_shot():
+    """The reload key goes through MovingShot:'s guards, like the 6 o'clock swipe."""
+    app, st, w = _gun_stage()
+    reloads = []
+    real = st.GunReloadAction_
+    st.GunReloadAction_ = lambda *a: (reloads.append(1), real(*a))[-1]
+    try:
+        st.isShake = True
+        assert not st.ReloadGesture(), 'reloaded while held'
+        st.isShake = False
+        st.missionCompletSounding = True
+        assert not st.ReloadGesture(), 'reloaded once the game was over'
+        st.missionCompletSounding = False
+        st.shotFlag = True
+        assert not st.ReloadGesture(), 'reloaded in the middle of a shot'
+        st.shotFlag = False
+        assert reloads == []
+    finally:
+        del st.GunReloadAction_
+        st.teardown()
+
+
+def test_reload_does_nothing_with_the_grenade_or_a_blade():
+    """GunReloadAction: returns for the grenade (0x351c8), and a blade has no
+    magazine; the port used to play the grenade's blast."""
+    app, st, w = _gun_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    try:
+        for weapon in (0, 1):
+            st.gamePlayer.useWepon = weapon
+            st.shotFlag = False
+            assert not st.ReloadGesture()
+            assert st.shotFlag is False
+        assert played == [], played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_a_reload_refills_the_gun_it_was_started_with():
+    """reloadGun: refills weaponSource[reloadWeaponNumber] (0x35f2a)."""
+    app, st, colt = _gun_stage()
+    loop = RunLoop.main()
+    colt.BulletCount = 0
+    st.ReloadGesture()
+    app.useWeapon = ['1'] * 8
+    st.gunChangeAction_(1)                  # switch away mid-reload
+    other = st.weaponSource[st.gamePlayer.useWepon]
+    other.BulletCount = 0
+    _run(loop, colt.ReloadTime + 0.3)
+    assert colt.BulletCount == colt.ReloadGun(), 'the colt was not refilled'
+    assert other.BulletCount == 0, 'the gun switched to was refilled instead'
     st.teardown()
 
 

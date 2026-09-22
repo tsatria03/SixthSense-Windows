@@ -167,6 +167,13 @@ SOUND_MISSION_SUCCESS = 227
 SOUND_MISSION_FAIL = 228    # stopped by StopElseSpeak; Stage_1_E never plays it
 SOUND_BGM_GAME_END = 89     # what -[Stage_1_E playerDie:] plays, 0x3bcaa
 SOUND_NOW_LOADING = 46
+#: How long a gunshot or a grenade takes to land, in seconds.  The original waits 0.5 s
+#: for every gun and the grenade alike (0x2fd70, 0x2f32a: ``movt r1, #0x3fe0``); no
+#: weapon's plist changes it, and ``ShotSpeed`` is never read.  The port used to land
+#: the hit at once.  DECISION, open: 0.5 is the original's feel; set it to 0.0 to have
+#: shots land instantly again, and nothing else needs to change.
+SHOT_TRAVEL = 0.5
+
 #: 0x31964: how long ``brearhFlag`` stays up after a breath.
 BREATH_HOLD = 3.0
 SOUND_SWORD_START = 329     # weapon_japen_knife_start, 0x35ec0
@@ -818,8 +825,21 @@ class Stage_1_E:
         self.app.playSound_Gain_Pos_z_reprats_(
             weapon.ShotSoundNumber, weapon.ReloadSoundGain,
             self._lane_pos(lane), 0, False)
-        RunLoop.main().perform(self, 'MonsterDamage', None, 0.0)
+        # 0x2fc0e..0x2fc48: whether it is a headshot is decided now, by the breathing
+        # gap at the moment of the shot, and carried to the hit on isHeadShot.
+        target = self.monsterHitHeadFind()
+        if target is not None and target.headShotFlag:
+            target.isHeadShot = True
+        RunLoop.main().perform(self, 'MonsterDamage', None, SHOT_TRAVEL)   # 0x2fd70
         RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
+
+    @staticmethod
+    def _toward(pos):
+        """The point ``SHOT_DISTANCE`` out in the direction of ``pos``."""
+        d = math.hypot(pos[0], pos[1])
+        if d == 0:
+            return (0.0, 0.0)
+        return (SHOT_DISTANCE * pos[0] / d, SHOT_DISTANCE * pos[1] / d)
 
     @staticmethod
     def _lane_pos(lane):
@@ -844,7 +864,7 @@ class Stage_1_E:
         if self.isTutorial:                        # 0x2f288
             d.setObject_forKey_(str(n - 1), 'GRENADECOUNT')
             d.synchronize()
-        RunLoop.main().perform(self, 'MonsterDamage', None, 0.0)
+        RunLoop.main().perform(self, 'MonsterDamage', None, SHOT_TRAVEL)   # 0x2f32a
         RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
 
     @staticmethod
@@ -896,7 +916,9 @@ class Stage_1_E:
                 continue
             if float(weapon.Range) < m.monsterRange:            # 0x3ad82
                 continue
-            if best is None or m.monsterRange < best.monsterRange:
+            # 0x3ae48 skips a candidate only when it is further (bhi), so on a tie
+            # the later one in MonsterBuffer wins.
+            if best is None or m.monsterRange <= best.monsterRange:
                 best = m
         return best
 
@@ -911,15 +933,21 @@ class Stage_1_E:
             if m is None:
                 return
             m.MonsterHitSoundDealloc()
-            if m.headShotFlag:                                  # isHeadShot, 0x3a174
+            if m.isHeadShot:                                    # 0x3a174
                 m.isHeadShot = False
                 m.HP -= weapon.Damage * 2                       # 0x3a1dc
                 self.gamePlayer.HeadShotCount += 1
+                # 0x3a24a: 0.1 at the monster's Pos.  The file is stereo, so the
+                # original heard it at 0.1 however far off the zombie was.  Folded to
+                # mono (MONO_AT_LOAD) it would fade with distance to almost nothing, so
+                # it is placed at the reference distance in the zombie's direction:
+                # it pans like the zombie and keeps the original's loudness.
                 self.app.playSound_Gain_Pos_z_reprats_(
-                    SOUND_HEADSHOT, 0.1, m.Pos, 40, False)
+                    SOUND_HEADSHOT, 0.1, self._toward(m.Pos), 0, False)
             else:
-                m.HP -= weapon.Damage
-            m.MonsterHitSound_(None)
+                m.HP -= weapon.Damage                           # 0x3a796
+            self.gamePlayer.gunEggCountShot += 1                # 0x3a7cc
+            m.MonsterHitSound_(None)                            # 0x3a7e4
             if m.HP <= 0:
                 # 0x3a83a: a killing hit plays 79 at 1.0, where the monster was.
                 # SoundList calls it weapon_head_shot, but this is the kill, headshot or
@@ -1179,19 +1207,48 @@ class Stage_1_E:
     def threeTapChangeWeapon_(self, *_):
         self.gunChangeAction_(-1)
 
+    # The 6 o'clock swipe, as the reload key.
+    def ReloadGesture(self):
+        """The reload key does what the 6 o'clock swipe does: it goes through the same
+        guards as any other attack in ``MovingShot:`` (0x2f07e..0x2f0ca) before it
+        reaches ``GunReloadAction:``.  So there is no reload while a reload or a shot is
+        still going, while a zombie holds you, while attacks are barred, or once the
+        game-over music has started.  A melee weapon has nothing to reload, and in the
+        original the grenade swiped to 6 o'clock is thrown, so for both the key does
+        nothing."""
+        if self.missionCompletSounding or self.shotFlag:
+            return False
+        if self.isShake or self.noAtt:
+            return False
+        if self.gamePlayer.useWepon in (0, 1, 7):
+            return False
+        self.shotFlag = True                                   # 0x2f096
+        self.GunReloadAction_()
+        return True
+
     # -[Stage_1_E GunReloadAction:] 0x3516c
     def GunReloadAction_(self, *_):
+        """Start a reload.  ``shotFlag`` stays up from the swipe until ``reloadGun:``
+        drops it, so nothing can be fired while the magazine is out."""
+        self.shotMonster = 0                                    # 0x351a2
+        self.reloadWeaponNumber = self.gamePlayer.useWepon      # 0x351be
+        if self.gamePlayer.useWepon == 0:                       # 0x351c8: not the grenade
+            return
         weapon = self.weaponSource[self.gamePlayer.useWepon]
         if weapon is None:
             return
         self.app.playSound_Gain_Pos_z_reprats_(
-            weapon.ReloadSoundnumber, weapon.ReloadSoundGain, (0.0, 0.0), 0, False)
+            weapon.ReloadSoundnumber, weapon.ReloadSoundGain, (0.0, 0.0), 40, False)
         RunLoop.main().perform(self, 'reloadGun_', None, weapon.ReloadTime)
 
     # -[Stage_1_E reloadGun:] 0x35ef0
     def reloadGun_(self, *_):
-        weapon = self.weaponSource[self.gamePlayer.useWepon]
+        """The magazine goes back in: attacks are allowed again (0x35f24), and the weapon
+        the reload was started with is refilled, even if you have switched since."""
+        self.shotFlag = False
+        weapon = self.weaponSource[self.reloadWeaponNumber]
         if weapon:
+            self.app.stopSoundBufNumber_(weapon.ReloadSoundnumber)
             weapon.BulletCount = weapon.ReloadGun()
 
     # ================================================================ facing
