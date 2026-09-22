@@ -21,3 +21,4 @@ Pressing P during the tutorial now stops its prompts and its timer, instead of l
 Replaying the tutorial from the menu no longer reads it as already finished.
 Leaving the tutorial now stops whatever prompt was still playing, instead of letting it run into the menu.
 "Now Loading" now always plays before the menu music stops, and the level's own sound and the tutorial's first prompt wait for it to finish.
+The main menu's music is quieter, so the menu's own voice can be heard over it.

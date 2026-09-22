@@ -12,6 +12,7 @@ from sixthsense import paths                                     # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
 from sixthsense.game.main_controller import (COIN_INTERVAL, COIN_MAX,  # noqa: E402
                                              ROWS, MainController)
+from sixthsense.platform import volume                           # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
 from sixthsense.platform.runloop import RunLoop                  # noqa: E402
 
@@ -58,6 +59,26 @@ def test_the_rows_are_the_originals():
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for _n, _f, sound, _a in ROWS:
         assert paths.path_for_resource(sl[sound], 'wav'), sound
+
+
+def test_the_menu_music_plays_under_the_rows():
+    """BGMusicStart is a port addition - the original's MainController never starts music
+    (only -[Stage_1_E GameEndAction:] does, 0x330da) - so its gain is the port's to choose.
+    It plays at volume.MENU_MUSIC_DB, no louder than the 0.2 every row is read at, instead
+    of the 1.0 it started at, which talked over the rows."""
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    pb = app.playback
+    calls = []
+    pb.startBGPlayer_type_soundGain_Loop_ = lambda n, t, g, l: calls.append((n, g, l))
+    try:
+        app.BGMusicStart()
+        assert calls == [('bgm_main_menu', volume.menu_music(), True)], calls
+        assert volume.menu_music() <= 0.2, \
+            'the menu music is louder than the rows it plays under'
+    finally:
+        del pb.startBGPlayer_type_soundGain_Loop_        # back to the real player
 
 
 def test_there_is_no_exit_row():

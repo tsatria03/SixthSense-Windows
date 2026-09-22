@@ -11,6 +11,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [Sound organization](project_sound_organization.md): every sound the game uses lives in `game/sounds/used/`, in folders, under its original name, each verified by audio (a deliberate divergence). There are 329 files covering all 269 originals, all 16-bit, and the 25 non-original files sit in `game/sounds/unused/`. `paths.path_for_resource` checks the top folder first, then looks by file name under `used/` only; this was built on 2026-09-21, the tests pass 117/117, and the dev confirmed it in play.
 - [Screen reader mode](project_screen_reader_mode.md): planned 2026-09-22. With the voice over row off, the screen reader speaks every `speech/` recording's words and reads numbers whole, while `sfx/` keeps playing; new players start self-voiced. The design, the prerequisites (transcripts still needed; the Prism speech layer is done) and the stages. Not built yet.
 - [Prism speech](project_prism_speech.md): built 2026-09-22; the tests pass 130/130, and the dev confirmed it by ear. `speech.py` goes NVDA's DLL first, then Prism for JAWS, Narrator and the rest (checking `narrator.exe`), then SAPI or OneCore through Prism; comtypes is gone. `compiler.py` bundles Prism and fills a `licenses` folder with OpenAL Soft, the NVDA client, Prism and pygame. `tests/test_speech.py` uses only fakes.
+- [Volume knobs](project_volume_knobs.md): `platform/volume.py`, built 2026-09-22. Decibel knobs move groups of sounds (master, level music, ambience) while every gain the game plays stays the binary's own; the menu music is the port's own sound and is -14 dB in full.
 - [Old NVGT remake](project_nvgt_remake_reference.md): the dev's NVGT prototype was deleted on 2026-09-21. Its only legacy is the folder layout of `game/sounds`.
 
 ## Current state
@@ -23,6 +24,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [No other games](feedback_no_other_games.md): never name or refer to the dev's other games in the todo list, memory files, CLAUDE.md, or Python code and comments. Write about Sixth Sense alone.
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told. The test suite may be run without asking (since 2026-09-22), always the safe way. Ask before running the game, compiler.py, or any script that executes game code or speaks. Read-only inspection is fine.
 - [Changelog](feedback_changelog.md): every commit with a fix or enhancement players notice adds a plain sentence under `unrelease:` at the top of `changelog.txt` (CRLF, no markdown). Release builds file that section under the version; never edit released entries.
+- [No question pickers](feedback_no_question_pickers.md): ask questions as plain text in the reply, never through the multiple-choice picker tool.
 - [Todo list format](feedback_todo_list_format.md): `todo list.txt` has ##Unfinished. then ##Finished. headings, one plain sentence per line, new items at the top, CRLF, no markdown. Bugs are stated plainly, never as "Fix a bug where". Items move to finished only when the dev confirms.
 
 ## User

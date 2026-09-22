@@ -51,6 +51,7 @@ import wave
 
 from .. import paths
 from ..platform import openal as al
+from ..platform import volume
 from ..platform.music import MusicPlayer
 
 log = logging.getLogger('oal')
@@ -272,7 +273,9 @@ class OalPlayback:
         A.alSourcei(sid, al.AL_LOOPING, 1 if repeats else 0)
         A.alSourcef(sid, al.AL_REFERENCE_DISTANCE, reference_distance)
         A.alSourcef(sid, al.AL_MAX_DISTANCE, max_distance)
-        A.alSourcef(sid, al.AL_GAIN, gain)
+        # PORT ADDITION: the master knob, applied here because this is where AL_GAIN is
+        # set.  At 0 dB it multiplies by exactly 1.0 (platform/volume.py).
+        A.alSourcef(sid, al.AL_GAIN, volume.master(gain))
         A.alSourcef(sid, al.AL_CONE_OUTER_ANGLE, 1.0)
         if inner_cone:
             A.alSourcef(sid, al.AL_CONE_INNER_ANGLE, 1.0)
@@ -332,7 +335,7 @@ class OalPlayback:
         s = self._sources[note]
         if not s.sourceId:
             return
-        self.al.alSourcef(s.sourceId, al.AL_GAIN, gain)
+        self.al.alSourcef(s.sourceId, al.AL_GAIN, volume.master(gain))
         self.startSound_Postion_(note, pos)
 
     def startSoundPostion_SoundNumber_(self, pos, note):
@@ -418,7 +421,7 @@ class OalPlayback:
         """-[oalPlayback startBGPlayer:type:soundGain:Loop:] 0xd5e0"""
         path = paths.path_for_resource(name, filetype)
         if path:
-            self.bgPlayer.play(path, gain, -1 if loop else 0)
+            self.bgPlayer.play(path, volume.master(gain), -1 if loop else 0)
 
     def backgroundSoundStop(self):
         """-[oalPlayback backgroundSoundStop] 0xd738"""
@@ -428,7 +431,7 @@ class OalPlayback:
         """-[oalPlayback startAMBPlayer:type:soundGain:Loop:] 0xd790"""
         path = paths.path_for_resource(name, filetype)
         if path:
-            self.ambPlayer.play(path, gain, -1 if loop else 0)
+            self.ambPlayer.play(path, volume.master(gain), -1 if loop else 0)
 
     def AMBSoundStop(self):
         """-[oalPlayback AMBSoundStop] 0xd8e8"""

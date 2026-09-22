@@ -47,6 +47,7 @@ import plistlib
 import time
 
 from .. import paths
+from ..platform import volume
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .oal_playback import OalPlayback
@@ -64,6 +65,7 @@ TTS_COIN_AFTER = 339
 # -[MainController coinTiemrControlStart] 0xbe01 / coinUpTimer 0xc0b1
 COIN_INTERVAL = 1800.0     # seconds per coin - `rsb.w r2, r0, #0x708` at 0xc1ee
 COIN_MAX = 5               # 0xbff6: the timer stops once Coin reaches 5
+
 
 
 class AppDelegate:
@@ -300,8 +302,13 @@ class AppDelegate:
     # ================================================================== music
     # -[AppDelegate BGMusicStart] 0x4ce4 / -[AppDelegate BGMusicStop] 0x4d30
     def BGMusicStart(self):
+        """The menu music.  PORT ADDITION: the original's ``MainController`` never starts
+        music - the only caller in the binary is ``-[Stage_1_E GameEndAction:]`` (0x330da) -
+        so there is no gain of its own to copy, and ``volume.MENU_MUSIC_DB`` is the whole
+        value.  It started at 1.0, which talked over the rows the menu reads aloud."""
         if self.playback:
-            self.playback.startBGPlayer_type_soundGain_Loop_('bgm_main_menu', 'wav', 1.0, True)
+            self.playback.startBGPlayer_type_soundGain_Loop_(
+                'bgm_main_menu', 'wav', volume.menu_music(), True)
 
     def BGMusicStop(self):
         if self.playback:

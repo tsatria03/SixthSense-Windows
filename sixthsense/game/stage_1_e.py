@@ -49,6 +49,7 @@ import random
 import time
 
 from .. import paths
+from ..platform import volume
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .app_delegate import AppDelegate
@@ -275,11 +276,14 @@ class Stage_1_E:
         pb = self.app.playback
         if self.gameMode == 3:                                   # 0x2dd96
             pb.startAMBPlayer_type_soundGain_Loop_(
-                'effect_forest_rainng', 'wav', 0.5, True)       # 0x2ddc8: 0x3f000000
+                'effect_forest_rainng', 'wav',
+                volume.ambience(0.5), True)                     # 0x2ddc8: 0x3f000000
         elif self.gameMode == 2:                                 # 0x2dd6c
-            pb.startAMBPlayer_type_soundGain_Loop_('bgm_forest_amb', 'wav', 0.2, True)
+            pb.startAMBPlayer_type_soundGain_Loop_(
+                'bgm_forest_amb', 'wav', volume.ambience(0.2), True)
         elif self.gameMode == 1:                                 # 0x2ddce
-            pb.startAMBPlayer_type_soundGain_Loop_('bgm_cave_amb', 'wav', 0.2, True)
+            pb.startAMBPlayer_type_soundGain_Loop_(
+                'bgm_cave_amb', 'wav', volume.ambience(0.2), True)
 
         self.app.playback.setListenerRotation_(self.facing.radians)
         self.running = True
@@ -379,9 +383,11 @@ class Stage_1_E:
             # 0.02, well under the monsters: movw/movt r4, 0x3ca3d70a at 0x321d4/0x321dc
             pb = self.app.playback
             if self.gameMode >= 2:
-                pb.startBGPlayer_type_soundGain_Loop_('bgm_forest', 'wav', 0.02, True)
+                pb.startBGPlayer_type_soundGain_Loop_(
+                    'bgm_forest', 'wav', volume.music(0.02), True)
             else:
-                pb.startBGPlayer_type_soundGain_Loop_('bgm_cave', 'wav', 0.02, True)
+                pb.startBGPlayer_type_soundGain_Loop_(
+                    'bgm_cave', 'wav', volume.music(0.02), True)
 
         # ---- spawn, attack, upkeep, 0x31f16..0x31f94 --------------------
         self.MakeMonster_(self.monster_num)
@@ -1293,20 +1299,20 @@ class Stage_1_E:
         if pb is not None:
             if self.gameMode == 3:
                 pb.startBGPlayer_type_soundGain_Loop_(
-                    'effect_forest_rainng', 'wav', 0.5, True)
+                    'effect_forest_rainng', 'wav', volume.ambience(0.5), True)
             elif self.gameMode == 2:
                 pb.startBGPlayer_type_soundGain_Loop_(
-                    'bgm_forest_amb', 'wav', 0.2, True)
+                    'bgm_forest_amb', 'wav', volume.ambience(0.2), True)
             elif self.gameMode == 1:
                 pb.startBGPlayer_type_soundGain_Loop_(
-                    'bgm_cave_amb', 'wav', 0.2, True)
+                    'bgm_cave_amb', 'wav', volume.ambience(0.2), True)
             if self.gamePlayer.playerYplot < 396:             # 0x33b9c
                 if self.gameMode == 2:
                     pb.startAMBPlayer_type_soundGain_Loop_(
-                        'bgm_forest', 'wav', 0.02, True)
+                        'bgm_forest', 'wav', volume.music(0.02), True)
                 elif self.gameMode == 1:
                     pb.startAMBPlayer_type_soundGain_Loop_(
-                        'bgm_cave', 'wav', 0.02, True)
+                        'bgm_cave', 'wav', volume.music(0.02), True)
         self.selectMenu = 0
         return True
 

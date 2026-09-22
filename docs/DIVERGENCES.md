@@ -240,6 +240,32 @@ to start after the welcome message (`WELCOME_SECONDS`, measured from the WAV) - 
 skipping the intro (`skipAction`) cancels or stops it, the same way skipping cuts off
 the welcome message itself, so a player who skips never hears it at all.
 
+### The menu has music, and the volumes have knobs
+`bgm_main_menu` under the main menu is a port addition: the original's `MainController`
+never starts music, and the only call to `-[AppDelegate BGMusicStart]` in the binary is
+`-[Stage_1_E GameEndAction:]` (0x330da), on the way back from a finished run. Since the
+gain is not the binary's, it is the port's to pick. It started at 1.0, which talked over
+the rows the menu reads aloud, and now plays at `volume.MENU_MUSIC_DB`, −14 dB, chosen by
+ear in 2026-09-22 play-testing — the same loudness the rows themselves are read at.
+
+`sixthsense/platform/volume.py` is the rest of that addition: a set of knobs, in decibels,
+that move whole groups of sounds. Every gain the game actually plays is still the
+binary's, written where it is used with the address it came from — the level music 0.02
+(0x321d4), the ambience 0.2 (0x2ddfa), the rain 0.5 (0x2ddc8), a gunshot 1.0 — and the
+knobs sit on top of those:
+
+* `MASTER_DB` — everything, applied in `oal_playback` where every `AL_GAIN` is set, so it
+  reaches sound effects, the recorded speech and music alike.
+* `MUSIC_DB` — the level music.
+* `AMBIENCE_DB` — the cave, the forest and the rain.
+* `MENU_MUSIC_DB` — the menu music, which has no binary gain to sit on, so this is the
+  whole value.
+
+All of them but the last ship at 0.0 dB, which multiplies by exactly 1.0, so the mix as
+shipped is the original's to the bit. They are constants: nothing writes them to the save
+yet, and a settings screen would read its sliders into them. Whether the menu should have
+music at all is still an open question in `todo list.txt`.
+
 ### Key bindings are a port addition
 The original has no key bindings at all — every action is a swipe, a tap or a shake.
 The port binds those actions to keys (`platform/keymap.py`), lets the player change

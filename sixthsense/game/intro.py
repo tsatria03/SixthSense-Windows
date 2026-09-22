@@ -18,6 +18,7 @@ from __future__ import annotations
 import logging
 import time
 
+from ..platform import volume
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .blind_screen import BlindScreen
@@ -118,7 +119,7 @@ class StartIntroPage(BlindScreen):
         if self.app.playback is not None:
             # 0x17224: the gain is 0x3D4CCCCD, 0.05, and Loop is YES.
             self.app.playback.startBGPlayer_type_soundGain_Loop_(
-                'bgm_start_end', 'wav', 0.05, True)
+                'bgm_start_end', 'wav', volume.music(0.05), True)
 
     # -[startIntroPage tapCount] 0x18728 - a double tap anywhere skips.
     def activate(self):

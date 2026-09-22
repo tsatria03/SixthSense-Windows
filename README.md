@@ -156,6 +156,7 @@ sixthsense/
     defaults.py          NSUserDefaults
     keymap.py            PORT ADDITION: bindings, including chords
     speech.py            PORT ADDITION: NVDA, Prism or a Windows voice, for what no WAV says
+    volume.py            PORT ADDITION: the volume knobs, in decibels
   game/
     app_delegate.py      global state + the sound dispatch
     oal_playback.py      oalPlayback
@@ -225,7 +226,9 @@ python tests/test_menu.py       # the menu rows and the coin economy
 python tests/test_digits.py     # numbers spoken digit by digit, in the right order
 python tests/test_pause.py      # the pause and result panel
 python tests/test_store.py      # the shop, buying, and the inventory
+python tests/test_intro.py      # the splash, the warning and skipping them
 python tests/test_speech.py     # who speaks what no WAV covers (stand-ins, silent)
+python tests/test_volume.py     # the decibel knobs, and the binary's mix left alone
 ```
 
 `test_data` checks the port against the original data rather than against itself: the
