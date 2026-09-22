@@ -25,7 +25,6 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told. The test suite may normally be run without asking (since 2026-09-22), always the safe way, but that is **paused** from 2026-09-22 for the next few commits at the dev's word. Ask before running the game, compiler.py, or any script that executes game code or speaks. Read-only inspection is fine.
 - [Changelog](feedback_changelog.md): every commit with a fix or enhancement players notice adds a plain sentence at the top of the `unrelease:` block in `changelog.txt`, which reads newest first (LF, no markdown). Release builds file that section under the version; never edit released entries.
 - [Side by side, no guessing](feedback_side_by_side.md): every gameplay claim is checked against the binary by address and against the port by line, and the report says what was verified and what was inferred.
-- [No background agents](feedback_no_background_agents.md): do reviews and scans in the foreground; background subagents make the terminal jump around under NVDA.
 - [No question pickers](feedback_no_question_pickers.md): ask questions as plain text in the reply, never through the multiple-choice picker tool.
 - [Todo list format](feedback_todo_list_format.md): `todo list.txt` has ##Unfinished. then ##Finished. headings, one plain sentence per line, new items at the top, LF, no markdown. Bugs are stated plainly, never as "Fix a bug where". Items move to finished only when the dev confirms.
 
