@@ -15,6 +15,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 
 ## Feedback: how the dev wants you to work
 - [Memory in aidocks](feedback_memory_in_aidocks.md): all memory goes in aidocks/ with this index, and CLAUDE.md is a lean dispatcher under 40,000 chars.
+- [Git commits and pushes](feedback_git_commits.md): commit only when asked, then push right away without asking. Force pushes and history rewrites need an explicit go-ahead. Use `git commit -F` with a message file (PowerShell breaks quotes), and never hide git's errors.
 - [GitHub usernames, not real names](feedback_use_github_usernames.md): name people by GitHub username (tsatria03, lbk2907) in commit authors, co-author lines, commit messages and committed notes. This repo's git user.name is set to tsatria03.
 - [No other games](feedback_no_other_games.md): never name or refer to the dev's other games in the todo list, memory files, CLAUDE.md, or Python code and comments. Write about Sixth Sense alone.
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told. Ask before running the game, the tests, compiler.py, or any script that executes game code. Read-only inspection is fine.

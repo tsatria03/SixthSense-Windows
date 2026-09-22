@@ -33,6 +33,7 @@ The game plays the original's own 371 recorded WAVs. The only synthesised speech
 - **`tests/`**: plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any.
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense` and a release zip ([[project_compiler_py]]).
+- **`New File.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
 - **`user/`** is gitignored private reference material. Read it, but never edit it, and never name what is in it in the todo list, memory, or code and comments ([[feedback_no_other_games]]).
 
 The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.json`, `keys.json`).
@@ -63,6 +64,7 @@ This needs Python 3.12 x64 and pygame. `comtypes` or `accessible_output2` is nee
 - **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
 - **Adapting the build script**: [[project_compiler_py]].
 - **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]].
+- **Committing and pushing** (commit when asked, then push without asking; history rewrites need a go-ahead): [[feedback_git_commits]].
 - **Who made what, the permission to publish, and how to credit contributors in commits**: [[project_provenance]]. Name people by GitHub username only: [[feedback_use_github_usernames]].
 - **Who you're working with**: [[user_screen_reader]]. The dev uses NVDA, so prefer lists and short lines, and never make noise from tools.
 

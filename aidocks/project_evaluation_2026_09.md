@@ -171,10 +171,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Switching to the sword should play 329 (0x35ecc).
 - [R] **Two save keys are never written.** Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
 - [R] **The zig-zag walks are faithful but can't be reached**, because the monster tables only use straight-lane types.
-- [V] **Repo housekeeping.**
-  - `New File.txt` is empty and committed.
-  - `bugs.txt` is deleted in the working tree.
-  - There is no `requirements.txt`: pygame is needed, comtypes or accessible_output2 for speech, and capstone for `tools/`.
+- [V] **Repo housekeeping.** There is no `requirements.txt`: pygame is needed, comtypes or accessible_output2 for speech, and capstone for `tools/`. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
 
 ## Docs entries that are misreadings (fix with the code, docs last)
 - **`DIVERGENCES.md`**

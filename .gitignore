@@ -1,6 +1,9 @@
 #private user data
 user/
 
+#private scratchpad
+New File.txt
+
 # What PyInstaller leaves behind
 build/
 dist/

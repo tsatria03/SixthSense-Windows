@@ -12,6 +12,7 @@ metadata:
 - A blank line, then `##finished.` with its items below.
 - Each item is a plain sentence or two. **A bug is stated as what happens, with no "Fix a bug where" in front**: "Switching weapons refills the magazine for free.", not "Fix a bug where switching weapons refills the magazine for free." The dev found that opening too repetitive (2026-09-21).
 - An enhancement or task starts with what to do: "Add ...", "Make ...", "Remove ...", "Update ...", "Decide whether ...", "Test ...".
+- A `##finished.` item says what is now true, starting with its subject: "The license credits tsatria03 and lbk2907.", "The compiler has been changed to build Sixth Sense." List real milestones, not housekeeping like rewording this file, with the most significant first. The first six were added on 2026-09-21 at the dev's request.
 - No numbering, no bullets, no markdown, no file:line references. Write in plain words about what the player or dev experiences.
 - Avoid contractions, as the existing lines do ("does not", not "doesn't").
 - **New items go at the top of `##unfinished.`**, most important first, above the existing ones.
