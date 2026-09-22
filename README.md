@@ -203,7 +203,7 @@ tutorial and so on — and each keeps its original file name, so `SoundList.plis
 finds it. Each file was matched to the original by comparing its audio. They came back
 through a compressed copy, so they carry faint codec noise, but they are 16-bit PCM,
 like the originals; six are the original files themselves. `game/sounds/unused/` holds
-25 files that are not the original's own, which the game never uses.
+26 files that are not the original's own, which the game never uses.
 `docs/DIVERGENCES.md` has the details.
 
 The port reads from there, so the data it runs on is the original's data. `--game PATH`

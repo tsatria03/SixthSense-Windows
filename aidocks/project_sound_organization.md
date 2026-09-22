@@ -18,7 +18,7 @@ metadata:
   - `sfx/weapons` and `sfx/misc`
   - `speech/game`, `logos`, `menus/main`, `menus/store`, `numbers`, `tutorials` and `weapons`
 - **The extra 60 files are same-audio copies.** 38 sounds are shared between folders (for example the boss hit and death in all six boss folders, or `zombie_3_7_hit_player` in six zombie folders), since the original shares damage, death and hit sounds between areas and zombie kinds; only the "coming" loops differ.
-- **`game/sounds/unused/`** holds 25 files that are not the original's own, under their old sub-paths:
+- **`game/sounds/unused/`** holds 26 files that are not the original's own, under their old sub-paths (25 until 2026-09-22; see the update below):
   - 11 extra same-folder copies: `sfx/misc/menuclick.wav` (another `ui_select`), five `sfx/weapons/*hit.wav` (`gun_att_sound_1`) and five `*empty.wav` (`weapon_nonbullets`)
   - 14 sounds the original never had: the eight character `hurt1`/`hurt2`, `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of `Game Start Button`) and `welcome`
 
@@ -39,6 +39,13 @@ metadata:
    - all 329 files in `used/` match their namesake original's waveform (worst residual 0.294)
    - all 269 originals are present
    - all 25 non-original files are in `unused/`, and none are anywhere else
+
+## The real `main menu button` turned up (2026-09-22)
+The dev replaced `speech/menus/main/main menu button.wav` in `used/` themselves. What had been there was a trimmed cut that said only "main menu"; they found the original recording, which says the whole phrase, and put it in. It is mono, 1.41 s, 44.1 kHz, 16-bit, where the trimmed one was stereo and 1.86 s.
+- The trimmed cut is kept in `unused/speech/menus/main/main menu.wav`. **The dev asked for it not to be deleted.**
+- `unused/` therefore holds 26 files now, and the never-in-the-original group is fifteen rather than fourteen.
+- Sound 355 is what the pause panel's last row reads, so this is what a player hears on the panel's "main menu" row.
+- The 2026-09-21 audio matching found this file matched its namesake, since the trimmed cut is the same recording cut short. A name matching by ear beats a waveform match; if another trimmed cut turns up, the dev's ear decides.
 
 ## How the code finds the sounds (done 2026-09-21)
 The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the same day. **The full suite passed, 117 of 117**, with the dev's go-ahead ([[project_safe_test_run]]), and no "sound file missing" warning was printed. **The dev then played the game on 2026-09-21 and confirmed it finds its sounds** ("Everything worked!"). The todo item moved to finished as "The game finds its sounds in game/sounds/used again...".

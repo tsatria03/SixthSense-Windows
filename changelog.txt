@@ -1,4 +1,5 @@
 unrelease:
+The pause panel's main menu row says "main menu button" in full, from the original recording, instead of a cut that stopped after "main menu".
 Gunshots are as loud as in the original, and killing a zombie plays its kill sound.
 Dying plays the death sound where you fell, instead of saying "game over" twice.
 A key you were holding when you left a stage no longer stays pressed in the next one, and nothing stays stuck after you switch away from the window.

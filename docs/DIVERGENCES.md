@@ -390,14 +390,19 @@ themselves, copied in unchanged, so all 269 of the original's sounds are present
 `game/sounds/used/` holds 329 files in all: the 269 sounds, plus 60 copies of the ones
 more than one folder shares.
 
-`game/sounds/unused/` holds 25 files that are not the original's own, laid out in the
+`game/sounds/unused/` holds 26 files that are not the original's own, laid out in the
 same sub-folders they came from. Eleven are extra copies of a sound already in its
 folder: one more `ui_select` in `sfx/misc`, and five more each of `gun_att_sound_1`
 (the `*hit` files) and `weapon_nonbullets` (the `*empty` files) in `sfx/weapons`. The
-other fourteen never came from the original: the eight character `hurt` sounds,
+other fifteen never came from the original: the eight character `hurt` sounds,
 `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
-`Game Start Button`) and `welcome`. Nothing in the port uses them, so the sound lookup
-never looks in `game/sounds/unused/`.
+`Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
+`main menu button` that says only "main menu". Nothing in the port uses them, so the
+sound lookup never looks in `game/sounds/unused/`.
+
+`main menu button` (355), which the pause panel's last row reads, was one of those
+trimmed cuts until 2026-09-22, when the original recording turned up and tsatria03 put
+it in `used/`. The trimmed one stays in `unused/` under the name it had.
 
 How the port finds them: `paths.path_for_resource`, which stands in for
 `-[NSBundle pathForResource:ofType:]`, looks in the bundle's top folder first, the only
