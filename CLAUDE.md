@@ -61,6 +61,7 @@ This needs Python 3.12 x64 and pygame. `comtypes` or `accessible_output2` is nee
 
 - **The current state, the known bugs, the three todo-list root causes, open decisions and the fix order**: [[project_evaluation_2026_09]].
 - **Reading the binary correctly**: [[project_binary_analysis_notes]].
+- **The planned screen reader mode** (the voice over row off means the screen reader speaks the game's words): [[project_screen_reader_mode]].
 - **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
 - **Adapting the build script**: [[project_compiler_py]].
 - **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]].

@@ -1,5 +1,8 @@
 ##Unfinished.
 
+Add a screen reader mode. When the voice over row is turned off, the screen reader speaks everything the game's recordings would say, in the menus, the shop, the result panel and the tutorial, and reads numbers whole, such as one thousand two hundred and fifty instead of digit by digit. Sound effects, music and zombie sounds still play as recordings. New players start in the self-voiced mode. In the original, turning voice over off switched to the standard screens that the iPhone's own screen reader could read, so this is the Windows version of that.
+Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
+The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
 The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
@@ -9,7 +12,7 @@ Replaying the tutorial from the menu treats it as already finished.
 Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
 You can lose health during the tutorial.
 "Now Loading" plays over the first tutorial prompt.
-The "no coin" message plays as a recording and is spoken by the screen reader at the same time.
+The "no coin" message is spoken by the screen reader on top of its own recording. The original only plays the recording and shows the sentence as text, so the spoken sentence should go.
 Moving between the two rows of the intro screen lets their sounds overlap.
 The boss at the end of each level never appears, and the level ends as soon as you reach the end of the corridor.
 Zombies still alive at the end of a level follow you into the next one, and the ambience does not change with the level.
@@ -26,7 +29,7 @@ The knife and sword do double damage on a headshot, and a miss sounds the same a
 Shaking free from a grab can kill the wrong zombie when two reach you at the same time.
 Pressing reload with the grenade equipped plays the grenade blast and does nothing, and reload still works while you are grabbed or dying.
 Several small details do not match the original: the kill tally for zombie type 22, the zombie sound tables, how close a zombie can get, the shake count carrying over between grabs, and the sound for switching to the sword.
-The store's "not available" messages for the coin store, restore purchases and buy all weapons are silent.
+Remove the coin store, restore purchases and buy all weapons rows from the shop. In the original they were paid online purchases, so the Windows port does not need them. Weapons are still bought one at a time with the gold you earn by playing.
 The inventory lets you equip weapons you have not bought.
 The Try button on a weapon's page does nothing and says nothing.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
@@ -45,7 +48,7 @@ Add a log file and a crash.txt, and have the game say out loud when it cannot st
 Add an exit after option and a game data line to the log, so the compiler's test build can come back.
 Pause the game when its window loses focus, and recover when the audio device changes.
 Memory leaks each time the music or ambience changes.
-Make the SAPI voice work without comtypes, for example through accessible_output2, so players without NVDA still hear the key bindings screen, and add JAWS support.
+Make the SAPI voice work without comtypes, for example through accessible_output2, so players without NVDA still hear the key bindings screen, which the game's own recordings cannot voice, and add JAWS support.
 Pygame opens a second audio device alongside OpenAL.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.

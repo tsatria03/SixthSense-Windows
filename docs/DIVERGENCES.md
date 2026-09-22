@@ -248,6 +248,29 @@ the binding screen alone uses a synthesiser (`platform/speech.py`): NVDA through
 controller client when NVDA is running, SAPI 5 otherwise, silence if neither is there.
 Nothing else in the port speaks.
 
+### Planned: a screen reader mode
+Not built yet; it is in `todo list.txt`, and the decision was made on 2026-09-22.
+
+The original has two modes, and the main menu's voice over row switches between them
+(`-[MainController ModeChageAction:]`, 0xb830). With voice over on, the game speaks
+for itself through its own recordings, and that is the only mode the port has so far.
+With it off, the original shows its standard screens, which the iPhone's own screen
+reader, VoiceOver, reads instead. That second mode is also why the ranking row only
+opens its page while VoiceOver is running (`-[MainController RankingAction:]`,
+0xaef4).
+
+The port has no standard screens to switch to, so turning voice over off will hand the
+game's words to the Windows screen reader instead: NVDA or JAWS, or SAPI 5 when neither
+is running. Every recording under `game/sounds/used/speech/` will then be spoken as
+text, through the one place every sound goes, `-[AppDelegate
+playSound:Gain:Pos:z:reprats:]`. Numbers will be read whole, with a label and its value
+together, such as "Score, 1,250", in place of the digit recordings one second apart.
+Everything under `game/sounds/used/sfx/` - the zombies, the weapons, the breathing, the
+music and the ambience - still plays as recordings in both modes.
+
+New players start in the self-voiced mode, and the choice is saved under `EYEMODE`, the
+key the voice over row already writes.
+
 ### Audio device
 iOS OpenAL becomes OpenAL Soft (`vendor/openal/soft_oal.dll`). The AL calls, enums and
 values are unchanged. `AVAudioPlayer` becomes a source-relative OpenAL source rather

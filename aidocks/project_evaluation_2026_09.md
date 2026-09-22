@@ -215,6 +215,21 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - §9.
 - **`tools/README.md`**: the addresses are VM addresses, not file offsets.
 
+## What the original had online (checked in the dc_ listings, 2026-09-22)
+- **Apple in-app purchases (StoreKit):**
+  - The coin store (`CoinStoreController`, reachable from the shop's row 5) sold five packs, `SixthSense.Coin1` to `Coin5`: "10 coins $0.99" up to "750 coins $7.99".
+  - The gold store (`GoldStoreController`) sold `SixthSense.Gold1` to `Gold4`, 50,000 to 500,000 gold. Its row can't be reached in the self-voiced menus.
+  - "Purchase all weapons" (the weapon shop's row 9) was `SixthSense.AllWeapon`, "all weapons 0.99".
+  - Restore purchases (`restoreAction:` → `checkPurchasedItems`) only restores that all-weapons purchase.
+- **Game Center:** `gameCenterAction:` (0xcad0) plays `ui_select`, then shows `GKLeaderboardViewController` if `GAMECENTER` is 1, and otherwise authenticates.
+- **The publisher's own server** (`evree.net`, `buy.php`, `getCoin.php`):
+  - `RankingViewController` is the online leaderboard, and `FriendJoinViewController` is the account sign-up it needs.
+  - Friends could send each other coins (`getCoinListController`).
+- **The ranking row in the self-voiced mode:** `RankingAction:` (0xaef4) opens nothing when VoiceOver is off and `DEFAULTEYEMODE` is set. It plays 364 "to use ranking page" at 0.2 and returns (0xaf04-0xaf96). Only with VoiceOver on does it play `ui_select` and push the ranking page, or the sign-up page when `RANKING` is unset.
+- **"No coin":** `StartGameAction:` (0xb472-0xb5a0) puts the sentence on `maskLabel1`, fades it over 7 s and plays 358. Nothing is spoken; the port's extra NVDA line is its own addition.
+- **Weapons cost gold, not coins.** `DetailStoreController` says "PRICE %d gold" and "Gold is lacking." Gold is earned in play, 12 a kill and 2 a headshot. Coins are play credits: one per game, and one back every 30 minutes.
+- **Settled 2026-09-22:** the Windows port drops the coin store and the Game Center row. The dev also listed buying all weapons as part of the online shop, so restore purchases goes with it. Buying weapons one at a time stays. The todo list has these as removals. What to do with the ranking row, which plays 364 or is removed, is still the dev's call.
+
 ## Open decisions (the dev's call)
 1. **Fidelity policy.**
    - The docs' rule is to reproduce every original bug: pausing works once, the result-panel double-tap off-by-one, the unreachable power saw, and the swipe gaps.
