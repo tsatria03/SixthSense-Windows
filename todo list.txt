@@ -1,11 +1,6 @@
 ##unfinished.
 
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
-Coins take 10 minutes to come back instead of 30 minutes, as in the original.
-Only one coin comes back after time away from the game, however long you were gone. The original gives one for every 30 minutes away, up to 5.
-Spending a coin restarts the countdown to your next coin from the beginning.
-The coin row cannot tell you how long it is until your next coin.
-Starting a game before finishing the tutorial takes a coin and then leaves you standing still in silence. The original runs the tutorial first.
 The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
 Pressing P during the tutorial skips it, but the prompts keep playing and you never start walking. The original only lets you stop once the first eight steps are done.
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
@@ -14,7 +9,6 @@ Finishing the tutorial starts a walk, instead of going back to the menu as the o
 You can lose health during the tutorial.
 "Now Loading" plays over the first tutorial prompt.
 The "no coin" message plays as a recording and is spoken by the screen reader at the same time.
-The menu reads out your number of coins a couple of seconds after you have already moved to another row.
 Moving between the two rows of the intro screen lets their sounds overlap.
 The level music and ambience are far too loud and drown out the zombies. The original plays the music 25 times quieter and the ambience 5 times quieter.
 The rain in the third area stops a second after it starts.
@@ -60,17 +54,19 @@ A wrong game folder silently falls back to the default one, sounds past slot 122
 The tests overwrite the real save file.
 Add a test that checks zombie sounds really move, not just the numbers behind them.
 Add a requirements.txt listing pygame, and comtypes or accessible_output2.
-Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check and the 10 minute coin.
+Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 tools/README.md says the addresses are file offsets, when they are memory addresses.
-Decide whether coins should limit play at all in the Windows port, since the coin store and gifts from friends are gone.
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 Test the compiler with a first build. It has been changed to build Sixth Sense, but it has not been run yet.
-A new player starts with no coins, so the play button never starts a game. The original gives 10 coins the first time the game is opened, and here the countdown to the next coin never starts while you have none.
 In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
 The "you must use earphones" warning and the menu music start as soon as the menu opens, talking over the menu's title and row names. It happens again every time you come back to the menu.
 
 ##finished.
 
+The coin economy now matches the original: a new player gets 10 coins once, a coin comes back every 30 minutes instead of 10, up to 5, time spent away grants the coins missed while you were gone, and spending a coin no longer restarts a countdown that is already running. Coins were kept as a gate on Start Game, matching the original, rather than made free.
+The coin row can say how long until your next coin, instead of always reading zero, and it stops reading a stale coin count after you have already moved to another row.
+Starting a game before finishing the tutorial now sends you to the tutorial, instead of taking a coin and leaving you standing still in silence.
+Spoken numbers are read digit by digit in the correct order, instead of backwards, so ten now says "one, zero" instead of "zero, one".
 The compiler has been changed to build Sixth Sense. It only needs pygame, copies just the 414 files the game reads, and leaves the original iOS executable out of the release.
 The whole port has been evaluated, and every bug and missing feature that turned up is listed in the unfinished section, most important first.
 The initial commit is credited to lbk2907 on GitHub, and every commit uses GitHub usernames instead of real names.

@@ -30,6 +30,9 @@ class _Recorder:
 
 def _menu(coins=3):
     d = UserDefaults.standardUserDefaults()
+    # simulate a save that is already past its first run, so didFinishLaunching's
+    # FIREST grant below never overwrites the COIN this helper is about to set.
+    d.setObject_forKey_('1', 'FIREST')
     d.setObject_forKey_(str(coins), 'COIN')
     d.setObject_forKey_('1', 'TUTORIAL')
     d.removeObjectForKey_('COIN_TIMER')
@@ -87,8 +90,43 @@ def test_a_game_costs_a_coin_and_starts_the_clock():
         assert m.next_screen == 'stage'
         assert m.app.Coin == 1, 'the coin was not spent'
         assert UserDefaults.standardUserDefaults().intForKey_('COIN') == 1
-        assert m.coin_clock == '10:00', m.coin_clock
+        assert m.coin_clock == '30:00', m.coin_clock
         assert m.coinTimer is not None, 'the recharge clock did not start'
+    finally:
+        m.teardown()
+
+
+def test_starting_before_the_tutorial_spends_no_coin():
+    """0x2e08e-0x2e0dc: the original runs the tutorial before a coin is ever at
+    stake. The port sends the player to its own tutorial screen instead."""
+    m = _menu(coins=2)
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('0', 'TUTORIAL')
+    d.synchronize()
+    try:
+        m.selectMenu = 3
+        m.activate()
+        assert m.next_screen == 'tutorial'
+        assert m.app.Coin == 2, 'a coin was spent before the tutorial was done'
+        assert m.coinTimer is None
+    finally:
+        m.teardown()
+
+
+def test_spending_a_coin_does_not_restart_a_running_clock():
+    """0xbe3a: coinTiemrControlStart returns at once while coinTimer already
+    exists, instead of rewriting COIN_TIMER and losing the elapsed progress."""
+    m = _menu(coins=3)
+    try:
+        m.selectMenu = 3
+        m.activate()
+        first_timer = m.coinTimer
+        d = UserDefaults.standardUserDefaults()
+        stamp = d.stringForKey_('COIN_TIMER')
+        m.selectMenu = 3
+        m.activate()
+        assert m.coinTimer is first_timer, 'a second coin restarted the clock'
+        assert d.stringForKey_('COIN_TIMER') == stamp, 'COIN_TIMER was rewritten'
     finally:
         m.teardown()
 
@@ -115,9 +153,9 @@ def test_the_tutorial_row_needs_no_coin():
         m.teardown()
 
 
-def test_a_coin_comes_back_after_ten_minutes():
-    """coinTiemrControlStart (0xbe01) / coinUpTimer (0xc0b1): 600 s, capped at 5."""
-    assert COIN_INTERVAL == 600.0
+def test_a_coin_comes_back_after_thirty_minutes():
+    """coinTiemrControlStart (0xbe01) / coinUpTimer (0xc0b1): 1800 s, capped at 5."""
+    assert COIN_INTERVAL == 1800.0
     assert COIN_MAX == 5
     m = _menu(coins=1)
     try:
@@ -142,6 +180,58 @@ def test_the_clock_stops_at_five():
     try:
         m.coinTiemrControlStart()
         assert m.coinTimer is None, 'the clock runs with a full purse'
+    finally:
+        m.teardown()
+
+
+def _menu_with_timer_state(coins, coin_timer_start, away_seconds):
+    """Like ``_menu`` but sets up a COIN_TIMER of its own, for the catch-up
+    tests (0x8aca-0x8b14), instead of clearing it."""
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'FIREST')
+    d.setObject_forKey_(str(coins), 'COIN')
+    d.setObject_forKey_('1', 'TUTORIAL')
+    d.setObject_forKey_(coin_timer_start, 'COIN_TIMER_START')
+    away = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - away_seconds))
+    d.setObject_forKey_(away, 'COIN_TIMER')
+    d.synchronize()
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    m = MainController(speech=_Recorder())
+    m.viewDidLoad()
+    return m
+
+
+def test_time_away_grants_a_coin_per_interval_and_keeps_the_leftover():
+    """0x8aca-0x8b14: two intervals and ten minutes away grants two coins, and
+    the clock keeps counting from the leftover ten minutes rather than
+    resetting to a fresh interval (0x8bd8-0x8cf6)."""
+    leftover = 600
+    m = _menu_with_timer_state(coins=1, coin_timer_start='1',
+                               away_seconds=COIN_INTERVAL * 2 + leftover)
+    try:
+        d = UserDefaults.standardUserDefaults()
+        assert m.app.Coin == 3, 'two intervals away should grant two coins'
+        assert d.intForKey_('COIN') == 3
+        assert d.stringForKey_('COIN_TIMER_START') == '1', 'still under the cap'
+        remaining = m.app._coin_timer_remaining()
+        expected = COIN_INTERVAL - leftover
+        assert abs(remaining - expected) <= 5, \
+            'the leftover progress was not kept: %r, expected close to %r' % (remaining, expected)
+    finally:
+        m.teardown()
+
+
+def test_time_away_caps_at_five_and_stops_the_clock():
+    """0x8b06-0x8b22: past the cap, Coin clamps to 5 and COIN_TIMER_START clears."""
+    m = _menu_with_timer_state(coins=4, coin_timer_start='1', away_seconds=COIN_INTERVAL * 5)
+    try:
+        d = UserDefaults.standardUserDefaults()
+        assert m.app.Coin == COIN_MAX
+        assert d.intForKey_('COIN') == COIN_MAX
+        assert d.stringForKey_('COIN_TIMER_START') == '0', 'the clock should have stopped'
     finally:
         m.teardown()
 

@@ -20,11 +20,11 @@ On 2026-09-21 every item below was also added to `todo list.txt` as a plain sent
 
 ## Overall
 
-The low-level porting is careful: the weapon plist quirks, spawn tiers, hit bands, score formula, voice allocator, NSTimer semantics, atomic saves and ctypes bindings are all correct. The failures are system-level. Monster sounds never move, the first-run path is broken end to end, the boss and level-end flow is missing, and the audio mix buries the monsters. Several `docs/DIVERGENCES.md` entries marked "reproduced" are actually misreadings of the binary; see [[project_binary_analysis_notes]].
+The low-level porting is careful: the weapon plist quirks, spawn tiers, hit bands, score formula, voice allocator, NSTimer semantics, atomic saves and ctypes bindings are all correct. The failures are system-level. Monster sounds never move, the boss and level-end flow is missing, and the audio mix buries the monsters. Several `docs/DIVERGENCES.md` entries marked "reproduced" are actually misreadings of the binary; see [[project_binary_analysis_notes]]. The first-run/coin path (bug a, below) was fixed 2026-09-21.
 
 ## The three todo-list bugs
 
-### (a) The play button fails with no coins. Critical.
+### (a) The play button fails with no coins. Critical. **Fixed 2026-09-21.**
 - [V] **No first-run grant.** The original `didFinishLaunching` (0x4268-0x430c) checks `[FIREST intValue]`. If it is 0, the original writes COIN="10" and FIREST="1" and synchronizes. The port's `app_delegate.py` `didFinishLaunching` (about lines 99-108) has no such step, so a new player starts with 0 coins.
 - [R] **The recharge clock never starts from 0 coins.** `coinTiemrControlStartBackGroundRestart` (`main_controller.py` about 277-282) only runs if `COIN_TIMER_START == '1'`, and that key is written only when a coin is spent (about line 262).
 - [V] **The interval is 1800 s (30 minutes), not 600 s.** The binary has `rsb.w r2, r0, #0x708` at 0xc1ee. The port's `COIN_INTERVAL = 600.0` is at `main_controller.py:51`, and `PORTING_STATUS.md` also says 10 minutes.
@@ -38,6 +38,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Add the FIREST grant. Existing stuck saves have no FIREST key, so they would get 10 coins once.
   - Send Start Game to the tutorial, without charging a coin, while TUTORIAL is 0.
   - Then decide the offline economy (see Open decisions).
+- **Done:** all six sub-findings and all three fix steps landed 2026-09-21 (`app_delegate.py`, `main_controller.py`, `stage_1_e.py`). `COIN_INTERVAL` and `COIN_MAX` moved to `app_delegate.py` so `_coin_timer_remaining` could share them. Tests in `tests/test_menu.py`. Along the way, a live-testing session also caught and fixed a digit-order bug in `-[AppDelegate readNumber:]` (0x5cbc): `numberBackUp` was built most-significant-digit-first but read back from the end of the array, so 10 spoke "zero, one" instead of "one, zero" — this was never in the original evaluation. New tests in `tests/test_digits.py`.
 
 ### (b) The tutorial repeats "shake the device" after the kill. Critical.
 - [R] **`CheckTutorial` never calls `MonsterAttPlayer`** (`stage_tutorial.py` about 145-152). The original does, guarded by isShake (0x8c754-0x8c77a).
@@ -179,14 +180,14 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - The listener up vector and turning: the listener is never set.
   - "Starting bearings" and "bearing 0 until first footstep".
   - Gun gain "0.2f": guns use 1.0.
-  - "isTutorial ... stands still": the original runs the tutorial inline.
+  - "isTutorial ... stands still": the original runs the tutorial inline. **Clarified 2026-09-21** — the entry now says this is unreachable in normal play, since `StartGameAction_` routes an unfinished save to the tutorial screen instead.
   - "The stop button skips the tutorial": only after beats One to Eight.
   - "Pausing works exactly once": `gameReplayAction_` sets bStop False.
   - The Input section says the arrow keys turn; the code uses comma and full stop.
   - "Nothing else in the port speaks": the menu and store do.
   - It lists the store among the rows that can't work.
 - **`PORTING_STATUS.md`**
-  - The 10-minute coin: it is 30.
+  - The 10-minute coin: it is 30. **Fixed 2026-09-21.**
   - "Half the shipped monster types walk" the zig-zags.
   - `MovingAccelerometer` is listed as if it were used.
 - **`GAME_STRUCTURE.md`**
@@ -199,7 +200,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 1. **Fidelity policy.**
    - The docs' rule is to reproduce every original bug: pausing works once, the result-panel double-tap off-by-one, the unreachable power saw, and the swipe gaps.
    - Claude's recommendation: fix what is hostile to players and record each fix as a divergence, so the docs still say what the original did.
-2. **The offline coin economy.** The coin store, gifts and purchases can't exist offline. The choice is free play (no coin gating) or the faithful 30-minute recharge with the first-run grant and catch-up.
+2. **The offline coin economy.** The coin store, gifts and purchases can't exist offline. The choice is free play (no coin gating) or the faithful 30-minute recharge with the first-run grant and catch-up. **Settled 2026-09-21: the faithful recharge**, kept as a gate on Start Game rather than made free.
 3. **Shaking free.** Keep 10 presses, or count a held Space key.
 4. **The turn keys.** Remove them (faithful), or keep them as a documented divergence.
 5. **Running the test suite.** Settled on 2026-09-21: ask first, and never build unless told. See [[feedback_dont_run_or_build]].
@@ -207,7 +208,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 ## Suggested fix order
 1. Test isolation: a `SIXTHSENSE_USER_DIR` override, used by every test.
 2. The `startSound` isPlaying branch (item 1), with a fake-AL test.
-3. Todo bugs (a), (b) and (c).
+3. Todo bugs (a), (b) and (c). **(a) is done 2026-09-21; (b) and (c) are still open.**
 4. The audio mix gains, stage teardown stopping the loops, and store speech.
 5. The boss and level-end flow, and action cell 8.
 6. The ammo exploits, the rebinding capture, rollover and stale held keys.

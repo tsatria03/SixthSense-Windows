@@ -62,8 +62,10 @@ So swiping backwards attacks straight ahead. **Reproduced.**
 ### `isTutorial` means "the tutorial is finished"
 `TUTORIAL` is written as `"1"` by `-[Stage_1_E tutorialEnd:]`, and `Stage_1_E` only
 creates its walk timer, and only spends ammunition, when the key is non-zero. A save
-with `TUTORIAL` unset loads the stage and then stands still. **Reproduced** — the port
-logs a warning saying so, and `--skip-tutorial` writes the key the way the game does.
+with `TUTORIAL` unset loads the stage and then stands still. **Reproduced** for
+`Stage_1_E` itself — the port logs a warning saying so, and `--skip-tutorial` writes
+the key the way the game does. In normal play this is now unreachable: see "Start Game
+sends an unfinished save to the tutorial screen" below.
 
 ### `checkBoosDie` compares against `gameMode - 2`
 `-[Stage_1_E checkBoosDie]` (0x3604c) decides whether the level may end. The name says
@@ -205,6 +207,18 @@ their sounds are the original's.
 
 `P` pauses. The original's stop button is a button on the screen, and there is no
 screen here; `-[Stage_1_E StopPlayAction:]` needed a key of its own.
+
+### Start Game sends an unfinished save to the tutorial screen
+`-[MainController StartGameAction:]` (0xb2ed) always spends a coin and pushes
+`Stage_1_E`; the tutorial itself runs inline inside that same screen's own
+`MapInitInBundle` (0x2e08e-0x2e0dc) when `TUTORIAL` is unset, and no coin is spent
+either way because the coin is only ever charged once, by `StartGameAction:`, before
+`MapInitInBundle` knows whether it is about to walk or teach. The port keeps the
+tutorial as a separate screen (`Stage_Tutorial`, see below), so `StartGameAction_`
+checks `TUTORIAL` itself: while it is unset it goes straight to the tutorial screen
+and never touches `Coin`, matching the original in the one thing a player can
+notice - no coin lost, no silent standing still - without folding the tutorial into
+`Stage_1_E`.
 
 ### Key bindings are a port addition
 The original has no key bindings at all — every action is a swipe, a tap or a shake.

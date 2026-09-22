@@ -31,11 +31,15 @@ Escape quits.
     else           { play 358 "no coin"; show "No coin. You can buy coin at the store
                      or share with friends at the ranking page." }
 
-and the coins come back on a timer. ``coinTiemrControlStart`` (0xbe01) writes
-``COIN_TIMER`` (now, "yyyy-MM-dd HH:mm:ss"), sets ``COIN_TIMER_START`` to "1", puts
-**10:00** on the clock, and stops if ``Coin >= 5``. ``coinUpTimer`` (0xc0b1) counts that
-down and, at zero, grants one coin, clears ``COIN_TIMER_START`` and restarts the clock
-while ``Coin <= 4``. So: one coin per ten minutes, five at most, one per game.
+and the coins come back on a timer, but only while none is already counting down.
+``coinTiemrControlStart`` (0xbe01) returns at once if ``coinTimer`` already exists;
+otherwise it writes ``COIN_TIMER`` (now, "yyyy-MM-dd HH:mm:ss"), sets
+``COIN_TIMER_START`` to "1", starts the clock, and stops if ``Coin >= 5``.
+``coinUpTimer`` (0xc0b1) counts that down and, at zero, grants one coin, clears
+``COIN_TIMER_START`` and restarts the clock while ``Coin <= 4``. The interval is
+1800 s, not the "10:00" the original's label text shows (0xc1ee). So: one coin
+per thirty minutes, five at most, one per game. ``viewDidLoad`` also grants
+coins for time spent away, at the same rate and cap (0x8aca-0x8b14).
 """
 from __future__ import annotations
 
@@ -44,12 +48,9 @@ import time
 
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
-from .app_delegate import AppDelegate
+from .app_delegate import AppDelegate, COIN_INTERVAL, COIN_MAX
 
 log = logging.getLogger('menu')
-
-COIN_INTERVAL = 600.0      # seconds per coin - the clock starts at "10:00" (0xbede)
-COIN_MAX = 5               # 0xbff6: the timer stops once Coin reaches 5
 
 SOUND_UI_SELECT = 10
 SOUND_TITLE = 16
@@ -116,6 +117,38 @@ class MainController:
         self.soundYouMustUseEarPhone()
         self.selectMenu = 2
         self.blindModeSelectedMenu()
+        self._coinCatchUp()
+
+    # -[MainController viewDidLoad] 0x8946-0x8d12 - grant coins for time spent
+    # away, at the recharge rate, capped at COIN_MAX (0x8aca-0x8b14).
+    def _coinCatchUp(self):
+        if self.app.Coin > COIN_MAX - 1:                  # 0x8952: cmp r0, 4
+            return
+        d = UserDefaults.standardUserDefaults()
+        if d.stringForKey_('COIN_TIMER_START') != '1':    # 0x89a8: nothing running
+            return
+        started = d.stringForKey_('COIN_TIMER')
+        try:
+            t0 = time.mktime(time.strptime(started, '%Y-%m-%d %H:%M:%S'))
+        except (ValueError, TypeError):
+            return
+        elapsed = int(time.time() - t0)
+        if elapsed <= COIN_INTERVAL:                       # 0x8aca
+            self.coinTiemrControlStartBackGroundRestart()
+            return
+        self.app.Coin += elapsed // int(COIN_INTERVAL)     # 0x8ad6-0x8afe
+        if self.app.Coin > COIN_MAX:                        # 0x8b0a: cmp r0, 6
+            self.app.Coin = COIN_MAX
+            d.setObject_forKey_('0', 'COIN_TIMER_START')
+        else:
+            # keep the leftover progress toward the next coin, rather than
+            # resetting the clock to now (0x8bd8-0x8cf6)
+            leftover = elapsed % int(COIN_INTERVAL)
+            d.setObject_forKey_(
+                time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() - leftover)),
+                'COIN_TIMER')
+        d.setObject_forKey_(str(self.app.Coin), 'COIN')
+        d.synchronize()
         self.coinTiemrControlStartBackGroundRestart()
 
     # -[MainController soundYouMustUseEarPhone] 0xab25
@@ -133,6 +166,9 @@ class MainController:
                       SOUND_NO_COIN, SOUND_RANKING_NOTICE):
             self.app.stopSoundBufNumber_(sound)
         self.app.readStop()
+        # 0x97e2: also cancel a pending readNumberOfCoin, or it fires over
+        # whatever row the player has since moved to.
+        RunLoop.main().cancelPerform(self, 'readNumberOfCoin')
 
     # =============================================================== moving
     def _row(self, n=None):
@@ -165,7 +201,9 @@ class MainController:
 
     # -[MainController readNumberOfCoin] 0x97ed
     def readNumberOfCoin(self, *_):
-        self.app.TTSNumber_type_(self.app.Coin, 0)
+        # type 3 (0x9812): after the digits, say "coins are full" or say "after"
+        # and read the time to the next one.
+        self.app.TTSNumber_type_(self.app.Coin, 3)
 
     def move(self, delta):
         n = self.selectMenu + delta
@@ -219,6 +257,15 @@ class MainController:
     def StartGameAction_(self, *_):
         self.StopElseSpeak()
         d = UserDefaults.standardUserDefaults()
+        if d.intForKey_('TUTORIAL') == 0:
+            # The original runs the tutorial inline inside Stage_1_E's own
+            # MapInitInBundle (0x2e08e-0x2e0dc) without spending a coin. The port
+            # keeps the tutorial as its own screen, so send the player there
+            # instead, still without a coin.
+            self.app.playSound_Gain_Pos_z_reprats_(
+                SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
+            self.next_screen = 'tutorial'
+            return
         if self.app.Coin >= 1:                       # 0xb324
             self.app.Coin -= 1
             d.setObject_forKey_(str(self.app.Coin), 'COIN')
@@ -259,13 +306,14 @@ class MainController:
         if self.app.Coin >= COIN_MAX:                # 0xbff6
             self.coinTiemrControlEnd()
             return
+        if self.coinTimer is not None:               # 0xbe3a: a timer is already
+            return                                    # running - do not restart it
         d.setObject_forKey_('1', 'COIN_TIMER_START')
         d.setObject_forKey_(time.strftime('%Y-%m-%d %H:%M:%S'), 'COIN_TIMER')
         d.synchronize()
-        self.min, self.sec = 10, 0
-        if self.coinTimer is None or not self.coinTimer.isValid():
-            self.coinTimer = RunLoop.main().scheduledTimer(
-                1.0, self, 'coinUpTimer', None, True)
+        self.min, self.sec = 30, 0
+        self.coinTimer = RunLoop.main().scheduledTimer(
+            1.0, self, 'coinUpTimer', None, True)
 
     # -[MainController coinTiemrControlEnd] 0xc069
     def coinTiemrControlEnd(self):

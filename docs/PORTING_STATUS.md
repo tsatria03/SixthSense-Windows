@@ -32,7 +32,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `NSTimer` / `performSelector:afterDelay:` | `platform/runloop.py` | including `cancelPreviousPerformRequestsWithTarget:selector:` |
 | `NSUserDefaults` | `platform/defaults.py` | |
 | `Stage_Tutorial` (252 methods) | `game/stage_tutorial.py` | The ten beats, `CheckTutorial`, the per-beat spawns, and `tutorialEndGameStart:` handing over to the walk |
-| `MainController` (94 methods) | `game/main_controller.py`, `ui/menu_input.py` | The eight menu rows with their own WAVs, the coin economy (10 min a coin, cap 5, one a game), the voice-over toggle, the push into the stage, the tutorial or the shop |
+| `MainController` (94 methods) | `game/main_controller.py`, `ui/menu_input.py` | The eight menu rows with their own WAVs, the coin economy (30 min a coin, cap 5, one a game, catch-up for time away), the voice-over toggle, the push into the stage, the tutorial or the shop |
 | `startIntroPage` (26 methods) | `game/intro.py` | The splash, the two-second wait, the saved-game load and the warning message. The story text and `shakeDevice` are there too, unreachable exactly as they are in the original |
 | `mainStoreController` (53) | `game/store.py` | The shop's front menu; the gold-shop row is unreachable in the original and is not offered |
 | `StoreController` (85) | `game/store.py` | The weapon list and the gold readout |

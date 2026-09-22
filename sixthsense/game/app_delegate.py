@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import logging
 import plistlib
+import time
 
 from .. import paths
 from ..platform.defaults import UserDefaults
@@ -59,6 +60,10 @@ TTS_MINUTES = 336
 TTS_SECONDS = 337
 TTS_COIN_FULL = 338
 TTS_COIN_AFTER = 339
+
+# -[MainController coinTiemrControlStart] 0xbe01 / coinUpTimer 0xc0b1
+COIN_INTERVAL = 1800.0     # seconds per coin - `rsb.w r2, r0, #0x708` at 0xc1ee
+COIN_MAX = 5               # 0xbff6: the timer stops once Coin reaches 5
 
 
 class AppDelegate:
@@ -100,6 +105,12 @@ class AppDelegate:
         self.playback = OalPlayback()
         self.aSoundBufControlData = []
         d = UserDefaults.standardUserDefaults()
+        # 0x4268-0x430c: a save with no FIREST key is a first run, so grant the
+        # starting 10 coins once and mark it done.
+        if d.intForKey_('FIREST') == 0:
+            d.setObject_forKey_('10', 'COIN')
+            d.setObject_forKey_('1', 'FIREST')
+            d.synchronize()
         self.haveGold = d.intForKey_('GOLD')
         self.Coin = d.intForKey_('COIN')
         self.stage = d.intForKey_('STAGE')
@@ -188,10 +199,15 @@ class AppDelegate:
         s = '%d' % number
         self.numberBackUp = []
         n = number
+        # readNumber_ (0x5cbc) decrements ttsArrayCount and reads
+        # numberBackUp[ttsArrayCount], so the first digit spoken is the one at the
+        # *last* index. Build the array least-significant-digit first, so that
+        # last index holds the most significant digit and it is spoken first
+        # (10 must read "one, zero", not "zero, one").
         if n == 0:
-            self.numberBackUp.insert(0, '0')
+            self.numberBackUp.append('0')
         while n > 0:
-            self.numberBackUp.insert(0, str(n % 10))
+            self.numberBackUp.append(str(n % 10))
             n //= 10
         self.ttsArrayCount = len(self.numberBackUp)
         if self.ttsTimer is None or not self.ttsTimer.isValid():
@@ -244,7 +260,20 @@ class AppDelegate:
         self.TTSNumber_type_(self._coin_timer_remaining() % 60, 5)
 
     def _coin_timer_remaining(self):
-        return UserDefaults.standardUserDefaults().intForKey_('COIN_TIMER')
+        """Seconds left until the next coin. ``COIN_TIMER`` holds a date string, not
+        a number, so it has to be parsed and measured against ``COIN_INTERVAL``
+        rather than read with ``intForKey_``."""
+        d = UserDefaults.standardUserDefaults()
+        if d.stringForKey_('COIN_TIMER_START') != '1':
+            return 0
+        started = d.stringForKey_('COIN_TIMER')
+        if not started:
+            return 0
+        try:
+            t0 = time.mktime(time.strptime(started, '%Y-%m-%d %H:%M:%S'))
+        except ValueError:
+            return 0
+        return max(0, int(COIN_INTERVAL - (time.time() - t0)))
 
     # ================================================================ weapons
     # -[AppDelegate weaponHave] 0x4ee8

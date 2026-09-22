@@ -1343,10 +1343,12 @@ class Stage_1_E:
         the observer would have written is written here instead, and the menu picks
         the clock up from the defaults when it comes back.
         """
-        from .main_controller import COIN_MAX
+        from .app_delegate import COIN_MAX
         if self.app.Coin >= COIN_MAX:                         # 0xbff6
             return
         d = UserDefaults.standardUserDefaults()
+        if d.stringForKey_('COIN_TIMER_START') == '1':        # 0xbe3a: already
+            return                                             # counting down
         d.setObject_forKey_('1', 'COIN_TIMER_START')
         d.setObject_forKey_(time.strftime('%Y-%m-%d %H:%M:%S'), 'COIN_TIMER')
         d.synchronize()
