@@ -33,7 +33,9 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 - **The docstrings and comments** no longer mention an updater, and they explain the missing `--test` and the silent windowed failure.
 
 ## Left out on purpose
-The newer reference script in `user/` bakes VERSION into the build as a module and bundles the Prism speech library (`prismatoid`, `_cffi_backend`). Sixth Sense has no updater and no Prism. Port them only if the dev asks.
+The newer reference script in `user/` bakes VERSION into the build as a module. Sixth Sense has no updater, so that stays out unless the dev asks.
+
+The same script bundles the Prism speech library. **On 2026-09-22 the dev decided Sixth Sense will use Prism too**, but it is not built yet. When it is, `compiler.py` needs the Prism flags. The releases should also carry a `licenses` folder, which no build ships yet: Prism and pygame collected from pip, and OpenAL Soft and the NVDA controller client from `vendor/`. See [[project_prism_speech]] for the layout.
 
 ## Sounds moved (2026-09-21)
 The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). The same day, `compiler.py` was changed to ship them. This was checked by reading the code only, not run.

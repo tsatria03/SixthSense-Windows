@@ -48,12 +48,12 @@ Add a log file and a crash.txt, and have the game say out loud when it cannot st
 Add an exit after option and a game data line to the log, so the compiler's test build can come back.
 Pause the game when its window loses focus, and recover when the audio device changes.
 Memory leaks each time the music or ambience changes.
-Make the SAPI voice work without comtypes, for example through accessible_output2, so players without NVDA still hear the key bindings screen, which the game's own recordings cannot voice, and add JAWS support.
+Speak through Prism, so JAWS, ZoomText, System Access, Narrator and other screen readers work as well as NVDA, and players with none running still hear a SAPI voice without needing comtypes. Ship the licenses for Prism, pygame, OpenAL Soft and the NVDA controller client with the release. The key bindings screen, which the game's own recordings cannot voice, and later the screen reader mode, depend on it.
 Pygame opens a second audio device alongside OpenAL.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
 Add a test that checks zombie sounds really move, not just the numbers behind them.
-Add a requirements.txt listing pygame, and comtypes or accessible_output2.
+Add a requirements.txt listing pygame and prismatoid.
 Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 tools/README.md says the addresses are file offsets, when they are memory addresses.
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.

@@ -49,7 +49,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 - `--no-window` runs headless.
 - `-v` gives verbose logging.
 
-This needs Python 3.12 x64 and pygame. `comtypes` or `accessible_output2` is needed for the SAPI fallback. There is no `requirements.txt` yet.
+This needs Python 3.12 x64 and pygame. The SAPI fallback currently needs `comtypes`, which isn't installed. The planned move to Prism (`prismatoid`) replaces it ([[project_prism_speech]]). There is no `requirements.txt` yet.
 
 ## Porting rules
 

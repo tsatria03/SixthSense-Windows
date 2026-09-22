@@ -32,7 +32,7 @@ The port has no standard screens, so mode 0 becomes "the Windows screen reader s
   - Many file names are already their words, like "Store Button".
   - The binary has some texts: `WELCOME_TEXT` and `STORY_TEXT` in `intro.py`, and the shop's "This weapon has been purchased." and "Gold is lacking.".
   - The tutorial lines and the longer ones must be transcribed by the dev by ear, since Claude can't hear audio.
-- **A dependable speech layer:** NVDA, JAWS, and SAPI without comtypes. This is the todo item about accessible_output2 and JAWS.
+- **A dependable speech layer:** NVDA, JAWS and the rest, and SAPI without comtypes. The dev chose Prism for this on 2026-09-22 ([[project_prism_speech]]).
 
 **Suggested stages:**
 1. The speech layer, and `EYEMODE` defaulting to self-voiced.
