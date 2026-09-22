@@ -131,7 +131,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 
 **Input**
 - [R] **Rollover picks the wrong lane.** `keymap.py` about 206-213 matches on all held keys, so holding A and pressing D fires lane 1. Prefer bindings that contain the newly pressed key.
-- [R] **Held keys go stale across screens.** Call `keymap.clear_held()` in `Input.__init__` and on window focus loss (`input.py` about 50-55).
+- [R] **Held keys go stale across screens. FIXED 2026-09-22.** `Input.__init__` calls `keymap.clear_held()`, and `Input.handle` resets on `WINDOWFOCUSLOST` (or `ACTIVEEVENT`, whichever the installed pygame has), since a key-up after Alt+Tab goes to whatever took the focus.
 - [R] **The reload key skips the attack guards** (`input.py` about 71-72). With the grenade equipped it plays blast 57 with no effect; the original skips the grenade (0x351c8).
 - [R] **The three-finger tap is pause, not previous weapon** (0x2ec84 and 0x7edf4). "Previous weapon" is invented, and tutorial beat Nine keys off the wrong action.
 - [R] **Shaking free takes 10 Space presses in 2.5 s.** The original needed one shake of about a third of a second (10 samples at 30 Hz, 0x2db20). Consider counting key-repeat while Space is held.
@@ -147,7 +147,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 
 **Audio and platform**
 - [R] **Music buffers leak.** They are deleted while still attached to the source (`music.py` about 63-67); detach with `AL_BUFFER 0` first.
-- [R] **`pygame.init()` also opens the SDL mixer.** Initialise only the display and font.
+- [R] **`pygame.init()` also opens the SDL mixer. FIXED 2026-09-22.** `SixthSense.py` now calls `pygame.display.init()` and `pygame.font.init()` only, so nothing but OpenAL opens an audio device. (`tests/test_input.py` still calls `pygame.init()` itself.)
 - [R] **No pause on focus loss, and no recovery when the audio device is lost.**
 - [R] **There is no crash path.** Nothing writes a log file, there is no `sys.excepthook`, and a missing data folder, DLL or audio device fails silently for a blind player. Log to `%APPDATA%\SixthSense`, write `crash.txt`, and speak the error.
 
@@ -160,7 +160,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - It plays att2 on a non-lethal hit, att1 on a kill, and the whoosh only on a miss.
   - Port: `stage_1_e.py` about 639-645, 753-759.
 - [R] **A grab can free or kill the wrong monster**, because the port removes monsters while looping over the list (about 530-545). The original defers removal (0x3b44e).
-- [R] **Gunshots are 14 dB too quiet, and a kill sound is missing.** Guns fire at ReloadSoundGain 1.0, not 0.2 (0x2f488 and others), and kill sound 79 at 1.0 is missing (0x3a83a).
+- [V] **Gunshots are 14 dB too quiet, and a kill sound is missing. FIXED 2026-09-22**, and checked in the listing first: inside `MovingShot:` every gain read is `ReloadSoundGain` (0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930, 0x2fba6) and `ShotSoundgain` is never read at all, so the shot plays at 1.0 (19.0 on the shotgun, clamped). `MonsterDamage`'s killing hit now also plays 79 at 1.0 at the monster's `Pos`, z 40 (0x3a83a); `SoundList` calls 79 `weapon_head_shot`, but 0x3a7fc shows it is the kill, headshot or not. Awaiting the dev's ear.
 - [R] **Continuing after a pause restarts the ambience and the music on the wrong players.** Found in the 2026-09-21 rescan and traced in `dc_Stage_1_E.txt`, not yet byte-checked. It went into `todo list.txt` the same day.
   - The original `continueAction:` (0x33940-0x33bec) never touches the AVAudioPlayers. It plays them as notes, through `playSound:Gain:Pos:z:reprats:`:
     - gameMode 3 plays 368 at 0.5, gameMode 2 plays 87 at 0.2, and gameMode 1 plays 88 at 0.2 (0x33b22-0x33b7a).
@@ -170,7 +170,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
     - The music player now holds the ambience, so the music stops until the next action cell 10.
     - Past row 396 the ambience player switches to the music. The next action cell 9 (`backgroundSoundStop`) then silences the ambience for the rest of the stage.
   - A faithful fix plays the notes the original plays. That likely reproduces the original's own doubled ambience, since its pause never stops the AVAudioPlayer either. This is the fidelity decision below. Check the `reprats:` argument in the raw bytes first.
-- [R] **Death plays the wrong sound.** It plays 354 "game over"; the original plays 84 `player_die` at z 40 (0x320ae), so the player hears "game over" twice.
+- [V] **Death plays the wrong sound. FIXED 2026-09-22.** `MainControl`'s death branch now plays 84 `player_die` at 1.0, z 40 (0x320ae) instead of 354; "game over" still comes from the panel `missionFailTell:` puts up (0x32814), so it is heard once. Awaiting the dev's ear.
 
 **Menus and meta**
 - [R] **The inventory lets you equip weapons you don't own** (`inventory.py` about 55-90, 178-188). The original gates on `itemN_have_flag`.

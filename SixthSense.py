@@ -136,7 +136,10 @@ def main(argv=None):
     from sixthsense.ui.menu_input import MenuInput
     from sixthsense.ui.screen_input import ScreenInput
 
-    pygame.init()
+    # Only what the port uses.  pygame.init() also starts the SDL mixer, which opens a
+    # second audio device beside the OpenAL one the whole game plays through.
+    pygame.display.init()
+    pygame.font.init()
     pygame.display.set_caption('SixthSense')
     display = pygame.display.set_mode((640, 400))
     font = pygame.font.SysFont('Consolas', 16)

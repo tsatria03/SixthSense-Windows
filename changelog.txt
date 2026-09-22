@@ -1,4 +1,8 @@
 unrelease:
+Gunshots are as loud as in the original, and killing a zombie plays its kill sound.
+Dying plays the death sound where you fell, instead of saying "game over" twice.
+A key you were holding when you left a stage no longer stays pressed in the next one, and nothing stays stuck after you switch away from the window.
+The game no longer opens a second audio device beside the one it plays through.
 The menu music carries on where it was when you come back to the menu, instead of starting over from the beginning.
 The main menu's music is quieter, so the menu's own voice can be heard over it.
 "Now Loading" now always plays before the menu music stops, and the level's own sound and the tutorial's first prompt wait for it to finish.

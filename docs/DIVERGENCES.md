@@ -14,10 +14,16 @@ Index 17, "장전 소리 크기", is the string `"19"` where every other weapon 
 straight to `AL_GAIN`. OpenAL clamps gain above 1.0 per source, so in practice the
 shotgun reload is just loud. **Reproduced.**
 
-### Gun "무기 소리 크기" is `"0.2f"`
+### Gun "무기 소리 크기" is `"0.2f"`, and nothing reads it
 Colt, Shotgun, M4A1, AK47 and MG80 all store the shot gain with a trailing `f`.
 `floatValue` stops at the `f` and returns 0.2. **Reproduced** — `weapon_control.obj_float`
 parses the same numeric prefix `floatValue` does.
+
+It is never used, though: `-[Stage_1_E MovingShot:]` plays the shot at the weapon's
+*reload* gain, reading `ReloadSoundGain` at 0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930
+and 0x2fba6, and never reads `ShotSoundgain` anywhere. That is 1.0 for every gun, and
+19.0 on the shotgun, which OpenAL clamps. The port passed the 0.2 for a while, which left
+every gunshot 14 dB down; it now passes what the binary passes.
 
 ### Melee attack gains and times are read with `intValue`
 `-[WeaponControl loadWeaponForGun:fileType:]` reads indices 29, 31, 35, 37 … with

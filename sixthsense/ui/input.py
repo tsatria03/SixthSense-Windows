@@ -53,6 +53,10 @@ class Input:
         self.quit = False
         self.open_bindings = False        # the frame loop watches this for F1
         self._pending_at = None           # when the chord window closes
+        # The keymap is shared, and a key that was down when the last screen went away
+        # never had its key-up delivered here.  Left held, it makes the next stage read
+        # chords nobody is pressing.
+        self.keymap.clear_held()
 
     # ---- the actions -----------------------------------------------------
     def attack_lane(self, lane):
@@ -118,6 +122,12 @@ class Input:
     def handle(self, event, pygame):
         if event.type == pygame.QUIT:
             self.quit = True
+            return
+        # Alt+Tab away with a key down and its key-up goes to whatever took the focus,
+        # so forget what is held rather than leave it stuck.
+        if event.type in (getattr(pygame, 'WINDOWFOCUSLOST', -1),
+                          getattr(pygame, 'ACTIVEEVENT', -1)):
+            self.reset()
             return
         if self.stage.gameState != 0:
             self.reset()

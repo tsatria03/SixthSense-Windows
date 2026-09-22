@@ -130,6 +130,9 @@ MONSTER_SOUNDS = {
 SHAKE_SOUNDS = {8: ([197, 323, 324], [198, 325, 326])}
 
 SOUND_HEADSHOT = 330        # headshot_4
+#: 0x3a83a plays this on the hit that kills, headshot or not.  SoundList names it
+#: weapon_head_shot; what it actually marks is the kill.
+SOUND_KILL = 79
 SOUND_PLAYER_DAMAGE = 83
 SOUND_PLAYER_DIE = 84
 SOUND_ZOMBIES_COMING = 328
@@ -398,8 +401,11 @@ class Stage_1_E:
         # ---- death, 0x31fa8..0x320da ------------------------------------
         if not self.DieFlag and self.gamePlayer.HP <= 0:
             self.DieFlag = True
+            # 0x320ae: the moment of death is `player_die` (84) at 1.0, z 40.  "Game over"
+            # (354) comes later, from the panel missionFailTell: puts up (0x32814) - the
+            # port used to play it here as well, so the player heard it twice.
             self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_GAME_OVER, 1.0, (0.0, 0.0), 0, False)
+                SOUND_PLAYER_DIE, 1.0, (0.0, 0.0), 40, False)
             # 0x320bc/0x320ce: the delay is 0x3FF4CCCCC0000000, which is 1.3 s.
             RunLoop.main().perform(self, 'playerDie_', None, 1.3)
 
@@ -664,8 +670,12 @@ class Stage_1_E:
         if self.isTutorial and w not in (1, 7):
             weapon.BulletCount -= 1
 
+        # The shot is played at the weapon's *reload* gain, which is 1.0 for every gun:
+        # MovingShot: reads ReloadSoundGain at 0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930
+        # and 0x2fba6, and never reads ShotSoundgain at all.  The port used ShotSoundgain,
+        # the plists' malformed "0.2f", which left every gunshot 14 dB down.
         self.app.playSound_Gain_Pos_z_reprats_(
-            weapon.ShotSoundNumber, weapon.ShotSoundgain, (0.0, 0.0), 40, False)
+            weapon.ShotSoundNumber, weapon.ReloadSoundGain, (0.0, 0.0), 40, False)
 
         if w in (1, 7):
             RunLoop.main().perform(self, 'MonsterDamageKnife', None, 0.0)
@@ -764,6 +774,11 @@ class Stage_1_E:
                 m.HP -= weapon.Damage
             m.MonsterHitSound_(None)
             if m.HP <= 0:
+                # 0x3a83a: a killing hit plays 79 at 1.0, where the monster was.
+                # SoundList calls it weapon_head_shot, but this is the kill, headshot or
+                # not - the headshot's own sound (330) went out above.
+                self.app.playSound_Gain_Pos_z_reprats_(
+                    SOUND_KILL, 1.0, m.Pos, 40, False)
                 self.gamePlayer.killMonsterCount += 1        # 0x39cee
                 self.MonsterKillCount_(m)
                 self._remove(m)

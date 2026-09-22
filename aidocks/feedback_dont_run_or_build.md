@@ -8,6 +8,8 @@ metadata:
 
 **Never build anything unless the dev says to.** That covers `compiler.py`, PyInstaller, and any packaging or zip step.
 
+**Paused 2026-09-22:** "for the next few commits, do not run tests unless I say so". Until the dev lifts it, ask first, the same as running the game. The standing permission below is what it goes back to.
+
 **The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]): `APPDATA` pointed at a scratch folder, `ALSOFT_DRIVERS=null` and `SDL_AUDIODRIVER=dummy`, so the dev's save is untouched and nothing is heard over NVDA.
 
 **Still ask first before running:**
