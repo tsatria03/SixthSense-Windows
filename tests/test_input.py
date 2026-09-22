@@ -314,6 +314,33 @@ def test_the_screen_binds_a_chord():
     assert any('Left Control plus K' in s for s in rec.said)
 
 
+def _down(scr, name):
+    scr.handle(pygame.event.Event(pygame.KEYDOWN, key=pygame.key.key_code(name), mod=0),
+               pygame)
+
+
+def _up(scr, name):
+    scr.handle(pygame.event.Event(pygame.KEYUP, key=pygame.key.key_code(name), mod=0),
+               pygame)
+
+
+def test_letting_go_of_enter_does_not_end_the_capture():
+    """Enter starts the capture, so its own key-up arrives before the player has pressed
+    anything.  Ending the capture there answered "Nothing pressed" every time, which left
+    no way to rebind a key at all."""
+    scr, km, rec = _screen()
+    scr.open()
+    scr.index = ACTION_IDS.index('pause')
+    _down(scr, 'return')
+    _up(scr, 'return')                       # the press that started it, released
+    assert scr.capturing, 'letting go of Enter ended the capture'
+    assert not any('Nothing pressed' in s for s in rec.said), rec.said
+    _down(scr, 'k')
+    _up(scr, 'k')
+    assert not scr.capturing, 'releasing the captured key did not finish it'
+    assert km.bindings['pause'] == [('k',)], km.bindings['pause']
+
+
 def test_the_screen_refuses_to_bind_the_way_out():
     scr, km, rec = _screen()
     scr.open()

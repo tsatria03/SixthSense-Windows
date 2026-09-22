@@ -124,7 +124,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
    - Port: `stage_1_e.py` about 255-261, 360, 362. The port's own `continueAction_` already uses 0.2 and 0.02.
 7. [R] FIXED (batch 1). **Escape or closing the window from a stage leaves the monster loops and ambience playing under the menu** indefinitely. `teardown` (`stage_1_e.py` about 1036-1043) should call `MonsterStop()` and `AMBSoundStop()`.
 8. [R] FIXED 2026-09-22 (batch 2). **Store screens are built without a speech object**, so "not available" for the coin store, restore and buy-all goes only to the log (`SixthSense.py` about 66-72, `blind_screen.py` about 71-76). `BlindScreen.say` now falls back to `Speech.shared()`, the same lazy fallback `MainController._say` already used.
-9. [V] **Key rebinding is broken.** Any key-up ends capture (`keybind_screen.py` about 149-151), so releasing Enter reports "Nothing pressed". Finish capture only on the key-up of a captured key. The test never releases Return.
+9. [V] **Key rebinding is broken. FIXED 2026-09-22.** Any key-up used to end the capture, so releasing Enter reported "Nothing pressed" and nothing could ever be bound. `KeyBindScreen.handle` now finishes only on the key-up of a key that was captured. The old tests never released Return, which is how it hid; `test_input.test_letting_go_of_enter_does_not_end_the_capture` releases it and then binds a key. Awaiting the dev's ear.
 10. [V] **The tests overwrite the real save.** See [[project_safe_test_run]].
 
 ## Medium

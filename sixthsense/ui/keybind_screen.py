@@ -14,8 +14,9 @@ because there is nothing on screen a player of this game is expected to read.
     F1 / Escape     back to the game
 
 Binding captures a *chord*: hold Left and Up together and release, and the action gets
-``Left + Up``. The keys are recorded when the first one comes back up, so the order you
-press them in does not matter.
+``Left + Up``. The keys are recorded when the first one of them comes back up, so the
+order you press them in does not matter. Letting go of the Enter that started the capture
+does not count, or the capture would be over before the player had pressed anything.
 
 F1 and Escape are never rebindable (``keymap.FIXED``) - bind over the way out and there
 would be no way back in.
@@ -148,8 +149,12 @@ class KeyBindScreen:
             else:
                 self.say(self.current_text())
         elif event.type == pygame.KEYUP and self.capturing:
-            # the chord is whatever was held when the first key came back up
-            self.finish_capture()
+            # The chord is whatever was held when the first *captured* key came back up.
+            # Enter is what started the capture, so its own key-up arrives a moment later
+            # and is no part of the binding: ending on it meant every attempt to rebind
+            # answered "Nothing pressed" before the player had touched a key.
+            if pygame.key.name(event.key) in self.captured:
+                self.finish_capture()
 
     # ---- what a sighted player sees -------------------------------------
     def render_lines(self):
