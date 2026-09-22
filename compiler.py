@@ -89,6 +89,10 @@ def build_version() -> str:
         return ''
 
 
+#: How often packaging says how far it has got: after each quarter of the files.
+PACK_STEPS = 4
+
+
 def package(dest_root: str) -> str:
     """Zip the built folder into the archive a release is made of.
 
@@ -96,25 +100,38 @@ def package(dest_root: str) -> str:
     updater, should SixthSense ever get one, can read a zip with Python's own zipfile.  Everything
     sits under one folder inside the archive, so extracting it gives a player a folder rather than a heap
     of files in their Downloads.
+
+    Packaging takes a while, and a zip can only be opened once its last few bytes are written, so it
+    says that it has started, how far it has got, and when it is done.  It is written under a .part name
+    and renamed only once it is whole: close the window halfway and no zip is left behind that looks
+    finished but will not open.
     """
     version = build_version()
     name = '%s-Win-%s' % (NAME, version) if version else '%s-Win' % NAME
     archive = os.path.join(HERE, 'dist', name + '.zip')
-    if os.path.isfile(archive):
-        os.remove(archive)
+    partial = archive + '.part'
+    for old in (archive, partial):
+        if os.path.isfile(old):
+            os.remove(old)
+    files = []
+    for dirpath, dirs, names in os.walk(dest_root):
+        dirs.sort()
+        files += [os.path.join(dirpath, filename) for filename in sorted(names)]
     say()
-    say('packing %s ...' % os.path.basename(archive))
+    say('packaging the release: zipping %d files into %s.' % (len(files), os.path.basename(archive)))
+    say('this can take a minute - leave this window open until it says the zip is done.')
     started = time.perf_counter()
-    count = 0
-    with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
-        for dirpath, _dirs, files in os.walk(dest_root):
-            for filename in sorted(files):
-                full = os.path.join(dirpath, filename)
-                inside = os.path.join(NAME, os.path.relpath(full, dest_root))
-                zf.write(full, inside.replace(os.sep, '/'))
-                count += 1
-    say('  %d files, %.0f MB, in %.0f seconds.'
-        % (count, os.path.getsize(archive) / (1 << 20), time.perf_counter() - started))
+    # a line after each quarter, so a long silence never looks like the end
+    marks = {len(files) * step // PACK_STEPS for step in range(1, PACK_STEPS)}
+    with zipfile.ZipFile(partial, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+        for count, full in enumerate(files, 1):
+            inside = os.path.join(NAME, os.path.relpath(full, dest_root))
+            zf.write(full, inside.replace(os.sep, '/'))
+            if count in marks:
+                say('  %d of %d files packed ...' % (count, len(files)))
+    os.replace(partial, archive)
+    say('the zip is done: %d files, %.0f MB, in %.0f seconds.'
+        % (len(files), os.path.getsize(archive) / (1 << 20), time.perf_counter() - started))
     say('upload this as the release asset, and tag the release %s.' % (version or 'with its version'))
     return archive
 

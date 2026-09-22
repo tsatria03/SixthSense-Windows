@@ -1,6 +1,6 @@
 ---
 name: project_python_only
-description: "The Windows port of Sixth Sense is written entirely in Python; compiler.py was adapted to build it but has not been test-built yet."
+description: "The Windows port of Sixth Sense is written entirely in Python; compiler.py builds it, and the dev confirmed the console build works on 2026-09-22."
 metadata:
   node_type: memory
   type: project
@@ -9,7 +9,7 @@ metadata:
 
 The Windows port of Sixth Sense is written entirely in Python: pygame for the window and keyboard, OpenAL Soft through ctypes for audio, and the NVDA controller client, or Prism for other screen readers and a Windows voice, for the few synthesised lines. Don't propose moving parts to another language or engine.
 
-`compiler.py` at the repo root is the PyInstaller build script. It was adapted to build Sixth Sense on 2026-09-21. The todo list's "Test the compiler with a first build" line stays until the dev's first build works. Everything known about it is in [[project_compiler_py]].
+`compiler.py` at the repo root is the PyInstaller build script. It was adapted to build Sixth Sense on 2026-09-21. The dev's console build was confirmed working on 2026-09-22. Everything known about it is in [[project_compiler_py]].
 
 **Why:** Both are the dev's stated decisions from 2026-09-21.
 

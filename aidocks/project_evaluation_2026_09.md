@@ -26,7 +26,7 @@ What has landed so far:
 
   Tests: `test_gameplay`'s magazine-kept, ambience-gain and silent-teardown checks. Batch 1 had also fixed the first-launch grant and the 30-minute interval; those halves were dropped in favor of `a16564f`'s versions.
 
-- **Batch 2, by Claude, 2026-09-22, a vocal-only pass (not yet committed):**
+- **Batch 2, by tunmi13productions, 2026-09-22, a vocal-only pass, committed and pushed as `503085a`:**
   - `BlindScreen.say`/`StopElseSpeak` fall back to `Speech.shared()` and call `speech.stop()`, and `StopElseSpeak` now stops every row's own sound unconditionally (from `self.rows()`), not just a hand-kept `STOP_SOUNDS` tuple - closing the gap where restore purchases' own name WAV (370) was missing from `MainStoreController.STOP_SOUNDS` and kept talking after the player moved to another row. `MainController.StopElseSpeak` gained the same `speech.stop()` call, for ranking and Game Center.
   - The Try button (`DetailStoreController.testAction_`) now says "The weapon test range is not available" instead of silently pushing the unported `weapon_test` screen.
   - `tutorial_beat` clears `beat_flag[name]` when a prompt (re)starts - part of sub-item (b) above, "the prompt restarts every second."
@@ -36,7 +36,7 @@ What has landed so far:
   - `MainController.StartGameAction_`'s no-coin branch sets `self.message` instead of calling `self._say(...)` - part of sub-item (c), "No coin plays WAV 358 and speaks the same text through NVDA."
   - `SOUND_EARPHONE` (234) moved out of the menu entirely into `StartIntroPage`, timed to start `WELCOME_SECONDS` after the welcome message and cancelled by `skipAction` - a port addition, not the original's own call site (`StartGameAction:`); see `docs/DIVERGENCES.md`. Fixes part of sub-item (c) and the earphone half of the todo list's last line.
   - `Stage_1_E.viewDidLoad`/`MapInitInBundle`: Now Loading (46) now plays before anything else touches audio, and `BGMusicStop` moved into the already-`LOADING_SECONDS`-delayed `MapInitInBundle`, so the menu music keeps playing under Now Loading instead of cutting before it, and the level's own ambience/music (or the tutorial's first prompt) waits for the same delay - fixes the todo list's "Now Loading plays over the first tutorial prompt" and a dev-reported ordering bug not in the original evaluation.
-  - Tests: `tests/test_store.py`, `tests/test_menu.py`, `tests/test_tutorial.py`, `tests/test_speech.py`, `tests/test_gameplay.py`, `tests/test_input.py`, `tests/test_pause.py` (LOADING_SECONDS override), and the new `tests/test_intro.py`. 145/145 passing as of this batch.
+  - Tests: `tests/test_store.py`, `tests/test_menu.py`, `tests/test_tutorial.py`, `tests/test_speech.py`, `tests/test_gameplay.py`, `tests/test_input.py`, `tests/test_pause.py` (LOADING_SECONDS override), and the new `tests/test_intro.py`. 145/145 passing as of this batch, and again after tsatria03 merged it into their own work.
   - **Not confirmed by the dev's own ear yet, except:** the StopElseSpeak/row-sound fix ("they work now") and the P-during-tutorial fix ("it works now"). Everything else here landed in this session without a final by-ear check - see [[feedback_dont_run_or_build]] and [[project_safe_test_run]] before assuming more than that.
 
 On 2026-09-21 every item below was also added to `todo list.txt` as a plain sentence, most important first, at the top of `##unfinished.` ([[feedback_todo_list_format]]). The todo file is the dev's checklist; this memory holds the technical detail behind each line.
@@ -204,7 +204,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Switching to the sword should play 329 (0x35ecc).
 - [R] **Two save keys are never written.** Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
 - [R] **The zig-zag walks are faithful but can't be reached**, because the monster tables only use straight-lane types.
-- [V] **Repo housekeeping.** `requirements.txt` was added on 2026-09-22, with `pygame>=2.6.1` and `prismatoid~=0.18.2` (cffi comes with prismatoid). A pip dry run found everything already installed. capstone for `tools/` is left out, since playing doesn't need it. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
+- [V] **Repo housekeeping.** `requirements.txt` was added on 2026-09-22, with `pygame>=2.6.1` and `prismatoid~=0.18.2` (cffi comes with prismatoid). A pip dry run found everything already installed. capstone for `tools/` is left out, since playing doesn't need it. The dev confirmed it the same day, and its todo item moved to finished. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
 
 ## Docs entries that are misreadings (fix with the code, docs last)
 - **`DIVERGENCES.md`**

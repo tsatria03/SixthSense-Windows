@@ -1,6 +1,6 @@
 ---
 name: project_compiler_py
-description: "compiler.py was adapted to build Sixth Sense on 2026-09-21 (not yet built by the dev); what changed, what was left out on purpose, and what is still to do."
+description: "compiler.py was adapted to build Sixth Sense on 2026-09-21. The dev confirmed the console build works on 2026-09-22; an earlier zip was cut off, so packaging now announces itself and writes a .part file first. What changed, what was left out on purpose, and what is still to do."
 metadata:
   node_type: memory
   type: project
@@ -12,9 +12,24 @@ metadata:
 ## Status
 
 Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
-- It was checked only statically: it parses, and it has no undefined names.
-- **It has not been run or built yet.** The dev does that.
-- The todo item "Test the compiler with a first build" (reworded on 2026-09-21 from "Make the compiler sixth sense compatible") stays unfinished until the dev's first build works.
+- **First builds, 2026-09-22.** The dev ran menu choice 4 (`--console`) twice, at 08:28 and at 09:19.
+  - Claude checked the 09:19 build's `dist/SixthSense` against the repo. It was complete:
+    - all 474 game files, byte-identical to the repo
+    - all 17 license files
+    - the vendor DLLs in `_internal/vendor`
+    - Prism with `prism.dll` and `_prism_cffi.pyd` in `_internal/prism/_native`, plus `_cffi_backend`
+    - `changelog.txt`, `VERSION` and `license.txt`, identical to the repo's
+  - PyInstaller's warning "missing module named prism._prism_cffi" is a false alarm. Prism's `_native.py` adds `prism/_native` to the package path when it is imported, which static analysis can't see.
+  - `prism.lib` (15 KB, an import library) gets bundled too. It is harmless.
+  - **The zip was broken**: 399 of 643 files, with no central directory. The dev had closed the window during packing, because nothing said to wait.
+  - `package()` was changed the same day, checked only by parsing:
+    - it says "packaging the release", then a line after each quarter of the files, then "the zip is done"
+    - it writes `<name>.zip.part` and renames it only once it is whole
+- **Confirmed working, 2026-09-22.** The dev rebuilt with choice 4 at 09:27 and said "The exe works".
+  - Claude checked the zip: `zipfile.testzip` passes, and it holds 643 files (107 MB) under `SixthSense/`.
+  - Every member is byte-identical to the built folder, and every game file to the repo. No `.part` file was left behind.
+  - The todo item "Test the compiler with a first build" moved to finished that day.
+- Still untested: a plain release build (choice 1, which files the changelog), a windowed build, and `--onefile`.
 - Its comments and docstrings describe Sixth Sense alone; the three that named the project it came from were reworded on 2026-09-21 ([[feedback_no_other_games]]).
 
 ## What changed from the earlier script

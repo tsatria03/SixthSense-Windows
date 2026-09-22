@@ -9,7 +9,7 @@ metadata:
 **Decided and built on 2026-09-22.** The dev asked for the speech layer to move to Prism, then said "Let's implement the new screenreader/sapi library".
 - **Tested and heard:** all 130 tests pass, including the 13 new speech tests. The dev then listened and said "Everything past!" (2026-09-22).
 - The todo item moved to finished as "The key bindings screen and the main menu's spoken messages speak through Prism...".
-- `requirements.txt`, listing pygame and prismatoid, is still a separate todo item.
+- `requirements.txt` lists pygame and prismatoid. Its todo item moved to finished on 2026-09-22, when the dev confirmed it.
 
 **Before this change:** NVDA through `vendor/nvda/nvdaControllerClient64.dll`, else SAPI through comtypes. comtypes was never installed, so without NVDA the game was silent. accessible_output2 0.17 is installed in the dev's Python, but the game never used it.
 

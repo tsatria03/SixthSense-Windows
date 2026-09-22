@@ -47,16 +47,16 @@ Pygame opens a second audio device alongside OpenAL.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
 Add a test that checks zombie sounds really move, not just the numbers behind them.
-Add a requirements.txt listing pygame and prismatoid.
 Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 tools/README.md says the addresses are file offsets, when they are memory addresses.
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
-Test the compiler with a first build. It has been changed to build Sixth Sense, but it has not been run yet.
 In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
 The menu music starts as soon as the menu opens, talking over the menu's title and row names, every time you come back to the menu.
 
 ##Finished.
 
+The compiler builds a working game. A console build starts and plays, and its release zip opens and holds all 643 files: the game, its data, and the licenses beside it. While it packs the zip, the compiler says so and says how far it has got, so the window is not closed too early.
+A requirements.txt lists the two packages the game needs, pygame and prismatoid, so pip install -r requirements.txt installs both.
 The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
 Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
 The tutorial's prompts no longer restart every second once they have already played through once.
