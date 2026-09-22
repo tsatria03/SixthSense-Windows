@@ -99,8 +99,8 @@ class _FakeAL:
     def buffer_data(self, *a):
         pass
 
-    def delete_buffer(self, *a):
-        pass
+    def delete_buffer(self, bid):
+        self.calls.append(('delete', bid))
 
     def source_state(self, _sid):
         return self.state
@@ -158,6 +158,31 @@ def test_the_menu_music_carries_on_when_the_menu_comes_back():
     owner.al.state = al.AL_STOPPED                # it ran out, so it plays again
     player.play(other, 0.02, -1)
     assert ('play',) in owner.al.calls, 'a finished file did not start again'
+
+
+def test_changing_the_music_frees_the_file_it_had():
+    """OpenAL refuses to delete a buffer that is still attached to a source, so the order
+    matters: stop the source, take the buffer off it with AL_BUFFER 0, then delete.  The
+    player used to delete first, which freed nothing and held a 2 to 3 MB file for the life
+    of the process - and a level change swaps two of them."""
+    owner = _FakeOwner()
+    player = MusicPlayer(owner)
+    song = paths.path_for_resource('bgm_main_menu', 'wav')
+    other = paths.path_for_resource('bgm_cave', 'wav')
+    assert song and other, 'the menu music or the cave music is missing'
+
+    player.play(song, 0.2, -1)
+    owner.al.calls.clear()
+    player.play(other, 0.02, -1)
+
+    order = [c for c in owner.al.calls
+             if c[0] in ('stop', 'delete') or (c[0] == 'sourcei' and c[1] == al.AL_BUFFER)]
+    assert order[0] == ('stop',), order
+    assert order[1] == ('sourcei', al.AL_BUFFER, 0), 'the buffer was not detached first'
+    assert order[2][0] == 'delete', 'the old buffer was not deleted'
+    detach = order.index(('sourcei', al.AL_BUFFER, 0))
+    delete = [i for i, c in enumerate(order) if c[0] == 'delete'][0]
+    assert detach < delete, 'deleting before detaching frees nothing'
 
 
 def test_there_is_no_exit_row():

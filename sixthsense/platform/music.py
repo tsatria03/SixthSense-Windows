@@ -56,6 +56,29 @@ class MusicPlayer:
             self.al.alSource3f(self.source, al.AL_POSITION, 0.0, 0.0, 0.0)
             self.al.alSourcef(self.source, al.AL_ROLLOFF_FACTOR, 0.0)
 
+    def _drop_buffer(self):
+        """Let go of the file that is loaded, in the order OpenAL insists on: stop the
+        source, take the buffer off it, then delete the buffer.
+
+        ``alDeleteBuffers`` refuses a buffer that is still attached to a source and
+        answers AL_INVALID_OPERATION, so deleting it first - as this did - freed nothing
+        and left the whole file in memory for as long as the game ran.  These are the
+        largest sounds in the game, 2 to 3 MB each, and a level change swaps two of them.
+        """
+        self.stop()
+        if not self.buffer:
+            return
+        if self.source:
+            self.al.alSourcei(self.source, al.AL_BUFFER, 0)     # detach
+        self.al.alGetError()                                    # clear, then watch
+        self.al.delete_buffer(self.buffer)
+        error = self.al.alGetError()
+        if error:
+            log.warning('the music buffer for %s was not freed: %s',
+                        self.path, al.AL_ERRORS.get(error, hex(error)))
+        self.buffer = 0
+        self.path = None
+
     def play(self, path, gain=1.0, loops=-1):
         """``numberOfLoops = -1`` means forever, as in AVAudioPlayer.
 
@@ -73,10 +96,7 @@ class MusicPlayer:
                 self.al.alGetError()
                 return
             if path != self.path:
-                self.stop()
-                if self.buffer:
-                    self.al.delete_buffer(self.buffer)
-                    self.buffer = 0
+                self._drop_buffer()
                 fmt, pcm, rate = _load(path)
                 self.buffer = self.al.gen_buffer()
                 self.al.buffer_data(self.buffer, fmt, pcm, rate)

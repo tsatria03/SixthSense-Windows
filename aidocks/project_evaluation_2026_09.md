@@ -146,7 +146,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **A file that parses but isn't a JSON object crashes every launch.**
 
 **Audio and platform**
-- [R] **Music buffers leak.** They are deleted while still attached to the source (`music.py` about 63-67); detach with `AL_BUFFER 0` first.
+- [R] **Music buffers leak. FIXED 2026-09-22.** `MusicPlayer._drop_buffer` stops the source, sets its `AL_BUFFER` to 0 and only then deletes, and it logs `alGetError` if the delete still fails - the swallowed AL_INVALID_OPERATION is what hid this. Each leak was the whole uncompressed file, 2 to 3 MB, and a level change swaps two of them. Tested by `test_menu.test_changing_the_music_frees_the_file_it_had` with a stand-in audio layer; it cannot be heard, so the dev's check is Task Manager across a few level changes.
 - [R] **`pygame.init()` also opens the SDL mixer. FIXED 2026-09-22.** `SixthSense.py` now calls `pygame.display.init()` and `pygame.font.init()` only, so nothing but OpenAL opens an audio device. (`tests/test_input.py` still calls `pygame.init()` itself.)
 - [R] **No pause on focus loss, and no recovery when the audio device is lost.**
 - [R] **There is no crash path.** Nothing writes a log file, there is no `sys.excepthook`, and a missing data folder, DLL or audio device fails silently for a blind player. Log to `%APPDATA%\SixthSense`, write `crash.txt`, and speak the error.
