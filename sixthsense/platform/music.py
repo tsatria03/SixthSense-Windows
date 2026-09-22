@@ -57,9 +57,21 @@ class MusicPlayer:
             self.al.alSourcef(self.source, al.AL_ROLLOFF_FACTOR, 0.0)
 
     def play(self, path, gain=1.0, loops=-1):
-        """``numberOfLoops = -1`` means forever, as in AVAudioPlayer."""
+        """``numberOfLoops = -1`` means forever, as in AVAudioPlayer.
+
+        PORT ADDITION: asking for the file that is already playing leaves it where it is,
+        and only takes the new gain and loop setting.  ``AVAudioPlayer`` is built fresh
+        every time in the original, so it always starts at the top; here the menu music
+        would jump back to its first bar every time a menu is built, which is every time
+        the player comes back from a stage, the shop or the tutorial.
+        """
         try:
             self._ensure()
+            if path == self.path and self.playing:
+                self.al.alSourcei(self.source, al.AL_LOOPING, 1 if loops != 0 else 0)
+                self.set_volume(gain)
+                self.al.alGetError()
+                return
             if path != self.path:
                 self.stop()
                 if self.buffer:

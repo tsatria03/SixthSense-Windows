@@ -22,7 +22,7 @@ metadata:
 Gains in the game, with their decibels: 1.0 is 0 dB (gunshots), 0.5 is -6 dB (breathing, rain, the result panel), 0.2 is -14 dB (every spoken row, the ambience), 0.05 is -26 dB (the intro's story music, 0x17224), 0.02 is -34 dB (the level music, 0x321d4). OpenAL clamps a source above 1.0, so a bigger number buys nothing.
 
 ## The menu music
-`bgm_main_menu` is a port addition. It played at 1.0 and talked over the menu's own rows. On 2026-09-22 the dev tried 0.05 ("too quiet"), then 0.1 ("too quiet"), and settled on 0.2, which is -14 dB, level with the rows. Still open in `todo list.txt`: whether the menu should have music at all.
+`bgm_main_menu` is a port addition. It played at 1.0 and talked over the menu's own rows. On 2026-09-22 the dev tried 0.05 ("too quiet"), then 0.1 ("too quiet"), and settled on 0.2, which is -14 dB, level with the rows. **The music itself is deliberate** - the dev added it on purpose and said so the same day ("I added menu music on perpis"), so don't propose removing it for fidelity.
 
 **Why:** Decibels are how the dev thinks about loudness, and a knob per group lets them tune by ear without touching values recovered from the binary ([[project_binary_analysis_notes]]).
 

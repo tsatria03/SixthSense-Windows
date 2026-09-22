@@ -51,7 +51,7 @@ Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where 
 tools/README.md says the addresses are file offsets, when they are memory addresses.
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
-The menu music starts as soon as the menu opens, talking over the menu's title and row names, every time you come back to the menu.
+The menu music starts over from the beginning every time you come back to the menu, instead of carrying on where it was.
 
 ##Finished.
 

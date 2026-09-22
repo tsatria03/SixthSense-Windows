@@ -263,8 +263,17 @@ knobs sit on top of those:
 
 All of them but the last ship at 0.0 dB, which multiplies by exactly 1.0, so the mix as
 shipped is the original's to the bit. They are constants: nothing writes them to the save
-yet, and a settings screen would read its sliders into them. Whether the menu should have
-music at all is still an open question in `todo list.txt`.
+yet, and a settings screen would read its sliders into them.
+
+The music itself stays: tsatria03 put it on the menu deliberately, and said so on
+2026-09-22. A silent menu is what the original has, and it is not what this port wants.
+
+It also carries on rather than restarting. A menu is built fresh every time the player
+comes back from a stage, the shop or the tutorial, and each one calls `BGMusicStart`, so
+the music used to jump back to its first bar each time. `platform/music.py` now leaves a
+player alone when it is asked for the file it is already playing, and only takes the new
+gain and loop setting. The original rebuilds its `AVAudioPlayer` every time and so always
+starts at the top; it has no menu music for this to matter to.
 
 ### Key bindings are a port addition
 The original has no key bindings at all — every action is a swipe, a tap or a shake.

@@ -12,8 +12,10 @@ from sixthsense import paths                                     # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
 from sixthsense.game.main_controller import (COIN_INTERVAL, COIN_MAX,  # noqa: E402
                                              ROWS, MainController)
+from sixthsense.platform import openal as al                     # noqa: E402
 from sixthsense.platform import volume                           # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
+from sixthsense.platform.music import MusicPlayer                # noqa: E402
 from sixthsense.platform.runloop import RunLoop                  # noqa: E402
 
 
@@ -79,6 +81,83 @@ def test_the_menu_music_plays_under_the_rows():
             'the menu music is louder than the rows it plays under'
     finally:
         del pb.startBGPlayer_type_soundGain_Loop_        # back to the real player
+
+
+class _FakeAL:
+    """Enough of platform/openal.AL for MusicPlayer, with nothing behind it."""
+
+    def __init__(self):
+        self.calls = []
+        self.state = al.AL_PLAYING
+
+    def gen_source(self):
+        return 1
+
+    def gen_buffer(self):
+        return 2
+
+    def buffer_data(self, *a):
+        pass
+
+    def delete_buffer(self, *a):
+        pass
+
+    def source_state(self, _sid):
+        return self.state
+
+    def alGetError(self):
+        return 0
+
+    def alSource3f(self, *a):
+        pass
+
+    def alSourcei(self, _sid, param, value):
+        self.calls.append(('sourcei', param, value))
+
+    def alSourcef(self, _sid, param, value):
+        self.calls.append(('gain', value) if param == al.AL_GAIN else ('sourcef', param))
+
+    def alSourceStop(self, _sid):
+        self.calls.append(('stop',))
+
+    def alSourcePlay(self, _sid):
+        self.calls.append(('play',))
+
+
+class _FakeOwner:
+    def __init__(self):
+        self.al = _FakeAL()
+
+
+def test_the_menu_music_carries_on_when_the_menu_comes_back():
+    """A menu is built fresh every time the player comes back from a stage, the shop or
+    the tutorial, and each one calls BGMusicStart.  The music player leaves a source
+    alone when it is asked for the file it is already playing, so the music carries on
+    instead of jumping back to its first bar - it only takes the new gain."""
+    owner = _FakeOwner()
+    player = MusicPlayer(owner)
+    song = paths.path_for_resource('bgm_main_menu', 'wav')
+    other = paths.path_for_resource('bgm_cave', 'wav')
+    assert song and other, 'the menu music or the cave music is missing'
+
+    player.play(song, 0.2, -1)
+    assert ('play',) in owner.al.calls, 'the first play did not start anything'
+
+    owner.al.calls.clear()
+    player.play(song, 0.1, -1)                    # the menu comes back
+    assert ('stop',) not in owner.al.calls, 'the same file was stopped and rewound'
+    assert ('play',) not in owner.al.calls, 'the same file was restarted'
+    assert ('gain', 0.1) in owner.al.calls, 'the new gain was not applied'
+    assert player.volume == 0.1
+
+    owner.al.calls.clear()
+    player.play(other, 0.02, -1)                  # a different file still starts over
+    assert ('play',) in owner.al.calls, 'a different file did not start'
+
+    owner.al.calls.clear()
+    owner.al.state = al.AL_STOPPED                # it ran out, so it plays again
+    player.play(other, 0.02, -1)
+    assert ('play',) in owner.al.calls, 'a finished file did not start again'
 
 
 def test_there_is_no_exit_row():
