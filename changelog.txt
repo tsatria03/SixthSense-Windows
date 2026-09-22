@@ -1,24 +1,24 @@
 unrelease:
-A new player now starts with 10 coins.
-A coin now comes back every 30 minutes instead of every 10, up to 5, and the coins you missed while the game was closed are given back when you return.
-Spending a coin no longer restarts a countdown that is already running.
-The coin row on the main menu can say how long until your next coin, instead of always reading zero, and it no longer reads your coins after you have already moved to another row.
-Starting a game before you have finished the tutorial now takes you to the tutorial without spending a coin, instead of leaving you standing still in silence.
-Numbers are spoken in the right order, so ten says "one, zero" instead of "zero, one".
-The level music and ambience play as quietly as in the original game, so you can hear the zombies over them.
-The rain in the third area keeps falling for the whole level.
-Leaving a stage stops the zombie footsteps, the ambience and the music, instead of letting them play on under the menu.
-Switching weapons keeps each weapon's own ammo, instead of refilling the magazine for free.
-The game's sounds are sorted into folders inside game\sounds, each under its original name.
-The key bindings screen and the main menu's spoken messages now work with JAWS, ZoomText, System Access, Narrator and other screen readers as well as NVDA, and with a Windows voice when no screen reader is running.
-The game now comes with the licenses for OpenAL Soft, the NVDA controller client, Prism and pygame, in a licenses folder beside the game.
-The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
-Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
-The "you must use earphones" warning now plays once, from the opening screen, instead of colliding with the main menu's title or repeating every time you start a game.
-The "no coin" message no longer speaks its own sentence over the recording that already says it.
-The tutorial's prompts no longer restart every second once they have already played through once.
-Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.
-Replaying the tutorial from the menu no longer reads it as already finished.
-Leaving the tutorial now stops whatever prompt was still playing, instead of letting it run into the menu.
-"Now Loading" now always plays before the menu music stops, and the level's own sound and the tutorial's first prompt wait for it to finish.
 The main menu's music is quieter, so the menu's own voice can be heard over it.
+"Now Loading" now always plays before the menu music stops, and the level's own sound and the tutorial's first prompt wait for it to finish.
+Leaving the tutorial now stops whatever prompt was still playing, instead of letting it run into the menu.
+Replaying the tutorial from the menu no longer reads it as already finished.
+Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.
+The tutorial's prompts no longer restart every second once they have already played through once.
+The "no coin" message no longer speaks its own sentence over the recording that already says it.
+The "you must use earphones" warning now plays once, from the opening screen, instead of colliding with the main menu's title or repeating every time you start a game.
+Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
+The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
+The game now comes with the licenses for OpenAL Soft, the NVDA controller client, Prism and pygame, in a licenses folder beside the game.
+The key bindings screen and the main menu's spoken messages now work with JAWS, ZoomText, System Access, Narrator and other screen readers as well as NVDA, and with a Windows voice when no screen reader is running.
+The game's sounds are sorted into folders inside game\sounds, each under its original name.
+Switching weapons keeps each weapon's own ammo, instead of refilling the magazine for free.
+Leaving a stage stops the zombie footsteps, the ambience and the music, instead of letting them play on under the menu.
+The rain in the third area keeps falling for the whole level.
+The level music and ambience play as quietly as in the original game, so you can hear the zombies over them.
+Numbers are spoken in the right order, so ten says "one, zero" instead of "zero, one".
+Starting a game before you have finished the tutorial now takes you to the tutorial without spending a coin, instead of leaving you standing still in silence.
+The coin row on the main menu can say how long until your next coin, instead of always reading zero, and it no longer reads your coins after you have already moved to another row.
+Spending a coin no longer restarts a countdown that is already running.
+A coin now comes back every 30 minutes instead of every 10, up to 5, and the coins you missed while the game was closed are given back when you return.
+A new player now starts with 10 coins.

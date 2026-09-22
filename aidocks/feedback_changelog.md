@@ -1,6 +1,6 @@
 ---
 name: feedback_changelog
-description: "Whenever a change players will notice lands (a bug fix or an enhancement), add a plain sentence under unrelease: at the top of changelog.txt, in the same commit. CRLF, no BOM, one sentence per line, no markdown; release builds file the section under the version."
+description: "Whenever a change players will notice lands (a bug fix or an enhancement), add a plain sentence at the top of the unrelease: block in changelog.txt, in the same commit; entries read newest first. CRLF, no BOM, one sentence per line, no markdown; release builds file the section under the version."
 metadata:
   node_type: memory
   type: feedback
@@ -18,7 +18,7 @@ metadata:
   - Every other line is an entry: one plain sentence or two, with no bullets, numbers or markdown.
   - A blank line separates one heading's block from the next.
 - **CRLF, no BOM.** Edit it with a small Python script that splits and joins on `\r\n`, and check for bare LFs afterwards, as with the todo list ([[feedback_todo_list_format]]).
-- **New lines go at the bottom of the `unrelease:` block**, in the order the changes landed. If there is no `unrelease:` heading, add it at the very top, followed by a blank line before the newest version.
+- **New lines go at the top of the `unrelease:` block**, straight under the heading, so the block reads newest first. The dev asked for this on 2026-09-22 and the 23 lines that had built up in landing order were reversed then. If there is no `unrelease:` heading, add it at the very top, followed by a blank line before the newest version.
 - **Only what a player notices:** fixes, enhancements, removed features, new sounds or files they will see.
   - Leave out notes, docs, tests, refactors and build-script internals, unless they change what ships.
   - Bugs that are only found or planned stay in `todo list.txt`, not here.
