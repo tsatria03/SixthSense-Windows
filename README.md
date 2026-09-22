@@ -121,7 +121,7 @@ System Access, Narrator and more), or a Windows voice if none is running. It has
 the game's own voice is 269 recorded WAVs and none of them can say "Left Arrow".
 
     Up / Down   move          Enter   rebind        A   add a second binding
-    Delete      unbind        R       reset all     Escape / F1   back
+    Delete      unbind        R R     reset all     Escape / F1   back
 
 Binding captures a chord — hold the keys together and let go. **F1 and Escape are not
 rebindable**, so there is always a way back in. Bindings live in

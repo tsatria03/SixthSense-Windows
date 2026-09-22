@@ -184,7 +184,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **The SAPI fallback is dead.** It needed `comtypes`, which isn't installed. **FIXED 2026-09-22:** `speech.py` now goes through Prism for every other screen reader and for SAPI or OneCore. comtypes is gone, and the dev confirmed it by ear ([[project_prism_speech]]).
 - [R] **Closing the window doesn't quit.** It goes to the menu, and stacked screens and their coin timers are never torn down (`SixthSense.py` about 221-228).
 - [R] **Several actions are silent or unconfirmed.**
-  - R in the bindings screen resets everything without asking.
+  - R in the bindings screen resets everything without asking. **FIXED 2026-09-22:** it asks, and a second R means it; any other key keeps the bindings (`KeyBindScreen.ask_reset`/`cancel_reset`, `confirm_reset`). Tested by `test_input.test_resetting_every_binding_asks_first`. Awaiting the dev's ear.
   - The weapon Try button is silent. **FIXED 2026-09-22 (batch 2)**, not yet confirmed by ear.
   - Shop screens open by saying only "back button".
   - Escape in a stage drops the run and the coin with no confirmation.

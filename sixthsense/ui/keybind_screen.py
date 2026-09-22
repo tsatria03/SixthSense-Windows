@@ -10,7 +10,7 @@ because there is nothing on screen a player of this game is expected to read.
     Enter           bind: hold the key or chord you want, then let go
     A               add a second binding instead of replacing
     Delete          unbind
-    R               reset everything to the defaults
+    R               reset everything to the defaults - twice, since it asks first
     F1 / Escape     back to the game
 
 Binding captures a *chord*: hold Left and Up together and release, and the action gets
@@ -32,7 +32,7 @@ from ..platform.speech import Speech
 log = logging.getLogger('keybind')
 
 HELP = ('Key bindings. Up and Down to move, Enter to rebind, A to add a second key, '
-        'Delete to unbind, R to reset everything, Escape to go back.')
+        'Delete to unbind, R twice to reset everything, Escape to go back.')
 
 
 class KeyBindScreen:
@@ -46,6 +46,7 @@ class KeyBindScreen:
         self.capturing = False
         self.capture_add = False
         self.captured = []          # in press order, so speech reads them that way
+        self.confirm_reset = False  # R has been pressed once and is waiting to be meant
         self.lines = []             # what a sighted player sees
 
     # ---- speech ----------------------------------------------------------
@@ -58,6 +59,7 @@ class KeyBindScreen:
     def open(self):
         self.done = False
         self.index = 0
+        self.confirm_reset = False
         self.keymap.clear_held()
         self.say(HELP)
         self.say(self.current_text(), interrupt=False)
@@ -65,6 +67,7 @@ class KeyBindScreen:
     def close(self):
         self.done = True
         self.capturing = False
+        self.confirm_reset = False
         self.keymap.clear_held()
         self.say('Back to the game.')
 
@@ -110,7 +113,23 @@ class KeyBindScreen:
         self.keymap.clear(self.action)
         self.say('%s is unbound.' % self.keymap.label(self.action))
 
+    #: R throws away every binding the player has made, and a player who cannot see the
+    #: screen has no way to tell what they just lost, so it asks first.  Pressing R again
+    #: does it; anything else keeps them.  The original has no bindings and so no such
+    #: screen - this is the port's own, and its own manners.
+    RESET_PROMPT = ('Reset every binding to the default? Press R again to do it, or any '
+                    'other key to keep the bindings you have.')
+
+    def ask_reset(self):
+        self.confirm_reset = True
+        self.say(self.RESET_PROMPT)
+
+    def cancel_reset(self):
+        self.confirm_reset = False
+        self.say('Your bindings are kept. %s' % self.current_text())
+
     def reset(self):
+        self.confirm_reset = False
         self.keymap.reset()
         self.say('Every binding is back to the default. %s' % self.current_text())
 
@@ -126,6 +145,13 @@ class KeyBindScreen:
                 if name not in self.captured:
                     self.captured.append(name)
                 return
+            if self.confirm_reset:
+                # R asked a question; this key answers it, and does nothing else
+                if name == 'r':
+                    self.reset()
+                else:
+                    self.cancel_reset()
+                return
             if name in ('escape', 'f1'):
                 self.close()
             elif name == 'up':
@@ -139,7 +165,7 @@ class KeyBindScreen:
             elif name in ('delete', 'backspace'):
                 self.unbind()
             elif name == 'r':
-                self.reset()
+                self.ask_reset()
             elif name == 'home':
                 self.index = 0
                 self.say(self.current_text())
@@ -165,9 +191,11 @@ class KeyBindScreen:
         out += ['']
         for name, what in FIXED.items():
             out.append('  %-28s %s (fixed)' % (what, key_text(name)))
-        out += ['', 'Up/Down move   Enter rebind   A add   Delete unbind   R reset',
+        out += ['', 'Up/Down move   Enter rebind   A add   Delete unbind   R reset (twice)',
                 'Escape or F1 to go back', '']
         if self.capturing:
             out.append('listening... hold the keys, then let go')
+        if self.confirm_reset:
+            out.append('press R again to reset every binding, or any other key to keep them')
         out += self.lines[-3:]
         return out

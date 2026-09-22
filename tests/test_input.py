@@ -341,6 +341,30 @@ def test_letting_go_of_enter_does_not_end_the_capture():
     assert km.bindings['pause'] == [('k',)], km.bindings['pause']
 
 
+def test_resetting_every_binding_asks_first():
+    """R throws away every binding the player has made, and there is no undo, so it asks.
+    The second R does it; anything else keeps them."""
+    scr, km, rec = _screen()
+    scr.open()
+    km.set_binding('pause', ('k',))
+    assert km.bindings['pause'] == [('k',)]
+
+    _down(scr, 'r')
+    assert km.bindings['pause'] == [('k',)], 'one R reset the bindings'
+    assert any('Press R again' in s for s in rec.said), rec.said
+    rec.said.clear()
+
+    _down(scr, 'w')                          # any other key keeps them
+    assert km.bindings['pause'] == [('k',)], 'a key that is not R still reset them'
+    assert any('kept' in s for s in rec.said), rec.said
+    assert not scr.confirm_reset
+
+    _down(scr, 'r')
+    _down(scr, 'r')
+    assert km.bindings['pause'] == list(DEFAULTS['pause']), km.bindings['pause']
+    assert any('back to the default' in s for s in rec.said), rec.said
+
+
 def test_the_screen_refuses_to_bind_the_way_out():
     scr, km, rec = _screen()
     scr.open()
