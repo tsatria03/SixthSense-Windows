@@ -52,6 +52,50 @@ What has landed so far:
   - **Confirmed by ear 2026-09-22:** the dev said pausing works and "everything we talked about in this conversation" works: the zombie batch, the reload and headshot batch, the breathing, the shake-off sound and the focus pause. The first clip in `bloopers/` is from when 330 was mono. The girl asks for help normally, but "headshot!" rings out from the zombie standing right next to her. The dev's joke: why bother asking for help when you are standing right next to the zombie? (An earlier note and the commit message e08fd89 got this wrong and said she was calling for help next to the zombie.)
   - The zig-zag walks can't be reached (monsterArray holds only ids ending in 1..5), and this is written up in DIVERGENCES.md.
 
+## Rescan, 2026-09-22 (foreground, after batch 3 and the reload batch)
+
+Every source file was read again. Nothing was run. The results:
+
+**New findings. The first five went into `todo list.txt` at the top of `##Unfinished.` on 2026-09-22:**
+- [V] **F1 in a stage does not pause.** `SixthSense.py` about 174-189 keeps pumping the run loop while the bindings screen is up, so zombies walk and hit you while you read the bindings.
+- [V] **Pausing during the 2 s level change starts the walk under the panel.** `_level_transition` schedules `ChangeLevel_` (`stage_1_e.py` about 526), and `StopPlayAction_` does not cancel it. The original is the same: `ChangeLevel:` builds the timer unconditionally (0x323c2), and `StopPlayAction:` has no `cancelPreviousPerformRequests`. Restarting from the panel inside that window gives two walk timers, because `gameReplayAction_` starts one and the pending `ChangeLevel_` adds another. That makes the player walk at double speed.
+- [V] **The coin row's minutes can talk over the next row.** `readNumber_` schedules `readTimeMin`/`readTimeSec` on the app (`app_delegate.py` about 237, 245). `MainController.StopElseSpeak` cancels only its own `readNumberOfCoin`, and `readStop` does not cancel these. Whether the original cancels them is not checked.
+- [V] **The intro's earphone warning (234) is not stopped by moving rows.** `BlindScreen.StopElseSpeak` stops 14 and 266 but not 234, and it does not cancel `sound_earphone`, so the warning can land on top of row 2 or on a restarted welcome (`intro.py` about 102).
+- [V] **Closing the window from a shop screen leaves the stacked menu alive.** `SixthSense.py` about 224-231 builds a fresh menu without clearing `stack`, so the old `MainController` and its coin timer keep running.
+- [S] **`gameReplayAction_` does not reset `monster_num`, `LVCount`, `GirlMonsterNumber` or `gameMode`.** Not checked against 0x330ed yet.
+
+**Checked, and faithful to the original (so not bugs):**
+- The girl heals while HP <= 3 (`cmp r0, 3; bgt` at 0x3b29c), so she can give a fourth heart. This is in GAME_STRUCTURE.md.
+
+**Still open, confirmed in code:**
+- Pausing and continuing swaps the players (`continueAction_`).
+- P in the tutorial skips it at any time and leaves the player standing.
+- Tutorial beats finish out of order.
+- The end of the tutorial starts a walk.
+- The turn keys, and Shift+Tab as previous weapon.
+- Shaking free takes 10 presses.
+- Escape in a stage asks nothing.
+- Closing the window goes to the menu.
+- The ranking, Game Center, coin store, restore and buy-all rows.
+- "Gold is lacking" is silent in mode 0.
+- `WEEKTIME` and `NOWRANK` are never written.
+- The menu's `StopElseSpeak` still misses 21 and 22.
+- The run loop still retries on TypeError, runs performs before timers and uses `time.monotonic`.
+- `defaults.json` has no .bak or fsync, and a non-dict save crashes.
+- No log file or crash.txt.
+- Losing focus now pauses (`8d4099d`, tunmi13productions, `ui/focus.py`), but the audio device is still not rebuilt when it changes.
+- `--game` falls back silently.
+- The ALC return types, the device leak, and OpenAL never closed on exit.
+- The tests still write the real save: no test redirects APPDATA, and only the keymap tests use temp files.
+
+**Doc drift:**
+- PORTING_STATUS.md line 24 and lines 88-89 still say half the monster types walk zig-zags.
+- DIVERGENCES.md about 287 still says the arrow keys turn.
+- "The stop button skips the tutorial" doesn't mention the beats One to Eight gate.
+- "Pausing works exactly once" was a misreading, and `8d4099d` corrected it: continue and restart both clear `bStop` (0x33960, 0x3310c).
+
+**Fixed in code but still under `##Unfinished.`, waiting on the dev:** the music memory leak (check it in Task Manager), and the intro rows overlapping. The second was fixed as a side effect of batch 2's `StopElseSpeak`, apart from 234 above.
+
 On 2026-09-21 every item below was also added to `todo list.txt` as a plain sentence, most important first, at the top of `##unfinished.` ([[feedback_todo_list_format]]). The todo file is the dev's checklist; this memory holds the technical detail behind each line.
 
 ## Overall
