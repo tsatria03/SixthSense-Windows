@@ -1,2 +1,15 @@
+unrelease:
+A new player now starts with 10 coins.
+A coin now comes back every 30 minutes instead of every 10, up to 5, and the coins you missed while the game was closed are given back when you return.
+Spending a coin no longer restarts a countdown that is already running.
+The coin row on the main menu can say how long until your next coin, instead of always reading zero, and it no longer reads your coins after you have already moved to another row.
+Starting a game before you have finished the tutorial now takes you to the tutorial without spending a coin, instead of leaving you standing still in silence.
+Numbers are spoken in the right order, so ten says "one, zero" instead of "zero, one".
+The level music and ambience play as quietly as in the original game, so you can hear the zombies over them.
+The rain in the third area keeps falling for the whole level.
+Leaving a stage stops the zombie footsteps, the ambience and the music, instead of letting them play on under the menu.
+Switching weapons keeps each weapon's own ammo, instead of refilling the magazine for free.
+The game's sounds are sorted into folders inside game\sounds, each under its original name.
+
 26.09.20:
 Initial release.

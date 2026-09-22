@@ -65,6 +65,7 @@ This needs Python 3.12 x64 and pygame. The SAPI fallback currently needs `comtyp
 - **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
 - **Adapting the build script**: [[project_compiler_py]].
 - **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]].
+- **The changelog** (`changelog.txt`): every player-facing fix or enhancement adds a line under `unrelease:` in the same commit ([[feedback_changelog]]).
 - **Committing and pushing** (commit when asked, then push without asking; history rewrites need a go-ahead): [[feedback_git_commits]].
 - **Who made what, the permission to publish, and how to credit contributors in commits**: [[project_provenance]]. Name people by GitHub username only: [[feedback_use_github_usernames]].
 - **Who you're working with**: [[user_screen_reader]]. The dev uses NVDA, so prefer lists and short lines, and never make noise from tools.

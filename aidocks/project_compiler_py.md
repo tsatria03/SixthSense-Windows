@@ -46,7 +46,7 @@ The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organiza
 ## Still to do
 1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].
 2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4) to diagnose.
-3. **The changelog:** `changelog.txt` has no `unrelease:` heading yet, so the first release build inserts one at the top. Its only heading is `26.09.20:` while VERSION says `26.09.21-1`; the dev may want to line those up.
+3. **The changelog:** since 2026-09-22, `changelog.txt` has an `unrelease:` section at the top, with the fixes and enhancements since the initial release ([[feedback_changelog]]). The only version heading is `26.09.20:` while VERSION says `26.09.21-1`. The next plain release build will file the `unrelease:` lines under `26.09.21-1:`, unless the dev changes VERSION first.
 
 ## Fine as-is
 - `BINARIES`: the vendor DLLs go to `_MEIPASS/vendor/...`, which is where `sixthsense/paths.py` looks when frozen.
