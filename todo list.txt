@@ -12,13 +12,8 @@ Moving between the two rows of the intro screen lets their sounds overlap.
 Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
 Remove the coin store, restore purchases and buy all weapons rows from the shop. In the original they were paid online purchases, so the Windows port does not need them. Weapons are still bought one at a time with the gold you earn by playing.
-The inventory lets you equip weapons you have not bought.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
-The shop and inventory screens only say "back button" when they open, so you cannot tell which screen you are on.
 Your rank always reads 0 and the weekly top score never resets.
-You cannot rebind a key, because letting go of enter ends the capture before you press the new key.
-Holding one attack key and pressing another attacks the first lane again.
-R on the key bindings screen resets every binding without asking.
 Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
 Ask before escape ends a stage, since leaving loses the coin you paid.
 Closing the window goes back to the menu instead of quitting the game.
@@ -36,6 +31,11 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: pa
 
 ##Finished.
 
+You can rebind a key again. Letting go of enter no longer ends the capture before you press the key you want.
+The key bindings screen asks before it resets every binding, and a second press of R means it. Any other key keeps the bindings you have.
+Rolling from one attack key to the next attacks the lane you just pressed, and a chord still wins when one of its own keys is the one pressed.
+The inventory refuses to equip a weapon you have not bought and says so, while one an old save has switched on can still be switched off.
+The shop, the weapon list, a weapon's page and the inventory each say which screen you are on as they open, instead of only saying "back button".
 You can no longer fire while reloading, and a reload refills the gun you started it with, as in the original.
 Reload does nothing with the grenade or a blade, and does not work while a zombie holds you or once the game is over.
 The headshot is heard where the zombie is, and headshots are timed as in the original: the breathing pause counts when you fire, even though the shot takes half a second to land.
