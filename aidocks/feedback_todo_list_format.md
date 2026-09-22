@@ -1,6 +1,6 @@
 ---
 name: feedback_todo_list_format
-description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line, new items at the top of ##unfinished., CRLF endings, no markdown or numbers."
+description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line stating the bug itself (never \"Fix a bug where\"), new items at the top, CRLF endings, no markdown or numbers."
 metadata:
   node_type: memory
   type: feedback
@@ -10,7 +10,8 @@ metadata:
 `todo list.txt` at the repo root, with a space in the name, is the dev's task list. Its format:
 - `##unfinished.` on the first line, a blank line, then one item per line.
 - A blank line, then `##finished.` with its items below.
-- Each item is a plain sentence or two: "Fix a bug where ...", "Add ...", "Make ...", "Remove ...", "Update ...", "Decide whether ...".
+- Each item is a plain sentence or two. **A bug is stated as what happens, with no "Fix a bug where" in front**: "Switching weapons refills the magazine for free.", not "Fix a bug where switching weapons refills the magazine for free." The dev found that opening too repetitive (2026-09-21).
+- An enhancement or task starts with what to do: "Add ...", "Make ...", "Remove ...", "Update ...", "Decide whether ...", "Test ...".
 - No numbering, no bullets, no markdown, no file:line references. Write in plain words about what the player or dev experiences.
 - Avoid contractions, as the existing lines do ("does not", not "doesn't").
 - **New items go at the top of `##unfinished.`**, most important first, above the existing ones.

@@ -18,7 +18,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - [GitHub usernames, not real names](feedback_use_github_usernames.md): name people by GitHub username (tsatria03, lbk2907) in commit authors, co-author lines, commit messages and committed notes. This repo's git user.name is set to tsatria03.
 - [No other games](feedback_no_other_games.md): never name or refer to the dev's other games in the todo list, memory files, CLAUDE.md, or Python code and comments. Write about Sixth Sense alone.
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told. Ask before running the game, the tests, compiler.py, or any script that executes game code. Read-only inspection is fine.
-- [Todo list format](feedback_todo_list_format.md): `todo list.txt` has ##unfinished. then ##finished. headings, one plain sentence per line, new items at the top, CRLF, no markdown. Items move to finished only when the dev confirms.
+- [Todo list format](feedback_todo_list_format.md): `todo list.txt` has ##unfinished. then ##finished. headings, one plain sentence per line, new items at the top, CRLF, no markdown. Bugs are stated plainly, never as "Fix a bug where". Items move to finished only when the dev confirms.
 
 ## User
 - [Screen reader](user_screen_reader.md): the dev works with NVDA running. Prefer lists and short lines to wide tables, and never make noise or speak through NVDA from tools or tests.
