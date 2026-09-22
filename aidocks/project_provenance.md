@@ -20,7 +20,7 @@ They handed the repository to the dev, tsatria03, to publish at `github.com/tsat
 - On 2026-09-21, at the dev's request, it was rewritten and force-pushed as `cf36408`, keeping the same files, message and timestamps.
 - Its author is now `lbk2907 <54381410+lbk2907@users.noreply.github.com>`, and its committer is `tsatria03`, who published it.
 - The second commit, "Port Sixth Sense to Windows from its reverse-engineered iOS binary", states the same attribution in its description.
-- Two local branches keep the earlier versions on the dev's machine: `backup/before-author-rewrite` (the history as first published) and `backup/before-username-change` (the version with real names). Neither is pushed, and the dev can delete both once they're happy.
+- The two local backup branches made during the rewrite (`backup/before-author-rewrite` and `backup/before-username-change`) were deleted on 2026-09-21 at the dev's request, once the dev was happy with the result on GitHub. `main` is the only branch.
 
 **Why:** Credit and permission matter for this project, and the code itself doesn't say who wrote the initial import.
 
