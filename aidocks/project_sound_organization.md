@@ -43,10 +43,20 @@ metadata:
 ## Still open, and in `todo list.txt`
 **The code still expects the flat folder.** `paths.path_for_resource` joins names straight onto `game()`, `compiler.py`'s `game_files()` only copies the top folder, and tests such as `tests/test_data.py` build `game/<name>.wav` paths by hand. The game finds no sounds, and those tests fail.
 
-The fix:
-- Build a name-to-path index by walking **`game/sounds/used/` only** (never `unused/`), once.
-- Look names up there, case-insensitively as Windows does. Many names appear in several folders with the same audio, so accept duplicates and take any one of them.
-- Have the compiler copy `used/` recursively.
-- Route the tests through the lookup.
+**The agreed plan.** The dev approved it on 2026-09-21 ("I love it!"); it has not been implemented yet.
+1. **`paths.path_for_resource(name, ext)`** is the one choke point, called from `oal_playback.py`'s buffer loader and its BG and AMB players, and also used for the plists and maps. Make it check the `game()` root first, exactly as now, then fall back to a sound index. Root-first keeps the plists and maps unchanged, and keeps `--game` working on an untouched flat original bundle.
+2. **The sound index** is built lazily, once, by walking **`game()/sounds/used/` only** (never `unused/`) in sorted order. It maps lowercase file name to path, and the first copy wins when a name appears in several folders, since all copies are the same audio. `set_game()` clears it. Walking about 329 files is trivial.
+3. **`paths.sounds()`** returns `game()/sounds/used` when it exists, otherwise `game()`.
+4. **Tests:**
+   - Route the six hand-built `os.path.join(paths.sounds(), name + '.wav')` lines through the lookup: three in `test_data.py` (including the `listdir` in `test_sound_list_covers_the_wavs`), and one each in `test_menu`, `test_pause` and `test_store`.
+   - Add tests that a nested sound is found, `unused/` is never found, a case mismatch still resolves, and a flat bundle still works (a tiny temporary bundle built in the test).
+5. **`compiler.py`:** also copy `game/sounds/used/` recursively, keep the top-level `GAME_FILES` for flat bundles, leave `unused/` out, and report the count in the dry run.
+6. **Docs last:**
+   - the `paths.py` docstring, which still says the bundle is flat
+   - the "Still to do" list in `DIVERGENCES.md`, and `PORTING_STATUS.md`
+   - the todo list's top item, moved to finished
+   - these notes
+
+Then ask the dev before running the tests (the safe way, [[project_safe_test_run]]), and commit and push when they say so. The analysis tools only read `SoundList.plist` and the binary from the root, so they need no change.
 
 **How to apply:** Never move, rename, convert or delete sound files unless the dev asks. When fixing the lookup, change the code, run the tests with the dev's go-ahead, and update the "Still to do" list in `DIVERGENCES.md`.

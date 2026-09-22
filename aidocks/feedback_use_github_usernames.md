@@ -16,6 +16,6 @@ Identify people by their GitHub username, never their real name. The dev is **ts
 **Why:** The dev asked on 2026-09-21 for tsatria03 in place of their real name, and the same for the original author. Both commits were rewritten and force-pushed to match.
 
 **How to apply:**
-- This repo's own Git config has `user.name = tsatria03`, set with `git config --local`; the dev's global name is left as it was. Check `git config user.name` before committing. If it has drifted, pass `--author="tsatria03 <156674543+tsatria03@users.noreply.github.com>"`.
+- The dev's Git name is `tsatria03` everywhere. At their request on 2026-09-21 it was set globally (`git config --global user.name tsatria03`), on top of this repo's own `--local` setting. The email is the GitHub noreply address in both places. Check `git config user.name` before committing. If it has drifted, pass `--author="tsatria03 <156674543+tsatria03@users.noreply.github.com>"`.
 - Emails stay the GitHub noreply addresses, since those are what link a commit to the right profile.
 - `LICENSE` follows the same rule. At the dev's request on 2026-09-21, its copyright line reads "Copyright (c) 2026 tsatria03 and lbk2907".

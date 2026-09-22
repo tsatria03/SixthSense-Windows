@@ -1,5 +1,6 @@
 ##Unfinished.
 
+Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
 The game cannot find any sounds, because they moved from the game folder into game/sounds/used, and the sound lookup, the compiler and the tests still expect them all in one flat folder.
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
 The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.

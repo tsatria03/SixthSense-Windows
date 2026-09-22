@@ -148,6 +148,15 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Port: `stage_1_e.py` about 639-645, 753-759.
 - [R] **A grab can free or kill the wrong monster**, because the port removes monsters while looping over the list (about 530-545). The original defers removal (0x3b44e).
 - [R] **Gunshots are 14 dB too quiet, and a kill sound is missing.** Guns fire at ReloadSoundGain 1.0, not 0.2 (0x2f488 and others), and kill sound 79 at 1.0 is missing (0x3a83a).
+- [R] **Continuing after a pause restarts the ambience and the music on the wrong players.** Found in the 2026-09-21 rescan and traced in `dc_Stage_1_E.txt`, not yet byte-checked. It went into `todo list.txt` the same day.
+  - The original `continueAction:` (0x33940-0x33bec) never touches the AVAudioPlayers. It plays them as notes, through `playSound:Gain:Pos:z:reprats:`:
+    - gameMode 3 plays 368 at 0.5, gameMode 2 plays 87 at 0.2, and gameMode 1 plays 88 at 0.2 (0x33b22-0x33b7a).
+    - Then, only while `playerYplot < 396` (0x33b9c), gameModes 2 and 3 play 91 and gameMode 1 plays 92, at 0.02 (0x33ba2-0x33be0).
+  - The port (`stage_1_e.py` `continueAction_`, about 1274-1291) puts the ambience on `startBGPlayer` and the music on `startAMBPlayer`. That is swapped against `MapInitInBundle` since batch 1, and gameMode 3 gets no music at all.
+  - Pausing only stops notes 87, 88 and 92, so neither player stops, and resuming overwrites them:
+    - The music player now holds the ambience, so the music stops until the next action cell 10.
+    - Past row 396 the ambience player switches to the music. The next action cell 9 (`backgroundSoundStop`) then silences the ambience for the rest of the stage.
+  - A faithful fix plays the notes the original plays. That likely reproduces the original's own doubled ambience, since its pause never stops the AVAudioPlayer either. This is the fidelity decision below. Check the `reprats:` argument in the raw bytes first.
 - [R] **Death plays the wrong sound.** It plays 354 "game over"; the original plays 84 `player_die` at z 40 (0x320ae), so the player hears "game over" twice.
 
 **Menus and meta**
