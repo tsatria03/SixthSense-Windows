@@ -53,6 +53,14 @@ The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organiza
 2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4) to diagnose.
 3. **The changelog:** **the game has never been released.** On 2026-09-22 the dev removed the `26.09.20: Initial release.` entry for that reason. `changelog.txt` now holds only the `unrelease:` section, with the player-facing fixes and enhancements made so far ([[feedback_changelog]]). The first plain release build files those lines under whatever VERSION says, `26.09.21-1:` today, unless the dev changes VERSION first.
 
+## Test builds versus release builds
+Menu choice 1, the plain release build, rewrites `changelog.txt` in the repo: it moves the `unrelease:` lines under the VERSION heading, and starts VERSION if it's missing. Any flagged build leaves both alone. So for a trial build, point the dev at these:
+- choice 7, `--dry-run`, first
+- choice 4, `--console`, which shows start-up errors
+- choice 2, `--no-package`
+
+Keep choice 1 for the real release. The dev chose on 2026-09-22 to do the first build by hand.
+
 ## Fine as-is
 - `BINARIES`: the vendor DLLs go to `_MEIPASS/vendor/...`, which is where `sixthsense/paths.py` looks when frozen.
 - `SIDE_FILES`: changelog.txt, VERSION and LICENSE (shipped as license.txt).

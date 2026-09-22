@@ -191,7 +191,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Switching to the sword should play 329 (0x35ecc).
 - [R] **Two save keys are never written.** Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
 - [R] **The zig-zag walks are faithful but can't be reached**, because the monster tables only use straight-lane types.
-- [V] **Repo housekeeping.** There is no `requirements.txt`: pygame and prismatoid are needed (settled 2026-09-22), and capstone for `tools/`. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
+- [V] **Repo housekeeping.** `requirements.txt` was added on 2026-09-22, with `pygame>=2.6.1` and `prismatoid~=0.18.2` (cffi comes with prismatoid). A pip dry run found everything already installed. capstone for `tools/` is left out, since playing doesn't need it. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
 
 ## Docs entries that are misreadings (fix with the code, docs last)
 - **`DIVERGENCES.md`**

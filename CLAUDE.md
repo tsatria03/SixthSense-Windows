@@ -49,7 +49,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 - `--no-window` runs headless.
 - `-v` gives verbose logging.
 
-This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). There is no `requirements.txt` yet.
+This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). `pip install -r requirements.txt` installs both.
 
 ## Porting rules
 
