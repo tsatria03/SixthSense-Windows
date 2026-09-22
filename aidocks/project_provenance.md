@@ -12,7 +12,7 @@ metadata:
 - the analysis tools in `tools/` and everything in `analysis/`
 - the whole Python port (`SixthSense.py`, `sixthsense/`)
 - `docs/` and `tests/`
-- **the full `README.md`**. Their version was lost before the initial commit: the repo only ever held GitHub's two-line stub, and neither the history nor Git's unreachable objects had their text. The dev restored it by hand on 2026-09-22, and it was committed in `4491f93` with updates and a Credits section.
+- **the full `README.md`**. Their version was lost before the initial commit: the repo only ever held GitHub's two-line stub, and neither the history nor Git's unreachable objects had their text. The dev restored it by hand on 2026-09-22. It was committed with updates and a Credits section as `4491f93`, which was then rewritten and force-pushed as **`7cf3e78`**, at the dev's request, to add `Co-authored-by: lbk2907`. The local backup branch `backup/before-readme-coauthor` was deleted the same day, once the dev had checked the result on GitHub. `main` is again the only branch.
 
 They handed the repository to the dev, tsatria03, to publish at `github.com/tsatria03/SixthSense-Windows`, so the two of them can work on it together and add more contributors later. Their own version was never on GitHub, and they gave permission to publish it. The dev said all this on 2026-09-21 and plans to add lbk2907 as a contributor on GitHub. Name both by username only ([[feedback_use_github_usernames]]).
 
