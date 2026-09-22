@@ -224,7 +224,7 @@ class Stage_1_E:
         self.shakeMonsterTimer = None
         self.heldMonster = None        # not in the original, see _held_monster
         self.gameState = 0
-        self.bStop = False          # set by the three panel openers, never cleared
+        self.bStop = False          # set by the three panel openers, cleared by continue and restart
         self.selectMenu = 0
         self.checkTutorialTimer = None
         self.killZombiesLabel = '0'
@@ -1511,8 +1511,8 @@ class Stage_1_E:
         """The stop button.  While the tutorial is still running it ends the tutorial
         instead.
 
-        ``bStop`` is set here and **never cleared anywhere in the binary**, so pausing
-        works exactly once in the life of a stage - see ``docs/DIVERGENCES.md``.
+        ``bStop`` is set here and cleared again by ``continueAction:`` (0x33960) and
+        ``gameReplayAction:`` (0x3310c), so the game can be paused as often as you like.
         """
         if self.missionCompletSounding:                       # 0x33e16
             return False
@@ -1555,6 +1555,7 @@ class Stage_1_E:
     def continueAction_(self, *_):
         if not self.bStop:                                    # 0x3395a
             return False
+        self.bStop = False                                    # 0x33960
         self.app.playSound_Gain_Pos_z_reprats_(10, 0.2, (0.0, 0.0), 0, False)
         self.blindModeOff()
         if self.gameState != 1:                               # 0x339b2
@@ -1597,6 +1598,7 @@ class Stage_1_E:
         """Restart.  It costs a coin, the way starting a game from the menu does."""
         if not self.bStop:                                    # 0x33106
             return False
+        self.bStop = False                                    # 0x3310c
         if self.app.Coin <= 0:                                # 0x33128
             self.app.playSound_Gain_Pos_z_reprats_(358, 0.2, (0.0, 0.0), 0, False)
             self._reset_run_flags()                           # L_337b6 runs either way
@@ -1631,8 +1633,6 @@ class Stage_1_E:
         self.score = 0
         self.MapInitInBundle()                                # 0x335b8
         self._reset_run_flags()
-        # The panel is gone and the run is new, so the one pause it allows comes back.
-        self.bStop = False
         self.selectMenu = 0
         self.running = True
         return True

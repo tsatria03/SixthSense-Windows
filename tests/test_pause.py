@@ -139,16 +139,33 @@ def test_the_dispatch_table_is_the_one_in_the_binary():
         st.teardown()
 
 
-def test_pausing_works_once_and_only_once():
-    """bStop is set at 0x33e48 and never cleared anywhere in the binary."""
+def test_pausing_works_again_after_continue():
+    """bStop is set at 0x33e48, and continueAction: clears it at 0x33960 (a
+    conditional store the listings drop), so the game pauses as often as you like.
+    Until continue, a second press does nothing."""
     _app, st = _new_stage()
     try:
-        assert st.StopPlayAction_() is True
-        assert st.gameState == 1 and st.bStop is True
-        assert st.MotionSamplingTimer is None, 'the walk timer kept running'
-        assert st.walkXFlag is True and st.brearhFlag is True
-        st.gameState = 0                       # pretend the game resumed
-        assert st.StopPlayAction_() is False, 'it paused a second time'
+        for _ in range(3):
+            assert st.StopPlayAction_() is True, 'the pause did not come up'
+            assert st.gameState == 1 and st.bStop is True
+            assert st.MotionSamplingTimer is None, 'the walk timer kept running'
+            assert st.walkXFlag is True and st.brearhFlag is True
+            assert st.StopPlayAction_() is False, 'paused over its own panel'
+            assert st.continueAction_() is True
+            assert st.gameState == 0 and st.bStop is False
+            assert st.MotionSamplingTimer is not None, 'the walk did not come back'
+    finally:
+        st.teardown()
+
+
+def test_restart_clears_the_pause_too():
+    """gameReplayAction: clears bStop at 0x3310c, coin or no coin."""
+    app, st = _new_stage()
+    try:
+        st.StopPlayAction_()
+        app.Coin = 0
+        st.gameReplayAction_()
+        assert st.bStop is False
     finally:
         st.teardown()
 

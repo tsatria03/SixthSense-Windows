@@ -11,6 +11,7 @@ The port is recovered from `analysis/bin/sixsense_armv7` (Thumb-2, 32-bit Mach-O
 
 The `analysis/disasm/dc_*.txt` listings are a simplification and can mislead:
 - They drop register saves and restores. For example, `-[AppDelegate didFinishLaunching]` at 0x4268-0x429e saves the FIREST object in r6 and later calls `intValue` on it. The listing makes it look as if `intValue` runs on COIN.
+- They drop conditional stores inside IT blocks (`itt ne / movne r1, #0 / strbne r1, [r4, r0]`). That is how "`bStop` is never cleared" came about, when `continueAction:` and `gameReplayAction:` both clear it (0x33960, 0x3310c). To prove an ivar is never written, scan the raw code for every load of its `OFFSETOF` and read the `strb`/`str` that follow, including the conditional ones.
 - They render some conditional branches as `cbnz r0` without saying what r0 holds. At 0xe562 in `startSound:Postion:soundGain:`, the "null check" is really the `isPlaying` test that decides between moving a playing sound and restarting it.
 - Placeholder label text is not data: `"10:00"` at 0xbede is not the coin interval. The real interval is `rsb.w r2, r0, #0x708` (1800 s) at 0xc1ee.
 - Thumb-2 immediates are stored rotated (1800 is `0xE1` rotated right by 29), so grepping for `#1800` or `#0x708` can miss them.

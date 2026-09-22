@@ -131,6 +131,7 @@ def main(argv=None):
         return 0
 
     import pygame
+    from sixthsense.ui.focus import focus_lost, interrupt_stop
     from sixthsense.ui.input import Input
     from sixthsense.ui.keybind_screen import KeyBindScreen
     from sixthsense.ui.menu_input import MenuInput
@@ -166,6 +167,8 @@ def main(argv=None):
     quitting = False
     while not quitting:
         for event in pygame.event.get():
+            if focus_lost(event, pygame) and kind in ('stage', 'tutorial'):
+                interrupt_stop(obj)         # losing focus is pressing P (ui/focus.py)
             if showing_bindings:
                 bindings.handle(event, pygame)
             else:

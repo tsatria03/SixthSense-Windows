@@ -21,6 +21,7 @@ metadata:
 **Why:** The dev asked on 2026-09-21 for new items to go at the top and for the file's existing style to be matched. They read it by screen reader, so plain sentences read cleanly and markdown symbols would be spoken aloud.
 
 **How to apply:**
+- **A bug found and fixed in the same change goes straight into `##Finished.`**, worded as what is now true. Never add it to unfinished first. The dev asked "why are you putting it in the unfinished section when you plan to fix it?" on 2026-09-22. The confirm-first rule is for items that were already in unfinished.
 - After editing, check the line endings with a byte check (the Edit tool can insert LF-only lines).
 - Move an item to `##finished.` only when the dev confirms it is done, not when code lands, since the dev runs and verifies; see [[feedback_dont_run_or_build]].
 - The technical detail behind each item (file:line, binary evidence, root cause) lives in [[project_evaluation_2026_09]], not in the todo file.

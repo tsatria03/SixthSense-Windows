@@ -1,4 +1,6 @@
 unrelease:
+You can pause as often as you like, as in the original, instead of only once per stage.
+Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
 The shop, the weapon list, a weapon's page and the inventory say which screen you are on as they open, instead of only saying "back button".
 The inventory no longer equips a weapon you have not bought, so the gold you earn is worth spending. A weapon an old save has switched on can still be switched off.
 Rolling from one attack key to the next attacks the lane you just pressed, instead of the one you are still holding.

@@ -21,16 +21,18 @@ A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 Add a log file and a crash.txt, and have the game say out loud when it cannot start, instead of failing silently.
 Add an exit after option and a game data line to the log, so the compiler's test build can come back.
-Pause the game when its window loses focus, and recover when the audio device changes.
+Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 Memory leaks each time the music or ambience changes.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
 Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 tools/README.md says the addresses are file offsets, when they are memory addresses.
-Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
+Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 
 ##Finished.
 
+Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
+You can pause as often as you like, with P or by switching away from the window, as in the original, instead of only once per stage.
 You can rebind a key again. Letting go of enter no longer ends the capture before you press the key you want.
 The key bindings screen asks before it resets every binding, and a second press of R means it. Any other key keeps the bindings you have.
 Rolling from one attack key to the next attacks the lane you just pressed, and a chord still wins when one of its own keys is the one pressed.

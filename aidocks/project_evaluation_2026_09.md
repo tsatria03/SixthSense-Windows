@@ -160,7 +160,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 **Audio and platform**
 - [R] **Music buffers leak. FIXED 2026-09-22.** `MusicPlayer._drop_buffer` stops the source, sets its `AL_BUFFER` to 0 and only then deletes, and it logs `alGetError` if the delete still fails - the swallowed AL_INVALID_OPERATION is what hid this. Each leak was the whole uncompressed file, 2 to 3 MB, and a level change swaps two of them. Tested by `test_menu.test_changing_the_music_frees_the_file_it_had` with a stand-in audio layer; it cannot be heard, so the dev's check is Task Manager across a few level changes.
 - [R] **`pygame.init()` also opens the SDL mixer. FIXED 2026-09-22.** `SixthSense.py` now calls `pygame.display.init()` and `pygame.font.init()` only, so nothing but OpenAL opens an audio device. (`tests/test_input.py` still calls `pygame.init()` itself.)
-- [R] **No pause on focus loss, and no recovery when the audio device is lost.**
+- [R] **No pause on focus loss, and no recovery when the audio device is lost.** The pause half was built 2026-09-22 and is not yet heard. The dev wants focus loss to work "just like pressing p". That is also what the original does: backgrounding posts InterruptON (0x4d90), and `interruptStop` calls `StopPlayAction:` (0x2c6ce). So SixthSense.py calls `ui/focus.interrupt_stop(obj)` on WINDOWFOCUSLOST in a stage or the tutorial: every time, now that continue clears `bStop`, and in the tutorial whatever P does. A first version froze the run loop and all audio instead; it was dropped at the dev's word, and its code was reverted. `tests/test_focus.py` covers it. The device half (`audioRestart` on InterruptOff) is left for later, at the dev's word.
 - [R] **There is no crash path.** Nothing writes a log file, there is no `sys.excepthook`, and a missing data folder, DLL or audio device fails silently for a blind player. Log to `%APPDATA%\SixthSense`, write `crash.txt`, and speak the error.
 
 **Gameplay**
@@ -231,7 +231,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Gun gain "0.2f": guns use 1.0.
   - "isTutorial ... stands still": the original runs the tutorial inline. **Clarified 2026-09-21** — the entry now says this is unreachable in normal play, since `StartGameAction_` routes an unfinished save to the tutorial screen instead.
   - "The stop button skips the tutorial": only after beats One to Eight.
-  - "Pausing works exactly once": `gameReplayAction_` sets bStop False.
+  - "Pausing works exactly once". **Fixed 2026-09-22.** Both `continueAction:` (0x3395a..0x33960) and `gameReplayAction:` (0x33106..0x3310c) clear `bStop` with `itt ne / movne r1,#0 / strbne`. The dc_ listing drops these conditional stores, which is where the misreading came from. The port's continue never cleared it, so P worked once per stage; tsatria03 found this in play. The code, tests, DIVERGENCES, README and the todo list are corrected.
   - The Input section says the arrow keys turn; the code uses comma and full stop.
   - "Nothing else in the port speaks": the menu and store do.
   - It lists the store among the rows that can't work.
@@ -262,7 +262,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 
 ## Open decisions (the dev's call)
 1. **Fidelity policy.**
-   - The docs' rule is to reproduce every original bug: pausing works once, the result-panel double-tap off-by-one, the unreachable power saw, and the swipe gaps.
+   - The docs' rule is to reproduce every original bug: the result-panel double-tap off-by-one, the unreachable power saw, and the swipe gaps.
    - Claude's recommendation: fix what is hostile to players and record each fix as a divergence, so the docs still say what the original did.
 2. **The offline coin economy.** The coin store, gifts and purchases can't exist offline. The choice is free play (no coin gating) or the faithful 30-minute recharge with the first-run grant and catch-up. **Settled 2026-09-21: the faithful recharge**, kept as a gate on Start Game rather than made free.
 3. **Shaking free.** Keep 10 presses, or count a held Space key.

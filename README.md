@@ -106,8 +106,8 @@ chords: hold both keys together.
 
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the
-inventory. Pausing works **once** per run, because the original's `bStop` is never
-cleared — continue and restart go on working.
+inventory. You can pause as often as you like: continue and restart both let the next
+pause through, as in the original.
 
 Keyboard only — no mouse. The lane keys replace the swipe rather than simulating it:
 `MovingShot:` quantises its angle into five bands and a reload sector anyway, so a key

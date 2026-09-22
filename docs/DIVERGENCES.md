@@ -115,6 +115,16 @@ Types whose id ends in 6 to 0 walk the zig-zags (`MovingType` 11..55), but
 walkers too. The walks are ported and their sound sweeps, but no zombie in play uses
 them. **Reproduced.**
 
+### Losing the window's focus is pressing P
+In the original, `applicationDidEnterBackground:` posts `InterruptON` (0x4d90), and the
+stage and the tutorial answer it with `interruptStop`, which calls `StopPlayAction:`
+(0x2c6ce, 0x84962), the stop button. The port does the same when the window loses focus
+(`ui/focus.py`), calling what P calls: the pause panel in a stage, every time, and in the
+tutorial whatever P does there. The menus ignore it, as nothing else
+observed the notification. Coming back resumes nothing; the panel waits for Continue.
+`InterruptOff`'s rebuild of the audio device (`audioRestart`, 0x2c5bc) is not ported
+yet. **Reproduced.**
+
 ### The shake count carries over between grabs
 The only two methods that reset `shakeCount`, `checkShakeMode` (0x323d8) and
 `shakeCheck:` (0x324f8), have no selector reference, so nothing calls them. After the
@@ -168,13 +178,15 @@ The chain tallies `monsterNumber` 1 to 10, then 22, the woman zombie, under
 score. The girl who heals you is not a kill at all: killing her costs a heart once the
 tutorial is behind you (0x3a850..0x3a97a). **Reproduced.**
 
-### Pausing works exactly once
+### Pausing works as often as you like
 `bStop` is set by `-[Stage_1_E StopPlayAction:]` (0x33e48), `MissionSuccessTell`
-(0x32c3a) and `missionFailTell:` (0x3278e), and **there is no store of 0 to it
-anywhere in the binary**. `StopPlayAction:` returns early when it is already set
-(0x33e40), so the stop button works once in the life of a stage; `continueAction:`
-and `gameReplayAction:` both *require* it, so continue and restart keep working.
-**Reproduced.**
+(0x32c3a) and `missionFailTell:` (0x3278e), and `StopPlayAction:` returns early while it
+is set (0x33e40). `continueAction:` and `gameReplayAction:` both require it, and both
+clear it straight away: `cmp r1, #0 / itt ne / movne r1, #0 / strbne` at 0x3395a..0x33960
+and 0x33106..0x3310c. **Reproduced.** This file used to say `bStop` was never cleared,
+so that the stop button worked once per stage. The listings drop those conditional
+stores, so that was a misreading, and the port copied it: after one pause, P did
+nothing for the rest of the stage. tsatria03 found it in play on 2026-09-22.
 
 ### The stop button skips the tutorial
 `StopPlayAction:` branches on `isTutorial` before anything else (0x33e30). While the
