@@ -1,4 +1,5 @@
 unrelease:
+Rolling from one attack key to the next attacks the lane you just pressed, instead of the one you are still holding.
 The key bindings screen asks before it resets every binding. Press R twice to reset, or any other key to keep the bindings you have.
 You can rebind a key on the key bindings screen again. Letting go of enter no longer ends the capture before you have pressed the key you want.
 The game lets go of each music and ambience track it has finished with, so a long session no longer grows in memory as the levels change.

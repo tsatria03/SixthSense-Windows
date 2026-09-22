@@ -164,6 +164,36 @@ def test_completing_a_chord_fires_at_once():
         st.teardown()
 
 
+def test_rolling_from_one_attack_key_to_the_next():
+    """A player does not let go before pressing the next lane.  The key just pressed is
+    what decides, so A still held and D pressed is lane 5 - it used to be lane 1 again,
+    because both bindings matched and the order of the action list broke the tie."""
+    st, inp = _stage()
+    try:
+        st.shotFlag = False
+        _down(inp, 'a')
+        _settle(inp)
+        assert st.shotMonster == 1
+        st.shotFlag = False
+        _down(inp, 'd')                   # A is still down
+        _settle(inp)
+        assert st.shotMonster == 5, 'rolling onto D gave lane %d' % st.shotMonster
+        _up(inp, 'a', 'd')
+
+        # and the chord still wins when its own key is the new one
+        st.shotFlag = False
+        _down(inp, 'left')
+        _settle(inp)
+        assert st.shotMonster == 1
+        st.shotFlag = False
+        _down(inp, 'up')                  # Left still down: this is the 10:30 chord
+        _settle(inp)
+        assert st.shotMonster == 2, 'Left plus Up gave lane %d' % st.shotMonster
+        _up(inp, 'left', 'up')
+    finally:
+        st.teardown()
+
+
 def test_shift_tab_is_a_chord_too():
     st, inp = _stage()
     try:
@@ -314,12 +344,12 @@ def test_the_screen_binds_a_chord():
     assert any('Left Control plus K' in s for s in rec.said)
 
 
-def _down(scr, name):
+def _screen_down(scr, name):
     scr.handle(pygame.event.Event(pygame.KEYDOWN, key=pygame.key.key_code(name), mod=0),
                pygame)
 
 
-def _up(scr, name):
+def _screen_up(scr, name):
     scr.handle(pygame.event.Event(pygame.KEYUP, key=pygame.key.key_code(name), mod=0),
                pygame)
 
@@ -331,12 +361,12 @@ def test_letting_go_of_enter_does_not_end_the_capture():
     scr, km, rec = _screen()
     scr.open()
     scr.index = ACTION_IDS.index('pause')
-    _down(scr, 'return')
-    _up(scr, 'return')                       # the press that started it, released
+    _screen_down(scr, 'return')
+    _screen_up(scr, 'return')                       # the press that started it, released
     assert scr.capturing, 'letting go of Enter ended the capture'
     assert not any('Nothing pressed' in s for s in rec.said), rec.said
-    _down(scr, 'k')
-    _up(scr, 'k')
+    _screen_down(scr, 'k')
+    _screen_up(scr, 'k')
     assert not scr.capturing, 'releasing the captured key did not finish it'
     assert km.bindings['pause'] == [('k',)], km.bindings['pause']
 
@@ -349,18 +379,18 @@ def test_resetting_every_binding_asks_first():
     km.set_binding('pause', ('k',))
     assert km.bindings['pause'] == [('k',)]
 
-    _down(scr, 'r')
+    _screen_down(scr, 'r')
     assert km.bindings['pause'] == [('k',)], 'one R reset the bindings'
     assert any('Press R again' in s for s in rec.said), rec.said
     rec.said.clear()
 
-    _down(scr, 'w')                          # any other key keeps them
+    _screen_down(scr, 'w')                          # any other key keeps them
     assert km.bindings['pause'] == [('k',)], 'a key that is not R still reset them'
     assert any('kept' in s for s in rec.said), rec.said
     assert not scr.confirm_reset
 
-    _down(scr, 'r')
-    _down(scr, 'r')
+    _screen_down(scr, 'r')
+    _screen_down(scr, 'r')
     assert km.bindings['pause'] == list(DEFAULTS['pause']), km.bindings['pause']
     assert any('back to the default' in s for s in rec.said), rec.said
 

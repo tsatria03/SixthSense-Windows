@@ -130,7 +130,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 ## Medium
 
 **Input**
-- [R] **Rollover picks the wrong lane.** `keymap.py` about 206-213 matches on all held keys, so holding A and pressing D fires lane 1. Prefer bindings that contain the newly pressed key.
+- [R] **Rollover picks the wrong lane. FIXED 2026-09-22.** `KeyMap._best` prefers a match that uses the key just pressed (`_newest`), and the longest of those, so A held and D pressed is lane 5 while Left held and Up pressed is still the Left+Up chord. `settle()` uses the same rule. Tested by `test_input.test_rolling_from_one_attack_key_to_the_next`. Awaiting the dev's ear.
 - [R] **Held keys go stale across screens. FIXED 2026-09-22.** `Input.__init__` calls `keymap.clear_held()`, and `Input.handle` resets on `WINDOWFOCUSLOST` (or `ACTIVEEVENT`, whichever the installed pygame has), since a key-up after Alt+Tab goes to whatever took the focus.
 - [R] **The reload key skips the attack guards** (`input.py` about 71-72). With the grenade equipped it plays blast 57 with no effect; the original skips the grenade (0x351c8).
 - [R] **The three-finger tap is pause, not previous weapon** (0x2ec84 and 0x7edf4). "Previous weapon" is invented, and tutorial beat Nine keys off the wrong action.

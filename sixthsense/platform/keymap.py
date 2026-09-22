@@ -34,6 +34,11 @@ matches a binding that nothing longer extends; otherwise it asks the caller to w
 ``CHORD_WINDOW`` seconds and call ``settle``, and a key that completes the longer chord
 in the meantime fires at once and cancels the wait. 60 ms is well under anything this
 game reacts to - one tick is a second and the shortest weapon cooldown is 0.3 s.
+
+What is held is often more than one binding's worth, because a player rolling from one
+attack key to the next has not let go of the first yet. So the match that wins is one
+that uses the key just pressed, and the longest of those: pressing D while A is down
+attacks lane 5, and pressing Up while Left is down is still the Left+Up chord.
 """
 from __future__ import annotations
 
@@ -121,6 +126,7 @@ class KeyMap:
         self.bindings = {a: [tuple(b) for b in DEFAULTS[a]] for a in ACTION_IDS}
         self.load()
         self._held = set()
+        self._newest = None        # the key pressed last, which decides a rollover
 
     # ---- storage ---------------------------------------------------------
     def load(self):
@@ -194,6 +200,17 @@ class KeyMap:
                     return True
         return False
 
+    def _best(self, matches, newest):
+        """Which match to take: one that uses the key just pressed, and the longest of
+        those, so a chord still beats one of its own keys.
+
+        Without the first half, holding A and pressing D attacked lane 1 again: both
+        bindings were satisfied, both were one key long, and the order of ``ACTIONS``
+        decided. A player rolling from one attack key to the next hit the same lane twice.
+        """
+        fresh = [m for m in matches if newest in m[1]] or matches
+        return max(fresh, key=lambda m: len(m[1]))
+
     def press(self, name):
         """A key went down.
 
@@ -202,12 +219,12 @@ class KeyMap:
         ``settle`` - the key might be the start of a chord.
         """
         self._held.add(name)
+        self._newest = name
         held = set(self._held)
         matches = self._matches(held)
         if not matches:
             return None, self._extendable(held)
-        # the longest binding wins: Left+Up beats Left
-        action, binding = max(matches, key=lambda m: len(m[1]))
+        action, _binding = self._best(matches, name)
         if self._extendable(held):
             return None, True
         return action, False
@@ -218,7 +235,7 @@ class KeyMap:
         matches = self._matches(held)
         if not matches:
             return None
-        action, _b = max(matches, key=lambda m: len(m[1]))
+        action, _b = self._best(matches, self._newest)
         return action
 
     def release(self, name):
@@ -226,6 +243,7 @@ class KeyMap:
 
     def clear_held(self):
         self._held.clear()
+        self._newest = None
 
     @property
     def held(self):
