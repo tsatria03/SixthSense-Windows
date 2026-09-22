@@ -241,7 +241,8 @@ F1 and Escape cannot be rebound, or a player could lock themselves out of both t
 and the screen that would let them fix it.
 
 ### The binding screen speaks, the game does not
-The game is self-voicing from 371 recorded WAVs, and none of them can say a key name —
+The game is self-voicing from 269 recorded WAVs, which `SoundList.plist` names by number
+in 371 entries, and none of them can say a key name —
 the only letters or digits in the bundle are `zero`..`nine`, for the number reader. So
 the binding screen alone uses a synthesiser (`platform/speech.py`): NVDA through its
 controller client when NVDA is running, SAPI 5 otherwise, silence if neither is there.
@@ -301,14 +302,17 @@ folder: one more `ui_select` in `sfx/misc`, and five more each of `gun_att_sound
 other fourteen never came from the original: the eight character `hurt` sounds,
 `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
 `Game Start Button`) and `welcome`. Nothing in the port uses them, so the sound lookup
-only needs to look in `game/sounds/used/`.
+never looks in `game/sounds/unused/`.
 
-Still to do, as of 2026-09-21:
-
-* **The code still expects the flat folder.** `paths.path_for_resource`, the copy step
-  in `compiler.py` and some tests look for sounds directly in `game/`, so nothing finds
-  them yet, and `tests/test_data.py` fails on the missing WAVs. They need to find each
-  name inside `game/sounds/used/` instead.
+How the port finds them: `paths.path_for_resource`, which stands in for
+`-[NSBundle pathForResource:ofType:]`, looks in the bundle's top folder first, the only
+place the original ever looked, and then by file name anywhere under
+`game/sounds/used/`. File names are matched without regard to case, as Windows matches
+them. Where a sound has copies in several folders, the first in sorted order is taken,
+and every copy is the same recording. Because the top folder comes first, the plists and
+the map are found exactly as before, and `--game` pointed at an untouched original bundle,
+with its WAVs all in its top folder, still works. `compiler.py` copies
+`game/sounds/used/` into a build with its folders, and leaves `game/sounds/unused/` out.
 
 ### The tutorial is a table, not ten copies
 The original spells each beat out as five methods — `tutorialOne`, `tutorialOneSoundStop`,

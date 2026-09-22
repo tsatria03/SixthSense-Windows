@@ -3,12 +3,19 @@
 The keys are the ones the binary writes, with the classes that own them:
 
     TUTORIAL        int    ``-[Stage_1_E viewDidLoad]``     0 until the tutorial is finished
+    FIREST          int    ``-[AppDelegate didFinishLaunching]``  1 once the first 10 coins are given
+    GOLD / COIN     int    ``AppDelegate.haveGold``, ``.Coin``
+    COIN_TIMER      str    ``-[MainController coinTiemrControlStart]``  when the next coin started
+    COIN_TIMER_START  str  "1" while a coin is counting down
     GRENADECOUNT    int    ``-[Stage_1_E MovingShot:]``     grenades in hand
     STAGE           int    ``-[MainController ...]``        highest stage unlocked
-    GOLD / COIN     int    ``AppDelegate.haveGold``, ``.Coin``
-    WEAPON%d        int    owned weapons, ``-[AppDelegate weaponHave]``
-    USEWEAPON%d     int    equipped weapons
-    VOICEOVER       int    ``AppDelegate.CheckVoiceOver``
+    SHOTGUN, M4, AK47, MG80, JAPAN
+                    int    owned weapons, ``-[AppDelegate weaponHave]``
+    GRENADEUSE, KNIFEUSE, COLTUSE, SHOTGUNUSE, M4USE, AK47USE, MG80USE, JAPANUSE
+                    int    equipped weapons
+    EYEMODE         int    ``AppDelegate.mode``, the voice-over row (DEFAULTEYEMODE when unset)
+    TOPSCORE, TOPSCOREWEEK, WEEKTIME, NOWRANK, REVIEWCOUNT
+                           the result panel's records, ``-[Stage_1_E SuccessOrFailMission]``
 
 ``synchronize`` writes the file; the original's does the same thing.
 """

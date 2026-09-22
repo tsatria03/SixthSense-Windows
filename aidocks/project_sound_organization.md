@@ -1,6 +1,6 @@
 ---
 name: project_sound_organization
-description: "Every sound the game uses lives in game/sounds/used, in folders, under its original file name (a deliberate divergence); non-original files are in game/sounds/unused. How it was built and verified on 2026-09-21, and the one thing still open: the code lookup, which should search used/ only."
+description: "Every sound the game uses lives in game/sounds/used, in folders, under its original file name (a deliberate divergence); non-original files are in game/sounds/unused. How it was built and verified on 2026-09-21, and how the code finds the sounds (lookup rewritten the same day; tests pass and the dev confirmed it in play)."
 metadata:
   node_type: memory
   type: project
@@ -23,7 +23,7 @@ metadata:
   - 14 sounds the original never had: the eight character `hurt1`/`hurt2`, `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of `Game Start Button`) and `welcome`
 
   Nothing uses them.
-- **Every file is 16-bit PCM WAV**, 120 MB for `used/`. The `game/` root keeps the plists, the maps, the images and the iOS binary. `game/sounds2/` (the original flat WAVs, kept for matching) is safe to delete, and the dev said they would.
+- **Every file is 16-bit PCM WAV**, 120 MB for `used/`. The `game/` root keeps the plists, the maps, the images and the iOS binary. `game/sounds2/` (the original flat WAVs, kept for matching) was deleted by the dev before the commit, and was never committed.
 
 ## How it was built and verified (2026-09-21)
 1. The dev converted their old NVGT remake's organized OGG sounds back to WAV. Claude matched each file to its original by audio: a loudness envelope, then the waveform at 8 kHz with `audioop.findfit` (a residual below about 0.3 means the same recording). The scripts are in the session scratchpad under `match/`.
@@ -40,23 +40,25 @@ metadata:
    - all 269 originals are present
    - all 25 non-original files are in `unused/`, and none are anywhere else
 
-## Still open, and in `todo list.txt`
-**The code still expects the flat folder.** `paths.path_for_resource` joins names straight onto `game()`, `compiler.py`'s `game_files()` only copies the top folder, and tests such as `tests/test_data.py` build `game/<name>.wav` paths by hand. The game finds no sounds, and those tests fail.
+## How the code finds the sounds (done 2026-09-21)
+The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the same day. **The full suite passed, 117 of 117**, with the dev's go-ahead ([[project_safe_test_run]]), and no "sound file missing" warning was printed. **The dev then played the game on 2026-09-21 and confirmed it finds its sounds** ("Everything worked!"). The todo item moved to finished as "The game finds its sounds in game/sounds/used again...".
+- **`paths.path_for_resource(name, ext)`** is the one place every sound, plist and map is looked up. It is called from `oal_playback.py`'s buffer loader and its BG and AMB players, and also for the plists and maps.
+  - It checks the `game()` top folder first, as the original did. That keeps the plists and maps unchanged, and keeps `--game` working on an untouched, flat original bundle.
+  - Then it falls back to `_sounds_by_name()`.
+- **`_sounds_by_name()`** is built once, on first use, by walking **`game()/sounds/used/` only** (`paths.SOUNDS_USED`), in sorted order.
+  - It maps each lowercase file name, with its extension, to the file's path.
+  - The first copy in sorted order wins when a name is in several folders. The 2026-09-21 rescan confirmed that every copy of a name has the same channels, width and rate, so this is safe.
+  - `set_game()` clears it, and `set_game(None)` goes back to the default places.
+  - It never walks `unused/`. None of the 25 names in `unused/` is a `SoundList.plist` name anyway.
+- **`paths.sounds()`** returns `game()/sounds/used` when that folder exists, otherwise `game()`.
+- **Tests:**
+  - The seven hand-built `os.path.join(paths.sounds(), name + '.wav')` lines now go through the lookup: three in `test_data.py`, one in `test_menu`, two in `test_pause` and one in `test_store`.
+  - `test_data.py` has a new check, `test_every_sound_comes_from_the_sounds_folder`.
+  - The new `tests/test_paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched, case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
+- **`compiler.py`:**
+  - `sound_files()` copies `sounds/used/` with its folders.
+  - `GAME_FILES` still matches the top folder, including `*.wav`, so a flat original bundle still builds. `unused/` is left out.
+  - `data_summary()` reports the counts, and the dry run prints them. A build today copies 474 files: 329 sounds, plus 142 plists and 3 map layers.
+- **The analysis tools** only read `SoundList.plist` and the binary from the top folder, so they needed no change.
 
-**The agreed plan.** The dev approved it on 2026-09-21 ("I love it!"); it has not been implemented yet.
-1. **`paths.path_for_resource(name, ext)`** is the one choke point, called from `oal_playback.py`'s buffer loader and its BG and AMB players, and also used for the plists and maps. Make it check the `game()` root first, exactly as now, then fall back to a sound index. Root-first keeps the plists and maps unchanged, and keeps `--game` working on an untouched flat original bundle.
-2. **The sound index** is built lazily, once, by walking **`game()/sounds/used/` only** (never `unused/`) in sorted order. It maps lowercase file name to path, and the first copy wins when a name appears in several folders, since all copies are the same audio. `set_game()` clears it. Walking about 329 files is trivial.
-3. **`paths.sounds()`** returns `game()/sounds/used` when it exists, otherwise `game()`.
-4. **Tests:**
-   - Route the six hand-built `os.path.join(paths.sounds(), name + '.wav')` lines through the lookup: three in `test_data.py` (including the `listdir` in `test_sound_list_covers_the_wavs`), and one each in `test_menu`, `test_pause` and `test_store`.
-   - Add tests that a nested sound is found, `unused/` is never found, a case mismatch still resolves, and a flat bundle still works (a tiny temporary bundle built in the test).
-5. **`compiler.py`:** also copy `game/sounds/used/` recursively, keep the top-level `GAME_FILES` for flat bundles, leave `unused/` out, and report the count in the dry run.
-6. **Docs last:**
-   - the `paths.py` docstring, which still says the bundle is flat
-   - the "Still to do" list in `DIVERGENCES.md`, and `PORTING_STATUS.md`
-   - the todo list's top item, moved to finished
-   - these notes
-
-Then ask the dev before running the tests (the safe way, [[project_safe_test_run]]), and commit and push when they say so. The analysis tools only read `SoundList.plist` and the binary from the root, so they need no change.
-
-**How to apply:** Never move, rename, convert or delete sound files unless the dev asks. When fixing the lookup, change the code, run the tests with the dev's go-ahead, and update the "Still to do" list in `DIVERGENCES.md`.
+**How to apply:** Never move, rename, convert or delete sound files unless the dev asks. A new sound goes anywhere under `game/sounds/used/` under its `SoundList.plist` name, as 8-bit or 16-bit PCM WAV, and the lookup finds it with no code change. Two files with the same name in different folders must be the same recording, because only the first one is ever used.

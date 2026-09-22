@@ -24,7 +24,7 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 - **The HRTF check is gone:** `DATA` (`assets/hrtf`) and its check in `problems_now()` were removed, because HRTF is deliberately off in this port.
 - **`--collect-all av` was removed.**
 - **The new `GAME_FILES` and `game_files()`**, plus a rewritten `copy_game()`:
-  - It copies only `*.wav`, `*.plist`, `g_CH1_E`, `a_CH1_E.txt` and `s_CH1_E.txt` from the bundle's top folder, matched without regard to case. That is 414 files, 106.6 MB.
+  - It copies only `*.wav`, `*.plist`, `g_CH1_E`, `a_CH1_E.txt` and `s_CH1_E.txt` from the bundle's top folder, matched without regard to case. With the original flat bundle that was 414 files, 106.6 MB. Since the sounds moved, it also copies `sounds/used/`; see below.
   - The iOS executable `sixsense`, the nibs, the PNGs and JPGs, `iTunesArtwork`, `PkgInfo` and the unused `stage1ground`/`stage1sound` stay out, as do the `_CodeSignature` and Facebook folders.
   - The source comes from `sixthsense.paths.game()`, which honors `--game` and `SIXTHSENSE_GAME`. If the bundle is missing it catches the SystemExit and prints a message instead of crashing.
 - **`--test` was removed:** the flag, the menu entry, `test_build()` and `read_log()` are all gone. The menu now has 7 choices plus Quit, and Release build is still number 1.
@@ -36,7 +36,10 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 The newer reference script in `user/` bakes VERSION into the build as a module and bundles the Prism speech library (`prismatoid`, `_cffi_backend`). Sixth Sense has no updater and no Prism. Port them only if the dev asks.
 
 ## Sounds moved (2026-09-21)
-The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). Ship that folder, not `game/sounds/unused/`. `game_files()` still matches `GAME_FILES` in the bundle's top folder only, so a build today would copy the plists and maps but **no sounds**. When the code catches up, copy `game/sounds/used/` recursively as well. The files there are 16-bit WAV, about 120 MB.
+The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). The same day, `compiler.py` was changed to ship them. This was checked by reading the code only, not run.
+- `sound_files()` walks `sounds/used/` (`paths.SOUNDS_USED`) in sorted order, and `copy_game()` recreates each file's folder under `dist/SixthSense/game/`. `game/sounds/unused/` is left out.
+- `game_files()` still matches `GAME_FILES` in the top folder. `*.wav` stays in it so an untouched flat original bundle (`--game`) still builds.
+- `data_summary()` words the counts for both `copy_game()` and `--dry-run`. With the repo's `game/` today that is 474 files: 329 sounds (about 121 MB), plus 142 plists and 3 map layers.
 
 ## Still to do
 1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].

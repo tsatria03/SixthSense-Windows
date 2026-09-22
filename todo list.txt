@@ -1,7 +1,6 @@
 ##Unfinished.
 
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
-The game cannot find any sounds, because they moved from the game folder into game/sounds/used, and the sound lookup, the compiler and the tests still expect them all in one flat folder.
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
 The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
 Pressing P during the tutorial skips it, but the prompts keep playing and you never start walking. The original only lets you stop once the first eight steps are done.
@@ -61,6 +60,7 @@ The "you must use earphones" warning and the menu music start as soon as the men
 
 ##Finished.
 
+The game finds its sounds in game/sounds/used again, so every sound plays, and the compiler and the tests look for them there too.
 Every sound the game uses sits together in game/sounds/used, 329 files covering all 269 of the original's sounds, apart from the 25 in game/sounds/unused.
 The 25 sounds that are not the original's own, 11 extra copies and 14 the original never had, are kept apart in game/sounds/unused, in the same folders they came from, so the rest of game/sounds holds only the original's sounds.
 Every one of the original game's 269 sounds now has a copy in game/sounds, including the six the organized folder was missing: Game Start Button, Welcome to, game center button10, restore button, weapon_m4_fire and weapon_saw_start.
@@ -74,7 +74,7 @@ The coin economy now matches the original: a new player gets 10 coins once, a co
 The coin row can say how long until your next coin, instead of always reading zero, and it stops reading a stale coin count after you have already moved to another row.
 Starting a game before finishing the tutorial now sends you to the tutorial, instead of taking a coin and leaving you standing still in silence.
 Spoken numbers are read digit by digit in the correct order, instead of backwards, so ten now says "one, zero" instead of "zero, one".
-The compiler has been changed to build Sixth Sense. It only needs pygame, copies just the 414 files the game reads, and leaves the original iOS executable out of the release.
+The compiler has been changed to build Sixth Sense. It only needs pygame, copies just the files the game reads, and leaves the original iOS executable out of the release.
 The whole port has been evaluated, and every bug and missing feature that turned up is listed in the unfinished section, most important first.
 The initial commit is credited to lbk2907 on GitHub, and every commit uses GitHub usernames instead of real names.
 The license credits tsatria03 and lbk2907.

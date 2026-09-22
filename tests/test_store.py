@@ -62,7 +62,7 @@ def test_every_row_has_a_wav_behind_it():
                 InventoryController, DetailInventoryController):
         for row, sound in cls.ROW_SOUND.items():
             name = sl[sound]
-            assert os.path.exists(os.path.join(paths.sounds(), name + '.wav')), \
+            assert paths.path_for_resource(name, 'wav'), \
                 '%s row %d -> %d %s' % (cls.__name__, row, sound, name)
 
 

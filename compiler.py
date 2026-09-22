@@ -19,9 +19,10 @@ under this version's heading in the repository's changelog.txt, and the copy bes
 on that version.  It ends by saying what it changed, for you to commit.  Run with no flags and no
 keyboard (from a script), it is the release build straight away, without the menu.
 
-The port and the vendored DLLs go inside the build; the game's own files do not - the sounds, the plists
-and the three map layers are copied next to the executable, into game\\, where sixthsense/paths.py looks
-for them when frozen.  Nothing else in the original app bundle is copied: the game never opens it.
+The port and the vendored DLLs go inside the build; the game's own files do not - the plists and the
+three map layers are copied next to the executable, into game\\, and the sounds into game\\sounds\\used
+with their folders, which is where sixthsense/paths.py looks for them when frozen.  Nothing else in the
+original app bundle is copied, and neither is game\\sounds\\unused: the game never opens any of it.
 
 There is no --test yet.  A test build would start the game and read its log; SixthSense does not write a
 log, or a crash.txt, so there is nothing for a test run to read.  Until it does, a windowed build
@@ -53,10 +54,11 @@ PLAY_PACKAGES = (('pygame', 'pygame'),)
 OPTIONAL_PACKAGES = (('comtypes', 'comtypes', 'the SAPI voice for players without NVDA'),)
 BINARIES = (('vendor/openal/soft_oal.dll', 'vendor/openal'),    # the audio engine itself
             ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'))
-#: What the game reads from its bundle, and so all a build copies of it: the sounds, the binary plists
-#: (the sound list, the monster tables, the weapon tables) and the three map layers.  The rest of the app -
-#: the iOS executable and its code signature, the nibs, the images, the Facebook SDK - is never opened,
-#: and has no business in a release.  The bundle is flat, so these are matched in its top folder only.
+#: What the game reads from its bundle's top folder: the binary plists (the sound list, the monster tables,
+#: the weapon tables) and the three map layers.  The rest of the app - the iOS executable and its code
+#: signature, the nibs, the images, the Facebook SDK - is never opened, and has no business in a release.
+#: The sounds are in folders of their own, which sound_files() copies; *.wav stays here so that an
+#: untouched original bundle, whose WAVs are all in its top folder, still builds.
 GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: copied beside the executable rather than bundled inside it, so the player can open them: what it is
 #: called here, and what it is called there.  LICENSE has no extension, which is the convention on GitHub
@@ -301,6 +303,25 @@ def game_files(src: str) -> list[str]:
                   and any(fnmatch.fnmatch(name.lower(), pattern.lower()) for pattern in GAME_FILES))
 
 
+def sound_files(src: str) -> list[str]:
+    """Every file under the bundle's sounds\\used folder, as a path inside the bundle, so each one keeps
+    its folder.  sounds\\unused stays out: nothing in the game opens it.  An original, flat bundle has no
+    such folder, and its WAVs come in with game_files() instead."""
+    from sixthsense.paths import SOUNDS_USED
+    found = []
+    for dirpath, dirs, files in os.walk(os.path.join(src, SOUNDS_USED)):
+        dirs.sort()
+        found += [os.path.relpath(os.path.join(dirpath, name), src) for name in sorted(files)]
+    return found
+
+
+def data_summary(names: list[str]) -> str:
+    """What a list of the game's files holds, in words: '474 files - 329 sounds, and 145 plists and map
+    layers'."""
+    sounds = sum(1 for name in names if name.lower().endswith('.wav'))
+    return '%d files - %d sounds, and %d plists and map layers' % (len(names), sounds, len(names) - sounds)
+
+
 def copy_game(dest_root: str) -> bool:
     from sixthsense import paths
     try:
@@ -312,12 +333,12 @@ def copy_game(dest_root: str) -> bool:
     dest = os.path.join(dest_root, 'game')
     say("copying the game's data from %s into %s ..." % (src, dest))
     started = time.perf_counter()
-    os.makedirs(dest, exist_ok=True)
-    names = game_files(src)
+    names = game_files(src) + sound_files(src)
     for name in names:
-        shutil.copy2(os.path.join(src, name), os.path.join(dest, name))
-    say('  %d files - the sounds, the plists and the map - in %.0f seconds.'
-        % (len(names), time.perf_counter() - started))
+        target = os.path.join(dest, name)
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        shutil.copy2(os.path.join(src, name), target)
+    say('  %s, in %.0f seconds.' % (data_summary(names), time.perf_counter() - started))
     return True
 
 
@@ -371,9 +392,10 @@ def main(argv=None) -> int:
             from sixthsense import paths
             try:
                 src = paths.game()
-                say("the game's data would then be copied from %s into %s: %d files - the sounds, the "
-                    'plists and the map, and nothing else from the app bundle'
-                    % (src, os.path.join(output_dir(args), 'game'), len(game_files(src))))
+                say("the game's data would then be copied from %s into %s: %s, and nothing else from the "
+                    'app bundle'
+                    % (src, os.path.join(output_dir(args), 'game'),
+                       data_summary(game_files(src) + sound_files(src))))
             except SystemExit:
                 say("the game's data was not found, so none would be copied.")
         for name, shipped_as in SIDE_FILES:

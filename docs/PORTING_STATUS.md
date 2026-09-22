@@ -81,10 +81,9 @@ the same but there is nothing to draw.
   `GAME_STRUCTURE.md` show.
 * All eight weapons load with the damage/range/round counts in the plists.
 * Every `SoundList.plist` entry that the monster tables reference resolves to a WAV in
-  the bundle, and so does every row of every menu, shop and inventory screen. This was
-  checked against the original flat folder. The sounds now live in `game/sounds/used/`, sorted
-  into folders under their original names, and the lookup has not caught up yet; see
-  `DIVERGENCES.md`.
+  the bundle, and so does every row of every menu, shop and inventory screen. The sounds
+  now live in `game/sounds/used/`, sorted into folders under their original names, and
+  `paths.path_for_resource` finds them there by file name; see `DIVERGENCES.md`.
 * Of the 130 shipped `type*.plist` files, 80 walk a straight lane (`MovingType` 1..5)
   and 50 walk a zig-zag (11/22/33/44/55); the port's ladder reproduces the sweep and
   the turn-round for all five.
@@ -117,5 +116,5 @@ python SixthSense.py --skip-tutorial
 Headphones. `--no-window` runs it without pygame. `--no-intro` opens on the menu.
 `--game DIR` points at another copy of the bundle; the default is `game/`, which holds
 the original's data. Its sounds are organized into `game/sounds/used/` under their original
-names; see `DIVERGENCES.md` for the layout and what still has to change before the game
-can find them there.
+names; see `DIVERGENCES.md` for the layout and how the game finds them. An untouched
+original bundle, with its sounds all in one folder, works too.

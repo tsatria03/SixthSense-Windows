@@ -4,11 +4,11 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 
 ## Project: what the port is and how to work on it
 - [Python only](project_python_only.md): the port is written entirely in Python (pygame, OpenAL Soft through ctypes, NVDA or SAPI).
-- [compiler.py](project_compiler_py.md): the build script was adapted to Sixth Sense on 2026-09-21 but not yet built by the dev. It copies only the 414 game files it needs. --test and readme.html were left out until the game writes a log and has a README.
+- [compiler.py](project_compiler_py.md): the build script was adapted to Sixth Sense on 2026-09-21 but not yet built by the dev. It copies only the game files it needs: the plists and maps from the top folder, and `game/sounds/used/` with its folders (474 files). --test and readme.html were left out until the game writes a log and has a README.
 - [Binary analysis notes](project_binary_analysis_notes.md): addresses are VM addresses (file offset = addr - 0x1000). The dc_ listings drop register saves and hide the isPlaying branch. Use selrefs to prove whether something is ever called.
-- [Safe test run](project_safe_test_run.md): the tests write the real save and play audio. Redirect APPDATA and use `ALSOFT_DRIVERS=null`. The tests are plain scripts. Baseline 96/96, later 106/106.
+- [Safe test run](project_safe_test_run.md): the tests write the real save and play audio. Redirect APPDATA and use `ALSOFT_DRIVERS=null`. The tests are plain scripts. Baseline 96/96, then 106 tests; 117/117 across 9 files since the sound-lookup change, in about 84 s.
 - [Provenance and credits](project_provenance.md): lbk2907 created the port and extracted the binary. The "Initial commit" is all their work and names them as author. They handed the repo to tsatria03 to publish and work on together. Co-author them with the noreply address, and co-author the dev only when asked.
-- [Sound organization](project_sound_organization.md): every sound the game uses lives in `game/sounds/used/`, in folders, under its original name, each verified by audio (a deliberate divergence). There are 329 files covering all 269 originals, all 16-bit, and the 25 non-original files sit in `game/sounds/unused/`. Still open: the code lookup, which should search `used/` only.
+- [Sound organization](project_sound_organization.md): every sound the game uses lives in `game/sounds/used/`, in folders, under its original name, each verified by audio (a deliberate divergence). There are 329 files covering all 269 originals, all 16-bit, and the 25 non-original files sit in `game/sounds/unused/`. `paths.path_for_resource` checks the top folder first, then looks by file name under `used/` only; this was built on 2026-09-21, the tests pass 117/117, and the dev confirmed it in play.
 - [Old NVGT remake](project_nvgt_remake_reference.md): the dev's NVGT prototype was deleted on 2026-09-21. Its only legacy is the folder layout of `game/sounds`.
 
 ## Current state

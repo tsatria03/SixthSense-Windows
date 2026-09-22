@@ -44,9 +44,9 @@ def test_the_rows_are_the_bands_of_the_panel():
     assert Stage_1_E.PAUSE_ROWS == (1, 2, 3, 4, 5, 9, 10, 6, 7, 8)
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for row, sound in Stage_1_E.PAUSE_ROW_SOUND.items():
-        assert os.path.exists(os.path.join(paths.sounds(), sl[sound] + '.wav')), row
+        assert paths.path_for_resource(sl[sound], 'wav'), row
     for sound in (229, 223, 226, 354):
-        assert os.path.exists(os.path.join(paths.sounds(), sl[sound] + '.wav')), sound
+        assert paths.path_for_resource(sl[sound], 'wav'), sound
 
 
 def test_the_header_and_the_first_button_follow_the_state():

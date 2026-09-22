@@ -56,7 +56,7 @@ def test_the_rows_are_the_originals():
     # every one of them is a real entry with a WAV behind it
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for _n, _f, sound, _a in ROWS:
-        assert os.path.exists(os.path.join(paths.sounds(), sl[sound] + '.wav')), sound
+        assert paths.path_for_resource(sl[sound], 'wav'), sound
 
 
 def test_there_is_no_exit_row():

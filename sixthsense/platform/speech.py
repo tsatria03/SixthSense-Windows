@@ -1,6 +1,7 @@
 """PORT ADDITION: a synthesiser, for the one screen the game's own voice cannot read.
 
-SixthSense speaks entirely through the 371 recorded WAVs in ``SoundList.plist``. That
+SixthSense speaks entirely through its 269 recorded WAVs, which ``SoundList.plist`` names
+by number. That
 covers everything the original ever needed to say - and nothing the key-binding screen
 needs, which is key names ("Left Arrow", "Left Shift"), action names, and whatever the
 player has just bound. The only letters or digits in the bundle are ``zero``..``nine``,

@@ -158,19 +158,18 @@ def test_spawn_tiers_stay_in_range():
 
 def test_monster_sounds_resolve_to_wavs():
     sl = _sound_list()
-    sounds_dir = paths.sounds()
     missing = []
     for kind, groups in MONSTER_SOUNDS.items():
         for group in groups:
             for n in group:
                 name = sl[n]
-                if not os.path.exists(os.path.join(sounds_dir, name + '.wav')):
+                if paths.path_for_resource(name, 'wav') is None:
                     missing.append((kind, n, name))
     for kind, groups in SHAKE_SOUNDS.items():
         for group in groups:
             for n in group:
                 name = sl[n]
-                if not os.path.exists(os.path.join(sounds_dir, name + '.wav')):
+                if paths.path_for_resource(name, 'wav') is None:
                     missing.append((kind, n, name))
     assert not missing, 'no WAV for %r' % (missing,)
 
@@ -185,8 +184,7 @@ def test_start_positions_are_1000cm():
 def test_sound_list_covers_the_wavs():
     sl = _sound_list()
     assert len(sl) == 371
-    have = {f[:-4] for f in os.listdir(paths.sounds()) if f.lower().endswith('.wav')}
-    missing = sorted({n for n in sl if n not in have})
+    missing = sorted({n for n in sl if paths.path_for_resource(n, 'wav') is None})
     # The stage-select buttons and zombie_5_hit_player were already missing in the
     # bundle; see docs/DIVERGENCES.md.
     expected_missing = {'Stage %d Button' % i for i in range(1, 20)}
@@ -205,13 +203,24 @@ def test_positional_sounds_are_mono():
             positional.update(g)
     stereo = []
     for n in sorted(positional):
-        p = os.path.join(paths.sounds(), sl[n] + '.wav')
-        if not os.path.exists(p):
+        p = paths.path_for_resource(sl[n], 'wav')
+        if p is None:
             continue
         with wave.open(p, 'rb') as w:
             if w.getnchannels() != 1:
                 stereo.append((n, sl[n]))
     assert not stereo, 'positional sound is stereo: %r' % (stereo,)
+
+
+def test_every_sound_comes_from_the_sounds_folder():
+    """The sounds are organized into game/sounds/used (docs/DIVERGENCES.md), so every
+    one the sound list names is found in there - none is left in the top folder, and
+    none comes from game/sounds/unused."""
+    inside = os.path.join(paths.sounds(), '')
+    for n in sorted(set(_sound_list())):
+        p = paths.path_for_resource(n, 'wav')
+        if p is not None:
+            assert p.startswith(inside), '%s was found at %s' % (n, p)
 
 
 # ------------------------------------------------------------------- score

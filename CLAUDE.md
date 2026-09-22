@@ -10,7 +10,7 @@ A Windows port of **Sixth Sense** (`kr.co.bitbee.sixsense` 1.2), a 2013 iPhone a
 
 There is no source code for the original. The port is **recovered from the ARMv7 binary** and rewritten method by method **entirely in Python**. **lbk2907 created it**, including the binary extraction, and handed it to tsatria03 to publish and develop together; the "Initial commit" is entirely their work ([[project_provenance]]). Each Python module mirrors one Objective-C class and cites the binary address it came from ([[project_python_only]]).
 
-The game plays the original's own 371 recorded WAVs. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA or SAPI.
+The game plays the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA or SAPI.
 
 ## Layout
 
@@ -22,7 +22,7 @@ The game plays the original's own 371 recorded WAVs. The only synthesised speech
   - `defaults.py`: stands in for `NSUserDefaults`.
   - `speech.py`, `keymap.py` and `music.py`.
 - **`sixthsense/ui/`**: the keyboard input for the stage, the menus and the screens, plus the F1 key-bindings screen.
-- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 25 files that aren't the original's own, which the game never uses. The code has not caught up yet ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
+- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 25 files that aren't the original's own, which the game never uses. `paths.path_for_resource` looks in the top folder first, then by file name under `game/sounds/used/` ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
 - **`analysis/`**:
   - `bin/sixsense_armv7`: the binary itself.
   - `disasm/dc_*.txt`: per-class decompiled listings.
