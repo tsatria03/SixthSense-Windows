@@ -10,3 +10,5 @@ The rain in the third area keeps falling for the whole level.
 Leaving a stage stops the zombie footsteps, the ambience and the music, instead of letting them play on under the menu.
 Switching weapons keeps each weapon's own ammo, instead of refilling the magazine for free.
 The game's sounds are sorted into folders inside game\sounds, each under its original name.
+The key bindings screen and the main menu's spoken messages now work with JAWS, ZoomText, System Access, Narrator and other screen readers as well as NVDA, and with a Windows voice when no screen reader is running.
+The game now comes with the licenses for OpenAL Soft, the NVDA controller client, Prism and pygame, in a licenses folder beside the game.

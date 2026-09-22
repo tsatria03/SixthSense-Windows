@@ -11,8 +11,9 @@ build.  Every other choice is one of these flags, which still work typed out:
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-A build makes one folder, dist\\SixthSense, with the game's data copied in, and ends by zipping it into
-dist\\SixthSense-Win-<VERSION>.zip, which is what a release's asset is.
+A build makes one folder, dist\\SixthSense, with the game's data copied in and the third-party licenses in
+licenses\\ beside the executable, and ends by zipping it into dist\\SixthSense-Win-<VERSION>.zip, which is
+what a release's asset is.
 
 The release build - no flags at all - also files the changelog first: the lines under "unrelease:" go
 under this version's heading in the repository's changelog.txt, and the copy beside the executable opens
@@ -32,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import importlib.metadata
 import importlib.util
 import os
 import re
@@ -46,14 +48,17 @@ NAME = 'SixthSense'
 ENTRY = 'SixthSense.py'
 
 #: what the game cannot run without: the module, and what pip calls it.  pygame, not pygame-ce - the two
-#: cannot be installed side by side, and the port is written against pygame.
-PLAY_PACKAGES = (('pygame', 'pygame'),)
-#: what the game can run without, and what is lost when it is missing.  platform/speech.py builds its SAPI
-#: voice through comtypes; without it, a player with no NVDA running hears nothing on the key-bindings
-#: screen and nothing when a menu row says it is not available.
-OPTIONAL_PACKAGES = (('comtypes', 'comtypes', 'the SAPI voice for players without NVDA'),)
+#: cannot be installed side by side, and the port is written against pygame.  prismatoid is Prism, which
+#: platform/speech.py speaks through for every screen reader but NVDA, and for the SAPI voice.  The game
+#: starts without it, but then only an NVDA player hears the key-bindings screen, so no build leaves it out.
+PLAY_PACKAGES = (('pygame', 'pygame'), ('prism', 'prismatoid'))
 BINARIES = (('vendor/openal/soft_oal.dll', 'vendor/openal'),    # the audio engine itself
             ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'))
+#: The licenses of the two DLLs in vendor\, which sit beside them: the folder each goes to under licenses\
+#: in a build, and the files.  Prism's and pygame's are not kept here - they come out of the installed
+#: packages when the build runs (license_files()), so they always match what was bundled.
+VENDOR_LICENSES = (('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/license-pffft.txt')),
+                   ('nvda-controller-client', ('vendor/nvda/license.txt',)))
 #: What the game reads from its bundle's top folder: the binary plists (the sound list, the monster tables,
 #: the weapon tables) and the three map layers.  The rest of the app - the iOS executable and its code
 #: signature, the nibs, the images, the Facebook SDK - is never opened, and has no business in a release.
@@ -265,20 +270,28 @@ def problems_now() -> list[str]:
     return found
 
 
-def optional_missing() -> list[str]:
-    """What the build can go ahead without, but the player would miss, in plain words."""
-    return ['%s is not installed, so the build will not have %s: pip install %s' % (mod, what, pip)
-            for mod, pip, what in OPTIONAL_PACKAGES if importlib.util.find_spec(mod) is None]
+def prism_native_modules() -> list[str]:
+    """Prism's compiled Python module in its prism\\_native folder, which --collect-all leaves behind."""
+    spec = importlib.util.find_spec('prism')
+    if spec is None or not spec.submodule_search_locations:
+        return []
+    folder = os.path.join(list(spec.submodule_search_locations)[0], '_native')
+    if not os.path.isdir(folder):
+        return []
+    return sorted(os.path.join(folder, name) for name in os.listdir(folder) if name.endswith('.pyd'))
 
 
 def command(args) -> list[str]:
     cmd = [sys.executable, '-m', 'PyInstaller', '--noconfirm', '--noupx', '--name', NAME]
     for src, dest in BINARIES:
         cmd += ['--add-binary', src + os.pathsep + dest]
-    # comtypes is imported only when the SAPI voice is first needed, so name it outright rather than hope
-    # the analysis finds it - and only when it is here to be bundled
-    if importlib.util.find_spec('comtypes') is not None:
-        cmd += ['--collect-submodules', 'comtypes']
+    # Prism is imported only once NVDA is found not to be running, so it is named outright rather than left
+    # for the analysis to find.  It loads its compiled half from a folder of its own, prism\_native:
+    # --collect-all brings the DLL there but not the Python module beside it, because the folder is not a
+    # package, so that is added by name - and it needs cffi's own compiled module, which nothing names either
+    cmd += ['--collect-all', 'prism', '--hidden-import', '_cffi_backend']
+    for src in prism_native_modules():
+        cmd += ['--add-binary', src + os.pathsep + 'prism/_native']
     if not args.console:
         # no console window beside the game's own.  SixthSense does not write crash.txt yet, so a windowed
         # build that fails to start says nothing: --console is how to hear why
@@ -354,6 +367,53 @@ def copy_side_files(dest_root: str) -> None:
             % (shipped_as, '' if shipped_as == name else ', from %s' % name))
 
 
+def license_files() -> list[tuple[str, str]]:
+    """Every third-party license a release carries: (where it goes under licenses\\, where it comes from).
+
+    The two vendored DLLs' licenses sit beside them in vendor\\.  Prism's come out of its installed
+    package's dist-info - its own license, its NOTICE, and the LICENSES folder that NOTICE points to, for
+    the libraries Prism itself is built from - and pygame's LGPL out of pygame's installed package, so a
+    build always carries the licenses of exactly what it bundled.  A file with no extension gets .txt, so
+    Windows opens it rather than asking what to open it with."""
+    found = []
+    for folder, sources in VENDOR_LICENSES:
+        for src in sources:
+            found.append((os.path.join(folder, os.path.basename(src)),
+                          os.path.join(HERE, src.replace('/', os.sep))))
+    try:
+        dist = importlib.metadata.distribution('prismatoid')
+        for entry in dist.files or ():
+            parts = entry.parts
+            if len(parts) > 2 and parts[0].endswith('.dist-info') and parts[1] == 'licenses':
+                rel = os.path.join('prism', *parts[2:])
+                if not os.path.splitext(rel)[1]:
+                    rel += '.txt'
+                found.append((rel, str(dist.locate_file(entry))))
+    except importlib.metadata.PackageNotFoundError:
+        found.append((os.path.join('prism', 'LICENSE.txt'), ''))      # reported as missing
+    spec = importlib.util.find_spec('pygame')
+    folder = list(spec.submodule_search_locations)[0] if spec and spec.submodule_search_locations else ''
+    found.append((os.path.join('pygame', 'LGPL.txt'),
+                  os.path.join(folder, 'docs', 'generated', 'LGPL.txt') if folder else ''))
+    return found
+
+
+def copy_licenses(dest_root: str) -> None:
+    """The third-party licenses, into licenses\\ beside the executable."""
+    dest = os.path.join(dest_root, 'licenses')
+    copied = 0
+    for rel, src in license_files():
+        if not src or not os.path.isfile(src):
+            say('  the license %s was not found, so it was not copied.' % rel)
+            continue
+        target = os.path.join(dest, rel)
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        shutil.copy2(src, target)
+        copied += 1
+    say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - are in %s.'
+        % (copied, dest))
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog='compiler.py', description='build SixthSense with PyInstaller')
     parser.add_argument('--onefile', action='store_true',
@@ -380,8 +440,6 @@ def main(argv=None) -> int:
         if not args.dry_run:
             return 2
         say()
-    for missing in optional_missing():                  # worth hearing, but no reason to stop
-        say('note: ' + missing)
 
     cmd = command(args)
     say('running: python ' + ' '.join(cmd[1:]))
@@ -402,6 +460,12 @@ def main(argv=None) -> int:
             say('%s would be copied beside the executable%s%s'
                 % (name, '' if shipped_as == name else ', as %s' % shipped_as,
                    '' if os.path.isfile(os.path.join(HERE, name)) else ' - but it is not here'))
+        licenses = license_files()
+        absent = [rel for rel, src in licenses if not src or not os.path.isfile(src)]
+        say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - would go into '
+            'licenses%s beside the executable' % (len(licenses) - len(absent), os.sep))
+        for rel in absent:
+            say('  but the license %s is not here' % rel)
         if flagged:
             say('the changelog would be copied as it is, because a build with a flag leaves it alone.')
         else:                                           # what the same command without --dry-run would do
@@ -439,6 +503,7 @@ def main(argv=None) -> int:
     # only once PyInstaller has succeeded: a failed build must not leave the repository changed
     changed = prepare_release_files() if plain else []
     copy_side_files(dest_root)
+    copy_licenses(dest_root)
     if plain:
         strip_shipped_changelog(dest_root)
 

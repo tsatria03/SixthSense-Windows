@@ -20,7 +20,7 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 ## What changed from the earlier script
 - **Names:** `NAME='SixthSense'`, `ENTRY='SixthSense.py'`, the docstring, the argparse description, the menu title, and the closing credit (now "Bitbee's"; the original is `kr.co.bitbee.sixsense`).
 - **`PLAY_PACKAGES`** is just `pygame` (pip name `pygame`, not `pygame-ce`, since the two conflict). numpy and av were dropped because Sixth Sense doesn't use them.
-- **The new `OPTIONAL_PACKAGES`** holds `comtypes` (the SAPI voice). `optional_missing()` prints a "note:" line but doesn't stop the build. `--collect-submodules comtypes` is passed only when comtypes is installed.
+- **`OPTIONAL_PACKAGES`** held `comtypes` (the SAPI voice), with `optional_missing()` printing a "note:" line. **All of that was removed on 2026-09-22**, when Prism replaced comtypes (see below).
 - **The HRTF check is gone:** `DATA` (`assets/hrtf`) and its check in `problems_now()` were removed, because HRTF is deliberately off in this port.
 - **`--collect-all av` was removed.**
 - **The new `GAME_FILES` and `game_files()`**, plus a rewritten `copy_game()`:
@@ -35,7 +35,12 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 ## Left out on purpose
 The newer reference script in `user/` bakes VERSION into the build as a module. Sixth Sense has no updater, so that stays out unless the dev asks.
 
-The same script bundles the Prism speech library. **On 2026-09-22 the dev decided Sixth Sense will use Prism too**, but it is not built yet. When it is, `compiler.py` needs the Prism flags. The releases should also carry a `licenses` folder, which no build ships yet: Prism and pygame collected from pip, and OpenAL Soft and the NVDA controller client from `vendor/`. See [[project_prism_speech]] for the layout.
+**Prism was added on 2026-09-22.** `compiler.py` now:
+- requires `prismatoid`
+- passes `--collect-all prism --hidden-import _cffi_backend` and Prism's native `.pyd`
+- fills a `licenses` folder beside the executable: OpenAL Soft and the NVDA controller client from `vendor/`, and Prism and pygame from their installed packages
+
+`OPTIONAL_PACKAGES`, `optional_missing()` and comtypes are gone. This has been checked only by parsing, and hasn't been built yet. See [[project_prism_speech]].
 
 ## Sounds moved (2026-09-21)
 The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). The same day, `compiler.py` was changed to ship them. This was checked by reading the code only, not run.
@@ -55,7 +60,7 @@ The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organiza
 
 ## Environment on 2026-09-21
 - The dev installed **PyInstaller 6.22.3** into their Python 3.12 x64 (`C:\Users\tonys\AppData\Local\Programs\Python\Python312`).
-- comtypes, numpy and av are not installed.
+- comtypes, numpy and av are not installed. Since 2026-09-22 the build needs prismatoid, and 0.18.2 is installed with cffi 2.1.1.
 - PyInstaller 6 puts onedir builds' bundled files under `dist/SixthSense/_internal`, which is `sys._MEIPASS`.
 - The game data goes beside the exe, in `dist/SixthSense/game`, which is `EXE_DIR/game`.
 

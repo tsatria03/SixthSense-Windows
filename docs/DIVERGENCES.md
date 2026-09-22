@@ -244,9 +244,19 @@ and the screen that would let them fix it.
 The game is self-voicing from 269 recorded WAVs, which `SoundList.plist` names by number
 in 371 entries, and none of them can say a key name —
 the only letters or digits in the bundle are `zero`..`nine`, for the number reader. So
-the binding screen alone uses a synthesiser (`platform/speech.py`): NVDA through its
-controller client when NVDA is running, SAPI 5 otherwise, silence if neither is there.
-Nothing else in the port speaks.
+the binding screen uses a synthesiser (`platform/speech.py`), and so do the few menu
+lines no recording covers. Before every line, the first of these that can speak says it:
+
+* NVDA, through its own controller client.
+* Any other screen reader, through Prism (the `prismatoid` package): JAWS, ZDSR,
+  ZoomText, System Access, PC-Talker, Boy PC Reader, Sense Reader, Window-Eyes, and
+  Narrator, which is used only while `narrator.exe` is running.
+* A plain Windows voice, SAPI 5 or OneCore, also through Prism, for a player with no
+  screen reader at all.
+* Nothing, if none of them can.
+
+A player with NVDA never loads Prism. Everything else in the game speaks through its
+own recordings.
 
 ### Planned: a screen reader mode
 Not built yet; it is in `todo list.txt`, and the decision was made on 2026-09-22.
@@ -260,7 +270,8 @@ opens its page while VoiceOver is running (`-[MainController RankingAction:]`,
 0xaef4).
 
 The port has no standard screens to switch to, so turning voice over off will hand the
-game's words to the Windows screen reader instead: NVDA or JAWS, or SAPI 5 when neither
+game's words to the Windows screen reader instead, through the same speech layer as the
+binding screen: NVDA, any other screen reader through Prism, or a Windows voice when none
 is running. Every recording under `game/sounds/used/speech/` will then be spoken as
 text, through the one place every sound goes, `-[AppDelegate
 playSound:Gain:Pos:z:reprats:]`. Numbers will be read whole, with a label and its value

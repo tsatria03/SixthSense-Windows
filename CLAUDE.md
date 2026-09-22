@@ -10,7 +10,7 @@ A Windows port of **Sixth Sense** (`kr.co.bitbee.sixsense` 1.2), a 2013 iPhone a
 
 There is no source code for the original. The port is **recovered from the ARMv7 binary** and rewritten method by method **entirely in Python**. **lbk2907 created it**, including the binary extraction, and handed it to tsatria03 to publish and develop together; the "Initial commit" is entirely their work ([[project_provenance]]). Each Python module mirrors one Objective-C class and cites the binary address it came from ([[project_python_only]]).
 
-The game plays the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA or SAPI.
+The game plays the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA, another screen reader via Prism, or a Windows voice ([[project_prism_speech]]).
 
 ## Layout
 
@@ -40,7 +40,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 
 ## Running and building
 
-**The dev runs and builds, not Claude.** Never build unless told to, and ask before running the game, the tests, `compiler.py`, or anything that executes game code ([[feedback_dont_run_or_build]]).
+**The dev runs and builds, not Claude.** Never build unless told to. The tests may be run without asking, always the safe way ([[project_safe_test_run]]). Ask before running the game, `compiler.py`, or anything else that executes game code or speaks ([[feedback_dont_run_or_build]]).
 
 `python SixthSense.py` opens the splash, then the menu. Flags:
 - `--no-intro` opens straight on the menu.
@@ -49,7 +49,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 - `--no-window` runs headless.
 - `-v` gives verbose logging.
 
-This needs Python 3.12 x64 and pygame. The SAPI fallback currently needs `comtypes`, which isn't installed. The planned move to Prism (`prismatoid`) replaces it ([[project_prism_speech]]). There is no `requirements.txt` yet.
+This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). There is no `requirements.txt` yet.
 
 ## Porting rules
 

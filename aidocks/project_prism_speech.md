@@ -1,57 +1,60 @@
 ---
 name: project_prism_speech
-description: "Decided 2026-09-22, not built yet: platform/speech.py moves to Prism (the prismatoid package) for JAWS, ZoomText, Narrator and the rest, with SAPI through Prism instead of comtypes; NVDA stays first through the vendored DLL; a licenses folder in the release carries Prism, pygame, OpenAL Soft and the NVDA client. The design and what compiler.py needs."
+description: "Built 2026-09-22; the tests pass and the dev confirmed it by ear: platform/speech.py speaks through NVDA's own DLL first, then Prism (prismatoid) for JAWS, Narrator and the rest, then SAPI or OneCore through Prism; comtypes is gone. compiler.py bundles Prism and ships a licenses folder (OpenAL Soft, NVDA client, Prism, pygame). How it works and how it is tested."
 metadata:
   node_type: memory
   type: project
 ---
 
-**The dev decided on 2026-09-22 to move the speech layer to Prism. It is not built yet**; the dev said "Do not build the library yet". The todo list has it as "Speak through Prism...", and `requirements.txt`, when it is added, lists pygame and prismatoid.
+**Decided and built on 2026-09-22.** The dev asked for the speech layer to move to Prism, then said "Let's implement the new screenreader/sapi library".
+- **Tested and heard:** all 130 tests pass, including the 13 new speech tests. The dev then listened and said "Everything past!" (2026-09-22).
+- The todo item moved to finished as "The key bindings screen and the main menu's spoken messages speak through Prism...".
+- `requirements.txt`, listing pygame and prismatoid, is still a separate todo item.
 
-**What the game does today** (`sixthsense/platform/speech.py`):
-- NVDA through `vendor/nvda/nvdaControllerClient64.dll`.
-- Otherwise SAPI 5 through comtypes. comtypes is not installed, so without NVDA the game is silent.
-- JAWS and the other screen readers get nothing.
-- accessible_output2 0.17 is installed in the dev's Python, but the game never imported it. It was only ever a todo suggestion.
+**Before this change:** NVDA through `vendor/nvda/nvdaControllerClient64.dll`, else SAPI through comtypes. comtypes was never installed, so without NVDA the game was silent. accessible_output2 0.17 is installed in the dev's Python, but the game never used it.
 
-**Prism, as installed** (`prismatoid` 0.18.2, read but never run on 2026-09-22):
-- `from prism import Context, BackendId`. `Context()` is a registry; `create(id)` returns a `Backend`.
-- A `Backend` has `speak`, `output` (speech plus braille), `stop`, and `features.is_supported_at_runtime`.
-- `BackendId` covers NVDA, JAWS, ZDSR, ZoomText, System Access, UIA (Narrator), PC-Talker, Window-Eyes, Boy PC Reader, Sense Reader, SAPI and OneCore.
+**Prism, as installed** (`prismatoid` 0.18.2; its source was read, but it has never been run by Claude):
+- `from prism import Context, BackendId`. `Context()` is the registry, with `backends_count`, `id_of(i)` and `create(id)`.
+- A `Backend` has `name`, `speak`, `output` (speech plus braille), `stop`, and `features.is_supported_at_runtime` and `.supports_output`.
 - It needs cffi (2.1.1 is installed) and Windows 10 or later.
-- Its native half is `prism/_native/prism.dll` and `_prism_cffi.pyd`.
-- It is licensed MPL-2.0, and its NOTICE lists bundled third-party licenses.
+- Its native half is `prism/_native/prism.dll` and `_prism_cffi.pyd`. It is licensed MPL-2.0.
 
-**The agreed design** (the pattern of the dev's reference speech layer in `user/`):
-1. **NVDA first**, through the vendored controller DLL. It is asked before every line whether NVDA is running, and Prism is never loaded for an NVDA player.
-2. **Then Prism's screen readers**, tried in a fixed order.
-   - Prism's UIA backend reports itself ready even with Narrator off. So check that `narrator.exe` is running (a Toolhelp32 process snapshot) before using it, or lines are lost.
-   - Look for a newly started screen reader every few seconds, and let go of one that stops.
-3. **Then SAPI 5 through Prism's own SAPI backend**, instead of comtypes, so comtypes can go entirely.
-4. **Prism is optional at run time:** if it will not load, the game keeps NVDA and logs it, rather than crashing.
+**How `sixthsense/platform/speech.py` works now.** The pattern follows the dev's reference speech layer in `user/`. `Speech.speak(text, interrupt=True)` tries these in order:
+1. **`_Nvda`**, the vendored controller DLL, asked before every line whether NVDA runs. `Speech.prism` is built lazily, so an NVDA player never loads Prism.
+2. **`_Prism.speak_reader`**, through the screen readers in `READERS`, in order: NVDA, JAWS, ZDSR, ZoomText, System Access, PC-Talker, Boy PC Reader, Sense Reader, Window-Eyes, UIA.
+   - NVDA is in the list only as a backstop, for when its own DLL can't load.
+   - UIA (Narrator) is last, and is even created only while `narrator.exe` runs, per `process_running()`, a Toolhelp32 snapshot. Prism's UIA backend claims to be ready either way.
+   - With no reader in use, it looks for one at most every `PROBE_EVERY` (5 s).
+   - It asks the reader in use whether it still runs at most every `CHECK_EVERY` (1 s), and lets it go at once if it stops or raises.
+3. **`_Prism.speak_voice`**, `VOICES`: SAPI, then ONE_CORE if SAPI won't be created. After a failure it retries at most every 5 s.
+4. **Nothing.** `speak` returns False.
+   - The log names the speaker only when it changes (`Speech._heard`).
+   - Prism missing or broken makes `_Prism.ctx` None, so NVDA carries on alone.
+- `output()` is used when a backend supports it, so a braille display gets the line too; otherwise `speak()`.
+- **Kept for callers:** `Speech.shared()`, `speak()`, `stop()`, `which` and `available`. `KeyBindScreen` and `MainController._say` use `speak` only.
+- **Testable without sound:** `Speech(nvda=..., prism=...)` and `_Prism(loader=..., narrator_running=..., clock=...)` take stand-ins.
+- **`tests/test_speech.py`** has 13 tests with a fake NVDA, a fake registry and a fake clock. It never loads the DLL or Prism, and is safe to run.
 
-**compiler.py, when it is built** (copied from the reference build script in `user/`):
-- Add `('prism', 'prismatoid')` to `PLAY_PACKAGES`, and drop comtypes from `OPTIONAL_PACKAGES` and its `--collect-submodules`.
-- Pass `--collect-all prism --hidden-import _cffi_backend`.
-- Add each `.pyd` in `prism/_native` with `--add-binary ...;prism/_native`. `--collect-all` misses it, because `_native` is not a package.
-- **Ship the third-party licenses with the release**, for all three native pieces the game carries. The dev agreed for Prism, then asked on 2026-09-22 to cover all three. Put them beside the executable, for example in a `licenses` folder:
-  - **Prism:** its MPL-2.0 `LICENSE` and `NOTICE`, found in `prismatoid-*.dist-info/licenses`.
-  - **OpenAL Soft** (`vendor/openal/soft_oal.dll`, version 1.25.1): the GNU Library General Public License v2, June 1991, as the DLL's own copyright field says.
-    - It is in `vendor/openal/license.txt`, copied byte for byte from the `COPYING` in the dev's `openal-soft-1.25.2-bin` download on 2026-09-22.
-    - `vendor/openal/license-pffft.txt` is that download's `LICENSE-pffft`, a BSD-style license for the modified PFFFT that OpenAL Soft builds in. Its terms require the notice to ship with any binary.
-  - **The NVDA controller client** (`vendor/nvda/nvdaControllerClient64.dll`): LGPL-2.1. It is in `vendor/nvda/license.txt`, copied byte for byte from `prismatoid-0.18.2.dist-info/licenses/LICENSES/nvdaController/lgpl-2.1.txt`, which Prism's NOTICE says is there for the controller client.
+**`compiler.py` (done the same day, checked only by parsing):**
+- `PLAY_PACKAGES` now includes `('prism', 'prismatoid')`, so a build stops without Prism. `OPTIONAL_PACKAGES`, `optional_missing()` and comtypes are gone.
+- `command()` adds `--collect-all prism --hidden-import _cffi_backend`, plus `--add-binary` for each `.pyd` in `prism/_native` (`prism_native_modules()`). `--collect-all` misses the `.pyd`, because `_native` is not a package.
+- **Licenses:** `license_files()` and `copy_licenses()` fill `licenses/` beside the executable, after `copy_side_files()`. `--dry-run` reports the count and anything missing.
+  - `licenses/openal-soft/`: `license.txt` and `license-pffft.txt`, from `vendor/openal/` (`VENDOR_LICENSES`)
+  - `licenses/nvda-controller-client/`: `license.txt`, from `vendor/nvda/`
+  - `licenses/prism/`: every file under the installed `prismatoid-*.dist-info/licenses`, found through `importlib.metadata`. That is `LICENSE`, `NOTICE` and the whole `LICENSES/` folder the NOTICE points to. Files with no extension get `.txt`, so Windows opens them.
+  - `licenses/pygame/LGPL.txt`, from the installed pygame's `docs/generated/LGPL.txt`
+  - On 2026-09-22 all 17 files were found by a read-only check of the metadata.
 
-  - **pygame** is LGPL too, and PyInstaller bundles it along with its SDL libraries. On 2026-09-22 the dev agreed its license ships as well. It is installed as `site-packages/pygame/docs/generated/LGPL.txt`, and is collected at build time.
+**The vendored license files** were added on 2026-09-22:
+- `vendor/openal/license.txt` is OpenAL Soft's `COPYING`: the GNU Library GPL v2, June 1991, which the DLL's own copyright field names.
+- `vendor/openal/license-pffft.txt` is its `LICENSE-pffft`. It is BSD-style, and its terms say it must ship with the binary.
+- Both are byte-identical copies from the dev's `openal-soft-1.25.2-bin` download. That download's Win64 `soft_oal.dll` is byte-identical to the repo's: both say 1.25.1, with SHA-256 `3963B06E...FAB5B4`.
+- `vendor/nvda/license.txt` is the LGPL-2.1 text from Prism's own `LICENSES/nvdaController`, which its NOTICE says covers the controller client.
+- **Prism does not go in `vendor/`.** It is a pip package, and its loader expects its DLL inside the package.
 
-  **Prism does not go in `vendor/`.** It is a pip package, like pygame: its `prism.dll` and `_prism_cffi.pyd` live inside the installed package, whose loader expects them there. PyInstaller bundles them from there. `vendor/` is only for DLLs pip cannot install.
-
-  **The agreed release layout** (the dev said yes on 2026-09-22) is a `licenses` folder beside the executable:
-  - `licenses/openal-soft/`: `license.txt` and `license-pffft.txt`, from `vendor/openal`
-  - `licenses/nvda-controller-client/`: `license.txt`, from `vendor/nvda`
-  - `licenses/prism/`: `LICENSE`, `NOTICE` and the whole `LICENSES` folder, from the installed `prismatoid-*.dist-info/licenses` at build time. The NOTICE points readers at that folder, so it must go too.
-  - `licenses/pygame/`: its `LGPL.txt`, from the installed package at build time
-
-  The two vendored licenses live in the repo. Prism's and pygame's are collected from pip when `compiler.py` builds, so there is no second copy to keep in step.
-  - The download's `bin/Win64/soft_oal.dll` is **byte-identical** to the repo's: same SHA-256 `3963B06E...FAB5B4`. Both call themselves 1.25.1, even though the zip is named 1.25.2. When the dev asked on 2026-09-22 to swap in "the newer one", there was nothing to change.
-
-**How to apply:** Build this before the screen reader mode ([[project_screen_reader_mode]]), which depends on it. Never run anything that speaks without the dev's say-so, since they work with NVDA running ([[feedback_dont_run_or_build]]). Don't name the reference project in code, comments or notes ([[feedback_no_other_games]]).
+**How to apply:**
+- Run `tests/test_speech.py` with the rest, the safe way ([[project_safe_test_run]]).
+- Never run anything that speaks through NVDA or Prism for real without the dev's say-so, since they work with NVDA running ([[feedback_dont_run_or_build]]).
+- Checking it by ear, especially without NVDA and with Narrator, is the dev's job.
+- The screen reader mode ([[project_screen_reader_mode]]) builds on this.
+- Don't name the reference project in code, comments or notes ([[feedback_no_other_games]]).

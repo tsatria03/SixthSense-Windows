@@ -1,24 +1,25 @@
 ---
 name: feedback_dont_run_or_build
-description: "Never build unless the dev says so. Ask before running anything for smoke-test purposes: the game, the tests, compiler.py, or scripts that execute game code. Read-only inspection is fine."
+description: "Never build unless the dev says so. The test suite may be run without asking (since 2026-09-22), always the safe way. Ask before running the game, compiler.py, or scripts that execute game code or speak. Read-only inspection is fine."
 metadata:
   node_type: memory
   type: feedback
-  originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
 **Never build anything unless the dev says to.** That covers `compiler.py`, PyInstaller, and any packaging or zip step.
 
-**Ask before running anything for smoke-test purposes.** That covers:
+**The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]): `APPDATA` pointed at a scratch folder, `ALSOFT_DRIVERS=null` and `SDL_AUDIODRIVER=dummy`, so the dev's save is untouched and nothing is heard over NVDA.
+
+**Still ask first before running:**
 - the game (`python SixthSense.py`, including `--no-window` runs)
-- the test suite in `tests/`
-- `compiler.py` in any mode, including `--dry-run` and `--test`
-- scratch scripts that import and execute game code to check behavior
+- `compiler.py` in any mode, including `--dry-run`
+- scratch scripts that import and execute game code to check behaviour
+- anything that could speak through NVDA or Prism for real, or play sound
 
-Make the edits, report them, and hand verification back to the dev, or ask first and wait for a yes.
+Make the edits, report them, and hand verification by ear back to the dev.
 
-Read-only inspection is always fine: reading and grepping files, `git status`, `git diff` and `git log`, listing installed packages, and parsing the binary's bytes for analysis. When unsure which side of the line something falls on, ask.
+**Read-only inspection is always fine:** reading and grepping files; `git status`, `git diff` and `git log`; listing installed packages; reading package metadata; and parsing the binary's bytes for analysis. When unsure which side of the line something falls on, ask.
 
-**Why:** The dev set this rule on 2026-09-21. They run and verify builds themselves, and they work with NVDA running, so an unexpected run can make noise, touch their save, or leave stray processes and artifacts.
+**Why:** The dev set the original rule on 2026-09-21. They run and verify builds themselves, and they work with NVDA running, so an unexpected run can make noise, touch their save, or leave stray processes and artifacts. Tests run the safe way do none of that, which is why they were freed up on 2026-09-22.
 
-**How to apply:** When a change needs verifying, end with a clear "relaunch to test" or "run X to check" note instead of running it. If a smoke test would help, ask one short question saying exactly what you'd run and why. If the dev agrees to running the tests, follow [[project_safe_test_run]] so their save and ears are protected.
+**How to apply:** After a code change, run the relevant tests, or the whole suite, the safe way and report the result. When a change needs checking by ear, end with a clear "relaunch to test" note instead of running the game.

@@ -40,7 +40,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `InventoryController` (80) | `game/inventory.py` | The eight slots |
 | `DetailInventoryController` (66) | `game/inventory.py` | One slot's page and `equipToggleAction:`, which writes the `...USE` keys the stage reads |
 | the shared screen shape | `game/blind_screen.py`, `ui/screen_input.py` | `selectTapPointSoundStart` / `tapCount` / `StopElseSpeak`, on Up / Down / Enter |
-| **port addition** | `platform/keymap.py`, `ui/keybind_screen.py`, `platform/speech.py` | Rebindable keys with chord support, and the self-voiced F1 screen that edits them. The original has no bindings at all — see `DIVERGENCES.md`. |
+| **port addition** | `platform/keymap.py`, `ui/keybind_screen.py`, `platform/speech.py` | Rebindable keys with chord support, and the F1 screen that edits them, spoken through NVDA, any other screen reader through Prism, or a Windows voice. The original has no bindings at all — see `DIVERGENCES.md`. |
 | gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D attack the five lanes, S reloads, comma/full stop turn, Space shakes, P pauses |
 
 ---

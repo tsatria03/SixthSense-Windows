@@ -48,7 +48,6 @@ Add a log file and a crash.txt, and have the game say out loud when it cannot st
 Add an exit after option and a game data line to the log, so the compiler's test build can come back.
 Pause the game when its window loses focus, and recover when the audio device changes.
 Memory leaks each time the music or ambience changes.
-Speak through Prism, so JAWS, ZoomText, System Access, Narrator and other screen readers work as well as NVDA, and players with none running still hear a SAPI voice without needing comtypes. Ship the licenses for Prism, pygame, OpenAL Soft and the NVDA controller client with the release. The key bindings screen, which the game's own recordings cannot voice, and later the screen reader mode, depend on it.
 Pygame opens a second audio device alongside OpenAL.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
@@ -63,6 +62,7 @@ The "you must use earphones" warning and the menu music start as soon as the men
 
 ##Finished.
 
+The key bindings screen and the main menu's spoken messages speak through Prism, so JAWS, ZoomText, System Access, Narrator and other screen readers work as well as NVDA, and a Windows voice speaks when no screen reader is running, without needing comtypes. The build script puts the licenses for Prism, pygame, OpenAL Soft and the NVDA controller client in a licenses folder beside the game.
 The game finds its sounds in game/sounds/used again, so every sound plays, and the compiler and the tests look for them there too.
 Every sound the game uses sits together in game/sounds/used, 329 files covering all 269 of the original's sounds, apart from the 25 in game/sounds/unused.
 The 25 sounds that are not the original's own, 11 extra copies and 14 the original never had, are kept apart in game/sounds/unused, in the same folders they came from, so the rest of game/sounds holds only the original's sounds.

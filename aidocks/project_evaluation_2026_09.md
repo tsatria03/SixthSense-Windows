@@ -168,7 +168,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **`app.mode` defaults to 0.** "Gold is lacking" is then silent, and the mode row says "voice over on" (`store.py` about 289-293, `main_controller.py` about 147-149).
 
 ## Low
-- [R] **The SAPI fallback is dead.** It needs `comtypes`, which isn't installed. `accessible_output2`, which is installed, would cover NVDA, JAWS and SAPI.
+- [R] **The SAPI fallback is dead.** It needed `comtypes`, which isn't installed. **FIXED 2026-09-22:** `speech.py` now goes through Prism for every other screen reader and for SAPI or OneCore. comtypes is gone, and the dev confirmed it by ear ([[project_prism_speech]]).
 - [R] **Closing the window doesn't quit.** It goes to the menu, and stacked screens and their coin timers are never torn down (`SixthSense.py` about 221-228).
 - [R] **Several actions are silent or unconfirmed.**
   - R in the bindings screen resets everything without asking.
@@ -191,7 +191,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - Switching to the sword should play 329 (0x35ecc).
 - [R] **Two save keys are never written.** Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
 - [R] **The zig-zag walks are faithful but can't be reached**, because the monster tables only use straight-lane types.
-- [V] **Repo housekeeping.** There is no `requirements.txt`: pygame is needed, comtypes or accessible_output2 for speech, and capstone for `tools/`. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
+- [V] **Repo housekeeping.** There is no `requirements.txt`: pygame and prismatoid are needed (settled 2026-09-22), and capstone for `tools/`. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
 
 ## Docs entries that are misreadings (fix with the code, docs last)
 - **`DIVERGENCES.md`**

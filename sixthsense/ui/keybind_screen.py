@@ -1,8 +1,9 @@
 """PORT ADDITION: the key-binding screen, opened with F1 and read aloud.
 
 The game is self-voicing from recorded WAVs, and none of them can say "Left Arrow" or
-"Attack 10:30" - so this one screen speaks through ``platform/speech.py`` (NVDA when it
-is running, SAPI 5 otherwise). Everything it says, it says on entry and on every move,
+"Attack 10:30" - so this one screen speaks through ``platform/speech.py``: NVDA or another
+screen reader when one is running, a Windows voice otherwise. Everything it says, it says
+on entry and on every move,
 because there is nothing on screen a player of this game is expected to read.
 
     Up / Down       move through the actions
