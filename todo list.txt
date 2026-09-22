@@ -10,14 +10,10 @@ You can lose health during the tutorial.
 "Now Loading" plays over the first tutorial prompt.
 The "no coin" message plays as a recording and is spoken by the screen reader at the same time.
 Moving between the two rows of the intro screen lets their sounds overlap.
-The level music and ambience are far too loud and drown out the zombies. The original plays the music 25 times quieter and the ambience 5 times quieter.
-The rain in the third area stops a second after it starts.
-Leaving a stage with escape leaves zombie footsteps and the ambience playing under the menu.
 The boss at the end of each level never appears, and the level ends as soon as you reach the end of the corridor.
 Zombies still alive at the end of a level follow you into the next one, and the ambience does not change with the level.
 The girl who heals you and the woman zombie never appear during a normal game.
 The second girl uses the woman zombie's voice, reaching you plays her death sound instead of her thank you, and shooting her counts as a kill instead of costing you a heart.
-Switching weapons refills the magazine for free.
 You can keep firing while reloading and still end up with a full magazine.
 Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
@@ -63,6 +59,10 @@ The "you must use earphones" warning and the menu music start as soon as the men
 
 ##finished.
 
+The level music and ambience play as quietly as in the original, so the zombies can be heard over them.
+The rain in the third area keeps falling for the whole level.
+Leaving a stage stops the zombie footsteps, the ambience and the music.
+Switching weapons keeps each weapon's own ammo instead of refilling the magazine.
 The coin economy now matches the original: a new player gets 10 coins once, a coin comes back every 30 minutes instead of 10, up to 5, time spent away grants the coins missed while you were gone, and spending a coin no longer restarts a countdown that is already running. Coins were kept as a gate on Start Game, matching the original, rather than made free.
 The coin row can say how long until your next coin, instead of always reading zero, and it stops reading a stale coin count after you have already moved to another row.
 Starting a game before finishing the tutorial now sends you to the tutorial, instead of taking a coin and leaving you standing still in silence.

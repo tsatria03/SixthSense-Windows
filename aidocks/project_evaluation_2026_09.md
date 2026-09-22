@@ -14,7 +14,17 @@ How sure each item is:
 - [R] means a reviewer reproduced it in a simulation or traced it in the disassembly.
 - [S] means suspected and not fully verified.
 
-Nothing here has been fixed yet. Tick items off, or delete them, as they land.
+Tick items off as they land; anything not marked fixed is still open.
+
+What has landed so far:
+- **The coin economy (bug a)** was fixed by tunmi13productions in `a16564f`.
+- **Batch 1, by tsatria03, after that commit:**
+  - the level music at 0.02 and the ambience at 0.2
+  - the rain moved to the ambience player, alone
+  - stage `teardown` stopping the footsteps, the ambience and the music
+  - no magazine refill on a weapon switch
+
+  Tests: `test_gameplay`'s magazine-kept, ambience-gain and silent-teardown checks. Batch 1 had also fixed the first-launch grant and the 30-minute interval; those halves were dropped in favor of `a16564f`'s versions.
 
 On 2026-09-21 every item below was also added to `todo list.txt` as a plain sentence, most important first, at the top of `##unfinished.` ([[feedback_todo_list_format]]). The todo file is the dev's checklist; this memory holds the technical detail behind each line.
 
@@ -86,7 +96,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
    - When she reaches you the original plays 270 through `hitPlayer` (0x3b2c6).
    - Shooting her costs a heart (0x3a850-0x3a97a).
    - Port: `stage_1_e.py` about 348-354, 514-526, 539.
-4. [R] **Free-ammo exploits.**
+4. [R] **Free-ammo exploits.** FIXED (batch 1) for the refill on switching. The fire-while-reloading exploit is still open.
    - `gunChangeAction_` refills the magazine on every switch, which the original never does. Two presses of Tab give a full magazine.
    - `GunReloadAction_` doesn't hold `shotFlag`, so you can fire during the reload. The original clears it in `reloadGun:` (0x35f24).
    - Port: `stage_1_e.py` about 939, 948-960.
@@ -94,12 +104,12 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
    - `setListenerRotation:` and `setListenerPos:` are not in `__objc_selrefs`, and `MovingAccelerometer` is never instantiated, so the original never turns the listener.
    - After a 90-degree turn, a lane-3 zombie sounds 15 dB to one side but W still attacks lane 3.
    - Port: `input.py` about 77-80, `stage_1_e.py` about 263, 963-969.
-6. [R] **The audio mix buries the monsters.**
+6. [V] **The audio mix buries the monsters.** FIXED (batch 1). The gains were confirmed from the raw bytes: 0x3e4ccccd at 0x2ddfa/0x2de08, 0x3ca3d70a at 0x321d4/0x321dc, and 0x3f000000 at 0x2ddc8.
    - Level music: original gain 0.02 (0x321d4), port 0.5.
    - Ambience: original 0.2 (0x2ddfa), port 1.0.
    - gameMode 3: the original plays only rain, on the ambience player, at 0.5 (0x2ddc8).
    - Port: `stage_1_e.py` about 255-261, 360, 362. The port's own `continueAction_` already uses 0.2 and 0.02.
-7. [R] **Escape or closing the window from a stage leaves the monster loops and ambience playing under the menu** indefinitely. `teardown` (`stage_1_e.py` about 1036-1043) should call `MonsterStop()` and `AMBSoundStop()`.
+7. [R] FIXED (batch 1). **Escape or closing the window from a stage leaves the monster loops and ambience playing under the menu** indefinitely. `teardown` (`stage_1_e.py` about 1036-1043) should call `MonsterStop()` and `AMBSoundStop()`.
 8. [R] **Store screens are built without a speech object**, so "not available" for the coin store, restore and buy-all goes only to the log (`SixthSense.py` about 66-72, `blind_screen.py` about 71-76). Fall back to `Speech.shared()`.
 9. [V] **Key rebinding is broken.** Any key-up ends capture (`keybind_screen.py` about 149-151), so releasing Enter reports "Nothing pressed". Finish capture only on the key-up of a captured key. The test never releases Return.
 10. [V] **The tests overwrite the real save.** See [[project_safe_test_run]].

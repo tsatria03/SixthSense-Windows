@@ -252,6 +252,67 @@ def test_weapon_cycling_only_picks_equipped():
     st.teardown()
 
 
+def test_switching_weapons_keeps_each_magazine():
+    """gunChangeAction: (0x35a08) never calls ReloadGun: each weapon keeps its rounds."""
+    app, st = _new_stage()
+    app.useWeapon = ['1', '1', '1', '0', '0', '0', '0', '0']
+    st.gamePlayer.useWepon = 2
+    w = st.weaponSource[2]
+    w.BulletCount = 1
+    st.gunChangeAction_(1)
+    assert st.gamePlayer.useWepon != 2, 'the weapon did not change'
+    for _ in range(8):                      # round the equipped three, back to 2
+        if st.gamePlayer.useWepon == 2:
+            break
+        st.gunChangeAction_(1)
+    assert st.gamePlayer.useWepon == 2
+    assert w.BulletCount == 1, 'switching weapons refilled the magazine'
+    st.teardown()
+
+
+def test_the_ambience_is_quiet_and_the_rain_is_ambience():
+    """MapInitInBundle 0x2dd96..0x2de10: gameMode 3 plays the rain alone, on the
+    ambience player, at 0.5 (0x3f000000); the forest and the cave play their ambience
+    at 0.2 (0x3e4ccccd).  Nothing starts on the music player."""
+    app, st = _new_stage()
+    pb = app.playback
+    calls = []
+    pb.startAMBPlayer_type_soundGain_Loop_ = lambda n, t, g, l: calls.append(('amb', n, g))
+    pb.startBGPlayer_type_soundGain_Loop_ = lambda n, t, g, l: calls.append(('bg', n, g))
+    try:
+        for mode, want in ((3, [('amb', 'effect_forest_rainng', 0.5)]),
+                           (2, [('amb', 'bgm_forest_amb', 0.2)]),
+                           (1, [('amb', 'bgm_cave_amb', 0.2)])):
+            calls.clear()
+            st.gameMode = mode
+            st.MapInitInBundle()
+            assert calls == want, 'gameMode %d played %r' % (mode, calls)
+    finally:
+        del pb.startAMBPlayer_type_soundGain_Loop_      # back to the real players
+        del pb.startBGPlayer_type_soundGain_Loop_
+        st.teardown()
+
+
+def test_leaving_a_stage_silences_it():
+    """teardown stops each monster's walking loop, the ambience and the music, or
+    they play on under the menu after Escape."""
+    app, st = _new_stage()
+    pb = app.playback
+    stopped = []
+    pb.AMBSoundStop = lambda: stopped.append('ambience')
+    pb.backgroundSoundStop = lambda: stopped.append('music')
+    try:
+        st.MonsterInit_(1)
+        st.MonsterBuffer[-1].StopPlayGame = lambda: stopped.append('footsteps')
+        st.teardown()
+        assert 'footsteps' in stopped, "a monster's footsteps kept walking"
+        assert 'ambience' in stopped, 'the ambience kept playing'
+        assert 'music' in stopped, 'the music kept playing'
+    finally:
+        del pb.AMBSoundStop                     # back to the real players
+        del pb.backgroundSoundStop
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

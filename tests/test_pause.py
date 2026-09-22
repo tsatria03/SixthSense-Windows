@@ -21,6 +21,7 @@ from sixthsense.platform.runloop import RunLoop                 # noqa: E402
 
 def _new_stage(coins=3):
     d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('1', 'FIREST')          # past the first-launch ten coins
     d.setObject_forKey_('1', 'TUTORIAL')
     d.setObject_forKey_(str(coins), 'COIN')
     d.removeObjectForKey_('TOPSCORE')

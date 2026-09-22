@@ -2,7 +2,7 @@
 user/
 
 #private scratchpad
-New File.txt
+New File*.txt
 
 # What PyInstaller leaves behind
 build/

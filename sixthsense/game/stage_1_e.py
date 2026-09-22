@@ -251,14 +251,17 @@ class Stage_1_E:
         self.stage = MakeMaps().initWithMapGroundFileString_soundPosFileName_actionPosFileName_(
             self.groundMapData, self.soundMapData, self.actionMapData)
 
+        # The rain is the whole of gameMode 3's ambience, on the ambience player - not
+        # the music player, which action cell 9 stops at the first corridor segment.
+        # The other two play at 0.2: movw/movt r4, 0x3e4ccccd at 0x2ddfa/0x2de08.
         pb = self.app.playback
         if self.gameMode == 3:                                   # 0x2dd96
-            pb.startAMBPlayer_type_soundGain_Loop_('bgm_forest_amb', 'wav', 1.0, True)
-            pb.startBGPlayer_type_soundGain_Loop_('effect_forest_rainng', 'wav', 0.5, True)
+            pb.startAMBPlayer_type_soundGain_Loop_(
+                'effect_forest_rainng', 'wav', 0.5, True)       # 0x2ddc8: 0x3f000000
         elif self.gameMode == 2:                                 # 0x2dd6c
-            pb.startAMBPlayer_type_soundGain_Loop_('bgm_forest_amb', 'wav', 1.0, True)
+            pb.startAMBPlayer_type_soundGain_Loop_('bgm_forest_amb', 'wav', 0.2, True)
         elif self.gameMode == 1:                                 # 0x2ddce
-            pb.startAMBPlayer_type_soundGain_Loop_('bgm_cave_amb', 'wav', 1.0, True)
+            pb.startAMBPlayer_type_soundGain_Loop_('bgm_cave_amb', 'wav', 0.2, True)
 
         self.app.playback.setListenerRotation_(self.facing.radians)
         self.running = True
@@ -355,11 +358,12 @@ class Stage_1_E:
         elif actionHere == 9:                                             # 0x31e4c
             self.app.playback.backgroundSoundStop()
         elif actionHere == 10:                                            # 0x31ec0
+            # 0.02, well under the monsters: movw/movt r4, 0x3ca3d70a at 0x321d4/0x321dc
             pb = self.app.playback
             if self.gameMode >= 2:
-                pb.startBGPlayer_type_soundGain_Loop_('bgm_forest', 'wav', 0.5, True)
+                pb.startBGPlayer_type_soundGain_Loop_('bgm_forest', 'wav', 0.02, True)
             else:
-                pb.startBGPlayer_type_soundGain_Loop_('bgm_cave', 'wav', 0.5, True)
+                pb.startBGPlayer_type_soundGain_Loop_('bgm_cave', 'wav', 0.02, True)
 
         # ---- spawn, attack, upkeep, 0x31f16..0x31f94 --------------------
         self.MakeMonster_(self.monster_num)
@@ -933,10 +937,11 @@ class Stage_1_E:
         self.gamePlayer.useWepon = w
         weapon = self.weaponSource[w]
         if weapon:
+            # No reload here: gunChangeAction: never calls ReloadGun or setBulletCount,
+            # so each weapon keeps the rounds it had (a full magazine from weaponInit).
             self.app.playSound_Gain_Pos_z_reprats_(
                 weapon.weaponChangeSoundNumber, weapon.weaponChangeSoundGain,
                 (0.0, 0.0), 0, False)
-            weapon.BulletCount = weapon.ReloadGun()
 
     def doubleTapChangeWeapon_(self, *_):
         self.gunChangeAction_(1)
@@ -1034,12 +1039,21 @@ class Stage_1_E:
 
     # ================================================================== misc
     def teardown(self):
+        """Leaving the stage, however it happens - the menu button, Escape, closing
+        the window.  UINavigationController tore the whole view down and its sounds
+        with it; here the looping footsteps and the two players have to be stopped by
+        hand, or they play on under the menu."""
         self.running = False
         self._invalidate_shake_timer()
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
+        self.MonsterStop()                      # each monster's walking loop
         self.MonsterDealloc()
+        pb = self.app.playback
+        if pb is not None:
+            pb.AMBSoundStop()                   # the ambience or the rain
+            pb.backgroundSoundStop()            # the level music
         RunLoop.main().cancelPerform(self)
 
     # ============================================ the pause and result screen
