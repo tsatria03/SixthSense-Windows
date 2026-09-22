@@ -4,25 +4,14 @@ Add a screen reader mode. When the voice over row is turned off, the screen read
 Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
-Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
 Pressing P during the tutorial always skips it and leaves you standing there, instead of only working once the first eight steps are done and returning to the menu two seconds later.
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
 Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
-You can lose health during the tutorial.
 Moving between the two rows of the intro screen lets their sounds overlap.
-The boss at the end of each level never appears, and the level ends as soon as you reach the end of the corridor.
-Zombies still alive at the end of a level follow you into the next one, and the ambience does not change with the level.
-The girl who heals you and the woman zombie never appear during a normal game.
-The second girl uses the woman zombie's voice, reaching you plays her death sound instead of her thank you, and shooting her counts as a kill instead of costing you a heart.
 You can keep firing while reloading and still end up with a full magazine.
 Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
-Zombies appear faster than in the original, and there is no quiet stretch at the start of each section of corridor.
-A zombie that has just appeared can be hit from the wrong lane for about a second.
-The knife and sword do double damage on a headshot, and a miss sounds the same as a hit.
-Shaking free from a grab can kill the wrong zombie when two reach you at the same time.
 Pressing reload with the grenade equipped plays the grenade blast and does nothing, and reload still works while you are grabbed or dying.
-Several small details do not match the original: the kill tally for zombie type 22, the zombie sound tables, how close a zombie can get, the shake count carrying over between grabs, and the sound for switching to the sword.
 Remove the coin store, restore purchases and buy all weapons rows from the shop. In the original they were paid online purchases, so the Windows port does not need them. Weapons are still bought one at a time with the gold you earn by playing.
 The inventory lets you equip weapons you have not bought.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
@@ -42,14 +31,26 @@ Pause the game when its window loses focus, and recover when the audio device ch
 Memory leaks each time the music or ambience changes.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
-Add a test that checks zombie sounds really move, not just the numbers behind them.
 Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 tools/README.md says the addresses are file offsets, when they are memory addresses.
 Decide whether to fix the original's own bugs that the port keeps on purpose: pausing only works once per stage, double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
-In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
 
 ##Finished.
 
+Zombie sounds move as they walk, so you hear each zombie come closer and louder in its own lane, a zigzag walker's sound sweeps across with it, and the breathing that times a headshot plays through.
+A test checks that zombie sounds really move, by reading each zombie's sound back from OpenAL itself.
+Near the end of each level an alarm sounds and a boss comes down the middle, and the level only ends once the boss is dead.
+Zombies still alive at the end of a level die there instead of following you into the next one, and the ambience changes with the level.
+The girl who heals you and the woman zombie appear during a normal game. The girl has her own voice, thanks you when she reaches you, and shooting her costs a heart instead of counting as a kill.
+Zombies come as often as in the original, and each section of the corridor starts with a quiet stretch.
+A zombie that has just appeared is in its own lane straight away.
+The knife and the sword do their normal damage on a headshot, and a hit, a kill and a miss each have their own sound.
+Shaking free always frees you from the zombie holding you, even when two reach you at once.
+The zombie sound tables, the woman zombie's kill tally, how close a zombie gets, the shake count carrying over between grabs, and the sword's sound all match the original.
+You no longer lose health during the tutorial.
+In the tutorial's shaking step the animal zombie grabs you, so space shakes it off. It can no longer be shot, and the step starts again if it gets you.
+Gunshots and knife swings are heard off to the side when you aim at a side lane, the same way a zombie in that lane is heard.
+A bullet hitting a zombie is heard where the zombie is, instead of in the middle of your head.
 Gunshots are as loud as in the original, and killing a zombie plays its kill sound where it fell.
 Dying plays the player death sound where you fell, and "game over" is said once, by the panel that follows.
 A key you were holding when you left a stage no longer stays pressed in the next one, and nothing stays stuck after you switch away from the window.

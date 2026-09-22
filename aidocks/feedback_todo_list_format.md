@@ -1,6 +1,6 @@
 ---
 name: feedback_todo_list_format
-description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line stating the bug itself (never \"Fix a bug where\"), new items at the top, CRLF endings, no markdown or numbers."
+description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line stating the bug itself (never \"Fix a bug where\"), new items at the top, LF endings, no markdown or numbers."
 metadata:
   node_type: memory
   type: feedback
@@ -16,7 +16,7 @@ metadata:
 - No numbering, no bullets, no markdown, no file:line references. Write in plain words about what the player or dev experiences.
 - Avoid contractions, as the existing lines do ("does not", not "doesn't").
 - **New items go at the top of `##unfinished.`**, most important first, above the existing ones.
-- The file uses **CRLF** line endings with no BOM. Keep every line well under 1024 characters.
+- The file uses **LF** line endings with no BOM (checked 2026-09-22; older notes said CRLF). Match what the file has when you edit it. Keep every line well under 1024 characters.
 
 **Why:** The dev asked on 2026-09-21 for new items to go at the top and for the file's existing style to be matched. They read it by screen reader, so plain sentences read cleanly and markdown symbols would be spoken aloud.
 

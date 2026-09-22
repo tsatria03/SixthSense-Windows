@@ -4,6 +4,7 @@ Opens the audio device, so it needs OpenAL Soft present. Takes about a minute.
 """
 from __future__ import annotations
 
+import math
 import os
 import sys
 import time
@@ -182,7 +183,7 @@ def test_out_of_range_misses():
     _run(loop, 1.5)
     hp0 = m.HP
     st.MovingShot_(LANE[4])
-    loop.pump()
+    _run(loop, 0.3)                         # a swing resolves 0.1 s later
     assert m.HP == hp0, 'the knife reached %.0f cm' % m.monsterRange
     st.teardown()
 
@@ -240,6 +241,47 @@ def test_a_grabber_takes_hold_and_can_be_shaken_off():
     st.teardown()
 
 
+def test_the_player_breathes_every_four_seconds():
+    """MainControl breathes on every second tick, but breath: holds brearhFlag up
+    for 3 s (0x31964), so every other chance is skipped: one breath per 4 s."""
+    app, st = _new_stage()
+    breaths = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (
+        n in (80, 81, 82) and breaths.append(round(time.monotonic() - t0, 1)),
+        real(n, *a))[-1]
+    try:
+        t0 = time.monotonic()
+        _run(RunLoop.main(), 8.5)
+        assert len(breaths) == 2, 'breathed at %r' % breaths
+        assert 3.5 < breaths[1] - breaths[0] < 4.5, breaths
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_shaking_free_is_heard_where_you_are():
+    """PORT DIVERGENCE: the push plays at the player, not at the monster."""
+    app, st = _new_stage()
+    calls = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: (
+        calls.append((n, pos)), real(n, g, pos, z, r))[-1]
+    try:
+        st.MonsterInit_(72)
+        m = st.MonsterBuffer[0]
+        m.monsterRange = 10.0
+        st.MonsterAttPlayer()
+        for _ in range(10):
+            st.shake_step()
+        _run(RunLoop.main(), 1.0, until=lambda: not st.isShake)
+        push = [pos for n, pos in calls if n == m.shakeMonsterPushSound]
+        assert push == [(0.0, 0.0)], push
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
 def test_a_grab_that_is_not_shaken_off_lands():
     """NonShaking (0x3b6f8) fires after shakeMonsterApproachTime and the grab hits."""
     _app, st = _new_stage()
@@ -258,19 +300,356 @@ def test_a_grab_that_is_not_shaken_off_lands():
     st.teardown()
 
 
-def test_check_boos_die_compares_against_gamemode_minus_two():
-    """checkBoosDie (0x3604c) tests monsterNumber against gameMode - 2, which only
-    ever matches in gameMode 3 - see docs/DIVERGENCES.md."""
+def test_check_boos_die_waits_for_this_levels_boss():
+    """checkBoosDie (0x3604c) blocks on monsterNumber 5001 in gameModes 2 and 3
+    (0x360d4) and 5000 in gameMode 1 (0x360e8) - the two bosses - and on nothing
+    else."""
     _app, st = _new_stage()
     assert st.checkBoosDie(), 'an empty buffer should not block the level'
-    st.MonsterInit_(1)                      # kind 1
-    st.gameMode = 3
-    assert not st.checkBoosDie(), 'gameMode 3 should block on a kind-1 zombie'
+    st.MonsterInit_(1)                      # an ordinary zombie
+    for mode in (1, 2, 3):
+        st.gameMode = mode
+        assert st.checkBoosDie(), 'gameMode %d blocked on a kind-1 zombie' % mode
     st.gameMode = 2
-    assert st.checkBoosDie(), 'gameMode 2 compares against 0, which nothing is'
+    st.MonsterInit_(S1E.BOSS_FOREST)
+    assert st.MonsterBuffer[-1].monsterNumber == 5001
+    assert not st.checkBoosDie(), 'the forest boss did not hold the level'
     st.gameMode = 1
-    assert st.checkBoosDie(), 'gameMode 1 compares against -1'
+    assert st.checkBoosDie(), 'the forest boss held the cave level'
+    st.MonsterInit_(S1E.BOSS_CAVE)
+    assert not st.checkBoosDie(), 'the cave boss did not hold the level'
     st.teardown()
+
+
+def _step_to(st, y):
+    """Put the player one cell before ``y`` and take one tick of MainControl."""
+    st.gamePlayer.playerYplot = y + 1
+    st.walkXFlag = False
+    st.MainControl()
+
+
+def test_the_alarm_then_the_boss_then_the_level_waits():
+    """MainControl 0x31ab2..0x31e2e: row 29 sounds the alarm, row 23 sends the
+    boss down lane 3 and stops the alarm, and at row 22 the level waits for it."""
+    app, st = _new_stage()
+    played, stopped = [], []
+    real_play, real_stop = app.playSound_Gain_Pos_z_reprats_, app.stopSoundBufNumber_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real_play(n, *a))[-1]
+    app.stopSoundBufNumber_ = lambda n: (stopped.append(n), real_stop(n))[-1]
+    try:
+        st.gameMode = 1
+        _step_to(st, 29)
+        assert S1E.SOUND_WARNING in played, 'no alarm at row 29'
+        _step_to(st, 23)
+        bosses = [m for m in st.MonsterBuffer if m.monsterNumber == 5000]
+        assert bosses, 'no boss at row 23'
+        assert bosses[0].MovingType == 3, 'the boss is not in the middle lane'
+        assert S1E.SOUND_WARNING in stopped, 'the alarm kept playing over the boss'
+        st.MainControl()                    # 23 -> 22
+        st.walkXFlag = False
+        st.MainControl()                    # at 22: the boss is alive
+        assert st.gamePlayer.playerYplot == 22
+        assert st.MotionSamplingTimer is not None, 'the level ended with the boss alive'
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        del app.stopSoundBufNumber_
+        st.teardown()
+
+
+def test_the_level_ends_once_the_boss_is_dead():
+    """0x31afc..0x31e00: every zombie left dies and is counted, the ambience
+    changes at 0.3, and ChangeLevel: 2 s later loops the other level's ambience as
+    a note (0x32362) and starts the walk again."""
+    app, st = _new_stage()
+    pb = app.playback
+    amb = []
+    pb.startAMBPlayer_type_soundGain_Loop_ = lambda n, t, g, l: amb.append((n, round(g, 3)))
+    try:
+        st.gameMode = 1
+        st.MonsterInit_(1)
+        st.MonsterInit_(12)
+        kills = st.gamePlayer.killMonsterCount
+        st.gamePlayer.playerYplot = 22
+        st.walkXFlag = False
+        st.MainControl()
+        assert st.MonsterBuffer == [], 'zombies followed you into the next level'
+        assert st.gamePlayer.killMonsterCount == kills + 2
+        assert st.gameMode == 2 and st.LVUP == 2
+        assert amb == [('bgm_forest_amb', 0.3)], amb
+        assert st.MotionSamplingTimer is None
+        _run(RunLoop.main(), 3.0, until=lambda: st.MotionSamplingTimer is not None)
+        assert st.gamePlayer.playerYplot == 680, 'ChangeLevel: never ran'
+        assert abs(st.monsterHPGain - 1.5) < 1e-6
+        assert app.CheckSoundBuf_(S1E.SOUND_CAVE_AMB) != -1, 'no ambience note'
+    finally:
+        del pb.startAMBPlayer_type_soundGain_Loop_
+        st.teardown()
+
+
+def test_the_girls_and_the_woman_zombie():
+    """10001..10005 are the girl who heals you and 10006..10010 the woman zombie
+    (0x38aae), each with her own voice."""
+    _app, st = _new_stage()
+    st.gameMode = 1
+    st.MonsterInit_(10003)
+    st.MonsterInit_(10008)
+    girl, woman = st.MonsterBuffer
+    assert girl.monsterNumber == 21 and girl.comingSound == 267
+    assert girl.playerHitSound == 270, 'reaching you is not her thank you'
+    assert woman.monsterNumber == 22 and woman.comingSound == 271
+    st.teardown()
+
+
+def test_action_cell_8_sends_a_girl_in_a_normal_game():
+    """0x320e6..0x322da: past the tutorial, cell 8 picks one of the ten at random."""
+    _app, st = _new_stage()
+    assert st.isTutorialEnd == 0
+    st._action_girl()
+    assert len(st.MonsterBuffer) == 1
+    assert st.MonsterBuffer[0].monsterNumber in (21, 22)
+    st.teardown()
+
+
+def test_the_girl_heals_and_says_thank_you():
+    """0x3b28e: reaching you, she gives a heart back and plays 270 through
+    hitPlayer, not her death."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    try:
+        st.MonsterInit_(10003)
+        st.gamePlayer.HP = 2
+        st.MonsterBuffer[0].monsterRange = 10.0
+        played.clear()
+        st.MonsterAttPlayer()
+        assert st.gamePlayer.HP == 3
+        assert 270 in played and 269 not in played, played
+        assert st.MonsterBuffer == []
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_shooting_the_girl_costs_a_heart():
+    """0x3a850..0x3a97a: killing her takes a heart and is not a kill."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(10003)                  # lane 3
+    _freeze(st.MonsterBuffer[0], 100.0)
+    hp0, kills = st.gamePlayer.HP, st.gamePlayer.killMonsterCount
+    st.MovingShot_(LANE[3])
+    loop.pump()
+    assert st.MonsterBuffer == [], 'the shot missed her'
+    assert st.gamePlayer.HP == hp0 - 1, 'shooting her cost nothing'
+    assert st.gamePlayer.killMonsterCount == kills, 'she counted as a kill'
+    st.teardown()
+
+
+def test_a_zombie_that_reaches_you_in_the_tutorial_costs_nothing():
+    """0x3b2e6: a heart is only lost once isTutorial is set."""
+    _app, st = _new_stage()
+    st.isTutorial = 0
+    st.MonsterInit_(1)
+    st.MonsterBuffer[0].monsterRange = 10.0
+    st.MonsterAttPlayer()
+    assert st.gamePlayer.HP == 3
+    st.isTutorial = 1
+    st.MonsterInit_(1)
+    st.MonsterBuffer[0].monsterRange = 10.0
+    st.MonsterAttPlayer()
+    assert st.gamePlayer.HP == 2
+    st.teardown()
+
+
+def test_every_spawn_attempt_resets_the_count():
+    """MakeMonster: 0x3623a / 0x3625a - once LVCount reaches 3 it starts again,
+    whether a zombie came of it or not."""
+    _app, st = _new_stage()
+    st.LVUP = 0                             # a cap of 2
+    st.MonsterInit_(1)
+    st.MonsterInit_(2)                      # the buffer is full
+    st.LVCount = 2
+    st.MakeMonster_(1)
+    assert st.LVCount == 0, 'a full buffer left LVCount at %d' % st.LVCount
+    st.teardown()
+
+
+def test_action_cell_9_opens_a_quiet_stretch():
+    """0x31e70 falls into the store at 0x31f06, so tier 9 spawns nothing until the
+    section's own tier cell."""
+    _app, st = _new_stage()
+    st.monster_num = 3
+    st.gamePlayer.playerYplot = 601         # cell 9
+    st.walkXFlag = False
+    st.stage.movePlayGroundState_PlotY_ = lambda x, y: 0     # stand still on it
+    st.MainControl()
+    assert st.monster_num == 9
+    n = len(st.MonsterBuffer)
+    for _ in range(6):
+        st.walkXFlag = False
+        st.MainControl()
+    assert len(st.MonsterBuffer) == n, 'zombies came during the quiet stretch'
+    st.teardown()
+
+
+def test_a_new_zombie_is_in_its_lane_at_once():
+    """MonsterComing: 0x1194c takes the first step straight away."""
+    _app, st = _new_stage()
+    st.MonsterInit_(4)
+    m = st.MonsterBuffer[0]
+    assert m.MovingPosAngle == 57, 'a new zombie reads as bearing %d' % m.MovingPosAngle
+    st.teardown()
+
+
+def _freeze(m, rng):
+    """Stop a monster walking and put it ``rng`` cm out, so running the clock does
+    not move it."""
+    m.StopPlayGame()
+    RunLoop.main().cancelPerform(m)
+    m.monsterRange = rng
+
+
+def _swing(st, lane, useWepon=1):
+    st.gamePlayer.useWepon = useWepon
+    st.shotFlag = False
+    st.MovingShot_(LANE[lane])
+    _run(RunLoop.main(), 0.3)
+
+
+def test_the_knife_never_doubles_and_sounds_each_outcome():
+    """MonsterDamageKnife 0x392fc: plain Damage even in a headshot window; att2 on a
+    hit that leaves it standing, att1 on the kill, the swish only on a miss."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    try:
+        knife = st.weaponSource[1]
+        st.MonsterInit_(3)
+        m = st.MonsterBuffer[0]
+        _freeze(m, 50.0)
+        m.HP = knife.Damage * 3
+        m.headShotFlag = True
+        played.clear()
+        _swing(st, 3)
+        assert m.HP == knife.Damage * 2, 'the knife did %d' % (knife.Damage * 3 - m.HP)
+        assert knife.att2SoundNumber in played and knife.ShotSoundNumber not in played
+        played.clear()
+        m.HP = knife.Damage
+        _swing(st, 3)
+        assert m not in st.MonsterBuffer
+        assert knife.att1SoundNumber in played, played
+        played.clear()
+        _swing(st, 1)
+        assert knife.ShotSoundNumber in played, played
+        assert knife.att1SoundNumber not in played and knife.att2SoundNumber not in played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_two_zombies_at_once_and_the_grabber_is_the_one_held():
+    """MonsterAttPlayer defers its removals (0x3b44e), so the zombie that grabs
+    is the one freed and killed, even when another hit you on the same tick."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(1)                      # an ordinary zombie, first in the list
+    st.MonsterInit_(72)                     # the grabber
+    plain, grabber = st.MonsterBuffer
+    assert grabber.shakeMonsterFlag
+    plain.monsterRange = grabber.monsterRange = 10.0
+    st.MonsterAttPlayer()
+    assert st.isShake
+    assert plain not in st.MonsterBuffer
+    for _ in range(10):
+        st.shake_step()
+    _run(loop, 1.0, until=lambda: not st.isShake)
+    assert grabber not in st.MonsterBuffer, 'the grabber survived'
+    st.teardown()
+
+
+def test_the_shake_count_carries_over():
+    """Nothing that clears shakeCount is ever called (0x323d8, 0x324f8), so after
+    one escape the next grab breaks on the first shake."""
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    for _ in range(2):
+        st.MonsterInit_(72)
+        st.MonsterBuffer[-1].monsterRange = 10.0
+        st.MonsterAttPlayer()
+        assert st.isShake
+        st.shake_step()
+        if st.shakeCount < 10:
+            for _ in range(9):
+                st.shake_step()
+        _run(loop, 1.0, until=lambda: not st.isShake)
+        assert not st.isShake
+    assert st.shakeCount == 11, st.shakeCount
+    st.teardown()
+
+
+def test_kill_tallies():
+    """MonsterKillCount: 0x3a04c counts the woman zombie (22) as kind 11; kind 11
+    itself is not tallied."""
+    _app, st = _new_stage()
+
+    class M:
+        pass
+    for n, attr in ((22, 'killMonster11count'), (5001, 'killMonster5000count'),
+                    (4, 'killMonster4count')):
+        m = M()
+        m.monsterNumber = n
+        before = getattr(st.gamePlayer, attr)
+        st.MonsterKillCount_(m)
+        assert getattr(st.gamePlayer, attr) == before + 1, n
+    m = M()
+    m.monsterNumber = 11
+    before = st.gamePlayer.killMonster11count
+    st.MonsterKillCount_(m)
+    assert st.gamePlayer.killMonster11count == before
+    st.teardown()
+
+
+def test_the_sword_is_drawn_with_its_own_sound():
+    """gunChangeAction: 0x35eac plays 329 on the sword."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    try:
+        app.useWeapon = ['0'] * 8
+        app.useWeapon[2] = app.useWeapon[7] = '1'
+        st.gamePlayer.useWepon = 2
+        st.gunChangeAction_(1)
+        assert st.gamePlayer.useWepon == 7
+        assert S1E.SOUND_SWORD_START in played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_a_shot_goes_off_down_its_lane():
+    """PORT DIVERGENCE: the shot is placed along the lane's bearing, 40 cm out."""
+    app, st = _new_stage()
+    calls = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: (
+        calls.append((n, pos, z)), real(n, g, pos, z, r))[-1]
+    try:
+        w = st.weaponSource[st.gamePlayer.useWepon]
+        for lane, bearing in LANE.items():
+            calls.clear()
+            st.shotFlag = False
+            st.MovingShot_(LANE[lane])
+            shot = [c for c in calls if c[0] == w.ShotSoundNumber]
+            assert shot, 'lane %d fired nothing' % lane
+            (x, y), z = shot[0][1], shot[0][2]
+            got = math.degrees(math.atan2(y, x)) % 360.0
+            assert abs(got - bearing) < 0.5 and z == 0, (lane, x, y, z)
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
 
 
 def test_six_oclock_reloads_a_gun():

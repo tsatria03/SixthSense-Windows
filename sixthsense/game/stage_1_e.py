@@ -36,10 +36,14 @@ A hit lands for ``weapon.Damage``; a hit taken while the monster's ``headShotFla
 the pause in its breathing - lands for ``Damage * 2`` and counts as a headshot
 (0x3a1dc: ``HP - (damage << 1)``).
 
-**Progress.**  Reaching Y == 23 ends the level: ``ChangeLevel:`` (0x322e0) puts the player
-back at 680, multiplies ``monsterHPGain`` by 1.5 and flips the environment between cave
-and forest.  The action layer of the map (``a_CH1_E.txt``) sets the spawn tier along the
-way: values 1..7 raise ``monster_num``, 8/9/10 drive the girl, the ambience and the music.
+**Progress.**  At Y == 29 an alarm sounds; at Y == 23 the level's boss comes down the
+middle lane and the alarm stops.  The player walks one more cell and waits at 22 until
+``checkBoosDie`` says the boss is dead.  Then every zombie left is killed, the ambience
+changes, and ``ChangeLevel:`` (0x322e0) puts the player back at 680 with
+``monsterHPGain`` 1.5 times higher, now in the other environment, cave or forest.
+The action layer of the map (``a_CH1_E.txt``) sets the spawn tier along the way: values
+1..7 set ``monster_num``, 8 sends the girl or the woman zombie, 9 stops the music and
+starts a quiet stretch, and 10 starts the music.  A melee hit is only ever plain damage.
 """
 from __future__ import annotations
 
@@ -54,7 +58,7 @@ from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .app_delegate import AppDelegate
 from .make_maps import MakeMaps
-from .monster_control import MonsterControl
+from .monster_control import MonsterControl, lane_bearing
 from .moving_accelerometer import MovingAccelerometer
 from .player_control import PlayerControl
 from .weapon_control import WeaponControl, WEAPON_FILES, WEAPON_SLOTS
@@ -106,25 +110,45 @@ SWIPE_BANDS = [
     (156.5, 242.5, 1),      # 0x2f862 (guns)
 ]
 
+#: The two bosses, and the ``monsterNumber`` each one's plist gives it, which is what
+#: checkBoosDie looks for (0x360d4: 5001, 0x360e8: 5000).
+BOSS_FOREST = 5008          # gameMode 2 and 3, 0x31d1c
+BOSS_CAVE = 5003            # gameMode 1, 0x31e0a
+BOSS_NUMBER = {2: 5001, 3: 5001, 1: 5000}
+KIND_BOSS = 5000            # the port's key for the boss's row below
+
+#: 0x322da: the ten scripted ids action cell 8 picks from.  10001..10005 are the girl
+#: who heals you (monsterNumber 21), 10006..10010 the woman zombie (22), one per lane.
+GIRL_IDS = tuple(range(10001, 10011))
+MONSTER_GIRL = 21
+MONSTER_WOMAN = 22
+
 # -[Stage_1_E MonsterInit:] 0x36524 - the sound numbers each monster kind may use.
 # One entry is one OpenAL voice, so a kind can have at most as many live monsters as it
 # has spare numbers.  Extracted from the arrayWithObjects: blocks at 0x3658e..0x37190.
+#
+# Every zombie row is a full triple; the third entry of each array sits in a register
+# the listings drop (0x36b62, 0x36bbe, 0x36bf0, 0x36c1e, 0x36f3a...).  Kind 11 hits the
+# player with kind 12's 307..309: 298..300, zombies_11_hit_player, is never listed.
 MONSTER_SOUNDS = {
     #        coming (cave)      coming (forest)    damage           die              hit player
     1:  ([93, 94, 95], [96, 97, 98], [99, 100, 101], [102, 103, 104], [105, 106, 107]),
     2:  ([108, 109, 110], [111, 112, 113], [114, 115, 116], [117, 118, 119], [120, 121, 122]),
-    3:  ([123, 124, 125], [126, 127, 128], [129, 130], [132, 133], [135, 136, 137]),
-    4:  ([138, 139, 140], [141, 142, 143], [144, 145], [147, 148], [121, 122]),
-    5:  ([150, 151, 152], [153, 154, 155], [156, 157, 158], [159, 160, 161], [135]),
+    3:  ([123, 124, 125], [126, 127, 128], [129, 130, 131], [132, 133, 134], [135, 136, 137]),
+    4:  ([138, 139, 140], [141, 142, 143], [144, 145, 146], [147, 148, 149], [120, 121, 122]),
+    5:  ([150, 151, 152], [153, 154, 155], [156, 157, 158], [159, 160, 161], [135, 136, 137]),
     6:  ([165, 166, 167], [168, 169, 170], [171, 172, 173], [174, 175, 176], [177, 178, 179]),
-    7:  ([180, 181, 182], [183, 184, 185], [186, 187, 188], [189, 190, 191], [137]),
+    7:  ([180, 181, 182], [183, 184, 185], [186, 187, 188], [189, 190, 191], [135, 136, 137]),
     8:  ([192, 313, 314], [193, 315, 316], [194, 317, 318], [195, 319, 320], [196, 321, 322]),
-    9:  ([199, 200, 201], [202, 203, 204], [205, 206, 207], [208, 209, 210], [211, 212]),
-    10: ([214, 215, 216], [217, 218, 219], [206, 207], [210], [220, 221, 222]),
-    11: ([292, 293, 294], [295, 296, 297], [301, 302, 303], [310, 311, 312], [298, 299, 300]),
+    9:  ([199, 200, 201], [202, 203, 204], [205, 206, 207], [208, 209, 210], [211, 212, 213]),
+    10: ([214, 215, 216], [217, 218, 219], [205, 206, 207], [208, 209, 210], [220, 221, 222]),
+    11: ([292, 293, 294], [295, 296, 297], [301, 302, 303], [310, 311, 312], [307, 308, 309]),
     12: ([304, 305, 306], [304, 305, 306], [301, 302, 303], [310, 311, 312], [307, 308, 309]),
-    21: ([267], [268], [205], [269], [270]),          # the girl
-    22: ([271], [272], [274], [273], [274]),          # the girl's escort
+    # 0x36790.., 0x370da..: one voice each.  Reaching you, the girl plays 270, her
+    # thank you; the woman zombie's hit is 274.
+    21: ([267], [268], [269], [269], [270]),          # the girl who heals you
+    22: ([271], [272], [273], [273], [274]),          # the woman zombie
+    KIND_BOSS: ([286], [290], [205], [289], [288]),   # 0x367ca / 0x36a30, 0x3715e..
 }
 # zombie_8 is the one that grabs you; it needs two more (0x36e96 / 0x36ec4).
 SHAKE_SOUNDS = {8: ([197, 323, 324], [198, 325, 326])}
@@ -143,6 +167,17 @@ SOUND_MISSION_SUCCESS = 227
 SOUND_MISSION_FAIL = 228    # stopped by StopElseSpeak; Stage_1_E never plays it
 SOUND_BGM_GAME_END = 89     # what -[Stage_1_E playerDie:] plays, 0x3bcaa
 SOUND_NOW_LOADING = 46
+#: 0x31964: how long ``brearhFlag`` stays up after a breath.
+BREATH_HOLD = 3.0
+SOUND_SWORD_START = 329     # weapon_japen_knife_start, 0x35ec0
+#: What ChangeLevel: loops at 0.02 as a note (0x32362): 88, bgm_cave_amb, going into
+#: the forest, and 87, bgm_forest_amb, going into the cave - the other level's.
+SOUND_FOREST_AMB = 87
+SOUND_CAVE_AMB = 88
+
+#: How far from you a gunshot or a swing is placed, in cm, along the lane it is aimed
+#: down.  40 is the reference distance, so this pans it without making it quieter.
+SHOT_DISTANCE = 40.0
 
 #: 0x2d45e (0x7d6a2 in Stage_Tutorial) - how long the original waits, after Now
 #: Loading plays, before calling MapInitInBundle - so the recording has time to
@@ -180,6 +215,7 @@ class Stage_1_E:
         self.shakeFlag = 0
         self.shakeMonsterNumber = 0
         self.shakeMonsterTimer = None
+        self.heldMonster = None        # not in the original, see _held_monster
         self.gameState = 0
         self.bStop = False          # set by the three panel openers, never cleared
         self.selectMenu = 0
@@ -335,6 +371,10 @@ class Stage_1_E:
             return
 
         # ---- breathing, 0x3186e..0x31974 -------------------------------
+        # Every second tick breathes, unless the last breath is still holding
+        # brearhFlag up.  breath: comes 3 s later (0x31964: movt r5, #0x4008), which
+        # covers the next second tick, so the player breathes once every 4 s.  Which
+        # breath says how hurt you are: 80 at full health, 81 at two hearts, 82 at one.
         self.breathCount += 1
         if self.breathCount >= 2:
             self.breathCount = 0
@@ -349,7 +389,7 @@ class Stage_1_E:
                     self.breathNumber = 82
                 self.app.playSound_Gain_Pos_z_reprats_(
                     self.breathNumber, 0.5, (0.0, 0.0), 0, False)
-                RunLoop.main().perform(self, 'breath_', None, 1.0)
+                RunLoop.main().perform(self, 'breath_', None, BREATH_HOLD)
 
         # ---- walking, 0x319e0..0x31e32 ---------------------------------
         px = self.gamePlayer.playerXplot
@@ -362,26 +402,31 @@ class Stage_1_E:
                 self.gamePlayer.playerYplot = py - 1
                 y2 = self.gamePlayer.playerYplot
                 if y2 == 29:                                              # 0x31ab2
+                    # The alarm: six steps of it, until the boss cuts it off.
                     self.app.playSound_Gain_Pos_z_reprats_(
                         SOUND_WARNING, 0.2, (0.0, 0.0), 0, False)
                 elif y2 == 23:                                            # 0x31cfc
-                    self._level_transition()
-            else:
-                if self.checkBoosDie():
-                    self._level_transition()
+                    # The boss comes in at 12 o'clock, and the alarm stops.
+                    if self.gameMode in (2, 3):                           # 0x31d12
+                        self.MonsterInit_(BOSS_FOREST)
+                    elif self.gameMode == 1:                              # 0x31e02
+                        self.MonsterInit_(BOSS_CAVE)
+                    self.app.stopSoundBufNumber_(SOUND_WARNING)           # 0x31e2e
+            elif self.checkBoosDie():                                     # 0x31af0
+                # Standing at the end: the level waits for the boss to die.
+                self._level_transition()
+                return                                                    # 0x31e00
 
         # ---- the action layer, 0x31e32..0x31f16 -------------------------
-        if 1 <= actionHere <= 7:
-            self.monster_num = actionHere
-        elif actionHere == 8:                                             # 0x31e72
-            if self.isTutorialEnd > 0:
-                self.GirlMonsterNumber += 1
-                if self.GirlMonsterNumber == 2:
-                    self.MonsterInit_(10003)
-                elif self.GirlMonsterNumber == 1:
-                    self.MonsterInit_(10002)
+        # Cells 1..7 set the spawn tier.  9 stores itself too (0x31e70 falls into the
+        # store at 0x31f06), and MakeMonster: does nothing for tier 9, so each section
+        # of the corridor opens with a quiet stretch until its own tier cell.  8 and 10
+        # branch past the store.
+        if actionHere == 8:                                               # 0x31e72
+            self._action_girl()
         elif actionHere == 9:                                             # 0x31e4c
             self.app.playback.backgroundSoundStop()
+            self.monster_num = actionHere
         elif actionHere == 10:                                            # 0x31ec0
             # 0.02, well under the monsters: movw/movt r4, 0x3ca3d70a at 0x321d4/0x321dc
             pb = self.app.playback
@@ -391,6 +436,8 @@ class Stage_1_E:
             else:
                 pb.startBGPlayer_type_soundGain_Loop_(
                     'bgm_cave', 'wav', volume.music(0.02), True)
+        elif actionHere != 0:                                             # 0x31f06
+            self.monster_num = actionHere
 
         # ---- spawn, attack, upkeep, 0x31f16..0x31f94 --------------------
         self.MakeMonster_(self.monster_num)
@@ -419,54 +466,92 @@ class Stage_1_E:
 
     # -[Stage_1_E checkBoosDie] 0x3604c
     def checkBoosDie(self):
-        """Whether the level is allowed to end.
+        """Whether the level is allowed to end: not while this level's boss is alive.
 
-            if (MonsterBuffer.count < 1) return YES;
-            for (i = 0; i < count; i++) {
-                m  = MonsterBuffer[i];
-                r2 = gameMode - 2;                       // 0x360c4
-                if ((unsigned)r2 < 2)      r1 = m.monsterNumber;   // gameMode 2 or 3
-                else if (gameMode == 1)    r1 = m.monsterNumber;
-                else                       continue;
-                if (r1 == r2) return NO;                 // 0x360ec
+            for (i = 0; i < MonsterBuffer.count; i++) {
+                m = MonsterBuffer[i];
+                if ((unsigned)(gameMode - 2) < 2) { if (m.monsterNumber == 5001) return NO; }
+                else if (gameMode == 1)           { if (m.monsterNumber == 5000) return NO; }
             }
             return YES;
 
-        The comparison is against ``gameMode - 2``, not against a boss id, so it only
-        ever bites in gameMode 3, where it blocks the level on a live kind-1 zombie;
-        gameMode 2 compares against 0, which nothing is, and gameMode 1 compares
-        against -1.  Almost certainly not what was meant, but it is what runs -
-        see docs/DIVERGENCES.md.  ``bBOSS`` is declared and never touched anywhere in
-        the binary.
+        5001 is the forest boss (type5008.plist) and 5000 the cave one (type5003.plist),
+        the two ``MainControl`` sends in at row 23.  ``bBOSS`` is declared and never
+        touched anywhere in the binary.
         """
-        if len(self.MonsterBuffer) < 1:
-            return True
-        r2 = self.gameMode - 2
+        boss = BOSS_NUMBER.get(self.gameMode)
         for m in self.MonsterBuffer:
-            if 0 <= r2 < 2 or self.gameMode == 1:
-                if m.monsterNumber == r2:
-                    return False
+            if boss is not None and m.monsterNumber == boss:
+                return False
         return True
 
     def _level_transition(self):
+        """``MainControl`` 0x31afc..0x31e00 - the boss is dead and you are at the end.
+
+        Every zombie still standing is killed where it is: HP 0, one more round fired,
+        its hit sound and its death, and one more kill each (0x31bd4..0x31c5e) - none
+        of them reach the next level.  Then the level goes up, the ambience changes to
+        the next level's at 0.3 (0x31ce2 / 0x31d82: 0x3e99999a) and ``ChangeLevel:``
+        follows 2 s later (0x31d92).
+        """
+        dead = []
+        for m in list(self.MonsterBuffer):
+            m.HP = 0
+            self.gamePlayer.gunEggCountShot += 1
+            m.MonsterHitSound_(None)
+            if m.HP <= 0:
+                self.gamePlayer.killMonsterCount += 1
+                dead.append(m)
+        for m in dead:
+            self._remove(m)
+
+        self.LVUP += 1                                          # 0x31c80
         pb = self.app.playback
         pb.backgroundSoundStop()
-        RunLoop.main().perform(self, 'ChangeLevel_', None, 1.0)
+        if self.gameMode == 1:                                  # 0x31c8c
+            self.gameMode = 2
+            pb.startAMBPlayer_type_soundGain_Loop_(
+                'bgm_forest_amb', 'wav', volume.ambience(0.3), True)
+        else:
+            self.gameMode = 1
+            pb.startAMBPlayer_type_soundGain_Loop_(
+                'bgm_cave_amb', 'wav', volume.ambience(0.3), True)
+        RunLoop.main().perform(self, 'ChangeLevel_', None, 2.0)
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
 
     # -[Stage_1_E ChangeLevel:] 0x322e0
     def ChangeLevel_(self, *_):
+        """Back to the start of the corridor, with tougher zombies.
+
+        The new ambience is already on the ambience player.  What this adds is the
+        other level's ambience as a looping note at 0.02 (0x32362), which is what the
+        original does; the port used to play "zombies are coming" here instead.
+        """
         self.gamePlayer.playerYplot = 680               # 0x32302
         self.monsterHPGain = self.monsterHPGain * 1.5   # 0x32314
-        self.LVUP += 1
-        self.gameMode = 1 if self.gameMode != 1 else 2  # 0x32350
+        note = SOUND_FOREST_AMB if self.gameMode == 1 else SOUND_CAVE_AMB
+        self.app.playSound_Gain_Pos_z_reprats_(note, 0.02, (0.0, 0.0), 0, True)
         self.changeGameMode()
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_ZOMBIES_COMING, 1.0, (0.0, 0.0), 0, False)
         self.MotionSamplingTimer = RunLoop.main().scheduledTimer(
             1.0, self, 'MainControl', None, True)
+
+    # -[Stage_1_E MainControl] 0x31e72 - action cell 8
+    def _action_girl(self):
+        """The first two after the tutorial are fixed, the woman zombie then the girl
+        (0x3218a: 10008, 0x31eac: 10003).  Otherwise it is one of the ten at random
+        (0x320e6..0x322da), so each section of the corridor sends either the girl who
+        heals you or the woman zombie."""
+        if self.isTutorialEnd > 0:
+            self.GirlMonsterNumber += 1
+            if self.GirlMonsterNumber == 2:
+                self.MonsterInit_(10003)
+                return
+            if self.GirlMonsterNumber == 1:
+                self.MonsterInit_(10008)
+                return
+        self.MonsterInit_(GIRL_IDS[arc4random() % 10])
 
     # ============================================================== monsters
     # -[Stage_1_E MakeMonster:] 0x36100
@@ -477,13 +562,15 @@ class Stage_1_E:
         cap = self.LVUP + 2                             # 0x3612e
         if self.LVCount < 3:                            # 0x36144
             return
+        # Every attempt from here on starts the count again, whether it spawns or not
+        # (0x3623a for tiers 1 and 2, before the count check for the rest: 0x3625a).
+        self.LVCount = 0
         if len(self.MonsterBuffer) >= cap:              # 0x36168
             return
         mod, off = MAKE_MONSTER_TIER[tier]
         idx = (arc4random() % mod) + off
         if self.checkMonsterArray_(idx) == -1:          # 0x361ec
             return
-        self.LVCount = 0
         type_id = int(self.monsterArray[idx])
         self.MonsterInit_(type_id)
 
@@ -549,34 +636,61 @@ class Stage_1_E:
         """``몬스터종류`` without opening the plist.
 
         The 50 ids in ``monsterArray`` are ``kind*10 + lane`` with the first kind written
-        bare (1..5), so kind = id // 10 + 1.  The scripted ids are their own kinds.
+        bare (1..5), so kind = id // 10 + 1.  The scripted ids are their own kinds:
+        10001..10005 are the girl and 10006..10010 the woman zombie (0x38aae), and the
+        5000s are the bosses.
         """
         if type_id >= 10000:
-            return 21 if type_id in (10001, 10002) else 22
+            return MONSTER_GIRL if type_id - 10001 <= 4 else MONSTER_WOMAN
         if type_id >= 5000:
-            return 12
+            return KIND_BOSS
         if type_id >= 100:
             return min(12, type_id // 10)
         return type_id // 10 + 1
 
     # -[Stage_1_E MonsterAttPlayer] 0x3b040
     def MonsterAttPlayer(self):
-        for i, m in enumerate(list(self.MonsterBuffer)):
+        """Every monster within 25 cm reaches you.
+
+        The ones that are done are collected and taken out of ``MonsterBuffer`` after
+        the loop (0x3b44e), so the index a grabber is found at is still its index.
+        A heart is only lost once the tutorial is behind you (0x3b2e6: ``isTutorial``);
+        in the tutorial the monster's beat is prompted again instead (0x3b3a2..0x3b41c).
+        """
+        done = []
+        grab = None
+        for m in self.MonsterBuffer:
             if m.monsterRange > 25.0:                  # 0x3b104: vmov.f32 d8, #25.0
                 continue
             if m.shakeMonsterFlag:                     # 0x3b27e - it grabs you
-                self._grabbed_by(i, m)
-                return
-            if m.monsterNumber == 21:                  # 0x3b28e - the girl heals
+                grab = m
+                break
+            done.append(m)
+            if m.monsterNumber == MONSTER_GIRL:        # 0x3b28e - the girl heals
                 if self.gamePlayer.HP <= 3:
                     self.gamePlayer.HP += 1
-                m.DieMonster()
-                self._remove(m)
+                m.hitPlayer()                          # 270, her thank you
+                self.HPImageCount()
                 continue
-            self.gamePlayer.HP -= 1                    # 0x3b2f4
+            if self.isTutorial:                        # 0x3b2e6
+                self.gamePlayer.HP -= 1
             m.hitPlayer()
+            self.HPImageCount()
+            if self.gamePlayer.HP >= 0:                # 0x3b382
+                RunLoop.main().perform(self, 'playerDamage_', None, 0.1)
+            if not self.isTutorial:                    # 0x3b3aa
+                self._tutorial_monster_reached(m)
+        # PORT DIVERGENCE: the original returns straight into the grab and drops this
+        # list, so a zombie that hit you on the same tick stayed on top of you and hit
+        # again once you were free.  It is taken out either way here.
+        for m in done:
             self._remove(m)
-            self.playerDamage_(None)
+        if grab is not None:
+            self._grabbed_by(self.MonsterBuffer.index(grab), grab)
+
+    def _tutorial_monster_reached(self, m):
+        """0x3b3b2..0x3b41c: during the tutorial, a monster that reaches you restarts
+        the beat for its lane.  Stage_Tutorial carries the tutorial here."""
 
     def _grabbed_by(self, index, m):
         """-[Stage_1_E MonsterAttPlayer] 0x3b5ee - zombie_8 takes hold.
@@ -593,11 +707,15 @@ class Stage_1_E:
 
         From here you have ``shakeMonsterApproachTime`` seconds to shake free, which
         takes ten shakes.  Free in time and the monster dies; too slow and it hits you.
+
+        ``shakeCount`` is not reset: the only two methods that clear it,
+        ``checkShakeMode`` (0x323d8) and ``shakeCheck:`` (0x324f8), are never called,
+        so after the first escape in a stage every later grab breaks on one shake.
         """
         self.shakeMonsterNumber = index
+        self.heldMonster = m
         self.shakeFlag = 1
         self.isShake = True
-        self.shakeCount = 0
         if self.isTutorial == 0:                       # 0x3b640
             self.noAtt = True
         m.shakeMonster()
@@ -606,6 +724,17 @@ class Stage_1_E:
         self.shakeMonsterTimer = loop.scheduledTimer(
             0.1, self, 'shakingFind', None, True)      # 0x3b656: 0.1 s, repeating
         loop.perform(self, 'NonShaking', None, m.shakeMonsterApproachTime)
+
+    def _held_monster(self):
+        """The monster holding you.  The original reads it back by index; the port
+        keeps the monster itself as well, so nothing that changes the list in between
+        can make it free or kill the wrong one."""
+        m = self.heldMonster
+        if m is not None and m in self.MonsterBuffer:
+            return m
+        if 0 <= self.shakeMonsterNumber < len(self.MonsterBuffer):
+            return self.MonsterBuffer[self.shakeMonsterNumber]
+        return None
 
     def _remove(self, m):
         if m in self.MonsterBuffer:
@@ -660,6 +789,15 @@ class Stage_1_E:
             return
         self.shotMonster = lane
 
+        if w in (1, 7):
+            # 0x2fa12..0x2fadc: a swing silences the blade's own sounds and resolves
+            # 0.1 s later; MonsterDamageKnife plays whatever it lands as.
+            for n in (weapon.ReloadSoundnumber, weapon.att1SoundNumber,
+                      weapon.att2SoundNumber):
+                self.app.stopSoundBufNumber_(n)
+            RunLoop.main().perform(self, 'MonsterDamageKnife', None, 0.1)
+            return
+
         if weapon.BulletCount <= 0:                            # 0x2f3f6
             self.app.playSound_Gain_Pos_z_reprats_(
                 SOUND_NO_BULLETS, 0.5, (0.0, 0.0), 0, False)
@@ -667,21 +805,30 @@ class Stage_1_E:
             return
 
         # 0x2f41a: ammunition is only spent once the tutorial has been cleared.
-        if self.isTutorial and w not in (1, 7):
+        if self.isTutorial:
             weapon.BulletCount -= 1
 
         # The shot is played at the weapon's *reload* gain, which is 1.0 for every gun:
         # MovingShot: reads ReloadSoundGain at 0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930
         # and 0x2fba6, and never reads ShotSoundgain at all.  The port used ShotSoundgain,
         # the plists' malformed "0.2f", which left every gunshot 14 dB down.
+        # PORT DIVERGENCE: the original fires every shot from (0, 0) at z 40, dead
+        # centre.  Here it goes off down the lane it is aimed at, so it pans the way a
+        # zombie in that lane does.
         self.app.playSound_Gain_Pos_z_reprats_(
-            weapon.ShotSoundNumber, weapon.ReloadSoundGain, (0.0, 0.0), 40, False)
-
-        if w in (1, 7):
-            RunLoop.main().perform(self, 'MonsterDamageKnife', None, 0.0)
-        else:
-            RunLoop.main().perform(self, 'MonsterDamage', None, 0.0)
+            weapon.ShotSoundNumber, weapon.ReloadSoundGain,
+            self._lane_pos(lane), 0, False)
+        RunLoop.main().perform(self, 'MonsterDamage', None, 0.0)
         RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
+
+    @staticmethod
+    def _lane_pos(lane):
+        """A point ``SHOT_DISTANCE`` out along the lane's bearing, at the listener's
+        height (z 0).  A zombie far down the same lane lies in almost exactly that
+        direction, so the two pan alike, and at the reference distance the sound is
+        exactly as loud as it was from the centre."""
+        rad = math.radians(lane_bearing(lane))
+        return (SHOT_DISTANCE * math.cos(rad), SHOT_DISTANCE * math.sin(rad))
 
     def _throw_grenade(self, weapon):
         """0x2f1bc - the grenade comes out of GRENADECOUNT, not a magazine."""
@@ -779,27 +926,60 @@ class Stage_1_E:
                 # not - the headshot's own sound (330) went out above.
                 self.app.playSound_Gain_Pos_z_reprats_(
                     SOUND_KILL, 1.0, m.Pos, 40, False)
-                self.gamePlayer.killMonsterCount += 1        # 0x39cee
-                self.MonsterKillCount_(m)
-                self._remove(m)
+                self._monster_killed(m)
         else:
             # the grenade hits every live monster
             for m in list(self.MonsterBuffer):
                 m.HP -= weapon.Damage
                 m.MonsterHitSound_(None)
                 if m.HP <= 0:
-                    self.gamePlayer.killMonsterCount += 1    # 0x3a3ae
-                    self.MonsterKillCount_(m)
-                    self._remove(m)
+                    self._monster_killed(m)
+
+    def _monster_killed(self, m):
+        """What every weapon does with a monster it has just killed (0x3a84c, 0x3a56a,
+        0x39b12).  Killing the girl who heals you is not a kill: it costs you a heart,
+        once the tutorial is behind you, and is not counted (0x3a850..0x3a97a)."""
+        if m.monsterNumber == MONSTER_GIRL:
+            RunLoop.main().perform(self, 'playerDamage_', None, 0.1)
+            if self.isTutorial:
+                self.gamePlayer.HP -= 1
+            self.HPImageCount()
+        else:
+            self.gamePlayer.killMonsterCount += 1           # 0x3aad4
+            self.MonsterKillCount_(m)
+        self._remove(m)
 
     # -[Stage_1_E MonsterDamageKnife] 0x392fc
     def MonsterDamageKnife(self, *_):
-        """Melee: the attack sound first, then the same damage resolution."""
+        """The knife and the sword, 0.1 s after the swing.
+
+        The same lanes and range as a gun (0x3952e..0x3982a), but a hit is plain
+        ``Damage``: the headshot doubling is the gun's alone.  A blow that leaves the
+        monster standing plays ``att2``, one that kills it ``att1`` (0x39a46), where the
+        monster is; only a swing that meets nothing plays the swish, ``ShotSound`` at
+        ``ShotSoundgain`` (0x39c3c).  The swing's own recovery, ``stopShot:``, follows
+        after ``ShotTime`` (0x39df0).
+        """
         weapon = self.weaponSource[self.gamePlayer.useWepon]
-        if weapon and weapon.att1SoundNumber:
+        if self.isShake:                                        # 0x3931a
+            self.shotFlag = False
+            return
+        m = self.monsterHitHeadFind()
+        if m is None:
+            # PORT DIVERGENCE: the swish goes down the lane, like a gunshot.
             self.app.playSound_Gain_Pos_z_reprats_(
-                weapon.att1SoundNumber, weapon.att1SoundGain, (0.0, 0.0), 40, False)
-        self.MonsterDamage()
+                weapon.ShotSoundNumber, weapon.ShotSoundgain,
+                self._lane_pos(self.shotMonster), 0, False)
+        else:
+            m.HP -= weapon.Damage                               # 0x39a18
+            sound = weapon.att2SoundNumber if m.HP > 0 else weapon.att1SoundNumber
+            self.app.playSound_Gain_Pos_z_reprats_(
+                sound, weapon.att1SoundGain, m.Pos, 40, False)
+            self.gamePlayer.gunEggCountShot += 1
+            m.MonsterHitSound_(None)
+            if m.HP <= 0:
+                self._monster_killed(m)
+        RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
 
     # -[Stage_1_E MonsterKillCount:] 0x39e00
     #   A chain of `cmp monsterNumber, N` that bumps the matching per-kind tally.
@@ -809,10 +989,14 @@ class Stage_1_E:
     def MonsterKillCount_(self, m):
         p = self.gamePlayer
         n = m.monsterNumber
-        if 1 <= n <= 11:
+        if 1 <= n <= 10:
             setattr(p, 'killMonster%dcount' % n, getattr(p, 'killMonster%dcount' % n) + 1)
-        elif n >= 5000:
+        elif n == MONSTER_WOMAN:                                # 0x3a04c
+            p.killMonster11count += 1
+        elif n in (5000, 5001):                                 # 0x3a084, 0x3a094
             p.killMonster5000count += 1
+        # Nothing else is tallied: kind 11 and 12 zombies count as kills but add
+        # nothing to the score.
         self.ReadScore()
 
     # -[Stage_1_E ReadScore] 0x3bf38
@@ -981,6 +1165,13 @@ class Stage_1_E:
             self.app.playSound_Gain_Pos_z_reprats_(
                 weapon.weaponChangeSoundNumber, weapon.weaponChangeSoundGain,
                 (0.0, 0.0), 0, False)
+            # 0x35eac: the sword is drawn with its own sound, at 1.0; any other weapon
+            # silences it (0x35edc).
+            if w == 7:
+                self.app.playSound_Gain_Pos_z_reprats_(
+                    SOUND_SWORD_START, 1.0, (0.0, 0.0), 40, False)
+            else:
+                self.app.stopSoundBufNumber_(SOUND_SWORD_START)
 
     def doubleTapChangeWeapon_(self, *_):
         self.gunChangeAction_(1)
@@ -1040,17 +1231,20 @@ class Stage_1_E:
         loop = RunLoop.main()
         loop.cancelPerform(self, 'NonShaking')      # 0x3b9ae
         self._invalidate_shake_timer()
-        if not (0 <= self.shakeMonsterNumber < len(self.MonsterBuffer)):
+        m = self._held_monster()
+        self.heldMonster = None
+        if m is None:
             self.isShake = False
             return
-        m = self.MonsterBuffer[self.shakeMonsterNumber]
         m.stopShakeMonsterSound_(None)
+        # PORT DIVERGENCE: the original plays the push at the monster's Pos.  It is on
+        # top of you by then and the push is your doing, so it is played where you are.
         self.app.playSound_Gain_Pos_z_reprats_(
-            m.shakeMonsterPushSound, m.shakeMoneterPushGain, m.Pos, 40, False)
+            m.shakeMonsterPushSound, m.shakeMoneterPushGain, (0.0, 0.0), 40, False)
         # shaking free kills it (0x3baa0..0x3bad8)
         self.gamePlayer.killMonsterCount += 1
         self.MonsterKillCount_(m)
-        del self.MonsterBuffer[self.shakeMonsterNumber]
+        self._remove(m)
         self.isShake = False                        # 0x3bb6c
 
     # -[Stage_1_E NonShaking] 0x3b6f8 - the time ran out; the grab lands.
@@ -1059,17 +1253,24 @@ class Stage_1_E:
             self.isShake = False
             return
         self._invalidate_shake_timer()
-        if not (0 <= self.shakeMonsterNumber < len(self.MonsterBuffer)):
+        m = self._held_monster()
+        self.heldMonster = None
+        if m is None:
             self.isShake = False
             return
-        m = self.MonsterBuffer[self.shakeMonsterNumber]
         if self.isTutorial:                         # 0x3b79e
             self.gamePlayer.HP -= 1
         m.hitPlayer()
         if self.gamePlayer.HP >= 0:                 # 0x3b8bc
-            RunLoop.main().perform(self, 'playerDamage_', None, 0.0)
-        del self.MonsterBuffer[self.shakeMonsterNumber]
+            RunLoop.main().perform(self, 'playerDamage_', None, 0.1)
+        self._remove(m)
         self.isShake = False                        # 0x3b91a
+        if not self.isTutorial:                     # 0x3b920: tutorialEightRestart
+            self._tutorial_grab_landed()
+
+    def _tutorial_grab_landed(self):
+        """0x3b92a: in the tutorial, a grab you did not shake off prompts beat Eight
+        again.  Stage_Tutorial carries the tutorial here."""
 
     def _invalidate_shake_timer(self):
         if self.shakeMonsterTimer is not None and self.shakeMonsterTimer.isValid():
@@ -1093,6 +1294,9 @@ class Stage_1_E:
         if pb is not None:
             pb.AMBSoundStop()                   # the ambience or the rain
             pb.backgroundSoundStop()            # the level music
+        # ...and the other level's ambience ChangeLevel: loops as a note.
+        self.app.stopSoundBufNumber_(SOUND_FOREST_AMB)
+        self.app.stopSoundBufNumber_(SOUND_CAVE_AMB)
         RunLoop.main().cancelPerform(self)
 
     # ============================================ the pause and result screen

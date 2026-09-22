@@ -99,8 +99,8 @@ y=664  1      y=585  2      y=484  3      y=384  4
 | value | effect |
 |---|---|
 | 1..7 | sets `monster_num`, the spawn tier, until the next action cell |
-| 8 | spawns the girl (`MonsterInit:` 10002, then 10003) once `isTutorialEnd > 0` |
-| 9 | `[playback backgroundSoundStop]` |
+| 8 | sends one of 10001..10010 at random (0x320e6..0x322da): 10001..10005 are the girl who heals you, 10006..10010 the woman zombie. Straight after the tutorial the first two are 10008, then 10003 |
+| 9 | `[playback backgroundSoundStop]`, and stores 9 as `monster_num` (0x31f06), which spawns nothing: each section opens with a quiet stretch |
 | 10 | starts `bgm_cave` or `bgm_forest` depending on `gameMode` |
 
 So the difficulty ramps 1 → 7 as the player descends, and the music comes and goes.
@@ -118,19 +118,26 @@ One tick of `-[Stage_1_E MainControl]` (0x3182c):
 1. return if `walkXFlag` or `isShake`
 2. `breathCount++`; every second tick, if `brearhFlag` is clear, play the player's
    breath — sound 80/81/82 by HP (>=3 / >=2 / >=1) at gain 0.5 — and clear the flag
-   again after a delay
+   again 3.0 s later (0x31964). That skips every other chance, so the player breathes
+   once every four seconds
 3. `groundAhead = movePlayGroundState(x, y-1)`, `action = movePlayActionState(x, y)`
 4. if `groundAhead >= 1`:
    * `y >= 23`: step forward, `playerYplot--`
-     * at `y == 29` play `warring` (285)
-     * at `y == 23` end the level
-   * otherwise: end the level if `checkBoosDie`
+     * at `y == 29` play the alarm, `warring` (285), at 0.2
+     * at `y == 23` send the boss down lane 3 — type 5008 in gameModes 2 and 3, 5003 in
+       gameMode 1 — and stop the alarm (0x31d12..0x31e2e)
+   * otherwise (standing at 22): if `checkBoosDie` (no live `monsterNumber` 5001, or
+     5000 in gameMode 1), kill every monster left and count each one, `LVUP++`, flip
+     `gameMode` between cave and forest, start that ambience at 0.3, schedule
+     `ChangeLevel:` 2 s later, stop the timer and return
 5. dispatch the action value (table above)
 6. `MakeMonster:`, `MonsterAttPlayer`, `HPImageCount`, and schedule `timerLeft`
-7. if HP has reached 0, play `game over` (354) and `playerDie:`
+7. if HP has reached 0, play `player_die` (84) and `playerDie:` 1.3 s later; `game
+   over` (354) comes from the panel after that
 
 `ChangeLevel:` (0x322e0) puts the player back at y = 680, multiplies `monsterHPGain`
-by **1.5**, flips `gameMode`, and restarts the timer. The corridor is 657 walkable
+by **1.5**, loops the other level's ambience as a note at 0.02, and restarts the
+timer. The corridor is 657 walkable
 cells, so a level is about eleven minutes of walking if nothing stops you.
 
 ---
@@ -166,12 +173,17 @@ Each `MonsterMoving:` (0x10f38) is one footstep:
 
 ```
 monsterRange = sqrtf(Pos.x^2 + Pos.y^2);
-monsterRange = monsterRange > 25.0f ? monsterRange - comingRange : 0.0f;
+monsterRange = monsterRange > 25.0f ? monsterRange - comingRange : 20.0f;
 rad = MovingPosAngle * M_PI / 180;
 Pos = (monsterRange * cos(rad), monsterRange * sin(rad));
 comingSoundGain *= 1.1f;                     // it gets louder as it closes
 [playback startSound:comingMonsterStopSoundNumber Postion:Pos soundGain:comingSoundGain];
 ```
+
+`MonsterComing:` takes the first step of each cycle at once (0x1194c), so a monster is on
+its lane from the start. `MonsterStart:` starts the walk sample once, looping, and
+`startSound:Postion:soundGain:` only moves that playing source to `(x, 40, y)` and sets
+its gain; it never restarts it (0xe560).
 
 For `zombie_1` that is `comingRange` 40 cm every `(2.7 - 0.1)/3 = 0.867 s`, so about
 22 seconds from 1000 cm to contact. At `monsterRange <= 25` `MonsterAttPlayer` fires.
@@ -192,7 +204,8 @@ has two windows per cycle, walked by `headShotTimer`.
 ```
 LVCount++;
 if (tier < 1 || tier > 7) return;
-if (LVCount < 3) return;                       // at most one spawn per 3 seconds
+if (LVCount < 3) return;                       // at most one try per 3 seconds
+LVCount = 0;                                   // every try, spawn or not
 if (MonsterBuffer.count >= LVUP + 2) return;   // the live cap
 idx = arc4random() % mod + off;                // by tier, see below
 if ([self checkMonsterArray:idx] == -1) return;  // that lane is taken
@@ -202,7 +215,8 @@ if ([self checkMonsterArray:idx] == -1) return;  // that lane is taken
 `monsterArray` is 50 type ids built in `viewDidLoad` (0x2c7e4):
 `1,2,3,4,5, 11..15, 21..25, ... 91..95`. Index `i` is **kind `i/5 + 1`, lane `i%5 + 1`**,
 and `checkMonsterArray:` refuses a type whose `id % 10` lane already has a monster in
-it — so at most five monsters, one per lane.
+it — so at most five monsters, one per lane. Every id ends in 1..5, so the zig-zag
+walkers (ids ending in 6..0) never spawn.
 
 | tier | index | kinds |
 |---|---|---|
@@ -268,18 +282,19 @@ is already using, per kind, per `gameMode`:
 |---|---|---|---|---|---|
 | 1 | 93,94,95 | 96,97,98 | 99,100,101 | 102,103,104 | 105,106,107 |
 | 2 | 108,109,110 | 111,112,113 | 114,115,116 | 117,118,119 | 120,121,122 |
-| 3 | 123,124,125 | 126,127,128 | 129,130 | 132,133 | 135,136,137 |
-| 4 | 138,139,140 | 141,142,143 | 144,145 | 147,148 | 121,122 |
-| 5 | 150,151,152 | 153,154,155 | 156,157,158 | 159,160,161 | 135 |
+| 3 | 123,124,125 | 126,127,128 | 129,130,131 | 132,133,134 | 135,136,137 |
+| 4 | 138,139,140 | 141,142,143 | 144,145,146 | 147,148,149 | 120,121,122 |
+| 5 | 150,151,152 | 153,154,155 | 156,157,158 | 159,160,161 | 135,136,137 |
 | 6 | 165,166,167 | 168,169,170 | 171,172,173 | 174,175,176 | 177,178,179 |
-| 7 | 180,181,182 | 183,184,185 | 186,187,188 | 189,190,191 | 137 |
+| 7 | 180,181,182 | 183,184,185 | 186,187,188 | 189,190,191 | 135,136,137 |
 | 8 | 192,313,314 | 193,315,316 | 194,317,318 | 195,319,320 | 196,321,322 |
-| 9 | 199,200,201 | 202,203,204 | 205,206,207 | 208,209,210 | 211,212 |
-| 10 | 214,215,216 | 217,218,219 | 206,207 | 210 | 220,221,222 |
-| 11 | 292,293,294 | 295,296,297 | 301,302,303 | 310,311,312 | 298,299,300 |
+| 9 | 199,200,201 | 202,203,204 | 205,206,207 | 208,209,210 | 211,212,213 |
+| 10 | 214,215,216 | 217,218,219 | 205,206,207 | 208,209,210 | 220,221,222 |
+| 11 | 292,293,294 | 295,296,297 | 301,302,303 | 310,311,312 | 307,308,309 |
 | 12 | 304,305,306 | 304,305,306 | 301,302,303 | 310,311,312 | 307,308,309 |
-| 21 (girl) | 267 | 268 | 205 | 269 | 270 |
-| 22 | 271 | 272 | 274 | 273 | 274 |
+| 21 (the girl) | 267 | 268 | 269 | 269 | 270 |
+| 22 (the woman zombie) | 271 | 272 | 273 | 273 | 274 |
+| the bosses | 286 | 290 | 205 | 289 | 288 |
 
 kind 8 also takes `approach` 197,323,324 and `push` 198,325,326 — it is the one that
 grabs you and has to be shaken off.
@@ -400,9 +415,11 @@ shotMonster 1   157..202        4    23..62
 ```
 
 Those bands are exactly the five lane bearings, so the swipe is "attack the direction
-I can hear". Damage is `weapon.Damage`, or `weapon.Damage * 2` inside the headshot
+I can hear". Damage is `weapon.Damage`, or for a gun `weapon.Damage * 2` inside the headshot
 window. Melee weapons (1, 7, 8) and the grenade (0) do not spend a round; the grenade
-hits everything alive.
+hits everything alive. A melee swing resolves 0.1 s later in `MonsterDamageKnife`
+(0x392fc): plain damage, `att2` on a hit, `att1` on a kill, and the weapon's own sound
+only on a miss.
 
 `shotFlag` blocks a second attack until `stopShot:` fires, `weapon.ShotTime` seconds
 later — that is the rate of fire.
@@ -418,10 +435,15 @@ free.
 
 * `shakeMonsterFlag` set → it grabs you: `isShake = YES` and you must shake free.
   `-[Stage_1_E accelerometer:didAccelerate:]` (0x3c84c) counts accelerations over
-  1.0 g and frees you at **10**.
-* `monsterNumber == 21` (the girl) → **HP++** if HP <= 3. She is a rescue, not a threat.
-* otherwise → HP--, `player_damage` (83), a blood flash, and the monster's
-  `hitPlayer` plays its `playerHitSound` and then dies.
+  1.0 g and frees you at **10**. Nothing ever resets that count, so after the first
+  escape in a stage every later grab breaks on one shake.
+* `monsterNumber == 21` (the girl) → **HP++** if HP <= 3, and her `hitPlayer` plays 270,
+  her thank you. She is a rescue, not a threat; shooting her costs a heart.
+* otherwise → HP-- (only once `isTutorial` is set, 0x3b2e6), `player_damage` (83) 0.1 s
+  later, a blood flash, and the monster's `hitPlayer` plays its `playerHitSound` and then
+  dies. In the tutorial it re-prompts that monster's beat instead.
+
+The monsters it is done with are removed after the loop (0x3b44e).
 
 The player starts with **HP 3**; the on-screen hearts are `hpHeartImageView1..4`.
 At HP 0: `game over` (354), then `playerDie:` and the fail screen.

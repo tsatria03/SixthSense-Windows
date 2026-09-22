@@ -1,6 +1,6 @@
 ---
 name: feedback_changelog
-description: "Whenever a change players will notice lands (a bug fix or an enhancement), add a plain sentence at the top of the unrelease: block in changelog.txt, in the same commit; entries read newest first. CRLF, no BOM, one sentence per line, no markdown; release builds file the section under the version."
+description: "Whenever a change players will notice lands (a bug fix or an enhancement), add a plain sentence at the top of the unrelease: block in changelog.txt, in the same commit; entries read newest first. LF, no BOM, one sentence per line, no markdown; release builds file the section under the version."
 metadata:
   node_type: memory
   type: feedback
@@ -17,7 +17,7 @@ metadata:
   - A heading is one word ending in a colon, on a line of its own: `unrelease:` or a version like `26.09.21-1:`.
   - Every other line is an entry: one plain sentence or two, with no bullets, numbers or markdown.
   - A blank line separates one heading's block from the next.
-- **CRLF, no BOM.** Edit it with a small Python script that splits and joins on `\r\n`, and check for bare LFs afterwards, as with the todo list ([[feedback_todo_list_format]]).
+- **LF, no BOM.** Checked 2026-09-22: both the working tree and HEAD use LF, whatever older notes said. Match the endings the file has when you edit it, and check afterwards.
 - **New lines go at the top of the `unrelease:` block**, straight under the heading, so the block reads newest first. The dev asked for this on 2026-09-22 and the 23 lines that had built up in landing order were reversed then. If there is no `unrelease:` heading, add it at the very top, followed by a blank line before the newest version.
 - **Only what a player notices:** fixes, enhancements, removed features, new sounds or files they will see.
   - Leave out notes, docs, tests, refactors and build-script internals, unless they change what ships.

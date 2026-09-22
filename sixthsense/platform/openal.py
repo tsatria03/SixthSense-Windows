@@ -92,6 +92,7 @@ _SIGNATURES = [
     ('alSource3f', None, [c_uint, c_int, c_float, c_float, c_float]),
     ('alGetSourcei', None, [c_uint, c_int, POINTER(c_int)]),
     ('alGetSourcef', None, [c_uint, c_int, POINTER(c_float)]),
+    ('alGetSourcefv', None, [c_uint, c_int, POINTER(c_float)]),
     ('alSourcePlay', None, [c_uint]),
     ('alSourceStop', None, [c_uint]),
     ('alSourcePause', None, [c_uint]),
@@ -206,6 +207,17 @@ class AL:
     def source_state(self, sid: int) -> int:
         v = c_int(0)
         self.alGetSourcei(sid, AL_SOURCE_STATE, byref(v))
+        return v.value
+
+    def source_position(self, sid: int):
+        """Not in the original; lets the tests read back where a source really is."""
+        v = (c_float * 3)()
+        self.alGetSourcefv(sid, AL_POSITION, v)
+        return tuple(v)
+
+    def source_float(self, sid: int, param: int) -> float:
+        v = c_float(0.0)
+        self.alGetSourcef(sid, param, byref(v))
         return v.value
 
     def check(self, where: str = '') -> None:

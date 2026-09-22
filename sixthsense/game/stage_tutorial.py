@@ -145,6 +145,9 @@ class Stage_Tutorial(Stage_1_E):
         if name is None:
             return
         _n, sound, _delay, spawn = self._beat(name)
+        if name == 'Eight':
+            # 0x8e1a8: the animal zombie is not to be shot; it is there to grab you.
+            self.noAtt = True
         self.app.stopSoundBufNumber_(sound)
         self.beat_flag[name] = True            # 0x8cb4a: the prompt has finished
         if spawn is not None:
@@ -152,13 +155,21 @@ class Stage_Tutorial(Stage_1_E):
 
     # -[Stage_Tutorial CheckTutorial] 0x8c678 - once a second
     def CheckTutorial(self, timer=None):
+        """Nag about the first unfinished beat, then let any monster that has reached
+        you act, unless one is already holding you (0x8c754..0x8c770).  That last step
+        is the only place anything reaches you in the tutorial, since the stage's own
+        clock does not run."""
         if self.finished:
             return
         for name in BEAT_NAMES:
             if not self.beat_done[name]:
                 self.tutorial_beat_end(name)
-                return
-        self.tutorialEndGameStart_(None)
+                break
+        else:
+            self.tutorialEndGameStart_(None)
+            return
+        if not self.isShake:
+            self.MonsterAttPlayer()
 
     # -[Stage_Tutorial tutorialNEnd] - still not done, so prompt again
     def tutorial_beat_end(self, name):
@@ -170,6 +181,24 @@ class Stage_Tutorial(Stage_1_E):
             return                             # its monster is still out there
         if self.current_beat != name or self.beat_flag[name]:
             self.tutorial_beat(name)
+
+    # -[Stage_Tutorial tutorialNRestart] - the prompt again, and its monster after it
+    def tutorial_restart(self, name):
+        if not self.finished and not self.beat_done[name]:
+            self.tutorial_beat(name)
+
+    # -[Stage_Tutorial MonsterAttPlayer] 0x8a908, the tail at 0x3b3b2: no heart is
+    # lost; the beat for the monster's lane starts again.
+    def _tutorial_monster_reached(self, m):
+        name = LANE_BEAT.get(m.MovingType)
+        if m.MovingType == 3 and self.beat_done['Three']:
+            name = 'FiveHalf'                  # 0x3b3de: threeFlag, then fiveHalfFlag
+        if name is not None:
+            self.tutorial_restart(name)
+
+    # -[Stage_Tutorial NonShaking] 0x8b1f2 - the grab landed, so beat Eight again.
+    def _tutorial_grab_landed(self):
+        self.tutorial_restart('Eight')
 
     # -[Stage_Tutorial tutorialHiddenView] 0x3d0a8 - hides the arrows and the finger
     def tutorialHiddenView(self):

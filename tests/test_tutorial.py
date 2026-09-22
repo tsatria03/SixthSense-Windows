@@ -290,6 +290,48 @@ def test_shaking_free_finishes_beat_eight():
         _restore()
 
 
+def test_the_animal_zombie_grabs_you_by_itself():
+    """CheckTutorial 0x8c754 calls MonsterAttPlayer while you are not held, so the
+    grabber beat Eight sends in takes hold without anything calling it by hand."""
+    st = _tutorial(prompt=0.4)
+    try:
+        for n in BEAT_NAMES[:8]:
+            st.beat_done[n] = True
+        st.tutorial_sound_stop('Eight')        # the prompt is over; type 73 comes in
+        assert st.noAtt, 'the animal zombie can be shot'   # 0x8e1a8
+        m = st.MonsterBuffer[0]
+        m.monsterRange = 10.0
+        st.CheckTutorial()
+        assert st.isShake, 'CheckTutorial never let it grab'
+        hp0 = st.gamePlayer.HP
+        for _ in range(10):
+            st.shake_step()
+        _pump(RunLoop.main(), 2.0, until=lambda: not st.isShake)
+        assert st.beat_done['Eight']
+        assert st.gamePlayer.HP == hp0
+    finally:
+        st.teardown()
+        _restore()
+
+
+def test_a_zombie_that_reaches_you_restarts_its_beat():
+    """0x3b3a2..0x3b41c: no heart lost, and the beat is prompted again."""
+    st = _tutorial(prompt=0.4)
+    try:
+        calls = []
+        real_beat = st.tutorial_beat
+        st.tutorial_beat = lambda name: (calls.append(name), real_beat(name))[-1]
+        st.MonsterInit_(2)                     # beat Two's zombie
+        st.MonsterBuffer[0].monsterRange = 10.0
+        hp0 = st.gamePlayer.HP
+        st.MonsterAttPlayer()
+        assert st.gamePlayer.HP == hp0, 'the tutorial took a heart'
+        assert calls == ['Two'], calls
+    finally:
+        st.teardown()
+        _restore()
+
+
 def test_the_handoff_starts_the_real_game():
     """-[Stage_Tutorial tutorialEndGameStart:] 0x8374c"""
     st = _tutorial(prompt=0.4)
