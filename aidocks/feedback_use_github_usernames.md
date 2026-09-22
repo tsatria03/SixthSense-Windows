@@ -18,4 +18,4 @@ Identify people by their GitHub username, never their real name. The dev is **ts
 **How to apply:**
 - This repo's own Git config has `user.name = tsatria03`, set with `git config --local`; the dev's global name is left as it was. Check `git config user.name` before committing. If it has drifted, pass `--author="tsatria03 <156674543+tsatria03@users.noreply.github.com>"`.
 - Emails stay the GitHub noreply addresses, since those are what link a commit to the right profile.
-- The one real name left in the repo is the copyright line in `LICENSE`. That is a legal notice inside lbk2907's commit, so leave it unless the dev asks.
+- `LICENSE` follows the same rule. At the dev's request on 2026-09-21, its copyright line reads "Copyright (c) 2026 tsatria03 and lbk2907".
