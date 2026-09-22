@@ -73,7 +73,7 @@ class Input:
         if lane is not None:
             self.attack_lane(lane)
         elif action == 'reload':
-            st.GunReloadAction_()
+            st.ReloadGesture()
         elif action == 'next_weapon':
             st.doubleTapChangeWeapon_()
         elif action == 'prev_weapon':

@@ -1,5 +1,6 @@
 ##Unfinished.
 
+Decide whether shots keep the original's half-second delay before they land, or hit at once as the port used to. It is one setting and can be switched back at any time.
 Add a screen reader mode. When the voice over row is turned off, the screen reader speaks everything the game's recordings would say, in the menus, the shop, the result panel and the tutorial, and reads numbers whole, such as one thousand two hundred and fifty instead of digit by digit. Sound effects, music and zombie sounds still play as recordings. New players start in the self-voiced mode. In the original, turning voice over off switched to the standard screens that the iPhone's own screen reader could read, so this is the Windows version of that.
 Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
@@ -8,10 +9,8 @@ Pressing P during the tutorial always skips it and leaves you standing there, in
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
 Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
 Moving between the two rows of the intro screen lets their sounds overlap.
-You can keep firing while reloading and still end up with a full magazine.
 Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
-Pressing reload with the grenade equipped plays the grenade blast and does nothing, and reload still works while you are grabbed or dying.
 Remove the coin store, restore purchases and buy all weapons rows from the shop. In the original they were paid online purchases, so the Windows port does not need them. Weapons are still bought one at a time with the gold you earn by playing.
 The inventory lets you equip weapons you have not bought.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
@@ -37,6 +36,9 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: pa
 
 ##Finished.
 
+You can no longer fire while reloading, and a reload refills the gun you started it with, as in the original.
+Reload does nothing with the grenade or a blade, and does not work while a zombie holds you or once the game is over.
+The headshot is heard where the zombie is, and headshots are timed as in the original: the breathing pause counts when you fire, even though the shot takes half a second to land.
 Zombie sounds move as they walk, so you hear each zombie come closer and louder in its own lane, a zigzag walker's sound sweeps across with it, and the breathing that times a headshot plays through.
 A test checks that zombie sounds really move, by reading each zombie's sound back from OpenAL itself.
 Near the end of each level an alarm sounds and a boss comes down the middle, and the level only ends once the boss is dead.

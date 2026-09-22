@@ -193,7 +193,7 @@ def test_killing_in_the_taught_lane_finishes_the_beat():
         _pump(loop, 2.0, until=lambda: m.MovingPosAngle != 0)
         st.shotFlag = False
         st.MovingShot_(LANE[m.MovingType])
-        loop.pump()
+        _pump(loop, S1E.SHOT_TRAVEL + 0.5, until=lambda: st.beat_done['One'])
         assert st.beat_done['One'], 'the kill did not finish beat One'
         got = _pump(loop, 4.0, until=lambda: st.current_beat == 'Two')
         assert got, 'the tutorial did not move on to beat Two'

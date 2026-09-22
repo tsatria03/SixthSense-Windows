@@ -201,6 +201,43 @@ def test_the_bullet_hit_is_heard_where_the_zombie_is():
         st.teardown()
 
 
+def test_the_headshot_is_heard_toward_the_zombie_and_as_loud_as_ever():
+    """headshot_4 (330) is stereo, so the original heard it at its full 0.1 wherever
+    the zombie was.  Folded to mono it pans toward the zombie, and it is placed at the
+    reference distance so it does not fade with the zombie's distance."""
+    app, st = _new_stage()
+    loop = RunLoop.main()
+    st.MonsterInit_(1)                      # lane 1, hard left, far out
+    m = st.MonsterBuffer[0]
+    m.StopPlayGame()
+    loop.cancelPerform(m)
+    m.monsterRange = 800.0
+    m.Pos = (-800.0, 0.0)
+    m.MovingPosAngle = 180
+    m.HP = 1000
+    m.headShotFlag = True
+    try:
+        st.gamePlayer.useWepon = 2
+        st.shotFlag = False
+        st.MovingShot_(180.0)
+        import time
+        t0 = time.monotonic()
+        while time.monotonic() - t0 < S1E.SHOT_TRAVEL + 0.3:
+            loop.pump()
+            time.sleep(0.004)
+        assert st.gamePlayer.HeadShotCount == 1, 'it was not a headshot'
+        note = app.CheckSoundBuf_(330)
+        pb = app.playback
+        sid = pb._sources[note].sourceId
+        assert pb._buffers[note].channels == 1, 'the headshot is still stereo'
+        x, h, y = pb.al.source_position(sid)
+        dist = math.sqrt(x * x + h * h + y * y)
+        assert x < -30 and abs(y) < 1.0, 'the headshot is at (%.0f, %.0f)' % (x, y)
+        assert dist <= REFERENCE + 0.5, 'it is %.0f cm out, so it fades' % dist
+    finally:
+        st.teardown()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

@@ -421,8 +421,10 @@ hits everything alive. A melee swing resolves 0.1 s later in `MonsterDamageKnife
 (0x392fc): plain damage, `att2` on a hit, `att1` on a kill, and the weapon's own sound
 only on a miss.
 
-`shotFlag` blocks a second attack until `stopShot:` fires, `weapon.ShotTime` seconds
-later — that is the rate of fire.
+A gunshot or grenade lands 0.5 s after it is fired (0x2fd70, 0x2f32a); the headshot is
+judged at the trigger. `shotFlag` blocks a second attack until `stopShot:` fires,
+`weapon.ShotTime` seconds later — that is the rate of fire — and a reload holds it until
+`reloadGun:`.
 
 Ammunition is only spent when `isTutorial != 0` (0x2f41a); during the tutorial it is
 free.
