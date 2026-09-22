@@ -1,5 +1,6 @@
-##unfinished.
+##Unfinished.
 
+The game cannot find any sounds, because they moved from the game folder into game/sounds/used, and the sound lookup, the compiler and the tests still expect them all in one flat folder.
 Zombie sounds never move and restart on every step, so you cannot hear how close a zombie is, zigzag walkers never sweep across, and the breathing that times a headshot gets cut off.
 The tutorial's prompts for reloading, changing weapon and the last step keep restarting every second.
 Pressing P during the tutorial skips it, but the prompts keep playing and you never start walking. The original only lets you stop once the first eight steps are done.
@@ -57,8 +58,13 @@ Test the compiler with a first build. It has been changed to build Sixth Sense, 
 In the tutorial's shaking step, the animal zombie never grabs you, so pressing space does nothing. You can shoot it instead, and once it dies the tutorial tells you to shake every second and never sends another zombie.
 The "you must use earphones" warning and the menu music start as soon as the menu opens, talking over the menu's title and row names. It happens again every time you come back to the menu.
 
-##finished.
+##Finished.
 
+Every sound the game uses sits together in game/sounds/used, 329 files covering all 269 of the original's sounds, apart from the 25 in game/sounds/unused.
+The 25 sounds that are not the original's own, 11 extra copies and 14 the original never had, are kept apart in game/sounds/unused, in the same folders they came from, so the rest of game/sounds holds only the original's sounds.
+Every one of the original game's 269 sounds now has a copy in game/sounds, including the six the organized folder was missing: Game Start Button, Welcome to, game center button10, restore button, weapon_m4_fire and weapon_saw_start.
+The organized sounds are 16-bit WAV again, the format the game's sound loaders read, instead of the 24-bit the OGG conversion had left them in.
+The sounds are organized into folders in game/sounds, and every one that came from the original carries its original file name again, 323 files in all, each checked by comparing its audio with the original's.
 The level music and ambience play as quietly as in the original, so the zombies can be heard over them.
 The rain in the third area keeps falling for the whole level.
 Leaving a stage stops the zombie footsteps, the ambience and the music.

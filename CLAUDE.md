@@ -22,7 +22,7 @@ The game plays the original's own 371 recorded WAVs. The only synthesised speech
   - `defaults.py`: stands in for `NSUserDefaults`.
   - `speech.py`, `keymap.py` and `music.py`.
 - **`sixthsense/ui/`**: the keyboard input for the stage, the menus and the screens, plus the F1 key-bindings screen.
-- **`game/`**: the original app bundle, untouched. **Never write to it.**
+- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 25 files that aren't the original's own, which the game never uses. The code has not caught up yet ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
 - **`analysis/`**:
   - `bin/sixsense_armv7`: the binary itself.
   - `disasm/dc_*.txt`: per-class decompiled listings.
@@ -34,7 +34,7 @@ The game plays the original's own 371 recorded WAVs. The only synthesised speech
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense` and a release zip ([[project_compiler_py]]).
 - **`New File.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
-- **`user/`** is gitignored private reference material. Read it, but never edit it, and never name what is in it in the todo list, memory, or code and comments ([[feedback_no_other_games]]).
+- **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games that are kept in it, in the todo list, memory, or code and comments ([[feedback_no_other_games]]). The dev's old NVGT remake of this game used to be there; it was deleted on 2026-09-21 ([[project_nvgt_remake_reference]]).
 
 The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.json`, `keys.json`).
 

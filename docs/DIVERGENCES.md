@@ -261,6 +261,55 @@ distance attenuation plus amplitude panning. Leaving OpenAL Soft's default
 it never was. `tools/pan_check.py` measures what the five lanes render to; the table
 is in `GAME_STRUCTURE.md` §5.
 
+### The sounds are organized into folders
+The original bundle keeps its 269 WAVs in one flat folder, next to the plists and the
+map. The port keeps every sound the game uses in `game/sounds/used/`, sorted by what it
+is (the paths below are inside that folder):
+
+* `sfx/zombies/normal/normalcave1`..`12` and `normalforest1`..`12`: each kind of zombie's
+  coming loop, damage, death and hit-player sounds.
+* `sfx/zombies/bosses/bosscave1`..`3` and `bossforest1`..`3`.
+* `sfx/characters/charcave1`, `charcave2`, `charforest1` and `charforest2`: the man and
+  the woman who heal you.
+* `sfx/monsters/monstercave` and `monsterforest`: the woman-like monster.
+* `sfx/weapons`: firing, reloading, the empty click and the hits.
+* `sfx/misc`: music, ambience, rain, breathing and the interface sounds.
+* `speech/game`, `speech/logos`, `speech/menus/main`, `speech/menus/store`,
+  `speech/numbers`, `speech/tutorials` and `speech/weapons`.
+
+**Every file keeps its original name**, for example
+`sfx/zombies/normal/normalcave1/zombie_1_coming_cave.wav`. The binary asks for a sound
+by number, `SoundList.plist` turns the number into a file name, and that name is
+unchanged, so the right file is still found. Each file was named by comparing its audio
+with the original's waveform, not by guessing from names. Where the original reuses
+one recording in several places, such as the boss death or the empty-magazine click,
+each folder that uses it has its own copy.
+
+The files went through an OGG round trip on the way and were converted back to 16-bit
+PCM, the originals' format, at the same sample rates and channel counts. They carry
+faint codec noise; otherwise the audio is the original's. Six originals were missing
+from that set: `Game Start Button`, `Welcome to`, `game center button10`,
+`restore button`, `weapon_m4_fire` and `weapon_saw_start`. They are the original files
+themselves, copied in unchanged, so all 269 of the original's sounds are present.
+`game/sounds/used/` holds 329 files in all: the 269 sounds, plus 60 copies of the ones
+more than one folder shares.
+
+`game/sounds/unused/` holds 25 files that are not the original's own, laid out in the
+same sub-folders they came from. Eleven are extra copies of a sound already in its
+folder: one more `ui_select` in `sfx/misc`, and five more each of `gun_att_sound_1`
+(the `*hit` files) and `weapon_nonbullets` (the `*empty` files) in `sfx/weapons`. The
+other fourteen never came from the original: the eight character `hurt` sounds,
+`grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
+`Game Start Button`) and `welcome`. Nothing in the port uses them, so the sound lookup
+only needs to look in `game/sounds/used/`.
+
+Still to do, as of 2026-09-21:
+
+* **The code still expects the flat folder.** `paths.path_for_resource`, the copy step
+  in `compiler.py` and some tests look for sounds directly in `game/`, so nothing finds
+  them yet, and `tests/test_data.py` fails on the missing WAVs. They need to find each
+  name inside `game/sounds/used/` instead.
+
 ### The tutorial is a table, not ten copies
 The original spells each beat out as five methods — `tutorialOne`, `tutorialOneSoundStop`,
 `tutorialOneEnd`, `tutorialOneRestart`, `tutorialOneRestartFinger` — ten times over, with

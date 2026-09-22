@@ -30,7 +30,7 @@ They handed the repository to the dev, tsatria03, to publish at `github.com/tsat
 
 **How to apply:**
 - Credit lbk2907 wherever credits are written: a README, a credits file, or release notes.
-- The dev is the author of their own commits (tsatria03, `156674543+tsatria03@users.noreply.github.com`), so never add them as a co-author.
+- The dev is the author of their own commits (tsatria03, `156674543+tsatria03@users.noreply.github.com`). Only add them as a co-author when they ask; see [[feedback_git_commits]].
 - When lbk2907 contributes to a commit, credit them with `Co-authored-by: lbk2907 <54381410+lbk2907@users.noreply.github.com>`. 54381410 is their public GitHub account ID, and the noreply form links the credit to their profile without exposing an email.
 - `LICENSE` (MIT) reads "Copyright (c) 2026 tsatria03 and lbk2907", changed at the dev's request on 2026-09-21. Change it again only if the dev asks, for example to add new contributors.
 - Rewriting published history needs the dev's explicit go-ahead each time. For how commits and pushes work in this repo, see [[feedback_git_commits]].

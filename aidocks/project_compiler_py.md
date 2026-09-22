@@ -35,6 +35,9 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
 ## Left out on purpose
 The newer reference script in `user/` bakes VERSION into the build as a module and bundles the Prism speech library (`prismatoid`, `_cffi_backend`). Sixth Sense has no updater and no Prism. Port them only if the dev asks.
 
+## Sounds moved (2026-09-21)
+The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). Ship that folder, not `game/sounds/unused/`. `game_files()` still matches `GAME_FILES` in the bundle's top folder only, so a build today would copy the plists and maps but **no sounds**. When the code catches up, copy `game/sounds/used/` recursively as well. The files there are 16-bit WAV, about 120 MB.
+
 ## Still to do
 1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].
 2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4) to diagnose.
