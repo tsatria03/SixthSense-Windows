@@ -10,6 +10,3 @@ The rain in the third area keeps falling for the whole level.
 Leaving a stage stops the zombie footsteps, the ambience and the music, instead of letting them play on under the menu.
 Switching weapons keeps each weapon's own ammo, instead of refilling the magazine for free.
 The game's sounds are sorted into folders inside game\sounds, each under its original name.
-
-26.09.20:
-Initial release.

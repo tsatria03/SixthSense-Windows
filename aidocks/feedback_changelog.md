@@ -8,11 +8,13 @@ metadata:
 
 **Keep `changelog.txt` up to date as game changes land.** Every commit that fixes a bug or adds an enhancement a player will notice also adds a line under `unrelease:` at the top of `changelog.txt`.
 
-**Why:** On 2026-09-22 the dev pointed out that the changelog should have been updated with each bug fix and enhancement. It had been missed since the initial release. The eleven changes from 2026-09-21 were then added in one go.
+**Why:** On 2026-09-22 the dev pointed out that the changelog should have been updated with each bug fix and enhancement. It had been missed since the initial import, and the eleven changes from 2026-09-21 were then added in one go.
+
+**The game has never been released.** The same day, the dev removed the `26.09.20: Initial release.` entry because no release had happened. So the changelog has no version headings yet; the first release build creates the first one.
 
 **How to apply:**
 - **Format.** This is what `compiler.py`'s `_parse_changelog` reads:
-  - A heading is one word ending in a colon, on a line of its own: `unrelease:` or a version like `26.09.20:`.
+  - A heading is one word ending in a colon, on a line of its own: `unrelease:` or a version like `26.09.21-1:`.
   - Every other line is an entry: one plain sentence or two, with no bullets, numbers or markdown.
   - A blank line separates one heading's block from the next.
 - **CRLF, no BOM.** Edit it with a small Python script that splits and joins on `\r\n`, and check for bare LFs afterwards, as with the todo list ([[feedback_todo_list_format]]).
@@ -21,5 +23,10 @@ metadata:
   - Leave out notes, docs, tests, refactors and build-script internals, unless they change what ships.
   - Bugs that are only found or planned stay in `todo list.txt`, not here.
 - **Wording.** Write for a player, in the style of the todo list's finished section: say what is now true, and avoid contractions.
+- **Headings stay as they are** (the dev's choice, 2026-09-22):
+  - bare, date-based version numbers like `26.09.21-1:`, which mean year, month, day and that day's build
+  - `unrelease:` for changes that are not released yet
+
+  A format like "Version 26.09.21-1:" or "Unreleased:" was offered, which would need `_HEADING`, `UNRELEASE` and `changelog_heading()` in `compiler.py` changed. The dev declined. Don't propose it again unless asked.
 - **Released entries stay as they are.** A plain release build moves the `unrelease:` lines under the VERSION heading, for example `26.09.21-1:`. Never edit an entry that already has a version heading.
 - **No credit lines.** Entries say what changed, not who changed it. On 2026-09-22 the dev chose no credit for tunmi13productions' coin and spoken-number fixes ("no credit"). Don't add contributor credits to the changelog unless the dev asks; commit trailers and [[project_provenance]] carry the credit instead.
