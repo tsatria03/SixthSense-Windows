@@ -183,13 +183,22 @@ def main(argv=None):
 
     quitting = False
     while not quitting:
+        closing = False
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                # The window's close button or Alt+F4 quits the game from any screen.
+                # Escape is a key, not this, so it still goes back, pauses or leaves
+                # the menu as each screen decides.
+                closing = True
+                break
             if focus_lost(event, pygame) and kind in STAGES:
                 interrupt_stop(obj)         # losing focus is pressing P (ui/focus.py)
             if showing_bindings:
                 bindings.handle(event, pygame)
             else:
                 inp.handle(event, pygame)
+        if closing:
+            break
 
         # F1 - the bindings see all the input.  Over a stage or the tutorial the clock
         # stops too, so no zombie walks while you read, and it starts again where it
@@ -242,7 +251,7 @@ def main(argv=None):
                 obj.teardown()
                 kind, obj, inp = stack.pop()
                 log.info('-> %s', kind)
-            elif kind == 'weapon_test' and (not obj.running or inp.quit):
+            elif kind == 'weapon_test' and not obj.running:
                 obj.teardown()
                 kind, obj, inp = stack.pop()
                 log.info('-> %s', kind)
@@ -255,7 +264,7 @@ def main(argv=None):
                 if kind == 'menu':
                     quitting = True
                 else:
-                    obj.teardown()          # Escape in the tutorial, or closing the window
+                    obj.teardown()          # Escape in the tutorial
                     kind, obj = 'menu', _new_menu()
                     inp = MenuInput(obj)
                     log.info('-> menu')
@@ -280,6 +289,10 @@ def main(argv=None):
         clock.tick(60)
 
     obj.teardown()
+    # ...and every screen still stacked under it, or the menu under the shop would
+    # keep its coin timer running.
+    while stack:
+        stack.pop()[1].teardown()
     pygame.quit()
     return 0
 

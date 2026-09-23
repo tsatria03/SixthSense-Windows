@@ -1,4 +1,5 @@
 unrelease:
+Closing the game window quits the game from any screen, instead of going back to the main menu and leaving the menu you came from running in the background with its coin timer. Escape still goes back, pauses or leaves the menu as before.
 The tutorial can be finished in debug mode, since each kill still finishes its lesson even though it does not count.
 In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
 In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.

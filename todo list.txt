@@ -3,7 +3,6 @@
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving away from the coin row can leave the time until the next coin being read over the row you moved to.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
-Closing the window from the shop or the inventory leaves the old main menu running in the background, with its coin timer still counting.
 Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
@@ -17,7 +16,6 @@ Remove the coin store, restore purchases and buy all weapons rows from the shop.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 Your rank always reads 0 and the weekly top score never resets.
 Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
-Closing the window goes back to the menu instead of quitting the game.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 Add a log file and a crash.txt, and have the game say out loud when it cannot start, instead of failing silently.
@@ -31,6 +29,8 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+Closing the game window quits the game from any screen, instead of going back to the menu.
+Closing the window from the shop or the inventory no longer leaves the old main menu running in the background with its coin timer.
 The tutorial can be finished in debug mode. Killing its zombies still counts for nothing, but each kill now finishes its lesson as it should.
 In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
 In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
