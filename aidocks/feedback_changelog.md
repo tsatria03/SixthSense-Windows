@@ -28,5 +28,6 @@ metadata:
   - `unrelease:` for changes that are not released yet
 
   A format like "Version 26.09.21-1:" or "Unreleased:" was offered, which would need `_HEADING`, `UNRELEASE` and `changelog_heading()` in `compiler.py` changed. The dev declined. Don't propose it again unless asked.
+- **How big a release is (the dev, 2026-09-23).** A release holds 50 to 100 changelog entries, fixes and enhancements alike, depending on how much the game still needs. The first release closes at 100: `unrelease:` had 78 entries on 2026-09-23, and the dev said "we can do 22 more before wrapping up the change log". Count the entries under `unrelease:` whenever one is added, and say so when the block reaches 100, or nears it, so the dev can plan the release build. Never file the block under a version or run a build yourself ([[feedback_dont_run_or_build]]).
 - **Released entries stay as they are.** A plain release build moves the `unrelease:` lines under the VERSION heading, for example `26.09.21-1:`. Never edit an entry that already has a version heading.
 - **No credit lines.** Entries say what changed, not who changed it. On 2026-09-22 the dev chose no credit for tunmi13productions' coin and spoken-number fixes ("no credit"). Don't add contributor credits to the changelog unless the dev asks; commit trailers and [[project_provenance]] carry the credit instead.
