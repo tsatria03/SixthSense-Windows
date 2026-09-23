@@ -208,6 +208,16 @@ class BlindScreen:
         """Row 1, a moment behind the screen's name."""
         self.select(self.ROWS[0] if self.ROWS else 0)
 
+    def jump(self, last=False):
+        """PORT ADDITION: Home and End in the screen reader mode, the first row or the
+        last, as a screen reader's own lists go."""
+        rows = self.rows()
+        if not rows:
+            return None
+        row = rows[-1] if last else rows[0]
+        self.select(row)
+        return row
+
     def move(self, step):
         rows = self.rows()
         if not rows:

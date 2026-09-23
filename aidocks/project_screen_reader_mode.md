@@ -48,4 +48,6 @@ The port has no standard screens, so mode 0 becomes "the Windows screen reader s
 3. The result panel.
 4. The tutorial and the announcements during play.
 
+**Home and End, 2026-09-23:** in screen reader mode only, Home and End go to the first and last row. They work in the main menu (`MainController.jump`), in every `BlindScreen`, meaning the shop, the inventory and the opening screen (`BlindScreen.jump`), and on the pause and result panel (`Stage_1_E.pause_jump`, which the test range's own `pause_rows` also uses). The keys are handled in `menu_input.py`, `screen_input.py` and `Input.handle_panel`. With voice over on, the main menu's Home still goes to row 1, and End repeats the current row. Tested in `test_menu` and `test_pause`.
+
 **How to apply:** Keep the recordings the default and the reference. Screen reader mode is a deliberate divergence, and each piece that lands needs its line in `DIVERGENCES.md`. Don't drop a recording's text into code without the dev confirming the wording for the ones whose file names don't already say it.

@@ -559,6 +559,10 @@ is running.
   picture is "Shotgun, Image", and a number is read whole with its label, such as
   "Price, 7,000", in place of the digit recordings one second apart.
 - Each screen says its name before its first row, such as "Store." or "Shotgun.".
+- Home and End go to the first row and the last, as a screen reader's own lists do, in
+  the main menu, the shop, the inventory, the opening screen and the panel. With voice
+  over on they keep their old meaning: the main menu's Home goes to row 1, and End,
+  like any other key, repeats the row you are on (added 2026-09-23).
 - What a choice says back, such as "Gold is lacking." or "Equipped.", is spoken too.
   "Gold is lacking." is heard in both modes: the original only played its recording in
   the self-voiced mode (0x1bbee) and left VoiceOver to read the label.

@@ -93,6 +93,47 @@ def test_up_and_down_walk_the_rows_and_wrap():
         st.teardown()
 
 
+def test_home_and_end_on_the_panel_in_the_screen_reader_mode():
+    """With voice over off, Home and End go to the panel's first row and its last;
+    with voice over on, End stays where it was."""
+    from sixthsense.ui.input import Input
+
+    class _Pygame:
+        KEYDOWN, KEYUP, QUIT = 1, 2, 3
+
+        class key:
+            @staticmethod
+            def name(k):
+                return k
+
+    class _Key:
+        type = _Pygame.KEYDOWN
+
+        def __init__(self, name):
+            self.key = name
+
+    app, st = _new_stage()
+    said = []
+    st._say = said.append                   # never the real screen reader
+    try:
+        st.gameState = 1
+        rows = st.pause_rows()
+        keys = Input(st)
+        app.mode = 0
+        keys.handle(_Key('end'), _Pygame)
+        assert st.selectMenu == rows[-1], 'End went to row %d' % st.selectMenu
+        assert said, 'End did not read the row'
+        keys.handle(_Key('home'), _Pygame)
+        assert st.selectMenu == rows[0], 'Home went to row %d' % st.selectMenu
+        app.mode = 1
+        st.selectMenu = rows[2]
+        keys.handle(_Key('end'), _Pygame)
+        assert st.selectMenu == rows[2], 'End jumped with voice over on'
+    finally:
+        app.mode = 1
+        st.teardown()
+
+
 def test_selecting_a_readout_queues_its_number():
     """Each band plays its label and schedules its reader 2 s behind it (0x3097c)."""
     _app, st = _new_stage()

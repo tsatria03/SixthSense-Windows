@@ -1,4 +1,5 @@
 unrelease:
+With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
 The voice over row in the main menu says what choosing it does, as in the original: voice over off while voice over is on, and voice over on while it is off. Turning voice over off plays the game's own recording, as the original does.
 Moving away from the coin row in the main menu stops the time to the next coin, instead of reading it over the row you moved to.
 The ranking and Game Center rows are gone from the main menu, the rank is gone from the result panel, and the restore purchases row is gone from the shop. They needed online services that the Windows version does not have.

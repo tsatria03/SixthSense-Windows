@@ -136,6 +136,9 @@ class Input:
                 st.pause_activate()
             else:
                 st.pause_move(1)          # nothing chosen yet: start at the top
+        elif name in ('home', 'end') and st.app.screen_reader:
+            # the screen reader mode: the first row or the last, as its lists go
+            st.pause_jump(last=(name == 'end'))
         else:
             st.blindModeSelectedMenu()
 

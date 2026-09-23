@@ -35,6 +35,9 @@ class MenuInput:
             self.menu.move(1)
         elif name in ('return', 'enter', 'space'):
             self.menu.activate()
+        elif name in ('home', 'end') and self.menu.app.screen_reader:
+            # the screen reader mode: the first row or the last, as its lists go
+            self.menu.jump(last=(name == 'end'))
         elif name == 'home':
             self.menu.selectMenu = 1
             self.menu.blindModeSelectedMenu()

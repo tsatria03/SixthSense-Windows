@@ -39,3 +39,6 @@ class ScreenInput:
                 s.activate()
             else:
                 s.move(1)
+        elif name in ('home', 'end') and s.screen_reader:
+            # the screen reader mode: the first row or the last, as its lists go
+            s.jump(last=(name == 'end'))

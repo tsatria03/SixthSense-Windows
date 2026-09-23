@@ -1541,6 +1541,14 @@ class Stage_1_E:
             RunLoop.main().perform(self, reader, None, self.READ_DELAY)
         return sound
 
+    def pause_jump(self, last=False):
+        """PORT ADDITION: Home and End on the panel in the screen reader mode, the first
+        row or the last of the ones it offers."""
+        rows = self.pause_rows()
+        row = rows[-1] if last else rows[0]
+        self.pause_select(row)
+        return row
+
     def pause_move(self, step):
         """Up and Down in place of dragging a finger up and down the panel."""
         rows = self.pause_rows()

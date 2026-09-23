@@ -230,6 +230,13 @@ class MainController:
         self.selectMenu = nums[i]
         self.blindModeSelectedMenu()
 
+    def jump(self, last=False):
+        """PORT ADDITION: Home and End in the screen reader mode, the first row or the
+        last, as a screen reader's own lists go."""
+        nums = [r[0] for r in ROWS]
+        self.selectMenu = nums[-1] if last else nums[0]
+        self.blindModeSelectedMenu()
+
     # ============================================================ activating
     # -[MainController tapCount] 0x9350 - a double tap runs the selected row
     def activate(self):

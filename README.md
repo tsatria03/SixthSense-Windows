@@ -111,7 +111,8 @@ chords: hold both keys together.
 
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the
-inventory. You can pause as often as you like: continue and restart both let the next
+inventory. With voice over turned off, **Home** and **End** also go to the first row and
+the last. You can pause as often as you like: continue and restart both let the next
 pause through, as in the original.
 
 Keyboard only — no mouse. The lane keys replace the swipe rather than simulating it:

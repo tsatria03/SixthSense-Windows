@@ -27,6 +27,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
 The voice over row in the main menu says what choosing it does, as in the original, and turning voice over off plays the game's own recording.
 Moving away from the coin row stops the time until the next coin, instead of reading it over the row you moved to.
 The restore purchases row is gone from the shop. It restored Apple in-app purchases, which no longer exist.
