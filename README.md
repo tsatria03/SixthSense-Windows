@@ -186,7 +186,8 @@ vendor/                  OpenAL Soft and NVDA's controller client, with their li
 analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 docs/                    GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md
-tests/                   the tests, and level_tester.py for starting at any level
+tests/                   the tests, level_tester.py for starting at any level, and
+                         tutorial_tester.py for starting the tutorial at any lesson
 compiler.py              builds the game with PyInstaller
 releaser.py              sets the version, files the changelog, builds, zips, tags and uploads a release
 requirements.txt         the two packages it needs
@@ -304,6 +305,31 @@ A level is what walking there would give you: monsters 1.5 times tougher and fas
 level, one more of them out at a time, and the area alternating between the cave and
 the forest. It plays on its own save in `%APPDATA%\SixthSense\level_tester`, so your
 own save is never touched, and it copies your key bindings in each time it starts.
+
+### Starting the tutorial at any lesson
+
+`tests/tutorial_tester.py` is not a test either. It opens the real tutorial at the
+lesson you choose, with the ending you choose, so neither needs a deleted save or a
+replay of the lessons before it. Opened on its own, it asks three things:
+
+- **The ending:** `start`, where P counts 3, 2, 1 into the real game as after a
+  first Start, or `menu`, where P goes back to the main menu as from the Tutorial
+  button.
+- **The lesson,** 1 to 10: the five clock positions, the stronger zombie, reloading,
+  changing weapon, shaking off the animal zombie, and ending the tutorial with P.
+- **Voice over on or off.** The recordings play either way; with it off, your screen
+  reader also names the keys for each lesson.
+
+```bash
+python tests/tutorial_tester.py                              # asks
+python tests/tutorial_tester.py --lesson 9                   # the animal zombie
+python tests/tutorial_tester.py --ending start --lesson 10   # P, then into the game
+python tests/tutorial_tester.py --voice off                  # with the key hints
+```
+
+The lessons before the one you choose count as done, so the tutorial carries on from
+there as it would have. It plays on its own save in
+`%APPDATA%\SixthSense\tutorial_tester`, so your own save is never touched.
 
 ## Where this came from
 

@@ -21,6 +21,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 
 ## Finished
 
+- A tutorial tester in tests/tutorial_tester.py starts the tutorial at any lesson, with the Start ending or the Tutorial button's, and voice over on or off. It asks when opened on its own, and plays on its own save so yours is never touched.
 - The tutorial can be finished in debug mode. Killing its zombies still counts for nothing, but each kill now finishes its lesson as it should.
 - In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
 - In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
