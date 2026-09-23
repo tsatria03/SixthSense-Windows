@@ -38,5 +38,5 @@ A numbered menu like the compiler's: "Full release", plus each step on its own. 
 - The dev runs the releaser and the compiler. Claude never runs either, and never builds or uploads.
 
 ## Related rules made the same day
-- A release holds 50 to 100 changelog entries; the first closes at 100 ([[feedback_changelog]]).
+- A release aims for 50 to 100 changelog entries, can go out with fewer, and never holds more than 100. The first release goes out with the 70 it has ([[feedback_changelog]]).
 - Debug mode is developer-facing and never goes in the changelog or the todo list ([[project_dev_tasks]]).
