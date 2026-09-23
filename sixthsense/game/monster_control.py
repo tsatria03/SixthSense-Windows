@@ -315,8 +315,14 @@ class MonsterControl:
                                       self.Pos[1] * self.Pos[1])
         # 0x10fee: while further than 25 cm, close by comingRange; otherwise it stops
         # 20 cm out (0x11032: movs r2, #0 / movt r2, #0x41a0), still in its lane.
+        # PORT DIVERGENCE: the original lets that last step overshoot, to 0 or past
+        # you, so the monster passed through the centre or crossed to the other side
+        # before the next step put it back out at 20 cm - heard as a step sideways.
+        # A step stops at 20 cm here, which is where it ends up anyway; it still
+        # arrives within 25 cm on the same step.
         if self.monsterRange > 25.0:
-            self.monsterRange = self.monsterRange - float(self.comingRange)
+            self.monsterRange = max(20.0,
+                                    self.monsterRange - float(self.comingRange))
         else:
             self.monsterRange = 20.0
 

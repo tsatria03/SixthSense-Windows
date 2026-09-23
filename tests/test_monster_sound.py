@@ -236,6 +236,39 @@ def test_the_headshot_announcement_is_centred():
         st.teardown()
 
 
+def test_a_monster_never_passes_through_you_on_its_last_step():
+    """The girl's 50 cm step took her from 50 cm to 0, dead centre, and the next step
+    put her back out at 20 cm in her lane: a step sideways.  At level 3 her 112 cm
+    step went from 104 to -8, past you and onto the other side.  Walked in at each
+    level, in every lane, the source stays on its own side and never comes closer
+    than 20 cm."""
+    for gain in (1.0, 1.5, 2.25):
+        for type_id, lane in ((10001, 1), (10003, 3), (10005, 5)):
+            app, st = _new_stage()
+            st.monsterHPGain = gain
+            st.MonsterInit_(type_id)
+            m = st.MonsterBuffer[0]
+            w = _Watch(app, m)
+            try:
+                for _ in range(60):
+                    m.MonsterMoving_(None)
+                    x, _h, y = w.AL.source_position(w.sid)
+                    flat = math.hypot(x, y)
+                    assert flat >= 19.99, \
+                        'lane %d at gain %.2f came %.1f cm close' % (lane, gain, flat)
+                    if lane == 1:
+                        assert x < 0, 'lane 1 crossed to the right at gain %.2f' % gain
+                    elif lane == 5:
+                        assert x > 0, 'lane 5 crossed to the left at gain %.2f' % gain
+                    if m.monsterRange <= 25.0:
+                        break
+                else:
+                    raise AssertionError('lane %d never arrived' % lane)
+            finally:
+                w.close()
+                st.teardown()
+
+
 def test_the_woman_zombie_growls_as_she_comes_in():
     """Her walk sounds are footsteps with the growl at the end, and from level 2 on she
     reached you before it.  Her sample starts at the growl, in the cave and the forest

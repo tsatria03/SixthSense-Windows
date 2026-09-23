@@ -64,7 +64,8 @@ misreading, and the port now takes the step the way the original does.
 ### A zombie stops 20 cm out, not on top of you
 Once a monster is within 25 cm, `MonsterMoving:` sets its range to 20.0 (0x11032:
 `movs r2, #0` / `movt r2, #0x41a0`), not 0, so it stays in its own lane at the end.
-**Reproduced.**
+**Reproduced**, except that the step before it no longer overshoots: see "A monster's
+last step stops at 20 cm" below.
 
 ### The walk sample is moved, not restarted
 `-[oalPlayback startSound:Postion:soundGain:]` (0xe524) tests the source's `isPlaying`
@@ -303,6 +304,18 @@ original does the same. The port starts her sample at the growl, 3.6 s into 271 
 after it. Her speed and the files are unchanged. The girl who heals you (10001..10005)
 has the same speed and her call for help comes at the end too; she is left as the
 original has her.
+
+### A monster's last step stops at 20 cm
+`MonsterMoving:` takes `comingRange` off the range while it is over 25 cm (0x10fee) and
+sets it to 20 cm once it is not (0x11032), but nothing stops that step overshooting.
+The girl's 50 cm step took her from 50 cm to 0, dead centre, and the next step put her
+back out at 20 cm in her lane, so she walked in and then stepped to the side, right
+from lanes 4 and 5, left from 1 and 2. On level 3 her 112 cm step went from 104 cm to
+-8, which is past you and on the other side. Any monster whose step overshoots does the
+same; `zombie_1` also lands on 0 on level 1. The original does it too. The port stops
+a step at 20 cm, where the monster ends up anyway, so it stays in its lane all the way
+in. Every step that would have overshot already landed within 25 cm, so a monster
+reaches you on the same step as before.
 
 ## Where the port necessarily differs
 
