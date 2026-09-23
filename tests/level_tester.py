@@ -11,7 +11,8 @@ since its name does not start with ``test_``.
                                                     whether to start near the boss
 
 What a level is, from the binary: ``ChangeLevel:`` multiplies ``monsterHPGain`` by 1.5
-(0x32314), which scales every new monster's health and step (0x10724, 0x10848), and
+(0x32314), which scales every new zombie's and boss's health and step (0x10724, 0x10848;
+the girl and the woman are built at 1.0, 0x38d8c and 0x39034), and
 ``MainControl`` adds one to ``LVUP`` (0x31c80), which lets one more monster out at a
 time (0x3612e).  The area goes from the cave to the forest and back (0x31c8c); the rain
 only ever comes on level 1.  Level N here is exactly what walking there would give you.

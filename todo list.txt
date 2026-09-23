@@ -37,6 +37,8 @@ In debug mode Shift+F2 waits two seconds between sections, as F2 does between le
 In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
 In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.
 In debug mode F2 goes back to level 1 after level 8, and Shift+F2 says "Not while the section is changing" while a level is changing.
+The girl and the woman zombie keep level 1's speed and health on every level, as in the original, instead of getting faster and tougher with each level.
+The Try button on a weapon's page has been added. It opens the weapon test range with that weapon, as in the original.
 A bullet keeps the original's half second between firing and hitting the zombie. It is one setting and can still be switched back.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage.
@@ -77,7 +79,6 @@ The game opens one audio device, the one it plays through, instead of also start
 The menu music carries on where it was when you come back to the menu, instead of starting over from the beginning.
 The compiler builds a working game. A console build starts and plays, and its release zip opens and holds all 643 files: the game, its data, and the licenses beside it. While it packs the zip, the compiler says so and says how far it has got, so the window is not closed too early.
 A requirements.txt lists the two packages the game needs, pygame and prismatoid, so pip install -r requirements.txt installs both.
-The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
 Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
 The tutorial's prompts no longer restart every second once they have already played through once.
 Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.

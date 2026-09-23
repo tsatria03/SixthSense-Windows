@@ -312,16 +312,7 @@ class Stage_1_E:
         # The menu music stops here, not in viewDidLoad, so it keeps playing under
         # Now Loading instead of cutting out before the player ever hears it.
         self.app.BGMusicStop()
-
-        def read(name, ext=None):
-            p = paths.path_for_resource(name, ext)
-            with open(p, 'r', encoding='utf-8', errors='replace') as f:
-                return f.read()
-        self.actionMapData = read('a_CH1_E', 'txt')
-        self.groundMapData = read('g_CH1_E')
-        self.soundMapData = read('s_CH1_E', 'txt')
-        self.stage = MakeMaps().initWithMapGroundFileString_soundPosFileName_actionPosFileName_(
-            self.groundMapData, self.soundMapData, self.actionMapData)
+        self._load_maps()
 
         # The rain is the whole of gameMode 3's ambience, on the ambience player - not
         # the music player, which action cell 9 stops at the first corridor segment.
@@ -350,6 +341,18 @@ class Stage_1_E:
             log.warning('TUTORIAL is 0, so -[Stage_1_E MapInitInBundle] does not start '
                         'MotionSamplingTimer and the player never walks. Play the '
                         'tutorial first (it is what sets the key).')
+
+    def _load_maps(self):
+        """The three layers of ``CH1_E`` from the bundle, and the grid built from them."""
+        def read(name, ext=None):
+            p = paths.path_for_resource(name, ext)
+            with open(p, 'r', encoding='utf-8', errors='replace') as f:
+                return f.read()
+        self.actionMapData = read('a_CH1_E', 'txt')
+        self.groundMapData = read('g_CH1_E')
+        self.soundMapData = read('s_CH1_E', 'txt')
+        self.stage = MakeMaps().initWithMapGroundFileString_soundPosFileName_actionPosFileName_(
+            self.groundMapData, self.soundMapData, self.actionMapData)
 
     # -[Stage_1_E changeGameMode] 0x2d64c
     def changeGameMode(self):
@@ -386,11 +389,15 @@ class Stage_1_E:
         if self.isShake:                                          # 0x3185e
             return
 
-        # ---- breathing, 0x3186e..0x31974 -------------------------------
-        # Every second tick breathes, unless the last breath is still holding
-        # brearhFlag up.  breath: comes 3 s later (0x31964: movt r5, #0x4008), which
-        # covers the next second tick, so the player breathes once every 4 s.  Which
-        # breath says how hurt you are: 80 at full health, 81 at two hearts, 82 at one.
+        self._breathe()                                           # 0x3186e..0x31974
+        self._walk_and_act()                                      # 0x319e0..0x320da
+
+    def _breathe(self):
+        """0x3186e..0x31974.  Every second tick breathes, unless the last breath is
+        still holding brearhFlag up.  breath: comes 3 s later (0x31964: movt r5,
+        #0x4008), which covers the next second tick, so the player breathes once every
+        4 s.  Which breath says how hurt you are: 80 at full health, 81 at two hearts,
+        82 at one."""
         self.breathCount += 1
         if self.breathCount >= 2:
             self.breathCount = 0
@@ -407,7 +414,9 @@ class Stage_1_E:
                     self.breathNumber, 0.5, (0.0, 0.0), 0, False)
                 RunLoop.main().perform(self, 'breath_', None, BREATH_HOLD)
 
-        # ---- walking, 0x319e0..0x31e32 ---------------------------------
+    def _walk_and_act(self):
+        """The rest of ``MainControl``: the step, the action cell, the spawn, the
+        attacks and death (0x319e0..0x320da)."""
         px = self.gamePlayer.playerXplot
         py = self.gamePlayer.playerYplot
         groundAhead = self.stage.movePlayGroundState_PlotY_(px, py - 1)   # 0x31a32
@@ -633,10 +642,15 @@ class Stage_1_E:
             push = self._first_free(pl, {m.shakeMonsterPushSound
                                          for m in self.MonsterBuffer}) or pl[0]
 
+        # The girl and the woman zombie are built with an HPGain of 1.0, not the
+        # level's (0x38d8c / 0x39034: mov.w r2, #0x3f800000 into the argument), so
+        # they walk and take hits as on level 1 whatever the level.  Every other
+        # monster, the boss included, gets monsterHPGain (0x37730, 0x38f68...).
+        gain = 1.0 if kind in (MONSTER_GIRL, MONSTER_WOMAN) else self.monsterHPGain
         m = MonsterControl()
         m.frozen = self.monstersFrozen
         if m.initWithMonsterPatern(type_id, self.app, coming, hit, php, dies,
-                                   approach, push, self.monsterHPGain) is None:
+                                   approach, push, gain) is None:
             return
         # -[MonsterControl initWithMonsterPatern:...] already called MonsterStart:
         # (0x10c3e), so MonsterInit: only has to keep the monster (0x392da).
@@ -1151,8 +1165,9 @@ class Stage_1_E:
     def MissionSuccessTell(self, *_):
         self.missionCompletSounding = False                   # 0x32c34
         self.bStop = True                                     # 0x32c3a
-        if self.gameMode == 1:                                # 0x32c5c
-            self.app.stopSoundBufNumber_(88)                  # bgm_cave_amb
+        # 0x32c5c: the level's music, 92 (bgm_cave) in the cave and 91 (bgm_forest)
+        # anywhere else - ite ne / movne 0x5b / moveq 0x5c, not a test for the cave.
+        self.app.stopSoundBufNumber_(92 if self.gameMode == 1 else 91)
         gold = self.ObtainedGold()
         self.app.haveGold += gold                             # 0x32e70
         d = UserDefaults.standardUserDefaults()
@@ -1172,8 +1187,7 @@ class Stage_1_E:
         - 228 is only ever silenced, never played, by this class."""
         self.missionCompletSounding = False                   # 0x32788
         self.bStop = True                                     # 0x3278e
-        if self.gameMode == 1:                                # 0x327b0
-            self.app.stopSoundBufNumber_(88)                  # bgm_cave_amb
+        self.app.stopSoundBufNumber_(92 if self.gameMode == 1 else 91)   # 0x327b0
         self.gameState = 3                                    # 0x32802
         self._panel_voice(SOUND_GAME_OVER, 0.5)               # 0x32814
         gold = self.ObtainedGold()
@@ -1597,13 +1611,12 @@ class Stage_1_E:
         if self.bStop:                                        # 0x33e40
             return False
         self.bStop = True                                     # 0x33e48
+        return self._pause()
+
+    def _pause(self):
+        """What the stop button does once it has decided to pause."""
         self.app.playSound_Gain_Pos_z_reprats_(10, 0.2, (0.0, 0.0), 0, False)
-        if self.gameMode == 2:                                # 0x33e8c
-            self.app.stopSoundBufNumber_(87)                  # bgm_forest_amb
-        elif self.gameMode == 1:                              # 0x340c4
-            self.app.stopSoundBufNumber_(88)                  # bgm_cave_amb
-        if self.gameMode in (1, 2, 3):                        # L_340e4
-            self.app.stopSoundBufNumber_(92)                  # bgm_cave
+        self._pause_stop_sounds()
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
@@ -1614,6 +1627,19 @@ class Stage_1_E:
         self._fill_result_labels()                            # 0x34302..0x34574
         self.selectMenu = 0
         return True
+
+    def _pause_stop_sounds(self):
+        """0x33e86..0x340e4.  Each branch loads its number into r2 and joins one
+        ``stopSoundBufNumber:`` at 0x340e4, so the rain's area stops the rain (368),
+        the forest its ambience (87), and only the cave stops two: its ambience (88)
+        at 0x340da and its music (92) at 0x340e4."""
+        if self.gameMode == 3:                                # 0x33e86
+            self.app.stopSoundBufNumber_(368)                 # effect_forest_rainng
+        elif self.gameMode == 2:                              # 0x33e8c
+            self.app.stopSoundBufNumber_(87)                  # bgm_forest_amb
+        elif self.gameMode == 1:                              # 0x340c4
+            self.app.stopSoundBufNumber_(88)                  # bgm_cave_amb
+            self.app.stopSoundBufNumber_(92)                  # bgm_cave
 
     def tutorial_skip(self):
         """``StopPlayAction:`` 0x33ea4 - the branch taken while the tutorial is still
@@ -1646,7 +1672,13 @@ class Stage_1_E:
         self.walkXFlag = False                                # 0x33a8c
         self.brearhFlag = False                               # 0x33a9a
         self.MonsterReStart()                                 # 0x33aa0
-        # ...and the ambience StopPlayAction: silenced comes back, 0x33b22.
+        self._resume_ambience()
+        self.selectMenu = 0
+        return True
+
+    def _resume_ambience(self):
+        """The ambience ``StopPlayAction:`` silenced comes back (0x33b22), and the
+        music too past row 396 (0x33b9c)."""
         pb = self.app.playback
         if pb is not None:
             if self.gameMode == 3:
@@ -1665,8 +1697,6 @@ class Stage_1_E:
                 elif self.gameMode == 1:
                     pb.startAMBPlayer_type_soundGain_Loop_(
                         'bgm_cave', 'wav', volume.music(0.02), True)
-        self.selectMenu = 0
-        return True
 
     # -[Stage_1_E gameReplayAction:] 0x330ed
     def gameReplayAction_(self, *_):

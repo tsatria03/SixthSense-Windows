@@ -24,7 +24,8 @@ numbers the listings in `analysis/disasm/` use.
 | `MonsterControl` | 0xd0 | One monster: lane, range, sounds, timers |
 | `Stage_1_E` | 0x288 | The stage — 262 methods |
 | `Stage_Tutorial` | 0x278 | The tutorial, a near-copy of `Stage_1_E` |
-| `Stage_1_TEST`, `angleTest` | | Development builds, not reachable from the menu |
+| `Stage_1_TEST` | | The weapon test range, opened from the Try button on a weapon's page in the shop |
+| `angleTest` | | A development build that nothing references |
 | `MainController` | 0x140 | Main menu and stage select |
 | store / ranking / Facebook | | Shop, leaderboards, IAP — all server-backed |
 

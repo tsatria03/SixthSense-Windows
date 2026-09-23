@@ -17,7 +17,8 @@ shot, no grenade and no magazine ever runs out (``Stage_1_E``).
 
 Everything here speaks through the screen reader, whatever the voice over row says:
 the game has no recordings for any of it.  They do nothing in the tutorial, which
-runs on its own script.
+runs on its own script, and F2 and Shift+F2 do nothing in the weapon test range,
+where you never walk.
 """
 from __future__ import annotations
 
@@ -58,6 +59,10 @@ def _in_tutorial(st):
 def perform(st, action, lane):
     """Run one ``debug_`` action; ``lane`` is the lane last attacked, 1..5."""
     if _in_tutorial(st):
+        return
+    if (action in ('debug_next_level', 'debug_next_section')
+            and getattr(st, 'IS_TEST_RANGE', False)):
+        st._say('The weapon test range has no levels or sections.')
         return
     {'debug_next_level': next_level,
      'debug_next_section': next_section,
@@ -100,8 +105,9 @@ def sections(st):
 
 def next_section(st):
     """Walk straight to the start of the next section.  The zombies around you die
-    where they are, but not the girl, who walks on and still thanks you, and the next tick reads the section's own cell 9 as walking there
-    would, so its quiet stretch, its tier and its music follow on their own."""
+    where they are, but not the girl, who walks on and still thanks you, and the next
+    tick reads the section's own cell 9 as walking there would, so its quiet stretch,
+    its tier and its music follow on their own."""
     if st.MotionSamplingTimer is None or not st.MotionSamplingTimer.isValid():
         st._say('Not while the section is changing.')
         return

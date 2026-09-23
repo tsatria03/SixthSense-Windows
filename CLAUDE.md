@@ -15,7 +15,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
 ## Layout
 
 - **`SixthSense.py`**: the entry point and screen loop (stands in for `UINavigationController`).
-- **`sixthsense/game/`**: one module per original class. `stage_1_e.py` is the core loop; the others include `monster_control.py`, `weapon_control.py`, `main_controller.py` (the menu and coin economy), `stage_tutorial.py`, `store.py`, `inventory.py`, `intro.py`, `app_delegate.py` and `oal_playback.py`.
+- **`sixthsense/game/`**: one module per original class. `stage_1_e.py` is the core loop; the others include `monster_control.py`, `weapon_control.py`, `main_controller.py` (the menu and coin economy), `stage_tutorial.py`, `stage_1_test.py` (the weapon test range behind the shop's Try button, [[project_test_range]]), `debug.py` (the `--debug` keys), `store.py`, `inventory.py`, `intro.py`, `app_delegate.py` and `oal_playback.py`.
 - **`sixthsense/platform/`**:
   - `openal.py`: a ctypes binding to OpenAL Soft, with HRTF off.
   - `runloop.py`: stands in for `NSTimer` and `performSelector:afterDelay:`.

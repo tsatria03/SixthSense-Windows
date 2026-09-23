@@ -372,10 +372,14 @@ class DetailStoreController(BlindScreen):
 
     # -[DetailStoreController testAction:] 0x1c1c0
     def testAction_(self, *_):
-        """The Try button pushes ``Stage_1_TEST`` - the one door into it.  It is not
-        reachable from the main menu, which is why it reads as a development build,
-        but the shop does get to it.  ``Stage_1_TEST`` itself is not ported
-        (``docs/PORTING_STATUS.md``), so the port says so instead of doing nothing."""
-        self.ui_select()
-        self.say('The weapon test range is not available.')
-        self.push('weapon_test', self.weaponType)
+        """The Try button pushes ``Stage_1_TEST``, the weapon test range, holding the
+        weapon on this page (``setTestWeapon:``, 0x1c3d6; the slot for each weaponType
+        is ``stage_1_test.TEST_WEAPON``).  It is the one door into the range.
+
+        The original first refuses while VoiceOver is running, with an alert asking
+        for it to be turned off (0x1c20a).  The port leaves that out: a player here
+        always has a screen reader running, and the range speaks for itself."""
+        from .stage_1_test import test_weapon_for
+        self.StopElseSpeak()                                          # 0x1c280
+        self.ui_select()                                              # 10, 0x1c2a6
+        self.push('weapon_test', test_weapon_for(self.weaponType))
