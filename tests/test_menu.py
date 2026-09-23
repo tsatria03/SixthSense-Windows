@@ -605,6 +605,52 @@ def test_home_and_end_in_the_screen_reader_mode():
         m.teardown()
 
 
+def test_left_and_right_move_like_voiceovers_flicks_in_the_screen_reader_mode():
+    """With voice over off, Right goes to the next row and Left to the previous one, in
+    the main menu and in the shop, as VoiceOver's flicks did.  With voice over on, Left
+    and Right only repeat the row in the main menu, and do nothing in the shop."""
+    from sixthsense.game.main_controller import ROWS
+    from sixthsense.game.store import MainStoreController
+    from sixthsense.ui.menu_input import MenuInput
+    from sixthsense.ui.screen_input import ScreenInput
+    m = _menu()
+    shop = MainStoreController(speech=_Recorder())
+    nums = [r[0] for r in ROWS]
+    try:
+        m.app.mode = 0
+        keys = MenuInput(m)
+        m.selectMenu = nums[1]
+        keys.handle(_Key('right'), _Pygame)
+        assert m.selectMenu == nums[2], 'Right went to row %d' % m.selectMenu
+        keys.handle(_Key('left'), _Pygame)
+        keys.handle(_Key('left'), _Pygame)
+        assert m.selectMenu == nums[0], 'Left went to row %d' % m.selectMenu
+        keys.handle(_Key('left'), _Pygame)
+        assert m.selectMenu == nums[-1], 'Left did not wrap to the last row'
+
+        rows = shop.rows()
+        keys = ScreenInput(shop)
+        shop.select(rows[0])
+        shop.speech.said.clear()
+        keys.handle(_Key('right'), _Pygame)
+        assert shop.selectMenu == rows[1], 'Right went to row %d' % shop.selectMenu
+        assert shop.speech.said, 'Right did not read the row'
+        keys.handle(_Key('left'), _Pygame)
+        assert shop.selectMenu == rows[0], 'Left went to row %d' % shop.selectMenu
+
+        m.app.mode = 1
+        m.selectMenu = nums[2]
+        MenuInput(m).handle(_Key('right'), _Pygame)
+        assert m.selectMenu == nums[2], 'Right moved with voice over on'
+        shop.selectMenu = rows[1]
+        ScreenInput(shop).handle(_Key('left'), _Pygame)
+        assert shop.selectMenu == rows[1], 'Left moved in the shop with voice over on'
+    finally:
+        m.app.mode = 1
+        shop.teardown()
+        m.teardown()
+
+
 def test_no_coin_is_read_by_the_screen_reader_with_voice_over_off():
     m = _menu(coins=0)
     try:

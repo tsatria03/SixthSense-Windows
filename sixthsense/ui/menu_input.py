@@ -38,6 +38,9 @@ class MenuInput:
         elif name in ('home', 'end') and self.menu.app.screen_reader:
             # the screen reader mode: the first row or the last, as its lists go
             self.menu.jump(last=(name == 'end'))
+        elif name in ('left', 'right') and self.menu.app.screen_reader:
+            # ...and Left and Right as VoiceOver's flicks: right is the next row
+            self.menu.move(1 if name == 'right' else -1)
         elif name == 'home':
             self.menu.selectMenu = 1
             self.menu.blindModeSelectedMenu()

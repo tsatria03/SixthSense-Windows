@@ -42,3 +42,6 @@ class ScreenInput:
         elif name in ('home', 'end') and s.screen_reader:
             # the screen reader mode: the first row or the last, as its lists go
             s.jump(last=(name == 'end'))
+        elif name in ('left', 'right') and s.screen_reader:
+            # ...and Left and Right as VoiceOver's flicks: right is the next row
+            s.move(1 if name == 'right' else -1)

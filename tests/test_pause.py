@@ -94,8 +94,9 @@ def test_up_and_down_walk_the_rows_and_wrap():
 
 
 def test_home_and_end_on_the_panel_in_the_screen_reader_mode():
-    """With voice over off, Home and End go to the panel's first row and its last;
-    with voice over on, End stays where it was."""
+    """With voice over off, Home and End go to the panel's first row and its last, and
+    Left and Right to the previous row and the next; with voice over on, End and Right
+    stay where they were."""
     from sixthsense.ui.input import Input
 
     class _Pygame:
@@ -129,6 +130,16 @@ def test_home_and_end_on_the_panel_in_the_screen_reader_mode():
         st.selectMenu = rows[2]
         keys.handle(_Key('end'), _Pygame)
         assert st.selectMenu == rows[2], 'End jumped with voice over on'
+
+        # Left and Right, as VoiceOver's flicks: with voice over off only.
+        keys.handle(_Key('right'), _Pygame)
+        assert st.selectMenu == rows[2], 'Right moved with voice over on'
+        app.mode = 0
+        keys.handle(_Key('right'), _Pygame)
+        assert st.selectMenu == rows[3], 'Right went to row %d' % st.selectMenu
+        keys.handle(_Key('left'), _Pygame)
+        keys.handle(_Key('left'), _Pygame)
+        assert st.selectMenu == rows[1], 'Left went to row %d' % st.selectMenu
     finally:
         app.mode = 1
         st.teardown()

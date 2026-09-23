@@ -1,6 +1,5 @@
 ##Unfinished.
 
-Decide whether turning voice over off should work like VoiceOver's flick left and right gestures, by moving through the menus with the left and right arrows instead of up and down.
 Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 The "no coin" message still says to share coins with friends at the ranking page, which is gone, and with voice over off the screen reader reads it aloud.
 The key bindings screen lists Escape as "Quit", but in a stage it pauses and in the shop it goes back.
@@ -18,6 +17,7 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+With voice over turned off, the Left and Right arrows move to the previous and the next row in the menus and on the pause and result panel, like VoiceOver's flicks.
 The coin store and purchase all weapons rows are gone from the shop, since Apple in-app purchases no longer exist and there are no recordings for buying them with gold.
 The tutorial's steps always come in the original's order, and reloading or changing weapon early no longer skips a lesson.
 Pressing P at the end of the tutorial ends it. The first time, from Start, it counts down into the game, and from the Tutorial button it goes back to the main menu.

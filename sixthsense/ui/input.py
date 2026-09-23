@@ -136,6 +136,9 @@ class Input:
         elif name in ('home', 'end') and st.app.screen_reader:
             # the screen reader mode: the first row or the last, as its lists go
             st.pause_jump(last=(name == 'end'))
+        elif name in ('left', 'right') and st.app.screen_reader:
+            # ...and Left and Right as VoiceOver's flicks: right is the next row
+            st.pause_move(1 if name == 'right' else -1)
         else:
             st.blindModeSelectedMenu()
 

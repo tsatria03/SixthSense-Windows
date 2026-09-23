@@ -579,6 +579,10 @@ is running.
   the main menu, the shop, the inventory, the opening screen and the panel. With voice
   over on they keep their old meaning: the main menu's Home goes to row 1, and End,
   like any other key, repeats the row you are on (added 2026-09-23).
+- Left and Right move to the previous row and the next, as VoiceOver's flick left and
+  right did on the iPhone, in the same places. Up and Down still work as well. With
+  voice over on, Left and Right keep their old meaning: in the main menu they repeat the
+  row you are on, and elsewhere they do nothing (added 2026-09-23).
 - What a choice says back, such as "Gold is lacking." or "Equipped.", is spoken too.
   "Gold is lacking." is heard in both modes: the original only played its recording in
   the self-voiced mode (0x1bbee) and left VoiceOver to read the label.
