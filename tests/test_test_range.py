@@ -215,6 +215,39 @@ def test_the_back_row_leaves_the_range():
         _done(app, st)
 
 
+def test_going_back_to_the_weapon_page_silences_the_cave():
+    """The back row, then the frame loop's teardown, stop the ambience and the music:
+    straight away, after a pause and a resume, and while Now Loading still plays."""
+    from sixthsense.game import stage_1_test
+    real = stage_1_test.arc4random
+    stage_1_test.arc4random = lambda: 0         # the cave
+    try:
+        for how in ('at once', 'after a pause', 'while loading'):
+            if how == 'while loading':
+                S1E.LOADING_SECONDS = 5.0
+                app = AppDelegate.shared()
+                RunLoop.main().reset()
+                st = Stage_1_TEST(4)
+                st._say = lambda text: None
+                st.viewDidLoad()
+            else:
+                app, st, _played = _range()
+                del app.playSound_Gain_Pos_z_reprats_
+                if how == 'after a pause':
+                    st.StopPlayAction_()
+                    st.continueAction_()
+            pb = app.playback
+            assert st.gameMode == 1
+            st.GameEndAction_()
+            st.teardown()                       # what the frame loop does next
+            RunLoop.main().pump()
+            assert not pb.ambPlayer.playing, 'the ambience plays on (%s)' % how
+            assert not pb.bgPlayer.playing, 'the other player plays on (%s)' % how
+    finally:
+        stage_1_test.arc4random = real
+        S1E.LOADING_SECONDS = 0.0
+
+
 def test_the_corridor_keys_of_debug_mode_do_nothing_here():
     """F2 and Shift+F2 have no level or section to move to in the range."""
     from sixthsense.game import debug
