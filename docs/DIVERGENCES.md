@@ -582,11 +582,12 @@ name.
 the voice over row already writes. The original fell back to `DEFAULTEYEMODE`, which
 nothing writes, so a new save started in mode 0 (`AppDelegate.saved_mode`).
 
-**The voice over row says the mode you are in.** The original names the mode the row
-would switch to: 332 "voice over off button" while voice over is on (0xa2b8). The port
-plays 331 "voice over on button" while it is on and says "Voice over off, Button" while
-it is off. Choosing it still says the mode it switched to, 21 "voice over on" or "Voice
-over off.", as 0xb990 and 0xbb6e do.
+**The voice over row says what choosing it does,** as the original does: 332 "voice
+over off button" while voice over is on (0xa2b8), and "Voice over on, Button" while it
+is off. Choosing it plays the recording of the mode it switched to, 22 "voice over
+off" (0xb990) or 21 "voice over on" (0xbb6e); turning it off used to be spoken by the
+screen reader instead, until 2026-09-23. The port named the current mode instead from
+2026-09-22 to 2026-09-23, and went back to the original's at tunmi13productions' word.
 
 ### Audio device
 iOS OpenAL becomes OpenAL Soft (`vendor/openal/soft_oal.dll`). The AL calls, enums and

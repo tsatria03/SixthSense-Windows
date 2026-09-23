@@ -1,4 +1,5 @@
 unrelease:
+The voice over row in the main menu says what choosing it does, as in the original: voice over off while voice over is on, and voice over on while it is off. Turning voice over off plays the game's own recording, as the original does.
 Moving away from the coin row in the main menu stops the time to the next coin, instead of reading it over the row you moved to.
 The ranking and Game Center rows are gone from the main menu, the rank is gone from the result panel, and the restore purchases row is gone from the shop. They needed online services that the Windows version does not have.
 Closing the game window quits the game from any screen, instead of going back to the main menu and leaving the menu you came from running in the background with its coin timer. Escape still goes back, pauses or leaves the menu as before.
@@ -17,7 +18,7 @@ Opening the key bindings with F1 during a stage or the tutorial stops the game u
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage and losing the coin you paid. In the tutorial it still goes back to the menu.
 With voice over turned off, the panel for pausing, finishing a mission and game over speaks through your screen reader too, reading each result with its number, such as "Score, 1,250". The tutorial and the announcements during play still use the recordings, because their timing follows them.
 With voice over turned off, the opening screen, the main menu, the shop and the inventory speak through your screen reader. Buttons are read as a name and "Button", a weapon's picture as its name and "Image", and numbers are read whole with their label, such as "Price, 7,000".
-The voice over row says whether voice over is on or off, instead of naming the mode it would switch to, and new players start with voice over on.
+New players start with voice over on.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
 You can pause as often as you like, as in the original, instead of only once per stage.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.

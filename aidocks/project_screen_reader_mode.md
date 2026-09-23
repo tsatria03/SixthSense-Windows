@@ -10,7 +10,7 @@ metadata:
 - The panel: `Stage_1_E.pause_row_text`, `_panel_voice` and `PANEL_MESSAGE_TEXT` (227, 229, 354, 358); in mode 0 activating a result row rereads it instead of the off-by-one reader. Test in `test_pause.py`.
 - `AppDelegate.saved_mode()` (missing `EYEMODE` means 1) and `app.screen_reader` (mode 0). Used by the menu, the intro and `didFinishLaunching`.
 - The dev asked (2026-09-22) for rows as "<name>, Button" for buttons and "Shotgun, Image" for a weapon's picture, so the words live per screen: `ROW_TEXT`/`row_text`/`TITLE_TEXT` on each `BlindScreen` and in `main_controller.ROW_TEXT`, plus `MESSAGE_TEXT` in `blind_screen.py` for replies (259, 260, 351, 352, 359). This replaced the one-choke-point idea below for the menus.
-- The voice over row now names the current mode (331 in mode 1, "Voice over off, Button" in mode 0), a divergence from 0xa2b8. The dev heard it as flipped.
+- The voice over row names what choosing it does, as the original does (0xa2b8): 332 in mode 1, "Voice over on, Button" in mode 0. From 2026-09-22 it named the current mode because the dev heard the original as flipped; on 2026-09-23 tunmi13productions asked for the original back, since "voice over on button" while voice over is on sounded like pressing it turns voice over on.
 - Wording mostly follows the recordings' file names; the dev may want it polished (the coin row says "The coin is charged after N minutes N seconds").
 - Tests added in `test_menu.py` and `test_store.py`; `DIVERGENCES.md` has "A screen reader mode, in the menus so far".
 

@@ -176,10 +176,9 @@ class MainController:
     def row_sound(self, n=None):
         num, _flag, sound, action = self._row(n)
         if action == 'modechange':
-            # 0xa2b8: the original names the mode it would switch to, 332 "voice over
-            # off button" while voice over is on.  DIVERGENCE: the row says the mode
-            # you are in, and choosing it says the one you switched to.
-            return SOUND_VOICEOVER_ON_BUTTON if self.app.mode else SOUND_VOICEOVER_OFF_BUTTON
+            # 0xa2b8: the row names what choosing it does, 332 "voice over off button"
+            # while voice over is on and 331 "voice over on button" while it is off.
+            return SOUND_VOICEOVER_OFF_BUTTON if self.app.mode else SOUND_VOICEOVER_ON_BUTTON
         return sound
 
     def row_text(self, n=None):
@@ -193,7 +192,7 @@ class MainController:
             return text + ' The coin is charged after %d minutes %d seconds.' % (
                 left // 60, left % 60)
         if action == 'modechange':
-            return 'Voice over on, Button' if self.app.mode else 'Voice over off, Button'
+            return 'Voice over off, Button' if self.app.mode else 'Voice over on, Button'
         return ROW_TEXT[action]
 
     # -[MainController blindModeSelectedMenu] 0x90d0 - highlight the row and say it
@@ -312,12 +311,12 @@ class MainController:
         d.setObject_forKey_(str(self.app.mode), 'EYEMODE')
         d.synchronize()
         self.StopElseSpeak()
-        if self.app.screen_reader:
-            # 22 "voice over off" is the recorded voice, so the screen reader says it
-            self._say('Voice over off.')
-        else:
-            self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_VOICEOVER_ON, 0.2, (0.0, 0.0), 0, False)
+        # 0xb982 / 0xbb5e: the recording of the mode you switched to, 22 "voice over
+        # off" or 21 "voice over on" - the last recording before the screen reader
+        # takes over, or the first after it hands back.
+        self.app.playSound_Gain_Pos_z_reprats_(
+            SOUND_VOICEOVER_OFF if self.app.screen_reader else SOUND_VOICEOVER_ON,
+            0.2, (0.0, 0.0), 0, False)
         log.info('voice over %s', 'on' if self.app.mode else 'off')
 
     # ================================================================ coins

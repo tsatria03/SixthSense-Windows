@@ -26,6 +26,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+The voice over row in the main menu says what choosing it does, as in the original, and turning voice over off plays the game's own recording.
 Moving away from the coin row stops the time until the next coin, instead of reading it over the row you moved to.
 The restore purchases row is gone from the shop. It restored Apple in-app purchases, which no longer exist.
 The ranking row and the rank are gone everywhere, including the main menu and the result panel. The online ranking they came from is gone.
@@ -44,7 +45,6 @@ A bullet keeps the original's half second between firing and hitting the zombie.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage.
 With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.
-The voice over row in the main menu says whether voice over is on or off, instead of naming the mode it would switch to, so it no longer sounds flipped.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
 The woman zombie growls once, about three and a half metres away, on every level, instead of reaching you on level 2 and up before her growl could be heard.
 tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.

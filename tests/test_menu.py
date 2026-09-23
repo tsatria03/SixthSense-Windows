@@ -456,16 +456,16 @@ def test_a_new_save_starts_with_voice_over_on():
         m.teardown()
 
 
-def test_the_voice_over_row_says_the_mode_you_are_in():
-    """DIVERGENCE: 0xa2b8 names the mode the row would switch to; the port names the
-    one you are in, and choosing it names the one you switched to."""
+def test_the_voice_over_row_says_what_choosing_it_does():
+    """0xa2b8: while voice over is on the row is 332, "voice over off button", and
+    while it is off it is 331, "voice over on button" - what choosing it does."""
     m = _menu()
     try:
         m.app.mode = 1
-        assert m.row_sound(7) == 331                    # voice over on button
-        m.app.mode = 0
         assert m.row_sound(7) == 332                    # voice over off button
-        assert m.row_text(7) == 'Voice over off, Button'
+        m.app.mode = 0
+        assert m.row_sound(7) == 331                    # voice over on button
+        assert m.row_text(7) == 'Voice over on, Button'
     finally:
         m.app.mode = 1
         m.teardown()
@@ -506,14 +506,22 @@ def test_moving_off_the_coin_row_stops_the_time_to_the_next_coin():
 
 
 def test_turning_voice_over_off_speaks_through_the_screen_reader():
+    """0xb982: turning it off plays the recording 22, "voice over off", as the
+    original does; from then on the rows speak through the screen reader."""
     d = UserDefaults.standardUserDefaults()
     m = _menu()
+    played = []
+    real = m.app.playSound_Gain_Pos_z_reprats_
+    m.app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))
     try:
         m.app.mode = 1
         m.selectMenu = 7
+        said = len(m.speech.said)
         m.activate()
         assert m.app.mode == 0
-        assert m.speech.said[-1] == 'Voice over off.'
+        assert played[-1] == 22, played
+        assert len(m.speech.said) == said, 'the screen reader spoke the toggle'
+        m.app.__dict__.pop('playSound_Gain_Pos_z_reprats_', None)
         m.move(-1)
         assert m.speech.said[-1] == 'Store, Button'
         m.move(-4)                  # store, tutorial, start, title, coin
@@ -521,6 +529,7 @@ def test_turning_voice_over_off_speaks_through_the_screen_reader():
         m.move(1)
         assert m.speech.said[-1] == 'Sixth Sense: The Zombies'
     finally:
+        m.app.__dict__.pop('playSound_Gain_Pos_z_reprats_', None)
         m.app.mode = 1
         d.setObject_forKey_('1', 'EYEMODE')
         d.synchronize()
