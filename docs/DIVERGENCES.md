@@ -287,6 +287,20 @@ so a zombie that hit you on the same tick stayed on top of you and hit again onc
 were free. The port removes them either way. It also keeps the grabbing monster itself
 rather than only its index, so shaking free always frees and kills the one holding you.
 
+### The woman zombie growls as she comes in
+The woman zombie (types 10006..10010) walks on `woman_coming_cave_monster1` (271) or
+`woman_coming_forest_Monster` (272): about four seconds of quiet footsteps, then the
+growl. She is also the fastest walker in the game. Her plists give 16 steps of 50 cm
+every 6 s (`comingSoundInWalk`, `comingRange`), and `initWithMonsterPatern:`
+multiplies the step by `monsterHPGain` (0x10848), which `ChangeLevel:` raises by 1.5
+each level (0x32314). From level 2 on, she reached you in about 4.4 s, before the
+growl, and `hitPlayer` stops her sound, so she hit you without ever being heard. The
+original does the same. The port starts her sample at the growl, 3.6 s into 271 and
+4.5 s into 272 (`monster_control.GROWL_FIRST`), and it loops back to the footsteps
+after it. Her speed and the files are unchanged. The girl who heals you (10001..10005)
+has the same speed and her call for help comes at the end too; she is left as the
+original has her.
+
 ## Where the port necessarily differs
 
 ### Input

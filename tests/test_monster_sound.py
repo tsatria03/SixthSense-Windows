@@ -17,7 +17,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
-from sixthsense.game.monster_control import ZIGZAG_ANGLE        # noqa: E402
+from sixthsense.game.monster_control import (GROWL_FIRST,         # noqa: E402
+                                             ZIGZAG_ANGLE)
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform import openal as al                    # noqa: E402
 from sixthsense.platform.defaults import UserDefaults           # noqa: E402
@@ -232,6 +233,42 @@ def test_the_headshot_announcement_is_centred():
         gain = pb.al.source_float(sid, al.AL_GAIN)
         assert abs(gain - 0.1) < 1e-6, 'the announcement is at %.3f' % gain
     finally:
+        st.teardown()
+
+
+def test_the_woman_zombie_growls_as_she_comes_in():
+    """Her walk sounds are footsteps with the growl at the end, and from level 2 on she
+    reached you before it.  Her sample starts at the growl, in the cave and the forest
+    alike; an ordinary zombie's still starts at the top."""
+    for mode, sound in ((1, 271), (2, 272)):
+        app, st = _new_stage()
+        st.gameMode = mode
+        st.MonsterInit_(10006)              # the woman zombie, lane 1
+        m = st.MonsterBuffer[0]
+        try:
+            assert m.comingSound == sound, 'she walks on %d' % m.comingSound
+            w = _Watch(app, m)
+            try:
+                assert w.playing(), 'her walk sample is not playing'
+                t = w.AL.source_float(w.sid, al.AL_SEC_OFFSET)
+                want = GROWL_FIRST[sound]
+                assert want - 0.05 <= t < want + 0.5, \
+                    'her sample starts %.2f s in, not at the growl (%.1f s)' % (t, want)
+            finally:
+                w.close()
+        finally:
+            st.teardown()
+
+    app, st = _new_stage()
+    st.gameMode = 1
+    st.MonsterInit_(1)
+    m = st.MonsterBuffer[0]
+    w = _Watch(app, m)
+    try:
+        t = w.AL.source_float(w.sid, al.AL_SEC_OFFSET)
+        assert t < 0.5, 'an ordinary zombie starts %.2f s into its sample' % t
+    finally:
+        w.close()
         st.teardown()
 
 

@@ -112,6 +112,18 @@ ZIGZAG_ANGLE = {
 }
 
 
+#: PORT DIVERGENCE: the woman zombie's two walk sounds, and how far into each her growl
+#: starts, in seconds.  Both are quiet footsteps with the growl at the end, and she is
+#: the fastest walker in the game: 16 steps of 50 cm every 6 s, each step 1.5 times
+#: longer every level (0x10848).  From level 2 on she reached you before the growl, and
+#: reaching you stops her sound, so she hit you unheard.  Her walk starts at the growl
+#: instead, and loops back to the footsteps after it.  The files are not changed.
+GROWL_FIRST = {
+    271: 3.6,       # woman_coming_cave_monster1, 5.23 s long
+    272: 4.5,       # woman_coming_forest_Monster, 6.29 s long
+}
+
+
 def lane_bearing(lane):
     """The bearing a straight walker in ``lane`` takes (0x11050..0x1133e): the
     NSUserDefaults key if it is set, the built-in default if not, 0 for anything else
@@ -261,6 +273,9 @@ class MonsterControl:
         # 0x10e7e: z = 0, reprats = YES - the walk sample loops.
         self.app.playSound_Gain_Pos_z_reprats_(
             self.comingSound, self.comingSoundGain, self.Pos, 0, True)
+        growl = GROWL_FIRST.get(self.comingSound)
+        if growl is not None:
+            pb.setSoundOffset_(self.comingMonsterStopSoundNumber, growl)
         self.MainMonsterTimer = RunLoop.main().scheduledTimer(
             self.comingSoundTime, self, 'MonsterComing_', None, True)
 

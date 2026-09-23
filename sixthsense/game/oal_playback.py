@@ -380,6 +380,18 @@ class OalPlayback:
             return
         self.startSound_Postion_(note, pos)
 
+    def setSoundOffset_(self, note, seconds):
+        """PORT ADDITION: move a source to ``seconds`` into its sound, playing or not.
+        The original has no call like it; ``MonsterControl`` uses it for the woman
+        zombie's growl."""
+        if not (0 <= note < MAX_SOURCES):
+            return
+        s = self._sources[note]
+        if not s.sourceId:
+            return
+        self.al.alSourcef(s.sourceId, al.AL_SEC_OFFSET, float(seconds))
+        self.al.alGetError()
+
     def startSoundPostion_SoundNumber_(self, pos, note):
         """-[oalPlayback startSoundPostion:SoundNumber:] 0xe60c"""
         self.startSound_Postion_(note, pos)

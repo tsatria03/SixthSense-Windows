@@ -36,6 +36,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+The woman zombie growls as soon as she comes in, instead of reaching you on level 2 and up before her growl could be heard.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
 You can pause as often as you like, with P or by switching away from the window, as in the original, instead of only once per stage.
 You can rebind a key again. Letting go of enter no longer ends the capture before you press the key you want.
