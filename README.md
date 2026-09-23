@@ -102,7 +102,6 @@ chords: hold both keys together.
 
 | | |
 |---|---|
-| **,** / **.** | turn 10° (Left and Right are lanes now) |
 | **Tab** / **Shift+Tab** | next / previous weapon |
 | **Space** | shake free when something has hold of you (ten presses) |
 | **P** | pause — the original's stop button, which has no key of its own |

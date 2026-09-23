@@ -17,8 +17,8 @@ face the recorded instructions describe:
         3           Right           lane 5      "...3"
         6           Down            reload      "...6"
 
-The letters A Q W E D S stay bound alongside, so either hand position works. Turning
-moved to comma and full stop, because Left and Right are lanes now.
+The letters A Q W E D S stay bound alongside, so either hand position works. There are
+no turn keys: the original never turns you.
 
 ``Shift+Tab`` for the previous weapon was already a chord before any of this, and goes
 through the same machinery.
@@ -63,8 +63,6 @@ ACTIONS = (
     ('reload', "Reload, 6 o'clock", (('s',), ('r',), ('down',))),
     ('next_weapon', 'Next weapon', (('tab',),)),
     ('prev_weapon', 'Previous weapon', (('left shift', 'tab'), ('right shift', 'tab'))),
-    ('turn_left', 'Turn left', ((',',),)),
-    ('turn_right', 'Turn right', (('.',),)),
     ('shake', 'Shake free', (('space',),)),
     ('pause', 'Pause / stop', (('p',),)),
     # Only with --debug (``KeyMap.debug``); otherwise they neither match nor show.

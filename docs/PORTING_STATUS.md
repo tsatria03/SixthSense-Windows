@@ -17,7 +17,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `AppDelegate weaponHave` | `game/app_delegate.py` | the `NSUserDefaults` weapon keys |
 | `SoundListControl` | `game/sound_list_control.py` | |
 | `MakeMaps` (all 4 initialisers + 3 queries) | `game/make_maps.py` | verified against `g_CH1_E` / `a_CH1_E.txt` / `s_CH1_E.txt` |
-| `MovingAccelerometer` | `game/moving_accelerometer.py` | 4-way and 8-way compass, the 10° step, the ±20° tilt threshold. The original never creates one and never sets the listener (`setListenerRotation:` is not in `__objc_selrefs`); the port uses it only for its own turn keys |
+| `MovingAccelerometer` | `game/moving_accelerometer.py` | 4-way and 8-way compass, the 10° step, the ±20° tilt threshold. The original never creates one and never sets the listener (`setListenerRotation:` is not in `__objc_selrefs`); the port only reads its starting angle, 0, to set the listener once as a stage begins; its turn keys were removed on 2026-09-23 |
 | `PlayerControl` | `game/player_control.py` | |
 | `WeaponControl` | `game/weapon_control.py` | `loadWeaponForGun:fileType:` index by index, `ReloadGun` |
 | `MonsterControl` (lifecycle) | `game/monster_control.py` | `initWithMonsterPatern:...`, `MonsterStart:`, `MonsterComing:`, `MonsterMoving:`, `headShot:`, `headShotEnd:`, `hitPlayer`, `MonsterHitSound:`, `DieMonster`, `MonsterDead`, `shakeMonster`, `StopPlayGame`, `ReplayGame` |
@@ -43,7 +43,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | the shared screen shape | `game/blind_screen.py`, `ui/screen_input.py` | `selectTapPointSoundStart` / `tapCount` / `StopElseSpeak`, on Up / Down / Enter |
 | **port addition** | `platform/keymap.py`, `ui/keybind_screen.py`, `platform/speech.py` | Rebindable keys with chord support, and the F1 screen that edits them, spoken through NVDA, any other screen reader through Prism, or a Windows voice. The original has no bindings at all — see `DIVERGENCES.md`. |
 | **port addition** | `game/debug.py`, `--debug` | Debug mode: nothing takes a heart and nothing you kill counts; every weapon is on Tab and nothing runs out. F2 next section, Shift+F2 next level (round to 1 after 8), F5 and Shift+F5 spawn, F6 hold the zombies, F7 let them hit you for no heart, F11 say where they are; the F1 screen lists them only in debug mode. See `DIVERGENCES.md`. |
-| gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D or the arrow keys attack the five lanes, S or Down reloads, Tab changes weapon, comma/full stop turn, Space shakes, P pauses |
+| gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D or the arrow keys attack the five lanes, S or Down reloads, Tab changes weapon, Space shakes, P pauses; there is no turning, as in the original |
 
 ---
 

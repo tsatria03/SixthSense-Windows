@@ -342,11 +342,12 @@ lanes occupy: A hard left, W straight ahead, D hard right. The arrow keys do the
 as a clock face: Left, Left+Up, Up, Right+Up and Right. They hand the stage a band
 directly instead of a synthesised angle, which loses nothing, because
 `-[Stage_1_E MovingShot:]` quantises its angle into exactly those five bands before
-anything else looks at it. Reload is **S** or Down. Turning is comma and full stop,
-one 10° step per press — the same step `rotationLeftEight`/`rotationRightEight` take.
-The original never turns the listener at all (`setListenerRotation:` is not in
-`__objc_selrefs`), so the turn keys are the port's own, and the todo list has them
-down for removal.
+anything else looks at it. Reload is **S** or Down. There is no turning: the original
+never turns the listener at all (`setListenerRotation:` is not in `__objc_selrefs`, and
+nothing creates a `MovingAccelerometer`), so the comma and full stop turn keys the port
+once had were its own, and were removed on 2026-09-23. The port still sets the listener
+once, facing 0, as a stage starts, because that orientation is what puts the lanes on
+the right sides.
 Shaking free becomes the space bar, and still needs 10 presses, the count
 `-[Stage_1_E accelerometer:didAccelerate:]` uses. See `sixthsense/ui/input.py`.
 
@@ -497,8 +498,7 @@ them from the screen F1 opens (`ui/keybind_screen.py`), and keeps them in
 The defaults are not arbitrary: the tutorial teaches the lanes as clock positions, so
 the arrows are laid out as a clock — Left is 9 o'clock, Left+Up is 10:30, Up is 12,
 Right+Up is 1:30, Right is 3, Down is 6, which is the reload sector. A Q W E D S stay
-bound alongside. Turning moved to comma and full stop because Left and Right became
-lanes.
+bound alongside. There are no turn keys, since the original never turns you.
 
 Bindings may be chords, resolved with a 60 ms window (`CHORD_WINDOW`) so that Left
 alone and Left+Up can both mean something. 60 ms is far below anything this game reacts

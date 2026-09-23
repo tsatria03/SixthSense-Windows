@@ -321,7 +321,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
    - Claude's recommendation: fix what is hostile to players and record each fix as a divergence, so the docs still say what the original did.
 2. **The offline coin economy.** The coin store, gifts and purchases can't exist offline. The choice is free play (no coin gating) or the faithful 30-minute recharge with the first-run grant and catch-up. **Settled 2026-09-21: the faithful recharge**, kept as a gate on Start Game rather than made free.
 3. **Shaking free.** Keep 10 presses, or count a held Space key.
-4. **The turn keys.** Remove them (faithful), or keep them as a documented divergence.
+4. **The turn keys.** Remove them (faithful), or keep them as a documented divergence. **Settled 2026-09-23: removed** at tsatria03's asking. The `turn_left`/`turn_right` keymap actions, `Stage_1_E.turn_left`/`turn_right` and their input branches are gone. The listener is still set once, facing 0, in `MapInitInBundle`, because that orientation puts the lanes on the right sides. `MovingAccelerometer` stays only for that starting angle.
 5. **Running the test suite.** Settled on 2026-09-21: ask first, and never build unless told. See [[feedback_dont_run_or_build]].
 
 ## Suggested fix order

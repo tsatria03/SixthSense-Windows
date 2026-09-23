@@ -81,9 +81,9 @@ def test_the_defaults_are_the_clock_face():
     assert DEFAULTS['lane4'] == [('e',), ('right', 'up')]        # 1:30
     assert DEFAULTS['lane5'] == [('d',), ('right',)]             # 3 o'clock
     assert ('down',) in DEFAULTS['reload']                       # 6 o'clock
-    # Left and Right are lanes now, so turning had to move off them
-    assert DEFAULTS['turn_left'] == [(',',)]
-    assert DEFAULTS['turn_right'] == [('.',)]
+    # The original never turns you (setListenerRotation: is not in __objc_selrefs),
+    # so there is nothing to turn with
+    assert 'turn_left' not in DEFAULTS and 'turn_right' not in DEFAULTS
     for a in ACTION_IDS:
         for b in DEFAULTS[a]:
             assert not any(k in FIXED for k in b), '%s binds a fixed key' % a
@@ -209,7 +209,7 @@ def test_shift_tab_is_a_chord_too():
 
 
 # ----------------------------------------------------------------- actions
-def test_reload_and_turning():
+def test_reload_and_no_turning():
     st, inp = _stage()
     loop = RunLoop.main()
     try:
@@ -226,9 +226,9 @@ def test_reload_and_turning():
 
         before = st.facing.Angle
         _fire(inp, '.')
-        assert st.facing.Angle == (before + 10) % 360
         _fire(inp, ',')
-        assert st.facing.Angle == before
+        assert st.facing.Angle == before, 'comma or full stop still turned you'
+        assert not hasattr(st, 'turn_left') and not hasattr(st, 'turn_right')
     finally:
         st.teardown()
 

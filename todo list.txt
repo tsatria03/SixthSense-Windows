@@ -8,7 +8,6 @@ Pressing P during the tutorial always skips it and leaves you standing there, in
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
 Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
 Moving between the two rows of the intro screen lets their sounds overlap.
-Remove the turn keys, comma and full stop. The original never turns you, and after turning, a zombie sounds like it is in one lane while the attack keys still aim at another.
 Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
 A decision is being made about the buy coins and purchase all weapons rows in the shop: remove them, or let them be bought with gold instead, since Apple's in-app purchases no longer exist.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
@@ -27,6 +26,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+The turn keys, comma and full stop, are gone, since the original never turned you. A zombie can no longer sound as though it is in one lane while the attack keys aim at another.
 With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
 The voice over row in the main menu says what choosing it does, as in the original, and turning voice over off plays the game's own recording.
 Moving away from the coin row stops the time until the next coin, instead of reading it over the row you moved to.

@@ -406,8 +406,8 @@ def _stage_lines(stage, inp):
             p.HP, '-' if w is None else
             ('#%d dmg %d rng %d' % (w.WeaponNumber, w.Damage, w.Range)),
             0 if w is None else w.BulletCount),
-        'cell (%d, %d)   facing %d deg   mode %d   level %d' % (
-            p.playerXplot, p.playerYplot, stage.facing.Angle,
+        'cell (%d, %d)   mode %d   level %d' % (
+            p.playerXplot, p.playerYplot,
             stage.gameMode, stage.LVUP),
         'kills %d   headshots %d   score %d' % (
             p.killMonsterCount, p.HeadShotCount, stage.score),
@@ -422,9 +422,8 @@ def _stage_lines(stage, inp):
     lines += ['',
               'attack   9:00 %s   10:30 %s   12 %s   1:30 %s   3:00 %s'
               % tuple(km.keys_text('lane%d' % i) for i in range(1, 6)),
-              'reload %s   turn %s / %s   weapon %s'
-              % (km.keys_text('reload'), km.keys_text('turn_left'),
-                 km.keys_text('turn_right'), km.keys_text('next_weapon')),
+              'reload %s   weapon %s'
+              % (km.keys_text('reload'), km.keys_text('next_weapon')),
               'shake %s   pause %s   F1 key bindings   Esc %s'
               % (km.keys_text('shake'), km.keys_text('pause'),
                  'back to the menu' if getattr(stage, 'ESCAPE_LEAVES', False) else 'pause')]

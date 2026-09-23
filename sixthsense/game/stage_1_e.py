@@ -329,6 +329,10 @@ class Stage_1_E:
             pb.startAMBPlayer_type_soundGain_Loop_(
                 'bgm_cave_amb', 'wav', volume.ambience(0.2), True)
 
+        # PORT: the original never sends setListenerRotation: (it is not in
+        # __objc_selrefs) and never turns you.  The port sets the listener once, facing
+        # 0, because that orientation is what puts x to the right and the lanes where
+        # they belong; nothing turns it after this.
         self.app.playback.setListenerRotation_(self.facing.radians)
         self.running = True
         if self.app.debug:
@@ -1277,15 +1281,6 @@ class Stage_1_E:
         if weapon:
             self.app.stopSoundBufNumber_(weapon.ReloadSoundnumber)
             weapon.BulletCount = weapon.ReloadGun()
-
-    # ================================================================ facing
-    def turn_left(self):
-        self.facing.rotationLeftEight()
-        self.app.playback.setListenerRotation_(self.facing.radians)
-
-    def turn_right(self):
-        self.facing.rotationRightEight()
-        self.app.playback.setListenerRotation_(self.facing.radians)
 
     # -[Stage_1_E accelerometer:didAccelerate:] 0x3c84c - the shake-free struggle.
     def shake_step(self):

@@ -5,12 +5,14 @@ The original has four inputs, all of them on the device:
     UIPanGestureRecognizer          -> -[Stage_1_E MovingShot:]          attack, by angle
     UITapGestureRecognizer, 2 touch -> -[Stage_1_E doubleTapChangeWeapon:]
     UITapGestureRecognizer, 3 touch -> -[Stage_1_E threeTapChangeWeapon:]
-    UIAccelerometer                 -> -[MovingAccelerometer accelerometer:didAccelerate:]
-                                       (tilt past +-20 degrees turns you 10 degrees)
-                                    -> -[Stage_1_E accelerometer:didAccelerate:]
+    UIAccelerometer                 -> -[Stage_1_E accelerometer:didAccelerate:]
                                        (shaking free of a zombie that has grabbed you)
 
-Windows gets the same four on the keyboard, through ``platform/keymap.py``, which holds
+``MovingAccelerometer`` would turn you on a tilt, but nothing in the binary creates one
+or sends ``setListenerRotation:``, so the original never turns you, and neither does
+the port.
+
+Windows gets the same inputs on the keyboard, through ``platform/keymap.py``, which holds
 the bindings and resolves chords. The defaults put the five lanes on the arrow keys in
 the shape the tutorial describes - it teaches them as clock positions, and the arrows
 are a clock face:
@@ -18,8 +20,7 @@ are a clock face:
         9 o'clock   Left        10:30  Left+Up      12  Up
         1:30  Right+Up          3      Right        6   Down = reload
 
-with A Q W E D S bound alongside for a one-handed grip. Turning is comma and full stop,
-because Left and Right are lanes. F1 opens the binding screen; F1 and Escape are the two
+with A Q W E D S bound alongside for a one-handed grip. F1 opens the binding screen; F1 and Escape are the two
 keys that cannot be rebound.
 
 Escape pauses a stage, as P does, and on the pause panel it resumes, as Continue does.
@@ -84,10 +85,6 @@ class Input:
             st.doubleTapChangeWeapon_()
         elif action == 'prev_weapon':
             st.threeTapChangeWeapon_()
-        elif action == 'turn_left':
-            st.turn_left()
-        elif action == 'turn_right':
-            st.turn_right()
         elif action == 'shake':
             st.shake_step()
         elif action == 'pause':

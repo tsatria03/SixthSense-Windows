@@ -33,10 +33,11 @@ into a steering wheel:
     -> past +-20 degrees it calls rotationRight / rotationLeft, one 10-degree step per
        accelerometer callback.
 
-On Windows there is no accelerometer, so ``input.py`` calls ``rotationLeftEight``/
-``rotationRightEight`` directly from the arrow keys - one press is one tilt event.
-``accelerometer_didAccelerate_`` and ``tiltWithPitch_`` are kept for a real tilt source;
-the stepping rule is unchanged either way.
+Nothing in the binary creates a ``MovingAccelerometer`` or sends
+``setListenerRotation:``, so the original never turns you.  The port keeps the class,
+ported, for the one thing it does use: ``Stage_1_E`` reads its starting angle, 0, to set
+the listener once as a stage begins.  The turn keys that once called
+``rotationLeftEight``/``rotationRightEight`` were removed on 2026-09-23.
 """
 from __future__ import annotations
 
