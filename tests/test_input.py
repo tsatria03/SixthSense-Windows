@@ -500,6 +500,10 @@ def test_the_debug_keys_are_live_only_with_debug():
         assert said[-1] == "Zombie 1, 3 o'clock.", said
         _fire(inp, 'left shift', 'f5')
         assert said[-1] == 'Zombie 2', said
+        _fire(inp, 'f2')                    # F2 is the next section...
+        assert said[-1] == 'Section 2 of 8.', said
+        _fire(inp, 'left shift', 'f2')      # ...and Shift+F2 the next level
+        assert said[-1].startswith('Level 2, '), said
     finally:
         st.teardown()
 

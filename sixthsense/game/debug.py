@@ -4,8 +4,8 @@ The original has nothing like them.  In debug mode nothing takes a heart and not
 kill counts (``Stage_1_E``, ``AppDelegate.debug``); these keys are for trying the game
 out by ear.  They are keymap actions, so the F1 screen lists and rebinds them:
 
-    F2          next level, the way the end of a level goes; after level 8, level 1
-    Shift+F2    the start of the next section of the corridor, in the same level
+    F2          the start of the next section of the corridor, in the same level
+    Shift+F2    next level, the way the end of a level goes; after level 8, level 1
     F5          spawn the chosen zombie, in the lane you last attacked
     Shift+F5    choose what F5 spawns
     F6          hold every zombie where it is, or let them walk again
@@ -27,9 +27,9 @@ from .stage_1_e import (BOSS_CAVE, BOSS_FOREST, BOSS_NUMBER, MONSTER_GIRL,
                         MONSTER_WOMAN, SOUND_WARNING)
 
 START_ROW = 680                     # 0x2cf1a, where every level starts
-#: F2 goes round the levels: after this one comes level 1 again.
+#: Shift+F2 goes round the levels: after this one comes level 1 again.
 MAX_LEVEL = 8
-#: How long Shift+F2 waits before it will jump again: as long as F2's level change
+#: How long F2 waits before it will jump again: as long as Shift+F2's level change
 #: takes, ``ChangeLevel:`` 2 s after the end (0x31d92).
 SECTION_SECONDS = 2.0
 
@@ -114,7 +114,7 @@ def next_section(st):
     rows = sections(st)
     ahead = [y for y in rows if y < st.gamePlayer.playerYplot]
     if not ahead:
-        st._say('This is the last section. F2 goes to the next level.')
+        st._say('This is the last section. Shift+F2 goes to the next level.')
         return
     for m in list(st.MonsterBuffer):
         if m.monsterNumber != MONSTER_GIRL:

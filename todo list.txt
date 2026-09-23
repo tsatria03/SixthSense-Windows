@@ -32,10 +32,12 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
 In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
 In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
 In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.
-In debug mode F2 goes back to level 1 after level 8, and Shift+F2 says "Not while the section is changing" while a level is changing.A bullet keeps the original's half second between firing and hitting the zombie. It is one setting and can still be switched back.
+In debug mode F2 goes back to level 1 after level 8, and Shift+F2 says "Not while the section is changing" while a level is changing.
+A bullet keeps the original's half second between firing and hitting the zombie. It is one setting and can still be switched back.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage.
 With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.

@@ -68,8 +68,8 @@ ACTIONS = (
     ('shake', 'Shake free', (('space',),)),
     ('pause', 'Pause / stop', (('p',),)),
     # Only with --debug (``KeyMap.debug``); otherwise they neither match nor show.
-    ('debug_next_level', 'Debug: next level', (('f2',),)),
-    ('debug_next_section', 'Debug: next section of the corridor',
+    ('debug_next_section', 'Debug: next section of the corridor', (('f2',),)),
+    ('debug_next_level', 'Debug: next level',
      (('left shift', 'f2'), ('right shift', 'f2'))),
     ('debug_spawn', 'Debug: spawn a zombie', (('f5',),)),
     ('debug_spawn_kind', 'Debug: choose what to spawn',

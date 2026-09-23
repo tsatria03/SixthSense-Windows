@@ -544,7 +544,7 @@ def test_a_zombie_that_reaches_you_dies_in_debug_mode():
 
 def test_the_debug_commands():
     """sixthsense/game/debug.py: F6 holds zombies at their range, F11 reads them out,
-    F2 moves on a level."""
+    F2 moves on a section and Shift+F2 a level."""
     from sixthsense.game import debug
     _app, st = _new_stage()
     loop = RunLoop.main()
@@ -572,7 +572,7 @@ def test_the_debug_commands():
         assert st.MonsterBuffer == [girl], 'the girl died, or a zombie lived'
         assert said[-1] == 'Section 2 of 8.', said
         debug.next_section(st)              # straight away again: it cools down first
-        assert st.gamePlayer.playerYplot == 601, 'Shift+F2 jumped again at once'
+        assert st.gamePlayer.playerYplot == 601, 'F2 jumped again at once'
         assert said[-1] == 'Not while the section is changing.', said
         st.debugSectionReady = 0.0          # skip the rest of the wait
         st.gamePlayer.playerYplot = 30
@@ -585,7 +585,7 @@ def test_the_debug_commands():
         assert st.LVUP == lv + 1 and st.MonsterBuffer == []
         assert said[-1].startswith('Level %d, ' % (lv + 1)), said
         debug.next_level(st)                # the change has not landed yet
-        assert st.LVUP == lv + 1, 'F2 skipped two levels at once'
+        assert st.LVUP == lv + 1, 'Shift+F2 skipped two levels at once'
         assert debug.monsters_text(st) == 'No zombies.'
     finally:
         st.teardown()
@@ -593,7 +593,7 @@ def test_the_debug_commands():
 
 def test_more_debug_commands():
     """--debug: Tab reaches every weapon, bought or not, and nothing runs out; F7 lets
-    a zombie hit you for no heart; F2 goes round from level 8 to level 1; Shift+F2
+    a zombie hit you for no heart; Shift+F2 goes round from level 8 to level 1; F2
     says the section, not the level, while a level is changing."""
     from sixthsense.game import debug
     app, st = _new_stage()
