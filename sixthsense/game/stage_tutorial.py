@@ -18,11 +18,16 @@ shape is always the same:
                          finger and arrow
     tutorialNSoundStop   9.5 s later (6.5 for beat eight): stop the instruction and
                          spawn the monster the beat is about, if it has one
-    CheckTutorial        every second, call ``...End`` on the first *unfinished* beat
+    CheckTutorial        every second, call ``...End`` on the first unfinished beat
+                         of One to Six (Seven, Eight and Nine are never nagged)
     tutorialNEnd         if the flag is still clear, slide the finger back and
                          re-prompt through ``...RestartFinger`` / ``...Restart``
+    NextTutorial         once the beat's action is done, stop the prompts and start
+                         the first beat not yet done
 
-So the tutorial nags once a second until you do the thing, then moves on by itself.
+So beats One to Six nag once a second until you do the thing.  Doing it moves on
+through NextTutorial, and each action only counts once every beat before it is done
+(``REQUIRES``), so the beats always come in order.
 
 What the beats teach, and what marks each one done:
 
@@ -79,6 +84,21 @@ STOP_NEEDS = ('One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight')
 ENDING_DELAY = 3.05                 # 0x83ab4: 0x4008666660000000
 COUNTDOWN = 321                     # 0x33c00: TTSNumber:321 type:1, "3, 2, 1"
 COUNTDOWN_SECONDS = 6.0             # 0x33c28: 0x4018000000000000
+
+# What each action needs done before it counts, from the guards in front of each
+# flag it sets.  A kill needs nothing: only the beat's own monster is ever out.
+REQUIRES = {
+    'Six': ('One', 'Two', 'Three', 'Four', 'Five', 'FiveHalf'),     # 0x84cfa..0x84d16
+    'Seven': ('One', 'Two', 'Three', 'Four', 'Five', 'Six'),        # 0x853c0..0x853e6
+    'Eight': ('One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'),  # 0x8b420..0x8b4b4
+}
+# How long after the action NextTutorial starts the next beat: GunReloadAction: calls
+# it at once (0x84d5a), gunChangeAction: and shakingFind wait 1.5 s (0x8542e,
+# 0x8b4f4), and a kill calls it at once (0x8a372).
+NEXT_DELAY = {'Seven': 1.5, 'Eight': 1.5}
+# -[Stage_Tutorial CheckTutorial] 0x8c678 only nags One to Six; Seven, Eight and Nine
+# play once, when NextTutorial reaches them.
+NAGGED = ('One', 'Two', 'Three', 'Four', 'Five', 'FiveHalf', 'Six')
 
 # name, prompt sound, seconds before SoundStop, the monster it spawns (or None)
 BEATS = [
@@ -244,7 +264,7 @@ class Stage_Tutorial(Stage_1_E):
         clock does not run."""
         if self.finished:
             return
-        for name in BEAT_NAMES:
+        for name in NAGGED:
             if not self.beat_done[name]:
                 self.tutorial_beat_end(name)
                 break
@@ -285,12 +305,36 @@ class Stage_Tutorial(Stage_1_E):
         pass
 
     def _complete(self, name):
-        """Mark a beat done and let CheckTutorial pick up the next one."""
-        if self.beat_done.get(name):
+        """Mark a beat done, but only once the beats before it are (``REQUIRES``), then
+        start the next one.  Reloading or changing weapon early used to finish those
+        lessons before they were taught, so the tutorial skipped them."""
+        if self.finished or self.beat_done.get(name):
+            return
+        if not all(self.beat_done[n] for n in REQUIRES.get(name, ())):
             return
         self.beat_done[name] = True
         self.beat_flag[name] = False
         log.info('tutorial %s done', name)
+        delay = NEXT_DELAY.get(name, 0.0)
+        if delay:
+            RunLoop.main().perform(self, 'NextTutorial', None, delay)
+        else:
+            self.NextTutorial()
+
+    # -[Stage_Tutorial NextTutorial] 0x8c89c - stop the prompts, then start the first
+    # beat not yet done, in the order One to Nine.
+    def NextTutorial(self, *_):
+        if self.finished:
+            return
+        if self.current_beat is not None:
+            _n, sound, _delay, _spawn = self._beat(self.current_beat)
+            self.app.stopSoundBufNumber_(sound)                # tutorialSoundStop
+        if self.speech is not None:
+            self.speech.stop()                                 # ...and its key hint
+        for name in BEAT_NAMES:
+            if not self.beat_done[name]:
+                self.tutorial_beat(name)
+                return
 
     # ================================================== what finishes a beat
     # -[Stage_Tutorial MonsterDamage] 0x8a250 - by the dead monster's lane.  It
@@ -306,10 +350,11 @@ class Stage_Tutorial(Stage_1_E):
                 self.beat_done[n] for n in ('One', 'Two', 'Three', 'Four', 'Five')):
             self._complete('FiveHalf')
 
-    # -[Stage_Tutorial GunReloadAction:] / reloadShotgun
+    # -[Stage_Tutorial GunReloadAction:] 0x84b80 - only a reload that starts counts.
     def GunReloadAction_(self, *a):
         super().GunReloadAction_(*a)
-        self._complete('Six')
+        if self.gamePlayer.useWepon != 0 and self.weaponSource[self.gamePlayer.useWepon]:
+            self._complete('Six')
 
     # -[Stage_Tutorial gunChangeAction:]
     def gunChangeAction_(self, step=1):
@@ -343,6 +388,7 @@ class Stage_Tutorial(Stage_1_E):
             self.checkTutorialTimer.invalidate()
         self.checkTutorialTimer = None
         RunLoop.main().cancelPerform(self, 'tutorial_sound_stop')
+        RunLoop.main().cancelPerform(self, 'NextTutorial')
         if self.current_beat is not None:
             _n, sound, _delay, _spawn = self._beat(self.current_beat)
             self.app.stopSoundBufNumber_(sound)

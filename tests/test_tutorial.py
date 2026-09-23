@@ -269,10 +269,17 @@ def test_a_kill_finishes_the_beat_in_debug_mode_too():
 
 
 def test_reload_finishes_beat_six():
+    """0x84cfa..0x84d16: a reload only counts once One to FiveHalf are done, and then
+    NextTutorial starts beat Seven at once (0x84d5a)."""
     st = _tutorial(prompt=0.4)
     try:
         st.GunReloadAction_()
+        assert not st.beat_done['Six'], 'a reload during beat One finished beat Six'
+        for n in T.REQUIRES['Six']:
+            st.beat_done[n] = True
+        st.GunReloadAction_()
         assert st.beat_done['Six']
+        assert st.current_beat == 'Seven', st.current_beat
     finally:
         st.teardown()
         _restore()
@@ -356,7 +363,14 @@ def test_weapon_change_finishes_beat_seven():
     try:
         AppDelegate.shared().useWeapon = ['1'] * 8
         st.gunChangeAction_(1)
+        assert not st.beat_done['Seven'], 'Tab during beat One finished beat Seven'
+        for n in T.REQUIRES['Seven'] + ('FiveHalf',):
+            st.beat_done[n] = True
+        st.gunChangeAction_(1)
         assert st.beat_done['Seven']
+        assert st.current_beat != 'Eight', 'beat Eight came before the 1.5 s wait'
+        assert _pump(RunLoop.main(), 2.5, until=lambda: st.current_beat == 'Eight'), \
+            'beat Eight never came'
         st.threeTapChangeWeapon_()
         assert not st.beat_done['Nine'], 'the previous weapon finished beat Nine'
     finally:
@@ -368,6 +382,8 @@ def test_shaking_free_finishes_beat_eight():
     st = _tutorial(prompt=0.4)
     loop = RunLoop.main()
     try:
+        for n in T.REQUIRES['Eight']:
+            st.beat_done[n] = True
         st.MonsterInit_(73)                    # what beat eight sends in
         m = st.MonsterBuffer[0]
         assert m.shakeMonsterFlag, 'type73 is not a grabber'
@@ -421,6 +437,77 @@ def test_a_zombie_that_reaches_you_restarts_its_beat():
         assert st.gamePlayer.HP == hp0, 'the tutorial took a heart'
         assert calls == ['Two'], calls
     finally:
+        st.teardown()
+        _restore()
+
+
+def _kill_the_beats_monster(st, loop):
+    """Wait for the beat's monster and shoot it until it dies."""
+    assert _pump(loop, 5.0, until=lambda: bool(st.MonsterBuffer)), \
+        'beat %s sent no monster' % st.current_beat
+    m = st.MonsterBuffer[0]
+    _pump(loop, 2.0, until=lambda: m.MovingPosAngle != 0)
+    for _ in range(40):
+        if m not in st.MonsterBuffer:
+            return
+        st.shotFlag = False
+        st.MovingShot_(LANE[m.MovingType])
+        _pump(loop, S1E.SHOT_TRAVEL + 0.2, until=lambda: m not in st.MonsterBuffer)
+    raise AssertionError('the monster of beat %s never died' % st.current_beat)
+
+
+def test_the_whole_tutorial_plays_in_order():
+    """Played through as a player would, with the reload and weapon keys pressed
+    early: the beats come One to Nine, each once its action is done, and nothing
+    pressed early finishes a later lesson."""
+    st = _tutorial(prompt=0.4)
+    loop = RunLoop.main()
+    app = AppDelegate.shared()
+    saved_weapons = list(app.useWeapon)
+    order = ['One']
+    real_beat = st.tutorial_beat
+    st.tutorial_beat = lambda name: (order.append(name), real_beat(name))[-1]
+    try:
+        app.useWeapon = ['1'] * 8
+        for name in ('One', 'Two', 'Three', 'Four', 'Five', 'FiveHalf'):
+            assert _pump(loop, 3.0, until=lambda: st.current_beat == name), \
+                'expected beat %s, at %s' % (name, st.current_beat)
+            st.shotFlag = False
+            st.ReloadGesture()                 # pressed early
+            st.reloadGun_()
+            st.gamePlayer.useWepon = 6
+            st.doubleTapChangeWeapon_()        # pressed early
+            st.gamePlayer.useWepon = 6
+            st.weaponSource[6].BulletCount = 50
+            assert not st.beat_done['Six'], 'an early reload finished beat Six'
+            assert not st.beat_done['Seven'], 'an early Tab finished beat Seven'
+            _kill_the_beats_monster(st, loop)
+            assert st.beat_done[name], 'the kill did not finish beat %s' % name
+        assert _pump(loop, 1.0, until=lambda: st.current_beat == 'Six')
+        st.doubleTapChangeWeapon_()            # Tab before the reload
+        st.gamePlayer.useWepon = 6
+        assert not st.beat_done['Seven'], 'Tab during beat Six finished beat Seven'
+        st.shotFlag = False
+        st.ReloadGesture()
+        assert st.beat_done['Six'] and st.current_beat == 'Seven'
+        st.reloadGun_()
+        st.doubleTapChangeWeapon_()
+        assert st.beat_done['Seven']
+        assert _pump(loop, 2.5, until=lambda: st.current_beat == 'Eight')
+        assert _pump(loop, 3.0, until=lambda: bool(st.MonsterBuffer)), 'no animal zombie'
+        st.MonsterBuffer[0].monsterRange = 10.0
+        st.MonsterAttPlayer()
+        assert st.isShake, 'the animal zombie did not grab'
+        for _ in range(st.shakesNeeded):
+            st.shake_step()
+        assert _pump(loop, 3.0, until=lambda: st.current_beat == 'Nine'), \
+            'beat Nine never came, at %s' % st.current_beat
+        st.StopPlayAction_()
+        assert st.finished
+        seen = [n for i, n in enumerate(order) if i == 0 or order[i - 1] != n]
+        assert seen == BEAT_NAMES, seen
+    finally:
+        app.useWeapon = saved_weapons
         st.teardown()
         _restore()
 

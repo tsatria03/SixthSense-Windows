@@ -686,6 +686,16 @@ only the sound number, the arrow to show and the monster to spawn differing. The
 drives them from one table (`stage_tutorial.BEATS`). The behaviour, the timings (9.5 s
 per prompt, 6.5 for beat eight) and the spawns are the original's.
 
+The order is the original's too, since 2026-09-23. Each action only counts once every
+beat before it is done (`stage_tutorial.REQUIRES`): a reload needs One to FiveHalf
+(0x84cfa), a weapon change One to Six (0x853c0), and shaking free One to Seven
+(0x8b420). Then `NextTutorial` (0x8c89c) stops the prompts and starts the first beat
+not yet done: at once after a kill or a reload, 1.5 s after a weapon change or an
+escape (`NEXT_DELAY`). `CheckTutorial` (0x8c678) only nags One to Six, so Seven, Eight
+and Nine each play once. Before that the port counted a reload or a weapon change
+pressed during any beat, which finished those lessons before they were taught, and its
+once-a-second check both nagged every beat and started the next one itself.
+
 ### Timers
 `NSTimer` and `performSelector:withObject:afterDelay:` become one cooperative queue
 (`sixthsense/platform/runloop.py`) drained by the main loop. Ordering, cancellation by
