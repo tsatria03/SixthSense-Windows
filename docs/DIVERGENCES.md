@@ -205,8 +205,9 @@ the stop button skip the tutorial at any beat. That is in the todo list.
 method's exit, so double-tapping it does nothing; row 4 is labelled *score* and its
 case reads the **headshot** count. Selecting the rows is correct — each band of
 `selectTapPointSoundStart` schedules the right reader — so the mistake only shows when
-a row is tapped a second time. Rows 9 and 10, the rank and the top score, fall past
-the `cmp r0, 7` and cannot be re-read at all. **Reproduced.**
+a row is tapped a second time. Row 10, the top score, falls past the `cmp r0, 7` and
+cannot be re-read at all, and so did row 9, the rank, which the port now leaves out.
+**Reproduced.**
 
 ### `missionFailTell:` plays *game over*, not *mission fail*
 Sound 228 is `mission fail` and `StopElseSpeak` stops it, but nothing in `Stage_1_E`
@@ -352,16 +353,15 @@ Shaking free becomes the space bar, and still needs 10 presses, the count
 ### The menu is a list, not a screen to explore
 `-[MainController selectTapPointSoundStart]` maps the *Y coordinate* of a touch to one
 of eight rows, reads that row's name, and `tapCount` runs it on a double tap. A keyboard
-has no finger, so Up and Down walk the same eight rows in the same order, reading them
-with the same WAVs, and Enter is the double tap. The row set, the order and the sounds
-are the original's.
+has no finger, so Up and Down walk the rows in the same order, reading them with the
+same WAVs, and Enter is the double tap. The order and the sounds are the original's.
 
-Three rows cannot work: ranking, store and Game Center all need the publisher's server
-or in-app purchases. The port keeps the rows — removing them would change the menu —
-plays the `ui_select` the original plays, and then says, through the speech layer, that
-the row is not available. That is the one place outside the binding screen where the
-port speaks; the alternative was a row that silently does nothing, which is worse for a
-player who cannot see it.
+Two rows are left out: ranking (row 5) and Game Center (row 8). Both opened online
+services, the publisher's ranking server and Apple's Game Center, that the Windows port
+does not have. The port used to keep them and say they were not available; the devs
+decided on 2026-09-23 to remove them everywhere. So the menu has six rows, which keep
+their original numbers, and Up and Down skip the gaps. The result panel's rank (row 9)
+went with them, for the same reason.
 
 `exit_flag`, `-[MainController Exit:]` and `exitButton` all exist, but no row in
 `selectTapPointSoundStart` claims Exit and nothing plays sound 20 (`Exit button`) — so
@@ -379,7 +379,9 @@ finger, so Up and Down walk the same rows in the same order, reading them with t
 WAVs, and Enter is the double tap. That is how the main menu was ported and it is how
 the pause and result panel (`Stage_1_E.pause_select`), the shop (`game/store.py`) and
 the inventory (`game/inventory.py`) are ported too. The row sets, their order and
-their sounds are the original's.
+their sounds are the original's, except that the shop leaves out restore purchases
+(row 6 of `mainStoreController`, `restoreAction:` 0x1eb78), which restored Apple
+in-app purchases that no longer exist, and the result panel leaves out the rank.
 
 `P` pauses. The original's stop button is a button on the screen, and there is no
 screen here; `-[Stage_1_E StopPlayAction:]` needed a key of its own.
@@ -540,8 +542,8 @@ The original has two modes, and the main menu's voice over row switches between 
 (`-[MainController ModeChageAction:]`, 0xb830). With voice over on, the game speaks
 for itself through its own recordings. With it off, the original shows its standard
 screens, which the iPhone's own screen reader, VoiceOver, reads instead. That second
-mode is also why the ranking row only opens its page while VoiceOver is running
-(`-[MainController RankingAction:]`, 0xaef4).
+mode is also why the ranking row, which the port leaves out, only opened its page while
+VoiceOver was running (`-[MainController RankingAction:]`, 0xaef4).
 
 The port has no standard screens to switch to, so turning voice over off hands the
 menus' words to the Windows screen reader instead, through the same speech layer as the

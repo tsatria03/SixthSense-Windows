@@ -93,23 +93,21 @@ def test_the_shop_menu_pushes_the_two_screens_that_work():
         m.activate()
         assert m.next_screen == ('inventory', None)
         m.next_screen = None
-        for row in (5, 6):                       # coin store, restore purchases
-            m.select(row)
-            m.activate()
-            assert m.next_screen is None, 'row %d pushed a screen' % row
-        assert len(m.speech.said) == 2
+        m.select(5)                              # the coin store
+        m.activate()
+        assert m.next_screen is None, 'the coin store pushed a screen'
+        assert len(m.speech.said) == 1
     finally:
         m.teardown()
 
 
 def test_moving_away_from_a_silent_row_stops_its_speech():
     """StopElseSpeak must cut the sentence off, or it talks over whatever row
-    the player moves to next - the coin store and restore purchases both say
-    they are not available, and the same fix covers both."""
+    the player moves to next - the coin store says it is not available."""
     _app()
     m = MainStoreController(speech=_Recorder())
     try:
-        for row in (5, 6):                   # coin store, restore purchases
+        for row in (5,):                     # the coin store
             m.speech.said.clear()
             m.select(row)
             m.activate()
@@ -122,23 +120,16 @@ def test_moving_away_from_a_silent_row_stops_its_speech():
         m.teardown()
 
 
-def test_moving_away_from_a_row_stops_its_own_name_sound():
-    """STOP_SOUNDS (0x1dc88) leaves out 370, restore purchases' own name WAV, so
-    it kept playing after the player moved to another row.  StopElseSpeak now
-    stops every row's own sound unconditionally, the way MainController stops
-    all of ROWS, so a gap like that one can no longer happen."""
+def test_there_is_no_restore_purchases_row():
+    """Row 6 restored Apple in-app purchases, which no longer exist, so the shop
+    leaves it out, and moving never lands on it."""
     _app()
     m = MainStoreController(speech=_Recorder())
-    stopped = []
-    real_stop = m.app.stopSoundBufNumber_
-    m.app.stopSoundBufNumber_ = lambda num: stopped.append(num)
     try:
-        m.select(6)                          # restore purchases
-        stopped.clear()
-        m.select(1)                          # move to another row
-        assert 370 in stopped, "restore's own name sound was not stopped"
+        assert 6 not in m.rows()
+        for _ in range(10):
+            assert m.move(1) != 6
     finally:
-        m.app.stopSoundBufNumber_ = real_stop
         m.teardown()
 
 

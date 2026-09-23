@@ -1,4 +1,4 @@
-"""The main menu: the eight rows, the coin economy and the voice-over toggle."""
+"""The main menu: the rows, the coin economy and the voice-over toggle."""
 from __future__ import annotations
 
 import os
@@ -52,11 +52,12 @@ def _menu(coins=3):
 
 
 def test_the_rows_are_the_originals():
-    """The eight rows selectTapPointSoundStart (0x9825) claims, with their sounds."""
-    assert [r[0] for r in ROWS] == [1, 2, 3, 4, 5, 6, 7, 8]
+    """The rows selectTapPointSoundStart (0x9825) claims, with their sounds and their
+    original numbers, less ranking (5) and Game Center (8)."""
+    assert [r[0] for r in ROWS] == [1, 2, 3, 4, 6, 7]
     assert [r[3] for r in ROWS] == ['coin', 'title', 'start', 'tutorial',
-                                    'ranking', 'store', 'modechange', 'gamecenter']
-    assert [r[2] for r in ROWS] == [334, 16, 17, 23, 333, 18, 331, 367]
+                                    'store', 'modechange']
+    assert [r[2] for r in ROWS] == [334, 16, 17, 23, 18, 331]
     # every one of them is a real entry with a WAV behind it
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for _n, _f, sound, _a in ROWS:
@@ -198,11 +199,11 @@ def test_it_opens_on_the_title_and_wraps():
         for _ in range(len(ROWS)):
             m.move(1)
             seen.append(m._row()[3])
-        assert seen == ['start', 'tutorial', 'ranking', 'store', 'modechange',
-                        'gamecenter', 'coin', 'title'], seen
+        assert seen == ['start', 'tutorial', 'store', 'modechange',
+                        'coin', 'title'], seen
         m.selectMenu = 1
         m.move(-1)
-        assert m.selectMenu == 8, 'moving up off the top did not wrap'
+        assert m.selectMenu == 7, 'moving up off the top did not wrap'
     finally:
         m.teardown()
 
@@ -413,37 +414,22 @@ def test_mode_change_toggles_voice_over():
         m.teardown()
 
 
-def test_the_server_rows_decline_instead_of_pretending():
-    """Ranking and Game Center need the publisher's server.  The Store does not -
-    its gold is a local key - so it is ported and opens."""
+def test_there_is_no_ranking_or_game_center_row():
+    """Rows 5 and 8 opened the publisher's ranking server and Apple's Game Center,
+    which the port does not have, so they are left out, and moving never lands on
+    them."""
+    actions = [r[3] for r in ROWS]
+    assert 'ranking' not in actions and 'gamecenter' not in actions
     m = _menu()
     try:
-        for num, action in ((5, 'ranking'), (8, 'gamecenter')):
-            m.speech.said.clear()
-            m.selectMenu = num
-            m.activate()
-            assert m.next_screen is None, '%s pushed a screen' % action
-            assert m.speech.said, '%s said nothing at all' % action
+        for _ in range(2 * len(ROWS)):
+            m.move(1)
+            assert m.selectMenu not in (5, 8), m.selectMenu
+        for _ in range(2 * len(ROWS)):
+            m.move(-1)
+            assert m.selectMenu not in (5, 8), m.selectMenu
     finally:
         m.teardown()
-
-
-def test_moving_away_from_a_server_row_stops_its_speech():
-    """StopElseSpeak (0x96e9) must cut the sentence off, or it talks over whatever
-    row the player moves to next - it already did this for the WAVs and the
-    coin reader, but not for the screen reader itself."""
-    for num in (5, 8):                        # ranking, gamecenter
-        m = _menu()
-        try:
-            m.selectMenu = num
-            m.activate()
-            assert m.speech.said, 'row %d said nothing at all' % num
-            before = m.speech.stopped
-            m.move(1)
-            assert m.speech.stopped > before, \
-                'moving away from row %d did not stop the speech' % num
-        finally:
-            m.teardown()
 
 
 def test_the_store_row_opens_the_shop():
@@ -496,7 +482,7 @@ def test_turning_voice_over_off_speaks_through_the_screen_reader():
         assert m.speech.said[-1] == 'Voice over off.'
         m.move(-1)
         assert m.speech.said[-1] == 'Store, Button'
-        m.move(-5)
+        m.move(-4)                  # store, tutorial, start, title, coin
         assert m.speech.said[-1].startswith('Number of coins, 3.'), m.speech.said[-1]
         m.move(1)
         assert m.speech.said[-1] == 'Sixth Sense: The Zombies'

@@ -329,8 +329,7 @@ def _intro_lines(page):
 #: What each shop and inventory row is called, for anyone who can see the window.
 #: The player hears the original's own WAV.
 SCREEN_ROWS = {
-    'store': {1: 'back', 2: 'weapon shop', 4: 'inventory', 5: 'coin store',
-              6: 'restore purchases'},
+    'store': {1: 'back', 2: 'weapon shop', 4: 'inventory', 5: 'coin store'},
     'store_weapons': {1: 'back', 2: 'your gold', 3: 'shotgun', 4: 'M4A1',
                       5: 'AK47', 6: 'MG80', 7: 'japanese sword', 8: 'grenade',
                       9: 'buy every weapon'},
@@ -373,7 +372,7 @@ def _screen_lines(kind, screen):
 #: original's own WAV; this is only for anyone who can see the window.
 PANEL_ROWS = {
     1: 'paused / game over', 2: 'zombies killed', 3: 'headshots', 4: 'score',
-    5: 'gold', 9: 'rank', 10: 'top score', 6: 'continue / next stage',
+    5: 'gold', 10: 'top score', 6: 'continue / next stage',
     7: 'restart (costs a coin)', 8: 'main menu',
 }
 PANEL_TITLE = {1: 'PAUSED', 2: 'MISSION COMPLETE', 3: 'GAME OVER'}
@@ -385,7 +384,7 @@ def _panel_lines(stage):
            'zombies %s   headshots %s   score %s   gold %s'
            % (stage.killZombiesLabel, stage.HeadShotLabel,
               stage.ScoreLabel, stage.GoldLabel),
-           'top score %s   rank %s' % (stage.TopScoreLabel, stage.RankLabel),
+           'top score %s' % stage.TopScoreLabel,
            '']
     for row in stage.pause_rows():
         out.append('%s %s' % ('>' if row == stage.selectMenu else ' ',

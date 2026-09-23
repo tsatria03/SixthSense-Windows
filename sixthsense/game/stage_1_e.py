@@ -1407,7 +1407,9 @@ class Stage_1_E:
     # same order and Enter is the double tap - the shape the main menu was ported in.
 
     #: The rows top to bottom, by the Y bands at 0x308b6..0x311ec.
-    PAUSE_ROWS = (1, 2, 3, 4, 5, 9, 10, 6, 7, 8)
+    #: DIVERGENCE: row 9, the rank, is left out.  It read the place the publisher's
+    #: ranking server gave you, and that server is gone.
+    PAUSE_ROWS = (1, 2, 3, 4, 5, 10, 6, 7, 8)
 
     #: Rows whose label does not depend on the state (0x30930..0x311c2).
     PAUSE_ROW_SOUND = {2: 230, 3: 231, 4: 232, 5: 233, 9: 357, 10: 356,

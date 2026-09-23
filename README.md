@@ -55,7 +55,7 @@ python SixthSense.py
 ```
 
 That opens on the splash and the warning, as the original does, and then the menu.
-**Up** and **Down** walk the eight rows and **Enter** chooses; each row reads itself
+**Up** and **Down** walk the six rows and **Enter** chooses; each row reads itself
 with the game's own recording. A game costs a coin. A new player starts with ten, and
 coins come back one every thirty minutes up to five, even while the game is closed,
 which is what the original does too.

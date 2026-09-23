@@ -42,9 +42,9 @@ def _new_stage(coins=3):
 
 
 def test_the_rows_are_the_bands_of_the_panel():
-    """0x308b6..0x311ec, top to bottom: header, the five readouts, rank, top score,
-    then the three buttons."""
-    assert Stage_1_E.PAUSE_ROWS == (1, 2, 3, 4, 5, 9, 10, 6, 7, 8)
+    """0x308b6..0x311ec, top to bottom: header, the five readouts, top score, then the
+    three buttons.  The rank (9) is left out: its ranking server is gone."""
+    assert Stage_1_E.PAUSE_ROWS == (1, 2, 3, 4, 5, 10, 6, 7, 8)
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for row, sound in Stage_1_E.PAUSE_ROW_SOUND.items():
         assert paths.path_for_resource(sl[sound], 'wav'), row
@@ -76,7 +76,7 @@ def test_there_is_no_continue_row_after_a_death():
         assert 6 in st.pause_rows()
         st.gameState = 3
         assert 6 not in st.pause_rows()
-        assert st.pause_rows() == (1, 2, 3, 4, 5, 9, 10, 7, 8)
+        assert st.pause_rows() == (1, 2, 3, 4, 5, 10, 7, 8)
     finally:
         st.teardown()
 

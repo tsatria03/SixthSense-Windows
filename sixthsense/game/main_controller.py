@@ -20,6 +20,11 @@ The eight rows, in screen order, with the flag and sound each one owns:
      7          modechange_flag   331  "voice over on button" / 332 "...off button"
      8          gamecenter_flag   367  "game center button10"
 
+**DIVERGENCE:** rows 5 and 8, ranking and Game Center, are left out.  Both opened
+online services (the publisher's ranking server and Apple's Game Center) that the
+Windows port does not have, so the menu goes 4, 6, 7 and wraps.  The rest keep the
+original's numbers.
+
 ``exit_flag`` and ``Exit:`` exist and ``exitButton`` is in the nib, but no row in
 ``selectTapPointSoundStart`` claims it and no code plays sound 20 - so Exit is not
 reachable from the blind menu at all. Reproduced: the port has no Exit row either, and
@@ -62,11 +67,9 @@ SOUND_VOICEOVER_ON = 21
 SOUND_VOICEOVER_OFF = 22
 SOUND_VOICEOVER_ON_BUTTON = 331
 SOUND_VOICEOVER_OFF_BUTTON = 332
-SOUND_RANKING = 333
 SOUND_COIN_COUNT = 334
 SOUND_NO_COIN = 358
 SOUND_RANKING_NOTICE = 364
-SOUND_GAMECENTER = 367
 
 # selectMenu, flag, sound, what it does
 ROWS = (
@@ -74,10 +77,8 @@ ROWS = (
     (2, 'main_title_flag', SOUND_TITLE, 'title'),
     (3, 'start_game_flag', SOUND_GAME_START, 'start'),
     (4, 'tutorial_flag', SOUND_TUTORIAL, 'tutorial'),
-    (5, 'ranking_flag', SOUND_RANKING, 'ranking'),
     (6, 'store_flag', SOUND_STORE, 'store'),
     (7, 'modechange_flag', SOUND_VOICEOVER_ON_BUTTON, 'modechange'),
-    (8, 'gamecenter_flag', SOUND_GAMECENTER, 'gamecenter'),
 )
 #: PORT ADDITION: what the screen reader says for each row with voice over off.
 #: The coin row and the voice over row are made in ``row_text``.
@@ -85,17 +86,7 @@ ROW_TEXT = {
     'title': 'Sixth Sense: The Zombies',
     'start': 'Game start, Button',
     'tutorial': 'Tutorial, Button',
-    'ranking': 'Ranking, Button',
     'store': 'Store, Button',
-    'gamecenter': 'Game Center, Button',
-}
-FIRST_ROW = ROWS[0][0]
-LAST_ROW = ROWS[-1][0]
-
-# Rows the port cannot honour: all three want the publisher's server, which is gone.
-SERVER_BACKED = {
-    'ranking': 'The ranking page needs the game’s server, which is gone.',
-    'gamecenter': 'Game Center is not available here.',
 }
 
 
@@ -230,12 +221,14 @@ class MainController:
         self.app.TTSNumber_type_(self.app.Coin, 3)
 
     def move(self, delta):
-        n = self.selectMenu + delta
-        if n < FIRST_ROW:
-            n = LAST_ROW
-        elif n > LAST_ROW:
-            n = FIRST_ROW
-        self.selectMenu = n
+        """Up and Down walk the rows in order and wrap, skipping the numbers the port
+        leaves out."""
+        nums = [r[0] for r in ROWS]
+        if self.selectMenu in nums:
+            i = (nums.index(self.selectMenu) + delta) % len(nums)
+        else:
+            i = 0 if delta > 0 else len(nums) - 1
+        self.selectMenu = nums[i]
         self.blindModeSelectedMenu()
 
     # ============================================================ activating
@@ -253,12 +246,6 @@ class MainController:
             self.ModeChageAction_(None)
         elif action == 'store':
             self.StoreAction_(None)
-        elif action in SERVER_BACKED:
-            self.StopElseSpeak()
-            self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
-            self._say(SERVER_BACKED[action])
-            log.info('%s is not available: server-backed', action)
 
     def _say(self, text):
         """The one place the menu needs words the bundle has no recording for."""

@@ -93,29 +93,30 @@ class MainStoreController(BlindScreen):
     anywhere in the class, so sound 236 ``Gold shop Button`` is never played even
     though ``glodShopAction:`` and its ``tbb`` case both exist.  The same shape as
     ``MainController``'s unreachable Exit - **reproduced**, the row is not offered.
+
+    **DIVERGENCE:** row 6, restore purchases (370, ``restoreAction:`` 0x1eb78), is
+    left out too.  It restored Apple in-app purchases, which no longer exist.
     """
 
-    ROWS = (1, 2, 4, 5, 6)                       # 3 is the unreachable gold shop
+    ROWS = (1, 2, 4, 5)                          # 3 is unreachable; 6 is left out
     TITLE_SOUND = 18                             # "Store Button", as the menu row said
     ROW_SOUND = {1: SOUND_BACK,                  # 0x1dffa back button
                  2: 235,                         # 0x1e276 Weapon shop Button
                  4: 237,                         # 0x1e33c Inventory Button
-                 5: 342,                         # 0x1e214 coin store button
-                 6: 370}                         # 0x1df9a restore button
-    STOP_SOUNDS = (13, 18, 235, 236, 237, 342, 370)     # 0x1dc88, plus the title
+                 5: 342}                         # 0x1e214 coin store button
+    STOP_SOUNDS = (13, 18, 235, 236, 237, 342)          # 0x1dc88, plus the title
     TITLE_TEXT = 'Store.'
     ROW_TEXT = {1: BACK_TEXT,
                 2: 'Weapon shop, Button',
                 4: 'Inventory, Button',
-                5: 'Coin store, Button',
-                6: 'Restore, Button'}
+                5: 'Coin store, Button'}
 
     #: The row the gold shop would have been, kept so the tbb below reads the way the
     #: binary's does.
     GOLD_SHOP_ROW = 3
 
     def activate(self):
-        """0x1d9c2: 04 ... six cases, 1..6."""
+        """0x1d9c2: 04 ... six cases, 1..6; 6, restore purchases, is left out."""
         self.StopElseSpeak()
         row = self.selectMenu
         if row == 1:
@@ -128,8 +129,6 @@ class MainStoreController(BlindScreen):
             self.inventoryAction_()
         elif row == 5:
             self.coinShopAction_()
-        elif row == 6:
-            self.restoreAction_()
         return row
 
     # -[mainStoreController weaponShopAction:] 0x1e554
@@ -152,11 +151,6 @@ class MainStoreController(BlindScreen):
     def coinShopAction_(self, *_):
         self.ui_select()
         self.say('The coin store needs in-app purchases and is not available.')
-
-    # -[mainStoreController restoreAction:] 0x1eb78 - restores StoreKit purchases.
-    def restoreAction_(self, *_):
-        self.ui_select()
-        self.say('Restoring purchases needs the App Store and is not available.')
 
     # -[mainStoreController itemShopAction:] 0x1e6dc..0x1e6e0 is four bytes long: it
     # returns.  There is no item shop.
