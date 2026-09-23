@@ -323,6 +323,15 @@ a step at 20 cm, where the monster ends up anyway, so it stays in its lane all t
 in. Every step that would have overshot already landed within 25 cm, so a monster
 reaches you on the same step as before.
 
+### A debug mode
+The original has none. `python SixthSense.py --debug` sets `AppDelegate.debug`, and the stage then keeps every heart: a zombie that reaches you, a grab you do not shake off and shooting the girl who heals you all play as usual but take nothing, so you cannot die. The girl still heals. Nothing you kill counts either, so `killMonsterCount`, `HeadShotCount` and the per-kind tallies stay at 0, and with them the score, the gold (`ObtainedGold`) and the top score. A headshot still does double damage and is still heard. A coin is still spent to start a run. The window's title says "SixthSense (debug)", and each stage says "Debug mode" through the screen reader as it starts.
+
+It also adds five keymap actions, which only match, and only show on the F1 screen, with `--debug` (`KeyMap.debug`). They live in `sixthsense/game/debug.py`, speak through the screen reader whatever the voice over row says, and do nothing in the tutorial:
+- F2 goes to the next level, the way the end of a level does (`_level_transition`), boss or no boss.
+- F5 spawns a zombie in the lane you last attacked, 12 o'clock before your first attack. Shift+F5 chooses which: zombies 1 to 10, the woman zombie, the girl or the boss, which always comes down the middle.
+- F6 holds every zombie where it is, and any that appear while it is on. They keep breathing and their headshot windows keep coming, but `MonsterMoving:` leaves their range and gain alone (`MonsterControl.frozen`). F6 again lets them walk.
+- F11 says each zombie's kind, lane and distance, nearest first, and whether its head is open.
+
 ## Where the port necessarily differs
 
 ### Input

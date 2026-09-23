@@ -11,6 +11,7 @@ Run it with headphones on - the game says so itself (``SoundList[234]``).
     python SixthSense.py --stage         straight into the stage
     python SixthSense.py --tutorial      straight into the tutorial
     python SixthSense.py --game DIR      read the app bundle from somewhere else
+    python SixthSense.py --debug         nothing hurts you, and no kill, score or gold counts
 
 The screen loop below stands in for ``UINavigationController``: the menu pushes the
 stage or the tutorial, and when one ends the menu comes back.
@@ -94,6 +95,9 @@ def main(argv=None):
                     help='run headless (keyboard input unavailable)')
     ap.add_argument('--no-intro', action='store_true',
                     help='open on the menu instead of the splash and the warning')
+    ap.add_argument('--debug', action='store_true',
+                    help='nothing hurts you and you cannot die, and no kill, '
+                         'headshot, score or gold counts')
     ap.add_argument('-v', '--verbose', action='store_true')
     args = ap.parse_args(argv)
 
@@ -111,6 +115,9 @@ def main(argv=None):
 
     app = AppDelegate.shared()
     app.didFinishLaunching()
+    app.debug = args.debug
+    from sixthsense.platform.keymap import KeyMap
+    KeyMap.shared().debug = args.debug
     defaults = UserDefaults.standardUserDefaults()
     loop = RunLoop.main()
 
@@ -141,7 +148,7 @@ def main(argv=None):
     # second audio device beside the OpenAL one the whole game plays through.
     pygame.display.init()
     pygame.font.init()
-    pygame.display.set_caption('SixthSense')
+    pygame.display.set_caption('SixthSense (debug)' if args.debug else 'SixthSense')
     display = pygame.display.set_mode((640, 400))
     font = pygame.font.SysFont('Consolas', 16)
     clock = pygame.time.Clock()
@@ -393,6 +400,11 @@ def _stage_lines(stage, inp):
               'shake %s   pause %s   F1 key bindings   Esc %s'
               % (km.keys_text('shake'), km.keys_text('pause'),
                  'back to the menu' if getattr(stage, 'ESCAPE_LEAVES', False) else 'pause')]
+    if stage.app.debug:
+        lines.append('debug   %s next level   %s spawn   %s choose   %s hold   %s where'
+                     % tuple(km.keys_text(a) for a in (
+                         'debug_next_level', 'debug_spawn', 'debug_spawn_kind',
+                         'debug_freeze', 'debug_monsters')))
     return lines
 
 

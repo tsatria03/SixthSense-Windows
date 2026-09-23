@@ -462,6 +462,74 @@ def test_a_zombie_that_reaches_you_in_the_tutorial_costs_nothing():
     st.teardown()
 
 
+def test_debug_mode_takes_no_heart_and_counts_nothing():
+    """--debug: a zombie still reaches you and a kill still happens, but no heart
+    is lost and no kill, headshot, score or gold is counted."""
+    app, st = _new_stage()
+    loop = RunLoop.main()
+    app.debug = True
+    try:
+        st.MonsterInit_(1)
+        m = st.MonsterBuffer[0]
+        m.monsterRange = 10.0
+        st.MonsterAttPlayer()
+        assert m not in st.MonsterBuffer, 'the zombie did not reach you'
+        assert st.gamePlayer.HP == 3, 'a zombie took a heart'
+        st.MonsterInit_(10003)              # the girl, lane 3
+        _freeze(st.MonsterBuffer[0], 100.0)
+        st.MovingShot_(LANE[3])
+        _run(loop, S1E.SHOT_TRAVEL + 0.2)
+        assert st.MonsterBuffer == [], 'the shot missed her'
+        assert st.gamePlayer.HP == 3, 'shooting her took a heart'
+        st.MonsterInit_(3)                  # lane 3
+        m = st.MonsterBuffer[0]
+        _freeze(m, 100.0)
+        m.HP = 1
+        m.headShotFlag = True
+        st.MovingShot_(LANE[3])
+        _run(loop, S1E.SHOT_TRAVEL + 0.2)
+        assert m not in st.MonsterBuffer, 'the shot missed'
+        p = st.gamePlayer
+        assert p.killMonsterCount == 0, 'the kill counted'
+        assert p.HeadShotCount == 0, 'the headshot counted'
+        assert st.ReadScore() == 0 and st.ObtainedGold() == 0
+    finally:
+        app.debug = False
+        st.teardown()
+
+
+def test_the_debug_commands():
+    """sixthsense/game/debug.py: F6 holds zombies at their range, F11 reads them out,
+    F2 moves on a level."""
+    from sixthsense.game import debug
+    _app, st = _new_stage()
+    loop = RunLoop.main()
+    said = []
+    st._say = said.append                   # never the real screen reader
+    try:
+        debug.toggle_freeze(st)
+        st.debugSpawn = 2                   # zombie 3
+        debug.spawn(st, 3)
+        m = st.MonsterBuffer[0]
+        assert m.frozen, 'a zombie spawned while frozen walks'
+        start = m.monsterRange
+        _run(loop, 2.5)
+        assert m.monsterRange == start, 'a frozen zombie walked'
+        assert debug.monsters_text(st).startswith("Zombie 3, 12 o'clock, "), said
+        debug.toggle_freeze(st)
+        assert not m.frozen
+
+        lv = st.LVUP
+        debug.next_level(st)
+        assert st.LVUP == lv + 1 and st.MonsterBuffer == []
+        assert said[-1].startswith('Level %d, ' % (lv + 1)), said
+        debug.next_level(st)                # the change has not landed yet
+        assert st.LVUP == lv + 1, 'F2 skipped two levels at once'
+        assert debug.monsters_text(st) == 'No zombies.'
+    finally:
+        st.teardown()
+
+
 def test_every_spawn_attempt_resets_the_count():
     """MakeMonster: 0x3623a / 0x3625a - once LVCount reaches 3 it starts again,
     whether a zombie came of it or not."""

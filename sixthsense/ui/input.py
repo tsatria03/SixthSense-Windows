@@ -57,6 +57,7 @@ class Input:
         self.quit = False
         self.open_bindings = False        # the frame loop watches this for F1
         self._pending_at = None           # when the chord window closes
+        self.last_lane = 3                # where --debug's F5 spawns
         # The keymap is shared, and a key that was down when the last screen went away
         # never had its key-up delivered here.  Left held, it makes the next stage read
         # chords nobody is pressing.
@@ -67,6 +68,7 @@ class Input:
         """What the pan gesture ends in: ``-[Stage_1_E MovingShot:]`` with the bearing
         of the lane, which is the band the original would have quantised to."""
         if lane in LANE_ANGLE:
+            self.last_lane = lane
             self.stage.MovingShot_(LANE_ANGLE[lane])
 
     def perform(self, action):
@@ -90,6 +92,9 @@ class Input:
             st.shake_step()
         elif action == 'pause':
             st.StopPlayAction_()
+        elif action.startswith('debug_'):
+            from ..game import debug
+            debug.perform(st, action, self.last_lane)
 
     def escape(self):
         """PORT ADDITION: pause and resume.  On the panel after a mission or a death

@@ -67,9 +67,17 @@ ACTIONS = (
     ('turn_right', 'Turn right', (('.',),)),
     ('shake', 'Shake free', (('space',),)),
     ('pause', 'Pause / stop', (('p',),)),
+    # Only with --debug (``KeyMap.debug``); otherwise they neither match nor show.
+    ('debug_next_level', 'Debug: next level', (('f2',),)),
+    ('debug_spawn', 'Debug: spawn a zombie', (('f5',),)),
+    ('debug_spawn_kind', 'Debug: choose what to spawn',
+     (('left shift', 'f5'), ('right shift', 'f5'))),
+    ('debug_freeze', 'Debug: hold zombies in place', (('f6',),)),
+    ('debug_monsters', 'Debug: say where the zombies are', (('f11',),)),
 )
 
 ACTION_IDS = [a[0] for a in ACTIONS]
+DEBUG_IDS = [a for a in ACTION_IDS if a.startswith('debug_')]
 LABELS = {a[0]: a[1] for a in ACTIONS}
 DEFAULTS = {a[0]: [tuple(b) for b in a[2]] for a in ACTIONS}
 
@@ -127,6 +135,15 @@ class KeyMap:
         self.load()
         self._held = set()
         self._newest = None        # the key pressed last, which decides a rollover
+        self.debug = False         # --debug: the debug_ actions are live
+
+    @property
+    def actions(self):
+        """The actions in play: every one with --debug, the debug_ ones left out
+        otherwise."""
+        if self.debug:
+            return ACTION_IDS
+        return [a for a in ACTION_IDS if a not in DEBUG_IDS]
 
     # ---- storage ---------------------------------------------------------
     def load(self):
@@ -164,7 +181,7 @@ class KeyMap:
     def conflicts(self, binding, ignore=None):
         """Actions already using exactly this chord."""
         b = tuple(sorted(binding))
-        return [a for a in ACTION_IDS if a != ignore
+        return [a for a in self.actions if a != ignore
                 and any(tuple(sorted(x)) == b for x in self.bindings[a])]
 
     def set_binding(self, action, binding, replace=True):
@@ -185,7 +202,7 @@ class KeyMap:
     def _matches(self, held):
         """(action, binding) for every binding satisfied by ``held``."""
         out = []
-        for action in ACTION_IDS:
+        for action in self.actions:
             for b in self.bindings[action]:
                 if set(b) <= held:
                     out.append((action, b))
@@ -194,7 +211,7 @@ class KeyMap:
     def _extendable(self, held):
         """True when some binding is a strict superset of ``held`` - so holding one
         more key could still mean something else."""
-        for action in ACTION_IDS:
+        for action in self.actions:
             for b in self.bindings[action]:
                 if held < set(b):
                     return True

@@ -101,6 +101,9 @@ class AppDelegate:
         self.iPodIsPlaying = False
         self._sound_list = None
         self.mainNaviController = None
+        # Not in the original: --debug.  Nothing hurts you and nothing you kill
+        # counts, so no score, gold or top score comes of it (Stage_1_E).
+        self.debug = False
 
     # -[AppDelegate application:didFinishLaunchingWithOptions:] 0x3f64
     def didFinishLaunching(self):

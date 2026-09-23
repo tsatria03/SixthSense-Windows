@@ -253,6 +253,8 @@ class Stage_1_E:
         self.isTutorialEnd = 0
         self.GirlMonsterNumber = 0
         self.DieFlag = False
+        self.monstersFrozen = False     # --debug, sixthsense/game/debug.py
+        self.debugSpawn = 0
         self.reloadWeaponNumber = 0
         self.noAtt = False
         self.groundMapData = None
@@ -336,6 +338,8 @@ class Stage_1_E:
 
         self.app.playback.setListenerRotation_(self.facing.radians)
         self.running = True
+        if self.app.debug:
+            self._say('Debug mode.')
         # 0x2e08e: the 1.0 s walk timer only exists once the tutorial has been cleared.
         if self.isTutorial:
             self.MotionSamplingTimer = RunLoop.main().scheduledTimer(
@@ -510,7 +514,8 @@ class Stage_1_E:
             self.gamePlayer.gunEggCountShot += 1
             m.MonsterHitSound_(None)
             if m.HP <= 0:
-                self.gamePlayer.killMonsterCount += 1
+                if not self.app.debug:
+                    self.gamePlayer.killMonsterCount += 1
                 dead.append(m)
         for m in dead:
             self._remove(m)
@@ -627,6 +632,7 @@ class Stage_1_E:
                                          for m in self.MonsterBuffer}) or pl[0]
 
         m = MonsterControl()
+        m.frozen = self.monstersFrozen
         if m.initWithMonsterPatern(type_id, self.app, coming, hit, php, dies,
                                    approach, push, self.monsterHPGain) is None:
             return
@@ -682,7 +688,7 @@ class Stage_1_E:
                 m.hitPlayer()                          # 270, her thank you
                 self.HPImageCount()
                 continue
-            if self.isTutorial:                        # 0x3b2e6
+            if self.isTutorial and not self.app.debug:  # 0x3b2e6
                 self.gamePlayer.HP -= 1
             m.hitPlayer()
             self.HPImageCount()
@@ -931,7 +937,8 @@ class Stage_1_E:
             if m.isHeadShot:                                    # 0x3a174
                 m.isHeadShot = False
                 m.HP -= weapon.Damage * 2                       # 0x3a1dc
-                self.gamePlayer.HeadShotCount += 1
+                if not self.app.debug:
+                    self.gamePlayer.HeadShotCount += 1
                 # 0x3a24a: 0.1 at the monster's Pos, z 40.  headshot_4 is stereo, and
                 # OpenAL never places a stereo sound, so the announcement is heard
                 # in the centre at 0.1, however far off the zombie is.
@@ -962,10 +969,10 @@ class Stage_1_E:
         once the tutorial is behind you, and is not counted (0x3a850..0x3a97a)."""
         if m.monsterNumber == MONSTER_GIRL:
             RunLoop.main().perform(self, 'playerDamage_', None, 0.1)
-            if self.isTutorial:
+            if self.isTutorial and not self.app.debug:
                 self.gamePlayer.HP -= 1
             self.HPImageCount()
-        else:
+        elif not self.app.debug:
             self.gamePlayer.killMonsterCount += 1           # 0x3aad4
             self.MonsterKillCount_(m)
         self._remove(m)
@@ -1290,8 +1297,9 @@ class Stage_1_E:
         self.app.playSound_Gain_Pos_z_reprats_(
             m.shakeMonsterPushSound, m.shakeMoneterPushGain, (0.0, 0.0), 40, False)
         # shaking free kills it (0x3baa0..0x3bad8)
-        self.gamePlayer.killMonsterCount += 1
-        self.MonsterKillCount_(m)
+        if not self.app.debug:
+            self.gamePlayer.killMonsterCount += 1
+            self.MonsterKillCount_(m)
         self._remove(m)
         self.isShake = False                        # 0x3bb6c
 
@@ -1306,7 +1314,7 @@ class Stage_1_E:
         if m is None:
             self.isShake = False
             return
-        if self.isTutorial:                         # 0x3b79e
+        if self.isTutorial and not self.app.debug:  # 0x3b79e
             self.gamePlayer.HP -= 1
         m.hitPlayer()
         if self.gamePlayer.HP >= 0:                 # 0x3b8bc

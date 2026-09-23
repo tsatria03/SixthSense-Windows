@@ -478,6 +478,32 @@ def test_escape_leaves_the_screen():
     assert scr.done
 
 
+def test_the_debug_keys_are_live_only_with_debug():
+    """--debug adds the debug_ actions to the keymap and the F1 screen; without it
+    F5 does nothing and the screen does not list them."""
+    st, inp = _stage()
+    said = []
+    st._say = said.append                   # never the real screen reader
+    try:
+        scr = KeyBindScreen(keymap=inp.keymap, speech=_Recorder())
+        assert not any(a.startswith('debug_') for a in inp.keymap.actions)
+        assert not any('Debug' in s for s in scr.render_lines())
+        _fire(inp, 'f5')
+        assert st.MonsterBuffer == [], 'F5 spawned without --debug'
+
+        inp.keymap.debug = True
+        assert any('Debug: spawn a zombie' in s for s in scr.render_lines())
+        _fire(inp, 'd')                     # attack 3 o'clock, so F5 spawns there
+        _fire(inp, 'f5')
+        assert len(st.MonsterBuffer) == 1, 'F5 did not spawn'
+        assert st.MonsterBuffer[0].MovingType == 5, 'not in the lane last attacked'
+        assert said[-1] == "Zombie 1, 3 o'clock.", said
+        _fire(inp, 'left shift', 'f5')
+        assert said[-1] == 'Zombie 2', said
+    finally:
+        st.teardown()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

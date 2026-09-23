@@ -142,6 +142,7 @@ def lane_bearing(lane):
 
 class MonsterControl:
     def __init__(self):
+        self.frozen = False            # not in the original: --debug's F6 holds it still
         self.MainMonsterTimer = None
         self.comingBreathTimer = None
         self.monsterCount = 0
@@ -338,7 +339,9 @@ class MonsterControl:
         # before the next step put it back out at 20 cm - heard as a step sideways.
         # A step stops at 20 cm here, which is where it ends up anyway; it still
         # arrives within 25 cm on the same step.
-        if self.monsterRange > 25.0:
+        if self.frozen:
+            pass
+        elif self.monsterRange > 25.0:
             self.monsterRange = max(20.0,
                                     self.monsterRange - float(self.comingRange))
         else:
@@ -361,7 +364,8 @@ class MonsterControl:
         self.Pos = (self.monsterRange * math.cos(rad),
                     self.monsterRange * math.sin(rad))
         self.monsterPi = self.MovingPosAngle * math.pi / 180.0      # 0x113f2
-        self.comingSoundGain = self.comingSoundGain * 1.1           # 0x11442
+        if not self.frozen:
+            self.comingSoundGain = self.comingSoundGain * 1.1       # 0x11442
 
         self.app.playback.startSound_Postion_soundGain_(
             self.comingMonsterStopSoundNumber, self.Pos, self.comingSoundGain)

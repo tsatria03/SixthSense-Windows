@@ -25,8 +25,7 @@ from __future__ import annotations
 
 import logging
 
-from ..platform.keymap import (ACTION_IDS, FIXED, KeyMap, binding_text,
-                               key_text)
+from ..platform.keymap import FIXED, KeyMap, binding_text, key_text
 from ..platform.speech import Speech
 
 log = logging.getLogger('keybind')
@@ -74,14 +73,14 @@ class KeyBindScreen:
     # ---- the list --------------------------------------------------------
     @property
     def action(self):
-        return ACTION_IDS[self.index]
+        return self.keymap.actions[self.index]
 
     def current_text(self):
         a = self.action
         return '%s: %s' % (self.keymap.label(a), self.keymap.keys_text(a))
 
     def move(self, delta):
-        self.index = (self.index + delta) % len(ACTION_IDS)
+        self.index = (self.index + delta) % len(self.keymap.actions)
         self.say(self.current_text())
 
     # ---- binding ---------------------------------------------------------
@@ -170,7 +169,7 @@ class KeyBindScreen:
                 self.index = 0
                 self.say(self.current_text())
             elif name == 'end':
-                self.index = len(ACTION_IDS) - 1
+                self.index = len(self.keymap.actions) - 1
                 self.say(self.current_text())
             else:
                 self.say(self.current_text())
@@ -185,7 +184,7 @@ class KeyBindScreen:
     # ---- what a sighted player sees -------------------------------------
     def render_lines(self):
         out = ['Key bindings', '']
-        for i, a in enumerate(ACTION_IDS):
+        for i, a in enumerate(self.keymap.actions):
             out.append('%s %-28s %s' % ('>' if i == self.index else ' ',
                                         self.keymap.label(a), self.keymap.keys_text(a)))
         out += ['']

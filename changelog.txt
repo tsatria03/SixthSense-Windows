@@ -1,4 +1,8 @@
 unrelease:
+Starting the game with --debug gives a debug mode, and each stage says "Debug mode" as it starts. Zombies still attack but cannot hurt you, so you cannot die.
+In debug mode your kills and headshots do not count, so a run earns no score and no gold.
+In debug mode F2 goes to the next level, F5 spawns a zombie in the lane you last attacked, and Shift+F5 chooses what F5 spawns.
+In debug mode F6 holds the zombies in place, and F11 says where they are. The key bindings screen lists the debug keys and can rebind them, but only in debug mode.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them, so no zombie can reach you while you read.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage and losing the coin you paid. In the tutorial it still goes back to the menu.
 With voice over turned off, the panel for pausing, finishing a mission and game over speaks through your screen reader too, reading each result with its number, such as "Score, 1,250". The tutorial and the announcements during play still use the recordings, because their timing follows them.

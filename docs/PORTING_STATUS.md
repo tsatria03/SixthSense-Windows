@@ -41,6 +41,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `DetailInventoryController` (66) | `game/inventory.py` | One slot's page and `equipToggleAction:`, which writes the `...USE` keys the stage reads |
 | the shared screen shape | `game/blind_screen.py`, `ui/screen_input.py` | `selectTapPointSoundStart` / `tapCount` / `StopElseSpeak`, on Up / Down / Enter |
 | **port addition** | `platform/keymap.py`, `ui/keybind_screen.py`, `platform/speech.py` | Rebindable keys with chord support, and the F1 screen that edits them, spoken through NVDA, any other screen reader through Prism, or a Windows voice. The original has no bindings at all — see `DIVERGENCES.md`. |
+| **port addition** | `game/debug.py`, `--debug` | Debug mode: nothing takes a heart and nothing you kill counts. F2 next level, F5 and Shift+F5 spawn, F6 hold the zombies, F11 say where they are; the F1 screen lists them only in debug mode. See `DIVERGENCES.md`. |
 | gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D or the arrow keys attack the five lanes, S or Down reloads, Tab changes weapon, comma/full stop turn, Space shakes, P pauses |
 
 ---
@@ -114,6 +115,7 @@ python SixthSense.py --skip-tutorial
 ```
 
 Headphones. `--no-window` runs it without pygame. `--no-intro` opens on the menu.
+`--debug` turns on debug mode (see `DIVERGENCES.md`).
 `--game DIR` points at another copy of the bundle; the default is `game/`, which holds
 the original's data. Its sounds are organized into `game/sounds/used/` under their original
 names; see `DIVERGENCES.md` for the layout and how the game finds them. An untouched
