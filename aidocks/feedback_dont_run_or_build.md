@@ -1,6 +1,6 @@
 ---
 name: feedback_dont_run_or_build
-description: "Never build unless the dev says so. The test suite may be run without asking (since 2026-09-22), always the safe way. Ask before running the game, compiler.py, or scripts that execute game code or speak. Read-only inspection is fine."
+description: "Never build unless the dev says so. Tests may be run without asking, always the safe way, but only the scripts covering the Python files changed; the full suite only when the dev asks. Ask before running the game, compiler.py, or scripts that execute game code or speak. Read-only inspection is fine."
 metadata:
   node_type: memory
   type: feedback
@@ -8,7 +8,7 @@ metadata:
 
 **Never build anything unless the dev says to.** That covers `compiler.py`, PyInstaller, and any packaging or zip step.
 
-**Paused 2026-09-22:** "for the next few commits, do not run tests unless I say so". Until the dev lifts it, ask first, the same as running the game. The standing permission below is what it goes back to.
+**Only the tests that match what changed (2026-09-23).** When one or more Python files change and a test script covers them, run only that script or those scripts, not the whole suite. For example, a change to `game/store.py` runs `tests/test_store.py`. Run the full suite only when the dev asks, for example once they have more than five commits that are not pushed, or after the conversation has been compacted. The dev said: "Do not keep running the full test suite over and over again." This replaces the earlier pause of 2026-09-22 ("for the next few commits, do not run tests unless I say so").
 
 **The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]): `APPDATA` pointed at a scratch folder, `ALSOFT_DRIVERS=null` and `SDL_AUDIODRIVER=dummy`, so the dev's save is untouched and nothing is heard over NVDA.
 
@@ -24,4 +24,4 @@ Make the edits, report them, and hand verification by ear back to the dev.
 
 **Why:** The dev set the original rule on 2026-09-21. They run and verify builds themselves, and they work with NVDA running, so an unexpected run can make noise, touch their save, or leave stray processes and artifacts. Tests run the safe way do none of that, which is why they were freed up on 2026-09-22.
 
-**How to apply:** After a code change, run the relevant tests, or the whole suite, the safe way and report the result. When a change needs checking by ear, end with a clear "relaunch to test" note instead of running the game.
+**How to apply:** After a code change, run only the test scripts that cover the changed files, the safe way, and report the result. Leave the full suite for when the dev asks. When a change needs checking by ear, end with a clear "relaunch to test" note instead of running the game.
