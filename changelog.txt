@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.23-1:
 The turn keys, comma and full stop, are gone. The original never turned you, and after a turn a zombie could sound as though it was in one lane while the attack keys still aimed at another.
 With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
 The voice over row in the main menu says what choosing it does, as in the original: voice over off while voice over is on, and voice over on while it is off. Turning voice over off plays the game's own recording, as the original does.
