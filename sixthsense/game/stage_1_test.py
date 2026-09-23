@@ -220,7 +220,7 @@ class Stage_1_TEST(Stage_1_E):
     def ObtainedGold(self):
         """0x46a92..0x46b2c (and 0x4f7c4 for the panel): the score, headshot
         multiplier and all, times 0.12, cut to a whole number."""
-        return int(self.ReadScore() * 0.12)
+        return int(self.score_now() * 0.12)
 
     def _pay_gold(self):
         gold = self.ObtainedGold()

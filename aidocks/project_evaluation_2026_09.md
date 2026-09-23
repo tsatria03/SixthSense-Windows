@@ -96,6 +96,14 @@ Every source file was read again. Nothing was run. The results:
 - tools/README.md now says the addresses are VM addresses (offset = address - 0x1000). Its todo line moved to `##Finished.` at the dev's word.
 - Still not done: GAME_STRUCTURE.md §3, §5 and §9 from the original list.
 
+## The original's own bugs, checked again 2026-09-23 (the todo item "Decide whether to fix the original's own bugs")
+
+Checked in the raw bytes at the dev's asking ("Look at the binary for this one"); capstone was not installed, so the Thumb was decoded by hand.
+- [V] **The double tap is off by one, as documented.** `tapCount` at 0x2ff26: `ldr r0,[r4,r0]` (selectMenu), `subs r0,#1`, `cmp r0,#7`, `bhi` to the exit at 0x2fff4, `tbb [pc,r0]` with `04 25 61 30 3b 4b 51 57`. Row 3 goes to the exit, row 4 to `ReadNumberOfHeadshot` (0x2ffa4), row 5 to `ReadObtainedGold`, and the top score row (10) falls past the bound. Still the dev's decision.
+- [V] **A port misreading, FIXED the same day at the dev's word:** `-[Stage_1_E ReadScore]` (0x3bf38) does speak. After `setText:` on `ScoreLabel` it does `movw/movt r0` (the selector), `mov r2, r4` (the score) at 0x3c1f2, `movs r3, #1`, and sends `TTSNumber:type:` (0x3c1fa) as a tail call. Its only senders are `selectTapPointSoundStart` (queued 2 s behind the score label) and `StopElseSpeak` (cancelled), so the score row reads the score with voice over on. The port's `ReadScore` only computed it, and DIVERGENCES.md called that the original's. Now `Stage_1_E.score_now()` computes (used after each kill, by the labels, by `pause_row_text` and by the test range's gold) and `ReadScore` computes, sets `ScoreLabel` and calls `TTSNumber_type_(score, 1)`. Test: `test_pause.test_the_score_row_reads_the_score_aloud`.
+- [V] **The power saw is an unfinished feature, not a bug.** `weaponInit` ends `adds r4,#1 / cmp r4,#8 / bne` (0x3512c), so slot 8 is never loaded. Its recordings 246 "a power saw button" and 254 "a power saw image" exist, but the shop (0x148f0) and the inventory (0x24a88) only ever stop 246; no row plays it. `DetailStoreController` has no weaponType 6 page and so no price; its only 6 is the Try table (0x1c1e4). `powersaw.plist` (50 entries) and sounds 74..77 are complete.
+- [V] **Swiping backwards cannot happen on the keyboard.** The lane keys hand `MovingShot_` only the five lane bearings (`Input.LANE_ANGLE`), and the reload key goes to `ReloadGesture`, never `MovingShot_`, so the 222.5..320.5 gap is unreachable.
+
 ## Rescan, 2026-09-23 (foreground, after the turn keys were removed)
 
 Every source file, the docs and the notes were read again; nothing was run. Four small findings went to the top of `todo list.txt`'s `##Unfinished.`; the same day the last two moved to [[project_dev_tasks]], when the todo list became players only:

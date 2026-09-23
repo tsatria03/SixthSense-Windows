@@ -163,6 +163,33 @@ def test_selecting_a_readout_queues_its_number():
         st.teardown()
 
 
+def test_the_score_row_reads_the_score_aloud():
+    """-[Stage_1_E ReadScore] 0x3bf38 ends with [app TTSNumber:score type:1] (0x3c1f2,
+    0x3c1fa): landing on the score row reads the score digit by digit, 2 s behind its
+    label, as the other result rows read theirs.  Working the score out anywhere else
+    says nothing."""
+    app, st = _new_stage()
+    loop = RunLoop.main()
+    spoken = []
+    real = app.TTSNumber_type_
+    app.TTSNumber_type_ = lambda n, t: spoken.append((n, t))
+    try:
+        st.gameState = 2
+        p = st.gamePlayer
+        p.killMonster1count, p.killMonster9count = 2, 1        # 300 + 300
+        assert st.score_now() == 600 and spoken == [], 'working it out spoke'
+        st.pause_select(4)
+        queued = [q for _d, _s, q in loop._performs if q.selector == 'ReadScore']
+        assert queued, 'the score row did not queue its reader'
+        st.ReadScore()
+        assert spoken == [(600, 1)], 'the score was not read: %r' % spoken
+        assert st.ScoreLabel == '600'
+    finally:
+        del app.TTSNumber_type_
+        assert app.TTSNumber_type_ == real
+        st.teardown()
+
+
 def test_the_dispatch_table_is_the_one_in_the_binary():
     """The ``tbb`` at 0x2ff32 is 04 25 61 30 3b 4b 51 57, so row 3 does nothing and
     row 4 - the score row - re-reads the headshot count."""

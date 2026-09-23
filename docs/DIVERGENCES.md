@@ -589,9 +589,11 @@ is running.
 - The opening screen reads its welcome text and skips the earphone reminder, which the
   welcome text already says.
 - The panel reads "Paused", "Mission success" or "Game over", each result with its
-  number, such as "Score, 1,250", and its three buttons. The score row says the
-  score, which it never does with voice over on: the reader it queues, `ReadScore`,
-  only works the score out. Choosing a result row rereads that row, rather than the original's
+  number, such as "Score, 1,250", and its three buttons. With voice over on, the
+  score row reads the score digit by digit after its label, as the original's
+  `ReadScore` does (it ends with `TTSNumber:type:`, 0x3c1fa). An earlier reading of the
+  listing said it only worked the score out; that was wrong, and was corrected on
+  2026-09-23. Choosing a result row rereads that row, rather than the original's
   off-by-one reader (see "The result panel's double tap is off by one"), which stays
   as it was with voice over on. The panel's voice lines, "mission success", "game
   over", "paused" and "no coin", are spoken too (`Stage_1_E.PANEL_MESSAGE_TEXT`).

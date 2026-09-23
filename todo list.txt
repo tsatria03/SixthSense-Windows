@@ -17,6 +17,7 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+With voice over on, the score row on the pause and result panel reads your score aloud after its name, as in the original.
 With voice over turned off, the Left and Right arrows move to the previous and the next row in the menus and on the pause and result panel, like VoiceOver's flicks.
 The coin store and purchase all weapons rows are gone from the shop, since Apple in-app purchases no longer exist and there are no recordings for buying them with gold.
 The tutorial's steps always come in the original's order, and reloading or changing weapon early no longer skips a lesson.

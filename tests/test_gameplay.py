@@ -499,7 +499,7 @@ def test_debug_mode_takes_no_heart_and_counts_nothing():
         p = st.gamePlayer
         assert p.killMonsterCount == 0, 'the kill counted'
         assert p.HeadShotCount == 0, 'the headshot counted'
-        assert st.ReadScore() == 0 and st.ObtainedGold() == 0
+        assert st.score_now() == 0 and st.ObtainedGold() == 0
     finally:
         app.debug = False
         st.teardown()

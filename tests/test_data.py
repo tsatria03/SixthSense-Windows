@@ -248,9 +248,9 @@ def test_score_formula():
     p.killMonster1count = 2      # 2 * 150
     p.killMonster9count = 1      # 1 * 300
     p.killMonster5000count = 1   # 1 * 2000
-    assert st.ReadScore() == 300 + 300 + 2000
+    assert st.score_now() == 300 + 300 + 2000
     p.HeadShotCount = 10         # x1.10
-    assert st.ReadScore() == int(2600 * 1.10)
+    assert st.score_now() == int(2600 * 1.10)
 
 
 def test_the_zigzag_walks_sweep_and_turn_round():

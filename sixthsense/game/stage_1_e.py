@@ -1054,7 +1054,8 @@ class Stage_1_E:
     #   A chain of `cmp monsterNumber, N` that bumps the matching per-kind tally.
     #   It does NOT touch killMonsterCount and keeps no score: every call site does
     #   `setKillMonsterCount:+1` first (0x39cee, 0x3a3ae, 0x3aad4), and the score is
-    #   derived in ReadScore.
+    #   derived in ReadScore.  The port works it out after each kill (score_now), so
+    #   the window can show it; the original only did so on the panel.
     def MonsterKillCount_(self, m):
         p = self.gamePlayer
         n = m.monsterNumber
@@ -1066,7 +1067,7 @@ class Stage_1_E:
             p.killMonster5000count += 1
         # Nothing else is tallied: kind 11 and 12 zombies count as kills but add
         # nothing to the score.
-        self.ReadScore()
+        self.score_now()
 
     # -[Stage_1_E ReadScore] 0x3bf38
     #
@@ -1084,8 +1085,19 @@ class Stage_1_E:
     #       hs >=  10 : @"1.%d"  % hs
     #       else      : @"1.0%d" % hs
     #
-    #   so 5 headshots is x1.05, 42 is x1.42, 150 is x2.50.
-    def ReadScore(self):
+    #   so 5 headshots is x1.05, 42 is x1.42, 150 is x2.50.  Then it shows the score on
+    #   ScoreLabel and reads it aloud, [app TTSNumber:score type:1] (0x3c1f2: mov r2, r4;
+    #   the send at 0x3c1fa), digit by digit.  Its only caller is the panel: the score row
+    #   queues it 2 s behind its label (selectTapPointSoundStart), and StopElseSpeak
+    #   cancels it.
+    def ReadScore(self, *_):
+        score = self.score_now()
+        self.ScoreLabel = '%d' % score
+        self.app.TTSNumber_type_(score, 1)
+        return score
+
+    def score_now(self):
+        """The score, worked out as ReadScore does, without saying it."""
         p = self.gamePlayer
         score = (p.killMonster5000count * 2000
                  + (p.killMonster9count + p.killMonster10count) * 300
@@ -1458,7 +1470,7 @@ class Stage_1_E:
         if row == 3:
             return 'Headshots, %s' % whole(p.HeadShotCount)
         if row == 4:
-            return 'Score, %s' % whole(self.ReadScore())
+            return 'Score, %s' % whole(self.score_now())
         if row == 5:
             return 'Obtained gold, %s' % whole(self.ObtainedGold())
         if row == 9:
@@ -1868,5 +1880,5 @@ class Stage_1_E:
         p = self.gamePlayer
         self.killZombiesLabel = '%d' % p.killMonsterCount
         self.HeadShotLabel = '%d' % p.HeadShotCount
-        self.ScoreLabel = '%d' % self.ReadScore()
+        self.ScoreLabel = '%d' % self.score_now()
         self.GoldLabel = '%d' % self.ObtainedGold()
