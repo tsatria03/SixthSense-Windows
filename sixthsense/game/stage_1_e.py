@@ -255,6 +255,7 @@ class Stage_1_E:
         self.DieFlag = False
         self.monstersFrozen = False     # --debug, sixthsense/game/debug.py
         self.debugSpawn = 0
+        self.debugHits = False          # --debug's F7: zombies hit you, for no heart
         self.reloadWeaponNumber = 0
         self.noAtt = False
         self.groundMapData = None
@@ -688,11 +689,11 @@ class Stage_1_E:
                 m.hitPlayer()                          # 270, her thank you
                 self.HPImageCount()
                 continue
-            if self.isTutorial and self.app.debug:
+            if self.isTutorial and self.app.debug and not self.debugHits:
                 m.DieMonster()                         # --debug: it dies on you instead
                 self.HPImageCount()
                 continue
-            if self.isTutorial:                        # 0x3b2e6
+            if self.isTutorial and not self.app.debug:  # 0x3b2e6; --debug: no heart
                 self.gamePlayer.HP -= 1
             m.hitPlayer()
             self.HPImageCount()
@@ -825,7 +826,8 @@ class Stage_1_E:
             return
 
         # 0x2f41a: ammunition is only spent once the tutorial has been cleared.
-        if self.isTutorial:
+        # --debug: none is spent at all.
+        if self.isTutorial and not self.app.debug:
             weapon.BulletCount -= 1
 
         # The shot is played at the weapon's *reload* gain, which is 1.0 for every gun:
@@ -859,14 +861,14 @@ class Stage_1_E:
         """0x2f1bc - the grenade comes out of GRENADECOUNT, not a magazine."""
         d = UserDefaults.standardUserDefaults()
         n = d.intForKey_('GRENADECOUNT')
-        if n <= 0:
+        if n <= 0 and not self.app.debug:           # --debug: grenades never run out
             self.app.playSound_Gain_Pos_z_reprats_(
                 SOUND_NO_BULLETS, 0.5, (0.0, 0.0), 0, False)
             RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
             return
         self.app.playSound_Gain_Pos_z_reprats_(
             weapon.ShotSoundNumber, weapon.ReloadSoundGain, (0.0, 0.0), 40, False)
-        if self.isTutorial:                        # 0x2f288
+        if self.isTutorial and not self.app.debug:  # 0x2f288
             d.setObject_forKey_(str(n - 1), 'GRENADECOUNT')
             d.synchronize()
         RunLoop.main().perform(self, 'MonsterDamage', None, SHOT_TRAVEL)   # 0x2f32a
@@ -1180,12 +1182,13 @@ class Stage_1_E:
     # =============================================================== weapons
     # -[Stage_1_E gunChangeAction:] 0x35a08 / -[Stage_1_E doubleTapChangeWeapon:] 0x2ec70
     def gunChangeAction_(self, step=1):
-        """Cycle to the next owned-and-equipped weapon."""
+        """Cycle to the next owned-and-equipped weapon.  --debug: every weapon, bought
+        and equipped or not."""
         use = self.app.useWeapon
         w = self.gamePlayer.useWepon
         for _ in range(WEAPON_SLOTS):
             w = (w + step) % WEAPON_SLOTS
-            if w < len(use) and use[w] == '1':
+            if self.app.debug or (w < len(use) and use[w] == '1'):
                 break
         self.gamePlayer.useWepon = w
         weapon = self.weaponSource[w]
@@ -1318,12 +1321,12 @@ class Stage_1_E:
         if m is None:
             self.isShake = False
             return
-        if self.isTutorial and self.app.debug:
+        if self.isTutorial and self.app.debug and not self.debugHits:
             m.DieMonster()                          # --debug: it dies on you instead
             self._remove(m)
             self.isShake = False
             return
-        if self.isTutorial:                         # 0x3b79e
+        if self.isTutorial and not self.app.debug:  # 0x3b79e; --debug: no heart
             self.gamePlayer.HP -= 1
         m.hitPlayer()
         if self.gamePlayer.HP >= 0:                 # 0x3b8bc

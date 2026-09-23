@@ -4,12 +4,16 @@ The original has nothing like them.  In debug mode nothing takes a heart and not
 kill counts (``Stage_1_E``, ``AppDelegate.debug``); these keys are for trying the game
 out by ear.  They are keymap actions, so the F1 screen lists and rebinds them:
 
-    F2          next level, the way the end of a level goes
+    F2          next level, the way the end of a level goes; after level 8, level 1
     Shift+F2    the start of the next section of the corridor, in the same level
     F5          spawn the chosen zombie, in the lane you last attacked
     Shift+F5    choose what F5 spawns
     F6          hold every zombie where it is, or let them walk again
+    F7          let zombies that reach you hit you, still for no heart, or die again
     F11         say where each zombie is
+
+Debug mode also hands you every weapon on Tab and Shift+Tab, bought or not, and no
+shot, no grenade and no magazine ever runs out (``Stage_1_E``).
 
 Everything here speaks through the screen reader, whatever the voice over row says:
 the game has no recordings for any of it.  They do nothing in the tutorial, which
@@ -21,6 +25,8 @@ from .stage_1_e import (BOSS_CAVE, BOSS_FOREST, BOSS_NUMBER, MONSTER_GIRL,
                         MONSTER_WOMAN, SOUND_WARNING)
 
 START_ROW = 680                     # 0x2cf1a, where every level starts
+#: F2 goes round the levels: after this one comes level 1 again.
+MAX_LEVEL = 8
 
 #: What F5 can spawn, in the order Shift+F5 goes through them: the name spoken, and
 #: the type id for a lane (``MONSTER_ARRAY``'s ``kind*10 + lane``, the first kind
@@ -53,6 +59,7 @@ def perform(st, action, lane):
      'debug_spawn': lambda s: spawn(s, lane),
      'debug_spawn_kind': next_spawn_kind,
      'debug_freeze': toggle_freeze,
+     'debug_hits': toggle_hits,
      'debug_monsters': say_monsters}[action](st)
 
 
@@ -62,12 +69,18 @@ def area_name(st):
 
 def next_level(st):
     """What ``MainControl`` does when the boss is dead and you are at the end: every
-    zombie left dies, and ``ChangeLevel:`` follows 2 s later."""
+    zombie left dies, and ``ChangeLevel:`` follows 2 s later.  After ``MAX_LEVEL``
+    it goes round to level 1, with level 1's zombies."""
     if st.MotionSamplingTimer is None or not st.MotionSamplingTimer.isValid():
         st._say('Not while the level is changing.')
         return
     st.app.stopSoundBufNumber_(SOUND_WARNING)       # the alarm, if it had started
+    wrap = st.LVUP >= MAX_LEVEL
     st._level_transition()
+    if wrap:
+        st.LVUP = 1
+        # ChangeLevel: multiplies this by 1.5 as it lands (0x32314), giving level 1's 1.0.
+        st.monsterHPGain = 1.0 / 1.5
     st._say('Level %d, %s.' % (st.LVUP, area_name(st)))
 
 
@@ -85,7 +98,7 @@ def next_section(st):
     where they are, but not the girl, who walks on and still thanks you, and the next tick reads the section's own cell 9 as walking there
     would, so its quiet stretch, its tier and its music follow on their own."""
     if st.MotionSamplingTimer is None or not st.MotionSamplingTimer.isValid():
-        st._say('Not while the level is changing.')
+        st._say('Not while the section is changing.')
         return
     if st.isShake:
         st._say('Not while a zombie holds you.')
@@ -128,6 +141,12 @@ def toggle_freeze(st):
     for m in st.MonsterBuffer:
         m.frozen = st.monstersFrozen
     st._say('Zombies hold still.' if st.monstersFrozen else 'Zombies walk again.')
+
+
+def toggle_hits(st):
+    st.debugHits = not st.debugHits
+    st._say('Zombies hit you, but take no heart.' if st.debugHits
+            else 'Zombies die when they reach you.')
 
 
 def monster_name(m):

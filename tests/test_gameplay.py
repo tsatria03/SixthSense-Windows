@@ -587,6 +587,77 @@ def test_the_debug_commands():
         st.teardown()
 
 
+def test_more_debug_commands():
+    """--debug: Tab reaches every weapon, bought or not, and nothing runs out; F7 lets
+    a zombie hit you for no heart; F2 goes round from level 8 to level 1; Shift+F2
+    says the section, not the level, while a level is changing."""
+    from sixthsense.game import debug
+    app, st = _new_stage()
+    loop = RunLoop.main()
+    app.debug = True
+    said = []
+    st._say = said.append                   # never the real screen reader
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))
+    d = UserDefaults.standardUserDefaults()
+    use, grenades = list(app.useWeapon), d.stringForKey_('GRENADECOUNT')
+    try:
+        app.useWeapon = ['1', '1', '1', '0', '0', '0', '0', '0']
+        st.gamePlayer.useWepon = 2
+        seen = []
+        for _ in range(8):
+            st.gunChangeAction_(1)
+            seen.append(st.gamePlayer.useWepon)
+        assert sorted(seen) == list(range(8)), 'Tab only reached %r' % seen
+
+        st.gamePlayer.useWepon = 3              # the shotgun, never bought
+        w = st.weaponSource[3]
+        full = w.BulletCount
+        for _ in range(3):
+            st.shotFlag = False
+            st.MovingShot_(LANE[3])
+        assert w.BulletCount == full, 'a shot was spent in debug mode'
+        d.setObject_forKey_('0', 'GRENADECOUNT')
+        st.gamePlayer.useWepon = 0
+        st.shotFlag = False
+        st.MovingShot_(LANE[3])
+        assert st.weaponSource[0].ShotSoundNumber in played, 'no grenade was thrown'
+        assert d.intForKey_('GRENADECOUNT') == 0, 'a grenade was spent'
+        _run(loop, S1E.SHOT_TRAVEL + 0.2)
+
+        debug.toggle_hits(st)
+        assert st.debugHits and said[-1].startswith('Zombies hit you'), said
+        st.MonsterInit_(1)
+        m = st.MonsterBuffer[0]
+        _freeze(m, 10.0)
+        played.clear()
+        st.MonsterAttPlayer()
+        _run(loop, 0.3)
+        assert m not in st.MonsterBuffer
+        assert m.playerHitSound in played, 'the zombie did not hit you: %r' % played
+        assert S1E.SOUND_PLAYER_DAMAGE in played, played
+        assert st.gamePlayer.HP == 3, 'the hit took a heart'
+        debug.toggle_hits(st)
+        assert not st.debugHits and said[-1] == 'Zombies die when they reach you.'
+
+        st.LVUP = debug.MAX_LEVEL
+        debug.next_level(st)
+        assert st.LVUP == 1 and said[-1].startswith('Level 1, '), said
+        debug.next_section(st)                  # the change has not landed yet
+        assert said[-1] == 'Not while the section is changing.', said
+        _run(loop, 2.3, until=lambda: st.MotionSamplingTimer is not None)
+        assert st.LVUP == 1 and abs(st.monsterHPGain - 1.0) < 1e-9, \
+            'level 1 came back at %.3f' % st.monsterHPGain
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        app.useWeapon = use
+        d.setObject_forKey_(grenades, 'GRENADECOUNT') if grenades is not None \
+            else d.removeObjectForKey_('GRENADECOUNT')
+        app.debug = False
+        st.teardown()
+
+
 def test_every_spawn_attempt_resets_the_count():
     """MakeMonster: 0x3623a / 0x3625a - once LVCount reaches 3 it starts again,
     whether a zombie came of it or not."""

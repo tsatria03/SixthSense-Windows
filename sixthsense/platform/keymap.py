@@ -75,6 +75,7 @@ ACTIONS = (
     ('debug_spawn_kind', 'Debug: choose what to spawn',
      (('left shift', 'f5'), ('right shift', 'f5'))),
     ('debug_freeze', 'Debug: hold zombies in place', (('f6',),)),
+    ('debug_hits', 'Debug: let zombies hit you, without taking a heart', (('f7',),)),
     ('debug_monsters', 'Debug: say where the zombies are', (('f11',),)),
 )
 
