@@ -18,7 +18,6 @@ Remove the coin store, restore purchases and buy all weapons rows from the shop.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 Your rank always reads 0 and the weekly top score never resets.
 Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
-Ask before escape ends a stage, since leaving loses the coin you paid.
 Closing the window goes back to the menu instead of quitting the game.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
