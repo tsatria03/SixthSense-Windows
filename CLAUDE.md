@@ -30,7 +30,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
   - `data/objc_classes.json`.
 - **`tools/`**: the Mach-O and disassembly tools that produced `analysis/`. `dz.py` and `dc.py` need `capstone`.
 - **`docs/`**: `PORTING_STATUS.md` (done, stubbed, not ported), `DIVERGENCES.md` (where the port differs, and which original bugs it reproduces) and `GAME_STRUCTURE.md`. Some "reproduced" entries are misreadings; see [[project_evaluation_2026_09]].
-- **`tests/`**: plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any.
+- **`tests/`**: plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any. `tests/level_tester.py` is not a test: it starts the real game at any level, area and row, on its own save in `%APPDATA%\SixthSense\level_tester`, for checking by ear.
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense` and a release zip ([[project_compiler_py]]).
 - **`bloopers/`**: short clips of funny bugs, kept for fun and preferably under two minutes. Its README sets the naming and format rules. The build leaves it out; only add clips the dev provides.

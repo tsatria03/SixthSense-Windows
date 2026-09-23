@@ -181,7 +181,7 @@ vendor/                  OpenAL Soft and NVDA's controller client, with their li
 analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 docs/                    GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md
-tests/                   checks that the port's tables still match the data files
+tests/                   the tests, and level_tester.py for starting at any level
 compiler.py              builds the game into an executable with PyInstaller
 requirements.txt         the two packages it needs
 ```
@@ -229,6 +229,8 @@ python tests/test_store.py      # the shop, buying, and the inventory
 python tests/test_intro.py      # the splash, the warning and skipping them
 python tests/test_speech.py     # who speaks what no WAV covers (stand-ins, silent)
 python tests/test_volume.py     # the decibel knobs, and the binary's mix left alone
+python tests/test_monster_sound.py  # zombie sounds read back from OpenAL (audio device)
+python tests/test_focus.py      # switching away from the window pauses a stage
 ```
 
 `test_data` checks the port against the original data rather than against itself: the
@@ -240,6 +242,26 @@ spatialise stereo, and the game relies on that).
 **For now, the tests write to your real save** in `%APPDATA%\SixthSense`, and
 `test_gameplay` plays audio. Until that is fixed, run them with `APPDATA` pointed at a
 scratch folder, and with `ALSOFT_DRIVERS=null` so nothing is heard.
+
+### Starting at any level
+
+`tests/level_tester.py` is not a test. It opens the real game at the level you choose,
+so a bug on level 3 does not take three levels of play to reach. Opened on its own, it
+asks for the level, the area (cave, forest or rain) and whether to start just before
+the boss. It also takes them on the command line:
+
+```bash
+python tests/level_tester.py                    # asks
+python tests/level_tester.py 2                  # level 2
+python tests/level_tester.py 3 --mode forest    # level 3, in the forest
+python tests/level_tester.py 2 --boss           # level 2, two steps before the siren
+python tests/level_tester.py 1 --row 300        # level 1, from row 300 of the corridor
+```
+
+A level is what walking there would give you: monsters 1.5 times tougher and faster per
+level, one more of them out at a time, and the area alternating between the cave and
+the forest. It plays on its own save in `%APPDATA%\SixthSense\level_tester`, so your
+own save is never touched, and it copies your key bindings in each time it starts.
 
 ## Where this came from
 
