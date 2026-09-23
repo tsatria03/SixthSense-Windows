@@ -2,8 +2,6 @@
 
 The "no coin" message still says to share coins with friends at the ranking page, which is gone, and with voice over off the screen reader reads it aloud.
 The key bindings screen lists Escape as "Quit", but in a stage it pauses and in the shop it goes back.
-The debug keys shown in the game window leave out F7.
-Update the README, which still says the game needs no screen reader, and two outdated code comments about the zig-zag walks and the timers.
 Decide whether turning voice over off should work like VoiceOver's flick left and right gestures, by moving through the menus with the left and right arrows instead of up and down.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
@@ -19,13 +17,9 @@ The weekly top score never resets.
 Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
-Add a log file and a crash.txt, and have the game say out loud when it cannot start, instead of failing silently.
-Add an exit after option and a game data line to the log, so the compiler's test build can come back.
+When the game cannot start, it fails silently instead of saying why out loud.
 Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 Memory leaks each time the music or ambience changes.
-A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
-The tests overwrite the real save file.
-Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 
 ##Finished.
@@ -39,12 +33,6 @@ The ranking row and the rank are gone everywhere, including the main menu and th
 The Game Center row is gone everywhere. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 Closing the game window quits the game from any screen, instead of going back to the menu.
 Closing the window from the shop or the inventory no longer leaves the old main menu running in the background with its coin timer.
-The tutorial can be finished in debug mode. Killing its zombies still counts for nothing, but each kill now finishes its lesson as it should.
-In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
-In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
-In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
-In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.
-In debug mode F2 goes back to level 1 after level 8, and Shift+F2 says "Not while the section is changing" while a level is changing.
 The girl and the woman zombie keep level 1's speed and health on every level, as in the original, instead of getting faster and tougher with each level.
 The Try button on a weapon's page has been added. It opens the weapon test range with that weapon, as in the original.
 A bullet keeps the original's half second between firing and hitting the zombie. It is one setting and can still be switched back.
@@ -53,8 +41,6 @@ Escape pauses a stage and resumes it from the pause panel, instead of leaving th
 With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
 The woman zombie growls once, about three and a half metres away, on every level, instead of reaching you on level 2 and up before her growl could be heard.
-tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.
-A level tester in tests/level_tester.py starts the game at any level, in the cave, the forest or the rain, and near the boss if you like. It asks when opened on its own, and plays on its own save so yours is never touched.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
 You can pause as often as you like, with P or by switching away from the window, as in the original, instead of only once per stage.
 You can rebind a key again. Letting go of enter no longer ends the capture before you press the key you want.
@@ -66,7 +52,6 @@ You can no longer fire while reloading, and a reload refills the gun you started
 Reload does nothing with the grenade or a blade, and does not work while a zombie holds you or once the game is over.
 Headshots are timed as in the original: the breathing pause counts when you fire, even though the shot takes half a second to land, and the headshot announcement plays in the centre.
 Zombie sounds move as they walk, so you hear each zombie come closer and louder in its own lane, a zigzag walker's sound sweeps across with it, and the breathing that times a headshot plays through.
-A test checks that zombie sounds really move, by reading each zombie's sound back from OpenAL itself.
 Near the end of each level an alarm sounds and a boss comes down the middle, and the level only ends once the boss is dead.
 Zombies still alive at the end of a level die there instead of following you into the next one, and the ambience changes with the level.
 The girl who heals you and the woman zombie appear during a normal game. The girl has her own voice, thanks you when she reaches you, and shooting her costs a heart instead of counting as a kill.
@@ -84,8 +69,6 @@ Dying plays the player death sound where you fell, and "game over" is said once,
 A key you were holding when you left a stage no longer stays pressed in the next one, and nothing stays stuck after you switch away from the window.
 The game opens one audio device, the one it plays through, instead of also starting pygame's mixer.
 The menu music carries on where it was when you come back to the menu, instead of starting over from the beginning.
-The compiler builds a working game. A console build starts and plays, and its release zip opens and holds all 643 files: the game, its data, and the licenses beside it. While it packs the zip, the compiler says so and says how far it has got, so the window is not closed too early.
-A requirements.txt lists the two packages the game needs, pygame and prismatoid, so pip install -r requirements.txt installs both.
 Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
 The tutorial's prompts no longer restart every second once they have already played through once.
 Pressing P during the tutorial now stops its prompts and its timer, instead of leaving them running.
@@ -96,12 +79,7 @@ The "no coin" message no longer speaks its own sentence over the recording that 
 "Now Loading" now always plays first, before the menu music stops or the level's own sound and the tutorial's first prompt begin.
 Restore Purchases and Game Center now stop their own sentence when you move to another row, instead of letting it run on into whatever you land on next.
 The key bindings screen and the main menu's spoken messages speak through Prism, so JAWS, ZoomText, System Access, Narrator and other screen readers work as well as NVDA, and a Windows voice speaks when no screen reader is running, without needing comtypes. The build script puts the licenses for Prism, pygame, OpenAL Soft and the NVDA controller client in a licenses folder beside the game.
-The game finds its sounds in game/sounds/used again, so every sound plays, and the compiler and the tests look for them there too.
-Every sound the game uses sits together in game/sounds/used, 329 files covering all 269 of the original's sounds, apart from the 25 in game/sounds/unused.
-The 25 sounds that are not the original's own, 11 extra copies and 14 the original never had, are kept apart in game/sounds/unused, in the same folders they came from, so the rest of game/sounds holds only the original's sounds.
-Every one of the original game's 269 sounds now has a copy in game/sounds, including the six the organized folder was missing: Game Start Button, Welcome to, game center button10, restore button, weapon_m4_fire and weapon_saw_start.
-The organized sounds are 16-bit WAV again, the format the game's sound loaders read, instead of the 24-bit the OGG conversion had left them in.
-The sounds are organized into folders in game/sounds, and every one that came from the original carries its original file name again, 323 files in all, each checked by comparing its audio with the original's.
+The game finds its sounds in game/sounds/used again, so every sound plays.
 The level music and ambience play as quietly as in the original, so the zombies can be heard over them.
 The rain in the third area keeps falling for the whole level.
 Leaving a stage stops the zombie footsteps, the ambience and the music.
@@ -110,9 +88,3 @@ The coin economy now matches the original: a new player gets 10 coins once, a co
 The coin row can say how long until your next coin, instead of always reading zero, and it stops reading a stale coin count after you have already moved to another row.
 Starting a game before finishing the tutorial now sends you to the tutorial, instead of taking a coin and leaving you standing still in silence.
 Spoken numbers are read digit by digit in the correct order, instead of backwards, so ten now says "one, zero" instead of "zero, one".
-The compiler has been changed to build Sixth Sense. It only needs pygame, copies just the files the game reads, and leaves the original iOS executable out of the release.
-The whole port has been evaluated, and every bug and missing feature that turned up is listed in the unfinished section, most important first.
-The initial commit is credited to lbk2907 on GitHub, and every commit uses GitHub usernames instead of real names.
-The license credits tsatria03 and lbk2907.
-The private user folder and the scratchpad are kept out of the repository by the git ignore file.
-Project notes for AI-assisted work are set up in CLAUDE.md and the aidocks folder.

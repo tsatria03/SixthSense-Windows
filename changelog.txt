@@ -5,17 +5,9 @@ The voice over row in the main menu says what choosing it does, as in the origin
 Moving away from the coin row in the main menu stops the time to the next coin, instead of reading it over the row you moved to.
 The ranking and Game Center rows are gone from the main menu, the rank is gone from the result panel, and the restore purchases row is gone from the shop. They needed online services that the Windows version does not have.
 Closing the game window quits the game from any screen, instead of going back to the main menu and leaving the menu you came from running in the background with its coin timer. Escape still goes back, pauses or leaves the menu as before.
-The tutorial can be finished in debug mode, since each kill still finishes its lesson even though it does not count.
-In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
-In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.
-In debug mode Shift+F2 goes back to level 1 after level 8. F2 waits two seconds between sections, as Shift+F2 does between levels, and says "Not while the section is changing" until it is ready.
 Pausing, finishing and dying stop the same sounds as in the original: pausing in the rain stops the rain, and a game over stops the level's music in the forest as well as in the cave.
 The Try button on a weapon's page opens the weapon test range, as in the original. You stand still with only that weapon while up to three zombies come at you, and five kills ends the test. The run pays gold, and the back row returns you to the weapon's page.
 The girl and the woman zombie walk at the same speed and are as easy to kill on every level, as in the original, instead of getting faster and tougher with each level. The woman growls three and a half to four and a half metres away every time, and after a pause too.
-Starting the game with --debug gives a debug mode, and each stage says "Debug mode" as it starts. A zombie that reaches you dies on the spot, heard only by its death, so you cannot die.
-In debug mode your kills and headshots do not count, so a run earns no score and no gold. The girl still thanks you when she reaches you, but gives you no heart.
-In debug mode F2 goes to the next section of the corridor, Shift+F2 goes to the next level, F5 spawns a zombie in the lane you last attacked, and Shift+F5 chooses what F5 spawns.
-In debug mode F6 holds the zombies in place, and F11 says where they are. The key bindings screen lists the debug keys and can rebind them, but only in debug mode.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them, so no zombie can reach you while you read.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage and losing the coin you paid. In the tutorial it still goes back to the menu.
 With voice over turned off, the panel for pausing, finishing a mission and game over speaks through your screen reader too, reading each result with its number, such as "Score, 1,250". The tutorial and the announcements during play still use the recordings, because their timing follows them.

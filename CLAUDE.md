@@ -66,8 +66,9 @@ This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the g
 - **The screen reader mode** (the voice over row off means the screen reader speaks the game's words; built for the menus and the result panel; the tutorial stays recorded): [[project_screen_reader_mode]].
 - **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
 - **Adapting the build script**: [[project_compiler_py]].
-- **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]].
+- **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]]. It holds only what a player notices, since it ships beside the game; developer tasks, open and finished, are in [[project_dev_tasks]].
 - **The changelog** (`changelog.txt`): every player-facing fix or enhancement adds a line at the top of the `unrelease:` block in the same commit, newest first ([[feedback_changelog]]).
+- **Plans**: an agreed plan goes into its own aidocks note before any code, and is marked finished there only once the dev says it works ([[feedback_record_plans_first]]).
 - **Committing and pushing** (commit when asked, then push without asking; history rewrites need a go-ahead): [[feedback_git_commits]].
 - **Who made what, the permission to publish, and how to credit contributors in commits**: [[project_provenance]]. Name people by GitHub username only: [[feedback_use_github_usernames]].
 - **Who you're working with**: [[user_screen_reader]]. The dev uses NVDA, so prefer lists and short lines, and never make noise from tools.

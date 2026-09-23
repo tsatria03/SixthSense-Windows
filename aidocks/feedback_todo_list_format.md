@@ -7,7 +7,11 @@ metadata:
   originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
-`todo list.txt` at the repo root, with a space in the name, is the dev's task list. Its format:
+`todo list.txt` at the repo root, with a space in the name, is the dev's task list.
+
+**Players only (2026-09-23).** It holds only bugs and enhancements a player notices, the same bar as `changelog.txt` ([[feedback_changelog]]), because it ships beside the game in every release. Work on the repository, the tools, the tests, the build and the docs, and anything about debug mode (`--debug`), goes in [[project_dev_tasks]] instead. When a line mixes the two, split it: the part a player notices stays, worded for a player, and the rest moves.
+
+Its format:
 - `##Unfinished.` on the first line, a blank line, then one item per line.
 - A blank line, then `##Finished.` with its items below. The dev capitalized both headings on 2026-09-21; keep them that way.
 - Each item is a plain sentence or two. **A bug is stated as what happens, with no "Fix a bug where" in front**: "Switching weapons refills the magazine for free.", not "Fix a bug where switching weapons refills the magazine for free." The dev found that opening too repetitive (2026-09-21).

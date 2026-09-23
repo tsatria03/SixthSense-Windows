@@ -9,6 +9,8 @@ metadata:
 
 `compiler.py` is the PyInstaller build script, with the numbered menu, the changelog filing and the release zip. It was adapted from an earlier build script. A newer version of that script is kept for reference in the gitignored `user/` folder; read it there, but never edit it, and don't name it in writing ([[feedback_no_other_games]]). Never run `compiler.py`, not even `--dry-run`, without the dev's say-so; see [[feedback_dont_run_or_build]].
 
+**Planned change (2026-09-23):** the changelog filing moves out to a new `releaser.py`, and the compiler gains an option to embed the game's data in one exe. See [[project_release_tooling_plan]].
+
 ## Status
 
 Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.

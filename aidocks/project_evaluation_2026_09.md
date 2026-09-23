@@ -98,7 +98,7 @@ Every source file was read again. Nothing was run. The results:
 
 ## Rescan, 2026-09-23 (foreground, after the turn keys were removed)
 
-Every source file, the docs and the notes were read again; nothing was run. Four small findings went to the top of `todo list.txt`'s `##Unfinished.`:
+Every source file, the docs and the notes were read again; nothing was run. Four small findings went to the top of `todo list.txt`'s `##Unfinished.`; the same day the last two moved to [[project_dev_tasks]], when the todo list became players only:
 - [V] The no-coin sentence (`MainController.StartGameAction_`) still points to "the ranking page". It is the original's own string (VM 0xb5ad6), but the ranking row is gone, and in screen reader mode it is spoken.
 - [V] `keymap.FIXED` labels Escape "Quit" on the F1 screen's window text, though Escape pauses a stage and goes back in the shop.
 - [V] `SixthSense._stage_lines`' debug line leaves out `debug_hits` (F7).
