@@ -126,11 +126,15 @@ observed the notification. Coming back resumes nothing; the panel waits for Cont
 `InterruptOff`'s rebuild of the audio device (`audioRestart`, 0x2c5bc) is not ported
 yet. **Reproduced.**
 
-### The shake count carries over between grabs
-The only two methods that reset `shakeCount`, `checkShakeMode` (0x323d8) and
-`shakeCheck:` (0x324f8), have no selector reference, so nothing calls them. After the
-first escape in a stage the count stays at ten or more, and every later grab breaks on a
-single shake. **Reproduced.**
+### Shaking free takes 1 to 5 presses, drawn for each grab
+The original takes ten shakes of the phone, and the only two methods that reset
+`shakeCount`, `checkShakeMode` (0x323d8) and `shakeCheck:` (0x324f8), have no selector
+reference, so nothing calls them. After the first escape in a stage the count stayed at
+ten or more, and every later grab broke on a single shake. This was reproduced until
+2026-09-23, when the dev decided that each grab should need a random 1 to 5 separate
+presses of the shake key (`SHAKES_MAX` in `stage_1_e.py`), with the count reset at every
+grab (`Stage_1_E._grabbed_by`). Holding the key down counts as one press
+(`Input.handle`).
 
 ### Kind 11 hits you with kind 12's sound
 `MonsterInit:` gives kind 11 the hit-player sounds 307..309, which are

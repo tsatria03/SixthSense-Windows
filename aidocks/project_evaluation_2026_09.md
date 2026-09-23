@@ -213,7 +213,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **Held keys go stale across screens. FIXED 2026-09-22.** `Input.__init__` calls `keymap.clear_held()`, and `Input.handle` resets on `WINDOWFOCUSLOST` (or `ACTIVEEVENT`, whichever the installed pygame has), since a key-up after Alt+Tab goes to whatever took the focus.
 - [R] **The reload key skips the attack guards** (`input.py` about 71-72). With the grenade equipped it plays blast 57 with no effect; the original skips the grenade (0x351c8).
 - [R] **The three-finger tap is pause, not previous weapon** (0x2ec84 and 0x7edf4). "Previous weapon" is invented, and tutorial beat Nine keys off the wrong action.
-- [R] **Shaking free takes 10 Space presses in 2.5 s.** The original needed one shake of about a third of a second (10 samples at 30 Hz, 0x2db20). Consider counting key-repeat while Space is held.
+- [R] **Shaking free takes 10 Space presses in 2.5 s.** The original needed one shake of about a third of a second (10 samples at 30 Hz, 0x2db20). Consider counting key-repeat while Space is held. **Decided and confirmed by the dev 2026-09-23:** tunmi13productions chose the opposite of key-repeat. Each grab now needs a random 1 to 5 separate presses (`SHAKES_MAX`, `_grabbed_by` resets `shakeCount`), and holding Space counts once (`Input.handle`). This also ends the reproduced carry-over of the shake count.
 
 **Run loop (`platform/runloop.py`)**
 - [R] **Callbacks can run twice.** A `TypeError` raised inside a callback triggers the "no-argument" retry, so the callback runs again (about 58-61, 141-147). Decide the argument count once with `inspect.signature`.

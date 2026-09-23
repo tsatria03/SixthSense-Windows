@@ -88,7 +88,7 @@ KEY_HINTS = {
     'Five': ('lane5', "Press {} to shoot toward 3 o'clock."),
     'Six': ('reload', 'Press {} to reload.'),
     'Seven': ('next_weapon', 'Press {} to change to the next weapon.'),
-    'Eight': ('shake', 'Press {} again and again to shake the zombie off.'),
+    'Eight': ('shake', 'Press {} a few times to shake the zombie off.'),
     'Nine': ('prev_weapon', 'Press {} to change to the previous weapon.'),
 }
 

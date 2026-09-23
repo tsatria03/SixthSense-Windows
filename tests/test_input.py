@@ -346,6 +346,27 @@ def test_a_new_chord_can_be_bound():
         st.teardown()
 
 
+def test_holding_the_shake_key_is_one_shake():
+    """A held key's repeats are not further shakes; each needs its own press."""
+    st, inp = _stage()
+    try:
+        st.isShake = True
+        st.shakeFlag = 1
+        st.shakeCount = 0
+        st.shakesNeeded = 5
+        _down(inp, 'space')
+        _settle(inp)
+        _down(inp, 'space')                    # the OS repeating a held key
+        _down(inp, 'space')
+        _settle(inp)
+        assert st.shakeCount == 1, 'holding Space shook %d times' % st.shakeCount
+        _up(inp, 'space')
+        _fire(inp, 'space')
+        assert st.shakeCount == 2, 'a fresh press did not shake'
+    finally:
+        st.teardown()
+
+
 def test_bindings_survive_a_round_trip():
     path = os.path.join(tempfile.mkdtemp(), 'keys.json')
     a = KeyMap(path=path)

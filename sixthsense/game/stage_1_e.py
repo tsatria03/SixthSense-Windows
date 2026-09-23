@@ -67,6 +67,11 @@ from .weapon_control import WeaponControl, WEAPON_FILES, WEAPON_SLOTS
 log = logging.getLogger('stage')
 
 
+#: PORT DIVERGENCE: the most presses of the shake key a grab can need; each grab
+#: draws 1 to this many.  The original took ten shakes of the phone.
+SHAKES_MAX = 5
+
+
 def arc4random():
     return random.getrandbits(32)
 
@@ -221,6 +226,7 @@ class Stage_1_E:
         self.screatchX = 0.0
         self.screatchY = 0.0
         self.shakeCount = 0
+        self.shakesNeeded = SHAKES_MAX
         self.shakeFlag = 0
         self.shakeMonsterNumber = 0
         self.shakeMonsterTimer = None
@@ -745,13 +751,16 @@ class Stage_1_E:
             [self performSelector:@selector(NonShaking) withObject:nil
                        afterDelay:m.shakeMonsterApproachTime];
 
-        From here you have ``shakeMonsterApproachTime`` seconds to shake free, which
-        takes ten shakes.  Free in time and the monster dies; too slow and it hits you.
+        From here you have ``shakeMonsterApproachTime`` seconds to shake free.  Free in
+        time and the monster dies; too slow and it hits you.
 
-        ``shakeCount`` is not reset: the only two methods that clear it,
-        ``checkShakeMode`` (0x323d8) and ``shakeCheck:`` (0x324f8), are never called,
-        so after the first escape in a stage every later grab breaks on one shake.
+        **DIVERGENCE:** the original takes ten shakes and never resets ``shakeCount``
+        (``checkShakeMode``, 0x323d8, and ``shakeCheck:``, 0x324f8, are never called),
+        so after the first escape every later grab broke on one shake.  The port asks
+        for 1 to 5 presses of the shake key, drawn fresh for each grab.
         """
+        self.shakeCount = 0
+        self.shakesNeeded = random.randint(1, SHAKES_MAX)
         self.shakeMonsterNumber = index
         self.heldMonster = m
         self.shakeFlag = 1
@@ -1292,14 +1301,15 @@ class Stage_1_E:
             if (++shakeCount >= 10)      shakeFlag = 0;
 
         Clearing ``shakeFlag`` is all it does; ``shakingFind``, polling every 0.1 s,
-        is what notices and performs the escape.
+        is what notices and performs the escape.  The port counts to ``shakesNeeded``,
+        1 to 5, in place of ten (see ``_grabbed_by``).
         """
         if not self.isShake:
             return
         if self.shakeFlag == 0:
             return
         self.shakeCount += 1
-        if self.shakeCount >= 10:                   # 0x3c8b0
+        if self.shakeCount >= self.shakesNeeded:    # 0x3c8b0 counts to 10
             self.shakeFlag = 0
 
     # -[Stage_1_E shakingFind] 0x3b95c - the 0.1 s poll; the escape.

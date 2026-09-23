@@ -91,7 +91,7 @@ the same but there is nothing to draw.
 * A headless run walks one cell per second, spawns one monster per lane, closes at
   `comingRange` cm per footstep, opens and closes headshot windows, and resolves shots
   by lane and range.
-* `zombie_8` grabs at 25 cm; ten shakes free you and kill it, and letting the timer run
+* `zombie_8` grabs at 25 cm; 1 to 5 presses of the shake key, drawn for each grab, free you and kill it (ten shakes in the original), and letting the timer run
   out costs a heart instead.
 * Buying a weapon spends `GOLD`, sets its owned and equipped keys, and refuses a second
   purchase; a grenade costs 1000 and adds one to `GRENADECOUNT`.

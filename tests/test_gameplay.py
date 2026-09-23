@@ -231,9 +231,10 @@ def test_a_grabber_takes_hold_and_can_be_shaken_off():
     assert st.shakeFlag == 1
     assert st.shakeMonsterTimer is not None
     kills = st.gamePlayer.killMonsterCount
-    for _ in range(10):                     # ten shakes
+    assert 1 <= st.shakesNeeded <= 5, st.shakesNeeded
+    for _ in range(st.shakesNeeded):
         st.shake_step()
-    assert st.shakeFlag == 0, 'ten shakes did not clear shakeFlag'
+    assert st.shakeFlag == 0, 'the needed shakes did not clear shakeFlag'
     _run(loop, 1.0, until=lambda: not st.isShake)
     assert not st.isShake, 'shakingFind never freed the player'
     assert m not in st.MonsterBuffer, 'the grabber survived'
@@ -788,23 +789,29 @@ def test_two_zombies_at_once_and_the_grabber_is_the_one_held():
     st.teardown()
 
 
-def test_the_shake_count_carries_over():
-    """Nothing that clears shakeCount is ever called (0x323d8, 0x324f8), so after
-    one escape the next grab breaks on the first shake."""
+def test_each_grab_needs_one_to_five_shakes():
+    """PORT DIVERGENCE: each grab draws 1 to 5 shakes afresh; the original took ten
+    and never reset the count, so after one escape every grab broke on one shake."""
     _app, st = _new_stage()
     loop = RunLoop.main()
-    for _ in range(2):
+    seen = set()
+    for _ in range(12):
         st.MonsterInit_(72)
         st.MonsterBuffer[-1].monsterRange = 10.0
         st.MonsterAttPlayer()
         assert st.isShake
+        assert st.shakeCount == 0, 'the count carried over from the last grab'
+        need = st.shakesNeeded
+        assert 1 <= need <= 5, need
+        seen.add(need)
+        for _ in range(need - 1):
+            st.shake_step()
+        assert st.shakeFlag == 1, 'freed before %d shakes' % need
         st.shake_step()
-        if st.shakeCount < 10:
-            for _ in range(9):
-                st.shake_step()
+        assert st.shakeFlag == 0
         _run(loop, 1.0, until=lambda: not st.isShake)
         assert not st.isShake
-    assert st.shakeCount == 11, st.shakeCount
+    assert len(seen) > 1, 'the number of shakes never changed'
     st.teardown()
 
 

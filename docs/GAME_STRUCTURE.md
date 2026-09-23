@@ -439,7 +439,8 @@ free.
 * `shakeMonsterFlag` set → it grabs you: `isShake = YES` and you must shake free.
   `-[Stage_1_E accelerometer:didAccelerate:]` (0x3c84c) counts accelerations over
   1.0 g and frees you at **10**. Nothing ever resets that count, so after the first
-  escape in a stage every later grab breaks on one shake.
+  escape in a stage every later grab breaks on one shake. The port asks for 1 to 5
+  presses of the shake key instead, drawn for each grab (see DIVERGENCES.md).
 * `monsterNumber == 21` (the girl) → **HP++** if HP <= 3, and her `hitPlayer` plays 270,
   her thank you. She is a rescue, not a threat; shooting her costs a heart.
 * otherwise → HP-- (only once `isTutorial` is set, 0x3b2e6), `player_damage` (83) 0.1 s

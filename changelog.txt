@@ -1,4 +1,5 @@
 unrelease:
+Shaking off an animal zombie now takes between 1 and 5 separate presses of Space, a new number each time it grabs you. Holding Space down counts as one press, and a grab no longer breaks on a single press just because you escaped one earlier.
 With voice over turned off, the tutorial names the keys to press, from your own key bindings, once each recorded instruction finishes. For example: "Press A or Left Arrow to shoot toward 9 o'clock."
 
 26.09.23-1:

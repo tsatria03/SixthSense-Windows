@@ -162,7 +162,10 @@ class Input:
             if name == 'f1':
                 self.open_bindings = True
                 return
+            held_already = name in self.keymap.held
             action, pending = self.keymap.press(name)
+            if action == 'shake' and held_already:
+                return                  # a held key's repeat is not another shake
             if action is not None:
                 self._pending_at = None
                 self.perform(action)

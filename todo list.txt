@@ -14,7 +14,6 @@ Shift+tab switches to the previous weapon. In the original that gesture pauses t
 A decision is being made about the buy coins and purchase all weapons rows in the shop: remove them, or let them be bought with gold instead, since Apple's in-app purchases no longer exist.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The weekly top score never resets.
-Make shaking free easier, so holding space counts instead of needing 10 separate presses in two and a half seconds. The original needed one quick shake.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 When the game cannot start, it fails silently instead of saying why out loud.
@@ -24,6 +23,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+Shaking off the animal zombie takes between one and five separate presses of space, a new number for each grab, and holding space counts as one press.
 With voice over turned off, the tutorial says which keys to press after each recorded instruction, using your own key bindings.
 The turn keys, comma and full stop, are gone, since the original never turned you. A zombie can no longer sound as though it is in one lane while the attack keys aim at another.
 With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
@@ -60,7 +60,7 @@ Zombies come as often as in the original, and each section of the corridor start
 A zombie that has just appeared is in its own lane straight away.
 The knife and the sword do their normal damage on a headshot, and a hit, a kill and a miss each have their own sound.
 Shaking free always frees you from the zombie holding you, even when two reach you at once.
-The zombie sound tables, the woman zombie's kill tally, how close a zombie gets, the shake count carrying over between grabs, and the sword's sound all match the original.
+The zombie sound tables, the woman zombie's kill tally, how close a zombie gets, and the sword's sound all match the original.
 You no longer lose health during the tutorial.
 In the tutorial's shaking step the animal zombie grabs you, so space shakes it off. It can no longer be shot, and the step starts again if it gets you.
 Gunshots and knife swings are heard off to the side when you aim at a side lane, the same way a zombie in that lane is heard.
