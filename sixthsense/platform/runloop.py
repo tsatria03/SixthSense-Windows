@@ -87,6 +87,7 @@ class RunLoop:
         self._performs = []               # heap of (due, seq, _Perform)
         self._by_key = {}                 # (id(target), selector) -> list[_Perform]
         self._seq = itertools.count()
+        self._held_at = None              # when hold() stopped the clock
 
     # ---- NSTimer ---------------------------------------------------------
     def scheduledTimer(self, interval, target, selector, userInfo=None, repeats=False):
@@ -120,6 +121,8 @@ class RunLoop:
     # ---- driving ---------------------------------------------------------
     def pump(self, now=None):
         """Run everything due.  Called once per frame by the app's main loop."""
+        if self._held_at is not None:
+            return
         now = time.monotonic() if now is None else now
 
         while self._performs and self._performs[0][0] <= now:
@@ -170,7 +173,31 @@ class RunLoop:
                     alive.append(t)
             self._timers = alive
 
+    def hold(self):
+        """PORT ADDITION: stop the clock, for the F1 binding screen over a stage.
+        Nothing fires until ``resume``, which moves every due date on by the time
+        that was held, so the stage picks up where it left off."""
+        if self._held_at is None:
+            self._held_at = time.monotonic()
+
+    def resume(self):
+        if self._held_at is None:
+            return
+        gap = time.monotonic() - self._held_at
+        self._held_at = None
+        for t in self._timers:
+            t.fireDate += gap
+        for _due, _seq, p in self._performs:
+            p.due += gap
+        self._performs = [(p.due, seq, p) for _due, seq, p in self._performs]
+        heapq.heapify(self._performs)
+
+    @property
+    def held(self):
+        return self._held_at is not None
+
     def reset(self):
+        self._held_at = None
         self._timers.clear()
         self._performs.clear()
         self._by_key.clear()

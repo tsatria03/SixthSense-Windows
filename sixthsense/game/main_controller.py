@@ -17,7 +17,7 @@ The eight rows, in screen order, with the flag and sound each one owns:
      4          tutorial_flag      23  "Tutorial Button"
      5          ranking_flag      333  "ranking button"
      6          store_flag         18  "Store Button"
-     7          modechange_flag   332  "voice over off button" / 331 "...on button"
+     7          modechange_flag   331  "voice over on button" / 332 "...off button"
      8          gamecenter_flag   367  "game center button10"
 
 ``exit_flag`` and ``Exit:`` exist and ``exitButton`` is in the nib, but no row in
@@ -49,6 +49,7 @@ import time
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .app_delegate import AppDelegate, COIN_INTERVAL, COIN_MAX
+from .blind_screen import whole
 
 log = logging.getLogger('menu')
 
@@ -75,9 +76,19 @@ ROWS = (
     (4, 'tutorial_flag', SOUND_TUTORIAL, 'tutorial'),
     (5, 'ranking_flag', SOUND_RANKING, 'ranking'),
     (6, 'store_flag', SOUND_STORE, 'store'),
-    (7, 'modechange_flag', SOUND_VOICEOVER_OFF_BUTTON, 'modechange'),
+    (7, 'modechange_flag', SOUND_VOICEOVER_ON_BUTTON, 'modechange'),
     (8, 'gamecenter_flag', SOUND_GAMECENTER, 'gamecenter'),
 )
+#: PORT ADDITION: what the screen reader says for each row with voice over off.
+#: The coin row and the voice over row are made in ``row_text``.
+ROW_TEXT = {
+    'title': 'Sixth Sense: The Zombies',
+    'start': 'Game start, Button',
+    'tutorial': 'Tutorial, Button',
+    'ranking': 'Ranking, Button',
+    'store': 'Store, Button',
+    'gamecenter': 'Game Center, Button',
+}
 FIRST_ROW = ROWS[0][0]
 LAST_ROW = ROWS[-1][0]
 
@@ -111,8 +122,7 @@ class MainController:
         d = UserDefaults.standardUserDefaults()
         self.app.Coin = d.intForKey_('COIN')
         # -[MainController checkVoiceOverApple] 0xc735 reads the saved mode
-        self.app.mode = d.intForKey_('EYEMODE') if d.objectForKey_('EYEMODE') is not None \
-            else d.intForKey_('DEFAULTEYEMODE')
+        self.app.mode = self.app.saved_mode()
         self.app.BGMusicStart()
         self.selectMenu = 2
         self.blindModeSelectedMenu()
@@ -175,9 +185,25 @@ class MainController:
     def row_sound(self, n=None):
         num, _flag, sound, action = self._row(n)
         if action == 'modechange':
-            # 0xa270 / 0xa48c: which one depends on the mode it would switch to
-            return SOUND_VOICEOVER_OFF_BUTTON if self.app.mode else SOUND_VOICEOVER_ON_BUTTON
+            # 0xa2b8: the original names the mode it would switch to, 332 "voice over
+            # off button" while voice over is on.  DIVERGENCE: the row says the mode
+            # you are in, and choosing it says the one you switched to.
+            return SOUND_VOICEOVER_ON_BUTTON if self.app.mode else SOUND_VOICEOVER_OFF_BUTTON
         return sound
+
+    def row_text(self, n=None):
+        """What the screen reader says for a row, with voice over off."""
+        action = self._row(n)[3]
+        if action == 'coin':
+            text = 'Number of coins, %s.' % whole(self.app.Coin)
+            if self.app.Coin >= COIN_MAX:
+                return text + ' The coin is full.'
+            left = self.app._coin_timer_remaining()
+            return text + ' The coin is charged after %d minutes %d seconds.' % (
+                left // 60, left % 60)
+        if action == 'modechange':
+            return 'Voice over on, Button' if self.app.mode else 'Voice over off, Button'
+        return ROW_TEXT[action]
 
     # -[MainController blindModeSelectedMenu] 0x90d0 - highlight the row and say it
     def blindModeSelectedMenu(self):
@@ -186,6 +212,10 @@ class MainController:
             self._flags[f] = False
         self.StopElseSpeak()
         self._flags[flag] = True
+        if self.app.screen_reader:
+            self._say(self.row_text())
+            log.info('menu: %s', action)
+            return
         self.app.playSound_Gain_Pos_z_reprats_(
             self.row_sound(), 0.2, (0.0, 0.0), 0, False)
         if action == 'coin':
@@ -272,10 +302,14 @@ class MainController:
             # 0xb472-0xb5a0: the original puts the sentence on maskLabel1 and fades it
             # over 7 s, and plays 358 - nothing about it is spoken. The port used to
             # add its own spoken line on top of the recording; that was never here.
-            self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_NO_COIN, 0.2, (0.0, 0.0), 0, False)
+            # With voice over off, the screen reader reads the sentence instead.
             self.message = ('No coin. You can buy coin at the store or share with '
                             'friends at the ranking page.')
+            if self.app.screen_reader:
+                self._say(self.message)
+            else:
+                self.app.playSound_Gain_Pos_z_reprats_(
+                    SOUND_NO_COIN, 0.2, (0.0, 0.0), 0, False)
 
     # -[MainController TutorialAction:] 0xad5d
     def TutorialAction_(self, *_):
@@ -291,9 +325,12 @@ class MainController:
         d.setObject_forKey_(str(self.app.mode), 'EYEMODE')
         d.synchronize()
         self.StopElseSpeak()
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_VOICEOVER_ON if self.app.mode else SOUND_VOICEOVER_OFF,
-            0.2, (0.0, 0.0), 0, False)
+        if self.app.screen_reader:
+            # 22 "voice over off" is the recorded voice, so the screen reader says it
+            self._say('Voice over off.')
+        else:
+            self.app.playSound_Gain_Pos_z_reprats_(
+                SOUND_VOICEOVER_ON, 0.2, (0.0, 0.0), 0, False)
         log.info('voice over %s', 'on' if self.app.mode else 'off')
 
     # ================================================================ coins

@@ -18,8 +18,9 @@ import logging
 
 from ..platform.defaults import UserDefaults
 from .blind_screen import BlindScreen
-from .store import (SOUND_AMMO_CAPACITY, SOUND_BACK, SOUND_DAMAGE,
-                    SOUND_EFFECTIVE_RANGE, SOUND_GRENADE_COUNT, SOUND_PRICE)
+from .store import (BACK_TEXT, SOUND_AMMO_CAPACITY, SOUND_BACK, SOUND_DAMAGE,
+                    SOUND_EFFECTIVE_RANGE, SOUND_GRENADE_COUNT, SOUND_PRICE,
+                    detail_row_text)
 
 log = logging.getLogger('inventory')
 
@@ -75,6 +76,9 @@ class InventoryController(BlindScreen):
 
     #: 0x25c72, 0x25e2a ... 0x2687a - ItemNAction:'s argument to setWeaponType:.
     ROW_WEAPON = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4, 7: 5, 8: 6, 9: 7}
+    TITLE_TEXT = 'Inventory.'
+    ROW_TEXT = {1: BACK_TEXT,
+                **{row: '%s, Button' % SLOTS[w]['name'] for row, w in ROW_WEAPON.items()}}
 
     def activate(self):
         self.StopElseSpeak()
@@ -136,6 +140,17 @@ class DetailInventoryController(BlindScreen):
     def title_sound(self):
         """A slot's page names its weapon as it opens."""
         return self.type_image_sound
+
+    def title_text(self):
+        return '%s.' % SLOTS[self.weaponType]['name']
+
+    def row_text(self, row):
+        if row == 7:
+            return 'State, %s' % ('equipped' if self.used else 'not equipped')
+        if row == 8:
+            # the button says what pressing it would do, as row_sound's does
+            return 'Unequip, Button' if self.used else 'Equip, Button'
+        return detail_row_text(self, row, SLOTS[self.weaponType]['name'])
 
     def row_sound(self, row):
         if row == 2:

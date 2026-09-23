@@ -39,6 +39,22 @@ SOUND_UI_SELECT = 10
 #: constant in every other screen's selectTapPointSoundStart.
 READ_DELAY = 2.0
 
+#: PORT ADDITION: what the screen reader says in place of the recordings these screens
+#: play after a choice, with voice over off.  The rows' own words are each screen's
+#: ``ROW_TEXT``.
+MESSAGE_TEXT = {
+    259: 'Gold is lacking.',
+    260: 'Purchase has been completed.',
+    351: 'Not equipped.',
+    352: 'Equipped.',
+    359: 'This weapon has been purchased.',
+}
+
+
+def whole(number):
+    """A number as the screen reader reads it: 1,250, not one digit a second."""
+    return '{:,}'.format(number)
+
 
 class BlindScreen:
     """One screen of the blind-mode UI, driven by Up / Down / Enter."""
@@ -57,6 +73,11 @@ class BlindScreen:
     #: how long the name is given before row 1 is read behind it.  The naming recordings
     #: run about a second; moving cancels the wait, so it is only ever heard alone.
     TITLE_DELAY = 1.5
+    #: PORT ADDITION: with voice over off, row -> what the screen reader says for it,
+    #: "<name>, Button" for a button.  Overridden by ``row_text`` where it changes.
+    ROW_TEXT = {}
+    #: and the screen's own name, said before its first row
+    TITLE_TEXT = None
 
     def __init__(self, speech=None):
         self.app = AppDelegate.shared()
@@ -68,21 +89,29 @@ class BlindScreen:
         self.running = True
 
     # ---- the sound the screen makes --------------------------------------
+    @property
+    def screen_reader(self):
+        return self.app.screen_reader
+
     def play(self, sound, gain=UI_GAIN):
+        if self.screen_reader and sound in MESSAGE_TEXT:
+            self.say(MESSAGE_TEXT[sound])
+            return
         self.app.playSound_Gain_Pos_z_reprats_(sound, gain, (0.0, 0.0), 0, False)
 
     def ui_select(self):
         self.play(SOUND_UI_SELECT)
 
-    def say(self, text):
+    def say(self, text, interrupt=True):
         """For a row the port cannot carry out - the two in-app-purchase screens, the
-        publisher's server and the weapon test range.  ``docs/DIVERGENCES.md`` says
-        why this speaks."""
+        publisher's server and the weapon test range - and for everything these
+        screens say with voice over off.  ``docs/DIVERGENCES.md`` says why this
+        speaks."""
         log.info('%s', text)
         if self.speech is None:
             from ..platform.speech import Speech
             self.speech = Speech.shared()
-        self.speech.speak(text)
+        self.speech.speak(text, interrupt)
 
     # -[X StopElseSpeak]
     def StopElseSpeak(self):
@@ -113,10 +142,19 @@ class BlindScreen:
         """Overridden where a row's label depends on the screen's state."""
         return self.ROW_SOUND.get(row)
 
+    def row_text(self, row):
+        """What the screen reader says for a row.  Overridden where it depends on the
+        screen's state, or carries a number."""
+        return self.ROW_TEXT.get(row, '')
+
     # -[X selectTapPointSoundStart], one band of it
     def select(self, row):
         self.selectMenu = row
         self.StopElseSpeak()
+        if self.screen_reader:
+            # The label and its number in one line, with no reader queued behind it.
+            self.say(self.row_text(row))
+            return self.row_sound(row)
         sound = self.row_sound(row)
         if sound:
             self.play(sound)
@@ -128,6 +166,10 @@ class BlindScreen:
     def title_sound(self):
         """Which recording names this screen, or None.  Overridden per screen."""
         return self.TITLE_SOUND
+
+    def title_text(self):
+        """The screen's name for the screen reader, or None."""
+        return self.TITLE_TEXT
 
     # -[X startRead] 0x1d124 / 0x13a78 / 0x1a0ec / ...
     def startRead(self):
@@ -145,6 +187,14 @@ class BlindScreen:
         or choosing anything cancels the wait, so it never talks over the player.
         """
         first = self.ROWS[0] if self.ROWS else 0
+        if self.screen_reader:
+            self.selectMenu = first
+            self.StopElseSpeak()
+            title = self.title_text()
+            if title:
+                self.say(title)
+            self.say(self.row_text(first), interrupt=not title)
+            return self.title_sound()
         title = self.title_sound()
         if not title:
             return self.select(first)

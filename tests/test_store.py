@@ -397,6 +397,53 @@ def test_escape_backs_out_of_every_screen():
             screen.teardown()
 
 
+def test_with_voice_over_off_the_screens_speak_their_rows():
+    """PORT ADDITION: mode 0 hands each row to the screen reader, a button as
+    "<name>, Button" and a number read whole with its label."""
+    app = _app(gold=1250)
+    app.mode = 0
+    try:
+        m = MainStoreController(speech=_Recorder())
+        m.startRead()
+        assert m.speech.said == ['Store.', 'Back, Button'], m.speech.said
+        m.select(2)
+        assert m.speech.said[-1] == 'Weapon shop, Button'
+        m.teardown()
+
+        s = StoreController(speech=_Recorder())
+        s.select(2)
+        assert s.speech.said[-1] == 'Obtained gold, 1,250'
+        s.select(3)
+        assert s.speech.said[-1] == 'Shotgun, Button'
+        s.teardown()
+
+        p = DetailStoreController(1, speech=_Recorder())
+        p.startRead()
+        assert p.speech.said == ['Shotgun.', 'Back, Button'], p.speech.said
+        p.select(2)
+        assert p.speech.said[-1] == 'Shotgun, Image'
+        p.select(6)
+        assert p.speech.said[-1] == 'Price, 7,000'
+        p.select(7)
+        p.activate()                                    # 1,250 is not enough
+        assert p.speech.said[-1] == 'Gold is lacking.'
+        p.teardown()
+
+        i = DetailInventoryController(1, speech=_Recorder())
+        i.select(7)
+        assert i.speech.said[-1] in ('State, equipped', 'State, not equipped')
+        i.select(8)
+        assert i.speech.said[-1] in ('Equip, Button', 'Unequip, Button')
+        i.teardown()
+
+        v = InventoryController(speech=_Recorder())
+        v.select(2)
+        assert v.speech.said[-1] == 'Grenade, Button'
+        v.teardown()
+    finally:
+        app.mode = 1
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

@@ -20,7 +20,8 @@ NVDA keeps a client of its own because asking it "are you running?" before every
 cheap and certain, and a player with NVDA never loads Prism at all. Prism is optional: if it
 is not installed, or its library will not load, the log says so and NVDA carries on alone.
 
-The game itself stays self-voicing; this is only for the lines no recording covers.
+With voice over on, the game stays self-voicing and this is only for the lines no
+recording covers. With it off, the menus speak through here too.
 """
 from __future__ import annotations
 

@@ -1,12 +1,20 @@
 ---
 name: project_screen_reader_mode
-description: "Planned 2026-09-22 (the dev's idea): turning the voice over row off makes the screen reader speak everything the speech recordings would say, with numbers read whole; sfx stay recordings; new players start self-voiced. Design, prerequisites and suggested stages. Not built yet."
+description: "The dev's idea (2026-09-22): with the voice over row off, the screen reader speaks the game's words, numbers read whole, sfx stay recordings, new players start self-voiced. The menus and result panel built 2026-09-22 and confirmed by ear; the tutorial and in-play announcements stay recordings by the dev's decision."
 metadata:
   node_type: memory
   type: project
 ---
 
-**The dev's idea, agreed on 2026-09-22 and not built yet.** When the main menu's voice over row is turned off, the screen reader speaks everything the game's recordings would say, and reads numbers whole ("1,250", not digit by digit). It is in `todo list.txt` and in `docs/DIVERGENCES.md` under "Planned: a screen reader mode".
+**Built for the menus and the result panel on 2026-09-22, and the dev confirmed it by ear the same day (now in the todo list's finished section).** The intro, main menu, shop, inventory and the stage's pause/result/game over panel speak in mode 0. **The dev decided (2026-09-22) that the tutorial and the announcements during play stay recordings in both modes**, because their timing follows the recordings; don't propose converting them unless asked. What was built:
+- The panel: `Stage_1_E.pause_row_text`, `_panel_voice` and `PANEL_MESSAGE_TEXT` (227, 229, 354, 358); in mode 0 activating a result row rereads it instead of the off-by-one reader. Test in `test_pause.py`.
+- `AppDelegate.saved_mode()` (missing `EYEMODE` means 1) and `app.screen_reader` (mode 0). Used by the menu, the intro and `didFinishLaunching`.
+- The dev asked (2026-09-22) for rows as "<name>, Button" for buttons and "Shotgun, Image" for a weapon's picture, so the words live per screen: `ROW_TEXT`/`row_text`/`TITLE_TEXT` on each `BlindScreen` and in `main_controller.ROW_TEXT`, plus `MESSAGE_TEXT` in `blind_screen.py` for replies (259, 260, 351, 352, 359). This replaced the one-choke-point idea below for the menus.
+- The voice over row now names the current mode (331 in mode 1, "Voice over off, Button" in mode 0), a divergence from 0xa2b8. The dev heard it as flipped.
+- Wording mostly follows the recordings' file names; the dev may want it polished (the coin row says "The coin is charged after N minutes N seconds").
+- Tests added in `test_menu.py` and `test_store.py`; `DIVERGENCES.md` has "A screen reader mode, in the menus so far".
+
+**The original plan, agreed on 2026-09-22:** When the main menu's voice over row is turned off, the screen reader speaks everything the game's recordings would say, and reads numbers whole ("1,250", not digit by digit). It is in `todo list.txt` and in `docs/DIVERGENCES.md` under "Planned: a screen reader mode".
 
 **Why it fits the original:** the original has two modes, and `ModeChageAction:` (0xb830) switches between them.
 - `app.mode` 1 is the self-voiced mode, "the voice over lady".

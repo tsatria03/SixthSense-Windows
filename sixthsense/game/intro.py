@@ -56,6 +56,12 @@ class StartIntroPage(BlindScreen):
     ROW_SOUND = {1: SOUND_WELCOME,          # 0x184ae, main_label_flag
                  2: SOUND_DOUBLE_TAP}       # 0x1844e, double_tap_flag
     STOP_SOUNDS = (SOUND_WELCOME,)          # 0x18618 - StopElseSpeak stops only 14
+    ROW_TEXT = {2: 'You can skip by pressing Enter.'}
+
+    def row_text(self, row):
+        if row == 1:
+            return WELCOME_TEXT
+        return BlindScreen.row_text(self, row)
 
     def __init__(self, speech=None):
         BlindScreen.__init__(self, speech=speech)
@@ -92,12 +98,16 @@ class StartIntroPage(BlindScreen):
         """The splash comes down, the saved game is read, and the warning plays."""
         self.splash = False                                   # 0x1781c
         d = UserDefaults.standardUserDefaults()
-        self.app.mode = 1 if d.intForKey_('EYEMODE') == 1 else 0   # 0x17890
+        self.app.mode = self.app.saved_mode()                 # 0x17890
         self.app.haveGold = d.intForKey_('GOLD')              # 0x178e4
         self.app.stage = d.intForKey_('STAGE')                # 0x17918
         self.text = WELCOME_TEXT
         self.selectMenu = 1                                   # 0x17ada
         self.StopElseSpeak()
+        if self.screen_reader:
+            # the welcome text already says to use earphones, so no reminder follows
+            self.say(WELCOME_TEXT)
+            return
         self.play(SOUND_WELCOME)                              # 0x17b32
         RunLoop.main().perform(self, 'sound_earphone', None, WELCOME_SECONDS)
 

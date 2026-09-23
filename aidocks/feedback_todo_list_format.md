@@ -1,6 +1,6 @@
 ---
 name: feedback_todo_list_format
-description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line stating the bug itself (never \"Fix a bug where\"), new items at the top, LF endings, no markdown or numbers."
+description: "todo list.txt: ##unfinished. then ##finished. headings, one plain sentence per line stating the bug itself (never \"Fix a bug where\"), new items at the top, each as short as the rest (one or two short sentences), LF endings, no markdown or numbers."
 metadata:
   node_type: memory
   type: feedback
@@ -22,6 +22,7 @@ metadata:
 
 **How to apply:**
 - **A bug found and fixed in the same change goes straight into `##Finished.`**, worded as what is now true. Never add it to unfinished first. The dev asked "why are you putting it in the unfinished section when you plan to fix it?" on 2026-09-22. The confirm-first rule is for items that were already in unfinished.
+- **Keep each item as short as the others, one or two short sentences.** On 2026-09-22 the dev called a five-sentence finished item "way too long" and had it cut to two. Say what is now true; leave the how (examples, wording, reasons) to the changelog, DIVERGENCES.md or memory.
 - After editing, check the line endings with a byte check (the Edit tool can insert LF-only lines).
 - Move an item to `##finished.` only when the dev confirms it is done, not when code lands, since the dev runs and verifies; see [[feedback_dont_run_or_build]].
 - The technical detail behind each item (file:line, binary evidence, root cause) lives in [[project_evaluation_2026_09]], not in the todo file.

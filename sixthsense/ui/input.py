@@ -22,6 +22,10 @@ with A Q W E D S bound alongside for a one-handed grip. Turning is comma and ful
 because Left and Right are lanes. F1 opens the binding screen; F1 and Escape are the two
 keys that cannot be rebound.
 
+Escape pauses a stage, as P does, and on the pause panel it resumes, as Continue does.
+In the tutorial, where the stop button skips the lessons, Escape still leaves for the
+menu.
+
 The lane keys replace the swipe rather than simulating it, which loses nothing:
 ``-[Stage_1_E MovingShot:]`` quantises its angle into five bands and a reload sector
 before anything else looks at it, so a key hands the stage the band directly.
@@ -87,6 +91,18 @@ class Input:
         elif action == 'pause':
             st.StopPlayAction_()
 
+    def escape(self):
+        """PORT ADDITION: pause and resume.  On the panel after a mission or a death
+        there is nothing to resume, so it does nothing; the Main menu row leaves."""
+        st = self.stage
+        if getattr(st, 'ESCAPE_LEAVES', False):
+            self.quit = True
+        elif st.gameState == 0:
+            st.StopPlayAction_()
+        elif st.gameState == 1:
+            st.StopElseSpeak()
+            st.continueAction_()
+
     # ---- the pause and result panel ---------------------------------------
     def handle_panel(self, event, pygame):
         """``gameState`` is not 0, so the panel is up and it owns the keyboard.
@@ -103,7 +119,7 @@ class Input:
         name = pygame.key.name(event.key)
         st = self.stage
         if name == 'escape':
-            self.quit = True
+            self.escape()
         elif name == 'f1':
             self.open_bindings = True
         elif name == 'up':
@@ -136,7 +152,7 @@ class Input:
         if event.type == pygame.KEYDOWN:
             name = pygame.key.name(event.key)
             if name == 'escape':
-                self.quit = True
+                self.escape()
                 return
             if name == 'f1':
                 self.open_bindings = True

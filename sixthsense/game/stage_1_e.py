@@ -57,6 +57,7 @@ from ..platform import volume
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .app_delegate import AppDelegate
+from .blind_screen import whole
 from .make_maps import MakeMaps
 from .monster_control import MonsterControl, lane_bearing
 from .moving_accelerometer import MovingAccelerometer
@@ -226,6 +227,7 @@ class Stage_1_E:
         self.gameState = 0
         self.bStop = False          # set by the three panel openers, cleared by continue and restart
         self.selectMenu = 0
+        self.speech = None          # the screen reader, for the panel with voice over off
         self.checkTutorialTimer = None
         self.killZombiesLabel = '0'
         self.HeadShotLabel = '0'
@@ -1138,8 +1140,7 @@ class Stage_1_E:
             self.app.stage = 11                               # 0x32f58
         d.synchronize()                                       # 0x32f7a
         self.gameState = 2                                    # 0x32f9c
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_MISSION_SUCCESS, 0.5, (0.0, 0.0), 0, False)  # 0x32fac
+        self._panel_voice(SOUND_MISSION_SUCCESS, 0.5)         # 0x32fac
         self.updateTopscoreRank()                             # 0x32fbe
         self.SuccessOrFailMission()                           # 0x32fca
 
@@ -1152,8 +1153,7 @@ class Stage_1_E:
         if self.gameMode == 1:                                # 0x327b0
             self.app.stopSoundBufNumber_(88)                  # bgm_cave_amb
         self.gameState = 3                                    # 0x32802
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_GAME_OVER, 0.5, (0.0, 0.0), 0, False)       # 0x32814
+        self._panel_voice(SOUND_GAME_OVER, 0.5)               # 0x32814
         gold = self.ObtainedGold()
         self.app.haveGold += gold                             # 0x32ad2
         d = UserDefaults.standardUserDefaults()
@@ -1377,6 +1377,53 @@ class Stage_1_E:
     #: 0x3097c, ``mov.w r6, #0x40000000`` - the high half of 2.0.
     READ_DELAY = 2.0
 
+    #: PORT ADDITION: with voice over off, what the screen reader says in place of the
+    #: panel's own voice lines.
+    PANEL_MESSAGE_TEXT = {227: 'Mission success.', 229: 'Paused.',
+                          354: 'Game over.', 358: 'No coin.'}
+
+    def _say(self, text):
+        log.info('%s', text)
+        if self.speech is None:
+            from ..platform.speech import Speech
+            self.speech = Speech.shared()
+        self.speech.speak(text)
+
+    def _panel_voice(self, sound, gain=0.2):
+        """One of the panel's voice lines, or its words with voice over off."""
+        if self.app.screen_reader and sound in self.PANEL_MESSAGE_TEXT:
+            self._say(self.PANEL_MESSAGE_TEXT[sound])
+        else:
+            self.app.playSound_Gain_Pos_z_reprats_(sound, gain, (0.0, 0.0), 0, False)
+
+    def pause_row_text(self, row):
+        """PORT ADDITION: what the screen reader says for a panel row with voice over
+        off, the label and its number together."""
+        p = self.gamePlayer
+        if row == 1:
+            return {1: 'Paused', 2: 'Mission success', 3: 'Game over'}.get(self.gameState, '')
+        if row == 2:
+            return 'Number of killed zombies, %s' % whole(p.killMonsterCount)
+        if row == 3:
+            return 'Headshots, %s' % whole(p.HeadShotCount)
+        if row == 4:
+            return 'Score, %s' % whole(self.ReadScore())
+        if row == 5:
+            return 'Obtained gold, %s' % whole(self.ObtainedGold())
+        if row == 9:
+            rank = UserDefaults.standardUserDefaults().stringForKey_('NOWRANK')
+            return 'The rank, %s' % (rank if rank else 'none')
+        if row == 10:
+            top = UserDefaults.standardUserDefaults().intForKey_('TOPSCORE')
+            return 'Top score, %s' % whole(top)
+        if row == 6:
+            return 'Next stage, Button' if self.gameState == 2 else 'Continue, Button'
+        if row == 7:
+            return 'Restart, Button'
+        if row == 8:
+            return 'Main menu, Button'
+        return ''
+
     # -[Stage_1_E StopElseSpeak] 0x30018
     def StopElseSpeak(self):
         """Silence the panel: every label it can speak, the number reader, and any
@@ -1385,6 +1432,8 @@ class Stage_1_E:
                     354, 355, 356, 357):
             self.app.stopSoundBufNumber_(num)
         self.app.readStop()
+        if self.speech is not None:
+            self.speech.stop()
         loop = RunLoop.main()
         for sel in ('ReadNumberOfZombies', 'ReadNumberOfHeadshot',
                     'ReadScore', 'ReadObtainedGold'):
@@ -1418,6 +1467,9 @@ class Stage_1_E:
         """
         self.selectMenu = row
         self.StopElseSpeak()
+        if self.app.screen_reader:
+            self._say(self.pause_row_text(row))
+            return None
 
         if row == 1:                                          # 0x308b6
             if self.gameState == 3:
@@ -1473,7 +1525,10 @@ class Stage_1_E:
         """
         self.StopElseSpeak()
         row = self.selectMenu
-        if row == 1:
+        if self.app.screen_reader and row in (1, 2, 3, 4, 5, 9, 10):
+            # Rereads the row itself, rather than the original's off-by-one reader.
+            self._say(self.pause_row_text(row))
+        elif row == 1:
             self.app.playSound_Gain_Pos_z_reprats_(229, 0.2, (0.0, 0.0), 40, False)
         elif row == 2:
             self.ReadNumberOfZombies()
@@ -1494,7 +1549,7 @@ class Stage_1_E:
 
     # -[Stage_1_E spaekMenu] 0x34745
     def spaekMenu(self):
-        self.app.playSound_Gain_Pos_z_reprats_(229, 0.2, (0.0, 0.0), 0, False)
+        self._panel_voice(229)
 
     # -[Stage_1_E StopPlayAction:] 0x33df8
     def StopPlayAction_(self, *_):
@@ -1590,7 +1645,7 @@ class Stage_1_E:
             return False
         self.bStop = False                                    # 0x3310c
         if self.app.Coin <= 0:                                # 0x33128
-            self.app.playSound_Gain_Pos_z_reprats_(358, 0.2, (0.0, 0.0), 0, False)
+            self._panel_voice(358)
             self._reset_run_flags()                           # L_337b6 runs either way
             return False
         self.app.Coin -= 1                                    # 0x33146

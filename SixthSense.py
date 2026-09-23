@@ -174,16 +174,20 @@ def main(argv=None):
             else:
                 inp.handle(event, pygame)
 
-        # F1 - whatever is behind keeps ticking, as the original's timers do behind a
-        # modal view, but it sees no input while the bindings are up.
+        # F1 - the bindings see all the input.  Over a stage or the tutorial the clock
+        # stops too, so no zombie walks while you read, and it starts again where it
+        # was when they close.  Behind a menu it keeps ticking.
         if getattr(inp, 'open_bindings', False):
             inp.open_bindings = False
             if hasattr(inp, 'reset'):
                 inp.reset()
             showing_bindings = True
+            if kind in ('stage', 'tutorial'):
+                loop.hold()
             bindings.open()
         elif showing_bindings and bindings.done:
             showing_bindings = False
+            loop.resume()
             if hasattr(inp, 'reset'):
                 inp.reset()
 
@@ -228,7 +232,7 @@ def main(argv=None):
                 if kind == 'menu':
                     quitting = True
                 else:
-                    obj.teardown()          # Escape in a stage goes back to the menu
+                    obj.teardown()          # Escape in the tutorial, or closing the window
                     kind, obj = 'menu', _new_menu()
                     inp = MenuInput(obj)
                     log.info('-> menu')
@@ -350,7 +354,8 @@ def _panel_lines(stage):
     for row in stage.pause_rows():
         out.append('%s %s' % ('>' if row == stage.selectMenu else ' ',
                               PANEL_ROWS[row]))
-    out += ['', 'Up/Down move   Enter choose   F1 key bindings   Esc back to the menu']
+    out += ['', 'Up/Down move   Enter choose   F1 key bindings'
+            + ('   Esc resume' if stage.gameState == 1 else '')]
     return out
 
 
@@ -385,8 +390,9 @@ def _stage_lines(stage, inp):
               'reload %s   turn %s / %s   weapon %s'
               % (km.keys_text('reload'), km.keys_text('turn_left'),
                  km.keys_text('turn_right'), km.keys_text('next_weapon')),
-              'shake %s   pause %s   F1 key bindings   Esc back to the menu'
-              % (km.keys_text('shake'), km.keys_text('pause'))]
+              'shake %s   pause %s   F1 key bindings   Esc %s'
+              % (km.keys_text('shake'), km.keys_text('pause'),
+                 'back to the menu' if getattr(stage, 'ESCAPE_LEAVES', False) else 'pause')]
     return lines
 
 

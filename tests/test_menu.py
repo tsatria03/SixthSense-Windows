@@ -56,7 +56,7 @@ def test_the_rows_are_the_originals():
     assert [r[0] for r in ROWS] == [1, 2, 3, 4, 5, 6, 7, 8]
     assert [r[3] for r in ROWS] == ['coin', 'title', 'start', 'tutorial',
                                     'ranking', 'store', 'modechange', 'gamecenter']
-    assert [r[2] for r in ROWS] == [334, 16, 17, 23, 333, 18, 332, 367]
+    assert [r[2] for r in ROWS] == [334, 16, 17, 23, 333, 18, 331, 367]
     # every one of them is a real entry with a WAV behind it
     sl = plistlib.load(open(paths.path_for_resource('SoundList', 'plist'), 'rb'))
     for _n, _f, sound, _a in ROWS:
@@ -454,6 +454,69 @@ def test_the_store_row_opens_the_shop():
         m.activate()
         assert m.next_screen == 'store'
     finally:
+        m.teardown()
+
+
+def test_a_new_save_starts_with_voice_over_on():
+    """DIVERGENCE: a save with no EYEMODE is self-voiced, not the original's mode 0."""
+    d = UserDefaults.standardUserDefaults()
+    d.removeObjectForKey_('EYEMODE')
+    d.synchronize()
+    m = _menu()
+    try:
+        assert m.app.mode == 1
+        assert not m.app.screen_reader
+    finally:
+        m.teardown()
+
+
+def test_the_voice_over_row_says_the_mode_you_are_in():
+    """DIVERGENCE: 0xa2b8 names the mode the row would switch to; the port names the
+    one you are in, and choosing it names the one you switched to."""
+    m = _menu()
+    try:
+        m.app.mode = 1
+        assert m.row_sound(7) == 331                    # voice over on button
+        m.app.mode = 0
+        assert m.row_sound(7) == 332                    # voice over off button
+        assert m.row_text(7) == 'Voice over off, Button'
+    finally:
+        m.app.mode = 1
+        m.teardown()
+
+
+def test_turning_voice_over_off_speaks_through_the_screen_reader():
+    d = UserDefaults.standardUserDefaults()
+    m = _menu()
+    try:
+        m.app.mode = 1
+        m.selectMenu = 7
+        m.activate()
+        assert m.app.mode == 0
+        assert m.speech.said[-1] == 'Voice over off.'
+        m.move(-1)
+        assert m.speech.said[-1] == 'Store, Button'
+        m.move(-5)
+        assert m.speech.said[-1].startswith('Number of coins, 3.'), m.speech.said[-1]
+        m.move(1)
+        assert m.speech.said[-1] == 'Sixth Sense: The Zombies'
+    finally:
+        m.app.mode = 1
+        d.setObject_forKey_('1', 'EYEMODE')
+        d.synchronize()
+        m.teardown()
+
+
+def test_no_coin_is_read_by_the_screen_reader_with_voice_over_off():
+    m = _menu(coins=0)
+    try:
+        m.app.mode = 0
+        m.selectMenu = 3
+        m.activate()
+        assert m.next_screen is None
+        assert m.speech.said[-1].startswith('No coin.'), m.speech.said
+    finally:
+        m.app.mode = 1
         m.teardown()
 
 

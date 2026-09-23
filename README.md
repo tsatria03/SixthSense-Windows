@@ -102,7 +102,7 @@ chords: hold both keys together.
 | **Space** | shake free when something has hold of you (ten presses) |
 | **P** | pause — the original's stop button, which has no key of its own |
 | **F1** | key bindings — see below |
-| **Esc** | back to the menu from a stage, or quit from the menu |
+| **Esc** | pause a stage, and resume it from the pause panel; back to the menu from the tutorial; quit from the menu |
 
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the

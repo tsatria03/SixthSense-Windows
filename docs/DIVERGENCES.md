@@ -485,6 +485,17 @@ already a chord and goes through the same path.
 F1 and Escape cannot be rebound, or a player could lock themselves out of both the game
 and the screen that would let them fix it.
 
+While the binding screen is up over a stage or the tutorial, the game's clock stops
+(`RunLoop.hold`), so no zombie walks or attacks while the player reads. When it closes,
+every timer's due date moves on by the time it was held, and the stage carries on where
+it was. Over a menu the clock keeps running.
+
+Escape pauses a stage, the same as P, and on the pause panel it resumes, the same as the
+Continue row, as the developers decided on 2026-09-22, so Escape no
+longer throws away the run and its coin. On the panel after a mission or a death it does
+nothing, and the Main menu row leaves. In the tutorial it still goes back to the menu,
+because the stop button there skips the tutorial.
+
 ### The binding screen speaks, the game does not
 The game is self-voicing from 269 recorded WAVs, which `SoundList.plist` names by number
 in 371 entries, and none of them can say a key name —
@@ -500,32 +511,59 @@ lines no recording covers. Before every line, the first of these that can speak 
   screen reader at all.
 * Nothing, if none of them can.
 
-A player with NVDA never loads Prism. Everything else in the game speaks through its
-own recordings.
+A player with NVDA never loads Prism. With voice over on, everything else in the game
+speaks through its own recordings; with it off, the menus speak through the same layer
+(see below).
 
-### Planned: a screen reader mode
-Not built yet; it is in `todo list.txt`, and the decision was made on 2026-09-22.
+### A screen reader mode, for the menus and the result panel
+Built for the opening screen, the main menu, the shop, the inventory and the stage's
+pause and result panel on 2026-09-22. The tutorial and the announcements during play
+deliberately keep their recordings in both modes, because their timing follows the
+recordings: the tutorial, for one, waits out each prompt before its zombie comes.
 
 The original has two modes, and the main menu's voice over row switches between them
 (`-[MainController ModeChageAction:]`, 0xb830). With voice over on, the game speaks
-for itself through its own recordings, and that is the only mode the port has so far.
-With it off, the original shows its standard screens, which the iPhone's own screen
-reader, VoiceOver, reads instead. That second mode is also why the ranking row only
-opens its page while VoiceOver is running (`-[MainController RankingAction:]`,
-0xaef4).
+for itself through its own recordings. With it off, the original shows its standard
+screens, which the iPhone's own screen reader, VoiceOver, reads instead. That second
+mode is also why the ranking row only opens its page while VoiceOver is running
+(`-[MainController RankingAction:]`, 0xaef4).
 
-The port has no standard screens to switch to, so turning voice over off will hand the
-game's words to the Windows screen reader instead, through the same speech layer as the
+The port has no standard screens to switch to, so turning voice over off hands the
+menus' words to the Windows screen reader instead, through the same speech layer as the
 binding screen: NVDA, any other screen reader through Prism, or a Windows voice when none
-is running. Every recording under `game/sounds/used/speech/` will then be spoken as
-text, through the one place every sound goes, `-[AppDelegate
-playSound:Gain:Pos:z:reprats:]`. Numbers will be read whole, with a label and its value
-together, such as "Score, 1,250", in place of the digit recordings one second apart.
-Everything under `game/sounds/used/sfx/` - the zombies, the weapons, the breathing, the
-music and the ambience - still plays as recordings in both modes.
+is running.
+- Each row is one line: a button is "<name>, Button", such as "Back, Button", a weapon's
+  picture is "Shotgun, Image", and a number is read whole with its label, such as
+  "Price, 7,000", in place of the digit recordings one second apart.
+- Each screen says its name before its first row, such as "Store." or "Shotgun.".
+- What a choice says back, such as "Gold is lacking." or "Equipped.", is spoken too.
+  "Gold is lacking." is heard in both modes: the original only played its recording in
+  the self-voiced mode (0x1bbee) and left VoiceOver to read the label.
+- The opening screen reads its welcome text and skips the earphone reminder, which the
+  welcome text already says.
+- The panel reads "Paused", "Mission success" or "Game over", each result with its
+  number, such as "Score, 1,250", and its three buttons. The score row says the
+  score, which it never does with voice over on: the reader it queues, `ReadScore`,
+  only works the score out. Choosing a result row rereads that row, rather than the original's
+  off-by-one reader (see "The result panel's double tap is off by one"), which stays
+  as it was with voice over on. The panel's voice lines, "mission success", "game
+  over", "paused" and "no coin", are spoken too (`Stage_1_E.PANEL_MESSAGE_TEXT`).
+- The click every button makes, and the menu music, still play as recordings.
 
-New players start in the self-voiced mode, and the choice is saved under `EYEMODE`, the
-key the voice over row already writes.
+The words are each screen's `ROW_TEXT` and `row_text`, and `MESSAGE_TEXT` in
+`blind_screen.py`, rather than one table at `-[AppDelegate
+playSound:Gain:Pos:z:reprats:]`, because a row's words carry what it is as well as its
+name.
+
+**New players start with voice over on.** The choice is saved under `EYEMODE`, the key
+the voice over row already writes. The original fell back to `DEFAULTEYEMODE`, which
+nothing writes, so a new save started in mode 0 (`AppDelegate.saved_mode`).
+
+**The voice over row says the mode you are in.** The original names the mode the row
+would switch to: 332 "voice over off button" while voice over is on (0xa2b8). The port
+plays 331 "voice over on button" while it is on and says "Voice over off, Button" while
+it is off. Choosing it still says the mode it switched to, 21 "voice over on" or "Voice
+over off.", as 0xb990 and 0xbb6e do.
 
 ### Audio device
 iOS OpenAL becomes OpenAL Soft (`vendor/openal/soft_oal.dll`). The AL calls, enums and

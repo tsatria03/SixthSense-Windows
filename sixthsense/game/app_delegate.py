@@ -85,7 +85,7 @@ class AppDelegate:
         self.ttsTimer = None
         self.ttsArrayCount = 0
         self.tts_type = 0
-        self.mode = 0
+        self.mode = 1                  # voice over on, see saved_mode
         self.playback = None
         self.numberBackUp = []
         self.haveGold = 0
@@ -116,9 +116,28 @@ class AppDelegate:
         self.haveGold = d.intForKey_('GOLD')
         self.Coin = d.intForKey_('COIN')
         self.stage = d.intForKey_('STAGE')
-        self.CheckVoiceOver = bool(d.intForKey_('EYEMODE'))
+        self.mode = self.saved_mode()
+        self.CheckVoiceOver = bool(self.mode)
         self.weaponHave()
         return True
+
+    # ================================================================== mode
+    def saved_mode(self):
+        """``EYEMODE``: 1 is voice over on, the game's own recordings, and 0 is voice
+        over off, where the menus speak through the screen reader instead.
+
+        **DIVERGENCE:** a save that has never set it starts with voice over on.  The
+        original fell back to ``DEFAULTEYEMODE``, which nothing writes, so a new player
+        got mode 0, the standard screens the iPhone's VoiceOver read."""
+        d = UserDefaults.standardUserDefaults()
+        if d.objectForKey_('EYEMODE') is None:
+            return 1
+        return 1 if d.intForKey_('EYEMODE') == 1 else 0
+
+    @property
+    def screen_reader(self):
+        """Voice over is off, so the menus speak through the screen reader."""
+        return self.mode == 0
 
     # ================================================================ sounds
     @property

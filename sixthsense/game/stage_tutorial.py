@@ -86,6 +86,10 @@ LANE_BEAT = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five'}
 class Stage_Tutorial(Stage_1_E):
     """The tutorial run.  Same stage, same monsters, no walking until it is over."""
 
+    #: Escape leaves for the menu here instead of pausing: the stop button skips the
+    #: tutorial (``tutorial_skip``), so it cannot stand in for a pause.
+    ESCAPE_LEAVES = True
+
     def __init__(self):
         super().__init__()
         self.checkTutorialTimer = None

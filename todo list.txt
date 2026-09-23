@@ -1,12 +1,10 @@
 ##Unfinished.
 
-Opening the key bindings with F1 during a stage does not pause the game, so zombies keep coming and can hit you while you are reading the bindings.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving away from the coin row can leave the time until the next coin being read over the row you moved to.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
 Closing the window from the shop or the inventory leaves the old main menu running in the background, with its coin timer still counting.
 Decide whether shots keep the original's half-second delay before they land, or hit at once as the port used to. It is one setting and can be switched back at any time.
-Add a screen reader mode. When the voice over row is turned off, the screen reader speaks everything the game's recordings would say, in the menus, the shop, the result panel and the tutorial, and reads numbers whole, such as one thousand two hundred and fifty instead of digit by digit. Sound effects, music and zombie sounds still play as recordings. New players start in the self-voiced mode. In the original, turning voice over off switched to the standard screens that the iPhone's own screen reader could read, so this is the Windows version of that.
 Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
@@ -35,6 +33,10 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them.
+Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage.
+With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.
+The voice over row in the main menu says whether voice over is on or off, instead of naming the mode it would switch to, so it no longer sounds flipped.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
 The woman zombie growls as soon as she comes in, instead of reaching you on level 2 and up before her growl could be heard.
 tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.

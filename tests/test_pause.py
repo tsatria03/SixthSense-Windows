@@ -297,6 +297,48 @@ def test_finishing_the_mission_banks_the_gold():
         st.teardown()
 
 
+class _Recorder:
+    def __init__(self):
+        self.said = []
+
+    def speak(self, text, interrupt=True):
+        self.said.append(text)
+        return True
+
+    def stop(self):
+        pass
+
+
+def test_with_voice_over_off_the_panel_speaks_its_rows():
+    """PORT ADDITION: mode 0 reads each row with its number, whole."""
+    app, st = _new_stage(coins=0)
+    st.speech = _Recorder()
+    app.mode = 0
+    try:
+        st.gamePlayer.killMonsterCount = 105
+        st.gamePlayer.HeadShotCount = 3
+        st.StopPlayAction_()
+        st.pause_select(1)
+        assert st.speech.said[-1] == 'Paused'
+        st.pause_select(2)
+        assert st.speech.said[-1] == 'Number of killed zombies, 105'
+        st.pause_select(5)
+        assert st.speech.said[-1] == 'Obtained gold, 1,266'
+        st.pause_activate()
+        assert st.speech.said[-1] == 'Obtained gold, 1,266', 'the row was not reread'
+        st.pause_select(6)
+        assert st.speech.said[-1] == 'Continue, Button'
+        st.pause_select(7)
+        st.pause_activate()                                  # no coin
+        assert st.speech.said[-1] == 'No coin.'
+        st.gameState = 3
+        st.missionFailTell_()
+        assert 'Game over.' in st.speech.said
+    finally:
+        app.mode = 1
+        st.teardown()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

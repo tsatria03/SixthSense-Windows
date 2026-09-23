@@ -23,8 +23,8 @@ spawn tier, the quiet stretch and the level music are what they would have been.
 ``%APPDATA%\\SixthSense\\level_tester``, marked as past the tutorial, and takes a fresh copy
 of your key bindings each time it starts.  Gold and scores earned here stay there.
 
-Everything else is the real game: Escape goes back to the menu, and Start Game from that
-menu starts the tester's level again.
+Everything else is the real game: Escape pauses and resumes, the pause panel's Main menu
+row goes back to the menu, and Start Game from that menu starts the tester's level again.
 """
 from __future__ import annotations
 

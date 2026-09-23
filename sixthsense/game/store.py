@@ -20,7 +20,7 @@ from __future__ import annotations
 import logging
 
 from ..platform.defaults import UserDefaults
-from .blind_screen import BlindScreen
+from .blind_screen import BlindScreen, whole
 
 log = logging.getLogger('store')
 
@@ -62,6 +62,28 @@ SOUND_BUY_BUTTON = 238
 SOUND_TRY_BUTTON = 362
 SOUND_GRENADE_COUNT = 369
 
+BACK_TEXT = 'Back, Button'
+
+
+def detail_row_text(page, row, name):
+    """A weapon's page, shop or inventory, for the screen reader: rows 2 to 6 are its
+    picture and its four numbers, each read with its label."""
+    if row == 1:
+        return BACK_TEXT
+    if row == 2:
+        return '%s, Image' % name
+    if row == 3:
+        if page.weaponType == 0:
+            return 'Number of grenades, %s' % whole(page.ammocapacity)
+        return 'Ammo capacity, %s' % whole(page.ammocapacity)
+    if row == 4:
+        return 'Effective range, %s' % whole(page.effetiverange)
+    if row == 5:
+        return 'Damage, %s' % whole(page.power)
+    if row == 6:
+        return 'Price, %s' % whole(page.price)
+    return ''
+
 
 # ------------------------------------------------------------- the front menu
 class MainStoreController(BlindScreen):
@@ -81,6 +103,12 @@ class MainStoreController(BlindScreen):
                  5: 342,                         # 0x1e214 coin store button
                  6: 370}                         # 0x1df9a restore button
     STOP_SOUNDS = (13, 18, 235, 236, 237, 342, 370)     # 0x1dc88, plus the title
+    TITLE_TEXT = 'Store.'
+    ROW_TEXT = {1: BACK_TEXT,
+                2: 'Weapon shop, Button',
+                4: 'Inventory, Button',
+                5: 'Coin store, Button',
+                6: 'Restore, Button'}
 
     #: The row the gold shop would have been, kept so the tbb below reads the way the
     #: binary's does.
@@ -158,6 +186,15 @@ class StoreController(BlindScreen):
                  9: 366}             # Purchase all weapons change
     ROW_READER = {2: 'readgold'}
     STOP_SOUNDS = (13, 233, 235, 241, 242, 243, 244, 245, 246, 366, 261, 10, 348)
+    TITLE_TEXT = 'Weapon shop.'
+    ROW_TEXT = {1: BACK_TEXT,
+                3: 'Shotgun, Button',
+                4: 'M4A1, Button',
+                5: 'AK47, Button',
+                6: 'MG80, Button',
+                7: 'Japanese sword, Button',
+                8: 'Grenade, Button',
+                9: 'Purchase all weapons, Button'}
 
     #: 0x15a90, 0x15c4c, ... - Item1..Item6Action's argument to setWeaponType:.
     ROW_WEAPON = {3: 1, 4: 2, 5: 3, 6: 4, 7: 5, 8: 0}
@@ -176,9 +213,17 @@ class StoreController(BlindScreen):
             self.ItemAllAction_()
         return row
 
+    def row_text(self, row):
+        if row == 2:
+            return 'Obtained gold, %s' % whole(self.app.haveGold)
+        return BlindScreen.row_text(self, row)
+
     # -[StoreController readgold] 0x15720
     def readgold(self, *_):
-        self.app.TTSNumber_type_(self.app.haveGold, 1)
+        if self.screen_reader:
+            self.say(self.row_text(2))
+        else:
+            self.app.TTSNumber_type_(self.app.haveGold, 1)
         return self.app.haveGold
 
     # -[StoreController reloadGold] 0x13640 - the label, which there is none of here.
@@ -242,6 +287,16 @@ class DetailStoreController(BlindScreen):
         """A weapon's page names the weapon as it opens."""
         return self.type_image_sound
 
+    def title_text(self):
+        return '%s.' % SHOP[self.weaponType]['name']
+
+    def row_text(self, row):
+        if row == 7:
+            return 'Buy, Button'
+        if row == 8:
+            return 'Try, Button'
+        return detail_row_text(self, row, SHOP[self.weaponType]['name'])
+
     def row_sound(self, row):
         """Rows 2..6 name themselves with the weapon's own WAVs, 0x1afbc onward."""
         if row == 2:
@@ -293,8 +348,9 @@ class DetailStoreController(BlindScreen):
             return False
 
         if self.app.haveGold < self.price:                            # 0x1bbd4
-            if self.app.mode == 1:                                    # 0x1bbee
-                self.play(SOUND_GOLD_LACKING)
+            # 0x1bbee: only the self-voiced mode plays it.  With voice over off the
+            # original left VoiceOver to read the label, so the screen reader says it.
+            self.play(SOUND_GOLD_LACKING)
             self.message = 'Gold is lacking.'
             return False
 

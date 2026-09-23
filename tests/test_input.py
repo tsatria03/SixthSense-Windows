@@ -241,9 +241,68 @@ def test_f1_and_escape_are_not_the_stage_s():
         assert not inp.quit
         inp.open_bindings = False
         _down(inp, 'escape')
-        assert inp.quit
+        assert not inp.quit, 'Escape left the stage instead of pausing'
     finally:
         st.teardown()
+
+
+def test_escape_pauses_and_resumes():
+    """PORT ADDITION: Escape is P in a stage, and Continue on the pause panel."""
+    st, inp = _stage()
+    try:
+        _down(inp, 'escape')
+        assert st.gameState == 1, 'Escape did not pause'
+        _down(inp, 'escape')
+        assert st.gameState == 0, 'Escape did not resume'
+        assert st.MotionSamplingTimer is not None, 'the walk did not start again'
+        _down(inp, 'escape')
+        assert st.gameState == 1, 'Escape did not pause a second time'
+        st.gameState = 3                                  # a death: nothing to resume
+        _down(inp, 'escape')
+        assert st.gameState == 3 and not inp.quit
+    finally:
+        st.teardown()
+
+
+def test_escape_still_leaves_the_tutorial():
+    """The tutorial's stop button skips it, so Escape leaves instead of pausing."""
+    from sixthsense.game.stage_tutorial import Stage_Tutorial
+    assert Stage_Tutorial.ESCAPE_LEAVES
+    st, _inp = _stage()
+    try:
+        inp = Input(st, keymap=_inp.keymap)
+        st.ESCAPE_LEAVES = True
+        _down(inp, 'escape')
+        assert inp.quit and st.gameState == 0
+    finally:
+        st.teardown()
+
+
+def test_the_clock_stops_while_it_is_held():
+    """F1 over a stage holds the run loop: nothing fires, and on resume every due
+    date has moved on by the time it was held."""
+    loop = RunLoop.main()
+    loop.reset()
+
+    class _T:
+        fired = 0
+
+        def tick(self, *_):
+            self.fired += 1
+
+    t = _T()
+    loop.perform(t, 'tick', None, 0.05)
+    loop.hold()
+    time.sleep(0.1)
+    loop.pump()
+    assert t.fired == 0, 'it fired while held'
+    loop.resume()
+    loop.pump()
+    assert t.fired == 0, 'the wait was not moved on by the time held'
+    time.sleep(0.08)
+    loop.pump()
+    assert t.fired == 1
+    loop.reset()
 
 
 def test_there_is_no_mouse():

@@ -1,4 +1,9 @@
 unrelease:
+Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them, so no zombie can reach you while you read.
+Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage and losing the coin you paid. In the tutorial it still goes back to the menu.
+With voice over turned off, the panel for pausing, finishing a mission and game over speaks through your screen reader too, reading each result with its number, such as "Score, 1,250". The tutorial and the announcements during play still use the recordings, because their timing follows them.
+With voice over turned off, the opening screen, the main menu, the shop and the inventory speak through your screen reader. Buttons are read as a name and "Button", a weapon's picture as its name and "Image", and numbers are read whole with their label, such as "Price, 7,000".
+The voice over row says whether voice over is on or off, instead of naming the mode it would switch to, and new players start with voice over on.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
 The woman zombie growls as soon as she comes in, instead of reaching you on level 2 and up before her growl could be heard.
 You can pause as often as you like, as in the original, instead of only once per stage.
