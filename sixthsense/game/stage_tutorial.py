@@ -36,7 +36,7 @@ What the beats teach, and what marks each one done:
     Six    280  "if you make your finger 6"     6:00    -        reloading
     Seven  281  "if you tab the screen with two"        -        changing weapon
     Eight  282  "if an animal zombie approaches"        type 73  shaking free
-    Nine   284  "if you tab the screen using three finger twice"  -  three-finger tap
+    Nine   284  "if you tab the screen using three finger twice"  -  the stop button
 
 The clock positions *are* the five lanes, which is where the port's A/Q/W/E/D keys
 come from, and beat six is the reload swipe (see ``Stage_1_E._lane_for_angle``).
@@ -44,9 +44,20 @@ come from, and beat six is the reload swipe (see ``Stage_1_E._lane_for_angle``).
 Killing sets the flag by the dead monster's lane: ``-[Stage_Tutorial MonsterDamage]``
 at 0x8a250 tests ``MovingType`` 1..5 and sets ``tutorialOne``..``tutorialFive``.
 
-When the last beat lands, ``tutorialEndGameStart:`` (0x8374c) clears ``noAtt`` and
-``shotFlag``, sets ``isTutorial = 1``, plays ``zombies are coming`` (328) and starts the
-1.0 s walk timer - the real game, from the same standing start.
+Beat Nine is the stop button itself, the three-finger double tap, which is P here.
+``StopPlayAction:`` (0x83804) does nothing in the tutorial until beats One to Eight are
+done (0x83926..0x8393c).  Then it ends the tutorial: ``TUTORIAL = 1``, ``tutorial
+success`` (327), and 3.05 s later ``tutorialEnd:``.
+
+Where that leads depends on how the tutorial was reached:
+
+* From the Tutorial row, ``-[Stage_Tutorial tutorialEnd:]`` (0x83738) is
+  ``GameEndAction:``, back to the menu.
+* From a first Start, the original ran the tutorial inside ``Stage_1_E``, whose
+  ``tutorialEnd:`` (0x33bec) reads 3, 2, 1 (``TTSNumber:321 type:1``) and 6.0 s later
+  calls ``tutorialEndGameStart:`` (0x33d40): ``zombies are coming`` (328) and the 1.0 s
+  walk timer - the real game, from the same standing start.  The port runs both in
+  this class, and ``first_run`` picks the ending.
 
 The port drives the ten beats from a table instead of ten copies of five methods.
 Nothing about the behaviour changes; see docs/DIVERGENCES.md.
@@ -61,6 +72,13 @@ from ..platform.runloop import RunLoop
 from .stage_1_e import Stage_1_E
 
 log = logging.getLogger('tutorial')
+
+# -[Stage_Tutorial StopPlayAction:] 0x83926..0x8393c - the stop button is ignored
+# until these are done.  FiveHalf and Nine are not tested.
+STOP_NEEDS = ('One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight')
+ENDING_DELAY = 3.05                 # 0x83ab4: 0x4008666660000000
+COUNTDOWN = 321                     # 0x33c00: TTSNumber:321 type:1, "3, 2, 1"
+COUNTDOWN_SECONDS = 6.0             # 0x33c28: 0x4018000000000000
 
 # name, prompt sound, seconds before SoundStop, the monster it spawns (or None)
 BEATS = [
@@ -89,7 +107,7 @@ KEY_HINTS = {
     'Six': ('reload', 'Press {} to reload.'),
     'Seven': ('next_weapon', 'Press {} to change to the next weapon.'),
     'Eight': ('shake', 'Press {} a few times to shake the zombie off.'),
-    'Nine': ('prev_weapon', 'Press {} to change to the previous weapon.'),
+    'Nine': ('pause', 'Press {} to end the tutorial.'),
 }
 
 _SIDES = {'left': 'right', 'right': 'left'}
@@ -128,8 +146,12 @@ class Stage_Tutorial(Stage_1_E):
     #: tutorial (``tutorial_skip``), so it cannot stand in for a pause.
     ESCAPE_LEAVES = True
 
-    def __init__(self):
+    def __init__(self, first_run=False):
         super().__init__()
+        #: Reached from a first Start, which spent a coin: the ending counts down into
+        #: the real game.  From the Tutorial row it goes back to the menu.
+        self.first_run = first_run
+        self.ending = False                   # between P and the menu or the game
         self.checkTutorialTimer = None
         self.tutorialTimer = None
         self.beat_done = {n: False for n in BEAT_NAMES}
@@ -226,9 +248,6 @@ class Stage_Tutorial(Stage_1_E):
             if not self.beat_done[name]:
                 self.tutorial_beat_end(name)
                 break
-        else:
-            self.tutorialEndGameStart_(None)
-            return
         if not self.isShake:
             self.MonsterAttPlayer()
 
@@ -272,8 +291,6 @@ class Stage_Tutorial(Stage_1_E):
         self.beat_done[name] = True
         self.beat_flag[name] = False
         log.info('tutorial %s done', name)
-        if all(self.beat_done.values()):
-            self.tutorialEndGameStart_(None)
 
     # ================================================== what finishes a beat
     # -[Stage_Tutorial MonsterDamage] 0x8a250 - by the dead monster's lane.  It
@@ -305,34 +322,55 @@ class Stage_Tutorial(Stage_1_E):
         if not self.isShake:
             self._complete('Eight')
 
-    # -[Stage_Tutorial threeTapChangeWeapon:]
-    def threeTapChangeWeapon_(self, *a):
-        super().threeTapChangeWeapon_(*a)
-        self._complete('Nine')
+    # -[Stage_Tutorial StopPlayAction:] 0x83804 - P while the tutorial is running.
+    def StopPlayAction_(self, *a):
+        if self.ending:
+            # PORT DIVERGENCE: the original set isTutorial on the way out, so a second
+            # stop during the 3.05 s wait paused a stage about to be left or started.
+            return False
+        return super().StopPlayAction_(*a)
 
-    # -[Stage_Tutorial StopPlayAction:] 0x8392a - P, while the tutorial is still
-    # running.  Stage_1_E.tutorial_skip writes TUTORIAL and plays tutorial success,
-    # but never silences CheckTutorial, so the prompts kept nagging afterward.
     def tutorial_skip(self):
-        if self.checkTutorialTimer is not None and self.checkTutorialTimer.isValid():
-            self.checkTutorialTimer.invalidate()
-        self.checkTutorialTimer = None
-        if self.current_beat is not None:
-            _n, sound, _delay, _spawn = self._beat(self.current_beat)
-            self.app.stopSoundBufNumber_(sound)
-        super().tutorial_skip()
-
-    # ================================================================== end
-    # -[Stage_Tutorial tutorialEndGameStart:] 0x8374c
-    def tutorialEndGameStart_(self, *_):
-        if self.finished:
+        """0x838b0..0x83aba: nothing until beats One to Eight are done.  Then stop the
+        prompt, write ``TUTORIAL``, stop both timers, play ``tutorial success`` and
+        call ``tutorialEnd:`` 3.05 s later.  Doing this is beat Nine."""
+        if self.finished or not all(self.beat_done[n] for n in STOP_NEEDS):
             return
         self.finished = True
+        self.ending = True
+        self.beat_done['Nine'] = True
         if self.checkTutorialTimer is not None and self.checkTutorialTimer.isValid():
             self.checkTutorialTimer.invalidate()
         self.checkTutorialTimer = None
         RunLoop.main().cancelPerform(self, 'tutorial_sound_stop')
+        if self.current_beat is not None:
+            _n, sound, _delay, _spawn = self._beat(self.current_beat)
+            self.app.stopSoundBufNumber_(sound)
+        if self.speech is not None:
+            self.speech.stop()
+        d = UserDefaults.standardUserDefaults()
+        d.setObject_forKey_('1', 'TUTORIAL')                   # 0x839d4
+        d.synchronize()
+        self.app.playSound_Gain_Pos_z_reprats_(
+            SOUND_TUTORIAL_SUCCESS, 0.2, (0.0, 0.0), 0, False)   # 0x83a92
+        RunLoop.main().perform(self, 'tutorialEnd_', None, ENDING_DELAY)
+        log.info('tutorial finished; TUTORIAL = 1')
 
+    # ================================================================== end
+    # -[Stage_Tutorial tutorialEnd:] 0x83738, or -[Stage_1_E tutorialEnd:] 0x33bec on
+    # a first run.
+    def tutorialEnd_(self, *_):
+        if not self.first_run:
+            self.ending = False
+            self.GameEndAction_()                              # back to the menu
+            return
+        self.app.TTSNumber_type_(COUNTDOWN, 1)                 # 0x33c0e: 3, 2, 1
+        RunLoop.main().perform(self, 'tutorialEndGameStart_', None, COUNTDOWN_SECONDS)
+
+    # -[Stage_1_E tutorialEndGameStart:] 0x33d40, the same as Stage_Tutorial's own
+    # 0x8374c, which nothing calls.
+    def tutorialEndGameStart_(self, *_):
+        self.ending = False
         self.noAtt = False                     # 0x83774
         self.shotFlag = False                  # 0x83782
         self.isTutorial = 1                    # 0x83786
@@ -340,17 +378,6 @@ class Stage_Tutorial(Stage_1_E):
             SOUND_ZOMBIES_COMING, 0.2, (0.0, 0.0), 0, False)   # 0x837ae
         self.MotionSamplingTimer = RunLoop.main().scheduledTimer(
             1.0, self, 'MainControl', None, True)              # 0x837ea
-        self.tutorialEnd_(None)
-
-    # -[Stage_Tutorial StopPlayAction:] 0x839d4 writes the key; the port writes it
-    # here, when the beats are actually finished.
-    def tutorialEnd_(self, *_):
-        d = UserDefaults.standardUserDefaults()
-        d.setObject_forKey_('1', 'TUTORIAL')
-        d.synchronize()
-        self.app.playSound_Gain_Pos_z_reprats_(
-            SOUND_TUTORIAL_SUCCESS, 1.0, (0.0, 0.0), 0, False)
-        log.info('tutorial finished; TUTORIAL = 1')
 
     def teardown(self):
         if self.checkTutorialTimer is not None and self.checkTutorialTimer.isValid():
@@ -363,4 +390,6 @@ class Stage_Tutorial(Stage_1_E):
             self.app.stopSoundBufNumber_(sound)
         if self.speech is not None:            # ...and its key hint
             self.speech.stop()
+        if self.ending:
+            self.app.readStop()                # the 3, 2, 1
         super().teardown()

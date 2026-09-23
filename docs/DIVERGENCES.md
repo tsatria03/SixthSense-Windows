@@ -200,8 +200,18 @@ sounds, writes `TUTORIAL = "1"`, sets `isTutorial`, kills both tutorial timers a
 plays 327 *tutorial success* (0x33ea4..0x34086). But only once beats One to Eight are
 all done: the branch loads `tutorialOne`..`tutorialEight`, ANDs them together
 (0x33f1e, 0x33f22) and returns doing nothing when any is still clear (`beq` at
-0x33f30). **Partly reproduced** as `Stage_1_E.tutorial_skip`: the port still lets
-the stop button skip the tutorial at any beat. That is in the todo list.
+0x33f30). `Stage_Tutorial` does the same (0x83926..0x8393c). The stop button is the
+three-finger double tap, so this is beat Nine: doing it ends the tutorial. 3.05 s later
+`tutorialEnd:` runs. From the Tutorial row, `-[Stage_Tutorial tutorialEnd:]` (0x83738) is
+`GameEndAction:`, back to the menu. On a first Start, `-[Stage_1_E tutorialEnd:]`
+(0x33bec) reads 3, 2, 1 (`TTSNumber:321 type:1`) and 6.0 s later
+`tutorialEndGameStart:` plays *zombies are coming* and starts the walk.
+**Reproduced** since 2026-09-23 in `Stage_Tutorial.tutorial_skip` and `tutorialEnd_`,
+with P as the stop button. Before that the port let P skip at any beat and then left you
+standing there, finished beat Nine on Shift+Tab, and started the game after every
+tutorial. One difference: the original sets `isTutorial` as it ends, so a second stop
+during the 3.05 s wait would run the ordinary pause; the port ignores P until the menu
+or the game comes (`Stage_Tutorial.ending`).
 
 ### The result panel's double tap is off by one
 `-[Stage_1_E tapCount]`'s jump table at 0x2ff32 is the eight bytes
@@ -397,17 +407,13 @@ in-app purchases that no longer exist, and the result panel leaves out the rank.
 `P` pauses. The original's stop button is a button on the screen, and there is no
 screen here; `-[Stage_1_E StopPlayAction:]` needed a key of its own.
 
-### Start Game sends an unfinished save to the tutorial screen
-`-[MainController StartGameAction:]` (0xb2ed) always spends a coin and pushes
-`Stage_1_E`; the tutorial itself runs inline inside that same screen's own
-`MapInitInBundle` (0x2e08e-0x2e0dc) when `TUTORIAL` is unset, and no coin is spent
-either way because the coin is only ever charged once, by `StartGameAction:`, before
-`MapInitInBundle` knows whether it is about to walk or teach. The port keeps the
-tutorial as a separate screen (`Stage_Tutorial`, see below), so `StartGameAction_`
-checks `TUTORIAL` itself: while it is unset it goes straight to the tutorial screen
-and never touches `Coin`, matching the original in the one thing a player can
-notice - no coin lost, no silent standing still - without folding the tutorial into
-`Stage_1_E`.
+### The first Start runs the tutorial in its own screen
+`-[MainController StartGameAction:]` (0xb2ed) never reads `TUTORIAL`: it always spends
+a coin and pushes `Stage_1_E`, and that screen's `MapInitInBundle` (0x2e08e-0x2e0dc)
+runs the tutorial inline while `TUTORIAL` is unset. The port runs that tutorial in
+`Stage_Tutorial`, marked `first_run`, so it ends the way `Stage_1_E`'s does: the 3, 2, 1
+and the real game. The coin is spent as in the original (2026-09-23). Before that the
+port sent an unfinished save to the tutorial without spending one.
 
 ### Now Loading blocks, and the earphone warning moved to the intro
 Two port additions, decided 2026-09-22 after they were heard colliding in play.

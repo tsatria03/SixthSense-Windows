@@ -22,7 +22,7 @@ _REAL_BEATS = list(T.BEATS)
 _REAL_LOADING_SECONDS = S1E.LOADING_SECONDS
 
 
-def _tutorial(prompt=0.4):
+def _tutorial(prompt=0.4, first_run=False):
     """A tutorial with short prompts, and TUTORIAL cleared as on a fresh install."""
     T.BEATS[:] = [(n, s, prompt, sp) for (n, s, _d, sp) in _REAL_BEATS]
     S1E.LOADING_SECONDS = 0.0
@@ -33,7 +33,7 @@ def _tutorial(prompt=0.4):
     if app.playback is None:
         app.didFinishLaunching()
     RunLoop.main().reset()
-    st = Stage_Tutorial()
+    st = Stage_Tutorial(first_run=first_run)
     st.viewDidLoad()
     RunLoop.main().pump()                      # fire the (zeroed) loading delay
     st.gamePlayer.useWepon = 6                 # MG80, 1600 cm - reaches a fresh spawn
@@ -113,8 +113,11 @@ def test_replaying_the_tutorial_does_not_read_it_as_finished():
         assert st.MotionSamplingTimer is None, 'the walk timer started during a replay'
         assert st.checkTutorialTimer is not None
 
+        for n in T.STOP_NEEDS:
+            st.beat_done[n] = True
         st.StopPlayAction_()
-        assert st.checkTutorialTimer is None, 'P ran the ordinary pause, not tutorial_skip'
+        assert st.gameState == 0, 'P ran the ordinary pause, not tutorial_skip'
+        assert st.checkTutorialTimer is None, 'P did not end the tutorial'
     finally:
         st.teardown()
         _restore()
@@ -206,10 +209,12 @@ def test_voice_over_off_adds_the_keys_after_the_prompt():
         assert st.key_hint('Two') == 'Press Q or Left Arrow plus Up Arrow to shoot toward 10:30.'
         assert st.key_hint('Six') == 'Press S, R, or Down Arrow to reload.'
         assert st.key_hint('FiveHalf') is None
-        km.bindings['prev_weapon'] = [('left shift', 'tab'), ('right shift', 'tab')]
-        assert st.key_hint('Nine') == 'Press Shift plus Tab to change to the previous weapon.'
-        km.bindings['prev_weapon'] = [('left shift', 'tab')]
-        assert st.key_hint('Nine') == 'Press Left Shift plus Tab to change to the previous weapon.'
+        km.bindings['pause'] = [('p',)]
+        assert st.key_hint('Nine') == 'Press P to end the tutorial.'
+        km.bindings['shake'] = [('left shift', 'space'), ('right shift', 'space')]
+        assert st.key_hint('Eight') == 'Press Shift plus Space a few times to shake the zombie off.'
+        km.bindings['shake'] = [('left shift', 'space')]
+        assert st.key_hint('Eight') == 'Press Left Shift plus Space a few times to shake the zombie off.'
         km.bindings['lane1'] = []
         assert st.key_hint('One') is None, 'an unbound action should say nothing'
         km.bindings['lane1'] = [('a',), ('left',)]
@@ -273,25 +278,52 @@ def test_reload_finishes_beat_six():
         _restore()
 
 
-def test_p_silences_the_prompts_when_it_skips():
-    """-[Stage_Tutorial StopPlayAction:] 0x8392a wrote TUTORIAL and played tutorial
-    success without ever stopping CheckTutorial, so the prompts kept nagging after
-    P supposedly skipped the tutorial."""
+def test_p_does_nothing_before_beat_eight_is_done():
+    """0x83926..0x8393c: the stop button is ignored until beats One to Eight are
+    done; it used to end the tutorial at any time and leave you stuck."""
+    st = _tutorial(prompt=0.4)
+    try:
+        for n in BEAT_NAMES[:7]:               # One to Seven, Eight still to go
+            st.beat_done[n] = True
+        st.StopPlayAction_()
+        assert not st.finished and not st.ending
+        assert st.checkTutorialTimer is not None, 'CheckTutorial was stopped'
+        assert st.gameState == 0, 'P paused the tutorial'
+        assert UserDefaults.standardUserDefaults().intForKey_('TUTORIAL') == 0
+    finally:
+        st.teardown()
+        _restore()
+
+
+def test_p_ends_the_tutorial_row_back_at_the_menu():
+    """Beat Nine: P plays tutorial success, and 3.05 s later -[Stage_Tutorial
+    tutorialEnd:] (0x83738) is GameEndAction:."""
     st = _tutorial(prompt=0.4)
     loop = RunLoop.main()
+    played = []
+    real_play = st.app.playSound_Gain_Pos_z_reprats_
+    st.app.playSound_Gain_Pos_z_reprats_ = \
+        lambda num, *a, **k: (played.append(num), real_play(num, *a, **k))[-1]
     try:
-        assert st.checkTutorialTimer is not None
         calls = []
         real_beat = st.tutorial_beat
         st.tutorial_beat = lambda name: (calls.append(name), real_beat(name))[-1]
-
+        for n in T.STOP_NEEDS:
+            st.beat_done[n] = True
         st.StopPlayAction_()
+        assert st.beat_done['Nine'] and st.finished
         assert st.checkTutorialTimer is None, 'CheckTutorial is still running'
         assert UserDefaults.standardUserDefaults().intForKey_('TUTORIAL') == 1
-
-        _pump(loop, 2.0)
-        assert not calls, 'a prompt restarted after P skipped the tutorial'
+        assert T.SOUND_TUTORIAL_SUCCESS in played
+        st.StopPlayAction_()                   # a second P while it ends
+        assert st.gameState == 0, 'P paused the ending'
+        assert st.running
+        assert _pump(loop, 4.0, until=lambda: not st.running), 'never went back to the menu'
+        assert not calls, 'a prompt restarted after the tutorial ended'
+        assert T.SOUND_ZOMBIES_COMING not in played
+        assert st.MotionSamplingTimer is None, 'the tutorial row started the game'
     finally:
+        st.app.playSound_Gain_Pos_z_reprats_ = real_play
         st.teardown()
         _restore()
 
@@ -326,7 +358,7 @@ def test_weapon_change_finishes_beat_seven():
         st.gunChangeAction_(1)
         assert st.beat_done['Seven']
         st.threeTapChangeWeapon_()
-        assert st.beat_done['Nine']
+        assert not st.beat_done['Nine'], 'the previous weapon finished beat Nine'
     finally:
         st.teardown()
         _restore()
@@ -393,21 +425,34 @@ def test_a_zombie_that_reaches_you_restarts_its_beat():
         _restore()
 
 
-def test_the_handoff_starts_the_real_game():
-    """-[Stage_Tutorial tutorialEndGameStart:] 0x8374c"""
-    st = _tutorial(prompt=0.4)
+def test_the_first_run_counts_down_into_the_real_game():
+    """-[Stage_1_E tutorialEnd:] 0x33bec reads 3, 2, 1, then tutorialEndGameStart:
+    (0x33d40) 6.0 s later plays zombies are coming and starts the walk."""
+    st = _tutorial(prompt=0.4, first_run=True)
+    loop = RunLoop.main()
+    read = []
+    real_tts = st.app.TTSNumber_type_
+    st.app.TTSNumber_type_ = lambda n, t: (read.append((n, t)), real_tts(n, t))[-1]
+    T.ENDING_DELAY, T.COUNTDOWN_SECONDS = 0.2, 0.3
     try:
-        for n in BEAT_NAMES[:-1]:
+        for n in T.STOP_NEEDS:
             st.beat_done[n] = True
-        st.threeTapChangeWeapon_()             # the last beat
-        assert st.finished
+        st.StopPlayAction_()
+        assert st.MotionSamplingTimer is None, 'the game started before the countdown'
+        assert _pump(loop, 2.0, until=lambda: st.MotionSamplingTimer is not None), \
+            'the walk never started'
+        assert read == [(321, 1)], read
+        assert st.running, 'the first run went back to the menu'
         assert st.isTutorial == 1, 'isTutorial was not set'          # 0x83786
         assert st.noAtt is False                                     # 0x83774
         assert st.shotFlag is False                                  # 0x83782
-        assert st.MotionSamplingTimer is not None, 'the walk never started'
-        assert st.checkTutorialTimer is None, 'CheckTutorial is still running'
+        assert not st.ending
         assert UserDefaults.standardUserDefaults().intForKey_('TUTORIAL') == 1
+        st.StopPlayAction_()
+        assert st.gameState == 1, 'P no longer pauses the real game'
     finally:
+        T.ENDING_DELAY, T.COUNTDOWN_SECONDS = 3.05, 6.0
+        st.app.TTSNumber_type_ = real_tts
         st.teardown()
         _restore()
 

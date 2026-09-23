@@ -6,11 +6,8 @@ Decide whether turning voice over off should work like VoiceOver's flick left an
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
-Pressing P during the tutorial always skips it and leaves you standing there, instead of only working once the first eight steps are done and returning to the menu two seconds later.
 Tutorial steps can be finished out of order, so reloading or changing weapon early skips those lessons.
-Finishing the tutorial starts a walk, instead of going back to the menu as the original does.
 Moving between the two rows of the intro screen lets their sounds overlap.
-Shift+tab switches to the previous weapon. In the original that gesture pauses the game, and it is what the tutorial's last step teaches.
 A decision is being made about the buy coins and purchase all weapons rows in the shop: remove them, or let them be bought with gold instead, since Apple's in-app purchases no longer exist.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The weekly top score never resets.
@@ -23,6 +20,9 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+Pressing P at the end of the tutorial ends it. The first time, from Start, it counts down into the game, and from the Tutorial button it goes back to the main menu.
+The tutorial's last step is pressing P, the original's pause gesture, and Shift+Tab stays the previous weapon.
+Starting your first game spends a coin and runs the tutorial first, as in the original.
 Shaking off the animal zombie takes between one and five separate presses of space, a new number for each grab, and holding space counts as one press.
 With voice over turned off, the tutorial says which keys to press after each recorded instruction, using your own key bindings.
 The turn keys, comma and full stop, are gone, since the original never turned you. A zombie can no longer sound as though it is in one lane while the attack keys aim at another.
@@ -87,5 +87,4 @@ Leaving a stage stops the zombie footsteps, the ambience and the music.
 Switching weapons keeps each weapon's own ammo instead of refilling the magazine.
 The coin economy now matches the original: a new player gets 10 coins once, a coin comes back every 30 minutes instead of 10, up to 5, time spent away grants the coins missed while you were gone, and spending a coin no longer restarts a countdown that is already running. Coins were kept as a gate on Start Game, matching the original, rather than made free.
 The coin row can say how long until your next coin, instead of always reading zero, and it stops reading a stale coin count after you have already moved to another row.
-Starting a game before finishing the tutorial now sends you to the tutorial, instead of taking a coin and leaving you standing still in silence.
 Spoken numbers are read digit by digit in the correct order, instead of backwards, so ten now says "one, zero" instead of "zero, one".

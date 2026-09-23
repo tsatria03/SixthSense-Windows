@@ -274,15 +274,6 @@ class MainController:
     def StartGameAction_(self, *_):
         self.StopElseSpeak()
         d = UserDefaults.standardUserDefaults()
-        if d.intForKey_('TUTORIAL') == 0:
-            # The original runs the tutorial inline inside Stage_1_E's own
-            # MapInitInBundle (0x2e08e-0x2e0dc) without spending a coin. The port
-            # keeps the tutorial as its own screen, so send the player there
-            # instead, still without a coin.
-            self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
-            self.next_screen = 'tutorial'
-            return
         if self.app.Coin >= 1:                       # 0xb324
             self.app.Coin -= 1
             d.setObject_forKey_(str(self.app.Coin), 'COIN')
@@ -290,7 +281,14 @@ class MainController:
             self.coinTiemrControlStart()
             self.app.playSound_Gain_Pos_z_reprats_(
                 SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
-            self.next_screen = 'stage'
+            # 0xb3f8 always pushes Stage_1_E, whose MapInitInBundle (0x2e08e-0x2e0dc)
+            # runs the tutorial inline while TUTORIAL is 0, so the first game's coin
+            # pays for the tutorial too.  The port runs that tutorial in
+            # Stage_Tutorial, which counts down into the game when it ends.
+            if d.intForKey_('TUTORIAL') == 0:
+                self.next_screen = ('tutorial', True)
+            else:
+                self.next_screen = 'stage'
         else:
             # 0xb472-0xb5a0: the original puts the sentence on maskLabel1 and fades it
             # over 7 s, and plays 358 - nothing about it is spoken. The port used to

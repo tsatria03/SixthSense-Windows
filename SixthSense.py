@@ -33,9 +33,9 @@ def _new_stage():
     return st
 
 
-def _new_tutorial():
+def _new_tutorial(first_run=False):
     from sixthsense.game.stage_tutorial import Stage_Tutorial
-    st = Stage_Tutorial()
+    st = Stage_Tutorial(first_run=bool(first_run))
     st.viewDidLoad()
     return st
 
@@ -244,7 +244,7 @@ def main(argv=None):
                 else:
                     obj.teardown()
                     kind = name
-                    obj = _new_tutorial() if name == 'tutorial' else _new_stage()
+                    obj = _new_tutorial(arg) if name == 'tutorial' else _new_stage()
                     inp = Input(obj)
                 log.info('-> %s', name)
             elif getattr(obj, 'done', False) and stack:

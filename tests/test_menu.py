@@ -255,9 +255,10 @@ def test_the_menu_never_plays_the_earphone_warning():
         m.teardown()
 
 
-def test_starting_before_the_tutorial_spends_no_coin():
-    """0x2e08e-0x2e0dc: the original runs the tutorial before a coin is ever at
-    stake. The port sends the player to its own tutorial screen instead."""
+def test_the_first_start_spends_a_coin_on_the_tutorial():
+    """0xb2ed never reads TUTORIAL: Start spends a coin and pushes Stage_1_E, which runs
+    the tutorial inline first.  The port sends the first run to Stage_Tutorial, told
+    to count down into the game when it ends."""
     m = _menu(coins=2)
     d = UserDefaults.standardUserDefaults()
     d.setObject_forKey_('0', 'TUTORIAL')
@@ -265,9 +266,22 @@ def test_starting_before_the_tutorial_spends_no_coin():
     try:
         m.selectMenu = 3
         m.activate()
-        assert m.next_screen == 'tutorial'
-        assert m.app.Coin == 2, 'a coin was spent before the tutorial was done'
-        assert m.coinTimer is None
+        assert m.next_screen == ('tutorial', True), m.next_screen
+        assert m.app.Coin == 1, 'the first game did not spend a coin'
+        assert m.coinTimer is not None
+    finally:
+        m.teardown()
+
+
+def test_the_first_start_with_no_coin_is_refused():
+    m = _menu(coins=0)
+    d = UserDefaults.standardUserDefaults()
+    d.setObject_forKey_('0', 'TUTORIAL')
+    d.synchronize()
+    try:
+        m.selectMenu = 3
+        m.activate()
+        assert m.next_screen is None, m.next_screen
     finally:
         m.teardown()
 
