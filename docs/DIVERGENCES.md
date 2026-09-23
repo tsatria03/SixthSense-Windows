@@ -576,6 +576,11 @@ is running.
   as it was with voice over on. The panel's voice lines, "mission success", "game
   over", "paused" and "no coin", are spoken too (`Stage_1_E.PANEL_MESSAGE_TEXT`).
 - The click every button makes, and the menu music, still play as recordings.
+- The tutorial keeps its recordings, and once each one finishes the screen reader adds
+  the keys for the gesture it described, from the player's own bindings, such as
+  "Press A or Left Arrow to shoot toward 9 o'clock." Every recording ends before the
+  beat's zombie comes, so the hint never talks over it (`stage_tutorial.KEY_HINTS`,
+  added 2026-09-23).
 
 The words are each screen's `ROW_TEXT` and `row_text`, and `MESSAGE_TEXT` in
 `blind_screen.py`, rather than one table at `-[AppDelegate

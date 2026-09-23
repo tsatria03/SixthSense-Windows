@@ -56,6 +56,7 @@ from __future__ import annotations
 import logging
 
 from ..platform.defaults import UserDefaults
+from ..platform.keymap import KeyMap, binding_text
 from ..platform.runloop import RunLoop
 from .stage_1_e import Stage_1_E
 
@@ -75,6 +76,43 @@ BEATS = [
     ('Nine', 284, 9.5, None),
 ]
 BEAT_NAMES = [b[0] for b in BEATS]
+
+#: PORT ADDITION: with voice over off, what the screen reader says once a beat's
+#: recording has finished, naming the player's own keys for the gesture it teaches.
+#: FiveHalf teaches no new gesture, so it has none.
+KEY_HINTS = {
+    'One': ('lane1', "Press {} to shoot toward 9 o'clock."),
+    'Two': ('lane2', 'Press {} to shoot toward 10:30.'),
+    'Three': ('lane3', "Press {} to shoot toward 12 o'clock."),
+    'Four': ('lane4', 'Press {} to shoot toward 1:30.'),
+    'Five': ('lane5', "Press {} to shoot toward 3 o'clock."),
+    'Six': ('reload', 'Press {} to reload.'),
+    'Seven': ('next_weapon', 'Press {} to change to the next weapon.'),
+    'Eight': ('shake', 'Press {} again and again to shake the zombie off.'),
+    'Nine': ('prev_weapon', 'Press {} to change to the previous weapon.'),
+}
+
+_SIDES = {'left': 'right', 'right': 'left'}
+_SIDED = ('shift', 'ctrl', 'alt')
+
+
+def _merge_sides(bindings):
+    """Either Shift does, so a chord bound with Left Shift and again with Right Shift
+    is said once, as "Shift".  Control and Alt likewise."""
+    def split(k):
+        side, _, key = k.partition(' ')
+        return (side, key) if side in _SIDES and key in _SIDED else (None, k)
+
+    def plain(b):
+        return tuple(split(k)[1] for k in b)
+
+    def mirror(b):
+        return tuple(k if split(k)[0] is None else _SIDES[split(k)[0]] + ' ' + split(k)[1]
+                     for k in b)
+
+    return [plain(b) if mirror(b) != b and mirror(b) in bindings else b
+            for b in bindings]
+
 
 SOUND_TUTORIAL_SUCCESS = 327        # 'tutorial success'
 SOUND_ZOMBIES_COMING = 328          # 'zombies are coming'
@@ -154,8 +192,27 @@ class Stage_Tutorial(Stage_1_E):
             self.noAtt = True
         self.app.stopSoundBufNumber_(sound)
         self.beat_flag[name] = True            # 0x8cb4a: the prompt has finished
+        hint = self.key_hint(name)
+        if hint is not None:
+            self._say(hint)
         if spawn is not None:
             self.MonsterInit_(spawn)
+
+    def key_hint(self, name):
+        """PORT ADDITION: the keys for this beat's gesture, with voice over off.  Every
+        recording ends before its SoundStop, so the hint never talks over it."""
+        if not self.app.screen_reader or name not in KEY_HINTS:
+            return None
+        action, text = KEY_HINTS[name]
+        keys = []
+        for b in _merge_sides(KeyMap.shared().bindings.get(action, [])):
+            if binding_text(b) not in keys:
+                keys.append(binding_text(b))
+        if not keys:
+            return None
+        if len(keys) > 2:
+            keys = [', '.join(keys[:-1]) + ',', keys[-1]]
+        return text.format(' or '.join(keys))
 
     # -[Stage_Tutorial CheckTutorial] 0x8c678 - once a second
     def CheckTutorial(self, timer=None):
@@ -304,4 +361,6 @@ class Stage_Tutorial(Stage_1_E):
         if self.current_beat is not None:
             _n, sound, _delay, _spawn = self._beat(self.current_beat)
             self.app.stopSoundBufNumber_(sound)
+        if self.speech is not None:            # ...and its key hint
+            self.speech.stop()
         super().teardown()

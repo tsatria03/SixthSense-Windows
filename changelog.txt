@@ -1,4 +1,5 @@
 unrelease:
+With voice over turned off, the tutorial names the keys to press, from your own key bindings, once each recorded instruction finishes. For example: "Press A or Left Arrow to shoot toward 9 o'clock."
 
 26.09.23-1:
 The turn keys, comma and full stop, are gone. The original never turned you, and after a turn a zombie could sound as though it was in one lane while the attack keys still aimed at another.

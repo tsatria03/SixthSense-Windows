@@ -24,6 +24,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+With voice over turned off, the tutorial says which keys to press after each recorded instruction, using your own key bindings.
 The turn keys, comma and full stop, are gone, since the original never turned you. A zombie can no longer sound as though it is in one lane while the attack keys aim at another.
 With voice over turned off, Home and End go to the first and the last row of the main menu, the shop, the inventory, the opening screen and the pause and result panel.
 The voice over row in the main menu says what choosing it does, as in the original, and turning voice over off plays the game's own recording.

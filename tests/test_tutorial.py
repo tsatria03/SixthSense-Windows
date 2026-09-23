@@ -184,6 +184,45 @@ def test_a_beat_prompts_then_sends_its_monster():
         _restore()
 
 
+def test_voice_over_off_adds_the_keys_after_the_prompt():
+    """PORT ADDITION: with voice over off, the key hint follows the recording, and
+    names the player's own bindings."""
+    from sixthsense.platform.keymap import KeyMap
+    st = _tutorial(prompt=0.4)
+    app = st.app
+    km = KeyMap.shared()
+    saved_mode, saved_bindings = app.mode, dict(km.bindings)
+    said = []
+    st._say = said.append
+    try:
+        app.mode = 1
+        assert st.key_hint('One') is None, 'voice over on should stay recordings only'
+        app.mode = 0
+        km.bindings = {a: list(b) for a, b in km.bindings.items()}
+        km.bindings['lane1'] = [('a',), ('left',)]
+        km.bindings['reload'] = [('s',), ('r',), ('down',)]
+        km.bindings['lane2'] = [('q',), ('left', 'up')]
+        assert st.key_hint('One') == "Press A or Left Arrow to shoot toward 9 o'clock."
+        assert st.key_hint('Two') == 'Press Q or Left Arrow plus Up Arrow to shoot toward 10:30.'
+        assert st.key_hint('Six') == 'Press S, R, or Down Arrow to reload.'
+        assert st.key_hint('FiveHalf') is None
+        km.bindings['prev_weapon'] = [('left shift', 'tab'), ('right shift', 'tab')]
+        assert st.key_hint('Nine') == 'Press Shift plus Tab to change to the previous weapon.'
+        km.bindings['prev_weapon'] = [('left shift', 'tab')]
+        assert st.key_hint('Nine') == 'Press Left Shift plus Tab to change to the previous weapon.'
+        km.bindings['lane1'] = []
+        assert st.key_hint('One') is None, 'an unbound action should say nothing'
+        km.bindings['lane1'] = [('a',), ('left',)]
+        assert not said, 'the hint was spoken over the recording'
+        _pump(RunLoop.main(), 3.0, until=lambda: bool(said))
+        assert said == ["Press A or Left Arrow to shoot toward 9 o'clock."], said
+    finally:
+        app.mode = saved_mode
+        km.bindings = saved_bindings
+        st.teardown()
+        _restore()
+
+
 def test_killing_in_the_taught_lane_finishes_the_beat():
     st = _tutorial(prompt=0.4)
     loop = RunLoop.main()
