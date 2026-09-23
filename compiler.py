@@ -1,29 +1,31 @@
 """Build SixthSense into an executable with PyInstaller.
 
-Double-click this file, or run py compiler.py with nothing after it, and it offers a numbered menu of
-builds, then waits for Enter at the end so you can hear how it went.  Its first choice is the release
-build.  Every other choice is one of these flags, which still work typed out:
+It builds the game into dist\\SixthSense, and nothing else: it never zips and never changes the
+repository.  Setting the version, filing the changelog, zipping, tagging and uploading a release are
+releaser.py's work, and the releaser calls this to do the building.
 
-    py compiler.py --no-package   the folder alone, without the release zip
+Double-click this file, or run py compiler.py with nothing after it, and it offers a numbered menu of
+builds, then waits for Enter at the end so you can hear how it went.  Each choice is one of these flags,
+which still work typed out:
+
+    py compiler.py                the folder build: the game's data beside the executable
+    py compiler.py --embed        one executable with the sounds and the game's data inside it
     py compiler.py --clean        empty PyInstaller's cache first
     py compiler.py --console      keep a console window, to see why the game will not start
-    py compiler.py --onefile      a single executable instead (unpacks itself at every launch)
+    py compiler.py --onefile      one executable with the game's data still beside it
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-A build makes one folder, dist\\SixthSense, with the game's data copied in and the third-party licenses in
-licenses\\ beside the executable, and ends by zipping it into dist\\SixthSense-Win-<VERSION>.zip, which is
-what a release's asset is.
+Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the changelog,
+the todo list, VERSION and the license - and the third-party licenses in licenses\\.  Those are never put
+inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
 
-The release build - no flags at all - also files the changelog first: the lines under "unrelease:" go
-under this version's heading in the repository's changelog.txt, and the copy beside the executable opens
-on that version.  It ends by saying what it changed, for you to commit.  Run with no flags and no
-keyboard (from a script), it is the release build straight away, without the menu.
-
-The port and the vendored DLLs go inside the build; the game's own files do not - the plists and the
-three map layers are copied next to the executable, into game\\, and the sounds into game\\sounds\\used
-with their folders, which is where sixthsense/paths.py looks for them when frozen.  Nothing else in the
-original app bundle is copied, and neither is game\\sounds\\unused: the game never opens any of it.
+The port and the vendored DLLs always go inside the build.  In the folder build the game's own files do
+not: the plists and the three map layers are copied next to the executable, into game\\, and the sounds
+into game\\sounds\\used with their folders, which is where sixthsense/paths.py looks for them when frozen.
+With --embed the same files go inside the executable instead, and paths.py finds them in the folder it
+unpacks itself to; that costs a few seconds at every launch, since it unpacks about 126 MB.  Nothing else
+in the original app bundle is copied, and neither is game\\sounds\\unused: the game never opens any of it.
 
 There is no --test yet.  A test build would start the game and read its log; SixthSense does not write a
 log, or a crash.txt, so there is nothing for a test run to read.  Until it does, a windowed build
@@ -41,7 +43,6 @@ import shutil
 import subprocess
 import sys
 import time
-import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NAME = 'SixthSense'
@@ -66,9 +67,11 @@ VENDOR_LICENSES = (('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/
 #: untouched original bundle, whose WAVs are all in its top folder, still builds.
 GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: copied beside the executable rather than bundled inside it, so the player can open them: what it is
-#: called here, and what it is called there.  LICENSE has no extension, which is the convention on GitHub
-#: but means Windows asks what to open it with, so it ships as a .txt.
+#: called here, and what it is called there.  They are never embedded, --embed or not.  LICENSE has no
+#: extension, which is the convention on GitHub but means Windows asks what to open it with, so it ships
+#: as a .txt.  The todo list holds only what a player notices, which is why it can ship.
 SIDE_FILES = (('changelog.txt', 'changelog.txt'),
+              ('todo list.txt', 'todo list.txt'),
               ('VERSION', 'VERSION'),
               ('LICENSE', 'license.txt'))
 # A release could also carry readme.html beside the executable, built from README.md by a Markdown
@@ -89,58 +92,11 @@ def build_version() -> str:
         return ''
 
 
-#: How often packaging says how far it has got: after each quarter of the files.
-PACK_STEPS = 4
-
-
-def package(dest_root: str) -> str:
-    """Zip the built folder into the archive a release is made of.
-
-    A zip rather than a rar because Windows opens a zip by itself, with nothing installed - and an
-    updater, should SixthSense ever get one, can read a zip with Python's own zipfile.  Everything
-    sits under one folder inside the archive, so extracting it gives a player a folder rather than a heap
-    of files in their Downloads.
-
-    Packaging takes a while, and a zip can only be opened once its last few bytes are written, so it
-    says that it has started, how far it has got, and when it is done.  It is written under a .part name
-    and renamed only once it is whole: close the window halfway and no zip is left behind that looks
-    finished but will not open.
-    """
-    version = build_version()
-    name = '%s-Win-%s' % (NAME, version) if version else '%s-Win' % NAME
-    archive = os.path.join(HERE, 'dist', name + '.zip')
-    partial = archive + '.part'
-    for old in (archive, partial):
-        if os.path.isfile(old):
-            os.remove(old)
-    files = []
-    for dirpath, dirs, names in os.walk(dest_root):
-        dirs.sort()
-        files += [os.path.join(dirpath, filename) for filename in sorted(names)]
-    say()
-    say('packaging the release: zipping %d files into %s.' % (len(files), os.path.basename(archive)))
-    say('this can take a minute - leave this window open until it says the zip is done.')
-    started = time.perf_counter()
-    # a line after each quarter, so a long silence never looks like the end
-    marks = {len(files) * step // PACK_STEPS for step in range(1, PACK_STEPS)}
-    with zipfile.ZipFile(partial, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
-        for count, full in enumerate(files, 1):
-            inside = os.path.join(NAME, os.path.relpath(full, dest_root))
-            zf.write(full, inside.replace(os.sep, '/'))
-            if count in marks:
-                say('  %d of %d files packed ...' % (count, len(files)))
-    os.replace(partial, archive)
-    say('the zip is done: %d files, %.0f MB, in %.0f seconds.'
-        % (len(files), os.path.getsize(archive) / (1 << 20), time.perf_counter() - started))
-    say('upload this as the release asset, and tag the release %s.' % (version or 'with its version'))
-    return archive
-
-
 # --- the changelog -----------------------------------------------------------------------------------
-# changelog.txt collects what has changed under one heading, "unrelease:", at the top.  A plain build -
-# py compiler.py with no flags at all - files those lines under the version being built, in the
-# repository's changelog, and ships a copy that opens on that version instead.  Any flag leaves the
-# changelog exactly as it is: a build with a flag is a build for trying something, not a release.
+# changelog.txt collects what has changed under one heading, "unrelease:", at the top.  releaser.py files
+# those lines under the version being released before it calls this to build; the compiler only reads
+# the changelog, and takes an empty unrelease: heading out of the copy it ships.  The parsing lives here,
+# where both use it.
 
 #: The heading the changelog collects unreleased changes under: the whole line, colon and all.
 UNRELEASE = 'unrelease:'
@@ -149,16 +105,8 @@ UNRELEASE = 'unrelease:'
 _HEADING = re.compile(r'^[^\s:]+:$')
 
 
-def first_version() -> str:
-    """What VERSION starts at when a plain build finds there is none: today's first release, '26.09.21-1'
-    on the 21st of September 2026 - the same shape as the VERSION the repository already has."""
-    return time.strftime('%y.%m.%d') + '-1'
-
-
 def changelog_heading(version: str) -> str:
-    """'26.09.21-1' -> '26.09.21-1:'.  The heading is VERSION exactly as written, build number and all.
-    Nothing here works a version out: build again without changing VERSION and the new lines join the
-    same entry; change the number in VERSION and the next release build starts a new one."""
+    """'26.09.21-1' -> '26.09.21-1:'.  The heading is VERSION exactly as written, build number and all."""
     return version + ':'
 
 
@@ -182,34 +130,9 @@ def _render_changelog(blocks: list) -> str:
     return '\n\n'.join('\n'.join(([heading] if heading else []) + lines) for heading, lines in blocks) + '\n'
 
 
-def plan_changelog(text: str, version: str):
-    """What a plain build does to the repository's changelog: (text, changed, what it did).
-
-    The lines under unrelease: move to this version's entry - a new one just below unrelease:, or the
-    bottom of the one already there when this is a second build of the same day - and unrelease: stays
-    at the top, empty, for whatever changes next.  With nothing under it the text comes back as it was.
-    If the unrelease: line has been deleted, it is put back."""
-    blocks = _parse_changelog(text)
-    notes = []
-    at = next((i for i, (heading, _lines) in enumerate(blocks) if heading == UNRELEASE), None)
-    if at is None:
-        blocks.insert(0, [UNRELEASE, []])
-        at = 0
-        notes.append('there was no "%s" line, so one was put back at the top' % UNRELEASE)
-    moving, heading = blocks[at][1], changelog_heading(version)
-    if moving:
-        blocks[at][1] = []
-        entry = next((block for block in blocks if block[0] == heading), None)
-        if entry is not None:
-            entry[1].extend(moving)
-            notes.append('%d line(s) from "%s" went to the bottom of %s' % (len(moving), UNRELEASE, heading))
-        else:
-            blocks.insert(at + 1, [heading, moving])
-            notes.append('%d line(s) from "%s" became the new entry %s' % (len(moving), UNRELEASE, heading))
-    else:
-        notes.append('nothing is under "%s", so no entry was added' % UNRELEASE)
-    changed = bool(moving) or len(notes) > 1
-    return (_render_changelog(blocks) if changed else text), changed, notes
+def unreleased_lines(text: str) -> list:
+    """The lines under unrelease:, the changes no release has carried yet."""
+    return next((lines for heading, lines in _parse_changelog(text) if heading == UNRELEASE), [])
 
 
 def without_unrelease(text: str) -> str:
@@ -218,31 +141,9 @@ def without_unrelease(text: str) -> str:
     return _render_changelog([b for b in _parse_changelog(text) if not (b[0] == UNRELEASE and not b[1])])
 
 
-def prepare_release_files() -> list:
-    """A plain build's work on the repository, done before anything is copied: VERSION started if there
-    is none, and the changelog's unreleased lines filed under this version.  Returns the files it
-    changed, so the build can say at the end that they want committing."""
-    changed = []
-    if not build_version():
-        start_at = first_version()
-        with open(os.path.join(HERE, 'VERSION'), 'w', encoding='utf-8', newline='\n') as fh:
-            fh.write(start_at + '\n')
-        say('VERSION did not exist, so it has been started at %s.' % start_at)
-        changed.append('VERSION')
-    path = os.path.join(HERE, 'changelog.txt')
-    text = open(path, encoding='utf-8').read() if os.path.isfile(path) else ''
-    new, did, notes = plan_changelog(text, build_version())
-    for note in notes:
-        say('changelog: %s' % note)                 # no full stop: most notes end on a heading's colon
-    if did:
-        with open(path, 'w', encoding='utf-8', newline='\n') as fh:
-            fh.write(new)
-        changed.append('changelog.txt')
-    return changed
-
-
 def strip_shipped_changelog(dest_root: str) -> None:
-    """Take the empty unrelease: heading out of the copy beside the executable - the copy only."""
+    """Take the empty unrelease: heading out of the copy beside the executable - the copy only.  A build
+    made straight after the releaser has filed the changelog opens on the new version."""
     path = os.path.join(dest_root, 'changelog.txt')
     if os.path.isfile(path):
         text = open(path, encoding='utf-8').read()
@@ -260,9 +161,9 @@ def release_warnings(changelog: str) -> list:
         with open(changelog, encoding='utf-8') as fh:
             first = fh.readline().strip()
         if first == UNRELEASE:
-            found.append('the changelog in this build still opens with "%s", because only the release '
-                         'build files the changelog; choose it, number 1, from the menu to put those lines '
-                         'under the version' % UNRELEASE)
+            found.append('the changelog in this build still opens with "%s", because only releaser.py '
+                         'files the changelog; release with it to put those lines under the version'
+                         % UNRELEASE)
     except OSError:
         found.append('there is no changelog.txt, so the release notes would be empty')
     return found
@@ -298,7 +199,37 @@ def prism_native_modules() -> list[str]:
     return sorted(os.path.join(folder, name) for name in os.listdir(folder) if name.endswith('.pyd'))
 
 
-def command(args) -> list[str]:
+#: Where --embed gathers the game's top-folder files - the plists and the map layers - so PyInstaller can
+#: take them as one folder.  Adding them one by one would run past Windows' limit on a command line.
+EMBED_STAGE = os.path.join(HERE, 'build', 'embed', 'game')
+
+
+def embedded_data(src: str) -> list[tuple[str, str]]:
+    """What --embed puts inside the executable, as PyInstaller's (source, folder inside) pairs: the staged
+    top-folder files as game\\, and the sounds as game\\sounds\\used, whole.  paths.py finds both in the
+    folder the executable unpacks itself to, as it would find them beside a folder build.  An original,
+    flat bundle has no sounds\\used folder; its WAVs are in the top folder, and so in the stage."""
+    from sixthsense.paths import SOUNDS_USED
+    data = [(EMBED_STAGE, 'game')]
+    sounds = os.path.join(src, SOUNDS_USED)
+    if os.path.isdir(sounds):
+        data.append((sounds, 'game/' + SOUNDS_USED.replace(os.sep, '/')))
+    return data
+
+
+def stage_embedded(src: str) -> list[str]:
+    """Copy the top-folder files --embed carries into EMBED_STAGE, fresh, and return their names."""
+    if os.path.isdir(EMBED_STAGE):
+        shutil.rmtree(EMBED_STAGE)
+    os.makedirs(EMBED_STAGE)
+    names = game_files(src)
+    for name in names:
+        shutil.copy2(os.path.join(src, name), os.path.join(EMBED_STAGE, name))
+    return names
+
+
+def command(args, data=()) -> list[str]:
+    """The PyInstaller command line.  ``data`` is what --embed adds inside the executable."""
     cmd = [sys.executable, '-m', 'PyInstaller', '--noconfirm', '--noupx', '--name', NAME]
     for src, dest in BINARIES:
         cmd += ['--add-binary', src + os.pathsep + dest]
@@ -313,16 +244,28 @@ def command(args) -> list[str]:
         # no console window beside the game's own.  SixthSense does not write crash.txt yet, so a windowed
         # build that fails to start says nothing: --console is how to hear why
         cmd += ['--windowed']
-    if args.onefile:
-        cmd += ['--onefile']
+    if args.onefile or args.embed:
+        # one file lands in dist\SixthSense too, so every build is one folder to zip and nothing else in
+        # dist\ - an older zip, say - is swept into it
+        cmd += ['--onefile', '--distpath', output_dir(args)]
+    for src, inside in data:
+        cmd += ['--add-data', src + os.pathsep + inside]
     if args.clean:
         cmd += ['--clean']
     return cmd + [ENTRY]
 
 
-def output_dir(args) -> str:
-    """Where the executable lands, and so where the game's data goes beside it."""
-    return os.path.join(HERE, 'dist') if args.onefile else os.path.join(HERE, 'dist', NAME)
+def output_dir(args=None) -> str:
+    """Where the executable lands, and so where everything beside it goes: dist\\SixthSense, whichever
+    kind of build."""
+    return os.path.join(HERE, 'dist', NAME)
+
+
+def clear_output(dest_root: str) -> None:
+    """Empty dist\\SixthSense before a build.  A folder build's PyInstaller does this itself, but a
+    one-file build only writes its executable, and would leave an older build's files around it."""
+    if os.path.isdir(dest_root):
+        shutil.rmtree(dest_root)
 
 
 def game_files(src: str) -> list[str]:
@@ -433,21 +376,19 @@ def copy_licenses(dest_root: str) -> None:
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog='compiler.py', description='build SixthSense with PyInstaller')
+    parser.add_argument('--embed', action='store_true',
+                        help="one executable with the sounds and the game's data inside it; the text a "
+                             'player reads stays beside it')
     parser.add_argument('--onefile', action='store_true',
-                        help='one executable instead of one folder (unpacks itself at every launch)')
+                        help="one executable, with the game's data still beside it")
     parser.add_argument('--no-game', action='store_true',
-                        help="do not copy the game's data next to the executable")
+                        help="leave the game's data out")
     parser.add_argument('--console', action='store_true',
                         help='keep a console window, where a failed start-up prints its traceback')
     parser.add_argument('--clean', action='store_true', help="throw away PyInstaller's cache first")
-    parser.add_argument('--no-package', action='store_true',
-                        help='do not zip the folder afterwards; a build makes the release archive by default')
     parser.add_argument('--dry-run', action='store_true', help='print what would be done, build nothing')
     args = parser.parse_args(argv)
     os.chdir(HERE)                                      # the paths above are relative to the project
-    # a plain build is a release: only then is the changelog filed under the version
-    flagged = any((args.onefile, args.no_game, args.console, args.clean, args.no_package))
-    plain = not flagged and not args.dry_run
 
     found = problems_now()
     if found:
@@ -458,85 +399,72 @@ def main(argv=None) -> int:
             return 2
         say()
 
-    cmd = command(args)
+    dest_root = output_dir(args)
+    src = None
+    if not args.no_game:
+        from sixthsense import paths
+        try:
+            src = paths.game()          # --game, SIXTHSENSE_GAME, then game\ - as the game looks
+        except SystemExit:              # paths.game() ends the program when there is no bundle
+            src = None
+    if args.embed and src is None:
+        say("--embed puts the game's data inside the executable, and the game's data was not found.")
+        if not args.dry_run:
+            return 2
+
+    data = embedded_data(src) if args.embed and src else []
+    cmd = command(args, data)
     say('running: python ' + ' '.join(cmd[1:]))
     if args.dry_run:
         if args.no_game:
-            say("the game's data would not be copied.")
+            say("the game's data would be left out.")
+        elif src is None:
+            say("the game's data was not found, so none would be copied.")
+        elif args.embed:
+            say("the game's data would go inside the executable, from %s: %s, and nothing else from the "
+                'app bundle' % (src, data_summary(game_files(src) + sound_files(src))))
         else:
-            from sixthsense import paths
-            try:
-                src = paths.game()
-                say("the game's data would then be copied from %s into %s: %s, and nothing else from the "
-                    'app bundle'
-                    % (src, os.path.join(output_dir(args), 'game'),
-                       data_summary(game_files(src) + sound_files(src))))
-            except SystemExit:
-                say("the game's data was not found, so none would be copied.")
+            say("the game's data would then be copied from %s into %s: %s, and nothing else from the "
+                'app bundle'
+                % (src, os.path.join(dest_root, 'game'), data_summary(game_files(src) + sound_files(src))))
         for name, shipped_as in SIDE_FILES:
             say('%s would be copied beside the executable%s%s'
                 % (name, '' if shipped_as == name else ', as %s' % shipped_as,
                    '' if os.path.isfile(os.path.join(HERE, name)) else ' - but it is not here'))
         licenses = license_files()
-        absent = [rel for rel, src in licenses if not src or not os.path.isfile(src)]
+        absent = [rel for rel, lic in licenses if not lic or not os.path.isfile(lic)]
         say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - would go into '
             'licenses%s beside the executable' % (len(licenses) - len(absent), os.sep))
         for rel in absent:
             say('  but the license %s is not here' % rel)
-        if flagged:
-            say('the changelog would be copied as it is, because a build with a flag leaves it alone.')
-        else:                                           # what the same command without --dry-run would do
-            version = build_version() or first_version()
-            if not build_version():
-                say('VERSION does not exist, so it would be started at %s.' % version)
-            path = os.path.join(HERE, 'changelog.txt')
-            text = open(path, encoding='utf-8').read() if os.path.isfile(path) else ''
-            _new, did, notes = plan_changelog(text, version)
-            say('without --dry-run, the changelog in the repository would be %s:'
-                % ('changed' if did else 'left alone'))
-            for note in notes:
-                say('  %s' % note)
-            say("and the build's copy would open on %s, without the %s line."
-                % (changelog_heading(version), UNRELEASE))
-        zip_version = build_version() or (first_version() if not flagged else '<no VERSION file>')
-        if args.no_package:
-            say('it would not be zipped, because of --no-package.')
-        else:
-            say('it would then be packed into dist%s%s-Win-%s.zip' % (os.sep, NAME, zip_version))
-        if flagged:
-            for warning in release_warnings(os.path.join(HERE, 'changelog.txt')):
-                say('before releasing: ' + warning)
+        for warning in release_warnings(os.path.join(HERE, 'changelog.txt')):
+            say('before releasing: ' + warning)
         return 0
 
+    if args.embed:
+        names = stage_embedded(src)
+        say("the game's data goes inside the executable: %s."
+            % data_summary(names + sound_files(src)))
+    clear_output(dest_root)
     started = time.perf_counter()
     if subprocess.run(cmd).returncode != 0:
         say("PyInstaller failed - its own output above says why.")
         return 1
     say('built in %.0f seconds.' % (time.perf_counter() - started))
 
-    dest_root = output_dir(args)
-    if not args.no_game:
+    if src is not None and not args.embed:
         copy_game(dest_root)
-    # only once PyInstaller has succeeded: a failed build must not leave the repository changed
-    changed = prepare_release_files() if plain else []
     copy_side_files(dest_root)
     copy_licenses(dest_root)
-    if plain:
-        strip_shipped_changelog(dest_root)
+    strip_shipped_changelog(dest_root)
 
-    if not args.no_package:
-        for warning in release_warnings(os.path.join(dest_root, 'changelog.txt')):
-            say('before releasing: ' + warning)
-        package(dest_root)
+    for warning in release_warnings(os.path.join(dest_root, 'changelog.txt')):
+        say('before releasing: ' + warning)
 
     exe = os.path.join(dest_root, NAME + '.exe')
     say()
     say('the game is %s' % exe)
-    say("the folder around it is what you hand over, and the game's own files in it are Bitbee's.")
-    if changed:
-        say()
-        say('%s changed in the repository: commit %s before you tag the release.'
-            % (' and '.join(changed), 'them' if len(changed) > 1 else 'it'))
+    say("the folder around it is what releaser.py zips, and the game's own files in it are Bitbee's.")
     return 0
 
 
@@ -546,13 +474,13 @@ def main(argv=None) -> int:
 # flags still work as they always have for anyone typing them.
 
 MENU = (
-    ('Release build: file the changelog under the version, build, and zip', []),
-    ('Build without the zip', ['--no-package']),
+    ("Folder build: the game in a folder, with its data beside the executable", []),
+    ("Single exe: the sounds and the game's data inside one executable", ['--embed']),
     ("Clean build: empty PyInstaller's cache first, for when a build behaves oddly", ['--clean']),
     ("Build with a console window, to see why the game will not start", ['--console']),
-    ('One-file build: a single executable instead of a folder', ['--onefile']),
+    ("One-file build: a single executable, with the game's data still beside it", ['--onefile']),
     ("Build without the game's data", ['--no-game']),
-    ('Show what a release build would do, without building anything', ['--dry-run']),
+    ('Show what a build would do, without building anything', ['--dry-run']),
 )
 
 
@@ -560,7 +488,7 @@ def menu() -> list | None:
     """Ask which build.  Returns the flags for it, or None to quit."""
     version = build_version()
     say('SixthSense compiler.  VERSION is %s.'
-        % (version or 'missing - a release build will start it at %s' % first_version()))
+        % (version or 'missing - releaser.py sets it as it releases'))
     say()
     for number, (text, _flags) in enumerate(MENU, 1):
         say('  %d. %s' % (number, text))

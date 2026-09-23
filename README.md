@@ -187,7 +187,8 @@ analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 docs/                    GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md
 tests/                   the tests, and level_tester.py for starting at any level
-compiler.py              builds the game into an executable with PyInstaller
+compiler.py              builds the game with PyInstaller
+releaser.py              sets the version, files the changelog, builds, zips, tags and uploads a release
 requirements.txt         the two packages it needs
 ```
 
@@ -236,6 +237,7 @@ python tests/test_speech.py     # who speaks what no WAV covers (stand-ins, sile
 python tests/test_volume.py     # the decibel knobs, and the binary's mix left alone
 python tests/test_monster_sound.py  # zombie sounds read back from OpenAL (audio device)
 python tests/test_focus.py      # switching away from the window pauses a stage
+python tests/test_release.py    # the releaser's version, changelog and names (builds nothing)
 ```
 
 `test_data` checks the port against the original data rather than against itself: the
@@ -247,6 +249,41 @@ spatialise stereo, and the game relies on that).
 **For now, the tests write to your real save** in `%APPDATA%\SixthSense`, and
 `test_gameplay` plays audio. Until that is fixed, run them with `APPDATA` pointed at a
 scratch folder, and with `ALSOFT_DRIVERS=null` so nothing is heard.
+
+## Building and releasing
+
+Both scripts open a numbered menu when double-clicked, and wait for Enter at the end.
+Building needs PyInstaller (`pip install pyinstaller`); releasing also needs the GitHub
+CLI, signed in with `gh auth login`.
+
+`compiler.py` only builds. It never zips and never changes the repository. Everything
+lands in `dist\SixthSense`.
+
+- **Folder build:** the game in a folder, with its sounds and data beside the
+  executable in `game\`.
+- **Single exe** (`--embed`): the sounds and the game's data inside one executable.
+  It unpacks them at every launch, so it starts a few seconds slower.
+
+Either way, the changelog, the todo list, `VERSION`, the license and the third-party
+licenses sit beside the executable, where a player can open them.
+
+`releaser.py` does the rest. Its full release goes through each step and asks Y or N
+before each one:
+
+1. **Check** that everything is committed and pushed, `gh` is signed in, and the
+   changelog has between 1 and 100 changes under `unrelease:`.
+2. **Prepare:** `VERSION` becomes today's date and that day's release number, such as
+   `26.09.23-1`, and the unreleased lines are filed under it in `changelog.txt`.
+3. **Build** with the compiler, as a folder or a single exe. A failed build puts
+   `VERSION` and the changelog back.
+4. **Zip** `dist\SixthSense` into `dist\SixthSense-Win-26.09.23-1.zip`. It only zips a
+   build made for this version.
+5. **Commit and push** `VERSION` and `changelog.txt` as "Release 26.09.23-1".
+6. **Tag** it `V26.09.23-1`, and push the tag.
+7. **Upload** the zip to GitHub as the release "SixthSense V26.09.23-1", with that
+   version's changelog lines as its notes.
+
+It never moves or replaces a tag or a release that already exists.
 
 ### Starting at any level
 
