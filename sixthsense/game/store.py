@@ -7,9 +7,10 @@
 Gold is local - ``NSUserDefaults`` key ``GOLD``, which ``Stage_1_E`` pays into at the
 end of a run - so buying a weapon works here exactly as it did on the phone.  The two
 things that do not are the gold store and the coin store, which were in-app purchases,
-and *Purchase all weapons*, which was the StoreKit product ``SixthSense.AllWeapon``.
-Those rows are kept, because removing them would change the menu, and they say they
-are unavailable (``docs/DIVERGENCES.md``).
+*Purchase all weapons*, which was the StoreKit product ``SixthSense.AllWeapon``, and
+restore purchases.  The port leaves all four rows out (``docs/DIVERGENCES.md``): Apple's
+in-app purchases no longer exist, and there are no recordings for buying any of them with
+gold instead.
 
 The weapon table below is not data: ``-[DetailStoreController viewDidLoad]`` sets it
 out weaponType by weaponType in code (0x192f2..0x1a0ec), and the numbers here are the
@@ -94,29 +95,32 @@ class MainStoreController(BlindScreen):
     though ``glodShopAction:`` and its ``tbb`` case both exist.  The same shape as
     ``MainController``'s unreachable Exit - **reproduced**, the row is not offered.
 
-    **DIVERGENCE:** row 6, restore purchases (370, ``restoreAction:`` 0x1eb78), is
-    left out too.  It restored Apple in-app purchases, which no longer exist.
+    **DIVERGENCE:** rows 5 and 6 are left out too: the coin store (342,
+    ``coinShopAction:`` 0x1e9f0) sold coins, and restore purchases (370,
+    ``restoreAction:`` 0x1eb78) restored what had been bought.  Both were Apple in-app
+    purchases, which no longer exist, and there are no recordings for selling coins for
+    gold instead.  Coins come back on their own clock, as they did for a player who never
+    paid.
     """
 
-    ROWS = (1, 2, 4, 5)                          # 3 is unreachable; 6 is left out
+    ROWS = (1, 2, 4)                             # 3 is unreachable; 5 and 6 are left out
     TITLE_SOUND = 18                             # "Store Button", as the menu row said
     ROW_SOUND = {1: SOUND_BACK,                  # 0x1dffa back button
                  2: 235,                         # 0x1e276 Weapon shop Button
-                 4: 237,                         # 0x1e33c Inventory Button
-                 5: 342}                         # 0x1e214 coin store button
-    STOP_SOUNDS = (13, 18, 235, 236, 237, 342)          # 0x1dc88, plus the title
+                 4: 237}                         # 0x1e33c Inventory Button
+    STOP_SOUNDS = (13, 18, 235, 236, 237)               # 0x1dc88, plus the title
     TITLE_TEXT = 'Store.'
     ROW_TEXT = {1: BACK_TEXT,
                 2: 'Weapon shop, Button',
-                4: 'Inventory, Button',
-                5: 'Coin store, Button'}
+                4: 'Inventory, Button'}
 
     #: The row the gold shop would have been, kept so the tbb below reads the way the
     #: binary's does.
     GOLD_SHOP_ROW = 3
 
     def activate(self):
-        """0x1d9c2: 04 ... six cases, 1..6; 6, restore purchases, is left out."""
+        """0x1d9c2: 04 ... six cases, 1..6; 5, the coin store, and 6, restore
+        purchases, are left out."""
         self.StopElseSpeak()
         row = self.selectMenu
         if row == 1:
@@ -127,8 +131,6 @@ class MainStoreController(BlindScreen):
             self.glodShopAction_()
         elif row == 4:
             self.inventoryAction_()
-        elif row == 5:
-            self.coinShopAction_()
         return row
 
     # -[mainStoreController weaponShopAction:] 0x1e554
@@ -147,11 +149,6 @@ class MainStoreController(BlindScreen):
         self.ui_select()
         self.say('The gold store needs in-app purchases and is not available.')
 
-    # -[mainStoreController coinShopAction:] 0x1e9f0 - CoinStoreController, likewise.
-    def coinShopAction_(self, *_):
-        self.ui_select()
-        self.say('The coin store needs in-app purchases and is not available.')
-
     # -[mainStoreController itemShopAction:] 0x1e6dc..0x1e6e0 is four bytes long: it
     # returns.  There is no item shop.
     def itemShopAction_(self, *_):
@@ -162,12 +159,18 @@ class MainStoreController(BlindScreen):
 class StoreController(BlindScreen):
     """-[StoreController selectTapPointSoundStart] 0x14968, tapCount 0x14310.
 
-    Nine rows: back, the gold you have, the six weapons for sale, and the StoreKit
-    bundle.  The weapon rows push ``DetailStoreController`` with the weaponType their
-    ``ItemNAction:`` passes to ``setWeaponType:`` - 0x15a98 and its copies.
+    Nine rows in the original: back, the gold you have, the six weapons for sale, and
+    the StoreKit bundle.  The weapon rows push ``DetailStoreController`` with the
+    weaponType their ``ItemNAction:`` passes to ``setWeaponType:`` - 0x15a98 and its
+    copies.
+
+    **DIVERGENCE:** row 9, *Purchase all weapons* (366, ``ItemAllAction:`` 0x1647c,
+    the product ``SixthSense.AllWeapon``), is left out.  It was an Apple in-app purchase,
+    which no longer exists, there is no recording for a gold price, and each weapon can
+    be bought on its own for gold.
     """
 
-    ROWS = (1, 2, 3, 4, 5, 6, 7, 8, 9)
+    ROWS = (1, 2, 3, 4, 5, 6, 7, 8)     # 9 is left out
     TITLE_SOUND = 235                # "Weapon shop Button"
     ROW_SOUND = {1: SOUND_BACK,      # 0x159a8 back button
                  2: 233,             # obtained gold
@@ -176,10 +179,9 @@ class StoreController(BlindScreen):
                  5: 243,             # AK47 button
                  6: 244,             # MG80 button
                  7: 245,             # japanese sword button
-                 8: 348,             # Grenade button
-                 9: 366}             # Purchase all weapons change
+                 8: 348}             # Grenade button
     ROW_READER = {2: 'readgold'}
-    STOP_SOUNDS = (13, 233, 235, 241, 242, 243, 244, 245, 246, 366, 261, 10, 348)
+    STOP_SOUNDS = (13, 233, 235, 241, 242, 243, 244, 245, 246, 261, 10, 348)
     TITLE_TEXT = 'Weapon shop.'
     ROW_TEXT = {1: BACK_TEXT,
                 3: 'Shotgun, Button',
@@ -187,14 +189,13 @@ class StoreController(BlindScreen):
                 5: 'AK47, Button',
                 6: 'MG80, Button',
                 7: 'Japanese sword, Button',
-                8: 'Grenade, Button',
-                9: 'Purchase all weapons, Button'}
+                8: 'Grenade, Button'}
 
     #: 0x15a90, 0x15c4c, ... - Item1..Item6Action's argument to setWeaponType:.
     ROW_WEAPON = {3: 1, 4: 2, 5: 3, 6: 4, 7: 5, 8: 0}
 
     def activate(self):
-        """0x1436a: 05 38 56 5c 62 68 6e 74 7a - nine cases, 1..9."""
+        """0x1436a: 05 38 56 5c 62 68 6e 74 7a - nine cases, 1..9; 9 is left out."""
         self.StopElseSpeak()
         row = self.selectMenu
         if row == 1:
@@ -203,8 +204,6 @@ class StoreController(BlindScreen):
             self.readgold()
         elif row in self.ROW_WEAPON:
             self.ItemAction_(self.ROW_WEAPON[row])
-        elif row == 9:
-            self.ItemAllAction_()
         return row
 
     def row_text(self, row):
@@ -228,12 +227,6 @@ class StoreController(BlindScreen):
     def ItemAction_(self, weapon_type):
         self.ui_select()
         self.push('store_detail', weapon_type)
-
-    # -[StoreController ItemAllAction:] 0x1647c - BuyItem:@"SixthSense.AllWeapon"
-    def ItemAllAction_(self, *_):
-        self.ui_select()
-        self.say('Buying every weapon at once was an in-app purchase '
-                 'and is not available.')
 
 
 # ----------------------------------------------------------- one weapon's page

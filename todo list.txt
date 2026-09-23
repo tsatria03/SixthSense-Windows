@@ -1,13 +1,13 @@
 ##Unfinished.
 
+Decide whether turning voice over off should work like VoiceOver's flick left and right gestures, by moving through the menus with the left and right arrows instead of up and down.
+Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 The "no coin" message still says to share coins with friends at the ranking page, which is gone, and with voice over off the screen reader reads it aloud.
 The key bindings screen lists Escape as "Quit", but in a stage it pauses and in the shop it goes back.
-Decide whether turning voice over off should work like VoiceOver's flick left and right gestures, by moving through the menus with the left and right arrows instead of up and down.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
 Moving between the two rows of the intro screen lets their sounds overlap.
-A decision is being made about the buy coins and purchase all weapons rows in the shop: remove them, or let them be bought with gold instead, since Apple's in-app purchases no longer exist.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The weekly top score never resets.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
@@ -15,10 +15,10 @@ Some timed events can run twice, and timers can fire in the wrong order or up to
 When the game cannot start, it fails silently instead of saying why out loud.
 Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 Memory leaks each time the music or ambience changes.
-Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 
 ##Finished.
 
+The coin store and purchase all weapons rows are gone from the shop, since Apple in-app purchases no longer exist and there are no recordings for buying them with gold.
 The tutorial's steps always come in the original's order, and reloading or changing weapon early no longer skips a lesson.
 Pressing P at the end of the tutorial ends it. The first time, from Start, it counts down into the game, and from the Tutorial button it goes back to the main menu.
 The tutorial's last step is pressing P, the original's pause gesture, and Shift+Tab stays the previous weapon.

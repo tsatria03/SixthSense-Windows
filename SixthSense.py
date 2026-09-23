@@ -329,10 +329,9 @@ def _intro_lines(page):
 #: What each shop and inventory row is called, for anyone who can see the window.
 #: The player hears the original's own WAV.
 SCREEN_ROWS = {
-    'store': {1: 'back', 2: 'weapon shop', 4: 'inventory', 5: 'coin store'},
+    'store': {1: 'back', 2: 'weapon shop', 4: 'inventory'},
     'store_weapons': {1: 'back', 2: 'your gold', 3: 'shotgun', 4: 'M4A1',
-                      5: 'AK47', 6: 'MG80', 7: 'japanese sword', 8: 'grenade',
-                      9: 'buy every weapon'},
+                      5: 'AK47', 6: 'MG80', 7: 'japanese sword', 8: 'grenade'},
     'store_detail': {1: 'back', 2: 'name', 3: 'ammo capacity',
                      4: 'effective range', 5: 'damage', 6: 'price',
                      7: 'buy', 8: 'try'},

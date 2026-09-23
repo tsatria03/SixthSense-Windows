@@ -400,9 +400,15 @@ finger, so Up and Down walk the same rows in the same order, reading them with t
 WAVs, and Enter is the double tap. That is how the main menu was ported and it is how
 the pause and result panel (`Stage_1_E.pause_select`), the shop (`game/store.py`) and
 the inventory (`game/inventory.py`) are ported too. The row sets, their order and
-their sounds are the original's, except that the shop leaves out restore purchases
-(row 6 of `mainStoreController`, `restoreAction:` 0x1eb78), which restored Apple
-in-app purchases that no longer exist, and the result panel leaves out the rank.
+their sounds are the original's, except for the rows the port leaves out. The shop's
+front menu has no coin store (row 5 of `mainStoreController`, `coinShopAction:`
+0x1e9f0) and no restore purchases (row 6, `restoreAction:` 0x1eb78), and the weapon
+list has no *Purchase all weapons* (row 9 of `StoreController`, `ItemAllAction:`
+0x1647c). All three were Apple in-app purchases, which no longer exist, and there are
+no recordings for buying coins or the bundle with gold instead, so the devs chose to
+remove them rather than keep rows that only said they were unavailable. Coins come
+back on their own clock, and each weapon is bought on its own for gold. The result
+panel leaves out the rank.
 
 `P` pauses. The original's stop button is a button on the screen, and there is no
 screen here; `-[Stage_1_E StopPlayAction:]` needed a key of its own.

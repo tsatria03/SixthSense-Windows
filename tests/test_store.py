@@ -92,45 +92,55 @@ def test_the_shop_menu_pushes_the_two_screens_that_work():
         m.select(4)
         m.activate()
         assert m.next_screen == ('inventory', None)
-        m.next_screen = None
-        m.select(5)                              # the coin store
-        m.activate()
-        assert m.next_screen is None, 'the coin store pushed a screen'
-        assert len(m.speech.said) == 1
     finally:
         m.teardown()
 
 
-def test_moving_away_from_a_silent_row_stops_its_speech():
-    """StopElseSpeak must cut the sentence off, or it talks over whatever row
-    the player moves to next - the coin store says it is not available."""
-    _app()
-    m = MainStoreController(speech=_Recorder())
+def test_moving_away_from_a_spoken_row_stops_its_speech():
+    """StopElseSpeak must cut the sentence off, or it talks over whatever row the
+    player moves to next.  With voice over off, the gold row says the gold."""
+    app = _app(gold=1250)
+    app.mode = 0
+    s = StoreController(speech=_Recorder())
     try:
-        for row in (5,):                     # the coin store
-            m.speech.said.clear()
-            m.select(row)
-            m.activate()
-            assert m.speech.said, 'row %d said nothing at all' % row
-            before = m.speech.stopped
-            m.select(1)                      # move to another row
-            assert m.speech.stopped > before, \
-                'moving away from row %d did not stop the speech' % row
+        s.select(2)
+        assert s.speech.said and '1,250' in s.speech.said[-1]
+        before = s.speech.stopped
+        s.select(1)                          # move to another row
+        assert s.speech.stopped > before, 'moving away did not stop the speech'
     finally:
-        m.teardown()
+        s.teardown()
+        app.mode = 1
 
 
-def test_there_is_no_restore_purchases_row():
-    """Row 6 restored Apple in-app purchases, which no longer exist, so the shop
-    leaves it out, and moving never lands on it."""
+def test_there_are_no_in_app_purchase_rows_in_the_shop():
+    """The coin store (row 5) and restore purchases (row 6) were Apple in-app
+    purchases, which no longer exist, so the shop leaves them out, and moving never
+    lands on them.  The shop is back, the weapon shop and the inventory."""
     _app()
     m = MainStoreController(speech=_Recorder())
     try:
-        assert 6 not in m.rows()
+        assert m.rows() == (1, 2, 4)
         for _ in range(10):
-            assert m.move(1) != 6
+            assert m.move(1) in (1, 2, 4)
+        assert not hasattr(m, 'coinShopAction_')
     finally:
         m.teardown()
+
+
+def test_there_is_no_purchase_all_weapons_row():
+    """Row 9 of the weapon list bought every weapon as one in-app purchase.  It is
+    left out; each weapon is still bought on its own for gold."""
+    _app()
+    s = StoreController(speech=_Recorder())
+    try:
+        assert s.rows() == (1, 2, 3, 4, 5, 6, 7, 8)
+        assert 366 not in s.ROW_SOUND.values()
+        for _ in range(12):
+            assert s.move(1) != 9
+        assert not hasattr(s, 'ItemAllAction_')
+    finally:
+        s.teardown()
 
 
 def test_the_weapon_list_opens_each_weapons_page():
@@ -146,14 +156,6 @@ def test_the_weapon_list_opens_each_weapons_page():
         s.select(8)
         s.activate()
         assert s.next_screen == ('store_detail', 0)      # the grenade
-        s.next_screen = None
-        s.select(9)                                      # buy every weapon
-        s.activate()
-        assert s.next_screen is None
-        assert s.speech.said
-        before = s.speech.stopped
-        s.select(1)                                       # move to another row
-        assert s.speech.stopped > before, 'moving away did not stop the speech'
     finally:
         s.teardown()
 
