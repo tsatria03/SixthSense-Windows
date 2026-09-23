@@ -1,6 +1,6 @@
 ---
 name: project_release_tooling_plan
-description: "PLANNED, not built (2026-09-23): split the build from the release. compiler.py only builds and zips, with a new option to embed the sounds and game data in one exe; a new releaser.py sets the date version, files the changelog, runs the compiler, commits, tags V<version> and uploads the zip to GitHub. Every decision the dev made, and what is still waiting."
+description: "FINISHED 2026-09-23, confirmed by the dev, and used for the first release, 26.09.23-1. compiler.py only builds, as a folder or with --embed as one exe holding the sounds and data; releaser.py sets the date version, files the changelog, runs the compiler, zips, commits, tags V<version> and uploads the zip to GitHub. Every decision the dev made, the plan change that moved the zip, and what was built."
 metadata:
   type: project
 ---
@@ -21,7 +21,7 @@ The dev asked for "a releaser python script", pointing at two references in the 
 ## The split (the dev's words: the compiler "should only deal with compiling the game and packaging it into a zip, also an option to embedded most things into the exe file", and the releaser "will handle everything else, like creating tags, finding packages, and then uploading them")
 
 ### compiler.py: build, nothing else (the zip moved to the releaser; see the plan change above)
-- Never touches `changelog.txt` or `VERSION` any more. `prepare_release_files`, `plan_changelog` and the rest of the filing move to the releaser. The menu's "Release build" becomes a plain "Build and zip".
+- Never touches `changelog.txt` or `VERSION` any more. `prepare_release_files`, `plan_changelog` and the rest of the filing move to the releaser. The menu's "Release build" becomes a plain "Build and zip" (and, after the plan change above, "Folder build", with no zip).
 - Keeps taking the empty `unrelease:` heading out of the copy beside the exe (`strip_shipped_changelog`), and keeps warning when that copy still has unreleased lines (`release_warnings`).
 - **New: an embed option**, a single exe with the game's data inside, through PyInstaller `--onefile` and `--add-data`. Whole folders are passed, not one entry per file, or the command line gets too long. `paths.py` needs no change: frozen, `ROOT` is `sys._MEIPASS`, and `_candidates()` already tries `ROOT/game`.
   - **Inside:** `game/sounds/used` (329 files, about 125.6 MB, with its folders), the 142 `.plist` files and the three map layers `g_CH1_E`, `a_CH1_E.txt`, `s_CH1_E.txt` (about 0.3 MB). This is exactly what `copy_game()` copies today.

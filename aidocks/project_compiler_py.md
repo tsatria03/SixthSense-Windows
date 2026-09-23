@@ -1,15 +1,15 @@
 ---
 name: project_compiler_py
-description: "compiler.py was adapted to build Sixth Sense on 2026-09-21. The dev confirmed the console build works on 2026-09-22; an earlier zip was cut off, so packaging now announces itself and writes a .part file first. What changed, what was left out on purpose, and what is still to do."
+description: "compiler.py was adapted to build Sixth Sense on 2026-09-21, and since 2026-09-23 it only builds, as a folder or as one exe with the data inside (--embed); releaser.py files the changelog and zips. The dev confirmed builds on 2026-09-22 and 2026-09-23. What changed, what was left out on purpose, and what is still to do."
 metadata:
   node_type: memory
   type: project
   originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
-`compiler.py` is the PyInstaller build script, with the numbered menu, the changelog filing and the release zip. It was adapted from an earlier build script. A newer version of that script is kept for reference in the gitignored `user/` folder; read it there, but never edit it, and don't name it in writing ([[feedback_no_other_games]]). Never run `compiler.py`, not even `--dry-run`, without the dev's say-so; see [[feedback_dont_run_or_build]].
+`compiler.py` is the PyInstaller build script, with a numbered menu. Since 2026-09-23 it only builds; the changelog filing and the zip are `releaser.py`'s ([[project_release_tooling_plan]]). It was adapted from an earlier build script. A newer version of that script is kept for reference in the gitignored `user/` folder; read it there, but never edit it, and don't name it in writing ([[feedback_no_other_games]]). Never run `compiler.py`, not even `--dry-run`, without the dev's say-so; see [[feedback_dont_run_or_build]].
 
-**Changed 2026-09-23, and confirmed working by the dev the same day:** the changelog filing and the zip moved out to the new `releaser.py`, so the compiler only builds `dist\SixthSense` and never changes the repository, and it gained `--embed`, one exe with the sounds and data inside. The menu's first two choices are now "Folder build" and "Single exe". Sections below that describe "the release build" filing the changelog, `package()` or `--no-package` are out of date. See [[project_release_tooling_plan]].
+**Changed 2026-09-23, and confirmed working by the dev the same day:** the changelog filing and the zip moved out to the new `releaser.py`, so the compiler only builds `dist\SixthSense` and never changes the repository, and it gained `--embed`, one exe with the sounds and data inside. The menu's first two choices are now "Folder build" and "Single exe". The menu is now: 1 Folder build, 2 Single exe (`--embed`), 3 Clean, 4 Console, 5 One-file, 6 Without the game's data, 7 Dry run. The history below mentions `package()` and the old menu numbers as they were then. See [[project_release_tooling_plan]].
 
 ## Status
 
@@ -31,7 +31,7 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
   - Claude checked the zip: `zipfile.testzip` passes, and it holds 643 files (107 MB) under `SixthSense/`.
   - Every member is byte-identical to the built folder, and every game file to the repo. No `.part` file was left behind.
   - The todo item "Test the compiler with a first build" moved to finished that day.
-- Still untested: a plain release build (choice 1, which files the changelog), a windowed build, and `--onefile`.
+- The dev built and released with the single exe on 2026-09-23 (26.09.23-1), which also tested a windowed build. Still untested: `--onefile` without `--embed`.
 - Its comments and docstrings describe Sixth Sense alone; the three that named the project it came from were reworded on 2026-09-21 ([[feedback_no_other_games]]).
 
 ## What changed from the earlier script
@@ -44,9 +44,9 @@ Adapted to Sixth Sense on 2026-09-21, with the dev's go-ahead.
   - It copies only `*.wav`, `*.plist`, `g_CH1_E`, `a_CH1_E.txt` and `s_CH1_E.txt` from the bundle's top folder, matched without regard to case. With the original flat bundle that was 414 files, 106.6 MB. Since the sounds moved, it also copies `sounds/used/`; see below.
   - The iOS executable `sixsense`, the nibs, the PNGs and JPGs, `iTunesArtwork`, `PkgInfo` and the unused `stage1ground`/`stage1sound` stay out, as do the `_CodeSignature` and Facebook folders.
   - The source comes from `sixthsense.paths.game()`, which honors `--game` and `SIXTHSENSE_GAME`. If the bundle is missing it catches the SystemExit and prints a message instead of crashing.
-- **`--test` was removed:** the flag, the menu entry, `test_build()` and `read_log()` are all gone. The menu now has 7 choices plus Quit, and Release build is still number 1.
+- **`--test` was removed:** the flag, the menu entry, `test_build()` and `read_log()` are all gone. The menu then had 7 choices plus Quit, with Release build as number 1.
 - **readme.html generation was removed** (`GENERATED_PAGES` and `write_page()`). The reference script in `user/` has it, along with the `tools/md_to_html.py` converter it needs; bring both back once there's a real README.
-- **`FIRST_VERSION = '1.0.0-1'` became `first_version()`**, which returns `%y.%m.%d-1` to match the repo's date-scheme VERSION.
+- **`FIRST_VERSION = '1.0.0-1'` became `first_version()`**, which returned `%y.%m.%d-1` to match the repo's date-scheme VERSION. It was removed on 2026-09-23; the releaser now sets VERSION ([[project_release_tooling_plan]]).
 - **The docstrings and comments** no longer mention an updater, and they explain the missing `--test` and the silent windowed failure.
 
 ## Left out on purpose
@@ -67,20 +67,19 @@ The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organiza
 
 ## Still to do
 1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].
-2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4) to diagnose.
-3. **The changelog:** **the game has never been released.** On 2026-09-22 the dev removed the `26.09.20: Initial release.` entry for that reason. `changelog.txt` now holds only the `unrelease:` section, with the player-facing fixes and enhancements made so far ([[feedback_changelog]]). The first plain release build files those lines under whatever VERSION says, `26.09.21-1:` today, unless the dev changes VERSION first.
+2. **Silent failures:** until item 1 lands, a `--windowed` build that fails to start is silent. Tell the dev to use the console build (menu choice 4, `--console`) to diagnose.
 
 ## Test builds versus release builds
-Menu choice 1, the plain release build, rewrites `changelog.txt` in the repo: it moves the `unrelease:` lines under the VERSION heading, and starts VERSION if it's missing. Any flagged build leaves both alone. So for a trial build, point the dev at these:
+Since 2026-09-23 no compiler build changes the repository, so any choice is safe for a trial build. For a trial, point the dev at:
 - choice 7, `--dry-run`, first
 - choice 4, `--console`, which shows start-up errors
-- choice 2, `--no-package`
+- choice 2, the single exe, to try what a release carries
 
-Keep choice 1 for the real release. The dev chose on 2026-09-22 to do the first build by hand.
+A release is made only with `releaser.py`, which runs the compiler itself after setting the version ([[project_release_tooling_plan]]).
 
 ## Fine as-is
 - `BINARIES`: the vendor DLLs go to `_MEIPASS/vendor/...`, which is where `sixthsense/paths.py` looks when frozen.
-- `SIDE_FILES`: changelog.txt, VERSION and LICENSE (shipped as license.txt).
+- `SIDE_FILES`: changelog.txt, todo list.txt, VERSION and LICENSE (shipped as license.txt). Never embedded.
 - `.gitignore` covers `build/`, `dist/` and `*.spec`.
 
 ## Environment on 2026-09-21
