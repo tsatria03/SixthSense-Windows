@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
-from sixthsense.game.monster_control import (GROWL_FIRST,         # noqa: E402
+from sixthsense.game.monster_control import (WOMAN_GROWL,         # noqa: E402
                                              ZIGZAG_ANGLE)
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform import openal as al                    # noqa: E402
@@ -269,28 +269,44 @@ def test_a_monster_never_passes_through_you_on_its_last_step():
                 st.teardown()
 
 
-def test_the_woman_zombie_growls_as_she_comes_in():
+def test_the_woman_zombie_growls_before_she_reaches_you():
     """Her walk sounds are footsteps with the growl at the end, and from level 2 on she
-    reached you before it.  Her sample starts at the growl, in the cave and the forest
-    alike; an ordinary zombie's still starts at the top."""
+    reached you before it.  Her sample now starts far enough in that the growl lands
+    about 3.5 m out, on every level, in the cave and the forest alike, and the next time
+    round comes after she has reached you.  On level 1 that is the start of the sample,
+    as in the original."""
     for mode, sound in ((1, 271), (2, 272)):
-        app, st = _new_stage()
-        st.gameMode = mode
-        st.MonsterInit_(10006)              # the woman zombie, lane 1
-        m = st.MonsterBuffer[0]
-        try:
-            assert m.comingSound == sound, 'she walks on %d' % m.comingSound
-            w = _Watch(app, m)
+        for level in (1, 2, 3, 4):
+            gain = 1.5 ** (level - 1)
+            app, st = _new_stage()
+            st.gameMode = mode
+            st.monsterHPGain = gain
+            st.MonsterInit_(10006)          # the woman zombie, lane 1
+            m = st.MonsterBuffer[0]
             try:
-                assert w.playing(), 'her walk sample is not playing'
-                t = w.AL.source_float(w.sid, al.AL_SEC_OFFSET)
-                want = GROWL_FIRST[sound]
-                assert want - 0.05 <= t < want + 0.5, \
-                    'her sample starts %.2f s in, not at the growl (%.1f s)' % (t, want)
+                assert m.comingSound == sound, 'she walks on %d' % m.comingSound
+                w = _Watch(app, m)
+                try:
+                    assert w.playing(), 'her walk sample is not playing'
+                    start = w.AL.source_float(w.sid, al.AL_SEC_OFFSET)
+                    interval = (m.comingSoundTime - 0.1) / m.comingSoundInWalk
+                    growl = WOMAN_GROWL[sound] - start      # seconds from now
+                    steps = 1 + int(growl / interval)       # the first was at once
+                    at = 1000.0 - m.comingRange * steps
+                    where = '%s level %d: the growl is %.0f cm out' % (sound, level, at)
+                    # 520: the cave's level 1 is the original's own, about 4.5 to 5 m
+                    assert 250.0 <= at <= 520.0, where
+                    arrive = math.ceil((1000.0 - 25.0) / m.comingRange)
+                    loop = 5.23 if sound == 271 else 6.29
+                    again = 1 + int((growl + loop) / interval)
+                    assert again >= arrive, where + ', and again before she arrives'
+                    if level == 1:
+                        assert start < 0.3, \
+                            'level 1 starts %.2f s in, not at the top' % start
+                finally:
+                    w.close()
             finally:
-                w.close()
-        finally:
-            st.teardown()
+                st.teardown()
 
     app, st = _new_stage()
     st.gameMode = 1

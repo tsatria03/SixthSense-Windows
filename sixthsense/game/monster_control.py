@@ -113,15 +113,19 @@ ZIGZAG_ANGLE = {
 
 
 #: PORT DIVERGENCE: the woman zombie's two walk sounds, and how far into each her growl
-#: starts, in seconds.  Both are quiet footsteps with the growl at the end, and she is
-#: the fastest walker in the game: 16 steps of 50 cm every 6 s, each step 1.5 times
-#: longer every level (0x10848).  From level 2 on she reached you before the growl, and
-#: reaching you stops her sound, so she hit you unheard.  Her walk starts at the growl
-#: instead, and loops back to the footsteps after it.  The files are not changed.
-GROWL_FIRST = {
+#: starts, in seconds (a tenth early, so its start is not clipped).  Both are quiet
+#: footsteps with the growl at the end, and she is the fastest walker in the game: 16
+#: steps of 50 cm every 6 s, each step 1.5 times longer every level (0x10848).  On level
+#: 1 she growls 3.5 to 4.5 m out; from level 2 on she reached you before the growl, and
+#: reaching you stops her sound, so she hit you unheard.  Her sample now starts far
+#: enough in that the growl lands when she is ``GROWL_AT`` away, on every level.  On
+#: level 1 that is the start, as in the original.  The files are not changed.
+WOMAN_GROWL = {
     271: 3.6,       # woman_coming_cave_monster1, 5.23 s long
     272: 4.5,       # woman_coming_forest_Monster, 6.29 s long
 }
+#: How far away she is when the growl starts, in cm - where the original's level 1 has it.
+GROWL_AT = 350.0
 
 
 def lane_bearing(lane):
@@ -273,11 +277,25 @@ class MonsterControl:
         # 0x10e7e: z = 0, reprats = YES - the walk sample loops.
         self.app.playSound_Gain_Pos_z_reprats_(
             self.comingSound, self.comingSoundGain, self.Pos, 0, True)
-        growl = GROWL_FIRST.get(self.comingSound)
-        if growl is not None:
-            pb.setSoundOffset_(self.comingMonsterStopSoundNumber, growl)
+        offset = self._growl_offset()
+        if offset:
+            pb.setSoundOffset_(self.comingMonsterStopSoundNumber, offset)
         self.MainMonsterTimer = RunLoop.main().scheduledTimer(
             self.comingSoundTime, self, 'MonsterComing_', None, True)
+
+    def _growl_offset(self):
+        """How far into the woman zombie's sample to start it, so the growl lands as she
+        comes within ``GROWL_AT``; 0 for every other monster.  Called just after
+        ``MonsterComing:`` took its first step, so the steps still to come are one
+        ``MonsterMoving:`` interval apart.  After a pause it counts from where she is."""
+        growl = WOMAN_GROWL.get(self.comingSound)
+        if growl is None or self.comingRange <= 0:
+            return 0.0
+        interval = self.comingSoundTime - 0.1
+        if self.comingSoundInWalk:
+            interval = interval / float(self.comingSoundInWalk)
+        steps = max(0, math.ceil((self.monsterRange - GROWL_AT) / float(self.comingRange)))
+        return max(0.0, growl - steps * interval)
 
     # -[MonsterControl MonsterComing:] 0x11920
     def MonsterComing_(self, timer=None):

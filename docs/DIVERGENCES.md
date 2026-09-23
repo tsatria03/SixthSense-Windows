@@ -291,7 +291,7 @@ so a zombie that hit you on the same tick stayed on top of you and hit again onc
 were free. The port removes them either way. It also keeps the grabbing monster itself
 rather than only its index, so shaking free always frees and kills the one holding you.
 
-### The woman zombie growls as she comes in
+### The woman zombie growls before she reaches you
 The woman zombie (types 10006..10010) walks on `woman_coming_cave_monster1` (271) or
 `woman_coming_forest_Monster` (272): about four seconds of quiet footsteps, then the
 growl. She is also the fastest walker in the game. Her plists give 16 steps of 50 cm
@@ -299,9 +299,15 @@ every 6 s (`comingSoundInWalk`, `comingRange`), and `initWithMonsterPatern:`
 multiplies the step by `monsterHPGain` (0x10848), which `ChangeLevel:` raises by 1.5
 each level (0x32314). From level 2 on, she reached you in about 4.4 s, before the
 growl, and `hitPlayer` stops her sound, so she hit you without ever being heard. The
-original does the same. The port starts her sample at the growl, 3.6 s into 271 and
-4.5 s into 272 (`monster_control.GROWL_FIRST`), and it loops back to the footsteps
-after it. Her speed and the files are unchanged. The girl who heals you (10001..10005)
+original does the same. The port starts her sample far enough in that the growl lands
+as she comes within 3.5 m (`monster_control.GROWL_AT`), worked out from her step and
+her step rate when she appears, and again from where she is after a pause. On level 1
+that is the start of the sample, as in the original: she growls 4.5 m out in the cave
+and 3.5 m in the forest. On level 2 the sample starts 0.65 s in (cave) or 1.55 s
+(forest), and so on up. She growls once, and the sample comes round again only after
+she has reached you. Starting her at the growl itself, which the port did for a day,
+put a faint growl 9.5 m out and then, one loop later, a loud one only 1 to 2.5 m away.
+Her speed and the files are unchanged. The girl who heals you (10001..10005)
 has the same speed and her call for help comes at the end too; she is left as the
 original has her.
 

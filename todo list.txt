@@ -37,7 +37,7 @@ Escape pauses a stage and resumes it from the pause panel, instead of leaving th
 With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.
 The voice over row in the main menu says whether voice over is on or off, instead of naming the mode it would switch to, so it no longer sounds flipped.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
-The woman zombie growls as soon as she comes in, instead of reaching you on level 2 and up before her growl could be heard.
+The woman zombie growls once, about three and a half metres away, on every level, instead of reaching you on level 2 and up before her growl could be heard.
 tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.
 A level tester in tests/level_tester.py starts the game at any level, in the cave, the forest or the rain, and near the boss if you like. It asks when opened on its own, and plays on its own save so yours is never touched.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
