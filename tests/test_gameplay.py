@@ -571,6 +571,10 @@ def test_the_debug_commands():
         assert st.gamePlayer.playerYplot == 601
         assert st.MonsterBuffer == [girl], 'the girl died, or a zombie lived'
         assert said[-1] == 'Section 2 of 8.', said
+        debug.next_section(st)              # straight away again: it cools down first
+        assert st.gamePlayer.playerYplot == 601, 'Shift+F2 jumped again at once'
+        assert said[-1] == 'Not while the section is changing.', said
+        st.debugSectionReady = 0.0          # skip the rest of the wait
         st.gamePlayer.playerYplot = 30
         debug.next_section(st)
         assert st.gamePlayer.playerYplot == 30, 'went past the last section'

@@ -21,12 +21,17 @@ runs on its own script.
 """
 from __future__ import annotations
 
+import time
+
 from .stage_1_e import (BOSS_CAVE, BOSS_FOREST, BOSS_NUMBER, MONSTER_GIRL,
                         MONSTER_WOMAN, SOUND_WARNING)
 
 START_ROW = 680                     # 0x2cf1a, where every level starts
 #: F2 goes round the levels: after this one comes level 1 again.
 MAX_LEVEL = 8
+#: How long Shift+F2 waits before it will jump again: as long as F2's level change
+#: takes, ``ChangeLevel:`` 2 s after the end (0x31d92).
+SECTION_SECONDS = 2.0
 
 #: What F5 can spawn, in the order Shift+F5 goes through them: the name spoken, and
 #: the type id for a lane (``MONSTER_ARRAY``'s ``kind*10 + lane``, the first kind
@@ -100,6 +105,9 @@ def next_section(st):
     if st.MotionSamplingTimer is None or not st.MotionSamplingTimer.isValid():
         st._say('Not while the section is changing.')
         return
+    if time.monotonic() < getattr(st, 'debugSectionReady', 0.0):
+        st._say('Not while the section is changing.')
+        return
     if st.isShake:
         st._say('Not while a zombie holds you.')
         return
@@ -113,6 +121,7 @@ def next_section(st):
             m.DieMonster()
             st._remove(m)
     st.gamePlayer.playerYplot = ahead[0]
+    st.debugSectionReady = time.monotonic() + SECTION_SECONDS
     st._say('Section %d of %d.' % (rows.index(ahead[0]) + 1, len(rows)))
 
 

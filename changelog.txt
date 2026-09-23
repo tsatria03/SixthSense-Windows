@@ -1,7 +1,7 @@
 unrelease:
 In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.
 In debug mode F7 lets zombies that reach you hit you as in a normal game, still without taking a heart, and F7 again has them die on you.
-In debug mode F2 goes back to level 1 after level 8, and Shift+F2 says "Not while the section is changing" while a level is changing.
+In debug mode F2 goes back to level 1 after level 8. Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
 Starting the game with --debug gives a debug mode, and each stage says "Debug mode" as it starts. A zombie that reaches you dies on the spot, heard only by its death, so you cannot die.
 In debug mode your kills and headshots do not count, so a run earns no score and no gold. The girl still thanks you when she reaches you, but gives you no heart.
 In debug mode F2 goes to the next level, Shift+F2 goes to the next section of the corridor, F5 spawns a zombie in the lane you last attacked, and Shift+F5 chooses what F5 spawns.

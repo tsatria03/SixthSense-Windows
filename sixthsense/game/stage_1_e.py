@@ -256,6 +256,7 @@ class Stage_1_E:
         self.monstersFrozen = False     # --debug, sixthsense/game/debug.py
         self.debugSpawn = 0
         self.debugHits = False          # --debug's F7: zombies hit you, for no heart
+        self.debugSectionReady = 0.0    # --debug's Shift+F2 cools down until then
         self.reloadWeaponNumber = 0
         self.noAtt = False
         self.groundMapData = None
