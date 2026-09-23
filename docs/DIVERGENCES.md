@@ -363,6 +363,12 @@ decided on 2026-09-23 to remove them everywhere. So the menu has six rows, which
 their original numbers, and Up and Down skip the gaps. The result panel's rank (row 9)
 went with them, for the same reason.
 
+The coin row reads the count, then "after", then the minutes and the seconds to the
+next coin, each queued behind the last. `-[AppDelegate readStop]` (0x5ae8), which every
+move between rows calls, stops only the digits, so moving away after "after" still had
+the minutes and seconds read over the next row. The port's `readStop` also cancels the
+queued minutes and seconds and stops the words already playing.
+
 `exit_flag`, `-[MainController Exit:]` and `exitButton` all exist, but no row in
 `selectTapPointSoundStart` claims Exit and nothing plays sound 20 (`Exit button`) — so
 it is unreachable from the blind menu in the original too. **Reproduced**: there is no

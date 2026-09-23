@@ -471,6 +471,40 @@ def test_the_voice_over_row_says_the_mode_you_are_in():
         m.teardown()
 
 
+def test_moving_off_the_coin_row_stops_the_time_to_the_next_coin():
+    """The coin row reads the count, "after", then the minutes 2 s later and the
+    seconds after that.  Moving away once "after" has played used to leave the
+    minutes and seconds queued, and they were read over the next row."""
+    import time as _time
+    from sixthsense.game import app_delegate as A
+    m = _menu(coins=3)
+    app = m.app
+    app.mode = 1
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))
+    loop = RunLoop.main()
+
+    def run(until, limit):
+        end = _time.monotonic() + limit
+        while _time.monotonic() < end and not until():
+            loop.pump()
+            _time.sleep(0.01)
+    try:
+        m.selectMenu = 1
+        m.blindModeSelectedMenu()
+        run(lambda: A.TTS_COIN_AFTER in played, 8.0)
+        assert A.TTS_COIN_AFTER in played, 'the coin row never said "after"'
+        played.clear()
+        m.move(1)                                       # on to the title row
+        run(lambda: False, 4.0)
+        late = [n for n in played if n in range(10) or n in (A.TTS_MINUTES, A.TTS_SECONDS)]
+        assert not late, 'the time to the next coin was read over the next row: %r' % played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        m.teardown()
+
+
 def test_turning_voice_over_off_speaks_through_the_screen_reader():
     d = UserDefaults.standardUserDefaults()
     m = _menu()

@@ -1,4 +1,5 @@
 unrelease:
+Moving away from the coin row in the main menu stops the time to the next coin, instead of reading it over the row you moved to.
 The ranking and Game Center rows are gone from the main menu, the rank is gone from the result panel, and the restore purchases row is gone from the shop. They needed online services that the Windows version does not have.
 Closing the game window quits the game from any screen, instead of going back to the main menu and leaving the menu you came from running in the background with its coin timer. Escape still goes back, pauses or leaves the menu as before.
 The tutorial can be finished in debug mode, since each kill still finishes its lesson even though it does not count.

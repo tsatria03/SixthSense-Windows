@@ -275,6 +275,15 @@ class AppDelegate:
             self.ttsTimer.invalidate()
         self.ttsTimer = None
         self.numberBackUp = []
+        # PORT DIVERGENCE: the original (0x5ae8) stops only the digits, so the coin
+        # row's minutes and seconds, queued 2 s and 1 s behind "after" and "minutes",
+        # still came and were read over whatever row you had moved to.  They are
+        # cancelled here, and the words already playing are stopped with them.
+        loop = RunLoop.main()
+        loop.cancelPerform(self, 'readTimeMin')
+        loop.cancelPerform(self, 'readTimeSec')
+        for word in (TTS_MINUTES, TTS_SECONDS, TTS_COIN_FULL, TTS_COIN_AFTER):
+            self.stopSoundBufNumber_(word)
 
     # -[AppDelegate readTimeMin] 0x5ec4 / -[AppDelegate readTimeSec] 0x604c
     def readTimeMin(self, *_):
