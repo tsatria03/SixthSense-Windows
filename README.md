@@ -287,9 +287,8 @@ until you do it. When the last one lands the walk starts and the real game begin
 
 The opening, the menu, the tutorial, the stage, the monsters, the weapons, the
 fighting, the pause and result panel, the shop and the inventory are ported, along with
-the whole audio path. What is left is the weapon test range behind the shop's Try
-button (`Stage_1_TEST`, which is its own stage rather than a variant of the real one),
-the ambient sound layer the shipped map does not use, and everything that needed the
+the whole audio path, and so is the weapon test range behind the shop's Try button
+(`Stage_1_TEST`). What is left is the ambient sound layer the shipped map does not use, and everything that needed the
 publisher's server or the App Store. `docs/PORTING_STATUS.md` has the full list, and
 `docs/DIVERGENCES.md` has the original's own bugs that the port keeps.
 

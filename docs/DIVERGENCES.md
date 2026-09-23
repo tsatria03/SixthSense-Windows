@@ -291,42 +291,40 @@ so a zombie that hit you on the same tick stayed on top of you and hit again onc
 were free. The port removes them either way. It also keeps the grabbing monster itself
 rather than only its index, so shaking free always frees and kills the one holding you.
 
-### The woman zombie growls before she reaches you
-The woman zombie (types 10006..10010) walks on `woman_coming_cave_monster1` (271) or
-`woman_coming_forest_Monster` (272): about four seconds of quiet footsteps, then the
-growl. She is also the fastest walker in the game. Her plists give 16 steps of 50 cm
-every 6 s (`comingSoundInWalk`, `comingRange`), and `initWithMonsterPatern:`
-multiplies the step by `monsterHPGain` (0x10848), which `ChangeLevel:` raises by 1.5
-each level (0x32314). From level 2 on, she reached you in about 4.4 s, before the
-growl, and `hitPlayer` stops her sound, so she hit you without ever being heard. The
-original does the same. The port starts her sample far enough in that the growl lands
-as she comes within 3.5 m (`monster_control.GROWL_AT`), worked out from her step and
-her step rate when she appears, and again from where she is after a pause. On level 1
-that is the start of the sample, as in the original: she growls 4.5 m out in the cave
-and 3.5 m in the forest. On level 2 the sample starts 0.65 s in (cave) or 1.55 s
-(forest), and so on up. She growls once, and the sample comes round again only after
-she has reached you. Starting her at the growl itself, which the port did for a day,
-put a faint growl 9.5 m out and then, one loop later, a loud one only 1 to 2.5 m away.
-Her speed and the files are unchanged. The girl who heals you (10001..10005)
-has the same speed and her call for help comes at the end too; she is left as the
-original has her.
+### The woman zombie's growl after a pause
+The woman zombie (types 10006..10010) walks on `woman_coming_cave_monster1` (271) or `woman_coming_forest_Monster` (272): about four seconds of quiet footsteps, then the growl. Her plists give 16 steps of 50 cm every 6 s (`comingSoundInWalk`, `comingRange`). She keeps that speed on every level: `MonsterInit:` builds her, and the girl who heals you, with an HPGain of 1.0 (0x38d8c, 0x39034: `mov.w r2, #0x3f800000` stored as the argument), where every other monster gets `monsterHPGain`. So a new woman starts at the top of her sample, as in the original, and growls 4.5 m out in the cave and 3.5 m in the forest.
+
+After a pause, `ReplayGame` starts her sample again from the top wherever she is (0x10d98), so the original could let her reach you before the growl, and `hitPlayer` stops her sound, so she hit you unheard. The port starts the sample far enough in that the growl lands as she comes within 3.5 m (`monster_control.GROWL_AT`), worked out from where she is. The files are unchanged.
+
+The port used to build the girl and the woman with the level's `monsterHPGain`, so they got 1.5 times faster and tougher each level. That was a misreading, found on 2026-09-22, and the growl timing above was first written to make up for it.
 
 ### A monster's last step stops at 20 cm
 `MonsterMoving:` takes `comingRange` off the range while it is over 25 cm (0x10fee) and
 sets it to 20 cm once it is not (0x11032), but nothing stops that step overshooting.
 The girl's 50 cm step took her from 50 cm to 0, dead centre, and the next step put her
 back out at 20 cm in her lane, so she walked in and then stepped to the side, right
-from lanes 4 and 5, left from 1 and 2. On level 3 her 112 cm step went from 104 cm to
--8, which is past you and on the other side. Any monster whose step overshoots does the
-same; `zombie_1` also lands on 0 on level 1. The original does it too. The port stops
+from lanes 4 and 5, left from 1 and 2. Any monster whose step overshoots does the
+same, and a zombie's step grows 1.5 times each level, so it can overshoot past you and
+onto the other side; `zombie_1` also lands on 0 on level 1. The original does it too. The port stops
 a step at 20 cm, where the monster ends up anyway, so it stays in its lane all the way
 in. Every step that would have overshot already landed within 25 cm, so a monster
 reaches you on the same step as before.
+
+### The weapon test range
+`Stage_1_TEST`, which the Try button on a weapon's page opens, is ported in `game/stage_1_test.py`, with these differences:
+- `-[DetailStoreController testAction:]` refuses while VoiceOver is running and shows an alert asking for it to be turned off (0x1c20a). The port leaves that out: a player here always has a screen reader running, and the range speaks for itself.
+- `gameReplayAction:` fetches the ground map from the developer's Dropbox (0x471fe..0x47292) and builds the level when it arrives. The port reads the bundled map, as the first start does.
+- `missionFailTell:` writes `GOLD` without a `synchronize` (0x467ee). iOS saves it soon after anyway; the port saves it at once.
+- The range's pause checks and sets `bStop` before it looks at `missionCompletSounding` (0x479d6..0x479ee), the reverse of the stage's; the port keeps that order.
+- The range's own `monsterHitHeadFind`, `MonsterDamage`, `MonsterDamageKnife`, `MovingShot:` and the reloads differ from the stage's only in the inline tutorial's flags and in which weapon a reload refills (there is only one), so the port uses the stage's.
+
+Kept as the original has them: a win plays `bgm_game_complete` (90) and then says "game over" (354) when the panel comes up, the range is always the cave or the forest, never the rain (0x40fce: `arc4random() & 1`), and the gold for a run is 12% of the score, not the stage's twelve a kill.
 
 ### A debug mode
 The original has none. `python SixthSense.py --debug` sets `AppDelegate.debug`, and the stage then keeps every heart, so you cannot die. A zombie that reaches you, or a grab you do not shake off, plays the zombie's death (`DieMonster`) and nothing else: no hit on you and no `player_damage`. Shooting the girl who heals you sounds as usual but takes nothing. The girl still reaches you and thanks you, but gives no heart. Nothing you kill counts either, so `killMonsterCount`, `HeadShotCount` and the per-kind tallies stay at 0, and with them the score, the gold (`ObtainedGold`) and the top score. A headshot still does double damage and is still heard. A coin is still spent to start a run. The window's title says "SixthSense (debug)", and each stage says "Debug mode" through the screen reader as it starts.
 
 It also adds six keymap actions, which only match, and only show on the F1 screen, with `--debug` (`KeyMap.debug`). They live in `sixthsense/game/debug.py`, speak through the screen reader whatever the voice over row says, and do nothing in the tutorial:
+- In the weapon test range, F2 and Shift+F2 only say that it has no levels or sections.
 - F2 goes to the next level, the way the end of a level does (`_level_transition`), boss or no boss.
 - Shift+F2 goes to the start of the next section of the corridor in the same level: the next row on your path whose action cell is 9, of the eight at rows 680, 601, 500, 400, 300, 200, 99 and 34, the last being the boss's. The zombies around you die, but not the girl who heals you, and the next tick reads that cell 9 as walking there would.
 - F5 spawns a zombie in the lane you last attacked, 12 o'clock before your first attack. Shift+F5 chooses which: zombies 1 to 10, the woman zombie, the girl or the boss, which always comes down the middle.

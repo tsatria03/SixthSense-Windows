@@ -238,9 +238,9 @@ def test_the_headshot_announcement_is_centred():
 
 def test_a_monster_never_passes_through_you_on_its_last_step():
     """The girl's 50 cm step took her from 50 cm to 0, dead centre, and the next step
-    put her back out at 20 cm in her lane: a step sideways.  At level 3 her 112 cm
-    step went from 104 to -8, past you and onto the other side.  Walked in at each
-    level, in every lane, the source stays on its own side and never comes closer
+    put her back out at 20 cm in her lane: a step sideways.  She keeps level 1's step
+    on every level (0x38d8c); the gains are run anyway.  Walked in at each level, in
+    every lane, the source stays on its own side and never comes closer
     than 20 cm."""
     for gain in (1.0, 1.5, 2.25):
         for type_id, lane in ((10001, 1), (10003, 3), (10005, 5)):
@@ -270,11 +270,10 @@ def test_a_monster_never_passes_through_you_on_its_last_step():
 
 
 def test_the_woman_zombie_growls_before_she_reaches_you():
-    """Her walk sounds are footsteps with the growl at the end, and from level 2 on she
-    reached you before it.  Her sample now starts far enough in that the growl lands
-    about 3.5 m out, on every level, in the cave and the forest alike, and the next time
-    round comes after she has reached you.  On level 1 that is the start of the sample,
-    as in the original."""
+    """Her walk sounds are footsteps with the growl at the end.  She keeps level 1's
+    step on every level (0x39034), so her sample starts at the top on every level, as
+    in the original, and the growl lands 3.5 to 5 m out, in the cave and the forest
+    alike; the next time round comes after she has reached you."""
     for mode, sound in ((1, 271), (2, 272)):
         for level in (1, 2, 3, 4):
             gain = 1.5 ** (level - 1)
@@ -300,9 +299,8 @@ def test_the_woman_zombie_growls_before_she_reaches_you():
                     loop = 5.23 if sound == 271 else 6.29
                     again = 1 + int((growl + loop) / interval)
                     assert again >= arrive, where + ', and again before she arrives'
-                    if level == 1:
-                        assert start < 0.3, \
-                            'level 1 starts %.2f s in, not at the top' % start
+                    assert start < 0.3, \
+                        'level %d starts %.2f s in, not at the top' % (level, start)
                 finally:
                     w.close()
             finally:

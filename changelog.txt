@@ -1,4 +1,7 @@
 unrelease:
+Pausing, finishing and dying stop the same sounds as in the original: pausing in the rain stops the rain, and a game over stops the level's music in the forest as well as in the cave.
+The Try button on a weapon's page opens the weapon test range, as in the original. You stand still with only that weapon while up to three zombies come at you, and five kills ends the test. The run pays gold, and the back row returns you to the weapon's page.
+The girl and the woman zombie walk at the same speed and are as easy to kill on every level, as in the original, instead of getting faster and tougher with each level. The woman growls three and a half to four and a half metres away every time, and after a pause too.
 Starting the game with --debug gives a debug mode, and each stage says "Debug mode" as it starts. A zombie that reaches you dies on the spot, heard only by its death, so you cannot die.
 In debug mode your kills and headshots do not count, so a run earns no score and no gold. The girl still thanks you when she reaches you, but gives you no heart.
 In debug mode F2 goes to the next level, Shift+F2 goes to the next section of the corridor, F5 spawns a zombie in the lane you last attacked, and Shift+F5 chooses what F5 spawns.
@@ -9,7 +12,6 @@ With voice over turned off, the panel for pausing, finishing a mission and game 
 With voice over turned off, the opening screen, the main menu, the shop and the inventory speak through your screen reader. Buttons are read as a name and "Button", a weapon's picture as its name and "Image", and numbers are read whole with their label, such as "Price, 7,000".
 The voice over row says whether voice over is on or off, instead of naming the mode it would switch to, and new players start with voice over on.
 The girl and the zombies walk straight in along their own lane and stop there, instead of passing through the middle of your head and stepping out to the side on their last step.
-The woman zombie growls once, about three and a half metres away, on every level, instead of reaching you on level 2 and up before her growl could be heard.
 You can pause as often as you like, as in the original, instead of only once per stage.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
 The shop, the weapon list, a weapon's page and the inventory say which screen you are on as they open, instead of only saying "back button".
@@ -52,7 +54,6 @@ The tutorial's prompts no longer restart every second once they have already pla
 The "no coin" message no longer speaks its own sentence over the recording that already says it.
 The "you must use earphones" warning now plays once, from the opening screen, instead of colliding with the main menu's title or repeating every time you start a game.
 Moving to another row in the shop, the inventory or the main menu now stops whatever that row was saying, instead of letting it run into the next one.
-The Try button on a weapon's page now says the weapon test range is not available, instead of doing nothing and saying nothing.
 The game now comes with the licenses for OpenAL Soft, the NVDA controller client, Prism and pygame, in a licenses folder beside the game.
 The key bindings screen and the main menu's spoken messages now work with JAWS, ZoomText, System Access, Narrator and other screen readers as well as NVDA, and with a Windows voice when no screen reader is running.
 The game's sounds are sorted into folders inside game\sounds, each under its original name.

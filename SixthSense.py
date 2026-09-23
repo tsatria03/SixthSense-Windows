@@ -40,6 +40,13 @@ def _new_tutorial():
     return st
 
 
+def _new_test_range(testWeapon):
+    from sixthsense.game.stage_1_test import Stage_1_TEST
+    st = Stage_1_TEST(testWeapon)
+    st.viewDidLoad()
+    return st
+
+
 def _new_menu():
     from sixthsense.game.main_controller import MainController
     m = MainController()
@@ -74,6 +81,9 @@ def _new_screen(name, arg=None):
     made.startRead()
     return made
 
+
+#: The screens that play: the clock stops under F1 and losing focus pauses them.
+STAGES = ('stage', 'tutorial', 'weapon_test')
 
 #: The screens that are pushed rather than swapped in.
 PUSHED = ('store', 'store_weapons', 'store_detail', 'inventory',
@@ -174,7 +184,7 @@ def main(argv=None):
     quitting = False
     while not quitting:
         for event in pygame.event.get():
-            if focus_lost(event, pygame) and kind in ('stage', 'tutorial'):
+            if focus_lost(event, pygame) and kind in STAGES:
                 interrupt_stop(obj)         # losing focus is pressing P (ui/focus.py)
             if showing_bindings:
                 bindings.handle(event, pygame)
@@ -189,7 +199,7 @@ def main(argv=None):
             if hasattr(inp, 'reset'):
                 inp.reset()
             showing_bindings = True
-            if kind in ('stage', 'tutorial'):
+            if kind in STAGES:
                 loop.hold()
             bindings.open()
         elif showing_bindings and bindings.done:
@@ -217,9 +227,11 @@ def main(argv=None):
                     kind, obj = 'menu', _new_menu()
                     inp = MenuInput(obj)
                 elif name == 'weapon_test':
-                    # -[DetailStoreController testAction:] pushes Stage_1_TEST, which
-                    # is not ported; docs/PORTING_STATUS.md says so.
-                    log.info('the weapon test range (Stage_1_TEST) is not ported')
+                    # -[DetailStoreController testAction:] pushes Stage_1_TEST over the
+                    # weapon's page, and its back row pops back to it.
+                    stack.append((kind, obj, inp))
+                    kind, obj = name, _new_test_range(arg)
+                    inp = Input(obj)
                 else:
                     obj.teardown()
                     kind = name
@@ -227,6 +239,10 @@ def main(argv=None):
                     inp = Input(obj)
                 log.info('-> %s', name)
             elif getattr(obj, 'done', False) and stack:
+                obj.teardown()
+                kind, obj, inp = stack.pop()
+                log.info('-> %s', kind)
+            elif kind == 'weapon_test' and (not obj.running or inp.quit):
                 obj.teardown()
                 kind, obj, inp = stack.pop()
                 log.info('-> %s', kind)

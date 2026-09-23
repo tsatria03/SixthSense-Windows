@@ -31,6 +31,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `Stage_1_E` pause and result panel | `game/stage_1_e.py`, `ui/input.py` | `StopPlayAction:`, `continueAction:`, `gameReplayAction:`, `GameEndAction:`, `spaekMenu`, `StopElseSpeak`, the ten rows of `selectTapPointSoundStart`, `tapCount`'s table, and the five readouts |
 | `NSTimer` / `performSelector:afterDelay:` | `platform/runloop.py` | including `cancelPreviousPerformRequestsWithTarget:selector:` |
 | `NSUserDefaults` | `platform/defaults.py` | |
+| `Stage_1_TEST` (243 methods) | `game/stage_1_test.py` | The weapon test range behind the shop's Try button, as a subclass of `Stage_1_E` overriding the methods that differ: the test weapon only (`gunChangeAction:` is `bx lr`), no walking, tier 1 spawns, five kills to win, gold at 12% of the score, a panel without rank or top score whose last row goes back to the weapon's page, and a free restart. The VoiceOver alert and the Dropbox map fetch are left out; see `DIVERGENCES.md`. |
 | `Stage_Tutorial` (252 methods) | `game/stage_tutorial.py` | The ten beats, `CheckTutorial`, the per-beat spawns, and `tutorialEndGameStart:` handing over to the walk |
 | `MainController` (94 methods) | `game/main_controller.py`, `ui/menu_input.py` | The eight menu rows with their own WAVs, the coin economy (30 min a coin, cap 5, one a game, catch-up for time away), the voice-over toggle, the push into the stage, the tutorial or the shop |
 | `startIntroPage` (26 methods) | `game/intro.py` | The splash, the two-second wait, the saved-game load and the warning message. The story text and `shakeDevice` are there too, unreachable exactly as they are in the original |
@@ -61,7 +62,6 @@ the same but there is nothing to draw.
 
 | Original | Why |
 |---|---|
-| `Stage_1_TEST` (243 methods) | The weapon test range. **It is reachable** — `-[DetailStoreController testAction:]` (0x1c1c0) pushes it from the Try button on a weapon's page; it is only unreachable from the menu. It is not a thin variant of `Stage_1_E`: 38 of the 241 methods they share have different bodies, including `weaponInit` (+548 bytes), `monsterHitHeadFind` (+768) and `MainControl` (−912), and `gunChangeAction:` is gutted to a bare return. Porting it is a job the size of `Stage_1_E` itself. When Try is chosen, the port says the weapon test range is not available and stays on the weapon's page. |
 | `Stage_1_E.mapPlotSound` / `soundFunction:yPlot:data:addSound:` | The ambient point-source layer. The shipped `s_CH1_E.txt` is entirely zeros, so it can never run on the shipped map, and the tail below 440 cm reuses `d8`/`s16` in a way that could not be pinned down without being able to run it. The distance ladder that **was** recovered is in `GAME_STRUCTURE.md` §2. |
 | `angleTest` (192 methods) | A development build. Nothing in the binary references the class at all. |
 | `intro2storyPage` (22 methods) | The story page. Nothing in the binary ever creates one; the story text and its WAV live in `startIntroPage.shakeDevice`, which nothing calls either. |
@@ -101,7 +101,7 @@ the same but there is nothing to draw.
 ## The disassembly is ready for the rest
 
 `analysis/disasm/` holds decompiled listings for every game class, ported or not —
-including `Stage_1_TEST`, `angleTest`, the ranking and account screens and the StoreKit
+including `angleTest`, the ranking and account screens and the StoreKit
 ones. Regenerate any of them with `tools/dc.py`; `tools/rows.py` and `tools/bands.py`
 pull a blind-mode screen's rows and its double-tap table straight out of a class, which
 is how the shop and the inventory were read. See `tools/README.md`.

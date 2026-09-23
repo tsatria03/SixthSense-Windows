@@ -243,21 +243,18 @@ def test_a_thousand_gold_buys_one_grenade():
         p.teardown()
 
 
-def test_the_try_button_wants_the_test_stage():
-    """0x1c1c0 pushes Stage_1_TEST - the only way into it.  Stage_1_TEST is not
-    ported, so the port says so rather than doing nothing."""
+def test_the_try_button_opens_the_test_range_with_that_weapon():
+    """0x1c1c0 pushes Stage_1_TEST holding the page's weapon: weaponType 1..5, the
+    shotgun to the sword, are slots 3..7 (0x1c1d8..0x1c204), and the grenade is 0."""
     _app()
-    p = DetailStoreController(2, speech=_Recorder())
-    try:
-        p.select(8)
-        p.activate()
-        assert p.next_screen == ('weapon_test', 2)
-        assert p.speech.said
-        before = p.speech.stopped
-        p.select(1)                          # move to another row
-        assert p.speech.stopped > before, 'moving away did not stop the speech'
-    finally:
-        p.teardown()
+    for weaponType, slot in ((1, 3), (2, 4), (3, 5), (4, 6), (5, 7), (0, 0)):
+        p = DetailStoreController(weaponType, speech=_Recorder())
+        try:
+            p.select(8)
+            p.activate()
+            assert p.next_screen == ('weapon_test', slot), (weaponType, p.next_screen)
+        finally:
+            p.teardown()
 
 
 def test_the_inventory_lists_all_eight_slots():

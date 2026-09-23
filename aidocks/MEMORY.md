@@ -17,6 +17,9 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 ## Current state
 - [Evaluation 2026-09](project_evaluation_2026_09.md): the full evaluation, with root causes of the three todo bugs, prioritized findings with file:line and binary evidence, docs entries that are misreadings, open decisions, and a suggested fix order. The 2026-09-22 rescan section lists five new findings (F1 doesn't pause a stage, pausing during a level change, coin minutes reading over the next row, the earphone warning not stopped, the stacked menu kept alive) and what is still open.
 
+- [Weapon test range](project_test_range.md): `Stage_1_TEST`, behind the shop's Try button, was ported on 2026-09-22 as `game/stage_1_test.py`. It gives you one weapon, standing still, with tier 1 zombies; five kills win, gold is 12% of the score, and the panel has no rank. It has addresses and divergences.
+- [Levels are endless](project_levels_endless.md): the original has no level cap and no win (verified in the raw instructions). From about level 9 zombies arrive on their first step, and unused art shows 19 stages plus endless were planned.
+
 ## Feedback: how the dev wants you to work
 - [Memory in aidocks](feedback_memory_in_aidocks.md): all memory goes in aidocks/ with this index, and CLAUDE.md is a lean dispatcher under 40,000 chars.
 - [Git commits and pushes](feedback_git_commits.md): commit only when asked, then push right away without asking. Force pushes and history rewrites need an explicit go-ahead. Use `git commit -F` with a message file (PowerShell breaks quotes), and never hide git's errors.

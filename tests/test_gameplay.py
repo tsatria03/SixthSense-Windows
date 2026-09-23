@@ -542,6 +542,25 @@ def test_a_zombie_that_reaches_you_dies_in_debug_mode():
         st.teardown()
 
 
+def test_the_girl_and_the_woman_keep_level_1s_speed():
+    """0x38d8c / 0x39034: MonsterInit: builds the girl and the woman zombie with an
+    HPGain of 1.0, so their step and health do not grow with the level.  Zombies and
+    the boss do (0x37730, 0x38f68)."""
+    for type_id in (10001, 10006, 1, S1E.BOSS_CAVE):
+        base = {}
+        for gain in (1.0, 3.375):
+            _app, st = _new_stage()
+            st.monsterHPGain = gain
+            st.MonsterInit_(type_id)
+            m = st.MonsterBuffer[0]
+            base[gain] = (m.comingRange, m.HP)
+            st.teardown()
+        if type_id >= 10001:
+            assert base[3.375] == base[1.0], '%d grew with the level: %r' % (type_id, base)
+        else:
+            assert base[3.375][0] > base[1.0][0], '%d did not speed up' % type_id
+
+
 def test_the_debug_commands():
     """sixthsense/game/debug.py: F6 holds zombies at their range, F11 reads them out,
     F2 moves on a level."""

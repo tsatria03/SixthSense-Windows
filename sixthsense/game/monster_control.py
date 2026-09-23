@@ -114,12 +114,12 @@ ZIGZAG_ANGLE = {
 
 #: PORT DIVERGENCE: the woman zombie's two walk sounds, and how far into each her growl
 #: starts, in seconds (a tenth early, so its start is not clipped).  Both are quiet
-#: footsteps with the growl at the end, and she is the fastest walker in the game: 16
-#: steps of 50 cm every 6 s, each step 1.5 times longer every level (0x10848).  On level
-#: 1 she growls 3.5 to 4.5 m out; from level 2 on she reached you before the growl, and
-#: reaching you stops her sound, so she hit you unheard.  Her sample now starts far
-#: enough in that the growl lands when she is ``GROWL_AT`` away, on every level.  On
-#: level 1 that is the start, as in the original.  The files are not changed.
+#: footsteps with the growl at the end: 16 steps of 50 cm every 6 s, and she keeps
+#: that speed on every level (``MonsterInit:`` builds her with an HPGain of 1.0,
+#: 0x39034).  A new woman starts at the top of the sample, as in the original, and
+#: growls 3.5 to 4.5 m out.  After a pause the original starts the sample again from
+#: the top wherever she is, so she could reach you before the growl; the port starts
+#: it far enough in that the growl lands when she is ``GROWL_AT`` away.
 WOMAN_GROWL = {
     271: 3.6,       # woman_coming_cave_monster1, 5.23 s long
     272: 4.5,       # woman_coming_forest_Monster, 6.29 s long
