@@ -1,7 +1,4 @@
 # SixthSense-Windows
-A Windows port of SixthSense, recovered from the iOS binary.
-
-## What this is
 
 A Python port of **SixthSense** (`kr.co.bitbee.sixsense` 1.2, Bitbee, 2013), an iPhone
 audio game for blind players: you walk down a corridor in the dark and shoot what you
