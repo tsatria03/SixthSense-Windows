@@ -5,6 +5,7 @@ kill counts (``Stage_1_E``, ``AppDelegate.debug``); these keys are for trying th
 out by ear.  They are keymap actions, so the F1 screen lists and rebinds them:
 
     F2          next level, the way the end of a level goes
+    Shift+F2    the start of the next section of the corridor, in the same level
     F5          spawn the chosen zombie, in the lane you last attacked
     Shift+F5    choose what F5 spawns
     F6          hold every zombie where it is, or let them walk again
@@ -18,6 +19,8 @@ from __future__ import annotations
 
 from .stage_1_e import (BOSS_CAVE, BOSS_FOREST, BOSS_NUMBER, MONSTER_GIRL,
                         MONSTER_WOMAN, SOUND_WARNING)
+
+START_ROW = 680                     # 0x2cf1a, where every level starts
 
 #: What F5 can spawn, in the order Shift+F5 goes through them: the name spoken, and
 #: the type id for a lane (``MONSTER_ARRAY``'s ``kind*10 + lane``, the first kind
@@ -46,6 +49,7 @@ def perform(st, action, lane):
     if _in_tutorial(st):
         return
     {'debug_next_level': next_level,
+     'debug_next_section': next_section,
      'debug_spawn': lambda s: spawn(s, lane),
      'debug_spawn_kind': next_spawn_kind,
      'debug_freeze': toggle_freeze,
@@ -65,6 +69,38 @@ def next_level(st):
     st.app.stopSoundBufNumber_(SOUND_WARNING)       # the alarm, if it had started
     st._level_transition()
     st._say('Level %d, %s.' % (st.LVUP, area_name(st)))
+
+
+def sections(st):
+    """The rows each section of the corridor starts on, top of the corridor first:
+    the rows on your path whose action cell is 9, the quiet stretch that opens each
+    one.  The last is the boss's."""
+    x = st.gamePlayer.playerXplot
+    return [y for y in range(START_ROW, 0, -1)
+            if st.stage.movePlayActionState_PlotY_(x, y) == 9]
+
+
+def next_section(st):
+    """Walk straight to the start of the next section.  The zombies around you die
+    where they are, but not the girl, who walks on and still thanks you, and the next tick reads the section's own cell 9 as walking there
+    would, so its quiet stretch, its tier and its music follow on their own."""
+    if st.MotionSamplingTimer is None or not st.MotionSamplingTimer.isValid():
+        st._say('Not while the level is changing.')
+        return
+    if st.isShake:
+        st._say('Not while a zombie holds you.')
+        return
+    rows = sections(st)
+    ahead = [y for y in rows if y < st.gamePlayer.playerYplot]
+    if not ahead:
+        st._say('This is the last section. F2 goes to the next level.')
+        return
+    for m in list(st.MonsterBuffer):
+        if m.monsterNumber != MONSTER_GIRL:
+            m.DieMonster()
+            st._remove(m)
+    st.gamePlayer.playerYplot = ahead[0]
+    st._say('Section %d of %d.' % (rows.index(ahead[0]) + 1, len(rows)))
 
 
 def next_spawn_kind(st):

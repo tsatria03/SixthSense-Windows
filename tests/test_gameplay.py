@@ -475,6 +475,12 @@ def test_debug_mode_takes_no_heart_and_counts_nothing():
         st.MonsterAttPlayer()
         assert m not in st.MonsterBuffer, 'the zombie did not reach you'
         assert st.gamePlayer.HP == 3, 'a zombie took a heart'
+        st.MonsterInit_(10001)              # the girl reaches you, lane 1
+        girl = st.MonsterBuffer[0]
+        girl.monsterRange = 10.0
+        st.MonsterAttPlayer()
+        assert girl not in st.MonsterBuffer, 'the girl did not reach you'
+        assert st.gamePlayer.HP == 3, 'the girl gave a heart'
         st.MonsterInit_(10003)              # the girl, lane 3
         _freeze(st.MonsterBuffer[0], 100.0)
         st.MovingShot_(LANE[3])
@@ -494,6 +500,44 @@ def test_debug_mode_takes_no_heart_and_counts_nothing():
         assert p.HeadShotCount == 0, 'the headshot counted'
         assert st.ReadScore() == 0 and st.ObtainedGold() == 0
     finally:
+        app.debug = False
+        st.teardown()
+
+
+def test_a_zombie_that_reaches_you_dies_in_debug_mode():
+    """--debug: a zombie that reaches you, or a grab that lands, plays its death
+    alone - no hit on you and no player_damage."""
+    app, st = _new_stage()
+    loop = RunLoop.main()
+    app.debug = True
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))
+    try:
+        st.MonsterInit_(1)
+        m = st.MonsterBuffer[0]
+        _freeze(m, 10.0)
+        played.clear()
+        st.MonsterAttPlayer()
+        _run(loop, 0.3)
+        assert m not in st.MonsterBuffer
+        assert played == [m.dieSound], played
+        assert st.gamePlayer.HP == 3
+
+        st.MonsterInit_(71)                 # the one that grabs you
+        g = st.MonsterBuffer[0]
+        g.shakeMonsterApproachTime = 0.3
+        g.monsterRange = 10.0
+        st.MonsterAttPlayer()
+        assert st.isShake
+        _run(loop, 2.0, until=lambda: not st.isShake)
+        assert not st.isShake and g not in st.MonsterBuffer
+        assert g.dieSound in played, played
+        assert g.playerHitSound not in played, played
+        assert S1E.SOUND_PLAYER_DAMAGE not in played, played
+        assert st.gamePlayer.HP == 3
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
         app.debug = False
         st.teardown()
 
@@ -518,6 +562,19 @@ def test_the_debug_commands():
         assert debug.monsters_text(st).startswith("Zombie 3, 12 o'clock, "), said
         debug.toggle_freeze(st)
         assert not m.frozen
+
+        assert debug.sections(st) == [680, 601, 500, 400, 300, 200, 99, 34]
+        debug.spawn(st, 3)
+        st.MonsterInit_(10001)              # the girl, lane 1
+        girl = st.MonsterBuffer[-1]
+        debug.next_section(st)
+        assert st.gamePlayer.playerYplot == 601
+        assert st.MonsterBuffer == [girl], 'the girl died, or a zombie lived'
+        assert said[-1] == 'Section 2 of 8.', said
+        st.gamePlayer.playerYplot = 30
+        debug.next_section(st)
+        assert st.gamePlayer.playerYplot == 30, 'went past the last section'
+        assert said[-1].startswith('This is the last section'), said
 
         lv = st.LVUP
         debug.next_level(st)

@@ -67,10 +67,10 @@ you. Gold comes out of your runs: twelve a kill and two a headshot.
 `--stage` and `--tutorial` skip the menu, `--no-intro` skips the opening. Other
 options: `--no-window` (headless), `--game DIR` (another copy of the bundle), `-v`.
 
-`--debug` is for trying things out: zombies still attack, but nothing takes a heart and
+`--debug` is for trying things out: a zombie that reaches you just dies, nothing takes a heart and
 you cannot die, and no kill, headshot, score or gold counts. A stage says "Debug mode"
-as it starts, and five keys are added, which the F1 screen lists and rebinds: F2 next
-level, F5 spawn a zombie in the lane you last attacked, Shift+F5 choose what F5 spawns,
+as it starts, and six keys are added, which the F1 screen lists and rebinds: F2 next
+level, Shift+F2 next section of the corridor, F5 spawn a zombie in the lane you last attacked, Shift+F5 choose what F5 spawns,
 F6 hold the zombies in place, F11 say where they are.
 
 `Stage_1_E` will not start its walk timer until `TUTORIAL` is set (0x2e08e), so until

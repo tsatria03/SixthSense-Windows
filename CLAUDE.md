@@ -48,7 +48,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 - `--stage` and `--tutorial` start those directly.
 - `--skip-tutorial` writes `TUTORIAL=1`.
 - `--no-window` runs headless.
-- `--debug`: nothing takes a heart, and no kill, headshot, score or gold counts. It adds F2, F5, Shift+F5, F6 and F11 (`game/debug.py`), which the F1 screen lists only in debug mode.
+- `--debug`: a zombie that reaches you just dies, nothing takes a heart, and no kill, headshot, score or gold counts. It adds F2, Shift+F2, F5, Shift+F5, F6 and F11 (`game/debug.py`), which the F1 screen lists only in debug mode.
 - `-v` gives verbose logging.
 
 This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). `pip install -r requirements.txt` installs both.

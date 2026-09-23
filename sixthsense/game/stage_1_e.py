@@ -683,12 +683,16 @@ class Stage_1_E:
                 break
             done.append(m)
             if m.monsterNumber == MONSTER_GIRL:        # 0x3b28e - the girl heals
-                if self.gamePlayer.HP <= 3:
+                if self.gamePlayer.HP <= 3 and not self.app.debug:
                     self.gamePlayer.HP += 1
                 m.hitPlayer()                          # 270, her thank you
                 self.HPImageCount()
                 continue
-            if self.isTutorial and not self.app.debug:  # 0x3b2e6
+            if self.isTutorial and self.app.debug:
+                m.DieMonster()                         # --debug: it dies on you instead
+                self.HPImageCount()
+                continue
+            if self.isTutorial:                        # 0x3b2e6
                 self.gamePlayer.HP -= 1
             m.hitPlayer()
             self.HPImageCount()
@@ -1314,7 +1318,12 @@ class Stage_1_E:
         if m is None:
             self.isShake = False
             return
-        if self.isTutorial and not self.app.debug:  # 0x3b79e
+        if self.isTutorial and self.app.debug:
+            m.DieMonster()                          # --debug: it dies on you instead
+            self._remove(m)
+            self.isShake = False
+            return
+        if self.isTutorial:                         # 0x3b79e
             self.gamePlayer.HP -= 1
         m.hitPlayer()
         if self.gamePlayer.HP >= 0:                 # 0x3b8bc
