@@ -88,11 +88,13 @@ Every source file was read again. Nothing was run. The results:
 - The ALC return types, the device leak, and OpenAL never closed on exit.
 - The tests still write the real save: no test redirects APPDATA, and only the keymap tests use temp files.
 
-**Doc drift:**
-- PORTING_STATUS.md line 24 and lines 88-89 still say half the monster types walk zig-zags.
-- DIVERGENCES.md about 287 still says the arrow keys turn.
-- "The stop button skips the tutorial" doesn't mention the beats One to Eight gate.
+**Doc drift, all fixed on 2026-09-22:**
+- PORTING_STATUS.md said half the monster types walk zig-zags. It now says none can be reached, notes that the original never creates `MovingAccelerometer`, lists the arrow keys, and says what Try does now.
+- DIVERGENCES.md's Input section said the arrow keys turn. It now describes the arrow keys as lanes and comma and full stop as turning, and says the turn keys are the port's own.
+- "The stop button skips the tutorial" now has the beats One to Eight gate (and.w at 0x33f1e/0x33f22, `beq` at 0x33f30, traced in the listing). The 2 s return to the menu is not written up, since it was not checked.
 - "Pausing works exactly once" was a misreading, and `8d4099d` corrected it: continue and restart both clear `bStop` (0x33960, 0x3310c).
+- tools/README.md now says the addresses are VM addresses (offset = address - 0x1000). Its todo line moved to `##Finished.` at the dev's word.
+- Still not done: GAME_STRUCTURE.md §3, §5 and §9 from the original list.
 
 **The woman zombie, 2026-09-22.** tunmi13productions reported that she "speeds up" and hits before she growls. It is faithful: 16 steps of 50 cm per 6 s, with the step multiplied by `monsterHPGain` (0x10848) and ×1.5 a level (0x32314). Her growl sits about 3.7 s into 271 and 4.6 s into 272. The fix, at the dev's choice, covers the woman only, not the girl: `monster_control.GROWL_FIRST` starts her sample at 3.6 and 4.5 s through `oal_playback.setSoundOffset_` (AL_SEC_OFFSET). It is written up in DIVERGENCES.md and tested, 199/199 pass, and the dev heard it working through the level tester. Its todo line is in `##Finished.`. The same report asked whether anything comes with the boss. It does: action cell 8 sits on row 29, the siren's row, and is read before the step (raw bytes 0x31a36/0x31a6c/0x31a6e), and tier 7 keeps spawning at row 22 while the boss lives.
 

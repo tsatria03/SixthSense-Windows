@@ -17,11 +17,11 @@ ported from the disassembly method by method, with the address recorded in the c
 | `AppDelegate weaponHave` | `game/app_delegate.py` | the `NSUserDefaults` weapon keys |
 | `SoundListControl` | `game/sound_list_control.py` | |
 | `MakeMaps` (all 4 initialisers + 3 queries) | `game/make_maps.py` | verified against `g_CH1_E` / `a_CH1_E.txt` / `s_CH1_E.txt` |
-| `MovingAccelerometer` | `game/moving_accelerometer.py` | 4-way and 8-way compass, the 10° step, the ±20° tilt threshold |
+| `MovingAccelerometer` | `game/moving_accelerometer.py` | 4-way and 8-way compass, the 10° step, the ±20° tilt threshold. The original never creates one and never sets the listener (`setListenerRotation:` is not in `__objc_selrefs`); the port uses it only for its own turn keys |
 | `PlayerControl` | `game/player_control.py` | |
 | `WeaponControl` | `game/weapon_control.py` | `loadWeaponForGun:fileType:` index by index, `ReloadGun` |
 | `MonsterControl` (lifecycle) | `game/monster_control.py` | `initWithMonsterPatern:...`, `MonsterStart:`, `MonsterComing:`, `MonsterMoving:`, `headShot:`, `headShotEnd:`, `hitPlayer`, `MonsterHitSound:`, `DieMonster`, `MonsterDead`, `shakeMonster`, `StopPlayGame`, `ReplayGame` |
-| `MonsterControl` zig-zag walks | `game/monster_control.py` | `MovingType` 11/22/33/44/55, the four-bearing sweep and the turn-round at each end (0x1155e..0x1187c). **Half the shipped monster types walk one of these** |
+| `MonsterControl` zig-zag walks | `game/monster_control.py` | `MovingType` 11/22/33/44/55, the four-bearing sweep and the turn-round at each end (0x1155e..0x1187c). Fifty of the shipped plists walk one, but **none can be reached**: every id `monsterArray` sends ends in 1..5, a straight lane (see `DIVERGENCES.md`) |
 | `Stage_1_E` core loop | `game/stage_1_e.py` | `viewDidLoad`, `MapInitInBundle`, `MainControl`, `timerLeft`, `breath:`, `ChangeLevel:`, `checkBoosDie` |
 | `Stage_1_E` monsters | `game/stage_1_e.py` | `MakeMonster:`, `checkMonsterArray:`, `MonsterInit:`, `MonsterAttPlayer`, `MonsterDealloc`, `MonsterStop`, `MonsterReStart` |
 | `Stage_1_E` fighting | `game/stage_1_e.py` | `MovingShot:`, `monsterHitHeadFind`, `MonsterDamage`, `MonsterDamageKnife`, `MonsterKillCount:`, `MonsterDie:`, `stopShot:` |
@@ -41,7 +41,7 @@ ported from the disassembly method by method, with the address recorded in the c
 | `DetailInventoryController` (66) | `game/inventory.py` | One slot's page and `equipToggleAction:`, which writes the `...USE` keys the stage reads |
 | the shared screen shape | `game/blind_screen.py`, `ui/screen_input.py` | `selectTapPointSoundStart` / `tapCount` / `StopElseSpeak`, on Up / Down / Enter |
 | **port addition** | `platform/keymap.py`, `ui/keybind_screen.py`, `platform/speech.py` | Rebindable keys with chord support, and the F1 screen that edits them, spoken through NVDA, any other screen reader through Prism, or a Windows voice. The original has no bindings at all — see `DIVERGENCES.md`. |
-| gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D attack the five lanes, S reloads, comma/full stop turn, Space shakes, P pauses |
+| gestures + accelerometer | `ui/input.py` | mapped to the keyboard: A Q W E D or the arrow keys attack the five lanes, S or Down reloads, Tab changes weapon, comma/full stop turn, Space shakes, P pauses |
 
 ---
 
@@ -60,7 +60,7 @@ the same but there is nothing to draw.
 
 | Original | Why |
 |---|---|
-| `Stage_1_TEST` (243 methods) | The weapon test range. **It is reachable** — `-[DetailStoreController testAction:]` (0x1c1c0) pushes it from the Try button on a weapon's page; it is only unreachable from the menu. It is not a thin variant of `Stage_1_E`: 38 of the 241 methods they share have different bodies, including `weaponInit` (+548 bytes), `monsterHitHeadFind` (+768) and `MainControl` (−912), and `gunChangeAction:` is gutted to a bare return. Porting it is a job the size of `Stage_1_E` itself. The port logs a line and stays on the weapon's page when Try is chosen. |
+| `Stage_1_TEST` (243 methods) | The weapon test range. **It is reachable** — `-[DetailStoreController testAction:]` (0x1c1c0) pushes it from the Try button on a weapon's page; it is only unreachable from the menu. It is not a thin variant of `Stage_1_E`: 38 of the 241 methods they share have different bodies, including `weaponInit` (+548 bytes), `monsterHitHeadFind` (+768) and `MainControl` (−912), and `gunChangeAction:` is gutted to a bare return. Porting it is a job the size of `Stage_1_E` itself. When Try is chosen, the port says the weapon test range is not available and stays on the weapon's page. |
 | `Stage_1_E.mapPlotSound` / `soundFunction:yPlot:data:addSound:` | The ambient point-source layer. The shipped `s_CH1_E.txt` is entirely zeros, so it can never run on the shipped map, and the tail below 440 cm reuses `d8`/`s16` in a way that could not be pinned down without being able to run it. The distance ladder that **was** recovered is in `GAME_STRUCTURE.md` §2. |
 | `angleTest` (192 methods) | A development build. Nothing in the binary references the class at all. |
 | `intro2storyPage` (22 methods) | The story page. Nothing in the binary ever creates one; the story text and its WAV live in `startIntroPage.shakeDevice`, which nothing calls either. |
@@ -86,7 +86,7 @@ the same but there is nothing to draw.
   `paths.path_for_resource` finds them there by file name; see `DIVERGENCES.md`.
 * Of the 130 shipped `type*.plist` files, 80 walk a straight lane (`MovingType` 1..5)
   and 50 walk a zig-zag (11/22/33/44/55); the port's ladder reproduces the sweep and
-  the turn-round for all five.
+  the turn-round for all five, though no zig-zag type is ever sent in play.
 * A headless run walks one cell per second, spawns one monster per lane, closes at
   `comingRange` cm per footstep, opens and closes headshot windows, and resolves shots
   by lane and range.
@@ -118,3 +118,6 @@ Headphones. `--no-window` runs it without pygame. `--no-intro` opens on the menu
 the original's data. Its sounds are organized into `game/sounds/used/` under their original
 names; see `DIVERGENCES.md` for the layout and how the game finds them. An untouched
 original bundle, with its sounds all in one folder, works too.
+
+To start at a later level, in a chosen area or just before the boss, use
+`python tests/level_tester.py`. It asks what you want, and plays on its own save.

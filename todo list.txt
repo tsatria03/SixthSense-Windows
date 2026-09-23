@@ -31,12 +31,12 @@ Memory leaks each time the music or ambience changes.
 A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
 The tests overwrite the real save file.
 Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
-tools/README.md says the addresses are file offsets, when they are memory addresses.
 Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 
 ##Finished.
 
 The woman zombie growls as soon as she comes in, instead of reaching you on level 2 and up before her growl could be heard.
+tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.
 A level tester in tests/level_tester.py starts the game at any level, in the cave, the forest or the rain, and near the boss if you like. It asks when opened on its own, and plays on its own save so yours is never touched.
 Switching away from the game window pauses a stage, the same as pressing P, as the original did when the phone left the game.
 You can pause as often as you like, with P or by switching away from the window, as in the original, instead of only once per stage.

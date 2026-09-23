@@ -7,7 +7,7 @@ metadata:
   originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
-The port is recovered from `analysis/bin/sixsense_armv7` (Thumb-2, 32-bit Mach-O). Every address in the code comments and in `docs/` is a **VM address**. `__TEXT` is mapped at vmaddr `0x1000` from file offset 0, so **file offset = address - 0x1000**. `tools/README.md` calls them file offsets, which is wrong. Reading the bytes at the raw address lands in unrelated code.
+The port is recovered from `analysis/bin/sixsense_armv7` (Thumb-2, 32-bit Mach-O). Every address in the code comments and in `docs/` is a **VM address**. `__TEXT` is mapped at vmaddr `0x1000` from file offset 0, so **file offset = address - 0x1000**. `tools/README.md` used to call them file offsets; it was corrected on 2026-09-22. Reading the bytes at the raw address lands in unrelated code.
 
 The `analysis/disasm/dc_*.txt` listings are a simplification and can mislead:
 - They drop register saves and restores. For example, `-[AppDelegate didFinishLaunching]` at 0x4268-0x429e saves the FIREST object in r6 and later calls `intValue` on it. The listing makes it look as if `intValue` runs on COIN.

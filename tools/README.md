@@ -30,6 +30,8 @@ python rows.py StoreController        # the rows, and what a double tap does
 python bands.py mainStoreController   # the rows, in screen order
 ```
 
-Addresses are file offsets in the thin armv7 slice (fat offset `0x1000` inside
-`game/sixsense`), which is what every address in the port's comments and in `docs/`
-refers to.
+Addresses are VM addresses in the thin armv7 slice, which is what every address in the
+port's comments and in `docs/` refers to. `__TEXT` is mapped at `0x1000` from file
+offset 0, so the byte at address `A` sits at offset `A - 0x1000` in
+`analysis/bin/sixsense_armv7`. Reading the file at the address itself lands in
+unrelated code.

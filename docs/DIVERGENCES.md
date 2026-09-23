@@ -192,8 +192,11 @@ nothing for the rest of the stage. tsatria03 found it in play on 2026-09-22.
 `StopPlayAction:` branches on `isTutorial` before anything else (0x33e30). While the
 tutorial is still running, the stop button does not pause: it stops the tutorial's
 sounds, writes `TUTORIAL = "1"`, sets `isTutorial`, kills both tutorial timers and
-plays 327 *tutorial success* (0x33ea4..0x34086). **Reproduced** as
-`Stage_1_E.tutorial_skip`.
+plays 327 *tutorial success* (0x33ea4..0x34086). But only once beats One to Eight are
+all done: the branch loads `tutorialOne`..`tutorialEight`, ANDs them together
+(0x33f1e, 0x33f22) and returns doing nothing when any is still clear (`beq` at
+0x33f30). **Partly reproduced** as `Stage_1_E.tutorial_skip`: the port still lets
+the stop button skip the tutorial at any beat. That is in the todo list.
 
 ### The result panel's double tap is off by one
 `-[Stage_1_E tapCount]`'s jump table at 0x2ff32 is the eight bytes
@@ -306,11 +309,15 @@ original has her.
 ### Input
 There is no touchscreen and no accelerometer, and the port is keyboard-only — no
 mouse. The pan gesture becomes the keys **A Q W E D**, laid out as the arc the five
-lanes occupy: A hard left, W straight ahead, D hard right. They hand the stage a band
+lanes occupy: A hard left, W straight ahead, D hard right. The arrow keys do the same
+as a clock face: Left, Left+Up, Up, Right+Up and Right. They hand the stage a band
 directly instead of a synthesised angle, which loses nothing, because
 `-[Stage_1_E MovingShot:]` quantises its angle into exactly those five bands before
-anything else looks at it. Reload is **S**. Tilt-to-turn becomes the arrow keys, one
-10° step per press — the same step `rotationLeftEight`/`rotationRightEight` take.
+anything else looks at it. Reload is **S** or Down. Turning is comma and full stop,
+one 10° step per press — the same step `rotationLeftEight`/`rotationRightEight` take.
+The original never turns the listener at all (`setListenerRotation:` is not in
+`__objc_selrefs`), so the turn keys are the port's own, and the todo list has them
+down for removal.
 Shaking free becomes the space bar, and still needs 10 presses, the count
 `-[Stage_1_E accelerometer:didAccelerate:]` uses. See `sixthsense/ui/input.py`.
 
