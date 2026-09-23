@@ -5,7 +5,9 @@ metadata:
   type: project
 ---
 
-**Status: built on 2026-09-23, not yet confirmed.** Planned the same day, then built at the dev's go-ahead ("then we can get to work on the actual game releaser"). `tests/test_release.py` passes 23 of 23, after the zip moved to the releaser. Neither script has been run for real: no build, commit, tag or upload has been made with them. It becomes "finished" only once the dev has released with it and says it works.
+**Status: FINISHED, 2026-09-23.** The dev tested both and confirmed: "I tested the compiler and the releaser, and they both worked." They made a real release with the releaser, then deleted it. Checked afterwards: no GitHub release and no tag remain, locally or on GitHub, and `dist\` is empty. `main` is still at `3a2ab0c` with `VERSION` at `26.09.21-1`, so no "Release" commit stayed either. The first real release is still to come, and will be numbered from today's tags, which are none.
+
+Planned and built the same day, at the dev's go-ahead ("then we can get to work on the actual game releaser"), in commit `3a2ab0c`. `tests/test_release.py` passes 23 of 23.
 
 **Plan change, 2026-09-23, after the first build:** the zip moves out of the compiler too. The dev: "The compiler should only handle making the folder, and or embedding the assets and stuff if you allow it", and the releaser should ask whether to make the zip. So `package()` and `--no-package` leave `compiler.py`; the compiler builds `dist\SixthSense` (a folder build, or `--embed`) and stops. The releaser gains its own Package step, asked Y or N, between Build and Commit, and it refuses to zip a build whose `VERSION` is not the one being released. Its menu gains "Zip the build". The notes below are updated to match.
 

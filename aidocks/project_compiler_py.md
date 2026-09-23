@@ -9,7 +9,7 @@ metadata:
 
 `compiler.py` is the PyInstaller build script, with the numbered menu, the changelog filing and the release zip. It was adapted from an earlier build script. A newer version of that script is kept for reference in the gitignored `user/` folder; read it there, but never edit it, and don't name it in writing ([[feedback_no_other_games]]). Never run `compiler.py`, not even `--dry-run`, without the dev's say-so; see [[feedback_dont_run_or_build]].
 
-**Changed 2026-09-23, not yet confirmed by the dev:** the changelog filing and the zip moved out to the new `releaser.py`, so the compiler only builds `dist\SixthSense` and never changes the repository, and it gained `--embed`, one exe with the sounds and data inside. The menu's first two choices are now "Folder build" and "Single exe". Sections below that describe "the release build" filing the changelog, `package()` or `--no-package` are out of date. See [[project_release_tooling_plan]].
+**Changed 2026-09-23, and confirmed working by the dev the same day:** the changelog filing and the zip moved out to the new `releaser.py`, so the compiler only builds `dist\SixthSense` and never changes the repository, and it gained `--embed`, one exe with the sounds and data inside. The menu's first two choices are now "Folder build" and "Single exe". Sections below that describe "the release build" filing the changelog, `package()` or `--no-package` are out of date. See [[project_release_tooling_plan]].
 
 ## Status
 
