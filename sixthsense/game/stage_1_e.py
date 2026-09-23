@@ -1591,22 +1591,30 @@ class Stage_1_E:
                         8 -> 0x2ffe0   GameEndAction:
 
         Rows 9 and 10 fall past the ``cmp r0, 7``, so the rank and the top score
-        cannot be re-read; rows 3 and 4 are off by one against their labels.  Both are
-        in ``docs/DIVERGENCES.md``.
+        cannot be re-read; rows 3 and 4 are off by one against their labels, and row 1
+        says "paused" even after a win or a death.
+
+        **DIVERGENCE (2026-09-23, tsatria03's decision):** choosing a result row rereads
+        that row, in both modes.  Row 1 says its own state again, row 3 the headshots,
+        row 4 the score, and row 10 the top score; ``docs/DIVERGENCES.md`` has the
+        original's table.
         """
         self.StopElseSpeak()
         row = self.selectMenu
         if self.app.screen_reader and row in (1, 2, 3, 4, 5, 9, 10):
-            # Rereads the row itself, rather than the original's off-by-one reader.
             self._say(self.pause_row_text(row))
         elif row == 1:
-            self.app.playSound_Gain_Pos_z_reprats_(229, 0.2, (0.0, 0.0), 40, False)
+            self.pause_select(1)                              # 229 in the original
         elif row == 2:
             self.ReadNumberOfZombies()
+        elif row == 3:
+            self.ReadNumberOfHeadshot()                       # nothing in the original
         elif row == 4:
-            self.ReadNumberOfHeadshot()
+            self.ReadScore()                                  # the headshots there
         elif row == 5:
             self.ReadObtainedGold()
+        elif row == 10:
+            self.ReadTopScore()                               # past the original's bound
         elif row == 6:
             self.continueAction_()
         elif row == 7:

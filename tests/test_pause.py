@@ -190,31 +190,56 @@ def test_the_score_row_reads_the_score_aloud():
         st.teardown()
 
 
-def test_the_dispatch_table_is_the_one_in_the_binary():
-    """The ``tbb`` at 0x2ff32 is 04 25 61 30 3b 4b 51 57, so row 3 does nothing and
-    row 4 - the score row - re-reads the headshot count."""
-    _app, st = _new_stage()
+def test_choosing_a_result_row_rereads_that_row():
+    """The original's ``tbb`` at 0x2ff32 (04 25 61 30 3b 4b 51 57) left row 3 silent,
+    had row 4 read the headshots and could not reach the top score.  The port rereads
+    the row chosen, with voice over on as it already did with voice over off."""
+    app, st = _new_stage()
+    spoken = []
+    app.TTSNumber_type_ = lambda n, t: spoken.append(n)
     try:
         st.gameState = 2
         p = st.gamePlayer
         p.killMonsterCount, p.HeadShotCount = 5, 2
+        p.killMonster1count = 4                             # 600, x1.02 for 2 headshots
+        score = st.score_now()
+        d = UserDefaults.standardUserDefaults()
+        d.setObject_forKey_('9000', 'TOPSCORE')
 
-        st.selectMenu = 3
-        st.HeadShotLabel = 'untouched'
-        st.pause_activate()
-        assert st.HeadShotLabel == 'untouched', 'row 3 read something'
+        for row, number in ((2, 5), (3, 2), (4, score), (10, 9000)):
+            spoken.clear()
+            st.selectMenu = row
+            st.pause_activate()
+            assert spoken == [number], 'row %d read %r, not %r' % (row, spoken, number)
 
-        st.selectMenu = 4
-        st.ScoreLabel = 'untouched'
+        st.selectMenu = 9            # the rank row is left out, and reads nothing
+        spoken.clear()
         st.pause_activate()
-        assert st.HeadShotLabel == '2', 'row 4 did not read the headshot count'
-        assert st.ScoreLabel == 'untouched', 'row 4 read the score'
-
-        st.selectMenu = 9            # past the cmp r0, 7 - the rank cannot be re-read
-        st.RankLabel = 'untouched'
-        st.pause_activate()
-        assert st.RankLabel == 'untouched'
+        assert spoken == []
     finally:
+        del app.TTSNumber_type_
+        UserDefaults.standardUserDefaults().removeObjectForKey_('TOPSCORE')
+        st.teardown()
+
+
+def test_choosing_the_first_row_says_its_own_state():
+    """Row 1 is "paused", "mission success" (silent) or "game over" by the state; the
+    original replayed 229, "paused", whatever the state.  Choosing it now says the row's
+    own label again."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: played.append(n)
+    try:
+        for state, sound in ((1, 229), (3, 354)):
+            st.gameState = state
+            st.selectMenu = 1
+            played.clear()
+            st.pause_activate()
+            assert played == [sound], 'state %d played %r' % (state, played)
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real
+        del app.playSound_Gain_Pos_z_reprats_
         st.teardown()
 
 

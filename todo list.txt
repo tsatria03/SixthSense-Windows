@@ -1,6 +1,5 @@
 ##Unfinished.
 
-Decide whether to fix the original's own bugs that the port keeps on purpose: double tapping the result panel's rows reads the wrong number, the power saw can never be used, and swiping backwards attacks straight ahead.
 The "no coin" message still says to share coins with friends at the ranking page, which is gone, and with voice over off the screen reader reads it aloud.
 The key bindings screen lists Escape as "Quit", but in a stage it pauses and in the shop it goes back.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
@@ -17,6 +16,7 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+Choosing a result row on the pause and result panel reads that row again, instead of the wrong number or nothing.
 With voice over on, the score row on the pause and result panel reads your score aloud after its name, as in the original.
 With voice over turned off, the Left and Right arrows move to the previous and the next row in the menus and on the pause and result panel, like VoiceOver's flicks.
 The coin store and purchase all weapons rows are gone from the shop, since Apple in-app purchases no longer exist and there are no recordings for buying them with gold.

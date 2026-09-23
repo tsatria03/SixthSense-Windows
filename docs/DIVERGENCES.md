@@ -34,8 +34,12 @@ every gunshot 14 dB down; it now passes what the binary passes.
 ### The power saw is never loaded
 `-[Stage_1_E weaponInit]` builds a nine-entry array ending in `powersaw` but its loop is
 `cmp r4, 8` — eight iterations. `weaponSource[8]` does not exist (the ivar is
-`[8@"WeaponControl"]`). The saw has a plist, a price, a shop button and sounds, and is
-unreachable in play. **Reproduced.**
+`[8@"WeaponControl"]`; the loop's end is `adds r4, #1 / cmp r4, #8 / bne` at 0x3512c).
+The saw has a plist and its sounds (74..77), and recordings for a shop button (246)
+and its picture (254), but it was never finished: the shop and the inventory only ever
+stop 246 and never play it, and `DetailStoreController` has no page for it, so no
+price. It is unreachable in play. **Reproduced**, and kept that way at tsatria03's
+decision (2026-09-23).
 
 ### `zombie_5_hit_player` has no WAV
 `SoundList.plist` 162, 163 and 164 are `zombie_5_hit_player`; no such file is in the
@@ -215,13 +219,19 @@ or the game comes (`Stage_Tutorial.ending`).
 
 ### The result panel's double tap is off by one
 `-[Stage_1_E tapCount]`'s jump table at 0x2ff32 is the eight bytes
-`04 25 61 30 3b 4b 51 57`. Row 3 is labelled *headshot* and its case points at the
-method's exit, so double-tapping it does nothing; row 4 is labelled *score* and its
-case reads the **headshot** count. Selecting the rows is correct — each band of
-`selectTapPointSoundStart` schedules the right reader — so the mistake only shows when
-a row is tapped a second time. Row 10, the top score, falls past the `cmp r0, 7` and
-cannot be re-read at all, and so did row 9, the rank, which the port now leaves out.
-**Reproduced.**
+`04 25 61 30 3b 4b 51 57` (after `subs r0, #1` and `cmp r0, #7` at 0x2ff28). Row 3 is
+labelled *headshot* and its case points at the method's exit, so double-tapping it
+does nothing; row 4 is labelled *score* and its case reads the **headshot** count.
+Selecting the rows is correct — each band of `selectTapPointSoundStart` schedules the
+right reader — so the mistake only shows when a row is tapped a second time. Row 10,
+the top score, falls past the `cmp r0, 7` and cannot be re-read at all, and so did row
+9, the rank, which the port now leaves out. Row 1 replays 229, *paused*, even after a
+win or a death.
+
+**Fixed, 2026-09-23, at tsatria03's decision:** choosing a result row rereads that
+row, with voice over on as it already did with voice over off. Row 1 says its own
+state again, row 3 the headshots, row 4 the score and row 10 the top score
+(`Stage_1_E.pause_activate`).
 
 ### `missionFailTell:` plays *game over*, not *mission fail*
 Sound 228 is `mission fail` and `StopElseSpeak` stops it, but nothing in `Stage_1_E`
@@ -594,8 +604,8 @@ is running.
   `ReadScore` does (it ends with `TTSNumber:type:`, 0x3c1fa). An earlier reading of the
   listing said it only worked the score out; that was wrong, and was corrected on
   2026-09-23. Choosing a result row rereads that row, rather than the original's
-  off-by-one reader (see "The result panel's double tap is off by one"), which stays
-  as it was with voice over on. The panel's voice lines, "mission success", "game
+  off-by-one reader (see "The result panel's double tap is off by one"); since
+  2026-09-23 it does with voice over on too. The panel's voice lines, "mission success", "game
   over", "paused" and "no coin", are spoken too (`Stage_1_E.PANEL_MESSAGE_TEXT`).
 - The click every button makes, and the menu music, still play as recordings.
 - The tutorial keeps its recordings, and once each one finishes the screen reader adds
