@@ -87,9 +87,9 @@ twice as often. **Reproduced.**
 and the grenade (0x2f32a): `movt r1, #0x3fe0`. No weapon's plist changes it, and
 `ShotSpeed` is never read. Whether it is a headshot is decided at the trigger, by the
 breathing gap at that moment (0x2fc0e..0x2fc48 sets `isHeadShot`), and applied when the
-hit lands. The port used to land every shot at once. **Reproduced, and an open
-decision:** `stage_1_e.SHOT_TRAVEL` is the one setting, and 0.0 brings the instant hits
-back.
+hit lands. The port used to land every shot at once. **Reproduced**, and kept at
+tsatria03's and tunmi13productions' decision on 2026-09-22. `stage_1_e.SHOT_TRAVEL` is
+still the one setting, and 0.0 would bring the instant hits back.
 
 The mark is put on the monster aimed at when you fire, and taken off by the hit that
 uses it. If a different monster is nearest in that lane when the shot lands, that one

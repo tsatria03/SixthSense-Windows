@@ -171,8 +171,9 @@ SOUND_NOW_LOADING = 46
 #: How long a gunshot or a grenade takes to land, in seconds.  The original waits 0.5 s
 #: for every gun and the grenade alike (0x2fd70, 0x2f32a: ``movt r1, #0x3fe0``); no
 #: weapon's plist changes it, and ``ShotSpeed`` is never read.  The port used to land
-#: the hit at once.  DECISION, open: 0.5 is the original's feel; set it to 0.0 to have
-#: shots land instantly again, and nothing else needs to change.
+#: the hit at once.  Kept at 0.5, the original's feel, by tsatria03 and
+#: tunmi13productions on 2026-09-22; 0.0 would have shots land instantly again, and
+#: nothing else would need to change.
 SHOT_TRAVEL = 0.5
 
 #: 0x31964: how long ``brearhFlag`` stays up after a breath.

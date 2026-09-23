@@ -4,7 +4,6 @@ Pausing during the two seconds after a level's boss dies lets the walk start aga
 Moving away from the coin row can leave the time until the next coin being read over the row you moved to.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
 Closing the window from the shop or the inventory leaves the old main menu running in the background, with its coin timer still counting.
-Decide whether shots keep the original's half-second delay before they land, or hit at once as the port used to. It is one setting and can be switched back at any time.
 Remove the Game Center row from the main menu. In the original it opened Apple's online leaderboard, which the Windows port does not have.
 The ranking row speaks its own "not available" sentence through the screen reader. In the original's self-voiced mode that row only plays its own recording, "to use ranking page", because the online ranking page only opened when VoiceOver was on. Decide whether to play that recording or remove the row, since the online ranking is gone.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
@@ -32,6 +31,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+A bullet keeps the original's half second between firing and hitting the zombie. It is one setting and can still be switched back.
 Opening the key bindings with F1 during a stage or the tutorial stops the game until you close them.
 Escape pauses a stage and resumes it from the pause panel, instead of leaving the stage.
 With voice over turned off, the menus, the shop, the inventory and the pause and result panel speak through the screen reader. The tutorial and the announcements during play still use the recordings.
