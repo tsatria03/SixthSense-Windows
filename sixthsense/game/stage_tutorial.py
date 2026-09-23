@@ -219,9 +219,10 @@ class Stage_Tutorial(Stage_1_E):
             self.tutorialEndGameStart_(None)
 
     # ================================================== what finishes a beat
-    # -[Stage_Tutorial MonsterDamage] 0x8a250 - by the dead monster's lane
-    def MonsterKillCount_(self, m):
-        super().MonsterKillCount_(m)
+    # -[Stage_Tutorial MonsterDamage] 0x8a250 - by the dead monster's lane.  It
+    # listens on _kill_seen rather than MonsterKillCount_, which --debug skips so that
+    # no kill counts; the lesson still has to see the zombie die.
+    def _kill_seen(self, m):
         if self.finished:
             return
         name = LANE_BEAT.get(m.MovingType)

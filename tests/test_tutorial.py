@@ -202,6 +202,28 @@ def test_killing_in_the_taught_lane_finishes_the_beat():
         _restore()
 
 
+def test_a_kill_finishes_the_beat_in_debug_mode_too():
+    """--debug counts no kill, but the tutorial's lessons still see the zombie die,
+    so beat One finishes and the tutorial can be played through."""
+    app = AppDelegate.shared()
+    st = _tutorial(prompt=0.4)
+    loop = RunLoop.main()
+    app.debug = True
+    try:
+        _pump(loop, 3.0, until=lambda: bool(st.MonsterBuffer))
+        m = st.MonsterBuffer[0]
+        _pump(loop, 2.0, until=lambda: m.MovingPosAngle != 0)
+        st.shotFlag = False
+        st.MovingShot_(LANE[m.MovingType])
+        _pump(loop, S1E.SHOT_TRAVEL + 0.5, until=lambda: st.beat_done['One'])
+        assert st.beat_done['One'], 'in debug mode the kill did not finish beat One'
+        assert st.gamePlayer.killMonsterCount == 0, 'the kill counted in debug mode'
+    finally:
+        app.debug = False
+        st.teardown()
+        _restore()
+
+
 def test_reload_finishes_beat_six():
     st = _tutorial(prompt=0.4)
     try:

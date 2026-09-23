@@ -1,6 +1,5 @@
 ##Unfinished.
 
-The tutorial cannot be finished in debug mode, because killing its zombies no longer counts, and the kill is what finishes each of the first five lessons.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
 Moving away from the coin row can leave the time until the next coin being read over the row you moved to.
 Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
@@ -32,6 +31,7 @@ Decide whether to fix the original's own bugs that the port keeps on purpose: do
 
 ##Finished.
 
+The tutorial can be finished in debug mode. Killing its zombies still counts for nothing, but each kill now finishes its lesson as it should.
 In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
 In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
 In debug mode Tab goes through every weapon, bought or not, and no gun or grenade ever runs out.

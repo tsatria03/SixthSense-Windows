@@ -979,10 +979,17 @@ class Stage_1_E:
             if self.isTutorial and not self.app.debug:
                 self.gamePlayer.HP -= 1
             self.HPImageCount()
-        elif not self.app.debug:
-            self.gamePlayer.killMonsterCount += 1           # 0x3aad4
-            self.MonsterKillCount_(m)
+        else:
+            if not self.app.debug:
+                self.gamePlayer.killMonsterCount += 1       # 0x3aad4
+                self.MonsterKillCount_(m)
+            self._kill_seen(m)
         self._remove(m)
+
+    def _kill_seen(self, m):
+        """PORT ADDITION: a zombie was killed, counted or not.  ``--debug`` counts no
+        kill, but ``Stage_Tutorial`` still has to hear of one, since a kill is what
+        finishes each of its first five lessons."""
 
     # -[Stage_1_E MonsterDamageKnife] 0x392fc
     def MonsterDamageKnife(self, *_):
@@ -1308,6 +1315,7 @@ class Stage_1_E:
         if not self.app.debug:
             self.gamePlayer.killMonsterCount += 1
             self.MonsterKillCount_(m)
+        self._kill_seen(m)
         self._remove(m)
         self.isShake = False                        # 0x3bb6c
 
