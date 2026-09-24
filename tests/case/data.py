@@ -212,15 +212,25 @@ def test_positional_sounds_are_mono():
     assert not stereo, 'positional sound is stereo: %r' % (stereo,)
 
 
-def test_every_sound_comes_from_the_sounds_folder():
-    """The sounds are organized into game/sounds/used (aidocks/DIVERGENCES.md), so every
-    one the sound list names is found in there - none is left in the top folder, and
-    none comes from game/sounds/unused."""
-    inside = os.path.join(paths.sounds(), '')
+def test_every_sound_comes_from_the_sounds_folders():
+    """The sounds are organized into game/sounds/used, and those the game never plays
+    into game/sounds/unused (aidocks/DIVERGENCES.md), so every one the sound list names
+    is found in one of the two - none is left in the top folder."""
+    inside = tuple(os.path.join(paths.game(), folder, '') for folder in paths.SOUND_FOLDERS)
     for n in sorted(set(_sound_list())):
         p = paths.path_for_resource(n, 'wav')
         if p is not None:
             assert p.startswith(inside), '%s was found at %s' % (n, p)
+
+
+#: The WAVs in game/sounds/unused that are not the original's own.  The sound list names
+#: none of them, so searching that folder can never put one in the game.
+NOT_THE_ORIGINALS = {'hurt1', 'hurt2', 'grenadereload', 'yes', 'no', 'question', 'gamestart',
+                     'welcome', 'main menu'}
+
+
+def test_no_sound_list_name_is_a_file_that_is_not_the_originals():
+    assert not {n.lower() for n in _sound_list()} & NOT_THE_ORIGINALS
 
 
 # ------------------------------------------------------------------- score

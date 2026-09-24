@@ -10,8 +10,11 @@ The sounds are the one exception.  The original bundle is flat, with its 269 WAV
 the plists; the port keeps them in folders under ``game/sounds/used``, each under its
 original file name (aidocks/DIVERGENCES.md).  So ``path_for_resource``, which stands in for
 ``[[NSBundle mainBundle] pathForResource:ofType:]``, looks in the top folder first, as the
-original did, and then by file name anywhere under ``sounds/used``.  ``sounds/unused``
-holds files that are not the original's own, and is never searched.
+original did, then by file name anywhere under ``sounds/used``, which holds what the game
+plays, and last under ``sounds/unused``, which holds what it never plays: the sounds of
+the rows and zombies the port leaves out, extra copies, and files that are not the
+original's own.  A name in ``sounds/used`` always wins, and no name the sound list uses
+belongs to one of the files that are not the original's own.
 
 Because the top folder comes first, an untouched original bundle still works: its WAVs are
 all found where the original found them.
@@ -44,8 +47,11 @@ BINARY = os.path.join(ROOT, 'analysis', 'bin', 'sixsense_armv7')
 GAME_ENV = 'SIXTHSENSE_GAME'
 APP_NAME = 'sixsense.app'
 
-# Where the sounds are, inside the bundle folder.  An original bundle has no such folder.
+# Where the sounds are, inside the bundle folder.  An original bundle has no such folders.
 SOUNDS_USED = os.path.join('sounds', 'used')
+SOUNDS_UNUSED = os.path.join('sounds', 'unused')
+# Searched in this order; the first file of a name wins.
+SOUND_FOLDERS = (SOUNDS_USED, SOUNDS_UNUSED)
 
 _override: str | None = None
 
@@ -126,20 +132,22 @@ def resources() -> str:
 
 
 def _sounds_by_name() -> dict[str, str]:
-    """Every file under ``sounds/used``, by its file name in lower case.
+    """Every file under ``sounds/used``, then ``sounds/unused``, by its file name in lower
+    case.
 
     Built once, the first time a sound is asked for.  Where the original reuses one
     recording in several places, each folder that uses it has its own copy of the same
     file; the first copy in sorted order is the one taken, so a name always gives the
-    same file.
+    same file, and a name in ``sounds/used`` is never taken from ``sounds/unused``.
     """
     global _sound_index
     if _sound_index is None:
         index = {}
-        for dirpath, dirs, files in os.walk(os.path.join(game(), SOUNDS_USED)):
-            dirs.sort()
-            for name in sorted(files):
-                index.setdefault(name.lower(), os.path.join(dirpath, name))
+        for folder in SOUND_FOLDERS:
+            for dirpath, dirs, files in os.walk(os.path.join(game(), folder)):
+                dirs.sort()
+                for name in sorted(files):
+                    index.setdefault(name.lower(), os.path.join(dirpath, name))
         _sound_index = index
     return _sound_index
 
@@ -148,7 +156,8 @@ def path_for_resource(name: str, ext: str | None = None) -> str | None:
     """``-[NSBundle pathForResource:ofType:]``.
 
     The bundle's top folder first, which is the only place the original looked; then
-    the sounds under ``sounds/used``, by file name, whatever folder they are in.
+    the sounds under ``sounds/used`` and last ``sounds/unused``, by file name, whatever
+    folder they are in.
     Neither cares about case, as Windows does not.
     """
     filename = name if not ext else '%s.%s' % (name, ext)

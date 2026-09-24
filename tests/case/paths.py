@@ -1,7 +1,8 @@
 """Where the game finds its files: ``paths.path_for_resource``.
 
 The original bundle is flat; the port keeps its sounds in folders under
-``game/sounds/used`` (aidocks/DIVERGENCES.md).  Each test builds a small bundle of its own in
+``game/sounds/used``, and those the game never plays under ``game/sounds/unused``, which
+is searched last (aidocks/DIVERGENCES.md).  Each test builds a small bundle of its own in
 a temporary folder, so these check the lookup itself rather than the shipped data - that
 is ``data.py``'s job - and they never touch the save or play a sound.
 """
@@ -53,10 +54,20 @@ def test_a_sound_in_a_folder_is_found():
         _done(top)
 
 
-def test_the_unused_folder_is_never_searched():
-    top = _bundle(['sounds/unused/sfx/misc/menuclick.wav'])
+def test_the_unused_folder_is_searched_last():
+    """What the game never plays is in sounds/unused; a name only there is still found."""
+    rel = 'sounds/unused/speech/game/the rank.wav'
+    top = _bundle([rel])
     try:
-        assert _found(top, 'menuclick', 'wav') is None
+        assert _found(top, 'the rank', 'wav') == rel
+    finally:
+        _done(top)
+
+
+def test_a_sound_in_the_used_folder_wins_over_the_unused_one():
+    top = _bundle(['sounds/unused/sfx/misc/ui_select.wav', 'sounds/used/sfx/misc/ui_select.wav'])
+    try:
+        assert _found(top, 'ui_select', 'wav') == 'sounds/used/sfx/misc/ui_select.wav'
     finally:
         _done(top)
 

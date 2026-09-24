@@ -777,9 +777,11 @@ The WAVs in `unused/` are of three kinds:
   `Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
   `main menu button` that says only "main menu".
 
-The sound lookup never looks in `game/sounds/unused/`. A number whose file is only there
-plays silence and logs "sound file missing", as any missing sound does, and never
-stops the game; the port never asks for one of them in play.
+The sound lookup searches `game/sounds/unused/` last, so a number whose file is only
+there is still found, and the sound list resolves exactly as it did before the sort;
+the port never asks for one of them in normal play. The sound list names none of the
+fifteen files that are not the original's own, so the search can never put one of those
+in the game.
 
 `main menu button` (355), which the pause panel's last row reads, was one of those
 trimmed cuts until 2026-09-22, when the original recording turned up and tsatria03 put
@@ -787,13 +789,15 @@ it in `used/`. The trimmed one stays in `unused/` under the name it had.
 
 How the port finds them: `paths.path_for_resource`, which stands in for
 `-[NSBundle pathForResource:ofType:]`, looks in the bundle's top folder first, the only
-place the original ever looked, and then by file name anywhere under
-`game/sounds/used/`. File names are matched without regard to case, as Windows matches
-them. Where a sound has copies in several folders, the first in sorted order is taken,
-and every copy is the same recording. Because the top folder comes first, the plists and
-the map are found exactly as before, and `--game` pointed at an untouched original bundle,
-with its WAVs all in its top folder, still works. `compiler.py` copies
-`game/sounds/used/` into a build with its folders, and leaves `game/sounds/unused/` out.
+place the original ever looked, then by file name anywhere under `game/sounds/used/`,
+and last under `game/sounds/unused/`. File names are matched without regard to case, as
+Windows matches them. Where a sound has copies in several folders, the first in sorted
+order is taken, and every copy is the same recording; a name in `used/` always wins over
+one in `unused/`. Because the top folder comes first, the plists and the map are found
+exactly as before, and `--game` pointed at an untouched original bundle, with its WAVs
+all in its top folder, still works. `compiler.py` copies both `game/sounds/used/` and
+`game/sounds/unused/` into a build with their folders, or inside the executable with
+`--embed`.
 
 ### One sound list entry is renamed
 `SoundList.plist` entry 290, the forest boss's approach, is `zombies_boss_3_coming_forest`

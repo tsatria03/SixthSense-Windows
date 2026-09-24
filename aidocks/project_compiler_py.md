@@ -61,9 +61,9 @@ The newer reference script in `user/` bakes VERSION into the build as a module. 
 
 ## Sounds moved (2026-09-21)
 The sounds now live in `game/sounds/used/`, in folders ([[project_sound_organization]]). The same day, `compiler.py` was changed to ship them. This was checked by reading the code only, not run.
-- `sound_files()` walks `sounds/used/` (`paths.SOUNDS_USED`) in sorted order, and `copy_game()` recreates each file's folder under `dist/SixthSense/game/`. `game/sounds/unused/` is left out.
+- `sound_files()` walks `sounds/used/` then `sounds/unused/` (`paths.SOUND_FOLDERS`) in sorted order, and `copy_game()` recreates each file's folder under `dist/SixthSense/game/`; `embedded_data()` adds both folders with `--embed`. `unused/` was left out until 2026-09-24, when the dev asked for it in builds, since the lookup now searches it last. `data_summary()` counts `.wav` and `.ogg` (the blooper) as sounds.
 - `game_files()` still matches `GAME_FILES` in the top folder. `*.wav` stays in it so an untouched flat original bundle (`--game`) still builds.
-- `data_summary()` words the counts for both `copy_game()` and `--dry-run`. With the repo's `game/` since the dev's second sound sort (2026-09-24) that is 381 files: 236 sounds, plus 145 plists and map layers. It was 474, with 329 sounds, before.
+- `data_summary()` words the counts for both `copy_game()` and `--dry-run`. With the repo's `game/` since the dev's second sound sort (2026-09-24), and `unused/` in builds, that is 507 files: 362 sounds (236 used, 126 unused), plus 145 plists and map layers. It was 474, with 329 sounds, before the sort.
 
 ## Still to do
 1. **Bring `--test` back once the game supports it.** `SixthSense.py` needs a log file in `%APPDATA%\SixthSense`, a `crash.txt` excepthook, an `--exit-after N` flag and a "game data: <path>" log line. Then restore `test_build()` and `read_log()` from the reference script in `user/`, adapted without its HRTF check. This also fixes the evaluation's "no crash path" item; see [[project_evaluation_2026_09]].

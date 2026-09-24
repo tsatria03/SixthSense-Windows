@@ -249,6 +249,7 @@ def test_a_folder_build_puts_nothing_of_the_games_inside():
 def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
     with tempfile.TemporaryDirectory() as bundle:
         os.makedirs(os.path.join(bundle, 'sounds', 'used', 'sfx'))
+        os.makedirs(os.path.join(bundle, 'sounds', 'unused', 'sfx'))
         data = compiler.embedded_data(bundle)
         cmd = compiler.command(_Args(embed=True), data)
     assert '--onefile' in cmd
@@ -256,6 +257,7 @@ def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
     added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
     assert compiler.EMBED_STAGE + os.pathsep + 'game' in added
     assert os.path.join(bundle, 'sounds', 'used') + os.pathsep + 'game/sounds/used' in added
+    assert os.path.join(bundle, 'sounds', 'unused') + os.pathsep + 'game/sounds/unused' in added
     # the text a player reads is never among what goes inside
     assert not any('changelog' in a or 'todo' in a or 'license' in a.lower() for a in added)
 

@@ -16,8 +16,8 @@ metadata:
 - **How the deletion was done:** the dev copied what the game never plays into `unused/`, then Claude deleted the 95 copies left in `used/`, each matched to its `unused/` copy by the audio data, not the name. A read-only trace of every candidate (loading on first play, the monster and weapon tables, the rows the port keeps) found 12 the game plays, and their loaded copies stay in `used/`: `man_die` (273), `weapon_knife_att2` (60), `weapon_japen_knife_att2` (73), `gun_att_sound_1` (56), `weapon_nonbullets` (78), the boss's hit and death (288, 289), `mission fail` (228), "You can skip by using double tab" (266), "you must use earphone" (234), `effective range` (256) and `this weapon has been purchased` (359). Eight folders left empty were removed. The dev keeps a backup of the layout before the deletion in `user/sounds` (read-only for Claude).
 - **What the unused ones are:** kinds 11 and 12 (never spawned); the power saw (no shop page); the left-out rows (ranking, Game Center, coin and gold packs, restore, purchase all weapons); lines no row plays; the second logo 341; unlisted recordings such as the zombie shouts; extra copies; and the fifteen non-original files. A number whose file is only in `unused/` logs "sound file missing" and plays silence; it never crashes, and the port never asks for one in play.
 - **Every name with several copies in `used/` has identical copies** (checked 2026-09-24: 28 names, 38 extra copies), so which one the lookup takes does not matter.
-- **A build copies 381 files:** 236 sounds, plus 145 plists and map layers.
-- **The tests were not updated with it:** `tests/case/data.py` (`test_sound_list_covers_the_wavs`, `test_monster_sounds_resolve_to_wavs`) and `tests/case/pause.py` (the rank and next stage rows) check sounds now in `unused/`. tunmi13productions' `8cb8f9d` and `bca782f` did part of the same move and a `data.py` fix; the dev chose not to bring them in, since this sort is the fuller one.
+- **The lookup searches `unused/` last, and builds carry it** (the dev's request, 2026-09-24): `paths.SOUND_FOLDERS` is (`sounds/used`, `sounds/unused`), and `_sounds_by_name` indexes them in that order, so a name in `used/` always wins and the 45 sound list names now only in `unused/` still resolve. None of them is a non-original file, and `tests/case/data.py` checks the sound list never names one. `compiler.py` copies both folders (or embeds both), 507 files: 362 sounds and 145 plists and map layers.
+- **The tests pass unchanged in what they expect of the sound list**: with the fallback, `test_sound_list_covers_the_wavs`, `test_monster_sounds_resolve_to_wavs` and `pause.py` pass as before. tunmi13productions' `8cb8f9d` and `bca782f` did part of the same move and a `data.py` fix; the dev chose not to bring them in, since this sort is the fuller one.
 
 ## The first layout (dev's reorganization, 2026-09-21)
 - **`game/sounds/used/`** had 329 files covering **all 269** of the original's sounds:
@@ -66,16 +66,16 @@ The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the sam
   - It maps each lowercase file name, with its extension, to the file's path.
   - The first copy in sorted order wins when a name is in several folders. The 2026-09-21 rescan confirmed that every copy of a name has the same channels, width and rate, so this is safe.
   - `set_game()` clears it, and `set_game(None)` goes back to the default places.
-  - It never walks `unused/`. None of the names in `unused/` is a `SoundList.plist` name anyway.
+  - It never walked `unused/` then; since 2026-09-24 it walks it last (above).
 - **`paths.sounds()`** returns `game()/sounds/used` when that folder exists, otherwise `game()`.
 - **Tests:**
   - The seven hand-built `os.path.join(paths.sounds(), name + '.wav')` lines now go through the lookup: three in `tests/case/data.py`, one in `menu.py`, two in `pause.py` and one in `store.py`.
   - `tests/case/data.py` has a new check, `test_every_sound_comes_from_the_sounds_folder`.
-  - The new `tests/case/paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched, case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
+  - The new `tests/case/paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched (since 2026-09-24: searched last, and `used/` winning), case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
 - **`compiler.py`:**
   - `sound_files()` copies `sounds/used/` with its folders.
-  - `GAME_FILES` still matches the top folder, including `*.wav`, so a flat original bundle still builds. `unused/` is left out.
-  - `data_summary()` reports the counts, and the dry run prints them. A build then copied 474 files: 329 sounds, plus 142 plists and 3 map layers (381 since the second sort).
+  - `GAME_FILES` still matches the top folder, including `*.wav`, so a flat original bundle still builds. `unused/` was left out until 2026-09-24, and is copied since.
+  - `data_summary()` reports the counts, and the dry run prints them. A build then copied 474 files: 329 sounds, plus 142 plists and 3 map layers (507 since the second sort, with `unused/` copied too).
 - **The analysis tools** only read `SoundList.plist` and the binary from the top folder, so they needed no change.
 
 **How to apply:** Never move, rename, convert or delete sound files unless the dev asks. A new sound goes anywhere under `game/sounds/used/` under its `SoundList.plist` name, as 8-bit or 16-bit PCM WAV, and the lookup finds it with no code change. Two files with the same name in different folders must be the same recording, because only the first one is ever used.
