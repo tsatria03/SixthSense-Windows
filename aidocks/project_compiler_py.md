@@ -79,7 +79,7 @@ A release is made only with `releaser.py`, which runs the compiler itself after 
 
 ## Fine as-is
 - `BINARIES`: the vendor DLLs go to `_MEIPASS/vendor/...`, which is where `sixthsense/paths.py` looks when frozen.
-- `SIDE_FILES`: changelog.txt, todo list.txt, VERSION and LICENSE (shipped as license.txt). Never embedded.
+- `SIDE_FILES`: `docks\changelog.txt` and `docks\todo list.txt` (the player documents folder since 2026-09-23, named by `DOCKS` and `CHANGELOG`), VERSION and LICENSE (shipped as license.txt). They land at the top of the build under their own names. Never embedded. `releaser.py` reads the same `compiler.CHANGELOG`, and commits it as `CHANGELOG_GIT` (`docks/changelog.txt`).
 - `.gitignore` covers `build/`, `dist/` and `*.spec`.
 
 ## Environment on 2026-09-21

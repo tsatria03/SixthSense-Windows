@@ -6,7 +6,7 @@ metadata:
   type: feedback
 ---
 
-**Keep `changelog.txt` up to date as game changes land.** Every commit that fixes a bug or adds an enhancement a player will notice also adds a line under `unrelease:` at the top of `changelog.txt`.
+**Keep `changelog.txt` up to date as game changes land.** Every commit that fixes a bug or adds an enhancement a player will notice also adds a line under `unrelease:` at the top of `changelog.txt`. Since 2026-09-23 it lives in `docks/`, the player documents folder, with the todo list; the compiler ships it from there and the releaser files and commits it there.
 
 **Why:** On 2026-09-22 the dev pointed out that the changelog should have been updated with each bug fix and enhancement. It had been missed since the initial import, and the eleven changes from 2026-09-21 were then added in one go.
 

@@ -16,9 +16,9 @@ which still work typed out:
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the changelog,
-the todo list, VERSION and the license - and the third-party licenses in licenses\\.  Those are never put
-inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
+Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the changelog
+and the todo list from docks\\, VERSION and the license - and the third-party licenses in licenses\\.
+Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
 
 The port and the vendored DLLs always go inside the build.  In the folder build the game's own files do
 not: the plists and the three map layers are copied next to the executable, into game\\, and the sounds
@@ -69,9 +69,12 @@ GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: copied beside the executable rather than bundled inside it, so the player can open them: what it is
 #: called here, and what it is called there.  They are never embedded, --embed or not.  LICENSE has no
 #: extension, which is the convention on GitHub but means Windows asks what to open it with, so it ships
-#: as a .txt.  The todo list holds only what a player notices, which is why it can ship.
-SIDE_FILES = (('changelog.txt', 'changelog.txt'),
-              ('todo list.txt', 'todo list.txt'),
+#: as a .txt.  The todo list holds only what a player notices, which is why it can ship.  The documents a
+#: player reads live in docks\ in the repository, and land at the top of the build, beside the executable.
+DOCKS = 'docks'
+CHANGELOG = os.path.join(DOCKS, 'changelog.txt')
+SIDE_FILES = ((CHANGELOG, 'changelog.txt'),
+              (os.path.join(DOCKS, 'todo list.txt'), 'todo list.txt'),
               ('VERSION', 'VERSION'),
               ('LICENSE', 'license.txt'))
 # A release could also carry readme.html beside the executable, built from README.md by a Markdown
@@ -93,10 +96,10 @@ def build_version() -> str:
 
 
 # --- the changelog -----------------------------------------------------------------------------------
-# changelog.txt collects what has changed under one heading, "unrelease:", at the top.  releaser.py files
-# those lines under the version being released before it calls this to build; the compiler only reads
-# the changelog, and takes an empty unrelease: heading out of the copy it ships.  The parsing lives here,
-# where both use it.
+# docks\changelog.txt collects what has changed under one heading, "unrelease:", at the top.
+# releaser.py files those lines under the version being released before it calls this to build; the
+# compiler only reads the changelog, and takes an empty unrelease: heading out of the copy it ships.  The
+# parsing lives here, where both use it.
 
 #: The heading the changelog collects unreleased changes under: the whole line, colon and all.
 UNRELEASE = 'unrelease:'
@@ -437,7 +440,7 @@ def main(argv=None) -> int:
             'licenses%s beside the executable' % (len(licenses) - len(absent), os.sep))
         for rel in absent:
             say('  but the license %s is not here' % rel)
-        for warning in release_warnings(os.path.join(HERE, 'changelog.txt')):
+        for warning in release_warnings(os.path.join(HERE, CHANGELOG)):
             say('before releasing: ' + warning)
         return 0
 

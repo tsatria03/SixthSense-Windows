@@ -30,6 +30,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
   - `data/objc_classes.json`.
 - **`tools/`**: the Mach-O and disassembly tools that produced `analysis/`. `dz.py` and `dc.py` need `capstone`.
 - **`aidocks/`** also holds the three developer references beside the memory notes: `PORTING_STATUS.md` (done, stubbed, not ported), `DIVERGENCES.md` (where the port differs, and which original bugs it reproduces) and `GAME_STRUCTURE.md`. Some "reproduced" entries are misreadings; see [[project_evaluation_2026_09]].
+- **`docks/`**: the documents a player reads, which the build puts beside the executable: `changelog.txt` and `todo list.txt`.
 - **`tests/`** ([[project_tests_layout]]): `tests/case/` holds the tests, plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any. `tests/interact/` holds two tools played by ear. `tests/interact/level_chooser.py` is not a test: it starts the real game at any level, area and row, on its own save in `%APPDATA%\SixthSense\level_chooser`, for checking by ear. `tests/interact/tutorial_chooser.py`, likewise not a test, does the same for the tutorial: any lesson, either ending, voice over on or off, on its own save in `%APPDATA%\SixthSense\tutorial_chooser` ([[project_tutorial_tester_plan]]).
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense`, a folder build or with `--embed` one exe holding the sounds and data, and never zips or changes the repository ([[project_compiler_py]]).
@@ -67,8 +68,8 @@ This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the g
 - **The screen reader mode** (the voice over row off means the screen reader speaks the game's words; built for the menus and the result panel; the tutorial stays recorded): [[project_screen_reader_mode]].
 - **Running the tests safely**, once the dev says yes: [[project_safe_test_run]].
 - **Adapting the build script**: [[project_compiler_py]].
-- **The task list** (`todo list.txt`) and how to write in it: [[feedback_todo_list_format]]. It holds only what a player notices, since it ships beside the game; developer tasks, open and finished, are in [[project_dev_tasks]].
-- **The changelog** (`changelog.txt`): every player-facing fix or enhancement adds a line at the top of the `unrelease:` block in the same commit, newest first ([[feedback_changelog]]).
+- **The task list** (`docks/todo list.txt`) and how to write in it: [[feedback_todo_list_format]]. It holds only what a player notices, since it ships beside the game; developer tasks, open and finished, are in [[project_dev_tasks]].
+- **The changelog** (`docks/changelog.txt`): every player-facing fix or enhancement adds a line at the top of the `unrelease:` block in the same commit, newest first ([[feedback_changelog]]).
 - **Plans**: an agreed plan goes into its own aidocks note before any code, and is marked finished there only once the dev says it works ([[feedback_record_plans_first]]).
 - **Committing and pushing** (commit when asked, then push without asking; history rewrites need a go-ahead): [[feedback_git_commits]].
 - **Who made what, the permission to publish, and how to credit contributors in commits**: [[project_provenance]]. Name people by GitHub username only: [[feedback_use_github_usernames]].

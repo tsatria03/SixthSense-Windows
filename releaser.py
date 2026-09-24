@@ -11,13 +11,13 @@ The steps, in the order a full release takes them:
                   changelog has changes waiting under "unrelease:" - no more than 100 of them
     2. prepare    VERSION becomes today's date and that day's release number, 26.09.23-1 for the first
                   release on the 23rd of September 2026, -2 for the second, counted from the tags; and the
-                  lines under "unrelease:" are filed under that version in changelog.txt
+                  lines under "unrelease:" are filed under that version in docks\\changelog.txt
     3. build      compiler.py builds it into dist\\SixthSense: the folder build, or the single executable
                   with the sounds and the game's data inside.  If the build fails, VERSION and the
                   changelog go back to how they were
     4. zip        dist\\SixthSense becomes dist\\SixthSense-Win-<version>.zip - only a build made for this
                   version, so an older build can never go out under the new name
-    5. commit     VERSION and changelog.txt are committed as "Release <version>" and pushed
+    5. commit     VERSION and docks\\changelog.txt are committed as "Release <version>" and pushed
     6. tag        the commit is tagged V<version>, and the tag is pushed
     7. upload     the zip goes up to GitHub as the release "SixthSense V<version>", with that version's
                   changelog lines as its notes
@@ -58,7 +58,9 @@ GH_FALLBACK = r'C:\Program Files\GitHub CLI\gh.exe'
 TOOLS_INI = os.path.join(os.path.expanduser('~'), '.game_tools', 'tools.ini')
 
 VERSION_FILE = os.path.join(HERE, 'VERSION')
-CHANGELOG = os.path.join(HERE, 'changelog.txt')
+CHANGELOG = os.path.join(HERE, compiler.CHANGELOG)
+#: The changelog as git names it, from the top of the repository.
+CHANGELOG_GIT = compiler.CHANGELOG.replace(os.sep, '/')
 
 
 def say(text: str = '') -> None:
@@ -313,7 +315,7 @@ def step_check() -> bool:
             fine = False
     waiting = unreleased_lines(read_changelog())
     if not waiting:
-        say('  nothing is under "%s" in changelog.txt, so there is nothing to release.' % UNRELEASE)
+        say('  nothing is under "%s" in %s, so there is nothing to release.' % (UNRELEASE, CHANGELOG_GIT))
         fine = False
     elif len(waiting) > MAX_ENTRIES:
         say('  %d changes are under "%s", and a release carries no more than %d.'
@@ -358,7 +360,7 @@ def restore(saved) -> None:
     else:
         write_text(VERSION_FILE, old_version)
     write_text(CHANGELOG, old_changelog)
-    say('VERSION and changelog.txt are back as they were.')
+    say('VERSION and %s are back as they were.' % CHANGELOG_GIT)
 
 
 def choose_build():
@@ -427,16 +429,16 @@ def step_package(version: str) -> bool:
 
 def step_commit(version: str) -> bool:
     """Commit VERSION and the changelog as the release, and push."""
-    ok, out = git('status', '--porcelain', '--', 'VERSION', 'changelog.txt')
+    ok, out = git('status', '--porcelain', '--', 'VERSION', CHANGELOG_GIT)
     if not out:
-        say('VERSION and changelog.txt have nothing to commit.')
+        say('VERSION and %s have nothing to commit.' % CHANGELOG_GIT)
         return True
-    if not ask('Commit VERSION and changelog.txt as "Release %s", and push?' % version):
+    if not ask('Commit VERSION and %s as "Release %s", and push?' % (CHANGELOG_GIT, version)):
         say('skipped.')
         return False
-    ok, out = git('add', '--', 'VERSION', 'changelog.txt')
+    ok, out = git('add', '--', 'VERSION', CHANGELOG_GIT)
     if ok:
-        ok, out = git('commit', '-m', 'Release %s' % version, '--', 'VERSION', 'changelog.txt')
+        ok, out = git('commit', '-m', 'Release %s' % version, '--', 'VERSION', CHANGELOG_GIT)
     if not ok:
         say('the commit failed: %s' % out)
         return False

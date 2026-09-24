@@ -194,6 +194,7 @@ analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 aidocks/                 GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md, and
                          the notes for AI-assisted work (see CLAUDE.md)
+docks/                   changelog.txt and todo list.txt, which ship beside the game
 tests/case/              the tests, one plain script each
 tests/interact/          level_chooser.py and tutorial_chooser.py, which start the real
                          game at any level, or the tutorial at any lesson, to play
@@ -291,8 +292,8 @@ lands in `dist\SixthSense`.
 - **Single exe** (`--embed`): the sounds and the game's data inside one executable.
   It unpacks them at every launch, so it starts a few seconds slower.
 
-Either way, the changelog, the todo list, `VERSION`, the license and the third-party
-licenses sit beside the executable, where a player can open them.
+Either way, the changelog and the todo list from `docks/`, `VERSION`, the license and
+the third-party licenses sit beside the executable, where a player can open them.
 
 `releaser.py` does the rest. Its full release goes through each step and asks Y or N
 before each one:
@@ -300,12 +301,12 @@ before each one:
 1. **Check** that everything is committed and pushed, `gh` is signed in, and the
    changelog has between 1 and 100 changes under `unrelease:`.
 2. **Prepare:** `VERSION` becomes today's date and that day's release number, such as
-   `26.09.23-1`, and the unreleased lines are filed under it in `changelog.txt`.
+   `26.09.23-1`, and the unreleased lines are filed under it in `docks/changelog.txt`.
 3. **Build** with the compiler, as a folder or a single exe. A failed build puts
    `VERSION` and the changelog back.
 4. **Zip** `dist\SixthSense` into `dist\SixthSense-Win-26.09.23-1.zip`. It only zips a
    build made for this version.
-5. **Commit and push** `VERSION` and `changelog.txt` as "Release 26.09.23-1".
+5. **Commit and push** `VERSION` and `docks/changelog.txt` as "Release 26.09.23-1".
 6. **Tag** it `V26.09.23-1`, and push the tag.
 7. **Upload** the zip to GitHub as the release "SixthSense V26.09.23-1", with that
    version's changelog lines as its notes.

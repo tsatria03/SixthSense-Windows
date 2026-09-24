@@ -218,9 +218,16 @@ def test_the_compiler_no_longer_files_the_changelog_or_zips():
 
 def test_the_todo_list_ships_beside_the_game():
     shipped = dict(compiler.SIDE_FILES)
-    assert shipped.get('todo list.txt') == 'todo list.txt'
-    assert shipped.get('changelog.txt') == 'changelog.txt'
+    assert shipped.get(os.path.join('docks', 'todo list.txt')) == 'todo list.txt'
+    assert shipped.get(os.path.join('docks', 'changelog.txt')) == 'changelog.txt'
     assert shipped.get('LICENSE') == 'license.txt'
+
+
+def test_the_player_documents_are_read_from_docks():
+    for name in ('changelog.txt', 'todo list.txt'):
+        assert os.path.isfile(os.path.join(ROOT, 'docks', name)), name
+    assert releaser.CHANGELOG == os.path.join(ROOT, 'docks', 'changelog.txt')
+    assert releaser.CHANGELOG_GIT == 'docks/changelog.txt'
 
 
 def test_a_folder_build_puts_nothing_of_the_games_inside():
