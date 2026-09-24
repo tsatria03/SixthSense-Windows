@@ -1,7 +1,7 @@
 """PORT ADDITION: the keyboard the touch input is mapped to, and the player's changes.
 
 The original has no key bindings at all - every action is a swipe, a tap or a shake
-(``docs/GAME_STRUCTURE.md`` §7). The port binds those actions to keys, keeps the
+(``aidocks/GAME_STRUCTURE.md`` §7). The port binds those actions to keys, keeps the
 bindings in ``%APPDATA%\\SixthSense\\keys.json`` and lets the player rebind them from
 the screen F1 opens.
 

@@ -29,7 +29,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
   - `digest/dg_*.txt`: condensed call summaries.
   - `data/objc_classes.json`.
 - **`tools/`**: the Mach-O and disassembly tools that produced `analysis/`. `dz.py` and `dc.py` need `capstone`.
-- **`docs/`**: `PORTING_STATUS.md` (done, stubbed, not ported), `DIVERGENCES.md` (where the port differs, and which original bugs it reproduces) and `GAME_STRUCTURE.md`. Some "reproduced" entries are misreadings; see [[project_evaluation_2026_09]].
+- **`aidocks/`** also holds the three developer references beside the memory notes: `PORTING_STATUS.md` (done, stubbed, not ported), `DIVERGENCES.md` (where the port differs, and which original bugs it reproduces) and `GAME_STRUCTURE.md`. Some "reproduced" entries are misreadings; see [[project_evaluation_2026_09]].
 - **`tests/`** ([[project_tests_layout]]): `tests/case/` holds the tests, plain scripts, each with its own runner. **They write the real save**, so read [[project_safe_test_run]] before running any. `tests/interact/` holds two tools played by ear. `tests/interact/level_chooser.py` is not a test: it starts the real game at any level, area and row, on its own save in `%APPDATA%\SixthSense\level_chooser`, for checking by ear. `tests/interact/tutorial_chooser.py`, likewise not a test, does the same for the tutorial: any lesson, either ending, voice over on or off, on its own save in `%APPDATA%\SixthSense\tutorial_chooser` ([[project_tutorial_tester_plan]]).
 - **`vendor/`**: `soft_oal.dll` and `nvdaControllerClient64.dll` (x64).
 - **`compiler.py`**: the PyInstaller build script. Run it with no flags for a menu; it builds `dist\SixthSense`, a folder build or with `--embed` one exe holding the sounds and data, and never zips or changes the repository ([[project_compiler_py]]).
@@ -56,7 +56,7 @@ This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the g
 
 ## Porting rules
 
-- Port from the binary, and cite the address in the code. Record every deliberate difference in `docs/DIVERGENCES.md`.
+- Port from the binary, and cite the address in the code. Record every deliberate difference in `aidocks/DIVERGENCES.md`.
 - Before "reproducing" anything that hinges on one branch or constant, check the raw bytes. The decompiled listings mislead in known ways, and addresses are VM addresses, so file offset = address - 0x1000 ([[project_binary_analysis_notes]]).
 - Several tests assert current behavior, including some misreadings. Changing that behavior means updating its test in the same change.
 

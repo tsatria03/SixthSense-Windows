@@ -4,7 +4,7 @@ Renders one mono source per lane through OpenAL Soft's loopback device, with the
 listener orientation and the same source parameters ``-[oalPlayback queueNote:...]``
 passes, and prints the left/right energy split and the resulting gain.
 
-This is how the claim in docs/GAME_STRUCTURE.md about the listener basis was checked:
+This is how the claim in aidocks/GAME_STRUCTURE.md about the listener basis was checked:
 the game's ``Pos.x`` becomes left/right, its ``Pos.y`` becomes elevation (inaudible to
 amplitude panning), and the forward distance is the constant ``defaultZ``.
 

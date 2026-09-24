@@ -1602,7 +1602,7 @@ class Stage_1_E:
 
         **DIVERGENCE (2026-09-23, tsatria03's decision):** choosing a result row rereads
         that row, in both modes.  Row 1 says its own state again, row 3 the headshots,
-        row 4 the score, and row 10 the top score; ``docs/DIVERGENCES.md`` has the
+        row 4 the score, and row 10 the top score; ``aidocks/DIVERGENCES.md`` has the
         original's table.
         """
         self.StopElseSpeak()
@@ -1869,7 +1869,7 @@ class Stage_1_E:
 
         Everything above that in ``ReadObtainedGold`` - the headshot multiplier string
         and all twelve per-kind tallies - is computed into ``r0`` and then clobbered
-        by the next selector load.  See ``docs/DIVERGENCES.md``.
+        by the next selector load.  See ``aidocks/DIVERGENCES.md``.
         """
         p = self.gamePlayer
         return 12 * p.killMonsterCount + 2 * p.HeadShotCount

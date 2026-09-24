@@ -106,7 +106,7 @@ def test_weapon_plists():
 
 
 def test_weapon_quirks():
-    """The three malformed values the original swallows - see docs/DIVERGENCES.md."""
+    """The three malformed values the original swallows - see aidocks/DIVERGENCES.md."""
     assert obj_float('0.2f') == 0.2          # every gun's shot gain
     assert obj_float('1,0') == 1.0           # Knife.plist index 31
     shotgun = WeaponControl()
@@ -186,7 +186,7 @@ def test_sound_list_covers_the_wavs():
     assert len(sl) == 371
     missing = sorted({n for n in sl if paths.path_for_resource(n, 'wav') is None})
     # The stage-select buttons and zombie_5_hit_player were already missing in the
-    # bundle; see docs/DIVERGENCES.md.
+    # bundle; see aidocks/DIVERGENCES.md.
     expected_missing = {'Stage %d Button' % i for i in range(1, 20)}
     expected_missing |= {'Stage is locked Clear the previous stage',
                          'Endless Mode Button', 'Endless Mode is locked',
@@ -213,7 +213,7 @@ def test_positional_sounds_are_mono():
 
 
 def test_every_sound_comes_from_the_sounds_folder():
-    """The sounds are organized into game/sounds/used (docs/DIVERGENCES.md), so every
+    """The sounds are organized into game/sounds/used (aidocks/DIVERGENCES.md), so every
     one the sound list names is found in there - none is left in the top folder, and
     none comes from game/sounds/unused."""
     inside = os.path.join(paths.sounds(), '')

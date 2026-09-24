@@ -52,7 +52,7 @@ runtime.
 `(0, 1, 1)`. Combined with sources placed at `(x, z, y)`, the resulting OpenAL basis is
 right `= +X`, up `= +Z`, forward `= +Y`, so the game's *y* axis is rendered as elevation
 and the depth of every source is the constant `defaultZ`. **Reproduced exactly**; see
-`docs/GAME_STRUCTURE.md` §5. Changing it would move every sound.
+`GAME_STRUCTURE.md` §5. Changing it would move every sound.
 
 ### Starting bearings do not match walking bearings
 `initWithMonsterPatern:` places lanes 2 and 4 at 120° and 60°

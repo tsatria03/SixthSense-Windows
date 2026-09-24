@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Pull a blind-mode screen's row table and its double-tap dispatch out of a class.
 
-Every screen in this game is built the same way (``docs/GAME_STRUCTURE.md`` §8):
+Every screen in this game is built the same way (``aidocks/GAME_STRUCTURE.md`` §8):
 
     -[X selectTapPointSoundStart]   maps the finger's Y to a band, stores the band in
                                     ``selectMenu`` and plays that row's WAV

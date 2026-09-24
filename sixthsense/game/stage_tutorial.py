@@ -65,7 +65,7 @@ Where that leads depends on how the tutorial was reached:
   this class, and ``first_run`` picks the ending.
 
 The port drives the ten beats from a table instead of ten copies of five methods.
-Nothing about the behaviour changes; see docs/DIVERGENCES.md.
+Nothing about the behaviour changes; see aidocks/DIVERGENCES.md.
 """
 from __future__ import annotations
 

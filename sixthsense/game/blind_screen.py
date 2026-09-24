@@ -1,7 +1,7 @@
 """The shape every blind-mode screen in this game shares.
 
 ``MainController``, ``Stage_1_E``'s result panel, the shop, the weapon pages and the
-inventory are all built the same way (see ``docs/GAME_STRUCTURE.md`` §8):
+inventory are all built the same way (see ``aidocks/GAME_STRUCTURE.md`` §8):
 
     -[X selectTapPointSoundStart]   maps the finger's Y to one of N bands, stores the
                                     band in ``selectMenu``, plays that row's WAV and
@@ -105,7 +105,7 @@ class BlindScreen:
     def say(self, text, interrupt=True):
         """For a row the port cannot carry out - the two in-app-purchase screens, the
         publisher's server and the weapon test range - and for everything these
-        screens say with voice over off.  ``docs/DIVERGENCES.md`` says why this
+        screens say with voice over off.  ``aidocks/DIVERGENCES.md`` says why this
         speaks."""
         log.info('%s', text)
         if self.speech is None:

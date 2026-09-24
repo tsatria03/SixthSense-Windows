@@ -23,7 +23,7 @@ and, only when ``WeaponNumber == 1`` (Knife) or the melee weapons, the attack-so
 at 27 onwards (``att1SoundNumber``/``Gain``/``Time`` ...).
 
 Two values in the shipped data are malformed and ``-[NSString floatValue]`` swallows them;
-they are reproduced, not repaired - see docs/DIVERGENCES.md:
+they are reproduced, not repaired - see aidocks/DIVERGENCES.md:
 
   * ``Knife.plist`` index 31 "공격 1 소리 길이" is ``"1,0"`` -> ``floatValue`` = 1.0
   * ``Shotgun.plist`` index 17 "장전 소리 크기" is ``"19"`` -> ReloadSoundGain = 19.0

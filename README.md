@@ -9,7 +9,7 @@ map layers, unconverted, and the original's recorded sounds, sorted into folders
 their own names — and drives OpenAL Soft with the same calls and the same values the
 iOS build used. Nothing about the game's numbers was invented here;
 where the original's data is malformed, the port reproduces the malformed result and
-`docs/DIVERGENCES.md` says why.
+`aidocks/DIVERGENCES.md` says why.
 
 **Wear headphones.** The game says so itself (`SoundList.plist` 234,
 "you must use earphone") and none of it works on speakers.
@@ -192,7 +192,8 @@ game/                    the original app bundle, its sounds sorted into folders
 vendor/                  OpenAL Soft and NVDA's controller client, with their licenses
 analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
-docs/                    GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md
+aidocks/                 GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md, and
+                         the notes for AI-assisted work (see CLAUDE.md)
 tests/case/              the tests, one plain script each
 tests/interact/          level_chooser.py and tutorial_chooser.py, which start the real
                          game at any level, or the tutorial at any lesson, to play
@@ -201,7 +202,7 @@ releaser.py              sets the version, files the changelog, builds, zips, ta
 requirements.txt         the two packages it needs
 ```
 
-`docs/GAME_STRUCTURE.md` is the useful one: it is the mechanism of the game as read out
+`aidocks/GAME_STRUCTURE.md` is the useful one: it is the mechanism of the game as read out
 of the binary, with addresses.
 
 ### `game/` — the original's data
@@ -219,7 +220,7 @@ finds it. Each file was matched to the original by comparing its audio. They cam
 through a compressed copy, so they carry faint codec noise, but they are 16-bit PCM,
 like the originals; six are the original files themselves. `game/sounds/unused/` holds
 26 files that are not the original's own, which the game never uses.
-`docs/DIVERGENCES.md` has the details.
+`aidocks/DIVERGENCES.md` has the details.
 
 The port reads from there, so the data it runs on is the original's data. `--game PATH`
 (or `SIXTHSENSE_GAME`) points at another copy; an untouched original bundle, with its
@@ -384,8 +385,8 @@ The opening, the menu, the tutorial, the stage, the monsters, the weapons, the
 fighting, the pause and result panel, the shop and the inventory are ported, along with
 the whole audio path, and so is the weapon test range behind the shop's Try button
 (`Stage_1_TEST`). What is left is the ambient sound layer the shipped map does not use, and everything that needed the
-publisher's server or the App Store. `docs/PORTING_STATUS.md` has the full list, and
-`docs/DIVERGENCES.md` has the original's own bugs that the port keeps.
+publisher's server or the App Store. `aidocks/PORTING_STATUS.md` has the full list, and
+`aidocks/DIVERGENCES.md` has the original's own bugs that the port keeps.
 
 ## Credits
 

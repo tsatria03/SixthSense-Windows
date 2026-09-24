@@ -8,7 +8,7 @@ the code signature - all in its top folder, where the original kept them.
 
 The sounds are the one exception.  The original bundle is flat, with its 269 WAVs beside
 the plists; the port keeps them in folders under ``game/sounds/used``, each under its
-original file name (docs/DIVERGENCES.md).  So ``path_for_resource``, which stands in for
+original file name (aidocks/DIVERGENCES.md).  So ``path_for_resource``, which stands in for
 ``[[NSBundle mainBundle] pathForResource:ofType:]``, looks in the top folder first, as the
 original did, and then by file name anywhere under ``sounds/used``.  ``sounds/unused``
 holds files that are not the original's own, and is never searched.

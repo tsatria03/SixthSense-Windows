@@ -39,7 +39,7 @@ The AL parameters are the original's, unchanged:
 
 The up vector the original passes is (0, 1, 1), not a unit vector, and its "at" vector lies
 in x/y while sources are placed in x/z.  Both are reproduced as written - see
-docs/DIVERGENCES.md.
+aidocks/DIVERGENCES.md.
 """
 from __future__ import annotations
 

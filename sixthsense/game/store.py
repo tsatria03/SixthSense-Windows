@@ -8,7 +8,7 @@ Gold is local - ``NSUserDefaults`` key ``GOLD``, which ``Stage_1_E`` pays into a
 end of a run - so buying a weapon works here exactly as it did on the phone.  The two
 things that do not are the gold store and the coin store, which were in-app purchases,
 *Purchase all weapons*, which was the StoreKit product ``SixthSense.AllWeapon``, and
-restore purchases.  The port leaves all four rows out (``docs/DIVERGENCES.md``): Apple's
+restore purchases.  The port leaves all four rows out (``aidocks/DIVERGENCES.md``): Apple's
 in-app purchases no longer exist, and there are no recordings for buying any of them with
 gold instead.
 

@@ -7,7 +7,7 @@ metadata:
   originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
-**Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. It is the only way the port departs from the original's data; everything else stays faithful. It is documented in `docs/DIVERGENCES.md` under "The sounds are organized into folders".
+**Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. It is the only way the port departs from the original's data; everything else stays faithful. It is documented in `aidocks/DIVERGENCES.md` under "The sounds are organized into folders".
 
 ## The layout (dev's final reorganization, 2026-09-21)
 - **`game/sounds/used/`** has 329 files covering **all 269** of the original's sounds:
