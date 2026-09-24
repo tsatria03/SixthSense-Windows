@@ -725,7 +725,7 @@ The original bundle keeps its 269 WAVs in one flat folder, next to the plists an
 map. The port keeps every sound the game uses in `game/sounds/used/`, sorted by what it
 is (the paths below are inside that folder):
 
-* `sfx/zombies/normal/normalcave1`..`12` and `normalforest1`..`12`: each kind of zombie's
+* `sfx/zombies/normal/normalcave1`..`10` and `normalforest1`..`10`: each kind of zombie's
   coming loop, damage, death and hit-player sounds.
 * `sfx/zombies/bosses/bosscave1`..`3` and `bossforest1`..`3`.
 * `sfx/characters/charcave1`, `charcave2`, `charforest1` and `charforest2`: the man and
@@ -750,8 +750,15 @@ faint codec noise; otherwise the audio is the original's. Six originals were mis
 from that set: `Game Start Button`, `Welcome to`, `game center button10`,
 `restore button`, `weapon_m4_fire` and `weapon_saw_start`. They are the original files
 themselves, copied in unchanged, so all 269 of the original's sounds are present.
-`game/sounds/used/` holds 329 files in all: the 269 sounds, plus 60 copies of the ones
-more than one folder shares.
+`game/sounds/used/` holds the 261 the game can play, 313 files in all with 52 copies of
+the ones more than one folder shares. The other eight are zombies 11 and 12's.
+
+Zombies 11 and 12 have sound tables in `MonsterInit:`, but nothing in the original ever
+spawns them: `monsterArray` holds kinds 1 to 10, and the only other `MonsterInit:` calls
+are the girl, the woman zombie and the two bosses. On 2026-09-24 tsatria03 had their 16
+files moved to `game/sounds/unused/sfx/zombies/normal/`, in `normalcave11`, `normalcave12`,
+`normalforest11` and `normalforest12`. Seven are `SoundList.plist` names (292 to 312);
+`zombies_12_coming` is in no list at all.
 
 `game/sounds/unused/` holds 26 files that are not the original's own, laid out in the
 same sub-folders they came from. Eleven are extra copies of a sound already in its
@@ -761,8 +768,8 @@ other fifteen never came from the original: the eight character `hurt` sounds,
 `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
 `Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
 `main menu button` that says only "main menu". Beside them is one blooper clip, an OGG in
-`bloopers/`, which is not a game sound at all, so the folder holds 27 files. Nothing in
-the port uses them, so the sound lookup never looks in `game/sounds/unused/`.
+`bloopers/`, which is not a game sound at all, and the 16 files of zombies 11 and 12,
+so the folder holds 43 files. Nothing in the port uses them, so the sound lookup never looks in `game/sounds/unused/`.
 
 `main menu button` (355), which the pause panel's last row reads, was one of those
 trimmed cuts until 2026-09-22, when the original recording turned up and tsatria03 put

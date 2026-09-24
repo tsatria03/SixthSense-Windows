@@ -156,10 +156,17 @@ def test_spawn_tiers_stay_in_range():
             'tier %d can index %d' % (tier, off + mod - 1)
 
 
+#: Zombies 11 and 12 have sound tables but nothing ever spawns them, so their files are
+#: in game/sounds/unused.
+NEVER_SPAWNED = (11, 12)
+
+
 def test_monster_sounds_resolve_to_wavs():
     sl = _sound_list()
     missing = []
     for kind, groups in MONSTER_SOUNDS.items():
+        if kind in NEVER_SPAWNED:
+            continue
         for group in groups:
             for n in group:
                 name = sl[n]
@@ -191,6 +198,10 @@ def test_sound_list_covers_the_wavs():
     expected_missing |= {'Stage is locked Clear the previous stage',
                          'Endless Mode Button', 'Endless Mode is locked',
                          'zombie_5_hit_player'}
+    # Zombies 11 and 12 never spawn, so their sounds are in game/sounds/unused.
+    expected_missing |= {'zombies_11_walk_cave', 'zombies_11_walk_forest',
+                         'zombies_11_hit_player', 'zombies_11_damage', 'zombies_11_die',
+                         'zombies_12_coming1', 'zombies_12_hit_player'}
     assert set(missing) == expected_missing, missing
 
 

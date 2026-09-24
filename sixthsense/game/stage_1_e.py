@@ -136,6 +136,7 @@ MONSTER_WOMAN = 22
 # Every zombie row is a full triple; the third entry of each array sits in a register
 # the listings drop (0x36b62, 0x36bbe, 0x36bf0, 0x36c1e, 0x36f3a...).  Kind 11 hits the
 # player with kind 12's 307..309: 298..300, zombies_11_hit_player, is never listed.
+# Nothing ever spawns kinds 11 and 12, so their files are in game/sounds/unused.
 MONSTER_SOUNDS = {
     #        coming (cave)      coming (forest)    damage           die              hit player
     1:  ([93, 94, 95], [96, 97, 98], [99, 100, 101], [102, 103, 104], [105, 106, 107]),

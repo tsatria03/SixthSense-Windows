@@ -10,7 +10,7 @@ metadata:
 **Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. It is the only way the port departs from the original's data; everything else stays faithful. It is documented in `aidocks/DIVERGENCES.md` under "The sounds are organized into folders".
 
 ## The layout (dev's final reorganization, 2026-09-21)
-- **`game/sounds/used/`** has 329 files covering **all 269** of the original's sounds:
+- **`game/sounds/used/`** had 329 files covering **all 269** of the original's sounds (313 covering 261 since 2026-09-24; see below):
   - `sfx/zombies/normal/normalcave1..12` and `normalforest1..12`
   - `sfx/zombies/bosses/bosscave1..3` and `bossforest1..3`
   - `sfx/characters/charcave1..2` and `charforest1..2`
@@ -46,6 +46,13 @@ The dev replaced `speech/menus/main/main menu button.wav` in `used/` themselves.
 - `unused/` therefore holds 26 non-original sounds now (27 files with the blooper clip), and the never-in-the-original group is fifteen rather than fourteen.
 - Sound 355 is what the pause panel's last row reads, so this is what a player hears on the panel's "main menu" row.
 - The 2026-09-21 audio matching found this file matched its namesake, since the trimmed cut is the same recording cut short. A name matching by ear beats a waveform match; if another trimmed cut turns up, the dev's ear decides.
+
+## Zombies 11 and 12 moved to unused (2026-09-24)
+The original has sound tables for zombies 11 and 12 but never spawns them (`monsterArray` is kinds 1 to 10; the only other `MonsterInit:` calls are the girl, the woman zombie and the two bosses). The dev asked for their files to go to `unused/` ("we should probably move them to the unused folder then. zombies 11 and 12").
+- The four folders `normalcave11`, `normalcave12`, `normalforest11` and `normalforest12` moved to `unused/sfx/zombies/normal/`, 16 files.
+- Eight originals went with them: the seven `SoundList.plist` names 292 to 312 and `zombies_12_coming`, which no list names.
+- `used/` now holds 313 files covering 261 of the 269 originals, and `unused/` holds 43 files.
+- `tests/case/data.py` skips kinds 11 and 12 in `test_monster_sounds_resolve_to_wavs` and expects their seven names in `test_sound_list_covers_the_wavs`. The sound tables stay in `stage_1_e.MONSTER_SOUNDS`, as the binary has them.
 
 ## How the code finds the sounds (done 2026-09-21)
 The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the same day. **The full suite passed, 117 of 117**, with the dev's go-ahead ([[project_safe_test_run]]), and no "sound file missing" warning was printed. **The dev then played the game on 2026-09-21 and confirmed it finds its sounds** ("Everything worked!"). The todo item moved to finished as "The game finds its sounds in game/sounds/used again...".
