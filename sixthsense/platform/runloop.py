@@ -6,23 +6,45 @@ chains nearly every consequence of an action through ``performSelector:withObjec
 afterDelay:`` with the *length of the sound that is playing* as the delay (see
 ``-[Stage_1_E MovingShot:]`` scheduling ``stopShot:`` after ``[weapon ShotTime]``).
 
-Both land in the same queue here, ordered by fire time, and ``RunLoop.pump`` drains
-everything due.  A perform is identified by ``(target, selector)`` exactly as
-``+cancelPreviousPerformRequestsWithTarget:selector:object:`` identifies it, so cancelling
-works the same way.
+Timers and performs are kept apart, but ``RunLoop.pump`` runs everything due as one queue
+in fire-time order, whichever kind each is, the earlier scheduled first when two fall due
+together - as one ``NSRunLoop`` would.  A perform is identified by ``(target, selector)``
+exactly as ``+cancelPreviousPerformRequestsWithTarget:selector:object:`` identifies it, so
+cancelling works the same way.
 
-Delays are wall-clock, like the original's; the loop never advances a timer faster than
-real time, so a slow frame makes timers late rather than bunched - ``NSTimer`` behaves the
-same way.
+Delays are wall-clock, like the original's, read from ``clock`` (``time.perf_counter``,
+not ``time.monotonic``, whose 15.6 ms steps on Windows would round short delays); the loop
+never advances a timer faster than real time, so a slow frame makes timers late rather
+than bunched - ``NSTimer`` behaves the same way.
+
+Whether a callback is handed its timer or object is decided from its signature before it
+is called, never by calling it again when it raises ``TypeError``: an error inside a
+callback is logged once, and the callback never runs twice.
 """
 from __future__ import annotations
 
 import heapq
+import inspect
 import itertools
 import logging
 import time
 
 log = logging.getLogger('runloop')
+
+#: The loop's clock, in seconds.  Anything comparing against a fire date uses this.
+clock = time.perf_counter
+
+
+def _takes(fn, *args) -> bool:
+    """Whether ``fn`` can be called with ``args``, judged from its signature without
+    calling it.  A callable Python cannot see into is taken to accept them."""
+    try:
+        inspect.signature(fn).bind(*args)
+    except TypeError:
+        return False
+    except ValueError:
+        return True
+    return True
 
 
 class Timer:
@@ -37,7 +59,7 @@ class Timer:
         self.selector = selector
         self.userInfo = userInfo
         self.repeats = bool(repeats)
-        self.fireDate = time.monotonic() + self.interval
+        self.fireDate = clock() + self.interval
         self._valid = True
         self._loop = loop
         self._seq = seq
@@ -55,9 +77,10 @@ class Timer:
             log.error('timer selector missing: %s.%s', type(self.target).__name__, self.selector)
             self._valid = False
             return
-        try:
+        # NSTimer hands the timer to its selector; a callback that takes nothing gets nothing
+        if _takes(fn, self):
             fn(self)
-        except TypeError:
+        else:
             fn()
 
 
@@ -98,7 +121,7 @@ class RunLoop:
 
     # ---- performSelector:withObject:afterDelay: --------------------------
     def perform(self, target, selector, obj=None, delay=0.0):
-        p = _Perform(time.monotonic() + max(0.0, float(delay)), target, selector, obj,
+        p = _Perform(clock() + max(0.0, float(delay)), target, selector, obj,
                      next(self._seq))
         heapq.heappush(self._performs, (p.due, p.seq, p))
         self._by_key.setdefault((id(target), selector), []).append(p)
@@ -109,81 +132,95 @@ class RunLoop:
         the ``+cancelPreviousPerformRequestsWithTarget:`` form."""
         if selector is None:
             tid = id(target)
-            for (t, _sel), lst in list(self._by_key.items()):
-                if t == tid:
-                    for p in lst:
-                        p.cancelled = True
-                    lst.clear()
+            for key in [k for k in self._by_key if k[0] == tid]:
+                for p in self._by_key.pop(key):
+                    p.cancelled = True
             return
         for p in self._by_key.pop((id(target), selector), ()):
             p.cancelled = True
 
     # ---- driving ---------------------------------------------------------
     def pump(self, now=None):
-        """Run everything due.  Called once per frame by the app's main loop."""
+        """Run everything due, earliest first, timers and performs alike.  Called once
+        per frame by the app's main loop."""
         if self._held_at is not None:
             return
-        now = time.monotonic() if now is None else now
+        now = clock() if now is None else now
 
-        while self._performs and self._performs[0][0] <= now:
-            _due, _seq, p = heapq.heappop(self._performs)
-            lst = self._by_key.get((id(p.target), p.selector))
-            if lst:
-                try:
-                    lst.remove(p)
-                except ValueError:
-                    pass
-            if p.cancelled:
-                continue
-            fn = getattr(p.target, p.selector, None)
-            if fn is None:
-                log.error('perform selector missing: %s.%s',
-                          type(p.target).__name__, p.selector)
-                continue
+        while True:
+            self._drop_cancelled()
+            perform = self._performs[0][2] if self._performs else None
+            timer = min((t for t in self._timers if t._valid and t.fireDate <= now),
+                        key=lambda t: (t.fireDate, t._seq), default=None)
+            if perform is not None and perform.due > now:
+                perform = None
+            if perform is None and timer is None:
+                break
+            if timer is None or (perform is not None
+                                 and (perform.due, perform.seq) <= (timer.fireDate, timer._seq)):
+                heapq.heappop(self._performs)
+                self._run_perform(perform)
+            else:
+                self._run_timer(timer, now)
+        self._timers = [t for t in self._timers if t._valid]
+
+    def _drop_cancelled(self):
+        while self._performs and self._performs[0][2].cancelled:
+            heapq.heappop(self._performs)
+
+    def _forget(self, p):
+        """Take a perform out of the cancel index, and its key with it once empty."""
+        key = (id(p.target), p.selector)
+        lst = self._by_key.get(key)
+        if lst:
             try:
-                if p.obj is None:
-                    try:
-                        fn()
-                    except TypeError:
-                        fn(None)
-                else:
-                    fn(p.obj)
-            except Exception:
-                log.exception('perform %s.%s', type(p.target).__name__, p.selector)
+                lst.remove(p)
+            except ValueError:
+                pass
+            if not lst:
+                del self._by_key[key]
 
-        if self._timers:
-            alive = []
-            for t in self._timers:
-                if not t._valid:
-                    continue
-                if t.fireDate <= now:
-                    try:
-                        t.fire()
-                    except Exception:
-                        log.exception('timer %s.%s', type(t.target).__name__, t.selector)
-                    if t.repeats and t._valid:
-                        # NSTimer schedules the next fire from the previous fire date and
-                        # skips missed ones rather than catching up.
-                        t.fireDate += t.interval
-                        if t.fireDate <= now:
-                            t.fireDate = now + t.interval
-                    else:
-                        t._valid = False
-                if t._valid:
-                    alive.append(t)
-            self._timers = alive
+    def _run_perform(self, p):
+        self._forget(p)
+        fn = getattr(p.target, p.selector, None)
+        if fn is None:
+            log.error('perform selector missing: %s.%s', type(p.target).__name__, p.selector)
+            return
+        try:
+            if p.obj is not None:
+                fn(p.obj)
+            elif _takes(fn):
+                fn()
+            else:
+                fn(None)
+        except Exception:
+            log.exception('perform %s.%s', type(p.target).__name__, p.selector)
+
+    def _run_timer(self, t, now):
+        try:
+            t.fire()
+        except Exception:
+            log.exception('timer %s.%s', type(t.target).__name__, t.selector)
+        if t.repeats and t._valid:
+            # NSTimer schedules the next fire from the previous fire date and
+            # skips missed ones rather than catching up.
+            t.fireDate += t.interval
+            if t.fireDate <= now:
+                t.fireDate = now + t.interval
+        else:
+            t._valid = False
 
     def hold(self):
         """PORT ADDITION: stop the clock, for the F1 binding screen over a stage.
         Nothing fires until ``resume``, which moves every due date on by the time
         that was held, so the stage picks up where it left off."""
         if self._held_at is None:
-            self._held_at = time.monotonic()
+            self._held_at = clock()
 
     def resume(self):
         if self._held_at is None:
             return
-        gap = time.monotonic() - self._held_at
+        gap = clock() - self._held_at
         self._held_at = None
         for t in self._timers:
             t.fireDate += gap

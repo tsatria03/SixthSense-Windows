@@ -8,7 +8,6 @@ from __future__ import annotations
 import os
 import plistlib
 import sys
-import time
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import _scratch_save                                             # noqa: E402,F401  never the real save
@@ -18,6 +17,7 @@ from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform.defaults import UserDefaults           # noqa: E402
+from sixthsense.platform import runloop                         # noqa: E402
 from sixthsense.platform.runloop import RunLoop                 # noqa: E402
 
 
@@ -323,7 +323,7 @@ def _walk_timers(st):
 
 
 def _past_the_level_change():
-    RunLoop.main().pump(now=time.monotonic() + S1E.LEVEL_CHANGE_SECONDS + 0.5)
+    RunLoop.main().pump(now=runloop.clock() + S1E.LEVEL_CHANGE_SECONDS + 0.5)
 
 
 def test_pausing_while_the_level_changes_holds_it():
@@ -446,7 +446,7 @@ def test_a_death_shows_the_panel_eleven_seconds_later():
         q = [p for _d, _s, p in loop._performs
              if p.selector == 'missionFailTell_']
         assert q, 'missionFailTell: was not queued'
-        assert abs((q[0].due - time.monotonic()) - 11.0) < 0.5, 'not an 11 s wait'
+        assert abs((q[0].due - runloop.clock()) - 11.0) < 0.5, 'not an 11 s wait'
         st.missionFailTell_()
         assert st.gameState == 3
         assert st.bStop is True, 'the panel cannot take a button press'

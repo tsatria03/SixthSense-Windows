@@ -248,7 +248,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 
 **Run loop (`platform/runloop.py`)**
 
-All three below were confirmed by direct checks on 2026-09-23 (the retry ran a failing callback twice, a perform due at 12 ms ran before a timer due at 10 ms, and `time.monotonic` is `GetTickCount64`, 15.625 ms steps). The dev moved the line from `todo list.txt` to [[project_dev_tasks]] the same day, as something a player is unlikely to notice.
+**All three fixed on 2026-09-24**, as below: `_takes()` decides a callback's arguments from `inspect.signature` before calling it; `pump` runs timers and performs as one queue ordered by (fire time, scheduling order), keeping the two containers the tests inspect; the loop's `clock` is `time.perf_counter`; and `_forget` drops emptied `_by_key` lists. `tests/case/runloop.py` (8 tests) covers each; the full suite passes 321 of 321. The header comment about the one queue is true again. All three below were confirmed by direct checks on 2026-09-23 (the retry ran a failing callback twice, a perform due at 12 ms ran before a timer due at 10 ms, and `time.monotonic` is `GetTickCount64`, 15.625 ms steps). The dev moved the line from `todo list.txt` to [[project_dev_tasks]] the same day, as something a player is unlikely to notice.
 
 - [R] **Callbacks can run twice.** A `TypeError` raised inside a callback triggers the "no-argument" retry, so the callback runs again (about 58-61, 141-147). Decide the argument count once with `inspect.signature`.
 - [R] **Ordering is wrong.** Due delayed calls always run before due timers, and timers run in creation order. Use one heap keyed by fire time.
