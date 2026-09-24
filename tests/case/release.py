@@ -147,7 +147,9 @@ def _fake_build(folder, version):
     build = os.path.join(folder, 'SixthSense')
     os.makedirs(os.path.join(build, 'game'))
     for name, body in (('SixthSense.exe', 'exe'), ('VERSION', version + '\n'),
-                       ('todo list.txt', 'todo'), (os.path.join('game', 'SoundList.plist'), 'x')):
+                       (os.path.join('docks', 'todo list.txt'), 'todo'),
+                       (os.path.join('game', 'SoundList.plist'), 'x')):
+        os.makedirs(os.path.dirname(os.path.join(build, name)), exist_ok=True)
         with open(os.path.join(build, name), 'w', encoding='utf-8') as fh:
             fh.write(body)
     return build
@@ -167,7 +169,7 @@ def test_the_releaser_zips_the_build_under_one_folder():
         finally:
             releaser.zip_path = saved
     assert names == ['SixthSense/SixthSense.exe', 'SixthSense/VERSION',
-                     'SixthSense/game/SoundList.plist', 'SixthSense/todo list.txt']
+                     'SixthSense/docks/todo list.txt', 'SixthSense/game/SoundList.plist']
     assert not leftover
 
 
@@ -216,12 +218,18 @@ def test_the_compiler_no_longer_files_the_changelog_or_zips():
     assert not any('--no-package' in flags for _text, flags in compiler.MENU)
 
 
-def test_the_todo_list_ships_beside_the_game():
-    shipped = dict(compiler.SIDE_FILES)
-    assert shipped.get(os.path.join('docks', 'readme.txt')) == 'readme.txt'
-    assert shipped.get(os.path.join('docks', 'todo list.txt')) == 'todo list.txt'
-    assert shipped.get(os.path.join('docks', 'changelog.txt')) == 'changelog.txt'
-    assert shipped.get('LICENSE') == 'license.txt'
+def test_the_player_documents_ship_in_a_docks_folder():
+    """The build lays docks\\ out as the repository does; VERSION and the license stay at the top."""
+    with tempfile.TemporaryDirectory() as build:
+        compiler.copy_side_files(build)
+        compiler.strip_shipped_changelog(build)
+        top = sorted(os.listdir(build))
+        docks = sorted(os.listdir(os.path.join(build, 'docks')))
+        shipped = open(os.path.join(build, 'docks', 'changelog.txt'), encoding='utf-8').read()
+    assert top == ['VERSION', 'docks', 'license.txt'], top
+    assert docks == ['changelog.txt', 'readme.txt', 'todo list.txt'], docks
+    # an empty unrelease: heading is taken out of the copy in docks\, not left in it
+    assert shipped == compiler.without_unrelease(shipped)
 
 
 def test_the_player_documents_are_read_from_docks():

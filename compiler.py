@@ -17,9 +17,8 @@ which still work typed out:
     py compiler.py --dry-run      say what a build would do, build nothing
 
 Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the readme,
-the changelog and the todo list from docks\\, VERSION and the license - and the third-party licenses in
-licenses\\.
-Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
+the changelog and the todo list in a docks\\ folder, as in the repository, and VERSION and the license at
+the top - and the third-party licenses in licenses\\.  Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
 
 The port and the vendored DLLs always go inside the build.  In the folder build the game's own files do
 not: the plists and the three map layers are copied next to the executable, into game\\, and the sounds
@@ -71,14 +70,15 @@ GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: called here, and what it is called there.  They are never embedded, --embed or not.  LICENSE has no
 #: extension, which is the convention on GitHub but means Windows asks what to open it with, so it ships
 #: as a .txt.  The todo list holds only what a player notices, which is why it can ship.  The documents a
-#: player reads live in docks\ in the repository, and land at the top of the build, beside the executable.
+#: player reads live in docks\ in the repository, and go into a docks\ folder beside the executable, as
+#: they are laid out here; VERSION and the license stay at the top, the license beside licenses\.
 DOCKS = 'docks'
 CHANGELOG = os.path.join(DOCKS, 'changelog.txt')
 #: The player's readme is plain text of its own, not README.md, which is for developers and would be
 #: read aloud with every # and | in it.
-SIDE_FILES = ((os.path.join(DOCKS, 'readme.txt'), 'readme.txt'),
-              (CHANGELOG, 'changelog.txt'),
-              (os.path.join(DOCKS, 'todo list.txt'), 'todo list.txt'),
+SIDE_FILES = ((os.path.join(DOCKS, 'readme.txt'), os.path.join(DOCKS, 'readme.txt')),
+              (CHANGELOG, CHANGELOG),
+              (os.path.join(DOCKS, 'todo list.txt'), os.path.join(DOCKS, 'todo list.txt')),
               ('VERSION', 'VERSION'),
               ('LICENSE', 'license.txt'))
 
@@ -146,9 +146,9 @@ def without_unrelease(text: str) -> str:
 
 
 def strip_shipped_changelog(dest_root: str) -> None:
-    """Take the empty unrelease: heading out of the copy beside the executable - the copy only.  A build
+    """Take the empty unrelease: heading out of the copy in the build's docks\\ - the copy only.  A build
     made straight after the releaser has filed the changelog opens on the new version."""
-    path = os.path.join(dest_root, 'changelog.txt')
+    path = os.path.join(dest_root, CHANGELOG)
     if os.path.isfile(path):
         text = open(path, encoding='utf-8').read()
         with open(path, 'w', encoding='utf-8', newline='\n') as fh:
@@ -327,14 +327,17 @@ def copy_game(dest_root: str) -> bool:
 
 
 def copy_side_files(dest_root: str) -> None:
-    """The text the player reads, next to the game rather than inside it."""
+    """The text the player reads, next to the game rather than inside it: docks\\ as a folder, and
+    VERSION and the license at the top."""
     for name, shipped_as in SIDE_FILES:
         src = os.path.join(HERE, name)
         if not os.path.isfile(src):
             say('  %s is not here, so it was not copied.' % name)
             continue
-        shutil.copy2(src, os.path.join(dest_root, shipped_as))
-        say('%s is beside the executable%s.'
+        target = os.path.join(dest_root, shipped_as)
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        shutil.copy2(src, target)
+        say('%s is in the build%s.'
             % (shipped_as, '' if shipped_as == name else ', from %s' % name))
 
 
@@ -439,7 +442,7 @@ def main(argv=None) -> int:
                 'app bundle'
                 % (src, os.path.join(dest_root, 'game'), data_summary(game_files(src) + sound_files(src))))
         for name, shipped_as in SIDE_FILES:
-            say('%s would be copied beside the executable%s%s'
+            say('%s would be copied into the build%s%s'
                 % (name, '' if shipped_as == name else ', as %s' % shipped_as,
                    '' if os.path.isfile(os.path.join(HERE, name)) else ' - but it is not here'))
         licenses = license_files()
@@ -469,7 +472,7 @@ def main(argv=None) -> int:
     copy_licenses(dest_root)
     strip_shipped_changelog(dest_root)
 
-    for warning in release_warnings(os.path.join(dest_root, 'changelog.txt')):
+    for warning in release_warnings(os.path.join(dest_root, CHANGELOG)):
         say('before releasing: ' + warning)
 
     exe = os.path.join(dest_root, NAME + '.exe')

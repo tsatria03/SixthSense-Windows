@@ -3,6 +3,7 @@
 Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
 
 ##Finished.
+The readme, the changelog and the todo list are in a docks folder beside the game.
 A readme.txt beside the game says how to play, in plain text with one sentence a line.
 
 The opening screen's third row tells the game's story, which the original recorded but never played, with quiet music under it, read by your screen reader with voice over off.

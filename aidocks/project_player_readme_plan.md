@@ -1,6 +1,6 @@
 ---
 name: project_player_readme_plan
-description: "FINISHED 2026-09-23, confirmed by the dev: docks/readme.txt, a plain-text readme for players that ships beside the executable as readme.txt, based on README.md minus everything for developers, one sentence per line. The dev approved a five-sentence sample and asked for the real thing."
+description: "FINISHED 2026-09-23, confirmed by the dev: docks/readme.txt, a plain-text readme for players that ships in the build's docks folder (beside the executable as readme.txt until 2026-09-24), based on README.md minus everything for developers, one sentence per line. The dev approved a five-sentence sample and asked for the real thing."
 metadata:
   type: project
 ---
