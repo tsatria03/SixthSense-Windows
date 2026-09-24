@@ -1,4 +1,5 @@
 unrelease:
+A save left with too few coins and no coin clock running, such as one edited by hand or put back from a backup, starts the clock when the main menu opens, instead of never getting a coin again.
 The game opens with Bitbee's logo sound, as the original does, a moment after it starts and before the opening screen. Enter skips the logo, and Escape skips straight to the menu.
 When the audio device goes away, such as headphones being unplugged, or Windows switches to another output, such as headphones plugged back in, the game moves its sound there within a second, music and ambience included, instead of going silent until you restart it.
 When the game cannot start, or stops because of an error, it says why through your screen reader, or a Windows voice if none is running, instead of closing without a word.

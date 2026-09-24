@@ -118,6 +118,18 @@ class MainController:
         self.selectMenu = 2
         self.blindModeSelectedMenu()
         self._coinCatchUp()
+        self._coinClockSafetyNet()
+
+    def _coinClockSafetyNet(self):
+        """PORT ADDITION: with fewer than COIN_MAX coins and no clock counting down,
+        start one.  The original only starts the clock when a coin is spent
+        (coinTiemrControlStart, 0xbe01), so a save that reached 0 coins without a
+        clock - edited by hand, or put back from an older backup after damage - never
+        got a coin again, and the coin row read "0 minutes 0 seconds".  In play there is
+        always a clock whenever the coins are under the cap, so this changes nothing
+        there."""
+        if self.app.Coin < COIN_MAX and self.coinTimer is None:
+            self.coinTiemrControlStart()
 
     # -[MainController viewDidLoad] 0x8946-0x8d12 - grant coins for time spent
     # away, at the recharge rate, capped at COIN_MAX (0x8aca-0x8b14).

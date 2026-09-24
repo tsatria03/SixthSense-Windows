@@ -348,13 +348,17 @@ def test_debug_mode_starts_a_game_without_a_coin_and_spends_none():
         m = _menu(coins=coins)
         m.app.debug = True
         try:
+            d = UserDefaults.standardUserDefaults()
+            # The menu may already have its clock running (the safety net starts one
+            # whenever the coins are under the cap); Start must leave it as it was.
+            clock = (d.stringForKey_('COIN_TIMER_START'), d.stringForKey_('COIN_TIMER'))
             m.selectMenu = 3
             m.activate()
             assert m.next_screen == 'stage', 'debug mode refused to start with %d coins' % coins
             assert m.app.Coin == coins, 'debug mode spent a coin'
-            d = UserDefaults.standardUserDefaults()
             assert d.intForKey_('COIN') == coins
-            assert d.stringForKey_('COIN_TIMER_START') != '1', 'debug mode started the coin clock'
+            assert (d.stringForKey_('COIN_TIMER_START'), d.stringForKey_('COIN_TIMER')) \
+                == clock, 'debug mode changed the coin clock'
         finally:
             m.app.debug = False
             m.teardown()
@@ -449,6 +453,47 @@ def test_time_away_caps_at_five_and_stops_the_clock():
         assert m.app.Coin == COIN_MAX
         assert d.intForKey_('COIN') == COIN_MAX
         assert d.stringForKey_('COIN_TIMER_START') == '0', 'the clock should have stopped'
+    finally:
+        m.teardown()
+
+
+def test_a_save_with_no_coins_and_no_clock_starts_the_clock():
+    """PORT ADDITION: a save at 0 coins with no clock, as a hand edit or an older
+    backup can leave it, used to stay at 0 for ever and read "0 minutes 0 seconds".
+    Opening the menu now starts the clock, and the coin row reads a real time."""
+    m = _menu(coins=0)
+    try:
+        d = UserDefaults.standardUserDefaults()
+        assert d.stringForKey_('COIN_TIMER_START') == '1', 'the clock did not start'
+        assert m.coinTimer is not None and m.coinTimer.isValid()
+        left = m.app._coin_timer_remaining()
+        assert COIN_INTERVAL - 5 <= left <= COIN_INTERVAL, 'the clock reads %r' % left
+        m.app.mode = 0
+        m.selectMenu = 1
+        assert '0 minutes 0 seconds' not in m.row_text(), m.row_text()
+    finally:
+        m.app.mode = 1
+        m.teardown()
+
+
+def test_a_full_purse_starts_no_clock():
+    """At the cap there is nothing to count down to, so no clock starts."""
+    m = _menu(coins=COIN_MAX)
+    try:
+        d = UserDefaults.standardUserDefaults()
+        assert d.stringForKey_('COIN_TIMER_START') != '1', 'a clock started at the cap'
+        assert m.coinTimer is None
+    finally:
+        m.teardown()
+
+
+def test_a_running_clock_is_left_alone():
+    """A clock already counting down keeps its time; the safety net does not restart
+    it (the same rule as 0xbe3a)."""
+    m = _menu_with_timer_state(coins=2, coin_timer_start='1', away_seconds=600)
+    try:
+        left = m.app._coin_timer_remaining()
+        assert abs(left - (COIN_INTERVAL - 600)) <= 5, 'the clock was restarted: %r' % left
     finally:
         m.teardown()
 

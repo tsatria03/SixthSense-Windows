@@ -481,6 +481,17 @@ to the other row stops it or cancels its wait (`StartIntroPage.StopElseSpeak`), 
 follows only the welcome message the screen opens with: coming back to the welcome row
 reads the message alone, since the message already says to use earphones.
 
+### The coin clock starts whenever the coins are under five
+The original starts its 30-minute coin clock only when a coin is spent
+(`-[MainController coinTiemrControlStart]`, 0xbe01), and gives coins for time away only
+when a clock is already recorded (`COIN_TIMER_START`, 0x89a8). So a save that reaches 0
+coins with no clock recorded, as a hand edit or a backup put back after damage can
+leave it, never gets a coin again, and the coin row reads "0 minutes 0 seconds". The
+port starts the clock whenever the main menu opens with fewer than five coins and none
+running (`MainController._coinClockSafetyNet`). In play the clock is always running
+whenever the coins are under five, so nothing else changes. Added 2026-09-23 at
+tsatria03's asking.
+
 ### The logo plays on the opening screen, and can be skipped
 The original's launch plays the publisher's logo sound, *bitbee_1* (340), at 0.2 as it
 puts up the logo (`-[AppDelegate application:didFinishLaunchingWithOptions:]`,
