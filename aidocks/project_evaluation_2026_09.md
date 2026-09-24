@@ -272,7 +272,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **Replaying the tutorial reads isTutorial=1 from the save.** The original forces it to 0 (0x7cfd8).
 - [R] **The end of the tutorial starts a free walk through `tutorialEndGameStart:`**, which nothing in the binary calls. It should return to the menu.
 - [R] **"Now Loading" (46) plays over the first tutorial prompt.** The original waits 2.8 s before `MapInitInBundle` (0x7d6a2, 0x2d45e).
-- [R] **`app.mode` defaults to 0.** "Gold is lacking" is then silent, and the mode row says "voice over on" (`store.py` about 289-293, `main_controller.py` about 147-149).
+- [R] **`app.mode` defaults to 0.** **Fixed in `7c089b7`** (a save with no `EYEMODE` is voice over on, and 259 is spoken in the screen reader mode); the todo line moved to finished on 2026-09-23. Was: "Gold is lacking" is then silent, and the mode row says "voice over on" (`store.py` about 289-293, `main_controller.py` about 147-149).
 
 ## Low
 - [R] **The SAPI fallback is dead.** It needed `comtypes`, which isn't installed. **FIXED 2026-09-22:** `speech.py` now goes through Prism for every other screen reader and for SAPI or OneCore. comtypes is gone, and the dev confirmed it by ear ([[project_prism_speech]]).
