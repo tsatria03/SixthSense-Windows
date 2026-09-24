@@ -187,6 +187,25 @@ def test_escape_in_the_range_still_pauses():
     assert seen == {'state': 1}, seen
 
 
+def test_the_window_lists_every_debug_key():
+    """In debug mode the stage's window text names each debug key, F7 included."""
+    from types import SimpleNamespace
+    from sixthsense.platform.keymap import DEBUG_IDS, KeyMap
+    km = KeyMap()
+    km.debug = True
+    player = SimpleNamespace(useWepon=0, HP=3, playerXplot=20, playerYplot=30,
+                             killMonsterCount=0, HeadShotCount=0)
+    stage = SimpleNamespace(gameState=0, gamePlayer=player, weaponSource=[None],
+                            gameMode=1, LVUP=1, score=0, MonsterBuffer=[],
+                            app=SimpleNamespace(debug=True))
+    lines = SixthSense._stage_lines(stage, SimpleNamespace(keymap=km))
+    debug = [line for line in lines if line.startswith('debug')]
+    assert len(debug) == 1, lines
+    missing = [a for a in DEBUG_IDS if km.keys_text(a) not in debug[0]]
+    assert not missing, 'the debug line leaves out %s: %s' % (missing, debug[0])
+    assert debug[0].count('   ') == len(DEBUG_IDS), debug[0]
+
+
 def _failing_run(error):
     """``SixthSense.run`` with ``main`` raising ``error``; what it would say, and its exit
     code."""
