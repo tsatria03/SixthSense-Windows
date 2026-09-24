@@ -11,6 +11,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 
 ## Open
 
+- Bring the docs and notes up to date with the code, from the 2026-09-23 rescan. game/sounds/unused holds 27 files (26 WAV and one bloopers OGG), not the 25 in CLAUDE.md and these notes or the 26 in the README. CLAUDE.md still says the game opens on the splash, where it now opens on the logo, and that only the key bindings screen is synthesised, leaving out the screen reader mode. The README layout leaves out debug.py, stage_1_test.py and ui/focus.py, and CLAUDE.md says Python 3.12 where the README says 3.12 or newer. tests/case/paths.py line 6 and a few notes still use old test_*.py names. project_tests_layout.md opens with 17 files and 270 tests, feedback_changelog.md says unrelease starts at 0, and a finished line below says findings are listed in the todo list's unfinished section.
 - The run loop can run a timed event twice when it raises a TypeError inside, runs every due delayed call before every due timer within one frame, and reads a clock that only moves in 15.6 ms steps. All three were confirmed on 2026-09-23; the fix is one call per event, one queue in time order, and `time.perf_counter`, with the full suite run after. Moved from the todo list the same day, since a player is unlikely to notice.
 - The debug keys shown in the game window leave out F7.
 - Update two outdated code comments, about the zig-zag walks and the timers. (The README half was done on 2026-09-23.)
