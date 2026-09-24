@@ -171,6 +171,25 @@ def test_a_grenade_scores_every_zombie_it_hurts():
         st.teardown()
 
 
+def test_a_zombie_hitting_you_is_heard_in_the_middle():
+    """-[MonsterControl hitPlayer] 0x11f92..0x11fa2 plays playerHitSound at 1.0, (0, 0),
+    z 40 - the middle of your head, not where the zombie is.  It is the girl's thank
+    you (270) too.  The port played it at the monster's Pos."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: played.append((n, g, pos, z))
+    try:
+        st.MonsterInit_(1)                      # lane 1, hard left
+        m = st.MonsterBuffer[0]
+        assert abs(m.Pos[0]) > 1.0, 'the zombie is not off to the side: %r' % (m.Pos,)
+        m.hitPlayer()
+        assert (m.playerHitSound, 1.0, (0.0, 0.0), 40) in played, played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
 def test_a_shot_in_the_lane_does_damage():
     _app, st = _new_stage()
     loop = RunLoop.main()

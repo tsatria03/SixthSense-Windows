@@ -435,9 +435,11 @@ class MonsterControl:
         self.app.playback.stopSound_(self.comingMonsterStopSoundNumber)
         self._invalidate('MonsterMovingAngleTimer')
         self._invalidate('MainMonsterTimer')
-        # 0x11fa2: gain 1.0, z = 40
+        # 0x11f92..0x11fa2: gain 1.0 at (0, 0), z 40 - in the middle of your head, not at
+        # the monster: x and y are both stored from a zeroed r0.  This is the zombie's
+        # blow, or the girl's thank you (270); the port had played it at self.Pos.
         self.app.playSound_Gain_Pos_z_reprats_(
-            self.playerHitSound, 1.0, self.Pos, 40, False)
+            self.playerHitSound, 1.0, (0.0, 0.0), 40, False)
         RunLoop.main().perform(self, 'MonsterHitAndDead', None, self.dieSoundTime)
 
     # -[MonsterControl MonsterHitAndDead] 0x11fec
