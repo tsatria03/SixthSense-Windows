@@ -10,7 +10,7 @@ A Windows port of **Sixth Sense** (`kr.co.bitbee.sixsense` 1.2), a 2013 iPhone a
 
 There is no source code for the original. The port is **recovered from the ARMv7 binary** and rewritten method by method **entirely in Python**. **lbk2907 created it**, including the binary extraction, and handed it to tsatria03 to publish and develop together; the "Initial commit" is entirely their work ([[project_provenance]]). Each Python module mirrors one Objective-C class and cites the binary address it came from ([[project_python_only]]).
 
-The game plays 261 of the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. With voice over on, the only synthesised speech is the key-bindings screen and a few "not available" lines. With voice over off, the screen reader mode also speaks the menus, the shop, the inventory, the opening screen and the result panel ([[project_screen_reader_mode]]). All of it goes through NVDA, another screen reader via Prism, or a Windows voice ([[project_prism_speech]]).
+The game plays 257 of the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. With voice over on, the only synthesised speech is the key-bindings screen and a few "not available" lines. With voice over off, the screen reader mode also speaks the menus, the shop, the inventory, the opening screen and the result panel ([[project_screen_reader_mode]]). All of it goes through NVDA, another screen reader via Prism, or a Windows voice ([[project_prism_speech]]).
 
 ## Layout
 
@@ -22,7 +22,7 @@ The game plays 261 of the original's own 269 recorded WAVs, which `SoundList.pli
   - `defaults.py`: stands in for `NSUserDefaults`.
   - `speech.py`, `keymap.py`, `music.py` and `volume.py` (the decibel knobs, [[project_volume_knobs]]).
 - **`sixthsense/ui/`**: the keyboard input for the stage, the menus and the screens, plus the F1 key-bindings screen.
-- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 43 files the game never uses: 26 WAVs that aren't the original's own, one blooper clip, and the 16 files of zombies 11 and 12, which the original never spawns. `paths.path_for_resource` looks in the top folder first, then by file name under `game/sounds/used/` ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
+- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 47 files the game never uses: 26 WAVs that aren't the original's own, one blooper clip, the 16 files of zombies 11 and 12, which the original never spawns, and the four zombie shouts, which it never plays. `paths.path_for_resource` looks in the top folder first, then by file name under `game/sounds/used/` ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
 - **`analysis/`**:
   - `bin/sixsense_armv7`: the binary itself.
   - `disasm/dc_*.txt`: per-class decompiled listings.

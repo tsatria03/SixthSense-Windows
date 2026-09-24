@@ -293,7 +293,7 @@ def sound_files(src: str) -> list[str]:
 
 
 def data_summary(names: list[str]) -> str:
-    """What a list of the game's files holds, in words: '458 files - 313 sounds, and 145 plists and map
+    """What a list of the game's files holds, in words: '454 files - 309 sounds, and 145 plists and map
     layers'."""
     sounds = sum(1 for name in names if name.lower().endswith('.wav'))
     return '%d files - %d sounds, and %d plists and map layers' % (len(names), sounds, len(names) - sounds)
