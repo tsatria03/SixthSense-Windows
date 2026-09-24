@@ -723,15 +723,19 @@ is in `GAME_STRUCTURE.md` §5.
 ### The sounds are organized into folders
 The original bundle keeps its 269 WAVs in one flat folder, next to the plists and the
 map. The port keeps every sound the game uses in `game/sounds/used/`, sorted by what it
-is (the paths below are inside that folder):
+is, and the ones it never plays in `game/sounds/unused/` (the paths below are inside
+`used/`):
 
-* `sfx/zombies/normal/normalcave1`..`12` and `normalforest1`..`12`: each kind of zombie's
-  coming loop, damage, death and hit-player sounds.
-* `sfx/zombies/bosses/bosscave1`..`3` and `bossforest1`..`3`.
-* `sfx/characters/charcave1`, `charcave2`, `charforest1` and `charforest2`: the man and
-  the woman who heal you.
-* `sfx/monsters/monstercave` and `monsterforest`: the woman-like monster.
-* `sfx/weapons`: firing, reloading, the empty click and the hits.
+* `sfx/zombies/normal/normalcave1`..`10` and `normalforest1`..`10`: each kind of zombie's
+  coming loop, damage, death and hit-player sounds. Zombie 8's approach and push sounds
+  are in its own two folders.
+* `sfx/zombies/bosses/bosscave1`, `bosscave3` and `bossforest3`: the boss's hit and death,
+  and its approach in each area.
+* `sfx/characters/charcave2` and `charforest2`: the girl who heals you; `charcave1`:
+  `man_die`, which the woman zombie plays when she is hit or dies (273).
+* `sfx/monsters/monstercave` and `monsterforest`: the woman zombie's approach and hit.
+* `sfx/weapons`: firing, reloading, the empty click, the hits, and the knife and sword
+  swings.
 * `sfx/misc`: music, ambience, rain, breathing and the interface sounds.
 * `speech/game`, `speech/logos`, `speech/menus/main`, `speech/menus/store`,
   `speech/numbers`, `speech/tutorials` and `speech/weapons`.
@@ -749,20 +753,33 @@ PCM, the originals' format, at the same sample rates and channel counts. They ca
 faint codec noise; otherwise the audio is the original's. Six originals were missing
 from that set: `Game Start Button`, `Welcome to`, `game center button10`,
 `restore button`, `weapon_m4_fire` and `weapon_saw_start`. They are the original files
-themselves, copied in unchanged, so all 269 of the original's sounds are present.
-`game/sounds/used/` holds 329 files in all: the 269 sounds, plus 60 copies of the ones
-more than one folder shares.
+themselves, copied in unchanged, so all 269 of the original's sounds are present,
+between the two folders.
 
-`game/sounds/unused/` holds 26 files that are not the original's own, laid out in the
-same sub-folders they came from. Eleven are extra copies of a sound already in its
-folder: one more `ui_select` in `sfx/misc`, and five more each of `gun_att_sound_1`
-(the `*hit` files) and `weapon_nonbullets` (the `*empty` files) in `sfx/weapons`. The
-other fifteen never came from the original: the eight character `hurt` sounds,
-`grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
-`Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
-`main menu button` that says only "main menu". Beside them is one blooper clip, an OGG in
-`bloopers/`, which is not a game sound at all, so the folder holds 27 files. Nothing in
-the port uses them, so the sound lookup never looks in `game/sounds/unused/`.
+**Only what the game plays is in `used/`** (tsatria03's second sort, 2026-09-24).
+`game/sounds/used/` holds 236 files under 196 names; where a name has copies in several
+folders, every copy is the same recording. `game/sounds/unused/` holds 126: 125 WAVs and
+one blooper clip, an OGG in `bloopers/`, which is not a game sound at all.
+The WAVs in `unused/` are of three kinds:
+
+* Sounds the original has but the port never plays: those of zombie kinds 11 and 12,
+  which nothing spawns; the power saw, which has no shop page; the rows the port leaves
+  out (ranking, Game Center, the coin and gold packs, restore, purchase all weapons);
+  lines no row plays (`the rank`, `next stage button`, `please turn off`,
+  `Exit button`, `Mode change button`); the second logo, `bitbee games_1` (341), since
+  the launch plays 340; and recordings the list never names, such as the four
+  `zombie_shout` sounds.
+* Copies of sounds that are also in `used/`: extra copies of shared recordings, and the
+  earlier sort's copies of `ui_select` (`menuclick`), `gun_att_sound_1` (the `*hit`
+  files) and `weapon_nonbullets` (the `*empty` files). The game plays those from `used/`.
+* Fifteen files that never came from the original: the eight character `hurt` sounds,
+  `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
+  `Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
+  `main menu button` that says only "main menu".
+
+The sound lookup never looks in `game/sounds/unused/`. A number whose file is only there
+plays silence and logs "sound file missing", as any missing sound does, and never
+stops the game; the port never asks for one of them in play.
 
 `main menu button` (355), which the pause panel's last row reads, was one of those
 trimmed cuts until 2026-09-22, when the original recording turned up and tsatria03 put
@@ -777,6 +794,15 @@ and every copy is the same recording. Because the top folder comes first, the pl
 the map are found exactly as before, and `--game` pointed at an untouched original bundle,
 with its WAVs all in its top folder, still works. `compiler.py` copies
 `game/sounds/used/` into a build with its folders, and leaves `game/sounds/unused/` out.
+
+### One sound list entry is renamed
+`SoundList.plist` entry 290, the forest boss's approach, is `zombies_boss_3_coming_forest`
+where the original has `zombies_boss_3_forest`. tsatria03 renamed the file on 2026-09-24
+to match the other bosses' approach sounds (`zombies_boss_1_coming_cave`,
+`zombies_boss_1_coming_forest`), and the entry follows it, or the boss would come in
+silently. Its cave twin became `zombies_boss_3_coming_cave`, which no entry names, so it
+needed nothing. It is the only change to the original's plists: the file is still
+binary, and every other byte is the original's.
 
 ### The tutorial is a table, not ten copies
 The original spells each beat out as five methods — `tutorialOne`, `tutorialOneSoundStop`,

@@ -222,8 +222,11 @@ its 269 WAVs in one flat folder; here every sound the game uses sits in
 tutorial and so on — and each keeps its original file name, so `SoundList.plist` still
 finds it. Each file was matched to the original by comparing its audio. They came back
 through a compressed copy, so they carry faint codec noise, but they are 16-bit PCM,
-like the originals; six are the original files themselves. `game/sounds/unused/` holds
-27 files the game never uses: 26 WAVs that are not the original's own, and a blooper.
+like the originals; six are the original files themselves. `game/sounds/used/` holds
+only what the game plays, 236 files. `game/sounds/unused/` holds 126 the game never
+plays: the original's sounds for things the port leaves out, such as the ranking and
+the coin store, extra copies, the sounds that are not the original's own, and a blooper.
+One entry of `SoundList.plist` follows a renamed file.
 `aidocks/DIVERGENCES.md` has the details.
 
 The port reads from there, so the data it runs on is the original's data. `--game PATH`

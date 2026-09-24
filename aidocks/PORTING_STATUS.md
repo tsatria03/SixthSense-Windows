@@ -82,9 +82,11 @@ the same but there is nothing to draw.
   `GAME_STRUCTURE.md` show.
 * All eight weapons load with the damage/range/round counts in the plists.
 * Every `SoundList.plist` entry that the monster tables reference resolves to a WAV in
-  the bundle, and so does every row of every menu, shop and inventory screen. The sounds
-  now live in `game/sounds/used/`, sorted into folders under their original names, and
-  `paths.path_for_resource` finds them there by file name; see `DIVERGENCES.md`.
+  the bundle, except those of zombie kinds 11 and 12, which nothing spawns; so does every
+  row of every menu, shop and inventory screen. The sounds the game plays live in
+  `game/sounds/used/`, sorted into folders under their original names, the rest in
+  `game/sounds/unused/`, and `paths.path_for_resource` finds them in `used/` by file
+  name; see `DIVERGENCES.md`.
 * Of the 130 shipped `type*.plist` files, 80 walk a straight lane (`MovingType` 1..5)
   and 50 walk a zig-zag (11/22/33/44/55); the port's ladder reproduces the sweep and
   the turn-round for all five, though no zig-zag type is ever sent in play.

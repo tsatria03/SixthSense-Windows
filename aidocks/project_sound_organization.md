@@ -1,16 +1,26 @@
 ---
 name: project_sound_organization
-description: "Every sound the game uses lives in game/sounds/used, in folders, under its original file name (a deliberate divergence); non-original files are in game/sounds/unused. How it was built and verified on 2026-09-21, and how the code finds the sounds (lookup rewritten the same day; tests pass and the dev confirmed it in play)."
+description: "Every sound the game plays lives in game/sounds/used, in folders, under its original file name (a deliberate divergence); since the dev's second sort on 2026-09-24 everything it never plays is in game/sounds/unused, and SoundList.plist entry 290 follows a renamed boss file. How it was built and verified on 2026-09-21, and how the code finds the sounds (lookup rewritten the same day; tests pass and the dev confirmed it in play)."
 metadata:
   node_type: memory
   type: project
   originSessionId: 8a78e7c9-236d-421e-8e76-c11a2895c278
 ---
 
-**Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. It is the only way the port departs from the original's data; everything else stays faithful. It is documented in `aidocks/DIVERGENCES.md` under "The sounds are organized into folders".
+**Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. With the renamed `SoundList.plist` entry 290 (below), these are the only ways the port departs from the original's data; everything else stays faithful. It is documented in `aidocks/DIVERGENCES.md` under "The sounds are organized into folders" and "One sound list entry is renamed".
 
-## The layout (dev's final reorganization, 2026-09-21)
-- **`game/sounds/used/`** has 329 files covering **all 269** of the original's sounds:
+## The layout now (the dev's second sort, 2026-09-24, commit `e299647`)
+- **`used/` holds only what the game plays: 236 files under 196 names.** `unused/` holds 126: 125 WAVs and the blooper OGG in `unused/bloopers/`. Every one of the 269 originals is in one folder or the other.
+- **The dev's moves and renames:** the weapon sounds from `sfx/misc` to `sfx/weapons`; zombie 8's approach and push into `normalcave8` and `normalforest8`; "You can skip by using double tab" from `speech/tutorials` to `speech/game`; `zombies_boss_3_cave` and `zombies_boss_3_forest` renamed `zombies_boss_3_coming_cave` and `zombies_boss_3_coming_forest`.
+- **`SoundList.plist` entry 290** (the forest boss's approach, `stage_1_e.py:157`) follows the rename, at the dev's request, or the boss would come in silently. It was rewritten with `plistlib` in binary after checking it re-saves byte for byte, so it is the only change. The cave rename needed nothing: no entry names it.
+- **How the deletion was done:** the dev copied what the game never plays into `unused/`, then Claude deleted the 95 copies left in `used/`, each matched to its `unused/` copy by the audio data, not the name. A read-only trace of every candidate (loading on first play, the monster and weapon tables, the rows the port keeps) found 12 the game plays, and their loaded copies stay in `used/`: `man_die` (273), `weapon_knife_att2` (60), `weapon_japen_knife_att2` (73), `gun_att_sound_1` (56), `weapon_nonbullets` (78), the boss's hit and death (288, 289), `mission fail` (228), "You can skip by using double tab" (266), "you must use earphone" (234), `effective range` (256) and `this weapon has been purchased` (359). Eight folders left empty were removed. The dev keeps a backup of the layout before the deletion in `user/sounds` (read-only for Claude).
+- **What the unused ones are:** kinds 11 and 12 (never spawned); the power saw (no shop page); the left-out rows (ranking, Game Center, coin and gold packs, restore, purchase all weapons); lines no row plays; the second logo 341; unlisted recordings such as the zombie shouts; extra copies; and the fifteen non-original files. A number whose file is only in `unused/` logs "sound file missing" and plays silence; it never crashes, and the port never asks for one in play.
+- **Every name with several copies in `used/` has identical copies** (checked 2026-09-24: 28 names, 38 extra copies), so which one the lookup takes does not matter.
+- **A build copies 381 files:** 236 sounds, plus 145 plists and map layers.
+- **The tests were not updated with it:** `tests/case/data.py` (`test_sound_list_covers_the_wavs`, `test_monster_sounds_resolve_to_wavs`) and `tests/case/pause.py` (the rank and next stage rows) check sounds now in `unused/`. tunmi13productions' `8cb8f9d` and `bca782f` did part of the same move and a `data.py` fix; the dev chose not to bring them in, since this sort is the fuller one.
+
+## The first layout (dev's reorganization, 2026-09-21)
+- **`game/sounds/used/`** had 329 files covering **all 269** of the original's sounds:
   - `sfx/zombies/normal/normalcave1..12` and `normalforest1..12`
   - `sfx/zombies/bosses/bosscave1..3` and `bossforest1..3`
   - `sfx/characters/charcave1..2` and `charforest1..2`
@@ -18,7 +28,7 @@ metadata:
   - `sfx/weapons` and `sfx/misc`
   - `speech/game`, `logos`, `menus/main`, `menus/store`, `numbers`, `tutorials` and `weapons`
 - **The extra 60 files are same-audio copies.** 38 sounds are shared between folders (for example the boss hit and death in all six boss folders, or `zombie_3_7_hit_player` in six zombie folders), since the original shares damage, death and hit sounds between areas and zombie kinds; only the "coming" loops differ.
-- **`game/sounds/unused/`** holds 27 files: 26 that are not the original's own, under their old sub-paths (25 until 2026-09-22; see the update below), and since tunmi13productions' `e08fd89` (2026-09-22) one blooper clip, `bloopers/stop_standing_by_the_zombie!.ogg`, which is not a game sound:
+- **`game/sounds/unused/`** held 27 files: 26 that are not the original's own, under their old sub-paths (25 until 2026-09-22; see the update below), and since tunmi13productions' `e08fd89` (2026-09-22) one blooper clip, `bloopers/stop_standing_by_the_zombie!.ogg`, which is not a game sound:
   - 11 extra same-folder copies: `sfx/misc/menuclick.wav` (another `ui_select`), five `sfx/weapons/*hit.wav` (`gun_att_sound_1`) and five `*empty.wav` (`weapon_nonbullets`)
   - 14 sounds the original never had: the eight character `hurt1`/`hurt2`, `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of `Game Start Button`) and `welcome`
 
@@ -65,7 +75,7 @@ The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the sam
 - **`compiler.py`:**
   - `sound_files()` copies `sounds/used/` with its folders.
   - `GAME_FILES` still matches the top folder, including `*.wav`, so a flat original bundle still builds. `unused/` is left out.
-  - `data_summary()` reports the counts, and the dry run prints them. A build today copies 474 files: 329 sounds, plus 142 plists and 3 map layers.
+  - `data_summary()` reports the counts, and the dry run prints them. A build then copied 474 files: 329 sounds, plus 142 plists and 3 map layers (381 since the second sort).
 - **The analysis tools** only read `SoundList.plist` and the binary from the top folder, so they needed no change.
 
 **How to apply:** Never move, rename, convert or delete sound files unless the dev asks. A new sound goes anywhere under `game/sounds/used/` under its `SoundList.plist` name, as 8-bit or 16-bit PCM WAV, and the lookup finds it with no code change. Two files with the same name in different folders must be the same recording, because only the first one is ever used.
