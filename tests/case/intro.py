@@ -272,6 +272,108 @@ def test_up_and_down_do_nothing_during_the_logo():
         _restore_launch()
 
 
+def _music_spy(app):
+    """What the background player is asked to do, without it playing."""
+    calls = []
+    pb = app.playback
+    real = (pb.startBGPlayer_type_soundGain_Loop_, pb.backgroundSoundStop)
+    pb.startBGPlayer_type_soundGain_Loop_ = \
+        lambda name, ext, gain, loop: calls.append(('play', name, round(gain, 4), loop))
+    pb.backgroundSoundStop = lambda: calls.append(('stop',))
+
+    def undo():
+        pb.startBGPlayer_type_soundGain_Loop_, pb.backgroundSoundStop = real
+        del pb.startBGPlayer_type_soundGain_Loop_
+        del pb.backgroundSoundStop
+    return calls, undo
+
+
+def test_the_story_row_plays_the_story_with_its_music():
+    """PORT ADDITION: row 3 plays As the ozone (15), which the original recorded for
+    intro2storyPage but never played, with bgm_start_end at 0.05 under it (0x17224)."""
+    page = _page(welcome=5.0)
+    app = page.app
+    played, real_play = _spy(app)
+    music, undo = _music_spy(app)
+    try:
+        assert page.rows() == (1, 2, 3)
+        page.move(1)
+        page.move(1)
+        assert page.selectMenu == 3
+        assert 15 in played, 'the story did not play'
+        assert music == [('play', 'bgm_start_end', 0.05, True)], music
+        assert page.text == I.STORY_TEXT
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        undo()
+        page.teardown()
+        _restore()
+
+
+def test_leaving_the_story_row_stops_the_story_and_its_music():
+    page = _page(welcome=5.0)
+    app = page.app
+    music, undo = _music_spy(app)
+    try:
+        page.select(3)
+        music.clear()
+        page.move(-1)
+        assert page.selectMenu == 2
+        assert ('stop',) in music, 'the story music kept playing'
+        # the story's slot is free once it stops, and row 2's sound may take it, so
+        # look the story up again rather than reuse the slot
+        i = app.CheckSoundBuf_(15)
+        assert i == -1 or not app.aSoundBufControlData[i].bIsPlaying, 'the story kept playing'
+    finally:
+        undo()
+        page.teardown()
+        _restore()
+
+
+def test_enter_on_the_story_row_skips_to_the_menu_and_stops_it():
+    from sixthsense.ui.screen_input import ScreenInput
+    page = _page(welcome=5.0)
+    app = page.app
+    music, undo = _music_spy(app)
+    try:
+        page.select(3)
+        music.clear()
+        ScreenInput(page).handle(_Key('return'), _Pygame)
+        assert page.next_screen == 'menu'
+        assert ('stop',) in music, 'the story music kept playing after skipping'
+    finally:
+        undo()
+        page.teardown()
+        _restore()
+
+
+def test_the_screen_reader_reads_the_story_with_its_music():
+    """With voice over off, the screen reader reads STORY_TEXT, which is the recording
+    word for word, and the music plays under it all the same."""
+    page = _page(welcome=5.0)
+    app = page.app
+    said = []
+    page.say = lambda text, interrupt=True: said.append(text)
+    played, real_play = _spy(app)
+    music, undo = _music_spy(app)
+    try:
+        app.mode = 0
+        page.select(3)
+        assert said and said[-1] == I.STORY_TEXT, said[-1:] if said else said
+        assert said[-1].startswith('As the ozone layer has disappeared')
+        assert 15 not in played, 'the recording played over the screen reader'
+        assert music == [('play', 'bgm_start_end', 0.05, True)], music
+        page.jump(last=False)
+        page.jump(last=True)
+        assert page.selectMenu == 3, 'End did not reach the story row'
+    finally:
+        app.mode = 1
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        undo()
+        page.teardown()
+        _restore()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

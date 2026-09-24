@@ -1,9 +1,10 @@
 ##Unfinished.
 
-Decide whether and where to play the game's story, "As the ozone", which the original recorded but never plays.
+Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
 
 ##Finished.
 
+The opening screen's third row tells the game's story, which the original recorded but never played, with quiet music under it, read by your screen reader with voice over off.
 A save with too few coins and no coin clock running starts the clock when the main menu opens, so the coins always come back.
 The game opens with Bitbee's logo sound a moment after it starts, as the original does, and Enter skips it.
 When headphones are unplugged or plugged back in, or the output is switched in Windows, the game's sound follows within a second, music included.

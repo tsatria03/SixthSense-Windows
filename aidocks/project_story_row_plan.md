@@ -1,11 +1,15 @@
 ---
 name: project_story_row_plan
-description: "PLANNED 2026-09-23, not built: a third row on the opening screen that tells the game's story, \"As the ozone\" (15), which the original recorded but never plays, with the intro music (bgm_start_end at 0.05) under it in both speech modes. tunmi13productions' idea; the dev's answers to the three questions."
+description: "FINISHED 2026-09-23, confirmed by the dev: a third row on the opening screen that tells the game's story, \"As the ozone\" (15), which the original recorded but never plays, with the intro music (bgm_start_end at 0.05) under it in both speech modes. tunmi13productions' idea; the dev's answers to the three questions."
 metadata:
   type: project
 ---
 
-**Status: planned on 2026-09-23, every question answered, waiting for the dev's go-ahead to build.** Mark it "built, not yet confirmed" when the code lands, and "finished" only once the dev says it works ([[feedback_record_plans_first]]).
+**Status: FINISHED, 2026-09-23.** The dev tested it and said to mark it finished. The plan was committed on its own as `204ab96`, the code followed as its own commit with this status, and both were pushed together ([[feedback_record_plans_first]]).
+
+**Tried and put back:** after the first build the dev asked for the story's music at 0.2, as loud as the menu music, then asked for it back ("revert that change. I realized it was better at 0.5", taken as the original's 0.05, the value before). `STORY_MUSIC_GAIN` is the original's 0.05.
+
+**Built as planned:** `StartIntroPage.ROWS` is (1, 2, 3) with `ROW_SOUND[3]` = 15, `row_text(3)` = `STORY_TEXT`, and `select` starting `STORY_MUSIC` (`bgm_start_end`) at `volume.music(STORY_MUSIC_GAIN)` (0.05) on row 3, flagged by `story_music`. `StopElseSpeak` and `skipAction` stop it with `backgroundSoundStop` through `_stop_story_music`. The window text lists the three rows. Four tests in `tests/case/intro.py` (14 of 14); window 9/9, menu 32/32. One test first failed on its own check: once the story stops, row 2's recording can take its freed slot, so the test looks the story up again.
 
 ## Why
 The dev found that `speech/game/As the ozone.wav` never plays. Checked in the binary the same day: it is sound 15, the story, and only `intro2storyPage` plays it, from `viewDidLoad` and its row selection through `shakeDevice` (0x2b714, gain 0.2), with `bgm_start_end` looping under it at 0.05 (0x17224). Nothing ever creates `intro2storyPage`: its name appears once in the binary, at 0xc0612 in the class name list, with no classref, no string naming its nib, and no other nib naming it. `startIntroPage` has its own `shakeDevice` but only cancels it (0x1892e) and has no shake handler. So the original never plays the story; the port reproduced that. The todo list has "Decide whether and where to play the game's story" in `##Unfinished.` since the finding was reported.

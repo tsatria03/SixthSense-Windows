@@ -58,7 +58,8 @@ python SixthSense.py
 
 That opens on the publisher's logo and its sound, then the splash and the warning, as
 the original does, and then the menu. Enter skips the logo, and Escape skips straight
-to the menu.
+to the menu. The opening screen's third row tells the game's story, which the original
+recorded but never played.
 **Up** and **Down** walk the six rows and **Enter** chooses; each row reads itself
 with the game's own recording. A game costs a coin. A new player starts with ten, and
 coins come back one every thirty minutes up to five, even while the game is closed,

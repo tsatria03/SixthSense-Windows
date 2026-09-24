@@ -338,7 +338,8 @@ def _intro_lines(page):
         else:
             line = (line + ' ' + w).strip()
     out.append(line)
-    out += ['', 'Enter or Escape skips to the menu', 'Up/Down reads the two rows']
+    out += ['', 'Enter or Escape skips to the menu',
+            'Up/Down reads the three rows: the welcome, how to skip, and the story']
     return out
 
 

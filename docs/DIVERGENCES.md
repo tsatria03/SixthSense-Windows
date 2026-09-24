@@ -492,6 +492,19 @@ running (`MainController._coinClockSafetyNet`). In play the clock is always runn
 whenever the coins are under five, so nothing else changes. Added 2026-09-23 at
 tsatria03's asking.
 
+### The story has a row on the opening screen
+The original recorded the game's story, *As the ozone* (15), for its story screen,
+`intro2storyPage`, whose first row played it with `bgm_start_end` looping under it at
+0.05 (`shakeDevice`, 0x2b714 and 0x17224). Nothing ever creates that screen: its name
+is only in the binary's class list (0xc0612), with no class reference, no string
+naming its nib, and no other nib naming it, and `startIntroPage` only ever cancels its
+own `shakeDevice`. So the story is never heard in the original. The port's opening
+screen has a third row, the story, below "you can skip": landing on it plays 15, or
+with voice over off has the screen reader read its words (`STORY_TEXT`, from the
+binary at 0x171e4, which the recording says word for word), with the music under it in
+both modes. Leaving the row stops both, and Enter skips to the menu as on the other
+rows. tunmi13productions' idea, at tsatria03's decision, 2026-09-23.
+
 ### The logo plays on the opening screen, and can be skipped
 The original's launch plays the publisher's logo sound, *bitbee_1* (340), at 0.2 as it
 puts up the logo (`-[AppDelegate application:didFinishLaunchingWithOptions:]`,
