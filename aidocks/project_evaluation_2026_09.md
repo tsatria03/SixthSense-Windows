@@ -126,7 +126,7 @@ Checked in the binary and found faithful, so not bugs:
 
 **Level tester, 2026-09-22.** `tests/level_tester.py` starts the real game at level N (`LVUP` = N, `monsterHPGain` = 1.5^(N-1), the area alternating from level 1's), with `--mode`, `--row` and `--boss`. It asks when opened with no arguments, and uses its own save in `%APPDATA%\SixthSense\level_tester`. The dev confirmed it works.
 
-**Fixed in code but still under `##Unfinished.`, waiting on the dev:** the music memory leak (check it in Task Manager), and the intro rows overlapping. The second was fixed as a side effect of batch 2's `StopElseSpeak`, apart from 234 above, which was fixed on 2026-09-23. The dev confirmed both intro lines the same day, and they moved to `##Finished.`
+**Fixed in code but still under `##Unfinished.`, waiting on the dev:** the music memory leak (measured instead on 2026-09-23: flat over 200 swaps, and `tests/case/music_memory.py` guards it; the dev then moved it to finished), and the intro rows overlapping. The second was fixed as a side effect of batch 2's `StopElseSpeak`, apart from 234 above, which was fixed on 2026-09-23. The dev confirmed both intro lines the same day, and they moved to `##Finished.`
 
 On 2026-09-21 every item below was also added to `todo list.txt` as a plain sentence, most important first, at the top of `##unfinished.` ([[feedback_todo_list_format]]). The todo file is the dev's checklist; this memory holds the technical detail behind each line.
 
