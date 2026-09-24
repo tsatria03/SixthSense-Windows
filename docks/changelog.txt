@@ -1,4 +1,5 @@
 unrelease:
+A grenade adds to your score for every zombie it hurts, as the original does, not only for the ones it kills. Your kills and gold still count only the zombies that die.
 Gunshots are heard where the original places them, partly toward the lane you aim at, instead of fully to the side.
 Changing weapon plays its sound as quietly as the original does, instead of at full volume, and changing again quickly stops the sound of the weapon you put away.
 The tutorial's reload lesson says its instruction once, as the original does, instead of repeating it about every ten seconds until you reload.

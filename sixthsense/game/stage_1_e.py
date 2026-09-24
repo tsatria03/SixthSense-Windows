@@ -1009,17 +1009,25 @@ class Stage_1_E:
                     SOUND_KILL, 1.0, m.Pos, 40, False)
                 self._monster_killed(m)
         else:
-            # the grenade hits every live monster
+            # the grenade hits every live monster (0x3a4f0..0x3a562), and for each one:
+            # HP - Damage, gunEggCountShot + 1 (0x3a538), MonsterKillCount: (0x3a546) -
+            # the per-kind tally the score is made of, sent before the HP check, so a
+            # zombie that lives through the blast still adds to the score - and then
+            # MonsterHitSound:.  Only a death adds to the kills (0x3a636..0x3a642).
             for m in list(self.MonsterBuffer):
                 m.HP -= weapon.Damage
+                self.gamePlayer.gunEggCountShot += 1
+                if not self.app.debug:
+                    self.MonsterKillCount_(m)
                 m.MonsterHitSound_(None)
                 if m.HP <= 0:
-                    self._monster_killed(m)
+                    self._monster_killed(m, tally=False)
 
-    def _monster_killed(self, m):
+    def _monster_killed(self, m, tally=True):
         """What every weapon does with a monster it has just killed (0x3a84c, 0x3a56a,
         0x39b12).  Killing the girl who heals you is not a kill: it costs you a heart,
-        once the tutorial is behind you, and is not counted (0x3a850..0x3a97a)."""
+        once the tutorial is behind you, and is not counted (0x3a850..0x3a97a).
+        ``tally`` is False for the grenade, which has tallied every monster it hit."""
         if m.monsterNumber == MONSTER_GIRL:
             RunLoop.main().perform(self, 'playerDamage_', None, 0.1)
             if self.isTutorial and not self.app.debug:
@@ -1028,7 +1036,8 @@ class Stage_1_E:
         else:
             if not self.app.debug:
                 self.gamePlayer.killMonsterCount += 1       # 0x3aad4
-                self.MonsterKillCount_(m)
+                if tally:
+                    self.MonsterKillCount_(m)
             self._kill_seen(m)
         self._remove(m)
 

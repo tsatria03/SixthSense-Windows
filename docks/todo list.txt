@@ -1,6 +1,5 @@
 ##Unfinished.
 
-A grenade adds to the score only for the zombies it kills. In the original every zombie it hurts adds to the score.
 A zombie hitting you, and the girl thanking you, are heard from their side. The original plays both in the middle of your head.
 The empty magazine click is heard in the middle and holds back your next shot. In the original it comes from the lane you aimed at, and you can click again straight away.
 The coin row's time until the next coin is read with slightly longer pauses between its parts than in the original.
@@ -10,6 +9,7 @@ If you have no weapons equipped, it should automaticly equip the first 3 weapons
 
 ##Finished.
 
+A grenade adds to the score for every zombie it hurts, as in the original, not only for the ones it kills.
 Gunshots are heard where the original places them, partly toward the lane you aim at, instead of fully to the side.
 The weapon change sound is as quiet as in the original, and changing again stops the one before.
 The tutorial's reload lesson says its instruction once, as in the original, instead of repeating it until you reload.

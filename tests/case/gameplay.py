@@ -144,6 +144,33 @@ def test_headshot_window_opens_and_closes():
     st.teardown()
 
 
+def test_a_grenade_scores_every_zombie_it_hurts():
+    """0x3a4f0..0x3a562: the grenade sends MonsterKillCount:, the per-kind tally the
+    score is made of, for every monster it damages, before the HP check; only a death
+    adds to the kills (0x3a636).  The port scored only the kills."""
+    app, st = _new_stage()
+    was_debug = app.debug
+    app.debug = False
+    try:
+        st.MonsterInit_(1)                      # kind 1, lane 1
+        st.MonsterInit_(2)                      # kind 1, lane 2
+        tough, weak = st.MonsterBuffer[0], st.MonsterBuffer[1]
+        grenade = st.weaponSource[0]
+        tough.HP = grenade.Damage * 3           # lives through the blast
+        weak.HP = 1                             # dies in it
+        p = st.gamePlayer
+        before = (p.killMonsterCount, p.killMonster1count, p.gunEggCountShot)
+        st.gamePlayer.useWepon = 0
+        st.MonsterDamage()
+        assert tough in st.MonsterBuffer and weak not in st.MonsterBuffer
+        assert p.killMonster1count - before[1] == 2, 'both hurt zombies should be tallied'
+        assert p.killMonsterCount - before[0] == 1, 'only the dead one is a kill'
+        assert p.gunEggCountShot - before[2] == 2
+    finally:
+        app.debug = was_debug
+        st.teardown()
+
+
 def test_a_shot_in_the_lane_does_damage():
     _app, st = _new_stage()
     loop = RunLoop.main()
