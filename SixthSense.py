@@ -324,6 +324,8 @@ def _menu_lines(menu):
 
 
 def _intro_lines(page):
+    if getattr(page, 'logo', False):
+        return ['Bitbee', '', 'Enter skips the logo   Escape skips to the menu']
     if page.splash:
         return ['SixthSense', '', '0_splash2.png']
     out = ['SixthSense   headphones required', '']

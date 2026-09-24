@@ -56,7 +56,9 @@ vendored OpenAL Soft the game does.
 python SixthSense.py
 ```
 
-That opens on the splash and the warning, as the original does, and then the menu.
+That opens on the publisher's logo and its sound, then the splash and the warning, as
+the original does, and then the menu. Enter skips the logo, and Escape skips straight
+to the menu.
 **Up** and **Down** walk the six rows and **Enter** chooses; each row reads itself
 with the game's own recording. A game costs a coin. A new player starts with ten, and
 coins come back one every thirty minutes up to five, even while the game is closed,
@@ -176,7 +178,7 @@ sixthsense/
     stage_1_e.py         Stage_1_E, including the pause and result panel
     stage_tutorial.py    Stage_Tutorial
     main_controller.py   MainController - the menu
-    intro.py             startIntroPage - the splash and the warning
+    intro.py             startIntroPage - the logo, the splash and the warning
     blind_screen.py      the shape every self-voiced screen shares
     store.py             the shop: front menu, weapon list, weapon page
     inventory.py         the eight slots, and equipping them

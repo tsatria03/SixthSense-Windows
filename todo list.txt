@@ -4,6 +4,7 @@ Nothing is waiting here right now. New bugs, planned changes and anything still 
 
 ##Finished.
 
+The game opens with Bitbee's logo sound a moment after it starts, as the original does, and Enter skips it.
 When headphones are unplugged or plugged back in, or the output is switched in Windows, the game's sound follows within a second, music included.
 When the game cannot start, or stops because of an error, it says why out loud.
 Changing the music or the ambience no longer leaks memory.

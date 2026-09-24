@@ -143,6 +143,135 @@ def test_moving_rows_after_it_already_started_stops_it():
         page.teardown()
         _restore()
 
+class _Pygame:
+    KEYDOWN, KEYUP, QUIT = 1, 2, 3
+
+    class key:
+        @staticmethod
+        def name(k):
+            return k
+
+
+class _Key:
+    type = _Pygame.KEYDOWN
+
+    def __init__(self, name):
+        self.key = name
+
+
+def _launch(delay=0.1, logo=0.2, splash=0.2, welcome=5.0):
+    """The screen from its very start, the logo first, with the waits shortened."""
+    I.LOGO_DELAY, I.LOGO_SECONDS = delay, logo
+    I.SPLASH_SECONDS, I.WELCOME_SECONDS = splash, welcome
+    app = AppDelegate.shared()
+    if app.playback is None:
+        app.didFinishLaunching()
+    RunLoop.main().reset()
+    return StartIntroPage(), app
+
+
+_REAL = (I.LOGO_DELAY, I.LOGO_SECONDS, I.SPLASH_SECONDS)
+
+
+def _restore_launch():
+    I.LOGO_DELAY, I.LOGO_SECONDS, I.SPLASH_SECONDS = _REAL
+    _restore()
+
+
+def test_the_logo_sound_waits_a_moment_and_the_welcome_waits_for_it():
+    """-[AppDelegate application:didFinishLaunchingWithOptions:] plays 340, bitbee_1,
+    at 0.2 as it launches (0x4502), and the opening screen comes 2.5 + 1.0 s later
+    (0x459a, 0x49da).  The port waits LOGO_DELAY first, so the logo does not start
+    the instant the game opens.  The splash then waits 2 s before the welcome."""
+    assert _REAL[1] == 3.5 and I.SOUND_LOGO == 340
+    assert 0.5 <= _REAL[0] <= 1.0, 'the wait before the logo is %r' % _REAL[0]
+    page, app = _launch()
+    played, real_play = _spy(app)
+    try:
+        page.viewDidLoad()
+        assert played == [], 'something played the instant the game opened: %r' % played
+        got = _pump(RunLoop.main(), 1.0, until=lambda: 340 in played)
+        assert got and played[0] == 340, 'the logo did not come first: %r' % played
+        assert 14 not in played, 'the welcome came during the logo'
+        got = _pump(RunLoop.main(), 1.5, until=lambda: 14 in played)
+        assert got, 'the welcome never came after the logo and the splash'
+        assert not page.logo and not page.splash
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore_launch()
+
+
+def test_enter_skips_the_logo_to_the_opening_screen():
+    """PORT ADDITION: Enter during the logo stops it and brings the opening screen at
+    once, whose welcome follows its splash as usual."""
+    from sixthsense.ui.screen_input import ScreenInput
+    page, app = _launch(logo=5.0)
+    played, real_play = _spy(app)
+    try:
+        page.viewDidLoad()
+        _pump(RunLoop.main(), 1.0, until=lambda: 340 in played)
+        i = app.CheckSoundBuf_(340)
+        ScreenInput(page).handle(_Key('return'), _Pygame)
+        assert not page.logo, 'Enter did not skip the logo'
+        assert page.next_screen is None, 'Enter left the opening screen'
+        assert not app.aSoundBufControlData[i].bIsPlaying, 'the logo sound kept playing'
+        got = _pump(RunLoop.main(), 1.0, until=lambda: 14 in played)
+        assert got, 'the welcome did not follow the skipped logo'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore_launch()
+
+
+def test_enter_in_the_quiet_before_the_logo_skips_it_too():
+    from sixthsense.ui.screen_input import ScreenInput
+    page, app = _launch(delay=5.0)
+    played, real_play = _spy(app)
+    try:
+        page.viewDidLoad()
+        ScreenInput(page).handle(_Key('return'), _Pygame)
+        _pump(RunLoop.main(), 0.6)
+        assert 340 not in played, 'the logo played after it was skipped'
+        assert not page.logo
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore_launch()
+
+
+def test_escape_during_the_logo_skips_to_the_menu():
+    from sixthsense.ui.screen_input import ScreenInput
+    page, app = _launch(logo=5.0)
+    played, real_play = _spy(app)
+    try:
+        page.viewDidLoad()
+        _pump(RunLoop.main(), 1.0, until=lambda: 340 in played)
+        i = app.CheckSoundBuf_(340)
+        ScreenInput(page).handle(_Key('escape'), _Pygame)
+        assert page.next_screen == 'menu'
+        assert not app.aSoundBufControlData[i].bIsPlaying, 'the logo sound kept playing'
+        _pump(RunLoop.main(), 0.8)
+        assert 14 not in played, 'the welcome came after skipping to the menu'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore_launch()
+
+
+def test_up_and_down_do_nothing_during_the_logo():
+    page, app = _launch(logo=5.0)
+    played, real_play = _spy(app)
+    try:
+        page.viewDidLoad()
+        assert page.move(1) is None and page.jump(last=True) is None
+        assert 14 not in played and 266 not in played, 'a row was read: %r' % played
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore_launch()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

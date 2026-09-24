@@ -35,7 +35,8 @@ class ScreenInput:
         elif name == 'down':
             s.move(1)
         elif name in ('return', 'enter', 'space'):
-            if s.selectMenu:
+            # the opening screen's logo has no row yet, but Enter still skips it
+            if s.selectMenu or getattr(s, 'logo', False):
                 s.activate()
             else:
                 s.move(1)

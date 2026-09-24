@@ -481,6 +481,23 @@ to the other row stops it or cancels its wait (`StartIntroPage.StopElseSpeak`), 
 follows only the welcome message the screen opens with: coming back to the welcome row
 reads the message alone, since the message already says to use earphones.
 
+### The logo plays on the opening screen, and can be skipped
+The original's launch plays the publisher's logo sound, *bitbee_1* (340), at 0.2 as it
+puts up the logo (`-[AppDelegate application:didFinishLaunchingWithOptions:]`,
+0x44f0/0x4502), fades the logo in over 2.5 s (0x459a) and out over 1.0 s (`startIntro`,
+0x49da), and only then builds `startIntroPage` (`realStartIntro`, 0x4af0). The port had
+left the logo out, so its opening screen came 3.5 s early and 340 was never heard. The
+port has no launch step of its own, so `StartIntroPage.viewDidLoad` now plays 340 and
+builds the screen 3.5 s later (`LOGO_SECONDS`, `realStartIntro`), as the original's
+timing is. The differences, at tsatria03's asking:
+- 340 starts after 1 s of quiet (`LOGO_DELAY`), not the instant the game opens.
+- The phone gave no way to skip the logo. Here Enter skips the logo alone, straight to
+  the opening screen and its welcome (`skip_logo`), and Escape skips everything to the
+  menu; both stop the logo sound.
+- Up and Down do nothing until the opening screen is up.
+
+Added 2026-09-23, found by the binary recheck that day.
+
 ### The menu has music, and the volumes have knobs
 `bgm_main_menu` under the main menu is a port addition: the original's `MainController`
 never starts music, and the only call to `-[AppDelegate BGMusicStart]` in the binary is

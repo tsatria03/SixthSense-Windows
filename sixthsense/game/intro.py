@@ -2,9 +2,11 @@
 
     -[startIntroPage ...]   0x16f68..0x18b20
 
-``-[AppDelegate application:didFinishLaunchingWithOptions:]`` makes this the root view
-controller (0x4af0), so it is the first thing the game does.  It shows
-``0_splash2.png`` for two seconds (0x1745c stores 0x4000000000000000 as the delay),
+Before it, ``-[AppDelegate application:didFinishLaunchingWithOptions:]`` puts up the
+publisher's logo and plays its sound, *bitbee_1* (340), and 3.5 s later
+``realStartIntro`` makes this the root view controller (0x4af0).  The port has no launch
+of its own to put the logo in, so this screen plays it first (``viewDidLoad``).  Then it
+shows ``0_splash2.png`` for two seconds (0x1745c stores 0x4000000000000000 as the delay),
 then reads the player's saved settings and plays *Welcome to* - the warning about
 headphones, noisy rooms and who should not play.  A double tap anywhere skips to the
 menu.
@@ -38,6 +40,20 @@ SOUND_DOUBLE_TAP = 266          # 0x1844e
 #: the welcome message itself.
 SOUND_EARPHONE = 234
 
+#: The publisher's logo sound, bitbee_1 (4.0 s), which the original plays at 0.2 the
+#: moment it launches: -[AppDelegate application:didFinishLaunchingWithOptions:]
+#: 0x44f0/0x4502, with no condition, as the logo comes up.
+SOUND_LOGO = 340
+
+#: PORT ADDITION: a moment of quiet before the logo sound, so it does not start the
+#: instant the game opens (the dev, 2026-09-23: "500 to 1000ms").
+LOGO_DELAY = 1.0
+
+#: How long the logo is up before this screen is built: it fades in over 2.5 s
+#: (0x459a: vmov.f64 d16, #2.5), then startIntro fades it out over 1.0 s (0x49da),
+#: and only then does realStartIntro create startIntroPage (0x4af0).
+LOGO_SECONDS = 2.5 + 1.0
+
 #: 0x1745c: `mov.w r3, #0x40000000` - the high half of 2.0.
 SPLASH_SECONDS = 2.0
 
@@ -65,11 +81,36 @@ class StartIntroPage(BlindScreen):
 
     def __init__(self, speech=None):
         BlindScreen.__init__(self, speech=speech)
+        self.logo = False
         self.splash = True
         self.text = ''
 
-    # -[startIntroPage viewDidLoad] 0x17234
     def viewDidLoad(self):
+        """The game's launch: the publisher's logo and its sound first, as
+        ``application:didFinishLaunchingWithOptions:`` does before this screen exists,
+        and the screen itself ``LOGO_SECONDS`` later.  The port has no launch of its
+        own to put the logo in, so this screen carries it, after ``LOGO_DELAY`` of
+        quiet."""
+        self.logo = True
+        RunLoop.main().perform(self, 'play_logo', None, LOGO_DELAY)
+
+    def play_logo(self, *_):
+        self.app.playSound_Gain_Pos_z_reprats_(
+            SOUND_LOGO, 0.2, (0.0, 0.0), 0, False)            # 0x4502
+        RunLoop.main().perform(self, 'realStartIntro', None, LOGO_SECONDS)
+
+    def skip_logo(self):
+        """PORT ADDITION: Enter during the logo, or the quiet before it, goes straight
+        to this screen and its welcome.  Escape still skips everything to the menu."""
+        loop = RunLoop.main()
+        loop.cancelPerform(self, 'play_logo')
+        loop.cancelPerform(self, 'realStartIntro')
+        self.app.stopSoundBufNumber_(SOUND_LOGO)
+        self.realStartIntro()
+
+    # -[AppDelegate realStartIntro] 0x4aa4, then -[startIntroPage viewDidLoad] 0x17234
+    def realStartIntro(self, *_):
+        self.logo = False
         self.splash = True                                    # 0_splash2.png
         RunLoop.main().perform(self, 'startIntro1', None, SPLASH_SECONDS)
         self._expire_week()
@@ -108,6 +149,18 @@ class StartIntroPage(BlindScreen):
             # earphones, so a reread or the screen reader mode gets no reminder.
             RunLoop.main().perform(self, 'sound_earphone', None, WELCOME_SECONDS)
 
+    def move(self, step):
+        """Nothing to move between while the logo is up: on the phone there was no
+        screen to touch yet."""
+        if self.logo:
+            return None
+        return BlindScreen.move(self, step)
+
+    def jump(self, last=False):
+        if self.logo:
+            return None
+        return BlindScreen.jump(self, last)
+
     def StopElseSpeak(self):
         """Moving rows also stops the earphone reminder, or cancels its wait."""
         BlindScreen.StopElseSpeak(self)
@@ -136,16 +189,25 @@ class StartIntroPage(BlindScreen):
 
     # -[startIntroPage tapCount] 0x18728 - a double tap anywhere skips.
     def activate(self):
+        if self.logo:
+            self.skip_logo()                                  # Enter skips the logo alone
+            return self.selectMenu
         self.skipAction()
         return self.selectMenu
 
     # -[startIntroPage skipAction] 0x188bc
     def skipAction(self, *_):
+        """PORT ADDITION to the original's: skipping during the logo, which the phone
+        gave no way to do, stops its sound and never builds the screen."""
         for num in (SOUND_WELCOME, SOUND_BGM_START_END, SOUND_STORY,
-                    SOUND_DOUBLE_TAP, SOUND_EARPHONE):
+                    SOUND_DOUBLE_TAP, SOUND_EARPHONE, SOUND_LOGO):
             self.app.stopSoundBufNumber_(num)
         RunLoop.main().cancelPerform(self, 'shakeDevice')
         RunLoop.main().cancelPerform(self, 'sound_earphone')
+        RunLoop.main().cancelPerform(self, 'play_logo')
+        RunLoop.main().cancelPerform(self, 'realStartIntro')
+        RunLoop.main().cancelPerform(self, 'startIntro1')
+        self.logo = False
         self.next_screen = 'menu'
         return True
 
