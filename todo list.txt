@@ -1,6 +1,5 @@
 ##Unfinished.
 
-Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 When the game cannot start, it fails silently instead of saying why out loud.
 Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 
