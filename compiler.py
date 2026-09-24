@@ -16,8 +16,9 @@ which still work typed out:
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the changelog
-and the todo list from docks\\, VERSION and the license - and the third-party licenses in licenses\\.
+Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the readme,
+the changelog and the todo list from docks\\, VERSION and the license - and the third-party licenses in
+licenses\\.
 Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
 
 The port and the vendored DLLs always go inside the build.  In the folder build the game's own files do
@@ -73,13 +74,13 @@ GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: player reads live in docks\ in the repository, and land at the top of the build, beside the executable.
 DOCKS = 'docks'
 CHANGELOG = os.path.join(DOCKS, 'changelog.txt')
-SIDE_FILES = ((CHANGELOG, 'changelog.txt'),
+#: The player's readme is plain text of its own, not README.md, which is for developers and would be
+#: read aloud with every # and | in it.
+SIDE_FILES = ((os.path.join(DOCKS, 'readme.txt'), 'readme.txt'),
+              (CHANGELOG, 'changelog.txt'),
               (os.path.join(DOCKS, 'todo list.txt'), 'todo list.txt'),
               ('VERSION', 'VERSION'),
               ('LICENSE', 'license.txt'))
-# A release could also carry readme.html beside the executable, built from README.md by a Markdown
-# converter, since a screen reader reads every # and | of a .md file aloud.  SixthSense's README is a
-# two-line stub and there is no converter here yet; add both once there is a real README.
 
 
 def say(text: str = '') -> None:

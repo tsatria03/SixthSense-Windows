@@ -197,7 +197,7 @@ analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 aidocks/                 GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md, and
                          the notes for AI-assisted work (see CLAUDE.md)
-docks/                   changelog.txt and todo list.txt, which ship beside the game
+docks/                   readme.txt, changelog.txt and todo list.txt, which ship beside the game
 tests/case/              the tests, one plain script each
 tests/interact/          level_chooser.py and tutorial_chooser.py, which start the real
                          game at any level, or the tutorial at any lesson, to play
@@ -295,8 +295,10 @@ lands in `dist\SixthSense`.
 - **Single exe** (`--embed`): the sounds and the game's data inside one executable.
   It unpacks them at every launch, so it starts a few seconds slower.
 
-Either way, the changelog and the todo list from `docks/`, `VERSION`, the license and
-the third-party licenses sit beside the executable, where a player can open them.
+Either way, the readme, the changelog and the todo list from `docks/`, `VERSION`, the
+license and the third-party licenses sit beside the executable, where a player can open
+them. `docks/readme.txt` is the player's own readme: plain text, one sentence a line,
+with none of this file's developer parts.
 
 `releaser.py` does the rest. Its full release goes through each step and asks Y or N
 before each one:

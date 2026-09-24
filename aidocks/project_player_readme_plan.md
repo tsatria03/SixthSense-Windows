@@ -1,11 +1,13 @@
 ---
 name: project_player_readme_plan
-description: "PLANNED 2026-09-23: docks/readme.txt, a plain-text readme for players that ships beside the executable as readme.txt, based on README.md minus everything for developers, one sentence per line. The dev approved a five-sentence sample and asked for the real thing."
+description: "FINISHED 2026-09-23, confirmed by the dev: docks/readme.txt, a plain-text readme for players that ships beside the executable as readme.txt, based on README.md minus everything for developers, one sentence per line. The dev approved a five-sentence sample and asked for the real thing."
 metadata:
   type: project
 ---
 
-**Status: PLANNED, 2026-09-23.** The dev asked for it after the player documents moved into `docks/` ([[feedback_record_plans_first]]: this note is committed on its own first, and nothing is pushed until it is built and tested). Marked finished here only once the dev says it works.
+**Status: FINISHED, 2026-09-23.** The dev read it and confirmed it ("I love it! The readme is perfectly condensed."). The plan was committed on its own as `01aaad9` ([[feedback_record_plans_first]]); nothing is pushed until the dev says so.
+
+**Built as planned:** `docks/readme.txt`, 112 lines in 15 sections, ASCII, LF, no BOM. One line was softened while writing: the breathing "changes with each heart you lose, and you start with three", since the code does not say it gets heavier. `compiler.SIDE_FILES` ships it as `readme.txt`; `tests/case/release.py` checks that, and a new test fails on any `#`, `*`, `|` or backtick in it (25 of 25). The changelog has its line, and the todo list a finished line.
 
 ## Why
 The repository's `README.md` is for developers: Markdown, Python requirements, tests, the build, the binary. A player who downloads a release gets the executable with `changelog.txt`, `todo list.txt`, `license.txt` and `VERSION` beside it, and nothing that says how to play. A `.md` file would be read aloud with its `#`, `*` and `|`, which is why `compiler.py` never shipped the README ([[user_screen_reader]]).

@@ -218,16 +218,26 @@ def test_the_compiler_no_longer_files_the_changelog_or_zips():
 
 def test_the_todo_list_ships_beside_the_game():
     shipped = dict(compiler.SIDE_FILES)
+    assert shipped.get(os.path.join('docks', 'readme.txt')) == 'readme.txt'
     assert shipped.get(os.path.join('docks', 'todo list.txt')) == 'todo list.txt'
     assert shipped.get(os.path.join('docks', 'changelog.txt')) == 'changelog.txt'
     assert shipped.get('LICENSE') == 'license.txt'
 
 
 def test_the_player_documents_are_read_from_docks():
-    for name in ('changelog.txt', 'todo list.txt'):
+    for name in ('readme.txt', 'changelog.txt', 'todo list.txt'):
         assert os.path.isfile(os.path.join(ROOT, 'docks', name)), name
     assert releaser.CHANGELOG == os.path.join(ROOT, 'docks', 'changelog.txt')
     assert releaser.CHANGELOG_GIT == 'docks/changelog.txt'
+
+
+def test_the_players_readme_has_no_markdown():
+    """A screen reader reads every # * | and ` aloud, so the readme a player opens has none."""
+    with open(os.path.join(ROOT, 'docks', 'readme.txt'), encoding='utf-8') as fh:
+        text = fh.read()
+    assert text.strip()
+    for mark in ('#', '*', '|', '`'):
+        assert mark not in text, mark
 
 
 def test_a_folder_build_puts_nothing_of_the_games_inside():
