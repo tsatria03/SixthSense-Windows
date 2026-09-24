@@ -32,9 +32,11 @@ and the WAVs, plists and map files are read with `wave` and `plistlib`. OpenAL S
 (`vendor/openal/soft_oal.dll`) ships with the repository, so there is nothing to install
 for it and no system OpenAL is used.
 
-`vendor/nvda/nvdaControllerClient64.dll` ships too, so NVDA can speak those few lines:
-the key-binding screen and a few menu messages. The game itself speaks entirely through
-its own recorded WAVs and needs no screen reader.
+`vendor/nvda/nvdaControllerClient64.dll` ships too, so NVDA can speak what no recording
+covers: the key-binding screen and a few messages. With voice over on, the main menu's
+default, the game speaks through its own recorded WAVs and needs no screen reader. With
+voice over off, your screen reader reads the menus, the shop, the inventory and the
+pause and result panel instead, and names the keys during the tutorial.
 
 One more package is needed only to redo the reverse engineering, never to play:
 
@@ -75,10 +77,10 @@ corridor, Shift+F2 next level (after 8, back to 1), F5 spawn a zombie in the lan
 last attacked, Shift+F5 choose what F5 spawns, F6 hold the zombies in place, F7 let
 zombies hit you without taking a heart, F11 say where they are.
 
-`Stage_1_E` will not start its walk timer until `TUTORIAL` is set (0x2e08e), so until
-you have finished the tutorial once, Start Game takes you to the tutorial instead, and
-spends no coin. `--skip-tutorial` writes the key the tutorial writes, if you would rather
-skip it.
+Until you have finished the tutorial once, Start Game spends a coin and takes you to the
+tutorial first, as the original does; pressing P at its end counts 3, 2, 1 and starts
+the real game. Finished once, by either route, Start Game goes straight into the game.
+`--skip-tutorial` writes the key the tutorial writes, if you would rather skip it.
 
 The save file lives in `%APPDATA%\SixthSense\defaults.json` — the `NSUserDefaults`
 keys the original writes, under their own names.
@@ -103,7 +105,7 @@ chords: hold both keys together.
 | | |
 |---|---|
 | **Tab** / **Shift+Tab** | next / previous weapon |
-| **Space** | shake free when something has hold of you (ten presses) |
+| **Space** | shake free when the animal zombie grabs you: one to five separate presses, a new number each grab, and holding Space down counts as one |
 | **P** | pause — the original's stop button, which has no key of its own |
 | **F1** | key bindings — see below |
 | **Esc** | pause a stage, and resume it from the pause panel; back to the menu from the tutorial; quit from the menu |
@@ -111,7 +113,8 @@ chords: hold both keys together.
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the
 inventory. With voice over turned off, **Home** and **End** also go to the first row and
-the last. You can pause as often as you like: continue and restart both let the next
+the last, and **Left** and **Right** move to the previous row and the next, like
+VoiceOver's flicks. You can pause as often as you like: continue and restart both let the next
 pause through, as in the original.
 
 Keyboard only — no mouse. The lane keys replace the swipe rather than simulating it:
@@ -223,6 +226,18 @@ is what `tools/` disassembles. The game never reads it; it is there so the analy
 reproducible without the IPA.
 
 ## Tests
+
+`tests/` has two folders:
+
+- **`tests/case/`** holds the tests: 17 plain scripts, each checking one part of the
+  game against the original and printing `ok` or `FAIL` for every check, then a total.
+  Run any of them on its own; there is nothing to install beyond what the game needs.
+- **`tests/interact/`** holds two tools you play rather than tests: `level_chooser.py`
+  and `tutorial_chooser.py`, which open the real game at any level or the tutorial at
+  any lesson, for checking something by ear. See "Starting at any level" and "Starting
+  the tutorial at any lesson" below.
+
+The tests, one line each:
 
 ```bash
 python tests/case/data.py           # the port's tables against game/
@@ -345,11 +360,16 @@ output is in `analysis/disasm/`; every ported method carries the address it came
 
 ## The tutorial
 
-Ten beats, in the original's order. Five teach the lanes as clock positions — 9, 10:30,
-12, 1:30, 3 — which is where the A/Q/W/E/D keys come from; one teaches 6 o'clock, which
-is the reload; the rest teach the weapon switch, the grab and the three-finger tap. Each
-beat plays its instruction, sends in the monster it is about, and nags once a second
-until you do it. When the last one lands the walk starts and the real game begins.
+Ten lessons, in the original's order. Five teach the lanes as clock positions — 9,
+10:30, 12, 1:30, 3 — which is where the A/Q/W/E/D keys come from; one sends a stronger
+zombie; one teaches 6 o'clock, which is the reload; the rest teach the weapon switch,
+shaking off the animal zombie, and ending the tutorial, the original's three-finger tap,
+which is **P** here. Each lesson plays its instruction and sends in the monster it is
+about, and each only counts once the ones before it are done.
+
+P ends the tutorial once the first eight lessons are done. Reached from Start Game on
+your first go, it then counts 3, 2, 1 and the real game begins; from the Tutorial row,
+it goes back to the main menu.
 
 ## Status
 
@@ -371,11 +391,43 @@ this README.
 Contributors, in the order they joined:
 
 - **[tsatria03](https://github.com/tsatria03)** publishes and maintains the repository,
-  and carries the port on. That has meant sorting the sounds into folders, adapting the
-  build script to the game, fixing gameplay bugs, and adding speech through
-  Prism for screen readers other than NVDA.
-- **[tunmi13productions](https://github.com/tunmi13productions)** fixed the coin
-  economy, and the order spoken numbers are read in.
+  and carries the port on:
+  - **Publishing:** put the port on GitHub, restored this README, and keeps the
+    license, the credits, the changelog and the todo list. Made the first release,
+    26.09.23-1.
+  - **Sounds:** sorted every sound into folders under its original name, and found the
+    real "main menu button" recording.
+  - **Speech and keys:** speech through Prism for every screen reader and a Windows
+    voice. Rebinding keys that works, a reset that asks first, and rolling from one
+    attack key to the next.
+  - **The mix:** the music and ambience as quiet as the original's, loud gunshots, the
+    kill sound, the rain that keeps falling, silent exits, the menu music on decibel
+    knobs, carrying on where it was, and no longer filling memory.
+  - **Play:** weapons that keep their own ammo, the girl and the woman zombie walking
+    straight in along their lanes, the woman's growl timed by her distance, and the
+    turn keys removed.
+  - **The menus and the panel:** the shop refusing weapons you have not bought, each
+    screen saying its name, Home, End, Left and Right with voice over off, the score
+    row reading your score, result rows that reread themselves, and the coin store and
+    purchase all weapons rows removed.
+  - **Debug mode:** its second set of keys, and a tutorial it can finish.
+  - **Tools:** the build script with its single-exe build, the releaser, the level
+    and tutorial choosers, and the tests folder split into `case` and `interact`.
+- **[tunmi13productions](https://github.com/tunmi13productions)** has fixed and ported
+  a great deal of the game:
+  - the coin economy, and the order spoken numbers are read in
+  - zombies that move in their lanes, the boss and the end of each level, the girl who
+    heals you and the woman zombie
+  - reloading and headshots as in the original, with shots that take time to land
+  - pausing as often as you like, and pausing when the window loses focus
+  - the screen reader mode for the menus and the result panel, and Escape as pause
+  - debug mode
+  - the weapon test range behind the shop's Try button
+  - the tutorial's order, its ending with P, and its spoken key hints
+  - shaking free in one to five presses
+  - stopping recordings from talking over each other
+  - removing the ranking, Game Center and restore purchases rows, and quitting from the
+    window's close button on any screen
 
 SixthSense itself is Bitbee's game, from 2013.
 
