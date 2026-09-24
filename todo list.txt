@@ -1,6 +1,5 @@
 ##Unfinished.
 
-Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The weekly top score never resets.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
@@ -11,6 +10,7 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+Pausing a game pauses the ambience and the music, and continuing carries each on where it was, instead of stopping the music or silencing the ambience.
 Pausing in the two seconds after a level's boss dies holds the level change until you continue, and restarting then no longer makes you walk twice as fast.
 The key bindings screen lists Escape as back, pause or quit, since it goes back in the shop, pauses a game and quits only from the main menu.
 Starting a game with no coin says only no coin, without pointing to the coin store or the ranking page, which are gone.

@@ -288,6 +288,34 @@ def test_continue_puts_the_walk_back():
         st.teardown()
 
 
+def test_pausing_pauses_the_ambience_and_the_music_and_continue_carries_them_on():
+    """DIVERGENCE: the original's pause leaves both players running and continue
+    plays both again as notes over them.  Here each pauses on its own player and
+    carries on there, and the music comes back only if it was playing."""
+    app, st = _new_stage()
+    pb = app.playback
+    try:
+        amb_path = pb.ambPlayer.path
+        pb.startBGPlayer_type_soundGain_Loop_('bgm_cave', 'wav', 0.02, True)
+        music_path = pb.bgPlayer.path
+        assert pb.ambPlayer.playing and pb.bgPlayer.playing
+        st.StopPlayAction_()
+        assert not pb.ambPlayer.playing, 'the ambience plays on under the panel'
+        assert not pb.bgPlayer.playing, 'the music plays on under the panel'
+        st.continueAction_()
+        assert pb.ambPlayer.playing and pb.ambPlayer.path == amb_path, \
+            'the ambience did not come back on its own player'
+        assert pb.bgPlayer.playing and pb.bgPlayer.path == music_path, \
+            'the music did not come back on its own player'
+
+        pb.backgroundSoundStop()                 # a section's quiet stretch
+        st.StopPlayAction_()
+        st.continueAction_()
+        assert pb.ambPlayer.playing, 'the ambience did not come back'
+        assert not pb.bgPlayer.playing, 'continue started music that was not playing'
+    finally:
+        st.teardown()
+
 def _walk_timers(st):
     return [t for t in RunLoop.main()._timers
             if t.target is st and t.selector == 'MainControl' and t.isValid()]

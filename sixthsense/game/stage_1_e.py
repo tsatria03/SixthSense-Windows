@@ -236,6 +236,7 @@ class Stage_1_E:
         self.gameState = 0
         self.bStop = False          # set by the three panel openers, cleared by continue and restart
         self.levelChanging = False  # PORT ADDITION: ChangeLevel: is due, see _pause
+        self.pausedPlayers = []     # PORT ADDITION: see _pause_players
         self.selectMenu = 0
         self.speech = None          # the screen reader, for the panel with voice over off
         self.checkTutorialTimer = None
@@ -1657,6 +1658,7 @@ class Stage_1_E:
         """What the stop button does once it has decided to pause."""
         self.app.playSound_Gain_Pos_z_reprats_(10, 0.2, (0.0, 0.0), 0, False)
         self._pause_stop_sounds()
+        self._pause_players()
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
@@ -1720,31 +1722,29 @@ class Stage_1_E:
         self.walkXFlag = False                                # 0x33a8c
         self.brearhFlag = False                               # 0x33a9a
         self.MonsterReStart()                                 # 0x33aa0
-        self._resume_ambience()
+        self._resume_players()
         self.selectMenu = 0
         return True
 
-    def _resume_ambience(self):
-        """The ambience ``StopPlayAction:`` silenced comes back (0x33b22), and the
-        music too past row 396 (0x33b9c)."""
+    def _pause_players(self):
+        """DIVERGENCE: the original's pause stops only the notes above, never the
+        ambience or the music player, and continue plays both again as notes over
+        them (0x33b22..0x33be0).  Here both players are paused, and continue lets
+        each carry on where it was: the music only if it was playing."""
         pb = self.app.playback
-        if pb is not None:
-            if self.gameMode == 3:
-                pb.startBGPlayer_type_soundGain_Loop_(
-                    'effect_forest_rainng', 'wav', volume.ambience(0.5), True)
-            elif self.gameMode == 2:
-                pb.startBGPlayer_type_soundGain_Loop_(
-                    'bgm_forest_amb', 'wav', volume.ambience(0.2), True)
-            elif self.gameMode == 1:
-                pb.startBGPlayer_type_soundGain_Loop_(
-                    'bgm_cave_amb', 'wav', volume.ambience(0.2), True)
-            if self.gamePlayer.playerYplot < 396:             # 0x33b9c
-                if self.gameMode == 2:
-                    pb.startAMBPlayer_type_soundGain_Loop_(
-                        'bgm_forest', 'wav', volume.music(0.02), True)
-                elif self.gameMode == 1:
-                    pb.startAMBPlayer_type_soundGain_Loop_(
-                        'bgm_cave', 'wav', volume.music(0.02), True)
+        self.pausedPlayers = []
+        if pb is None:
+            return
+        for player in (pb.ambPlayer, pb.bgPlayer):
+            if player.playing:
+                player.pause()
+                self.pausedPlayers.append(player)
+
+    def _resume_players(self):
+        """What ``_pause_players`` paused carries on."""
+        for player in self.pausedPlayers:
+            player.resume()
+        self.pausedPlayers = []
 
     # -[Stage_1_E gameReplayAction:] 0x330ed
     def gameReplayAction_(self, *_):

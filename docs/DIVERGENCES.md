@@ -205,6 +205,19 @@ so that the stop button worked once per stage. The listings drop those condition
 stores, so that was a misreading, and the port copied it: after one pause, P did
 nothing for the rest of the stage. tsatria03 found it in play on 2026-09-22.
 
+### Pausing pauses the ambience and the music
+`StopPlayAction:` (0x33df8..0x34744) never calls `backgroundSoundStop` or
+`AMBSoundStop`; it only stops the notes 368, 87, 88 and 92. So in the original the
+ambience and the music play on under the panel, and `continueAction:` then plays a
+second copy of the ambience as a note (0x33b22..0x33b7a), and past row 396 a second
+copy of the music at 0.02 (0x33b9c..0x33be0). The port used to restart the two on each
+other's players instead, which could silence the music until the next section and the
+ambience for the rest of the stage. **Divergence, the dev's choice on 2026-09-23:** the
+pause pauses whichever of the two players is playing (`_pause_players`), and continue
+lets each carry on where it was, on its own player (`_resume_players`). Nothing doubles,
+and the music still follows the map exactly: each cell 9 stops it and the cell 10
+eleven rows on starts it, so every section opens with a quiet stretch.
+
 ### The stop button skips the tutorial
 `StopPlayAction:` branches on `isTutorial` before anything else (0x33e30). While the
 tutorial is still running, the stop button does not pause: it stops the tutorial's

@@ -1,4 +1,5 @@
 unrelease:
+Pausing a game pauses the ambience and the music, and continuing carries each on where it was. Before, continuing could stop the music until the next section of the corridor and silence the ambience for the rest of the stage.
 Pausing in the two seconds after a level's boss dies holds the level change until you continue, instead of letting the walk start again under the pause panel. Restarting in that moment no longer makes you walk twice as fast.
 The key bindings screen lists Escape as back, pause or quit, instead of only quit, since it goes back in the shop, pauses a game and quits only from the main menu.
 Starting a game with no coin now says only no coin, instead of going on to point to a coin store and a ranking page that are gone.
