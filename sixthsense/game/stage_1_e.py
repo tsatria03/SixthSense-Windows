@@ -196,9 +196,16 @@ PAUSED_VOICE_DELAY = 0.5
 #: 0x35e80/0x35e90: gunChangeAction: plays the weapon's change sound at this, hard-coded.
 WEAPON_CHANGE_GAIN = 0.2
 
-#: How far from you a gunshot or a swing is placed, in cm, along the lane it is aimed
-#: down.  40 is the reference distance, so this pans it without making it quieter.
+#: How far from you a missed swing is placed, in cm, along the lane it is aimed down.
+#: 40 is the reference distance, so this pans it without making it quieter.
 SHOT_DISTANCE = 40.0
+#: Where MovingShot: plays a gunshot, by lane, always at z 40 (0x28): each lane's branch
+#: stores its own point before the one shared call at 0x2fbd2 - lane 1 at 0x2f948, 2 at
+#: 0x2f4a0, 3 at 0x2f7f8, 4 at 0x2f680, 5 at 0x2fbbe (0x41c8 is 25.0, 0x4170 15.0).  So
+#: the original pans a shot partly toward its lane; only the grenade is dead centre.
+GUN_SHOT_POS = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (15.0, 25.0),
+                5: (25.0, 0.0)}
+GUN_SHOT_Z = 40
 
 #: 0x2d45e (0x7d6a2 in Stage_Tutorial) - how long the original waits, after Now
 #: Loading plays, before calling MapInitInBundle - so the recording has time to
@@ -873,12 +880,12 @@ class Stage_1_E:
         # MovingShot: reads ReloadSoundGain at 0x2f248, 0x2f484, 0x2f664, 0x2f7e2, 0x2f930
         # and 0x2fba6, and never reads ShotSoundgain at all.  The port used ShotSoundgain,
         # the plists' malformed "0.2f", which left every gunshot 14 dB down.
-        # PORT DIVERGENCE: the original fires every shot from (0, 0) at z 40, dead
-        # centre.  Here it goes off down the lane it is aimed at, so it pans the way a
-        # zombie in that lane does.
+        # Each lane has its own point, at z 40 (GUN_SHOT_POS), so the shot pans partly
+        # toward the lane it is aimed down.  The port once read this as dead centre and
+        # then panned it fully down the lane, much harder than the original.
         self.app.playSound_Gain_Pos_z_reprats_(
             weapon.ShotSoundNumber, weapon.ReloadSoundGain,
-            self._lane_pos(lane), 0, False)
+            GUN_SHOT_POS[lane], GUN_SHOT_Z, False)
         # 0x2fc0e..0x2fc48: whether it is a headshot is decided now, by the breathing
         # gap at the moment of the shot, and carried to the hit on isHeadShot.
         target = self.monsterHitHeadFind()
@@ -890,9 +897,10 @@ class Stage_1_E:
     @staticmethod
     def _lane_pos(lane):
         """A point ``SHOT_DISTANCE`` out along the lane's bearing, at the listener's
-        height (z 0).  A zombie far down the same lane lies in almost exactly that
-        direction, so the two pan alike, and at the reference distance the sound is
-        exactly as loud as it was from the centre."""
+        height (z 0), for a missed swing.  A zombie far down the same lane lies in
+        almost exactly that direction, so the two pan alike, and at the reference
+        distance the sound is exactly as loud as it was from the centre.  Gunshots use
+        the original's own points instead (``GUN_SHOT_POS``)."""
         rad = math.radians(lane_bearing(lane))
         return (SHOT_DISTANCE * math.cos(rad), SHOT_DISTANCE * math.sin(rad))
 

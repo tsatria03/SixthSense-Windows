@@ -879,24 +879,26 @@ def test_the_weapon_change_sound_is_quiet_and_the_old_one_stops():
         st.teardown()
 
 
-def test_a_shot_goes_off_down_its_lane():
-    """PORT DIVERGENCE: the shot is placed along the lane's bearing, 40 cm out."""
+def test_a_shot_is_heard_at_the_originals_point_for_its_lane():
+    """MovingShot: stores each lane's point before the shared call at 0x2fbd2, z 40:
+    (-25, 0), (-15, 25), (0, 25), (15, 25), (25, 0) - partly toward the lane, not down
+    it.  The port had placed shots fully down the lane, much harder to the side."""
     app, st = _new_stage()
     calls = []
     real = app.playSound_Gain_Pos_z_reprats_
     app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: (
         calls.append((n, pos, z)), real(n, g, pos, z, r))[-1]
+    want = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (15.0, 25.0),
+            5: (25.0, 0.0)}
     try:
         w = st.weaponSource[st.gamePlayer.useWepon]
-        for lane, bearing in LANE.items():
+        for lane in LANE:
             calls.clear()
             st.shotFlag = False
             st.MovingShot_(LANE[lane])
             shot = [c for c in calls if c[0] == w.ShotSoundNumber]
             assert shot, 'lane %d fired nothing' % lane
-            (x, y), z = shot[0][1], shot[0][2]
-            got = math.degrees(math.atan2(y, x)) % 360.0
-            assert abs(got - bearing) < 0.5 and z == 0, (lane, x, y, z)
+            assert shot[0][1:] == (want[lane], 40), (lane, shot[0])
     finally:
         del app.playSound_Gain_Pos_z_reprats_
         st.teardown()

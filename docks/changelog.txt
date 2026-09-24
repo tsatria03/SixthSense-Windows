@@ -1,4 +1,5 @@
 unrelease:
+Gunshots are heard where the original places them, partly toward the lane you aim at, instead of fully to the side.
 Changing weapon plays its sound as quietly as the original does, instead of at full volume, and changing again quickly stops the sound of the weapon you put away.
 The tutorial's reload lesson says its instruction once, as the original does, instead of repeating it about every ten seconds until you reload.
 Pausing a game says "paused" half a second after the click, as the original does. With voice over off, your screen reader says it.

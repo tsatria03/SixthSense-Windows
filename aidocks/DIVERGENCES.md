@@ -317,12 +317,17 @@ Nothing calls it. **Not ported.**
 
 ## Where the port differs on purpose
 
-### Shots and swings are heard down their lane
-The original plays every gunshot from `(0, 0)` at z 40, dead centre (0x2f248 and its
-copies), and a melee miss the same way (0x39c3c). The port places them 40 cm out along
-the lane they are aimed down, at the listener's height. That pans a shot the way a
-zombie in the same lane pans, and 40 cm is the reference distance, so it is exactly as
-loud as before. The grenade and the reload stay in the centre.
+### A missed swing is heard down its lane
+Gunshots are the original's own: `MovingShot:` gives each lane its own point before the
+one shared call at 0x2fbd2, always at z 40 - lane 1 (-25, 0), 2 (-15, 25), 3 (0, 25),
+4 (15, 25), 5 (25, 0) (0x2f948, 0x2f4a0, 0x2f7f8, 0x2f680, 0x2fbbe) - so a shot pans
+partly toward its lane, and only the grenade is dead centre (`GUN_SHOT_POS`). This entry
+used to say the original fired every shot from the centre and that the port placed them
+down the lane; that was a misreading of the listing, and until 2026-09-24 the port panned
+shots fully down the lane, much harder than the original. A missed swing is still placed
+40 cm out along its lane, at the listener's height (`_lane_pos`), a port choice; where
+the original plays it has not been pinned down (its x comes from a value saved before
+0x39c36).
 
 ### The bullet striking a zombie is heard where the zombie is
 `gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
