@@ -1,6 +1,5 @@
 ##Unfinished.
 
-The weekly top score never resets.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 When the game cannot start, it fails silently instead of saying why out loud.

@@ -296,7 +296,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
   - The original never resets the shake count.
   - HP is lost only when isTutorial is set (0x3b2e2).
   - Switching to the sword should play 329 (0x35ecc).
-- [R] **Two save keys are never written.** Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
+- [R] **Two save keys are never written.** **Dropped from the todo list 2026-09-23, the dev's decision:** the weekly best existed only for the online ranking (`sendScore:` at 0x34ee8), and the port never shows or says it, so its reset is not something a player can notice. Without `WEEKTIME` the weekly best never resets. Without `NOWRANK` the rank always reads 0.
 - [R] **The zig-zag walks are faithful but can't be reached**, because the monster tables only use straight-lane types.
 - [V] **Repo housekeeping.** `requirements.txt` was added on 2026-09-22, with `pygame>=2.6.1` and `prismatoid~=0.18.2` (cffi comes with prismatoid). A pip dry run found everything already installed. capstone for `tools/` is left out, since playing doesn't need it. The dev confirmed it the same day, and its todo item moved to finished. (`New File.txt` at the root is the dev's private scratchpad, not a leftover. It was untracked and gitignored on 2026-09-21, so leave it alone.)
 
