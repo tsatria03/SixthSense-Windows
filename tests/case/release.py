@@ -14,6 +14,7 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
+import _scratch_save                                             # noqa: E402,F401  never the real save
 
 import compiler                                                      # noqa: E402
 import releaser                                                      # noqa: E402

@@ -11,6 +11,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import _scratch_save                                             # noqa: E402,F401  never the real save
 
 from sixthsense.platform.speech import Speech, _Prism                # noqa: E402
 

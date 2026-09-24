@@ -14,6 +14,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import _scratch_save                                             # noqa: E402,F401  never the real save
 
 from sixthsense import paths                                     # noqa: E402
 
@@ -156,6 +157,40 @@ def test_pointing_somewhere_else_forgets_the_old_sounds():
             _done(second)
     finally:
         _done(first)
+
+
+def test_the_save_goes_where_sixthsense_user_dir_points():
+    """The tests' way off the real save; without it, the save is in %APPDATA%\\SixthSense."""
+    old_dir, old_appdata = os.environ.get(paths.USER_DIR_ENV), os.environ.get('APPDATA')
+    top = tempfile.mkdtemp()
+    try:
+        mine = os.path.join(top, 'mine')
+        os.environ[paths.USER_DIR_ENV] = mine
+        assert paths.user_dir() == mine and os.path.isdir(mine)
+        os.environ.pop(paths.USER_DIR_ENV)
+        os.environ['APPDATA'] = top
+        assert paths.user_dir() == os.path.join(top, 'SixthSense')
+    finally:
+        for key, old in ((paths.USER_DIR_ENV, old_dir), ('APPDATA', old_appdata)):
+            if old is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = old
+        shutil.rmtree(top, ignore_errors=True)
+
+
+def test_every_test_file_keeps_off_the_real_save():
+    """Each test file imports _scratch_save before the game, so none can write the real save,
+    whichever shell runs it."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    forgot = []
+    for name in sorted(os.listdir(here)):
+        if name.endswith('.py') and not name.startswith('_'):
+            with open(os.path.join(here, name), encoding='utf-8') as fh:
+                if '\nimport _scratch_save' not in fh.read():
+                    forgot.append(name)
+    assert not forgot, 'these do not import _scratch_save: %s' % ', '.join(forgot)
+    assert os.environ.get(paths.USER_DIR_ENV) == _scratch_save.FOLDER
 
 
 if __name__ == '__main__':

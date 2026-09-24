@@ -18,11 +18,11 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 - Add a log file and a crash.txt beside the save, so a failed start can be diagnosed.
 - Add an exit after option and a game data line to the log, so the compiler's test build can come back.
 - A wrong game folder silently falls back to the default one, sounds past slot 122 are dropped without a log line, a few OpenAL calls have the wrong return type, and OpenAL is never closed on exit.
-- The tests overwrite the real save file.
 - Update DIVERGENCES.md, PORTING_STATUS.md, GAME_STRUCTURE.md and the tests where they describe misreadings of the original as reproduced, such as the boss check.
 
 ## Finished
 
+- The tests never touch the real save. Each test file sends the save to a throwaway folder first, and a test fails if one does not.
 - The full test suite passes after the second sound sort, 309 of 309, and no test logs a missing sound.
 - In debug mode, starting a game from the menu or restarting from the panel needs no coin and spends none.
 - A tutorial tester in tests/interact/tutorial_chooser.py starts the tutorial at any lesson, with the Start ending or the Tutorial button's, and voice over on or off. It asks when opened on its own, and plays on its own save so yours is never touched.

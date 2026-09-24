@@ -1,7 +1,7 @@
 """The save file: ``UserDefaults`` never writes over a save it could not read.
 
-Every test points ``APPDATA`` at a throwaway folder of its own, so the real save is never
-read or written.
+Every test points ``SIXTHSENSE_USER_DIR`` at a throwaway folder of its own, so the real
+save is never read or written.
 """
 from __future__ import annotations
 
@@ -12,25 +12,27 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import _scratch_save                                             # noqa: E402,F401  never the real save
 
+from sixthsense import paths                                     # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
 
 
 class _Folder:
-    """A fresh APPDATA for one test, put back afterwards."""
+    """A fresh save folder for one test, put back afterwards."""
 
     def __enter__(self):
-        self.old = os.environ.get('APPDATA')
+        self.old = os.environ.get(paths.USER_DIR_ENV)
         self.top = tempfile.mkdtemp()
-        os.environ['APPDATA'] = self.top
         self.dir = os.path.join(self.top, 'SixthSense')
+        os.environ[paths.USER_DIR_ENV] = self.dir
         return self
 
     def __exit__(self, *exc):
         if self.old is None:
-            os.environ.pop('APPDATA', None)
+            os.environ.pop(paths.USER_DIR_ENV, None)
         else:
-            os.environ['APPDATA'] = self.old
+            os.environ[paths.USER_DIR_ENV] = self.old
         shutil.rmtree(self.top, ignore_errors=True)
 
     def file(self, name='defaults.json'):

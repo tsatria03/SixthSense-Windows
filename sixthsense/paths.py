@@ -19,7 +19,8 @@ belongs to one of the files that are not the original's own.
 Because the top folder comes first, an untouched original bundle still works: its WAVs are
 all found where the original found them.
 
-The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense``.
+The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense``, or
+wherever ``SIXTHSENSE_USER_DIR`` points, which the tests use.
 
 ``--game PATH`` (or ``SIXTHSENSE_GAME``) points somewhere else: another copy of the
 bundle, or a folder holding ``Payload/sixsense.app``.
@@ -45,6 +46,8 @@ NVDA_DLL = os.path.join(VENDOR, 'nvda', 'nvdaControllerClient64.dll')
 BINARY = os.path.join(ROOT, 'analysis', 'bin', 'sixsense_armv7')
 
 GAME_ENV = 'SIXTHSENSE_GAME'
+# The save's folder in place of %APPDATA%\SixthSense - set by the tests, never by the game.
+USER_DIR_ENV = 'SIXTHSENSE_USER_DIR'
 APP_NAME = 'sixsense.app'
 
 # Where the sounds are, inside the bundle folder.  An original bundle has no such folders.
@@ -168,8 +171,12 @@ def path_for_resource(name: str, ext: str | None = None) -> str | None:
 
 
 def user_dir() -> str:
-    """Where ``NSUserDefaults`` and the save game live."""
-    base = os.environ.get('APPDATA') or os.path.expanduser('~')
-    p = os.path.join(base, 'SixthSense')
+    """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSense``, or the
+    folder ``SIXTHSENSE_USER_DIR`` names.  The tests set that to a throwaway folder, so
+    they never read or write the real save."""
+    p = os.environ.get(USER_DIR_ENV)
+    if not p:
+        base = os.environ.get('APPDATA') or os.path.expanduser('~')
+        p = os.path.join(base, 'SixthSense')
     os.makedirs(p, exist_ok=True)
     return p
