@@ -13,7 +13,8 @@ out by ear.  They are keymap actions, so the F1 screen lists and rebinds them:
     F11         say where each zombie is
 
 Debug mode also hands you every weapon on Tab and Shift+Tab, bought or not, and no
-shot, no grenade and no magazine ever runs out (``Stage_1_E``).
+shot, no grenade and no magazine ever runs out (``Stage_1_E``).  Starting a game from
+the menu and restarting from the panel need no coin and spend none.
 
 Everything here speaks through the screen reader, whatever the voice over row says:
 the game has no recordings for any of it.  They do nothing in the tutorial, which

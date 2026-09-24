@@ -332,6 +332,19 @@ def test_restarting_while_the_level_changes_walks_at_one_speed():
     finally:
         st.teardown()
 
+def test_debug_mode_restarts_without_a_coin_and_spends_none():
+    for coins in (0, 2):
+        app, st = _new_stage(coins=coins)
+        app.debug = True
+        try:
+            st.StopPlayAction_()
+            assert st.gameReplayAction_() is True, 'debug mode refused to restart'
+            assert app.Coin == coins, 'debug mode spent a coin'
+            assert UserDefaults.standardUserDefaults().intForKey_('COIN') == coins
+        finally:
+            app.debug = False
+            st.teardown()
+
 def test_restart_costs_a_coin_and_resets_the_run():
     app, st = _new_stage(coins=2)
     try:

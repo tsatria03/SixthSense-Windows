@@ -274,11 +274,12 @@ class MainController:
     def StartGameAction_(self, *_):
         self.StopElseSpeak()
         d = UserDefaults.standardUserDefaults()
-        if self.app.Coin >= 1:                       # 0xb324
-            self.app.Coin -= 1
-            d.setObject_forKey_(str(self.app.Coin), 'COIN')
-            d.synchronize()
-            self.coinTiemrControlStart()
+        if self.app.Coin >= 1 or self.app.debug:     # 0xb324; --debug needs no coin
+            if not self.app.debug:                   # ...and spends none
+                self.app.Coin -= 1
+                d.setObject_forKey_(str(self.app.Coin), 'COIN')
+                d.synchronize()
+                self.coinTiemrControlStart()
             self.app.playSound_Gain_Pos_z_reprats_(
                 SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
             # 0xb3f8 always pushes Stage_1_E, whose MapInitInBundle (0x2e08e-0x2e0dc)

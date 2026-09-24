@@ -1752,18 +1752,19 @@ class Stage_1_E:
         if not self.bStop:                                    # 0x33106
             return False
         self.bStop = False                                    # 0x3310c
-        if self.app.Coin <= 0:                                # 0x33128
+        if self.app.Coin <= 0 and not self.app.debug:         # 0x33128; --debug needs no coin
             if self.app.screen_reader:
                 self._panel_voice(358)
             else:
                 self.app.playNoCoin_(0.2)
             self._reset_run_flags()                           # L_337b6 runs either way
             return False
-        self.app.Coin -= 1                                    # 0x33146
-        d = UserDefaults.standardUserDefaults()
-        d.setObject_forKey_('%d' % self.app.Coin, 'COIN')     # 0x331bc
-        d.synchronize()
-        self._coin_timer_start()                              # 0x33218
+        if not self.app.debug:                                # ...and spends none
+            self.app.Coin -= 1                                # 0x33146
+            d = UserDefaults.standardUserDefaults()
+            d.setObject_forKey_('%d' % self.app.Coin, 'COIN')  # 0x331bc
+            d.synchronize()
+            self._coin_timer_start()                          # 0x33218
         self.app.playSound_Gain_Pos_z_reprats_(10, 0.2, (0.0, 0.0), 0, False)
         self.blindModeOff()
         self.gameState = 0                                    # 0x3326c

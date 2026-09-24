@@ -343,6 +343,22 @@ def test_no_coin_stops_after_its_first_two_words():
     finally:
         m.teardown()
 
+def test_debug_mode_starts_a_game_without_a_coin_and_spends_none():
+    for coins in (0, 3):
+        m = _menu(coins=coins)
+        m.app.debug = True
+        try:
+            m.selectMenu = 3
+            m.activate()
+            assert m.next_screen == 'stage', 'debug mode refused to start with %d coins' % coins
+            assert m.app.Coin == coins, 'debug mode spent a coin'
+            d = UserDefaults.standardUserDefaults()
+            assert d.intForKey_('COIN') == coins
+            assert d.stringForKey_('COIN_TIMER_START') != '1', 'debug mode started the coin clock'
+        finally:
+            m.app.debug = False
+            m.teardown()
+
 def test_the_tutorial_row_needs_no_coin():
     m = _menu(coins=0)
     try:
