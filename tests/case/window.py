@@ -186,6 +186,39 @@ def test_escape_in_the_range_still_pauses():
     assert seen == {'state': 1}, seen
 
 
+def _failing_run(error):
+    """``SixthSense.run`` with ``main`` raising ``error``; what it would say, and its exit
+    code."""
+    said = []
+    real_main, real_say = SixthSense.main, SixthSense._say_why
+
+    def fail(argv=None):
+        raise error
+    SixthSense.main, SixthSense._say_why = fail, said.append
+    try:
+        return said, SixthSense.run()
+    finally:
+        SixthSense.main, SixthSense._say_why = real_main, real_say
+
+
+def test_a_failed_start_says_why():
+    said, code = _failing_run(OSError('alcOpenDevice failed'))
+    assert code == 1
+    assert said == ['SixthSense stopped because of an error. OSError: alcOpenDevice failed'], said
+    said, code = _failing_run(SystemExit("SixthSense's game data was not found. Tried:\n  x"))
+    assert code == 1
+    assert said == ["SixthSense's game data was not found. Tried:"], said
+
+
+def test_a_normal_exit_says_nothing():
+    try:
+        _failing_run(SystemExit(0))
+    except SystemExit as e:
+        assert e.code == 0
+    else:
+        raise AssertionError('a normal exit was taken for a failure')
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

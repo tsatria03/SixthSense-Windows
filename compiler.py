@@ -28,8 +28,8 @@ unpacks itself to; that costs a few seconds at every launch, since it unpacks ab
 in the original app bundle is copied, and neither is game\\sounds\\unused: the game never opens any of it.
 
 There is no --test yet.  A test build would start the game and read its log; SixthSense does not write a
-log, or a crash.txt, so there is nothing for a test run to read.  Until it does, a windowed build
-that fails to start says nothing - build with --console to hear why.
+log, or a crash.txt, so there is nothing for a test run to read.  A windowed build that fails says
+why aloud, in one line; build with --console to see the whole traceback.
 """
 from __future__ import annotations
 
@@ -241,8 +241,8 @@ def command(args, data=()) -> list[str]:
     for src in prism_native_modules():
         cmd += ['--add-binary', src + os.pathsep + 'prism/_native']
     if not args.console:
-        # no console window beside the game's own.  SixthSense does not write crash.txt yet, so a windowed
-        # build that fails to start says nothing: --console is how to hear why
+        # no console window beside the game's own.  A failure is said aloud in one line;
+        # --console shows the whole traceback
         cmd += ['--windowed']
     if args.onefile or args.embed:
         # one file lands in dist\SixthSense too, so every build is one folder to zip and nothing else in

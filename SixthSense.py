@@ -436,5 +436,31 @@ def _stage_lines(stage, inp):
     return lines
 
 
+def _say_why(text):
+    """PORT ADDITION: a built game has no console, so a failure is said aloud, through
+    the screen reader or a Windows voice - the game's own sound may be what failed."""
+    print(text, file=sys.stderr)
+    try:
+        from sixthsense.platform.speech import Speech
+        Speech.shared().speak(text)
+        time.sleep(min(15.0, 2.0 + 0.07 * len(text)))   # a voice stops when we exit
+    except Exception:
+        log.exception('could not say why the game stopped')
+
+
+def run():
+    try:
+        return main()
+    except SystemExit as e:
+        if not isinstance(e.code, str):              # a normal exit
+            raise
+        _say_why(e.code.splitlines()[0])             # e.g. the game data was not found
+        return 1
+    except Exception as e:
+        log.exception('the game stopped')
+        _say_why('SixthSense stopped because of an error. %s: %s' % (type(e).__name__, e))
+        return 1
+
+
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(run())

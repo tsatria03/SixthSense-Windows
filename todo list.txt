@@ -1,10 +1,10 @@
 ##Unfinished.
 
-When the game cannot start, it fails silently instead of saying why out loud.
 Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 
 ##Finished.
 
+When the game cannot start, or stops because of an error, it says why out loud.
 Changing the music or the ambience no longer leaks memory.
 A damaged save file is kept aside, and the game carries on from a backup of the save before it, so your gold and weapons are kept.
 A new save starts with voice over on, so "Gold is lacking" is heard and the mode row is right.
