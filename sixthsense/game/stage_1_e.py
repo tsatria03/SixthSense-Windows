@@ -193,6 +193,8 @@ SOUND_CAVE_AMB = 88
 LEVEL_CHANGE_SECONDS = 2.0
 #: 0x34720: StopPlayAction: sends spaekMenu, "paused" (229), this long after the click.
 PAUSED_VOICE_DELAY = 0.5
+#: 0x35e80/0x35e90: gunChangeAction: plays the weapon's change sound at this, hard-coded.
+WEAPON_CHANGE_GAIN = 0.2
 
 #: How far from you a gunshot or a swing is placed, in cm, along the lane it is aimed
 #: down.  40 is the reference distance, so this pans it without making it quieter.
@@ -1242,6 +1244,10 @@ class Stage_1_E:
         and equipped or not."""
         use = self.app.useWeapon
         w = self.gamePlayer.useWepon
+        # 0x35c72..0x35c88: the weapon being put away has its change sound stopped first
+        old = self.weaponSource[w] if w < len(self.weaponSource) else None
+        if old:
+            self.app.stopSoundBufNumber_(old.weaponChangeSoundNumber)
         for _ in range(WEAPON_SLOTS):
             w = (w + step) % WEAPON_SLOTS
             if self.app.debug or (w < len(use) and use[w] == '1'):
@@ -1251,9 +1257,11 @@ class Stage_1_E:
         if weapon:
             # No reload here: gunChangeAction: never calls ReloadGun or setBulletCount,
             # so each weapon keeps the rounds it had (a full magazine from weaponInit).
+            # 0x35e80..0x35e9e: the change sound at a fixed 0.2 (movt r3 #0x3e4c), z 40,
+            # whatever the plist's weaponChangeSoundGain says (1.0 in every weapon).
             self.app.playSound_Gain_Pos_z_reprats_(
-                weapon.weaponChangeSoundNumber, weapon.weaponChangeSoundGain,
-                (0.0, 0.0), 0, False)
+                weapon.weaponChangeSoundNumber, WEAPON_CHANGE_GAIN,
+                (0.0, 0.0), 40, False)
             # 0x35eac: the sword is drawn with its own sound, at 1.0; any other weapon
             # silences it (0x35edc).
             if w == 7:

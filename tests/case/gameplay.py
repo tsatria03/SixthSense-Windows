@@ -856,6 +856,29 @@ def test_the_sword_is_drawn_with_its_own_sound():
         st.teardown()
 
 
+def test_the_weapon_change_sound_is_quiet_and_the_old_one_stops():
+    """gunChangeAction: stops the old weapon's change sound (0x35c72..0x35c88), then plays
+    the new one's at a hard-coded 0.2, z 40 (0x35e80..0x35e9e), not the plist's 1.0."""
+    app, st = _new_stage()
+    played, stopped = [], []
+    real_play, real_stop = app.playSound_Gain_Pos_z_reprats_, app.stopSoundBufNumber_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: played.append((n, g, pos, z))
+    app.stopSoundBufNumber_ = lambda n: stopped.append(n)
+    try:
+        app.useWeapon = ['1', '1', '1', '0', '0', '0', '0', '0']
+        st.gamePlayer.useWepon = 2
+        old = st.weaponSource[2].weaponChangeSoundNumber
+        st.gunChangeAction_(1)
+        new = st.weaponSource[st.gamePlayer.useWepon]
+        assert new.weaponChangeSoundGain == 1.0            # what the plist says...
+        assert (new.weaponChangeSoundNumber, 0.2, (0.0, 0.0), 40) in played, played
+        assert old in stopped, 'the old weapon change sound was not stopped'
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        del app.stopSoundBufNumber_
+        st.teardown()
+
+
 def test_a_shot_goes_off_down_its_lane():
     """PORT DIVERGENCE: the shot is placed along the lane's bearing, 40 cm out."""
     app, st = _new_stage()

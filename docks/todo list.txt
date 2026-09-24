@@ -1,6 +1,5 @@
 ##Unfinished.
 
-The weapon change sound is much louder than in the original, which plays it quietly at a fixed volume.
 Gunshots are heard further to the side than in the original, which places each lane's shot only partly to the side.
 A grenade adds to the score only for the zombies it kills. In the original every zombie it hurts adds to the score.
 A zombie hitting you, and the girl thanking you, are heard from their side. The original plays both in the middle of your head.
@@ -12,6 +11,7 @@ If you have no weapons equipped, it should automaticly equip the first 3 weapons
 
 ##Finished.
 
+The weapon change sound is as quiet as in the original, and changing again stops the one before.
 The tutorial's reload lesson says its instruction once, as in the original, instead of repeating it until you reload.
 Pausing says "paused" half a second after the click, as in the original, or through your screen reader with voice over off.
 The readme, the changelog and the todo list are in a docks folder beside the game.
