@@ -13,7 +13,8 @@ metadata:
 
 Its format:
 - `##Unfinished.` on the first line, a blank line, then one item per line.
-- A blank line, then `##Finished.` with its items below. The dev capitalized both headings on 2026-09-21; keep them that way.
+- A blank line, then `##Finished.`, a blank line, and its items below.
+- **Every heading is followed by one blank line, and a new item goes after that blank line**, at the top of the items (the dev, 2026-09-24: "When you add a finished entry, put it after the blank line"). Never put an item straight under the heading: on 2026-09-24 Claude did, above the blank line, which split the finished section. With the Edit tool, match the heading and the blank line together (`##Finished.\n\n`) and insert after both. The dev capitalized both headings on 2026-09-21; keep them that way.
 - Each item is a plain sentence or two. **A bug is stated as what happens, with no "Fix a bug where" in front**: "Switching weapons refills the magazine for free.", not "Fix a bug where switching weapons refills the magazine for free." The dev found that opening too repetitive (2026-09-21).
 - An enhancement or task starts with what to do: "Add ...", "Make ...", "Remove ...", "Update ...", "Decide whether ...", "Test ...".
 - A `##finished.` item says what is now true, starting with its subject: "The license credits tsatria03 and lbk2907.", "The compiler has been changed to build Sixth Sense." List real milestones, not housekeeping like rewording this file, with the most significant first. The first six were added on 2026-09-21 at the dev's request.
