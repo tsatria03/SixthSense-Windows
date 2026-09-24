@@ -9,6 +9,10 @@ metadata:
 
 **Commit only when the dev asks.** Once a commit is made at their request, **push it to `origin main` straight away**, without asking. The dev said on 2026-09-21 that they no longer need to be asked about pushing.
 
+**Unless the dev says to hold the pushes.** On 2026-09-24 they asked for commits without pushing ("no pushing yet. We still have a lot more commits to work on"); while that holds, commit when asked and push only when they say so.
+
+**Fetching is fine without asking; bringing commits in is not** (the dev, 2026-09-24, refining a stricter rule from the same day: "You are allowed to fetch without asking, but never pull/merge/rebase commits unless I give you the goahead"). `git fetch` only updates what is known about GitHub and changes no branch, so run it freely, for example before a commit, to see what others such as tunmi13productions have pushed. **Never pull, merge, rebase, cherry-pick or reset onto incoming commits without the dev's go-ahead**, each time. When the branch is behind, report the incoming commits (who, what) and wait.
+
 **Rewriting published history still needs an explicit go-ahead every time.** That covers force pushes, amending or rebasing pushed commits, and changing authors. When it is approved, push with `--force-with-lease=main:<expected hash>`, and keep a local backup branch until the dev is happy.
 
 **Why:** The dev approves what goes into a commit, and after that, pushing is routine for them. History rewrites can lose work, so they stay a deliberate choice.
