@@ -244,6 +244,41 @@ def test_choosing_the_first_row_says_its_own_state():
         st.teardown()
 
 
+def test_pausing_says_paused_half_a_second_after_the_click():
+    """0x34710..0x34732: StopPlayAction: sends spaekMenu 0.5 s later, and it plays 229,
+    "paused", at 0.2.  The port played only the click."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, gain, *a: played.append((n, gain))
+    try:
+        start = runloop.clock()
+        assert st.StopPlayAction_() is True
+        assert (10, 0.2) in played and not any(n == 229 for n, _g in played)
+        RunLoop.main().pump(now=start + S1E.PAUSED_VOICE_DELAY - 0.1)
+        assert not any(n == 229 for n, _g in played), 'paused came before half a second'
+        RunLoop.main().pump(now=start + S1E.PAUSED_VOICE_DELAY + 0.1)
+        assert (229, 0.2) in played, played
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
+def test_with_voice_over_off_pausing_says_paused_through_the_screen_reader():
+    app, st = _new_stage()
+    st.speech = _Recorder()
+    app.mode = 0
+    try:
+        start = runloop.clock()
+        st.StopPlayAction_()
+        RunLoop.main().pump(now=start + S1E.PAUSED_VOICE_DELAY + 0.1)
+        assert st.speech.said[-1] == 'Paused.', st.speech.said
+    finally:
+        app.mode = 1
+        st.teardown()
+
+
 def test_pausing_works_again_after_continue():
     """bStop is set at 0x33e48, and continueAction: clears it at 0x33960 (a
     conditional store the listings drop), so the game pauses as often as you like.

@@ -1,6 +1,5 @@
 ##Unfinished.
 
-Pausing never says "paused". The original says it half a second after the click.
 In the tutorial, the reload lesson's instruction repeats about every ten seconds until you reload. The original plays it once.
 The weapon change sound is much louder than in the original, which plays it quietly at a fixed volume.
 Gunshots are heard further to the side than in the original, which places each lane's shot only partly to the side.
@@ -14,6 +13,7 @@ If you have no weapons equipped, it should automaticly equip the first 3 weapons
 
 ##Finished.
 
+Pausing says "paused" half a second after the click, as in the original, or through your screen reader with voice over off.
 The readme, the changelog and the todo list are in a docks folder beside the game.
 A readme.txt beside the game says how to play, in plain text with one sentence a line.
 The opening screen's third row tells the game's story, which the original recorded but never played, with quiet music under it, read by your screen reader with voice over off.

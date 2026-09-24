@@ -191,6 +191,8 @@ SOUND_FOREST_AMB = 87
 SOUND_CAVE_AMB = 88
 #: 0x31d92: ChangeLevel: follows the boss's death this long after.
 LEVEL_CHANGE_SECONDS = 2.0
+#: 0x34720: StopPlayAction: sends spaekMenu, "paused" (229), this long after the click.
+PAUSED_VOICE_DELAY = 0.5
 
 #: How far from you a gunshot or a swing is placed, in cm, along the lane it is aimed
 #: down.  40 is the reference distance, so this pans it without making it quieter.
@@ -1673,6 +1675,9 @@ class Stage_1_E:
         self.MonsterStop()                                    # 0x342aa
         self._fill_result_labels()                            # 0x34302..0x34574
         self.selectMenu = 0
+        # 0x34710..0x34732: "paused" (229) half a second after the click - the delay's
+        # high word, movt r3 #0x3fe0, is dropped by the listing.  Nothing cancels it.
+        RunLoop.main().perform(self, 'spaekMenu', None, PAUSED_VOICE_DELAY)
         return True
 
     def _pause_stop_sounds(self):
