@@ -16,4 +16,4 @@ metadata:
 - If the plan changes while it is being built, update the note first, then the code.
 - Update the note as each part lands, and say which parts are built and which are waiting.
 - A finished plan stays as a record. Don't delete it.
-- **The plan and the code can be separate commits.** For the tutorial tester (2026-09-23) the dev had the plan committed first, and the code held back, uncommitted and unpushed, until they had tested it and it was marked finished; then it went in as its own commit, with the finished status. Do the same whenever the dev asks for it.
+- **Always commit the plan first, on its own, and never push it until the whole thing is built and tested** (the dev, 2026-09-23: "always commit plans first, never push them untill the hole thing is built and tested"). So: the plan note goes in as its own commit, local only; the code follows as a separate commit once the dev has tested it and it is marked finished; then both are pushed together. First done for the tutorial tester, and made the standing rule with the story row.
