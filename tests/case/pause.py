@@ -288,6 +288,50 @@ def test_continue_puts_the_walk_back():
         st.teardown()
 
 
+def _walk_timers(st):
+    return [t for t in RunLoop.main()._timers
+            if t.target is st and t.selector == 'MainControl' and t.isValid()]
+
+
+def _past_the_level_change():
+    RunLoop.main().pump(now=time.monotonic() + S1E.LEVEL_CHANGE_SECONDS + 0.5)
+
+
+def test_pausing_while_the_level_changes_holds_it():
+    """DIVERGENCE: the original's ChangeLevel: fires under the panel and starts the
+    walk there, and continue adds a second walk timer. Here the pause holds it, and
+    continue gives it its wait again."""
+    _app, st = _new_stage()
+    try:
+        st._level_transition()
+        gain = st.monsterHPGain
+        assert st.StopPlayAction_() is True
+        _past_the_level_change()
+        assert st.monsterHPGain == gain, 'the level changed under the pause panel'
+        assert not _walk_timers(st), 'the walk started under the pause panel'
+        assert st.continueAction_() is True
+        assert not _walk_timers(st), 'continue walked before the level changed'
+        _past_the_level_change()
+        assert st.monsterHPGain == gain * 1.5, 'the level never changed after continue'
+        assert st.levelChanging is False
+        assert len(_walk_timers(st)) == 1, 'more than one walk timer'
+    finally:
+        st.teardown()
+
+
+def test_restarting_while_the_level_changes_walks_at_one_speed():
+    _app, st = _new_stage()
+    try:
+        st._level_transition()
+        st.StopPlayAction_()
+        assert st.gameReplayAction_() is True
+        _past_the_level_change()
+        assert st.LVUP == 1 and st.monsterHPGain == 1.0, 'the old level change landed'
+        assert st.levelChanging is False
+        assert len(_walk_timers(st)) == 1, 'restart left two walk timers'
+    finally:
+        st.teardown()
+
 def test_restart_costs_a_coin_and_resets_the_run():
     app, st = _new_stage(coins=2)
     try:

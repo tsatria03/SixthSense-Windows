@@ -188,6 +188,8 @@ SOUND_SWORD_START = 329     # weapon_japen_knife_start, 0x35ec0
 #: the forest, and 87, bgm_forest_amb, going into the cave - the other level's.
 SOUND_FOREST_AMB = 87
 SOUND_CAVE_AMB = 88
+#: 0x31d92: ChangeLevel: follows the boss's death this long after.
+LEVEL_CHANGE_SECONDS = 2.0
 
 #: How far from you a gunshot or a swing is placed, in cm, along the lane it is aimed
 #: down.  40 is the reference distance, so this pans it without making it quieter.
@@ -233,6 +235,7 @@ class Stage_1_E:
         self.heldMonster = None        # not in the original, see _held_monster
         self.gameState = 0
         self.bStop = False          # set by the three panel openers, cleared by continue and restart
+        self.levelChanging = False  # PORT ADDITION: ChangeLevel: is due, see _pause
         self.selectMenu = 0
         self.speech = None          # the screen reader, for the panel with voice over off
         self.checkTutorialTimer = None
@@ -552,7 +555,8 @@ class Stage_1_E:
             self.gameMode = 1
             pb.startAMBPlayer_type_soundGain_Loop_(
                 'bgm_cave_amb', 'wav', volume.ambience(0.3), True)
-        RunLoop.main().perform(self, 'ChangeLevel_', None, 2.0)
+        self.levelChanging = True
+        RunLoop.main().perform(self, 'ChangeLevel_', None, LEVEL_CHANGE_SECONDS)
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
@@ -565,6 +569,7 @@ class Stage_1_E:
         other level's ambience as a looping note at 0.02 (0x32362), which is what the
         original does; the port used to play "zombies are coming" here instead.
         """
+        self.levelChanging = False
         self.gamePlayer.playerYplot = 680               # 0x32302
         self.monsterHPGain = self.monsterHPGain * 1.5   # 0x32314
         note = SOUND_FOREST_AMB if self.gameMode == 1 else SOUND_CAVE_AMB
@@ -1655,6 +1660,10 @@ class Stage_1_E:
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
+        # DIVERGENCE: the original leaves a pending ChangeLevel: alone, so it starts
+        # the walk under the panel, and continue or restart starts a second walk
+        # timer beside it: double speed.  Here the pause holds the level change.
+        RunLoop.main().cancelPerform(self, 'ChangeLevel_')
         self.gameState = 1                                    # 0x34168
         self.walkXFlag = True                                 # 0x34296
         self.brearhFlag = True                                # 0x342a4
@@ -1696,7 +1705,11 @@ class Stage_1_E:
         self.blindModeOff()
         if self.gameState != 1:                               # 0x339b2
             return False                                      # nothing to resume
-        if self.isTutorial:                                   # 0x33a02
+        if self.levelChanging:
+            # DIVERGENCE: the held level change gets its wait again, and starts the
+            # walk itself when it lands.  See _pause.
+            RunLoop.main().perform(self, 'ChangeLevel_', None, LEVEL_CHANGE_SECONDS)
+        elif self.isTutorial:                                 # 0x33a02
             self.MotionSamplingTimer = RunLoop.main().scheduledTimer(
                 1.0, self, 'MainControl', None, True)
         else:
@@ -1757,6 +1770,8 @@ class Stage_1_E:
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()
         self.MotionSamplingTimer = None
+        RunLoop.main().cancelPerform(self, 'ChangeLevel_')    # DIVERGENCE, see _pause
+        self.levelChanging = False
         self.MonsterDealloc()
         self.MonsterBuffer = []                               # 0x332f4
         self.gamePlayer = PlayerControl()                     # 0x3333e

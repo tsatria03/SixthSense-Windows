@@ -175,6 +175,14 @@ Once it is dead, every zombie left is killed and counted, the ambience changes, 
 compared against `gameMode - 2` and that there was no boss; that was a misreading of the
 `movw` constants. `bBOSS` is declared and never used.
 
+### Pausing holds the level change
+`ChangeLevel:` is built unconditionally at 0x323c2, and `StopPlayAction:` never cancels
+it, so in the original a pause in those two seconds lets it land under the panel and
+start the walk timer there. Continue or restart then starts a second one beside it, and
+the player walks at double speed. **Fixed, not reproduced:** the pause cancels the
+pending `ChangeLevel_` (`levelChanging` remembers it), continue gives it its two
+seconds again and lets it start the walk itself, and restart drops it.
+
 ### `MonsterKillCount:` does not count kills
 Despite the name, `-[Stage_1_E MonsterKillCount:]` (0x39e00) only bumps the per-kind
 tally (`killMonster1count`..`killMonster11count`, `killMonster5000count`). Every call
