@@ -178,16 +178,19 @@ sixthsense/
     sound_list_control.py
     stage_1_e.py         Stage_1_E, including the pause and result panel
     stage_tutorial.py    Stage_Tutorial
+    stage_1_test.py      Stage_1_TEST - the weapon test range behind Try
     main_controller.py   MainController - the menu
-    intro.py             startIntroPage - the logo, the splash and the warning
+    intro.py             startIntroPage - the logo, the splash, the warning and the story
     blind_screen.py      the shape every self-voiced screen shares
     store.py             the shop: front menu, weapon list, weapon page
     inventory.py         the eight slots, and equipping them
+    debug.py             PORT ADDITION: the --debug keys
   ui/
     input.py             the keyboard, resolved through the keymap
     keybind_screen.py    the self-voiced rebinding screen (F1)
     menu_input.py        Up/Down/Enter for the menu
     screen_input.py      ...and for the shop and the inventory
+    focus.py             switching away from the window pauses a stage
 game/                    the original app bundle, its sounds sorted into folders (see below)
 vendor/                  OpenAL Soft and NVDA's controller client, with their licenses
 analysis/                the binary, and the disassembly this was written from
@@ -220,7 +223,7 @@ tutorial and so on — and each keeps its original file name, so `SoundList.plis
 finds it. Each file was matched to the original by comparing its audio. They came back
 through a compressed copy, so they carry faint codec noise, but they are 16-bit PCM,
 like the originals; six are the original files themselves. `game/sounds/unused/` holds
-26 files that are not the original's own, which the game never uses.
+27 files the game never uses: 26 WAVs that are not the original's own, and a blooper.
 `aidocks/DIVERGENCES.md` has the details.
 
 The port reads from there, so the data it runs on is the original's data. `--game PATH`
@@ -256,7 +259,7 @@ python tests/case/digits.py         # numbers spoken digit by digit, in the righ
 python tests/case/pause.py          # the pause and result panel
 python tests/case/store.py          # the shop, buying, and the inventory
 python tests/case/weapon_range.py   # the weapon test range behind the shop's Try button
-python tests/case/intro.py          # the splash, the warning and skipping them
+python tests/case/intro.py          # the logo, the splash, the warning, the story, skipping
 python tests/case/speech.py         # who speaks what no WAV covers (stand-ins, silent)
 python tests/case/volume.py         # the decibel knobs, and the binary's mix left alone
 python tests/case/monster_sound.py  # zombie sounds read back from OpenAL (audio device)

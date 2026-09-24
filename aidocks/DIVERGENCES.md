@@ -760,8 +760,9 @@ folder: one more `ui_select` in `sfx/misc`, and five more each of `gun_att_sound
 other fifteen never came from the original: the eight character `hurt` sounds,
 `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of
 `Game Start Button`), `welcome`, and `main menu.wav`, a trimmed cut of
-`main menu button` that says only "main menu". Nothing in the port uses them, so the
-sound lookup never looks in `game/sounds/unused/`.
+`main menu button` that says only "main menu". Beside them is one blooper clip, an OGG in
+`bloopers/`, which is not a game sound at all, so the folder holds 27 files. Nothing in
+the port uses them, so the sound lookup never looks in `game/sounds/unused/`.
 
 `main menu button` (355), which the pause panel's last row reads, was one of those
 trimmed cuts until 2026-09-22, when the original recording turned up and tsatria03 put

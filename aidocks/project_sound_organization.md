@@ -18,7 +18,7 @@ metadata:
   - `sfx/weapons` and `sfx/misc`
   - `speech/game`, `logos`, `menus/main`, `menus/store`, `numbers`, `tutorials` and `weapons`
 - **The extra 60 files are same-audio copies.** 38 sounds are shared between folders (for example the boss hit and death in all six boss folders, or `zombie_3_7_hit_player` in six zombie folders), since the original shares damage, death and hit sounds between areas and zombie kinds; only the "coming" loops differ.
-- **`game/sounds/unused/`** holds 26 files that are not the original's own, under their old sub-paths (25 until 2026-09-22; see the update below):
+- **`game/sounds/unused/`** holds 27 files: 26 that are not the original's own, under their old sub-paths (25 until 2026-09-22; see the update below), and since tunmi13productions' `e08fd89` (2026-09-22) one blooper clip, `bloopers/stop_standing_by_the_zombie!.ogg`, which is not a game sound:
   - 11 extra same-folder copies: `sfx/misc/menuclick.wav` (another `ui_select`), five `sfx/weapons/*hit.wav` (`gun_att_sound_1`) and five `*empty.wav` (`weapon_nonbullets`)
   - 14 sounds the original never had: the eight character `hurt1`/`hurt2`, `grenadereload`, `yes`, `no`, `question`, `GameStart` (an edited cut of `Game Start Button`) and `welcome`
 
@@ -43,7 +43,7 @@ metadata:
 ## The real `main menu button` turned up (2026-09-22)
 The dev replaced `speech/menus/main/main menu button.wav` in `used/` themselves. What had been there was a trimmed cut that said only "main menu"; they found the original recording, which says the whole phrase, and put it in. It is mono, 1.41 s, 44.1 kHz, 16-bit, where the trimmed one was stereo and 1.86 s.
 - The trimmed cut is kept in `unused/speech/menus/main/main menu.wav`. **The dev asked for it not to be deleted.**
-- `unused/` therefore holds 26 files now, and the never-in-the-original group is fifteen rather than fourteen.
+- `unused/` therefore holds 26 non-original sounds now (27 files with the blooper clip), and the never-in-the-original group is fifteen rather than fourteen.
 - Sound 355 is what the pause panel's last row reads, so this is what a player hears on the panel's "main menu" row.
 - The 2026-09-21 audio matching found this file matched its namesake, since the trimmed cut is the same recording cut short. A name matching by ear beats a waveform match; if another trimmed cut turns up, the dev's ear decides.
 
@@ -56,11 +56,11 @@ The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the sam
   - It maps each lowercase file name, with its extension, to the file's path.
   - The first copy in sorted order wins when a name is in several folders. The 2026-09-21 rescan confirmed that every copy of a name has the same channels, width and rate, so this is safe.
   - `set_game()` clears it, and `set_game(None)` goes back to the default places.
-  - It never walks `unused/`. None of the 25 names in `unused/` is a `SoundList.plist` name anyway.
+  - It never walks `unused/`. None of the names in `unused/` is a `SoundList.plist` name anyway.
 - **`paths.sounds()`** returns `game()/sounds/used` when that folder exists, otherwise `game()`.
 - **Tests:**
-  - The seven hand-built `os.path.join(paths.sounds(), name + '.wav')` lines now go through the lookup: three in `test_data.py`, one in `test_menu`, two in `test_pause` and one in `test_store`.
-  - `test_data.py` has a new check, `test_every_sound_comes_from_the_sounds_folder`.
+  - The seven hand-built `os.path.join(paths.sounds(), name + '.wav')` lines now go through the lookup: three in `tests/case/data.py`, one in `menu.py`, two in `pause.py` and one in `store.py`.
+  - `tests/case/data.py` has a new check, `test_every_sound_comes_from_the_sounds_folder`.
   - The new `tests/case/paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched, case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
 - **`compiler.py`:**
   - `sound_files()` copies `sounds/used/` with its folders.

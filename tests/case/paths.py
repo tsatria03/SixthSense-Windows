@@ -3,7 +3,7 @@
 The original bundle is flat; the port keeps its sounds in folders under
 ``game/sounds/used`` (aidocks/DIVERGENCES.md).  Each test builds a small bundle of its own in
 a temporary folder, so these check the lookup itself rather than the shipped data - that
-is ``test_data.py``'s job - and they never touch the save or play a sound.
+is ``data.py``'s job - and they never touch the save or play a sound.
 """
 from __future__ import annotations
 

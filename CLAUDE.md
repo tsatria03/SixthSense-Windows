@@ -10,7 +10,7 @@ A Windows port of **Sixth Sense** (`kr.co.bitbee.sixsense` 1.2), a 2013 iPhone a
 
 There is no source code for the original. The port is **recovered from the ARMv7 binary** and rewritten method by method **entirely in Python**. **lbk2907 created it**, including the binary extraction, and handed it to tsatria03 to publish and develop together; the "Initial commit" is entirely their work ([[project_provenance]]). Each Python module mirrors one Objective-C class and cites the binary address it came from ([[project_python_only]]).
 
-The game plays the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. The only synthesised speech is the key-bindings screen and a few "not available" lines, through NVDA, another screen reader via Prism, or a Windows voice ([[project_prism_speech]]).
+The game plays the original's own 269 recorded WAVs, which `SoundList.plist` names by number in 371 entries. With voice over on, the only synthesised speech is the key-bindings screen and a few "not available" lines. With voice over off, the screen reader mode also speaks the menus, the shop, the inventory, the opening screen and the result panel ([[project_screen_reader_mode]]). All of it goes through NVDA, another screen reader via Prism, or a Windows voice ([[project_prism_speech]]).
 
 ## Layout
 
@@ -22,7 +22,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
   - `defaults.py`: stands in for `NSUserDefaults`.
   - `speech.py`, `keymap.py`, `music.py` and `volume.py` (the decibel knobs, [[project_volume_knobs]]).
 - **`sixthsense/ui/`**: the keyboard input for the stage, the menus and the screens, plus the F1 key-bindings screen.
-- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 25 files that aren't the original's own, which the game never uses. `paths.path_for_resource` looks in the top folder first, then by file name under `game/sounds/used/` ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
+- **`game/`**: the original app bundle's data: the plists, the maps, the images and the iOS binary. Every sound the game uses lives in `game/sounds/used/`, in folders, under its original file name, a deliberate divergence. `game/sounds/unused/` holds 27 files the game never uses: 26 WAVs that aren't the original's own, and one blooper clip. `paths.path_for_resource` looks in the top folder first, then by file name under `game/sounds/used/` ([[project_sound_organization]]). Don't move, rename, convert or delete sound files unless the dev asks.
 - **`analysis/`**:
   - `bin/sixsense_armv7`: the binary itself.
   - `disasm/dc_*.txt`: per-class decompiled listings.
@@ -45,7 +45,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 
 **The dev runs and builds, not Claude.** Never build unless told to. The tests may be run without asking, always the safe way ([[project_safe_test_run]]), but only the scripts that cover the Python files changed; the full suite runs only when the dev asks ([[feedback_dont_run_or_build]]). Ask before running the game, `compiler.py`, or anything else that executes game code or speaks ([[feedback_dont_run_or_build]]).
 
-`python SixthSense.py` opens the splash, then the menu. Flags:
+`python SixthSense.py` plays the publisher's logo, then the opening screen, then the menu. Flags:
 - `--no-intro` opens straight on the menu.
 - `--stage` and `--tutorial` start those directly.
 - `--skip-tutorial` writes `TUTORIAL=1`.
@@ -53,7 +53,7 @@ The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.js
 - `--debug`: a zombie that reaches you just dies, nothing takes a heart, and no kill, headshot, score or gold counts. Tab reaches every weapon and nothing runs out. Starting or restarting needs no coin and spends none. It adds F2, Shift+F2, F5, Shift+F5, F6, F7 and F11 (`game/debug.py`), which the F1 screen lists only in debug mode.
 - `-v` gives verbose logging.
 
-This needs Python 3.12 x64, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). `pip install -r requirements.txt` installs both.
+This needs 64-bit Python 3.12 or newer, pygame and `prismatoid` (Prism). Without Prism the game still runs, but only NVDA speaks ([[project_prism_speech]]). `pip install -r requirements.txt` installs both.
 
 ## Porting rules
 

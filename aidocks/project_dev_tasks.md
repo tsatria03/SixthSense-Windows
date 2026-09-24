@@ -46,7 +46,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 - The organized sounds are 16-bit WAV again, the format the game's sound loaders read, instead of the 24-bit the OGG conversion had left them in.
 - The sounds are organized into folders in game/sounds, and every one that came from the original carries its original file name again, 323 files in all, each checked by comparing its audio with the original's.
 - The compiler has been changed to build Sixth Sense. It only needs pygame, copies just the files the game reads, and leaves the original iOS executable out of the release.
-- The whole port has been evaluated, and every bug and missing feature that turned up is listed in the unfinished section, most important first.
+- The whole port has been evaluated, and every bug and missing feature that turned up was listed in the todo list's unfinished section, most important first.
 - The initial commit is credited to lbk2907 on GitHub, and every commit uses GitHub usernames instead of real names.
 - The license credits tsatria03 and lbk2907.
 - The private user folder and the scratchpad are kept out of the repository by the git ignore file.
