@@ -102,14 +102,17 @@ class StartIntroPage(BlindScreen):
         self.app.haveGold = d.intForKey_('GOLD')              # 0x178e4
         self.app.stage = d.intForKey_('STAGE')                # 0x17918
         self.text = WELCOME_TEXT
-        self.selectMenu = 1                                   # 0x17ada
-        self.StopElseSpeak()
-        if self.screen_reader:
-            # the welcome text already says to use earphones, so no reminder follows
-            self.say(WELCOME_TEXT)
-            return
-        self.play(SOUND_WELCOME)                              # 0x17b32
-        RunLoop.main().perform(self, 'sound_earphone', None, WELCOME_SECONDS)
+        self.select(1)                                        # 0x17ada, 0x17b32
+        if not self.screen_reader:
+            # Only behind this first reading: the welcome text already says to use
+            # earphones, so a reread or the screen reader mode gets no reminder.
+            RunLoop.main().perform(self, 'sound_earphone', None, WELCOME_SECONDS)
+
+    def StopElseSpeak(self):
+        """Moving rows also stops the earphone reminder, or cancels its wait."""
+        BlindScreen.StopElseSpeak(self)
+        self.app.stopSoundBufNumber_(SOUND_EARPHONE)
+        RunLoop.main().cancelPerform(self, 'sound_earphone')
 
     def sound_earphone(self, *_):
         self.play(SOUND_EARPHONE)

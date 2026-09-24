@@ -449,7 +449,10 @@ make). Playing it there in the port meant repeating the same four-second recordi
 every single time a game was started. It now plays once, from `StartIntroPage`, timed
 to start after the welcome message (`WELCOME_SECONDS`, measured from the WAV) - and
 skipping the intro (`skipAction`) cancels or stops it, the same way skipping cuts off
-the welcome message itself, so a player who skips never hears it at all.
+the welcome message itself, so a player who skips never hears it at all. Moving
+to the other row stops it or cancels its wait (`StartIntroPage.StopElseSpeak`), and it
+follows only the welcome message the screen opens with: coming back to the welcome row
+reads the message alone, since the message already says to use earphones.
 
 ### The menu has music, and the volumes have knobs
 `bgm_main_menu` under the main menu is a port addition: the original's `MainController`

@@ -52,6 +52,12 @@ def _spy(app):
     return played, real_play
 
 
+def _earphone_playing(app):
+    """234's slot outlives the test that played it, so its being there says nothing."""
+    i = app.CheckSoundBuf_(234)
+    return i != -1 and app.aSoundBufControlData[i].bIsPlaying
+
+
 def test_the_earphone_reminder_waits_for_the_welcome_message():
     """PORT ADDITION: the original never plays 234 here at all - it only plays it
     from MainController's StartGameAction:, which used to collide with the
@@ -90,10 +96,9 @@ def test_skipping_after_it_already_started_stops_it():
     page = _page(welcome=0.2)
     app = page.app
     try:
-        got = _pump(RunLoop.main(), 1.0, until=lambda: app.CheckSoundBuf_(234) != -1)
+        got = _pump(RunLoop.main(), 1.0, until=lambda: _earphone_playing(app))
         assert got, 'the earphone reminder never started playing'
         i = app.CheckSoundBuf_(234)
-        assert app.aSoundBufControlData[i].bIsPlaying
         page.skipAction()
         assert not app.aSoundBufControlData[i].bIsPlaying, \
             'the earphone reminder kept playing after skipping'
@@ -101,6 +106,42 @@ def test_skipping_after_it_already_started_stops_it():
         page.teardown()
         _restore()
 
+
+
+def test_moving_off_the_welcome_row_cancels_the_earphone_reminder():
+    """Row 2 never hears the reminder, and coming back to row 1 reads the welcome
+    message alone, since it already says to use earphones."""
+    page = _page(welcome=0.3)
+    app = page.app
+    played, real_play = _spy(app)
+    try:
+        page.move(1)
+        _pump(RunLoop.main(), 0.6)
+        assert 234 not in played, 'the earphone reminder played over row 2'
+        page.move(-1)
+        assert page.selectMenu == 1
+        assert 14 in played, 'coming back to row 1 did not read the welcome message'
+        _pump(RunLoop.main(), 0.6)
+        assert 234 not in played, 'the earphone reminder followed the reread welcome'
+    finally:
+        app.playSound_Gain_Pos_z_reprats_ = real_play
+        page.teardown()
+        _restore()
+
+
+def test_moving_rows_after_it_already_started_stops_it():
+    page = _page(welcome=0.2)
+    app = page.app
+    try:
+        got = _pump(RunLoop.main(), 1.0, until=lambda: _earphone_playing(app))
+        assert got, 'the earphone reminder never started playing'
+        i = app.CheckSoundBuf_(234)
+        page.move(1)
+        assert not app.aSoundBufControlData[i].bIsPlaying, \
+            'the earphone reminder kept playing over row 2'
+    finally:
+        page.teardown()
+        _restore()
 
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]

@@ -3,9 +3,7 @@
 The "no coin" message still says to share coins with friends at the ranking page, which is gone, and with voice over off the screen reader reads it aloud.
 The key bindings screen lists Escape as "Quit", but in a stage it pauses and in the shop it goes back.
 Pausing during the two seconds after a level's boss dies lets the walk start again under the pause panel, and choosing restart in that moment makes you walk twice as fast. The original has the same pause bug.
-Moving between the two rows of the intro screen does not stop the "you must use earphones" warning, so it can play over the other row.
 Continuing after a pause restarts the ambience and the music on each other's players, so the music can stop until the next section of the corridor, and the ambience can go silent for the rest of the stage. The original restarts both as ordinary game sounds.
-Moving between the two rows of the intro screen lets their sounds overlap.
 "Not enough gold" is silent on a new save, and the mode row says voice over is on.
 The weekly top score never resets.
 A damaged save file is wiped and replaced, losing all your gold and weapons.
@@ -16,6 +14,8 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+Moving between the two rows of the opening screen stops the "you must use earphones" warning, which plays only once, after the first welcome message.
+Moving between the two rows of the opening screen no longer lets their sounds overlap.
 Choosing a result row on the pause and result panel reads that row again, instead of the wrong number or nothing.
 With voice over on, the score row on the pause and result panel reads your score aloud after its name, as in the original.
 With voice over turned off, the Left and Right arrows move to the previous and the next row in the menus and on the pause and result panel, like VoiceOver's flicks.
