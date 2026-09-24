@@ -1,11 +1,21 @@
 ##Unfinished.
 
-Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
+Pausing never says "paused". The original says it half a second after the click.
+In the tutorial, the reload lesson's instruction repeats about every ten seconds until you reload. The original plays it once.
+The weapon change sound is much louder than in the original, which plays it quietly at a fixed volume.
+Gunshots are heard further to the side than in the original, which places each lane's shot only partly to the side.
+A grenade adds to the score only for the zombies it kills. In the original every zombie it hurts adds to the score.
+A zombie hitting you, and the girl thanking you, are heard from their side. The original plays both in the middle of your head.
+The empty magazine click is heard in the middle and holds back your next shot. In the original it comes from the lane you aimed at, and you can click again straight away.
+The coin row's time until the next coin is read with slightly longer pauses between its parts than in the original.
+Choosing the Store row, or Start Game with no coin, makes no click. The original clicks for both.
+When you start a game, it should not automaticly add back cold, knife, and grenade weapons to your inventory after pressing tab if you never equipped them in the first place.
+If you have no weapons equipped, it should automaticly equip the first 3 weapons by default.
 
 ##Finished.
+
 The readme, the changelog and the todo list are in a docks folder beside the game.
 A readme.txt beside the game says how to play, in plain text with one sentence a line.
-
 The opening screen's third row tells the game's story, which the original recorded but never played, with quiet music under it, read by your screen reader with voice over off.
 A save with too few coins and no coin clock running starts the clock when the main menu opens, so the coins always come back.
 The game opens with Bitbee's logo sound a moment after it starts, as the original does, and Enter skips it.
