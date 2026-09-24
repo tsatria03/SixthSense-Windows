@@ -190,6 +190,47 @@ def test_a_zombie_hitting_you_is_heard_in_the_middle():
         st.teardown()
 
 
+def test_an_empty_gun_clicks_at_its_lane_and_is_ready_again_at_once():
+    """Each lane's ammo check branches to a block that plays 78 at 0.5, z 40, and clears
+    shotFlag at once.  Lanes 1, 3 and 5 click at their gunshot point; lanes 2 and 4 share
+    0x2f808, lane 2's (-15, 25).  The grenade clicks in the centre (0x2f4e8)."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: played.append((n, g, pos, z))
+    want = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (-15.0, 25.0),
+            5: (25.0, 0.0)}
+    d = UserDefaults.standardUserDefaults()
+    grenades = d.stringForKey_('GRENADECOUNT')
+    was_debug = app.debug
+    app.debug = False
+    try:
+        w = st.weaponSource[st.gamePlayer.useWepon]
+        assert w.WeaponNumber not in (0, 1, 7), 'expected a gun'
+        for lane in LANE:
+            w.BulletCount = 0
+            played.clear()
+            st.shotFlag = False
+            st.MovingShot_(LANE[lane])
+            assert (78, 0.5, want[lane], 40) in played, (lane, played)
+            assert st.shotFlag is False, 'lane %d: the empty click held the next shot' % lane
+        d.setObject_forKey_('0', 'GRENADECOUNT')
+        st.gamePlayer.useWepon = 0
+        played.clear()
+        st.shotFlag = False
+        st.MovingShot_(LANE[3])
+        assert (78, 0.5, (0.0, 0.0), 40) in played, played
+        assert st.shotFlag is False
+    finally:
+        app.debug = was_debug
+        if grenades is None:
+            d.removeObjectForKey_('GRENADECOUNT')
+        else:
+            d.setObject_forKey_(grenades, 'GRENADECOUNT')
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
 def test_a_shot_in_the_lane_does_damage():
     _app, st = _new_stage()
     loop = RunLoop.main()

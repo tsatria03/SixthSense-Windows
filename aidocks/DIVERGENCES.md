@@ -114,6 +114,16 @@ weapon the reload began with (`reloadWeaponNumber`, 0x35f2a). The grenade is not
 reloaded (0x351c8). The port's reload key called `GunReloadAction:` directly, past all
 of that. **Reproduced**; the key now does nothing with the grenade or a blade.
 
+### An empty gun at 1:30 clicks from 10:30
+Firing with an empty magazine plays the click (78) at 0.5, z 40, and clears `shotFlag`
+at once, so you can click again straight away. Each lane's ammo check branches to a
+block that sets where: lane 1 (0x2f8a4 -> 0x2f9fa), 3 (0x2f756 -> 0x2f952) and 5
+(0x2fb1a -> 0x2fcc8) click at their own gunshot point, but lanes 2 and 4 (0x2f3f8,
+0x2f5d8) both branch to 0x2f808, which stores lane 2's (-15, 25), so an empty gun aimed
+half right clicks half left. The grenade's empty click is in the centre (0x2f4e8).
+**Reproduced** (`EMPTY_CLICK_POS`) on 2026-09-24; the port had centred every click at
+z 0 and held the next shot for the weapon's `ShotTime`.
+
 ### The zig-zag walks cannot be reached
 Types whose id ends in 6 to 0 walk the zig-zags (`MovingType` 11..55), but
 `monsterArray` only holds ids ending in 1 to 5, and the scripted spawns are straight

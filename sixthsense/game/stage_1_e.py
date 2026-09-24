@@ -206,6 +206,13 @@ SHOT_DISTANCE = 40.0
 GUN_SHOT_POS = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (15.0, 25.0),
                 5: (25.0, 0.0)}
 GUN_SHOT_Z = 40
+#: Where the empty click (78) is heard, by lane, at z 40.  Each lane's ammo check branches
+#: to a block that sets the point: lane 1 (0x2f8a4 -> 0x2f9fa), 3 (0x2f756 -> 0x2f952) and
+#: 5 (0x2fb1a -> 0x2fcc8) use their own gunshot points, but lanes 2 and 4 (0x2f3f8 and
+#: 0x2f5d8) both branch to 0x2f808, which stores lane 2's (-15, 25) - so in the original an
+#: empty gun aimed at 1:30 clicks from 10:30.  Reproduced.
+EMPTY_CLICK_POS = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (-15.0, 25.0),
+                   5: (25.0, 0.0)}
 
 #: 0x2d45e (0x7d6a2 in Stage_Tutorial) - how long the original waits, after Now
 #: Loading plays, before calling MapInitInBundle - so the recording has time to
@@ -865,10 +872,14 @@ class Stage_1_E:
             RunLoop.main().perform(self, 'MonsterDamageKnife', None, 0.1)
             return
 
-        if weapon.BulletCount <= 0:                            # 0x2f3f6
+        if weapon.BulletCount <= 0:                            # 0x2f3f6 and the others
+            # The empty click (78) at 0.5, z 40, at the lane's point (EMPTY_CLICK_POS),
+            # and shotFlag cleared at once (strb r6, [r4, r5] at 0x2fcf2), so you can
+            # click again straight away.  The port had it centred, and held the next
+            # shot for ShotTime.
             self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_NO_BULLETS, 0.5, (0.0, 0.0), 0, False)
-            RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
+                SOUND_NO_BULLETS, 0.5, EMPTY_CLICK_POS[lane], GUN_SHOT_Z, False)
+            self.shotFlag = False
             return
 
         # 0x2f41a: ammunition is only spent once the tutorial has been cleared.
@@ -909,9 +920,11 @@ class Stage_1_E:
         d = UserDefaults.standardUserDefaults()
         n = d.intForKey_('GRENADECOUNT')
         if n <= 0 and not self.app.debug:           # --debug: grenades never run out
+            # 0x2f4e8..0x2f50c: the empty click in the centre, z 40, and shotFlag
+            # cleared at once.
             self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_NO_BULLETS, 0.5, (0.0, 0.0), 0, False)
-            RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
+                SOUND_NO_BULLETS, 0.5, (0.0, 0.0), GUN_SHOT_Z, False)
+            self.shotFlag = False
             return
         self.app.playSound_Gain_Pos_z_reprats_(
             weapon.ShotSoundNumber, weapon.ReloadSoundGain, (0.0, 0.0), 40, False)
