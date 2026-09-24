@@ -110,7 +110,7 @@ Checked in the raw bytes at the dev's asking ("Look at the binary for this one")
 
 Every source file, the docs and the notes were read again; nothing was run. Four small findings went to the top of `todo list.txt`'s `##Unfinished.`; the same day the last two moved to [[project_dev_tasks]], when the todo list became players only:
 - [V] **Fixed 2026-09-23, confirmed by the dev:** the sentence is now just "No coin." Recording 358 says the whole sentence as well (the dev heard it), so `AppDelegate.playNoCoin_` stops it at 0.95 s, in the pause after "no coin" (measured; the rest starts at 1.05 s). Used by the menu and the panel's restart; the WAV is untouched. Was: the no-coin sentence (`MainController.StartGameAction_`) still points to "the ranking page". It is the original's own string (VM 0xb5ad6), but the ranking row is gone, and in screen reader mode it is spoken.
-- [V] `keymap.FIXED` labels Escape "Quit" on the F1 screen's window text, though Escape pauses a stage and goes back in the shop.
+- [V] **Fixed 2026-09-23, confirmed by the dev:** the label is now "Back, pause or quit". Was: `keymap.FIXED` labels Escape "Quit" on the F1 screen's window text, though Escape pauses a stage and goes back in the shop.
 - [V] `SixthSense._stage_lines`' debug line leaves out `debug_hits` (F7).
 - [V] Stale prose: README.md says the game "needs no screen reader"; `monster_control.ZIGZAG_ANGLE`'s comment calls the zig-zags "not a corner case"; `runloop.py`'s header says timers and performs share one queue.
 

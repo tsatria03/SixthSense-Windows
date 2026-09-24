@@ -84,7 +84,9 @@ DEFAULTS = {a[0]: [tuple(b) for b in a[2]] for a in ACTIONS}
 
 # Not rebindable, on purpose: bind over these and there is no way back into the game
 # or into the binding screen without deleting the save.
-FIXED = {'f1': 'Key bindings', 'escape': 'Quit'}
+# Escape goes back from the shop's screens, pauses a stage, leaves the tutorial and
+# quits only from the main menu.
+FIXED = {'f1': 'Key bindings', 'escape': 'Back, pause or quit'}
 
 # pygame's names are terse and some of them read badly; these are for speech.
 SPOKEN = {
