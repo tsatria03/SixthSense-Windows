@@ -599,6 +599,11 @@ is running.
 - What a choice says back, such as "Gold is lacking." or "Equipped.", is spoken too.
   "Gold is lacking." is heard in both modes: the original only played its recording in
   the self-voiced mode (0x1bbee) and left VoiceOver to read the label.
+- Start Game with no coin says only "No coin." The original's sentence (0xb5ad6) goes
+  on to point to the coin store and the ranking page, and the port has neither.
+  Recording 358 says the whole sentence too, so in both modes, from the menu and from
+  the panel's restart, it is stopped in the pause after its first two words
+  (`AppDelegate.playNoCoin_`, `NO_COIN_WORDS_SECONDS`, 0.95 s). The WAV is left whole.
 - The opening screen reads its welcome text and skips the earphone reminder, which the
   welcome text already says.
 - The panel reads "Paused", "Mission success" or "Game over", each result with its

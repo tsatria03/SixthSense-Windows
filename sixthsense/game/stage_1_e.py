@@ -1740,7 +1740,10 @@ class Stage_1_E:
             return False
         self.bStop = False                                    # 0x3310c
         if self.app.Coin <= 0:                                # 0x33128
-            self._panel_voice(358)
+            if self.app.screen_reader:
+                self._panel_voice(358)
+            else:
+                self.app.playNoCoin_(0.2)
             self._reset_run_flags()                           # L_337b6 runs either way
             return False
         self.app.Coin -= 1                                    # 0x33146

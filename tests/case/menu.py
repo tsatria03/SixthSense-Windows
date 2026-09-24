@@ -318,6 +318,31 @@ def test_no_coin_means_no_game():
         m.teardown()
 
 
+def test_no_coin_stops_after_its_first_two_words():
+    """DIVERGENCE: 358 goes on to the coin store and the ranking page, which are
+    gone, so it is stopped in the pause after "no coin"."""
+    from sixthsense.game.app_delegate import NO_COIN_WORDS_SECONDS
+    m = _menu(coins=0)
+    app = m.app
+    try:
+        m.selectMenu = 3
+        m.activate()
+        i = app.CheckSoundBuf_(358)
+        assert i != -1 and app.aSoundBufControlData[i].bIsPlaying, '358 never played'
+        loop = RunLoop.main()
+        t0 = time.monotonic()
+        while time.monotonic() - t0 < NO_COIN_WORDS_SECONDS - 0.3:
+            loop.pump()
+            time.sleep(0.004)
+        assert app.aSoundBufControlData[i].bIsPlaying, '358 stopped before "no coin"'
+        while time.monotonic() - t0 < NO_COIN_WORDS_SECONDS + 0.3:
+            loop.pump()
+            time.sleep(0.004)
+        assert not app.aSoundBufControlData[i].bIsPlaying, \
+            '358 went on to the coin store and the ranking page'
+    finally:
+        m.teardown()
+
 def test_the_tutorial_row_needs_no_coin():
     m = _menu(coins=0)
     try:
@@ -658,7 +683,7 @@ def test_no_coin_is_read_by_the_screen_reader_with_voice_over_off():
         m.selectMenu = 3
         m.activate()
         assert m.next_screen is None
-        assert m.speech.said[-1].startswith('No coin.'), m.speech.said
+        assert m.speech.said[-1] == 'No coin.', m.speech.said
     finally:
         m.app.mode = 1
         m.teardown()

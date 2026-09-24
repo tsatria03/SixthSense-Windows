@@ -1,4 +1,5 @@
 unrelease:
+Starting a game with no coin now says only no coin, instead of going on to point to a coin store and a ranking page that are gone.
 Moving between the two rows of the opening screen stops the you must use earphones warning, instead of letting it play over the other row. Coming back to the welcome row reads the welcome message without the warning after it, since the message already says to use earphones.
 Choosing a result row on the pause and result panel reads that row again. Before, with voice over on, the headshots row said nothing, the score row read the headshots, the top score row said nothing, and the first row said paused even after the game was over.
 With voice over on, the score row on the pause and result panel reads your score aloud after its name, as the original does, instead of saying nothing.

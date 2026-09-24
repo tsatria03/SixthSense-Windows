@@ -61,6 +61,10 @@ TTS_MINUTES = 336
 TTS_SECONDS = 337
 TTS_COIN_FULL = 338
 TTS_COIN_AFTER = 339
+SOUND_NO_COIN = 358
+#: PORT ADDITION: measured - 358 says "no coin" in its first 0.85 s, then after a
+#: pause points to the coin store and the ranking page, which the port does not have.
+NO_COIN_WORDS_SECONDS = 0.95
 
 # -[MainController coinTiemrControlStart] 0xbe01 / coinUpTimer 0xc0b1
 COIN_INTERVAL = 1800.0     # seconds per coin - `rsb.w r2, r0, #0x708` at 0xc1ee
@@ -214,6 +218,17 @@ class AppDelegate:
             self.playback.stopSound_(i)
         self.playback.queueNote_gain_sourcePos_defaultZ_repeats_(i, gain, pos, z, repeats)
         self.playback.startSound_Postion_(i, pos)
+
+    def playNoCoin_(self, gain):
+        """DIVERGENCE: 358 is stopped in the pause after its first two words, so only
+        "no coin" is heard. The WAV itself is left whole."""
+        loop = RunLoop.main()
+        loop.cancelPerform(self, 'stopNoCoin')     # a replay must not be cut by the old stop
+        self.playSound_Gain_Pos_z_reprats_(SOUND_NO_COIN, gain, (0.0, 0.0), 0, False)
+        loop.perform(self, 'stopNoCoin', None, NO_COIN_WORDS_SECONDS)
+
+    def stopNoCoin(self, *_):
+        self.stopSoundBufNumber_(SOUND_NO_COIN)
 
     # ==================================================== spoken numbers (TTS)
     # -[AppDelegate TTSNumber:type:] 0x5590

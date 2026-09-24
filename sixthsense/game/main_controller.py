@@ -294,13 +294,14 @@ class MainController:
             # over 7 s, and plays 358 - nothing about it is spoken. The port used to
             # add its own spoken line on top of the recording; that was never here.
             # With voice over off, the screen reader reads the sentence instead.
-            self.message = ('No coin. You can buy coin at the store or share with '
-                            'friends at the ranking page.')
+            # DIVERGENCE: the original's sentence (0xb5ad6) goes on to "You can buy
+            # coin at the store or share with friends at the ranking page", and the
+            # port has neither, so only what the recording says is kept.
+            self.message = 'No coin.'
             if self.app.screen_reader:
                 self._say(self.message)
             else:
-                self.app.playSound_Gain_Pos_z_reprats_(
-                    SOUND_NO_COIN, 0.2, (0.0, 0.0), 0, False)
+                self.app.playNoCoin_(0.2)
 
     # -[MainController TutorialAction:] 0xad5d
     def TutorialAction_(self, *_):
