@@ -1,9 +1,9 @@
 ##Unfinished.
 
-Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
 
 ##Finished.
 
+When headphones are unplugged or plugged back in, or the output is switched in Windows, the game's sound follows within a second, music included.
 When the game cannot start, or stops because of an error, it says why out loud.
 Changing the music or the ambience no longer leaks memory.
 A damaged save file is kept aside, and the game carries on from a backup of the save before it, so your gold and weapons are kept.

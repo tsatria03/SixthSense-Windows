@@ -11,11 +11,15 @@ OpenAL does for plain core AL calls.
 """
 from __future__ import annotations
 
+import atexit
 import ctypes
+import logging
 import os
 from ctypes import POINTER, byref, c_char_p, c_float, c_int, c_uint, c_void_p
 
 from .. import paths
+
+log = logging.getLogger('openal')
 
 # --- core AL enums (the ones the original passes) ---------------------------
 AL_NONE = 0
@@ -58,6 +62,16 @@ ALC_HRTF_SPECIFIER_SOFT = 0x1995
 ALC_TRUE = 1
 ALC_FALSE = 0
 
+# ALC_EXT_disconnect
+ALC_CONNECTED = 0x313
+
+# ALC_SOFT_system_events: checked against OpenAL Soft 1.25.1 on WASAPI, where
+# alcEventIsSupportedSOFT answers 0x19D9 for all three once the driver has started
+ALC_PLAYBACK_DEVICE_SOFT = 0x19D4
+ALC_EVENT_TYPE_DEFAULT_DEVICE_CHANGED_SOFT = 0x19D6
+ALC_EVENT_SUPPORTED_SOFT = 0x19D9
+_EVENT_CALLBACK = ctypes.CFUNCTYPE(None, c_int, c_int, c_void_p, c_int, c_char_p, c_void_p)
+
 AL_ERRORS = {0xA001: 'AL_INVALID_NAME', 0xA002: 'AL_INVALID_ENUM', 0xA003: 'AL_INVALID_VALUE',
              0xA004: 'AL_INVALID_OPERATION', 0xA005: 'AL_OUT_OF_MEMORY'}
 
@@ -78,6 +92,7 @@ _SIGNATURES = [
     ('alcGetString', c_char_p, [c_void_p, c_int]),
     ('alcGetIntegerv', None, [c_void_p, c_int, c_int, POINTER(c_int)]),
     ('alcIsExtensionPresent', c_int, [c_void_p, c_char_p]),
+    ('alcGetProcAddress', c_void_p, [c_void_p, c_char_p]),
     ('alGetError', c_int, []),
     ('alGetString', c_char_p, [c_int]),
     ('alDistanceModel', None, [c_int]),
@@ -124,6 +139,14 @@ class AL:
         self.device = None
         self.context = None
         self.hrtf = False
+        self._attrs = None
+        self._can_check = False       # ALC_EXT_disconnect
+        self._reopen = None           # alcReopenDeviceSOFT, ALC_SOFT_reopen_device
+        self._sources = set()         # every source gen_source made and not yet deleted
+        self._loops = []              # the looping sources playing at the last check
+        self.default_changed = False  # set from OpenAL's own thread, see _watch_default
+        self._event_callback = None
+        self._set_event_callback = None
 
     # ---- device / context -------------------------------------------------
     def open(self) -> None:
@@ -147,6 +170,7 @@ class AL:
             attrs += [ALC_HRTF_SOFT, ALC_FALSE]
         attrs.append(0)
         arr = (c_int * len(attrs))(*attrs)
+        self._attrs = arr                                   # kept for reopen
         self.context = self.alcCreateContext(self.device, arr)
         if not self.context:
             raise OpenALError('alcCreateContext failed')
@@ -162,6 +186,100 @@ class AL:
         # AL_MAX_DISTANCE 800 in -queueNote: were tuned against.
         self.alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED)
         self.alGetError()
+        self._can_check = bool(self.alcIsExtensionPresent(self.device, b'ALC_EXT_disconnect'))
+        if self.alcIsExtensionPresent(self.device, b'ALC_SOFT_reopen_device'):
+            addr = self.alcGetProcAddress(self.device, b'alcReopenDeviceSOFT')
+            if addr:
+                self._reopen = ctypes.CFUNCTYPE(ctypes.c_byte, c_void_p, c_char_p,
+                                                POINTER(c_int))(addr)
+        self._watch_default()
+
+    def _watch_default(self) -> None:
+        """Ask OpenAL to say when Windows' default output changes, such as headphones
+        plugged back in, which leaves the old device connected and so is not a loss.
+        The callback runs on OpenAL's own thread, so it only raises a flag."""
+        if not self.alcIsExtensionPresent(self.device, b'ALC_SOFT_system_events'):
+            return
+        get = self.alcGetProcAddress
+        supported = get(None, b'alcEventIsSupportedSOFT')
+        control = get(None, b'alcEventControlSOFT')
+        callback = get(None, b'alcEventCallbackSOFT')
+        if not (supported and control and callback):
+            return
+        supported = ctypes.CFUNCTYPE(c_int, c_int, c_int)(supported)
+        if supported(ALC_EVENT_TYPE_DEFAULT_DEVICE_CHANGED_SOFT,
+                     ALC_PLAYBACK_DEVICE_SOFT) != ALC_EVENT_SUPPORTED_SOFT:
+            return
+
+        def on_event(event, kind, device, length, message, user):
+            if (event == ALC_EVENT_TYPE_DEFAULT_DEVICE_CHANGED_SOFT
+                    and kind == ALC_PLAYBACK_DEVICE_SOFT):
+                self.default_changed = True
+
+        self._event_callback = _EVENT_CALLBACK(on_event)      # kept alive while set
+        self._set_event_callback = ctypes.CFUNCTYPE(None, _EVENT_CALLBACK, c_void_p)(callback)
+        self._set_event_callback(self._event_callback, None)
+        events = (c_int * 1)(ALC_EVENT_TYPE_DEFAULT_DEVICE_CHANGED_SOFT)
+        ctypes.CFUNCTYPE(ctypes.c_byte, c_int, POINTER(c_int), ctypes.c_byte)(control)(
+            1, events, 1)
+        # OpenAL is never closed on exit, so let go of the callback before Python stops
+        atexit.register(self._unwatch_default)
+
+    def _unwatch_default(self) -> None:
+        if self._set_event_callback is not None:
+            self._set_event_callback(_EVENT_CALLBACK(), None)
+            self._set_event_callback = None
+
+    # ---- a lost device ----------------------------------------------------
+    def connected(self) -> bool:
+        """False once the device has gone, such as headphones unplugged."""
+        if not self.device or not self._can_check:
+            return True
+        v = c_int(1)
+        self.alcGetIntegerv(self.device, ALC_CONNECTED, 1, byref(v))
+        return bool(v.value)
+
+    def reopen(self) -> bool:
+        """Move this device onto the current default output, keeping every buffer,
+        source and setting, HRTF off included."""
+        if not self.device or self._reopen is None:
+            return False
+        return bool(self._reopen(self.device, None, self._attrs))
+
+    def check_device(self) -> bool:
+        """PORT ADDITION: the original rebuilt its audio on coming back to the
+        foreground (``-[Stage_1_E audioRestart]`` 0x2c5bc).  Here the device moves to
+        the default output as soon as it is lost or Windows' default changes.
+
+        A lost device stops every source, so the loops that were playing at the last
+        check - the music, the ambience, the footsteps - are started again; a paused
+        one was not playing, so it stays paused.  True if the device moved."""
+        moved = self.default_changed
+        if self.connected() and not moved:
+            self._loops = self._looping_sources()
+            return False
+        why = 'the default output changed' if moved else 'the audio device was lost'
+        if not self.reopen():
+            log.warning('%s, and the device could not be reopened', why)
+            return False
+        self.default_changed = False
+        stopped = [s for s in self._loops
+                   if s in self._sources and self.source_state(s) != AL_PLAYING]
+        for s in stopped:
+            self.alSourcePlay(s)
+        log.info('%s; reopened on the default output, %d loops started again',
+                 why, len(stopped))
+        return True
+
+    def _looping_sources(self):
+        looping = c_int(0)
+        out = []
+        for s in self._sources:
+            if self.source_state(s) == AL_PLAYING:
+                self.alGetSourcei(s, AL_LOOPING, byref(looping))
+                if looping.value:
+                    out.append(s)
+        return out
 
     def close(self) -> None:
         if self.context:
@@ -186,12 +304,14 @@ class AL:
     def gen_source(self) -> int:
         s = c_uint(0)
         self.alGenSources(1, byref(s))
+        self._sources.add(s.value)
         return s.value
 
     def delete_source(self, sid: int) -> None:
         if sid:
             s = c_uint(sid)
             self.alDeleteSources(1, byref(s))
+            self._sources.discard(sid)
 
     def buffer_data(self, bid: int, fmt: int, pcm: bytes, rate: int) -> None:
         self.alBufferData(bid, fmt, pcm, len(pcm), rate)

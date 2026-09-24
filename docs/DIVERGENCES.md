@@ -127,8 +127,14 @@ stage and the tutorial answer it with `interruptStop`, which calls `StopPlayActi
 (`ui/focus.py`), calling what P calls: the pause panel in a stage, every time, and in the
 tutorial whatever P does there. The menus ignore it, as nothing else
 observed the notification. Coming back resumes nothing; the panel waits for Continue.
-`InterruptOff`'s rebuild of the audio device (`audioRestart`, 0x2c5bc) is not ported
-yet. **Reproduced.**
+**Reproduced.** `InterruptOff`'s rebuild of the audio device (`audioRestart`, 0x2c5bc)
+is done differently: the frame loop asks OpenAL once a second, and at once when the
+window gets focus back, whether the device is still connected (`ALC_EXT_disconnect`), and
+OpenAL says when Windows' default output changes (`ALC_SOFT_system_events`). Either way
+the device moves onto the default output in place (`alcReopenDeviceSOFT`,
+`AL.check_device`), keeping every loaded sound. A lost device stops every source, so
+the loops that were playing at the last check, the music, the ambience and the
+footsteps, are started again; a paused one stays paused.
 
 ### Shaking free takes 1 to 5 presses, drawn for each grab
 The original takes ten shakes of the phone, and the only two methods that reset

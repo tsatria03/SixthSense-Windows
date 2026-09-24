@@ -1,4 +1,5 @@
 unrelease:
+When the audio device goes away, such as headphones being unplugged, or Windows switches to another output, such as headphones plugged back in, the game moves its sound there within a second, music and ambience included, instead of going silent until you restart it.
 When the game cannot start, or stops because of an error, it says why through your screen reader, or a Windows voice if none is running, instead of closing without a word.
 A damaged save file is no longer wiped. It is kept beside the save as defaults.json.damaged, and the game carries on from a backup of your previous save, so your gold and weapons are kept.
 Pausing a game pauses the ambience and the music, and continuing carries each on where it was. Before, continuing could stop the music until the next section of the corridor and silence the ambience for the rest of the stage.

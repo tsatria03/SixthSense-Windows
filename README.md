@@ -230,7 +230,7 @@ reproducible without the IPA.
 
 `tests/` has two folders:
 
-- **`tests/case/`** holds the tests: 19 plain scripts, each checking one part of the
+- **`tests/case/`** holds the tests: 20 plain scripts, each checking one part of the
   game against the original and printing `ok` or `FAIL` for every check, then a total.
   Run any of them on its own; there is nothing to install beyond what the game needs.
 - **`tests/interact/`** holds two tools you play rather than tests: `level_chooser.py`
@@ -260,6 +260,7 @@ python tests/case/window.py         # the window's close button and the screen l
 python tests/case/release.py        # the releaser's version, changelog and names (builds nothing)
 python tests/case/save.py           # a damaged save is kept and the backup carries on (temp folders only)
 python tests/case/music_memory.py   # changing the music and ambience frees the old files (audio device)
+python tests/case/audio_device.py   # a lost audio device is reopened (fake device, then OpenAL's null driver)
 ```
 
 `case/data.py` checks the port against the original data rather than against itself: the

@@ -9,7 +9,8 @@ Nothing else observes the notification, so the menus ignore it.  Coming back doe
 resume anything; the panel waits for Continue, as it does after P.
 
 What ``InterruptOff`` does on the way back, rebuilding the audio device
-(``-[Stage_1_E audioRestart]`` 0x2c5bc), is not ported yet.
+(``-[Stage_1_E audioRestart]`` 0x2c5bc), is ``AL.check_device`` here, which the frame
+loop runs once a second and as soon as the window has focus again.
 """
 from __future__ import annotations
 

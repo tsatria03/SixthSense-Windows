@@ -84,6 +84,8 @@ def _new_screen(name, arg=None):
 
 #: The screens that play: the clock stops under F1 and losing focus pauses them.
 STAGES = ('stage', 'tutorial', 'weapon_test')
+#: How often the frame loop asks whether the audio device is still there.
+DEVICE_CHECK_SECONDS = 1.0
 
 #: The screens that are pushed rather than swapped in.
 PUSHED = ('store', 'store_weapons', 'store_detail', 'inventory',
@@ -182,6 +184,7 @@ def main(argv=None):
     stack = []                     # (kind, screen, input) below the current one
 
     quitting = False
+    next_device_check = 0.0
     while not quitting:
         closing = False
         for event in pygame.event.get():
@@ -193,12 +196,23 @@ def main(argv=None):
                 break
             if focus_lost(event, pygame) and kind in STAGES:
                 interrupt_stop(obj)         # losing focus is pressing P (ui/focus.py)
+            if event.type == getattr(pygame, 'WINDOWFOCUSGAINED', None):
+                next_device_check = 0.0     # coming back checks the device at once
             if showing_bindings:
                 bindings.handle(event, pygame)
             else:
                 inp.handle(event, pygame)
         if closing:
             break
+
+        # PORT ADDITION: a lost audio device, such as headphones unplugged, is reopened
+        # on the default output (AL.check_device).
+        if time.monotonic() >= next_device_check:
+            next_device_check = time.monotonic() + DEVICE_CHECK_SECONDS
+            try:
+                app.playback.al.check_device()
+            except Exception:
+                log.exception('checking the audio device')
 
         # F1 - the bindings see all the input.  Over a stage or the tutorial the clock
         # stops too, so no zombie walks while you read, and it starts again where it
