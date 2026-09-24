@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.23-2:
 A readme.txt beside the game says how to play: the menus, the keys, coins, the tutorial, the shop, voice over and where your save is kept, in plain text with one sentence a line.
 The opening screen has a third row that tells the game's story, which the original recorded but never played, with quiet music under it. With voice over off, your screen reader reads the story's words instead.
 A save left with too few coins and no coin clock running, such as one edited by hand or put back from a backup, starts the clock when the main menu opens, instead of never getting a coin again.
