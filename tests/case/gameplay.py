@@ -9,7 +9,7 @@ import os
 import sys
 import time
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from sixthsense.game import stage_1_e as S1E                    # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate            # noqa: E402

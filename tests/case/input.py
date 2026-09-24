@@ -12,7 +12,7 @@ import tempfile
 import time
 
 os.environ.setdefault('SDL_VIDEODRIVER', 'dummy')
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 import pygame                                                    # noqa: E402
 

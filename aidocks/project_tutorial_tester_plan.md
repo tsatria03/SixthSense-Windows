@@ -1,15 +1,17 @@
 ---
 name: project_tutorial_tester_plan
-description: "FINISHED 2026-09-23, confirmed by the dev: tests/tutorial_tester.py, a by-ear tester like level_tester.py that opens the real tutorial on its own save, asking which ending (Start's countdown into the game, or the Tutorial button's return to the menu), which lesson to start at, and voice over on or off."
+description: "FINISHED 2026-09-23, confirmed by the dev: tests/interact/tutorial_chooser.py (built as tests/tutorial_tester.py), a by-ear tool like level_chooser.py that opens the real tutorial on its own save, asking which ending (Start's countdown into the game, or the Tutorial button's return to the menu), which lesson to start at, and voice over on or off."
 metadata:
   type: project
 ---
 
 **Status: FINISHED, 2026-09-23.** The dev tested it and confirmed: "All tests past." The plan was committed on its own as `addf747`; the dev asked for the code to be a separate commit, made only once they had tested it and it was marked finished here ("I want the built code to be a seprat commit, after I tested that it works, and that it's marked finished"), so the tester, its README and CLAUDE.md lines and this status went in together after that.
 
-**Built as planned:** `tests/tutorial_tester.py` with `LESSONS`, `_own_save`, `_questions`, and a `LessonTutorial(Stage_Tutorial)` that marks the earlier beats done in `MapInitInBundle` and swaps the chosen beat in for the first `tutorial_beat` call (`_opened`). `new_tutorial` replaces `SixthSense._new_tutorial`, giving the first tutorial the asked-for ending and later ones their menu route's. `EYEMODE` is written "1" or "0" on the tester's save before the game starts.
+**Renamed the same day by the dev:** it is now `tests/interact/tutorial_chooser.py`, beside `tests/interact/level_chooser.py`, and its save is `%APPDATA%\SixthSense\tutorial_chooser` ([[project_tests_layout]]). The plan below was written for `tests/tutorial_tester.py`; the paths in it have been updated, and the design is unchanged.
 
-**What the dev asked for:** a tutorial tester to play by ear, not an automated test ("I meant the one I play by ear, not the other case test"). `tests/test_tutorial.py` already has the automated checks. Asked after tunmi13productions' tutorial ending work ([[project_tutorial_ending_plan]]), when the dev found the Start ending hard to reach without deleting their save.
+**Built as planned:** `tests/interact/tutorial_chooser.py` with `LESSONS`, `_own_save`, `_questions`, and a `LessonTutorial(Stage_Tutorial)` that marks the earlier beats done in `MapInitInBundle` and swaps the chosen beat in for the first `tutorial_beat` call (`_opened`). `new_tutorial` replaces `SixthSense._new_tutorial`, giving the first tutorial the asked-for ending and later ones their menu route's. `EYEMODE` is written "1" or "0" on the tester's save before the game starts.
+
+**What the dev asked for:** a tutorial tester to play by ear, not an automated test ("I meant the one I play by ear, not the other case test"). `tests/case/tutorial.py` already has the automated checks. Asked after tunmi13productions' tutorial ending work ([[project_tutorial_ending_plan]]), when the dev found the Start ending hard to reach without deleting their save.
 
 ## The dev's answers
 1. **It asks which ending, like the level tester asks for a level**: the Start ending (a first run: P counts 3, 2, 1 into the real game) or the Tutorial button ending (P goes back to the main menu).
@@ -17,8 +19,8 @@ metadata:
 3. **It asks voice over on or off.** The dev: the recorded instructions play either way; off means the screen reader also says the keyboard keys for each action (the key hints, `Stage_Tutorial.key_hint`).
 
 ## The design
-- **`tests/tutorial_tester.py`**, beside `level_tester.py` and shaped like it. Not a test: its name does not start with `test_`, so the runs skip it.
-- **Its own save**, `%APPDATA%\SixthSense\tutorial_tester`, taking a fresh copy of the player's `keys.json` each start, the same `_own_save()` as the level tester. The player's save is never touched.
+- **`tests/interact/tutorial_chooser.py`**, beside `level_chooser.py` and shaped like it. Not a test: it lives in `tests/interact/`, apart from the tests in `tests/case/`.
+- **Its own save**, `%APPDATA%\SixthSense\tutorial_chooser`, taking a fresh copy of the player's `keys.json` each start, the same `_own_save()` as the level tester. The player's save is never touched.
 - **Asked when opened with nothing after its name**, in this order, Enter giving the default each time:
   1. The ending: `start` or `menu` (Enter for `menu`).
   2. The lesson, 1 to 10 (Enter for 1), read out as a numbered list:

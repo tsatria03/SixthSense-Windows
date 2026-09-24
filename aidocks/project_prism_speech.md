@@ -33,7 +33,7 @@ metadata:
 - `output()` is used when a backend supports it, so a braille display gets the line too; otherwise `speak()`.
 - **Kept for callers:** `Speech.shared()`, `speak()`, `stop()`, `which` and `available`. `KeyBindScreen` and `MainController._say` use `speak` only.
 - **Testable without sound:** `Speech(nvda=..., prism=...)` and `_Prism(loader=..., narrator_running=..., clock=...)` take stand-ins.
-- **`tests/test_speech.py`** has 13 tests with a fake NVDA, a fake registry and a fake clock. It never loads the DLL or Prism, and is safe to run.
+- **`tests/case/speech.py`** has 13 tests with a fake NVDA, a fake registry and a fake clock. It never loads the DLL or Prism, and is safe to run.
 
 **`compiler.py` (done the same day, checked only by parsing):**
 - `PLAY_PACKAGES` now includes `('prism', 'prismatoid')`, so a build stops without Prism. `OPTIONAL_PACKAGES`, `optional_missing()` and comtypes are gone.
@@ -53,7 +53,7 @@ metadata:
 - **Prism does not go in `vendor/`.** It is a pip package, and its loader expects its DLL inside the package.
 
 **How to apply:**
-- Run `tests/test_speech.py` with the rest, the safe way ([[project_safe_test_run]]).
+- Run `tests/case/speech.py` with the rest, the safe way ([[project_safe_test_run]]).
 - Never run anything that speaks through NVDA or Prism for real without the dev's say-so, since they work with NVDA running ([[feedback_dont_run_or_build]]).
 - Checking it by ear, especially without NVDA and with Narrator, is the dev's job.
 - The screen reader mode ([[project_screen_reader_mode]]) builds on this.

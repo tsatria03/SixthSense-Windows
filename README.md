@@ -186,8 +186,9 @@ vendor/                  OpenAL Soft and NVDA's controller client, with their li
 analysis/                the binary, and the disassembly this was written from
 tools/                   the Mach-O / Objective-C / Thumb tooling that produced it
 docs/                    GAME_STRUCTURE.md, DIVERGENCES.md, PORTING_STATUS.md
-tests/                   the tests, level_tester.py for starting at any level, and
-                         tutorial_tester.py for starting the tutorial at any lesson
+tests/case/              the tests, one plain script each
+tests/interact/          level_chooser.py and tutorial_chooser.py, which start the real
+                         game at any level, or the tutorial at any lesson, to play
 compiler.py              builds the game with PyInstaller
 releaser.py              sets the version, files the changelog, builds, zips, tags and uploads a release
 requirements.txt         the two packages it needs
@@ -224,31 +225,33 @@ reproducible without the IPA.
 ## Tests
 
 ```bash
-python tests/test_data.py       # the port's tables against game/
-python tests/test_paths.py      # where the game finds its sounds, plists and maps
-python tests/test_gameplay.py   # a headless playthrough (~35 s, opens the audio device)
-python tests/test_input.py      # the keyboard mapping
-python tests/test_tutorial.py   # the ten tutorial beats
-python tests/test_menu.py       # the menu rows and the coin economy
-python tests/test_digits.py     # numbers spoken digit by digit, in the right order
-python tests/test_pause.py      # the pause and result panel
-python tests/test_store.py      # the shop, buying, and the inventory
-python tests/test_intro.py      # the splash, the warning and skipping them
-python tests/test_speech.py     # who speaks what no WAV covers (stand-ins, silent)
-python tests/test_volume.py     # the decibel knobs, and the binary's mix left alone
-python tests/test_monster_sound.py  # zombie sounds read back from OpenAL (audio device)
-python tests/test_focus.py      # switching away from the window pauses a stage
-python tests/test_release.py    # the releaser's version, changelog and names (builds nothing)
+python tests/case/data.py           # the port's tables against game/
+python tests/case/paths.py          # where the game finds its sounds, plists and maps
+python tests/case/gameplay.py       # a headless playthrough (~35 s, opens the audio device)
+python tests/case/input.py          # the keyboard mapping
+python tests/case/tutorial.py       # the ten tutorial beats
+python tests/case/menu.py           # the menu rows and the coin economy
+python tests/case/digits.py         # numbers spoken digit by digit, in the right order
+python tests/case/pause.py          # the pause and result panel
+python tests/case/store.py          # the shop, buying, and the inventory
+python tests/case/weapon_range.py   # the weapon test range behind the shop's Try button
+python tests/case/intro.py          # the splash, the warning and skipping them
+python tests/case/speech.py         # who speaks what no WAV covers (stand-ins, silent)
+python tests/case/volume.py         # the decibel knobs, and the binary's mix left alone
+python tests/case/monster_sound.py  # zombie sounds read back from OpenAL (audio device)
+python tests/case/focus.py          # switching away from the window pauses a stage
+python tests/case/window.py         # the window's close button and the screen loop
+python tests/case/release.py        # the releaser's version, changelog and names (builds nothing)
 ```
 
-`test_data` checks the port against the original data rather than against itself: the
+`case/data.py` checks the port against the original data rather than against itself: the
 map shape and the action layer, every weapon's stats, every monster type's kind and
 lane, that every sound number the monster tables use resolves to a WAV in
 `game/sounds/used`, and that everything meant to be positional is mono (OpenAL will not
 spatialise stereo, and the game relies on that).
 
 **For now, the tests write to your real save** in `%APPDATA%\SixthSense`, and
-`test_gameplay` plays audio. Until that is fixed, run them with `APPDATA` pointed at a
+`case/gameplay.py` plays audio. Until that is fixed, run them with `APPDATA` pointed at a
 scratch folder, and with `ALSOFT_DRIVERS=null` so nothing is heard.
 
 ## Building and releasing
@@ -288,27 +291,27 @@ It never moves or replaces a tag or a release that already exists.
 
 ### Starting at any level
 
-`tests/level_tester.py` is not a test. It opens the real game at the level you choose,
+`tests/interact/level_chooser.py` is not a test. It opens the real game at the level you choose,
 so a bug on level 3 does not take three levels of play to reach. Opened on its own, it
 asks for the level, the area (cave, forest or rain) and whether to start just before
 the boss. It also takes them on the command line:
 
 ```bash
-python tests/level_tester.py                    # asks
-python tests/level_tester.py 2                  # level 2
-python tests/level_tester.py 3 --mode forest    # level 3, in the forest
-python tests/level_tester.py 2 --boss           # level 2, two steps before the siren
-python tests/level_tester.py 1 --row 300        # level 1, from row 300 of the corridor
+python tests/interact/level_chooser.py                    # asks
+python tests/interact/level_chooser.py 2                  # level 2
+python tests/interact/level_chooser.py 3 --mode forest    # level 3, in the forest
+python tests/interact/level_chooser.py 2 --boss           # level 2, two steps before the siren
+python tests/interact/level_chooser.py 1 --row 300        # level 1, from row 300 of the corridor
 ```
 
 A level is what walking there would give you: monsters 1.5 times tougher and faster per
 level, one more of them out at a time, and the area alternating between the cave and
-the forest. It plays on its own save in `%APPDATA%\SixthSense\level_tester`, so your
+the forest. It plays on its own save in `%APPDATA%\SixthSense\level_chooser`, so your
 own save is never touched, and it copies your key bindings in each time it starts.
 
 ### Starting the tutorial at any lesson
 
-`tests/tutorial_tester.py` is not a test either. It opens the real tutorial at the
+`tests/interact/tutorial_chooser.py` is not a test either. It opens the real tutorial at the
 lesson you choose, with the ending you choose, so neither needs a deleted save or a
 replay of the lessons before it. Opened on its own, it asks three things:
 
@@ -321,15 +324,15 @@ replay of the lessons before it. Opened on its own, it asks three things:
   reader also names the keys for each lesson.
 
 ```bash
-python tests/tutorial_tester.py                              # asks
-python tests/tutorial_tester.py --lesson 9                   # the animal zombie
-python tests/tutorial_tester.py --ending start --lesson 10   # P, then into the game
-python tests/tutorial_tester.py --voice off                  # with the key hints
+python tests/interact/tutorial_chooser.py                              # asks
+python tests/interact/tutorial_chooser.py --lesson 9                   # the animal zombie
+python tests/interact/tutorial_chooser.py --ending start --lesson 10   # P, then into the game
+python tests/interact/tutorial_chooser.py --voice off                  # with the key hints
 ```
 
 The lessons before the one you choose count as done, so the tutorial carries on from
 there as it would have. It plays on its own save in
-`%APPDATA%\SixthSense\tutorial_tester`, so your own save is never touched.
+`%APPDATA%\SixthSense\tutorial_chooser`, so your own save is never touched.
 
 ## Where this came from
 

@@ -21,7 +21,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 
 ## Finished
 
-- A tutorial tester in tests/tutorial_tester.py starts the tutorial at any lesson, with the Start ending or the Tutorial button's, and voice over on or off. It asks when opened on its own, and plays on its own save so yours is never touched.
+- A tutorial tester in tests/interact/tutorial_chooser.py starts the tutorial at any lesson, with the Start ending or the Tutorial button's, and voice over on or off. It asks when opened on its own, and plays on its own save so yours is never touched.
 - The tutorial can be finished in debug mode. Killing its zombies still counts for nothing, but each kill now finishes its lesson as it should.
 - In debug mode F2 now goes to the next section of the corridor, and Shift+F2 to the next level, instead of the other way round.
 - In debug mode Shift+F2 waits two seconds between sections, as F2 does between levels, and says "Not while the section is changing" until it is ready.
@@ -33,7 +33,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 - In debug mode F2 goes to the next section of the corridor, Shift+F2 goes to the next level, F5 spawns a zombie in the lane you last attacked, and Shift+F5 chooses what F5 spawns.
 - In debug mode F6 holds the zombies in place, and F11 says where they are. The key bindings screen lists the debug keys and can rebind them, but only in debug mode.
 - tools/README.md says the addresses are memory addresses, and how to find them in the file, instead of calling them file offsets.
-- A level tester in tests/level_tester.py starts the game at any level, in the cave, the forest or the rain, and near the boss if you like. It asks when opened on its own, and plays on its own save so yours is never touched.
+- A level tester in tests/interact/level_chooser.py starts the game at any level, in the cave, the forest or the rain, and near the boss if you like. It asks when opened on its own, and plays on its own save so yours is never touched.
 - A test checks that zombie sounds really move, by reading each zombie's sound back from OpenAL itself.
 - The compiler builds a working game. A console build starts and plays, and its release zip opens and holds all 643 files: the game, its data, and the licenses beside it. While it packs the zip, the compiler says so and says how far it has got, so the window is not closed too early.
 - A requirements.txt lists the two packages the game needs, pygame and prismatoid, so pip install -r requirements.txt installs both.

@@ -8,7 +8,7 @@ metadata:
 
 **Never build anything unless the dev says to.** That covers `compiler.py`, PyInstaller, and any packaging or zip step.
 
-**Only the tests that match what changed (2026-09-23).** When one or more Python files change and a test script covers them, run only that script or those scripts, not the whole suite. For example, a change to `game/store.py` runs `tests/test_store.py`. Run the full suite only when the dev asks, for example once they have more than five commits that are not pushed, or after the conversation has been compacted. The dev said: "Do not keep running the full test suite over and over again." This replaces the earlier pause of 2026-09-22 ("for the next few commits, do not run tests unless I say so").
+**Only the tests that match what changed (2026-09-23).** When one or more Python files change and a test script covers them, run only that script or those scripts, not the whole suite. For example, a change to `game/store.py` runs `tests/case/store.py`. Run the full suite only when the dev asks, for example once they have more than five commits that are not pushed, or after the conversation has been compacted. The dev said: "Do not keep running the full test suite over and over again." This replaces the earlier pause of 2026-09-22 ("for the next few commits, do not run tests unless I say so").
 
 **The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]): `APPDATA` pointed at a scratch folder, `ALSOFT_DRIVERS=null` and `SDL_AUDIODRIVER=dummy`, so the dev's save is untouched and nothing is heard over NVDA.
 

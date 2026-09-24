@@ -96,6 +96,8 @@ Every source file was read again. Nothing was run. The results:
 - tools/README.md now says the addresses are VM addresses (offset = address - 0x1000). Its todo line moved to `##Finished.` at the dev's word.
 - Still not done: GAME_STRUCTURE.md §3, §5 and §9 from the original list.
 
+**Note on names:** on 2026-09-23 the dev moved the tests to `tests/case/` without the `test_` prefix, and the level and tutorial testers to `tests/interact/` as choosers ([[project_tests_layout]]). This note keeps the old names as they were when each entry was written; `test_X.py` is now `tests/case/X.py`, and `test_test_range.py` is `tests/case/weapon_range.py`.
+
 ## The original's own bugs, checked again 2026-09-23 (the todo item "Decide whether to fix the original's own bugs")
 
 Checked in the raw bytes at the dev's asking ("Look at the binary for this one"); capstone was not installed, so the Thumb was decoded by hand.

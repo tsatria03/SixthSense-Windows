@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """PORT ADDITION, for testing by ear: start the stage at any level, in any area, from
-any row of the corridor.  Not a test, and not part of the game - the test runs skip it,
-since its name does not start with ``test_``.
+any row of the corridor.  Not a test, and not part of the game: the tests are in
+``tests\\case``, and this is one of the tools in ``tests\\interact`` that you play.
 
-    python tests\\level_tester.py 2                 level 2
-    python tests\\level_tester.py 3 --mode forest   level 3, in the forest
-    python tests\\level_tester.py 2 --boss          level 2, a few steps before the siren
-    python tests\\level_tester.py 1 --row 300       level 1, from row 300
-    python tests\\level_tester.py                   asks for the level, the area and
+    python tests\\interact\\level_chooser.py 2                 level 2
+    python tests\\interact\\level_chooser.py 3 --mode forest   level 3, in the forest
+    python tests\\interact\\level_chooser.py 2 --boss          level 2, a few steps before the siren
+    python tests\\interact\\level_chooser.py 1 --row 300       level 1, from row 300
+    python tests\\interact\\level_chooser.py                   asks for the level, the area and
                                                     whether to start near the boss
 
 What a level is, from the binary: ``ChangeLevel:`` multiplies ``monsterHPGain`` by 1.5
@@ -21,11 +21,11 @@ Starting part-way down the corridor replays the action cells above the start row
 spawn tier, the quiet stretch and the level music are what they would have been.
 
 **Your save is never touched.**  It plays on its own save in
-``%APPDATA%\\SixthSense\\level_tester``, marked as past the tutorial, and takes a fresh copy
+``%APPDATA%\\SixthSense\\level_chooser``, marked as past the tutorial, and takes a fresh copy
 of your key bindings each time it starts.  Gold and scores earned here stay there.
 
 Everything else is the real game: Escape pauses and resumes, the pause panel's Main menu
-row goes back to the menu, and Start Game from that menu starts the tester's level again.
+row goes back to the menu, and Start Game from that menu starts the chooser's level again.
 """
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ import os
 import shutil
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
 
 MODES = {'cave': 1, 'forest': 2, 'rain': 3}
@@ -47,10 +47,10 @@ NEAR_BOSS_ROW = SIREN_ROW + 2
 
 
 def _own_save():
-    """Point APPDATA at the tester's own folder, before anything reads it."""
+    """Point APPDATA at the chooser's own folder, before anything reads it."""
     real = os.path.join(os.environ.get('APPDATA') or os.path.expanduser('~'),
                         'SixthSense')
-    mine = os.path.join(real, 'level_tester')
+    mine = os.path.join(real, 'level_chooser')
     os.makedirs(os.path.join(mine, 'SixthSense'), exist_ok=True)
     keys = os.path.join(real, 'keys.json')
     if os.path.exists(keys):
@@ -82,7 +82,7 @@ def _ask(question, check):
 
 
 def _questions():
-    """Opened with nothing after its name, the tester asks instead."""
+    """Opened with nothing after its name, the chooser asks instead."""
     argv = []
     level = _ask('Level to start on (1 and up, Enter for 1):',
                  lambda a: '' if a == '' else (a if a.isdigit() and int(a) >= 1 else None))
@@ -136,7 +136,7 @@ def main(argv=None):
     d.synchronize()
 
     class LevelStage(Stage_1_E):
-        """The stage, put where the tester asked before it starts walking."""
+        """The stage, put where the chooser asked before it starts walking."""
 
         def viewDidLoad(self):
             super().viewDidLoad()             # rolls level 1's area, as the game does

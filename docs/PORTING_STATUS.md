@@ -122,4 +122,4 @@ names; see `DIVERGENCES.md` for the layout and how the game finds them. An untou
 original bundle, with its sounds all in one folder, works too.
 
 To start at a later level, in a chosen area or just before the boss, use
-`python tests/level_tester.py`. It asks what you want, and plays on its own save.
+`python tests/interact/level_chooser.py`. It asks what you want, and plays on its own save.

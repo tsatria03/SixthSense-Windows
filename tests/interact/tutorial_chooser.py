@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """PORT ADDITION, for testing by ear: start the tutorial at any lesson, with either of its
-endings, and voice over on or off.  Not a test, and not part of the game - the test runs
-skip it, since its name does not start with ``test_``.
+endings, and voice over on or off.  Not a test, and not part of the game: the tests are in
+``tests\\case``, and this is one of the tools in ``tests\\interact`` that you play.
 
-    python tests\\tutorial_tester.py --lesson 9                  the animal zombie
-    python tests\\tutorial_tester.py --ending start --lesson 10  P, then 3, 2, 1 into the game
-    python tests\\tutorial_tester.py --voice off                 with the key hints
-    python tests\\tutorial_tester.py                             asks for all three
+    python tests\\interact\\tutorial_chooser.py --lesson 9                  the animal zombie
+    python tests\\interact\\tutorial_chooser.py --ending start --lesson 10  P, then 3, 2, 1 into the game
+    python tests\\interact\\tutorial_chooser.py --voice off                 with the key hints
+    python tests\\interact\\tutorial_chooser.py                             asks for all three
 
 The two endings, from the binary (see ``stage_tutorial.py``):
 
@@ -29,7 +29,7 @@ Voice over is the main menu's voice over row.  The recorded instructions play ei
 with it off, the screen reader also names the keys to press for each one.
 
 **Your save is never touched.**  It plays on its own save in
-``%APPDATA%\\SixthSense\\tutorial_tester``, and takes a fresh copy of your key bindings
+``%APPDATA%\\SixthSense\\tutorial_chooser``, and takes a fresh copy of your key bindings
 each time it starts.  Choosing Tutorial from its main menu starts the chosen lesson again.
 """
 from __future__ import annotations
@@ -39,13 +39,13 @@ import os
 import shutil
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
 
 ENDINGS = ('start', 'menu')
 VOICES = ('on', 'off')
 
-#: The lessons as the tester numbers them, and the beat each one is in the tutorial's
+#: The lessons as the chooser numbers them, and the beat each one is in the tutorial's
 #: own table (stage_tutorial.BEATS).
 LESSONS = (
     ('One', "shooting at 9 o'clock"),
@@ -62,10 +62,10 @@ LESSONS = (
 
 
 def _own_save():
-    """Point APPDATA at the tester's own folder, before anything reads it."""
+    """Point APPDATA at the chooser's own folder, before anything reads it."""
     real = os.path.join(os.environ.get('APPDATA') or os.path.expanduser('~'),
                         'SixthSense')
-    mine = os.path.join(real, 'tutorial_tester')
+    mine = os.path.join(real, 'tutorial_chooser')
     os.makedirs(os.path.join(mine, 'SixthSense'), exist_ok=True)
     keys = os.path.join(real, 'keys.json')
     if os.path.exists(keys):
@@ -88,7 +88,7 @@ def _ask(question, check):
 
 
 def _questions():
-    """Opened with nothing after its name, the tester asks instead."""
+    """Opened with nothing after its name, the chooser asks instead."""
     argv = []
     ending = _ask('Ending: start, which counts down into the game, or menu, which goes '
                   'back to the main menu (Enter for menu):',
@@ -142,7 +142,7 @@ def main(argv=None):
     d.synchronize()
 
     class LessonTutorial(Stage_Tutorial):
-        """The tutorial, starting at the lesson the tester was asked for."""
+        """The tutorial, starting at the lesson the chooser was asked for."""
 
         def __init__(self, first_run=False):
             super().__init__(first_run=first_run)
@@ -167,7 +167,7 @@ def main(argv=None):
 
     def new_tutorial(first_run=False):
         # The first tutorial takes the asked-for ending; one started later from the
-        # tester's menu takes the ending its own route gives it.
+        # chooser's menu takes the ending its own route gives it.
         if not launched:
             launched.append(True)
             first_run = args.ending == 'start'

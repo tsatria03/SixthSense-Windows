@@ -6,7 +6,7 @@ import plistlib
 import sys
 import time
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from sixthsense import paths                                     # noqa: E402
 from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
@@ -225,7 +225,7 @@ def test_a_game_costs_a_coin_and_starts_the_clock():
 
 def test_the_menu_never_plays_the_earphone_warning():
     """PORT ADDITION: the earphone warning (234) now plays once from the intro
-    screen (see tests/test_intro.py), not from the menu at all - it used to play
+    screen (see tests/case/intro.py), not from the menu at all - it used to play
     at menu load, talking over the title, then briefly from Start Game instead,
     which repeated every time a game was started."""
     played = []

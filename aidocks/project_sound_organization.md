@@ -61,7 +61,7 @@ The dev approved the plan on 2026-09-21 ("I love it!"), and it was built the sam
 - **Tests:**
   - The seven hand-built `os.path.join(paths.sounds(), name + '.wav')` lines now go through the lookup: three in `test_data.py`, one in `test_menu`, two in `test_pause` and one in `test_store`.
   - `test_data.py` has a new check, `test_every_sound_comes_from_the_sounds_folder`.
-  - The new `tests/test_paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched, case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
+  - The new `tests/case/paths.py` builds tiny temporary bundles to check the lookup itself: a nested sound, `unused/` never searched, case, a shared sound, the top folder first, the plists and maps, a flat bundle, a missing sound, and switching bundles.
 - **`compiler.py`:**
   - `sound_files()` copies `sounds/used/` with its folders.
   - `GAME_FILES` still matches the top folder, including `*.wav`, so a flat original bundle still builds. `unused/` is left out.

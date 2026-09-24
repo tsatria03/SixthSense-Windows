@@ -16,7 +16,7 @@ metadata:
   - `master()`, `music()`, `ambience()` and `menu_music()` are what callers use.
 - **`MASTER_DB` is applied in `oal_playback`**, at every place `AL_GAIN` is set (`_configure`, `startSound_Postion_soundGain_`, and both music players), so it covers sound effects, the recorded speech and music without any caller remembering it.
 - **The group trims are applied at the call site**, because only the caller knows what kind of sound it is starting: `stage_1_e.MapInitInBundle` and `continueAction_` (ambience and rain), the action-cell-10 branch in `MainControl` and `intro.shakeDevice` (music), `app_delegate.BGMusicStart` (the menu music).
-- **`tests/test_volume.py`** has 7 tests: the scale, the round trip, the knobs at rest passing the binary's values through untouched, one knob moving only what it owns, and the menu music never louder than a spoken row (0.2). `tests/test_menu.py` checks `BGMusicStart` uses `volume.menu_music()`.
+- **`tests/case/volume.py`** has 7 tests: the scale, the round trip, the knobs at rest passing the binary's values through untouched, one knob moving only what it owns, and the menu music never louder than a spoken row (0.2). `tests/case/menu.py` checks `BGMusicStart` uses `volume.menu_music()`.
 
 ## The numbers, for reference
 Gains in the game, with their decibels: 1.0 is 0 dB (gunshots), 0.5 is -6 dB (breathing, rain, the result panel), 0.2 is -14 dB (every spoken row, the ambience), 0.05 is -26 dB (the intro's story music, 0x17224), 0.02 is -34 dB (the level music, 0x321d4). OpenAL clamps a source above 1.0, so a bigger number buys nothing.

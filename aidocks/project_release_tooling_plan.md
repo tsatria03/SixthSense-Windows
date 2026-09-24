@@ -7,7 +7,7 @@ metadata:
 
 **Status: FINISHED, 2026-09-23.** The dev tested both and confirmed: "I tested the compiler and the releaser, and they both worked." They made a real release with the releaser, then deleted it. Checked afterwards: no GitHub release and no tag remain, locally or on GitHub, and `dist\` is empty. `main` is still at `3a2ab0c` with `VERSION` at `26.09.21-1`, so no "Release" commit stayed either. **The first real release went out the same day, 2026-09-23:** "SixthSense V26.09.23-1", tag `V26.09.23-1`, not a draft, with the single-exe build zipped as `SixthSense-Win-26.09.23-1.zip` (112,191,883 bytes), at https://github.com/tsatria03/SixthSense-Windows/releases/tag/V26.09.23-1. The releaser's commit is `ef7e3e7` "Release 26.09.23-1". An earlier attempt had stopped after the prepare step and left `VERSION` and `changelog.txt` changed, which the check then refused; they were restored with `git restore` at the dev's word and the full release run again. A possible improvement, offered but not asked for: let the check pass when those two files already hold today's version, so a stopped release can simply be run again.
 
-Planned and built the same day, at the dev's go-ahead ("then we can get to work on the actual game releaser"), in commit `3a2ab0c`. `tests/test_release.py` passes 23 of 23.
+Planned and built the same day, at the dev's go-ahead ("then we can get to work on the actual game releaser"), in commit `3a2ab0c`. `tests/case/release.py` passes 23 of 23.
 
 **Plan change, 2026-09-23, after the first build:** the zip moves out of the compiler too. The dev: "The compiler should only handle making the folder, and or embedding the assets and stuff if you allow it", and the releaser should ask whether to make the zip. So `package()` and `--no-package` leave `compiler.py`; the compiler builds `dist\SixthSense` (a folder build, or `--embed`) and stops. The releaser gains its own Package step, asked Y or N, between Build and Commit, and it refuses to zip a build whose `VERSION` is not the one being released. Its menu gains "Zip the build". The notes below are updated to match.
 
@@ -42,7 +42,7 @@ A numbered menu like the compiler's: "Full release", plus each step on its own. 
 - **Archive: a zip only**, as now. The dev turned down a password-protected 7z.
 
 ### Also in the same change
-- New `tests/test_release.py`, covering only what can be checked without building or uploading: the version numbering against a list of tags, filing the changelog, and finding the zip. Run only that file ([[feedback_dont_run_or_build]]).
+- New `tests/case/release.py`, covering only what can be checked without building or uploading: the version numbering against a list of tags, filing the changelog, and finding the zip. Run only that file ([[feedback_dont_run_or_build]]).
 - README.md, CLAUDE.md and [[project_compiler_py]] describe how to build and release.
 - The dev runs the releaser and the compiler. Claude never runs either, and never builds or uploads.
 

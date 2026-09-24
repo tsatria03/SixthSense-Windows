@@ -4,7 +4,7 @@ These do not test the port's opinions; they test that the numbers the port hard-
 still agree with what is in `game/`, the original app bundle.  If a table here fails,
 the table in the code was read wrong.
 
-    python -m pytest tests            (or: python tests/test_data.py)
+    python tests/case/data.py
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import plistlib
 import sys
 import wave
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from sixthsense import paths                                        # noqa: E402
 from sixthsense.game.make_maps import MakeMaps                      # noqa: E402
