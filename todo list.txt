@@ -1,6 +1,5 @@
 ##Unfinished.
 
-A damaged save file is wiped and replaced, losing all your gold and weapons.
 Some timed events can run twice, and timers can fire in the wrong order or up to 15 milliseconds late.
 When the game cannot start, it fails silently instead of saying why out loud.
 Recover when the audio device changes. The original rebuilt its audio each time it came back to the foreground.
@@ -8,6 +7,7 @@ Memory leaks each time the music or ambience changes.
 
 ##Finished.
 
+A damaged save file is kept aside, and the game carries on from a backup of the save before it, so your gold and weapons are kept.
 A new save starts with voice over on, so "Gold is lacking" is heard and the mode row is right.
 Pausing a game pauses the ambience and the music, and continuing carries each on where it was, instead of stopping the music or silencing the ambience.
 Pausing in the two seconds after a level's boss dies holds the level change until you continue, and restarting then no longer makes you walk twice as fast.

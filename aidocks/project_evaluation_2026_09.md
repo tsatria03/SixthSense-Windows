@@ -231,7 +231,7 @@ The low-level porting is careful: the weapon plist quirks, spawn tiers, hit band
 - [R] **The clock is coarse.** `time.monotonic()` has 15.6 ms resolution on Windows here; use `time.perf_counter()`. Also, `_by_key` never removes empty lists.
 
 **Saves (`platform/defaults.py`)**
-- [R] **A truncated `defaults.json` loads as `{}` and is then overwritten on the same launch.** Rename a bad file aside, keep a `.bak`, and flush and fsync before `os.replace`.
+- [R] **A truncated `defaults.json` loads as `{}` and is then overwritten on the same launch.** **Fixed 2026-09-23, confirmed by the dev:** a save that cannot be read, or is not a JSON object, is renamed to `defaults.json.damaged`, and the game carries on from `defaults.json.bak` (the save before the last, copied by every `synchronize`) and writes it back at once. `synchronize` flushes and fsyncs before `os.replace`. A missing save still starts fresh, so deleting it still starts over. Tests in `tests/case/save.py`. Was: Rename a bad file aside, keep a `.bak`, and flush and fsync before `os.replace`.
 - [R] **A file that parses but isn't a JSON object crashes every launch.**
 
 **Audio and platform**

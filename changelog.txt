@@ -1,4 +1,5 @@
 unrelease:
+A damaged save file is no longer wiped. It is kept beside the save as defaults.json.damaged, and the game carries on from a backup of your previous save, so your gold and weapons are kept.
 Pausing a game pauses the ambience and the music, and continuing carries each on where it was. Before, continuing could stop the music until the next section of the corridor and silence the ambience for the rest of the stage.
 Pausing in the two seconds after a level's boss dies holds the level change until you continue, instead of letting the walk start again under the pause panel. Restarting in that moment no longer makes you walk twice as fast.
 The key bindings screen lists Escape as back, pause or quit, instead of only quit, since it goes back in the shop, pauses a game and quits only from the main menu.

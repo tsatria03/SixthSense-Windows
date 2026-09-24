@@ -7,7 +7,7 @@ metadata:
 
 **The dev reorganized `tests/` on 2026-09-23**, moving every file unchanged:
 
-- **`tests/case/`**: the 17 automated test files, each a plain script with its own runner, without the old `test_` prefix. `test_test_range.py` became `weapon_range.py`; the rest keep their names: `data`, `digits`, `focus`, `gameplay`, `input`, `intro`, `menu`, `monster_sound`, `paths`, `pause`, `release`, `speech`, `store`, `tutorial`, `volume`, `window`. The test functions inside still start with `test_`.
+- **`tests/case/`**: the 17 automated test files, each a plain script with its own runner, without the old `test_` prefix. `test_test_range.py` became `weapon_range.py`; the rest keep their names: `data`, `digits`, `focus`, `gameplay`, `input`, `intro`, `menu`, `monster_sound`, `paths`, `pause`, `release`, `speech`, `store`, `tutorial`, `volume`, `window`. The test functions inside still start with `test_`. `save.py` was added on 2026-09-23, making 18; it works only in temporary folders, so it never touches the real save.
 - **`tests/interact/`**: the two tools you play by ear, `level_chooser.py` (was `level_tester.py`) and `tutorial_chooser.py` (was `tutorial_tester.py`).
 
 **What Claude changed to make it work, the same day:**
