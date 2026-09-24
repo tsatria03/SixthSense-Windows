@@ -1,6 +1,6 @@
 ---
 name: feedback_git_commits
-description: "Commit only when the dev asks, then push to GitHub right away without asking. Force pushes and history rewrites still need an explicit go-ahead. Use git commit -F with a message file, and never hide git's errors."
+description: "One commit per fix. Commit only when the dev asks, then push to GitHub right away without asking. Force pushes and history rewrites still need an explicit go-ahead. Use git commit -F with a message file, and never hide git's errors."
 metadata:
   node_type: memory
   type: feedback
@@ -15,6 +15,7 @@ metadata:
 
 **How to apply:**
 - Write the message to a file in the scratchpad and run `git commit -F <file>`. Windows PowerShell 5.1 breaks double quotes inside arguments passed to programs, so `-m` messages that contain quotes fail. Never send git's error output to `$null`; a failed commit must be visible.
+- **One commit per fix or change** (the dev, 2026-09-23: "for everything we fix, make them separate commits to keep things tidy"). Each commit carries its own todo, changelog, docs and memory lines. When two fixes share a file such as `changelog.txt`, stage each fix's lines on their own (build the index blob with `git hash-object -w` and `git update-index --cacheinfo`, since `git add -p` is interactive), and never `git add -A` while the index already holds the other fix.
 - Stage files by name when the commit should hold exactly what the dev approved, or `git add -A` when they ask to commit everything; check `git status` first either way.
 - Format: a short summary line, a blank line, then a plain-text description wrapped at about 72 characters. End with the trailers: `Co-authored-by: lbk2907 <54381410+lbk2907@users.noreply.github.com>` only when lbk2907 contributed, then the Claude attribution line.
 - The dev is always the author. When they ask to be named as a co-author too, as they did on 2026-09-21 for the sound reorganization commit, add `Co-authored-by: tsatria03 <156674543+tsatria03@users.noreply.github.com>`; GitHub shows them once either way. Don't add it unasked.
