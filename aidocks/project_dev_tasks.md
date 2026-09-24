@@ -21,6 +21,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 
 ## Finished
 
+- The tests are silent wherever they are run from: nothing reaches the screen reader or a Windows voice, no sound plays and no window opens, and a test fails if one file is left out.
 - The debug keys shown in the game window include F7, and a test checks that every debug key is listed.
 - The tests never touch the real save. Each test file sends the save to a throwaway folder first, and a test fails if one does not.
 - The full test suite passes after the second sound sort, 309 of 309, and no test logs a missing sound.

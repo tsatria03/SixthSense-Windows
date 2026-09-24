@@ -259,6 +259,19 @@ def test_an_empty_line_says_nothing():
     assert not jaws.spoken
 
 
+def test_the_tests_never_reach_the_players_screen_reader():
+    """_scratch_save sets SIXTHSENSE_SILENT, so a Speech built with no stand-ins - as
+    Speech.shared() builds one - loads neither NVDA's client nor Prism, and never speaks
+    or cuts off the screen reader."""
+    assert os.environ.get('SIXTHSENSE_SILENT') == '1'
+    s = Speech()
+    assert s.silent and s.nvda is None and s._prism is None
+    assert s.speak('Debug mode.') is False
+    s.stop()
+    assert s.which == 'none' and not s.available
+    assert s._prism is None, 'Prism was loaded'
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

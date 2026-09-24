@@ -191,6 +191,9 @@ def test_every_test_file_keeps_off_the_real_save():
                     forgot.append(name)
     assert not forgot, 'these do not import _scratch_save: %s' % ', '.join(forgot)
     assert os.environ.get(paths.USER_DIR_ENV) == _scratch_save.FOLDER
+    # ...and silent: no speech, no sound, no window for a screen reader to announce
+    for key, value in _scratch_save.QUIET.items():
+        assert os.environ.get(key) == value, key
 
 
 if __name__ == '__main__':

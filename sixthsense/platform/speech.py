@@ -45,6 +45,9 @@ NARRATOR = 'UIA'
 NARRATOR_EXE = 'narrator.exe'
 #: The plain voices, for a player with no screen reader running.
 VOICES = ('SAPI', 'ONE_CORE')
+#: Set to 1 by the tests: nothing is ever spoken or cut off, and neither NVDA's client nor
+#: Prism is loaded.  The game itself never sets it.
+SILENT_ENV = 'SIXTHSENSE_SILENT'
 
 
 class _Nvda:
@@ -284,7 +287,11 @@ class Speech:
         return cls._shared
 
     def __init__(self, nvda=None, prism=None):
-        self.nvda = nvda if nvda is not None else _Nvda()
+        # SIXTHSENSE_SILENT: the tests' way of never reaching the player's screen reader.
+        # Stand-ins passed in are still used, so the tests of this class keep working.
+        self.silent = (nvda is None and prism is None
+                       and os.environ.get(SILENT_ENV) == '1')
+        self.nvda = nvda if nvda is not None or self.silent else _Nvda()
         self._prism = prism
         self._heard_from = ''               # what spoke the last line, for the log
 
@@ -303,7 +310,7 @@ class Speech:
         return who is not None
 
     def speak(self, text, interrupt=True):
-        if not text:
+        if not text or self.silent:
             return False
         text = str(text)
         if self.nvda.speak(text, interrupt):
@@ -314,6 +321,8 @@ class Speech:
         return self._heard(who)
 
     def stop(self):
+        if self.silent:
+            return
         self.nvda.stop()
         if self._prism is not None:
             self._prism.stop()
@@ -321,6 +330,8 @@ class Speech:
     @property
     def which(self):
         """What would speak the next line: 'NVDA', a Prism backend's name, or 'none'."""
+        if self.silent:
+            return 'none'
         if self.nvda.running():
             return 'NVDA'
         backend = self.prism.current_reader() or self.prism.current_voice()

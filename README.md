@@ -280,12 +280,12 @@ lane, that every sound number the monster tables use resolves to a WAV in
 `game/sounds/used`, and that everything meant to be positional is mono (OpenAL will not
 spatialise stereo, and the game relies on that).
 
-**The tests never touch your save.** Each one imports `tests/case/_scratch_save.py` first,
-which points `SIXTHSENSE_USER_DIR` at a throwaway folder and deletes it afterwards, and
-`case/paths.py` fails if a test file leaves that out. Several tests do open the audio
-device and play the game's sounds, so run them with `ALSOFT_DRIVERS=null` and
-`SDL_AUDIODRIVER=dummy` if you would rather hear nothing. `_scratch_save.py` is not a test;
-skip files starting with `_` when running them all.
+**The tests never touch your save, and make no sound.** Each one imports
+`tests/case/_scratch_save.py` first, which points `SIXTHSENSE_USER_DIR` at a throwaway
+folder and deletes it afterwards, sets `SIXTHSENSE_SILENT` so nothing is ever sent to your
+screen reader or a Windows voice, and sends the audio to OpenAL Soft's null driver with no
+window, whatever your shell has set. `case/paths.py` fails if a test file leaves that out.
+`_scratch_save.py` is not a test; skip files starting with `_` when running them all.
 
 ## Building and releasing
 
