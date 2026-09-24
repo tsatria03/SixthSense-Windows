@@ -25,6 +25,7 @@ Its format:
 **Why:** The dev asked on 2026-09-21 for new items to go at the top and for the file's existing style to be matched. They read it by screen reader, so plain sentences read cleanly and markdown symbols would be spoken aloud.
 
 **How to apply:**
+- **A player-facing finding that is reported to the dev, and not fixed in the same change, goes into `##Unfinished.` as soon as it is reported.** The Bitbee logo sound was found by a binary recheck on 2026-09-23, reported and fixed later; the dev said "This should of been added to the todo list." So a finding waiting on the dev's decision is a todo line at once, and moves to finished when it is done and confirmed.
 - **A bug found and fixed in the same change goes straight into `##Finished.`**, worded as what is now true. Never add it to unfinished first. The dev asked "why are you putting it in the unfinished section when you plan to fix it?" on 2026-09-22. The confirm-first rule is for items that were already in unfinished.
 - **Keep each item as short as the others, one or two short sentences.** On 2026-09-22 the dev called a five-sentence finished item "way too long" and had it cut to two. Say what is now true; leave the how (examples, wording, reasons) to the changelog, DIVERGENCES.md or memory.
 - After editing, check the line endings with a byte check (the Edit tool can insert LF-only lines).
