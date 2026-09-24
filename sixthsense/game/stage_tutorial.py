@@ -19,9 +19,11 @@ shape is always the same:
     tutorialNSoundStop   9.5 s later (6.5 for beat eight): stop the instruction and
                          spawn the monster the beat is about, if it has one
     CheckTutorial        every second, call ``...End`` on the first unfinished beat
-                         of One to Six (Seven, Eight and Nine are never nagged)
-    tutorialNEnd         if the flag is still clear, slide the finger back and
-                         re-prompt through ``...RestartFinger`` / ``...Restart``
+                         of One to Six
+    tutorialNEnd         if the flag is still clear, slide the finger and put it back
+                         through ``...RestartFinger``; nothing is heard
+    tutorialNRestart     the prompt again, when the beat's monster reaches you (never
+                         sent for Six and Seven)
     NextTutorial         once the beat's action is done, stop the prompts and start
                          the first beat not yet done
 
@@ -96,8 +98,8 @@ REQUIRES = {
 # it at once (0x84d5a), gunChangeAction: and shakingFind wait 1.5 s (0x8542e,
 # 0x8b4f4), and a kill calls it at once (0x8a372).
 NEXT_DELAY = {'Seven': 1.5, 'Eight': 1.5}
-# -[Stage_Tutorial CheckTutorial] 0x8c678 only nags One to Six; Seven, Eight and Nine
-# play once, when NextTutorial reaches them.
+# -[Stage_Tutorial CheckTutorial] 0x8c678 sends tutorialNEnd for the first of One to Six
+# not yet done; that only moves the hint finger, so no prompt is replayed by it.
 NAGGED = ('One', 'Two', 'Three', 'Four', 'Five', 'FiveHalf', 'Six')
 
 # name, prompt sound, seconds before SoundStop, the monster it spawns (or None)
@@ -233,7 +235,7 @@ class Stage_Tutorial(Stage_1_E):
             # 0x8e1a8: the animal zombie is not to be shot; it is there to grab you.
             self.noAtt = True
         self.app.stopSoundBufNumber_(sound)
-        self.beat_flag[name] = True            # 0x8cb4a: the prompt has finished
+        self.beat_flag[name] = True            # PORT: the prompt has finished
         hint = self.key_hint(name)
         if hint is not None:
             self._say(hint)
@@ -271,16 +273,17 @@ class Stage_Tutorial(Stage_1_E):
         if not self.isShake:
             self.MonsterAttPlayer()
 
-    # -[Stage_Tutorial tutorialNEnd] - still not done, so prompt again
+    # -[Stage_Tutorial tutorialNEnd] 0x8cb60 (One) .. 0x8dd78 (Six)
     def tutorial_beat_end(self, name):
-        if self.beat_done[name]:               # 0x8cb76
-            return
-        if self.current_beat == name and not self.beat_flag[name]:
-            return                             # the instruction is still playing
-        if self.MonsterBuffer:
-            return                             # its monster is still out there
-        if self.current_beat != name or self.beat_flag[name]:
-            self.tutorial_beat(name)
+        """Silent.  While the beat is not done, the original only slides the hint finger
+        across the screen (UIView beginAnimations .. setFrame: .. commitAnimations) and
+        sends ``tutorialNRestartFinger``, which puts the finger back - it plays nothing.
+        A prompt is heard again only from ``tutorialNRestart``, when the beat's monster
+        reaches you, and ``tutorialSixRestart`` and ``tutorialSevenRestart`` are never
+        sent at all.  The port has no finger, so there is nothing to do here.  It used
+        to replay the prompt, so the reload lesson (Six), which has no monster to hold
+        the replay back, said its instruction again about every ten seconds."""
+        return
 
     # -[Stage_Tutorial tutorialNRestart] - the prompt again, and its monster after it
     def tutorial_restart(self, name):

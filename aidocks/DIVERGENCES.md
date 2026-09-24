@@ -820,10 +820,15 @@ beat before it is done (`stage_tutorial.REQUIRES`): a reload needs One to FiveHa
 (0x84cfa), a weapon change One to Six (0x853c0), and shaking free One to Seven
 (0x8b420). Then `NextTutorial` (0x8c89c) stops the prompts and starts the first beat
 not yet done: at once after a kill or a reload, 1.5 s after a weapon change or an
-escape (`NEXT_DELAY`). `CheckTutorial` (0x8c678) only nags One to Six, so Seven, Eight
-and Nine each play once. Before that the port counted a reload or a weapon change
-pressed during any beat, which finished those lessons before they were taught, and its
-once-a-second check both nagged every beat and started the next one itself.
+escape (`NEXT_DELAY`). `CheckTutorial` (0x8c678) sends `tutorialNEnd` for the first of
+One to Six not yet done, and that only slides the hint finger; it plays nothing. A prompt
+is heard again only from `tutorialNRestart`, when the beat's monster reaches you, and
+`tutorialSixRestart` and `tutorialSevenRestart` are never sent, so the reload and weapon
+change lessons each say their instruction once (checked 2026-09-24; the port had
+replayed the reload prompt about every ten seconds). Before that the port counted a
+reload or a weapon change pressed during any beat, which finished those lessons before
+they were taught, and its once-a-second check both nagged every beat and started the
+next one itself.
 
 ### Timers
 `NSTimer` and `performSelector:withObject:afterDelay:` become one cooperative queue

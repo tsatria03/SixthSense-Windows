@@ -336,11 +336,11 @@ def test_p_ends_the_tutorial_row_back_at_the_menu():
         _restore()
 
 
-def test_a_finished_prompt_does_not_restart_every_second():
-    """tutorial_beat never cleared beat_flag[name], so once a beat's own prompt
-    had finished playing once, tutorial_beat_end restarted it on every
-    CheckTutorial tick forever - most visible on Six, Seven and Nine, which
-    have no monster to gate the restart on."""
+def test_the_once_a_second_check_never_replays_a_prompt():
+    """tutorialNEnd (0x8cb60 .. 0x8dd78) only slides the hint finger; a prompt is replayed
+    only by tutorialNRestart, when the beat's monster reaches you, and tutorialSixRestart
+    is never sent.  The port replayed the reload lesson's prompt about every ten seconds,
+    since Six has no monster to hold it back."""
     st = _tutorial(prompt=0.4)
     try:
         calls = []
@@ -349,11 +349,10 @@ def test_a_finished_prompt_does_not_restart_every_second():
 
         st.current_beat = 'Six'
         st.tutorial_sound_stop('Six')          # the prompt has finished playing
-        st.tutorial_beat_end('Six')            # one tick later: restart, as the original does
-        assert calls == ['Six']
-
-        st.tutorial_beat_end('Six')            # another tick, nothing has changed since
-        assert calls == ['Six'], 'the prompt restarted again before its own delay was up'
+        for _ in range(30):                    # half a minute of CheckTutorial ticks
+            st.tutorial_beat_end('Six')
+            st.CheckTutorial()
+        assert calls == [], 'the reload prompt was replayed %d times' % len(calls)
     finally:
         st.teardown()
         _restore()
