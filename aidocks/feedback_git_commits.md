@@ -19,6 +19,7 @@ metadata:
 
 **How to apply:**
 - Write the message to a file in the scratchpad and run `git commit -F <file>`. Windows PowerShell 5.1 breaks double quotes inside arguments passed to programs, so `-m` messages that contain quotes fail. Never send git's error output to `$null`; a failed commit must be visible.
+- **Mark the work finished before committing it** (the dev, 2026-09-24: "always mark things as finished first before commiting"). When the dev asks to commit work that completes a task, move its line to finished (the todo list, [[project_dev_tasks]] or the plan note) first, so the finished line goes in the same commit as the work, not in a later one.
 - **One commit per fix or change** (the dev, 2026-09-23: "for everything we fix, make them separate commits to keep things tidy"). Each commit carries its own todo, changelog, docs and memory lines. When two fixes share a file such as `changelog.txt`, stage each fix's lines on their own (build the index blob with `git hash-object -w` and `git update-index --cacheinfo`, since `git add -p` is interactive), and never `git add -A` while the index already holds the other fix.
 - Stage files by name when the commit should hold exactly what the dev approved, or `git add -A` when they ask to commit everything; check `git status` first either way.
 - Format: a short summary line, a blank line, then a plain-text description wrapped at about 72 characters. End with the trailers: `Co-authored-by: lbk2907 <54381410+lbk2907@users.noreply.github.com>` only when lbk2907 contributed, then the Claude attribution line.
