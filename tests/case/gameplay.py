@@ -1164,6 +1164,44 @@ def test_hrtf_is_off():
     st.teardown()
 
 
+def test_unequipped_starting_weapons_stay_off_when_a_bought_one_is_equipped():
+    """tsatria03's case: the grenade, knife and colt unequipped, a bought shotgun
+    equipped.  weaponHave (0x4ee8) puts the three back only when nothing at all is
+    equipped, so starting a game, and pressing Tab after, should bring none of them
+    back: the game starts on the shotgun and Tab stays on it."""
+    d = UserDefaults.standardUserDefaults()
+    keys = ('GRENADEUSE', 'KNIFEUSE', 'COLTUSE', 'SHOTGUN', 'SHOTGUNUSE',
+            'M4USE', 'AK47USE', 'MG80USE', 'JAPANUSE')
+    saved = {k: d.stringForKey_(k) for k in keys}
+    for k in keys:
+        d.setObject_forKey_('0', k)
+    d.setObject_forKey_('1', 'SHOTGUN')                 # bought...
+    d.setObject_forKey_('1', 'SHOTGUNUSE')              # ...and equipped
+    d.synchronize()
+    app, st = _new_stage()
+    was_debug = app.debug
+    app.debug = False
+    try:
+        assert app.useWeapon == ['0', '0', '0', '1', '0', '0', '0', '0'], app.useWeapon
+        assert st.gamePlayer.useWepon == 3, 'the game did not start on the shotgun'
+        for _ in range(8):
+            st.gunChangeAction_(1)
+            assert st.gamePlayer.useWepon == 3, 'Tab brought back weapon %d' % \
+                st.gamePlayer.useWepon
+        for k in ('GRENADEUSE', 'KNIFEUSE', 'COLTUSE'):
+            assert d.intForKey_(k) == 0, '%s was switched back on' % k
+    finally:
+        app.debug = was_debug
+        st.teardown()
+        for k, v in saved.items():
+            if v is None:
+                d.removeObjectForKey_(k)
+            else:
+                d.setObject_forKey_(v, k)
+        d.synchronize()
+        app.weaponHave()
+
+
 def test_weapon_cycling_only_picks_equipped():
     app, st = _new_stage()
     app.useWeapon = ['1', '1', '1', '0', '0', '0', '0', '0']
