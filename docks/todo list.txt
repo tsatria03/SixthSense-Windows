@@ -1,11 +1,11 @@
 ##Unfinished.
 
-Choosing the Store row, or Start Game with no coin, makes no click. The original clicks for both.
 When you start a game, it should not automaticly add back cold, knife, and grenade weapons to your inventory after pressing tab if you never equipped them in the first place.
 If you have no weapons equipped, it should automaticly equip the first 3 weapons by default.
 
 ##Finished.
 
+Choosing the Store row, or Start Game with no coin, clicks as in the original.
 The coin row reads your coins and the time until the next one with the original's pauses between its parts.
 The empty magazine click comes from the lane you aimed at, as in the original, and you can click again straight away.
 A zombie hitting you, and the girl thanking you, are heard in the middle of your head, as in the original.

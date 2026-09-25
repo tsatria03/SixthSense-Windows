@@ -606,6 +606,33 @@ def test_moving_off_the_coin_row_stops_the_time_to_the_next_coin():
         m.teardown()
 
 
+def test_store_and_an_empty_start_click_first():
+    """tapCount sends StartGame: (0x9420) and Store: (0x9438), which click (10 at 0.2,
+    0xad32 and 0xb6a8) before StartGameAction: and StoreAction:.  So Start Game with no
+    coin clicks, then says "no coin" (358), and the Store row clicks.  The port clicked
+    only when a coin was spent, and never for the Store row."""
+    from sixthsense.game import main_controller as MC
+    m = _menu(coins=0)
+    app = m.app
+    app.mode = 1
+    played = []
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: played.append(n)
+    app.playNoCoin_ = lambda gain: played.append(358)
+    try:
+        m.selectMenu = next(n for n, _f, _s, a in MC.ROWS if a == 'start')
+        m.activate()
+        assert played[:2] == [10, 358], played
+        m.selectMenu = next(n for n, _f, _s, a in MC.ROWS if a == 'store')
+        played.clear()
+        m.activate()
+        assert played == [10], played
+        assert m.next_screen == 'store'
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        del app.playNoCoin_
+        m.teardown()
+
+
 def test_the_coin_row_keeps_the_originals_pauses():
     """The count 1.6 s after "number of coins" (0x9bec..0x9c0c), the minutes 1.3 s after
     "after" (0x5e62..0x5e82) and the seconds 0.8 s after "minutes" (0x5dbc..0x5dd6).

@@ -259,14 +259,32 @@ class MainController:
         if action in ('coin', 'title'):
             self.blindModeSelectedMenu()
             return
+        # tapCount sends StartGame: (0x9420) and Store: (0x9438), the two wrappers that
+        # click first; Tutorial and the mode change are sent their actions directly.
         if action == 'start':
-            self.StartGameAction_(None)
+            self.StartGame_(None)
         elif action == 'tutorial':
             self.TutorialAction_(None)
         elif action == 'modechange':
             self.ModeChageAction_(None)
         elif action == 'store':
-            self.StoreAction_(None)
+            self.Store_(None)
+
+    # -[MainController StartGame:] 0xac50
+    def StartGame_(self, *_):
+        """Stop what is speaking, click (0xad32, 10 at 0.2) and go on to
+        ``StartGameAction:`` - coin or no coin, so an empty purse clicks before its
+        "no coin".  The headphone and VoiceOver checks in front (0xac60..0xacfa) belong
+        to the phone and are left out."""
+        self.StopElseSpeak()
+        self.app.playSound_Gain_Pos_z_reprats_(SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
+        self.StartGameAction_(None)
+
+    # -[MainController Store:] 0xb67c
+    def Store_(self, *_):
+        """Click (0xb6a8, 10 at 0.2), then ``StoreAction:``."""
+        self.app.playSound_Gain_Pos_z_reprats_(SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
+        self.StoreAction_(None)
 
     def _say(self, text):
         """The one place the menu needs words the bundle has no recording for."""
@@ -295,8 +313,8 @@ class MainController:
                 d.setObject_forKey_(str(self.app.Coin), 'COIN')
                 d.synchronize()
                 self.coinTiemrControlStart()
-            self.app.playSound_Gain_Pos_z_reprats_(
-                SOUND_UI_SELECT, 0.2, (0.0, 0.0), 0, False)
+            # No click here: StartGameAction: plays only 358 (0xb5a0); the click is
+            # StartGame:'s, before it.
             # 0xb3f8 always pushes Stage_1_E, whose MapInitInBundle (0x2e08e-0x2e0dc)
             # runs the tutorial inline while TUTORIAL is 0, so the first game's coin
             # pays for the tutorial too.  The port runs that tutorial in
