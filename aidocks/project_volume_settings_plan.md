@@ -1,11 +1,11 @@
 ---
 name: project_volume_settings_plan
-description: "PLANNED 2026-09-25, not built. settings.json gains MASTERVOLUME, LEVELMUSICVOLUME and AMBIENCEVOLUME beside MENUMUSICVOLUME: percentages 0 to 100, 100 the original's mix, set only by editing the file, read on start, written with every default on the first start. Needs [[project_save_split_plan]] first."
+description: "FINISHED 2026-09-25, confirmed by the dev. settings.json gains MASTERVOLUME, LEVELMUSICVOLUME and AMBIENCEVOLUME beside MENUMUSICVOLUME: percentages 0 to 100, 100 the original's mix, set only by editing the file, read on start, written with every default on the first start. Needs [[project_save_split_plan]] first."
 metadata:
   type: project
 ---
 
-**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it lives in `settings.json`.
+**Status: FINISHED, 2026-09-25, confirmed by the dev ("Everything works!").** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it lives in `settings.json`.
 
 **What was built:** `platform/volume.py`: `VOLUME_KEYS`, `percents` (what `load` last read, all 100 until then), `valid_percent`, `percent` (invalid means 100), `percent_gain` (squared) and `load(defaults)`, called from `AppDelegate.didFinishLaunching`, which writes missing volumes at 100 and `EYEMODE` at the current mode, so settings.json lists every setting. `master()`, `music()` and `ambience()` multiply by their setting; `menu_music(p)` uses `percent_gain`. `defaults.SETTINGS_KEYS` is now in the dev's order. `AppDelegate.menu_music_volume` takes any whole number, and Page Up and Page Down step to the next ten from it. `ChangeLevel:`'s 0.02 ambience note now goes through `volume.ambience`. The story row's music goes through `volume.music`, so the level music setting covers it too. Tests: five new in `tests/case/volume.py`; `menu_music.py`'s bad-value test updated (55 is valid now) and one new for stepping from 55. Built in the batch with the other two save plans; no test ran until all three were committed (2026-09-25).
 

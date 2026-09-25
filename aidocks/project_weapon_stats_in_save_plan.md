@@ -1,11 +1,11 @@
 ---
 name: project_weapon_stats_in_save_plan
-description: "PLANNED 2026-09-25, not built. Each weapon's four spoken stats (ammo capacity, effective range, damage, price) are written into save.json when it is bought or equipped, and the three starting weapons' in every new save; the game never reads them back, so editing them by hand does nothing. Needs [[project_save_split_plan]] first."
+description: "FINISHED 2026-09-25, confirmed by the dev. Each weapon's four spoken stats (ammo capacity, effective range, damage, price) are written into save.json when it is bought or equipped, and the three starting weapons' in every new save; the game never reads them back, so editing them by hand does nothing. Needs [[project_save_split_plan]] first."
 metadata:
   type: project
 ---
 
-**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it writes into `save.json`.
+**Status: FINISHED, 2026-09-25, confirmed by the dev ("Everything works!").** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it writes into `save.json`.
 
 **What was built:** `game/weapon_stats.py`: `NAMES` (the eight weapons in slot order, by save name), `stats(name)` (the shop's numbers from `store.SHOP`, else `inventory.SLOTS`; no grenade ammo key) and `fill(defaults, have, use)`, which writes only missing keys for weapons owned or equipped. One call at the end of `AppDelegate.weaponHave`, which already runs on every start, after `buyAction_` and after `equipToggleAction_`, covers all four moments the plan names; the three starting weapons are always owned, so a new save gets theirs on the first start. New `tests/case/weapon_stats.py`, seven tests. Built in the batch with the other two save plans; no test ran until all three were committed (2026-09-25).
 

@@ -1,11 +1,12 @@
 ##Unfinished.
 
-Split the save into save.json for your progress, settings.json for your settings and keys.json for your keys, moving an existing save over by itself.
-Write each weapon's ammo capacity, range, damage and price into save.json when it is bought or equipped, and the three starting weapons' in a new save. Changing them by hand does nothing.
-Add volume settings to settings.json for the master volume, the level music and the ambience, from 0 to 100 percent, where 100 is the original's mix.
+Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
 
 ##Finished.
 
+settings.json has volumes for everything, the menu music, the level music and the ambience, from 0 to 100 percent, where 100 is the original's mix.
+Each weapon's ammo capacity, range, damage and price are written into save.json when it is bought or equipped, and the three starting weapons' in a new save. Changing them by hand does nothing.
+The save is split into save.json for your progress, settings.json for your settings and keys.json for your keys, and an older save is moved over by itself.
 Gunshots and the empty magazine click line up with the zombies in each lane: far left and far right are fully to the side, and the diagonals moved further out, from about a third of the way to the side to about half.
 Starting a game with the grenade, knife and colt unequipped no longer brings them back when a weapon you bought is equipped, and Tab offers only what you equipped.
 Choosing the Store row, or Start Game with no coin, clicks as in the original.
