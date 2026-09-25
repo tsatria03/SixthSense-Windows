@@ -431,9 +431,8 @@ Contributors, in the order they joined:
 - **[tsatria03](https://github.com/tsatria03)** publishes and maintains the repository,
   and carries the port on:
   - **Publishing:** put the port on GitHub, restored this README, and keeps the
-    license, the credits, the changelog and the todo list. Made every release, from
-    26.09.23-1 to 26.09.24-2, and gave players a readme of their own, in a `docks`
-    folder beside the game.
+    license, the credits, the changelog and the todo list, and gave players a readme
+    of their own, in a `docks` folder beside the game.
   - **Sounds:** sorted every sound into folders under its original name, then set apart
     every sound the game never plays, and found the real "main menu button" recording.
   - **The original, checked again:** the publisher's logo at launch, the story on the
