@@ -193,6 +193,14 @@ Once it is dead, every zombie left is killed and counted, the ambience changes, 
 compared against `gameMode - 2` and that there was no boss; that was a misreading of the
 `movw` constants. `bBOSS` is declared and never used.
 
+### A section does not wait for its zombies
+You walk one cell a second, and `MainControl` steps you on whenever the cell ahead has
+ground (0x31a70), whatever is still on the field. It sends `MonsterBuffer` `count` at
+0x31988 but never reads the answer, and nothing else checks for live zombies, so the girl
+or the woman zombie (action cell 8) comes on time and any zombie still walking in carries
+into the next section. Only the boss holds the walk. The dev noticed it on 2026-09-24 and
+chose to keep the original's timing. **Reproduced.**
+
 ### Pausing holds the level change
 `ChangeLevel:` is built unconditionally at 0x323c2, and `StopPlayAction:` never cancels
 it, so in the original a pause in those two seconds lets it land under the panel and
