@@ -14,11 +14,25 @@ where the original's data is malformed, the port reproduces the malformed result
 **Wear headphones.** The game says so itself (`SoundList.plist` 234,
 "you must use earphone") and none of it works on speakers.
 
+## Download
+
+To play without installing Python, download the newest release from the
+[latest release page](https://github.com/tsatria03/SixthSense-Windows/releases/latest).
+Each release is one zip, `SixthSense-Win-<version>.zip`. Extract it and run
+`SixthSense.exe` in the `SixthSense` folder it contains. The `docks` folder beside it
+holds the player's readme, the changelog and the todo list.
+
+A version is the date of the release and that day's number: `26.09.24-2` is the second
+release of the 24th of September 2026. The changelog lists what each release changed,
+and every release so far is on the [releases page](https://github.com/tsatria03/SixthSense-Windows/releases).
+Your save is kept in `%APPDATA%\SixthSense`, not in the game's folder, so a new release
+can go in a fresh folder and carries on from your progress.
+
 ---
 
 ## Requirements
 
-64-bit Python 3.12 or newer on Windows 10 or later, and two packages to play:
+To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or later, and two packages:
 
     pip install -r requirements.txt
 
@@ -312,8 +326,9 @@ with none of this file's developer parts.
 before each one:
 
 1. **Check** that everything is committed and pushed, `gh` is signed in, and the
-   changelog has between 5 and 100 changes under `unrelease:`. Fewer than 5 do not make
-   a release.
+   changelog has between 5 and 100 changes under `unrelease:`. With 1 to 4 it asks
+   whether to release anyway, and only a Y goes on; none at all, or more than 100, never
+   make a release.
 2. **Prepare:** `VERSION` becomes today's date and that day's release number, such as
    `26.09.23-1`, and the unreleased lines are filed under it in `docks/changelog.txt`.
 3. **Build** with the compiler, as a folder or a single exe. A failed build puts
@@ -416,8 +431,8 @@ Contributors, in the order they joined:
 - **[tsatria03](https://github.com/tsatria03)** publishes and maintains the repository,
   and carries the port on:
   - **Publishing:** put the port on GitHub, restored this README, and keeps the
-    license, the credits, the changelog and the todo list. Made the first releases,
-    26.09.23-1 and 26.09.23-2, and gave players a readme of their own, in a `docks`
+    license, the credits, the changelog and the todo list. Made every release, from
+    26.09.23-1 to 26.09.24-2, and gave players a readme of their own, in a `docks`
     folder beside the game.
   - **Sounds:** sorted every sound into folders under its original name, then set apart
     every sound the game never plays, and found the real "main menu button" recording.
@@ -442,8 +457,8 @@ Contributors, in the order they joined:
     none, and unequipped starting weapons that stay unequipped.
   - **Debug mode:** its second set of keys, a tutorial it can finish, and F7 in the
     window's list of keys.
-  - **Tools:** the build script with its single-exe build, the releaser and its
-    five-to-a-hundred rule, the level and tutorial choosers, the tests folder split into
+  - **Tools:** the build script with its single-exe build, the releaser, its
+    five-to-a-hundred rule and the question to release fewer anyway, the level and tutorial choosers, the tests folder split into
     `case` and `interact`, tests that never touch your save or make a sound, and a run
     loop that keeps time in order.
 - **[tunmi13productions](https://github.com/tunmi13productions)** has fixed and ported
