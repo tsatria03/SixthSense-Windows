@@ -1,4 +1,5 @@
 unrelease:
+The credits are up to date, and now say what each person has done for the game.
 Unequipping the grenade, the knife and the colt now sticks when a weapon you bought is equipped: a game starts with only what you equipped, and Tab offers nothing else. Before, they could come back.
 Choosing the Store row clicks, and so does Start Game with no coin, before it says no coin, as in the original.
 The coin row reads your coins and the time until the next one with the original's shorter pauses between its parts.

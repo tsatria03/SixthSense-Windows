@@ -103,7 +103,8 @@ Credits
 
 Sixth Sense is Bitbee's game, from 2013.
 lbk2907 made the Windows version from the original.
-tsatria03 publishes it and carries it on, and tunmi13productions has fixed and added a great deal of it.
+tsatria03 publishes it and carries it on: the releases, this readme, the sounds sorted into folders, speech for every screen reader, the logo and the story, and many fixes checked against the original.
+tunmi13productions has fixed and added a great deal of it: zombies that move, the boss and the girl who heals you, the tutorial's order, the screen reader mode, the weapon test range, pausing, and a save that survives damage.
 
 Licenses
 

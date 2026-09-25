@@ -416,10 +416,17 @@ Contributors, in the order they joined:
 - **[tsatria03](https://github.com/tsatria03)** publishes and maintains the repository,
   and carries the port on:
   - **Publishing:** put the port on GitHub, restored this README, and keeps the
-    license, the credits, the changelog and the todo list. Made the first release,
-    26.09.23-1.
-  - **Sounds:** sorted every sound into folders under its original name, and found the
-    real "main menu button" recording.
+    license, the credits, the changelog and the todo list. Made the first releases,
+    26.09.23-1 and 26.09.23-2, and gave players a readme of their own, in a `docks`
+    folder beside the game.
+  - **Sounds:** sorted every sound into folders under its original name, then set apart
+    every sound the game never plays, and found the real "main menu button" recording.
+  - **The original, checked again:** the publisher's logo at launch, the story on the
+    opening screen's third row (tunmi13productions' idea), "paused" when pausing, the tutorial's reload lesson
+    saying its instruction once, the weapon change sound at the original's volume,
+    gunshots and empty clicks placed where the original places them, a grenade scoring
+    every zombie it hurts, a zombie's blow heard in the middle of your head, the coin
+    row's pauses, and the menu's missing clicks.
   - **Speech and keys:** speech through Prism for every screen reader and a Windows
     voice. Rebinding keys that works, a reset that asks first, and rolling from one
     attack key to the next.
@@ -431,11 +438,15 @@ Contributors, in the order they joined:
     turn keys removed.
   - **The menus and the panel:** the shop refusing weapons you have not bought, each
     screen saying its name, Home, End, Left and Right with voice over off, the score
-    row reading your score, result rows that reread themselves, and the coin store and
-    purchase all weapons rows removed.
-  - **Debug mode:** its second set of keys, and a tutorial it can finish.
-  - **Tools:** the build script with its single-exe build, the releaser, the level
-    and tutorial choosers, and the tests folder split into `case` and `interact`.
+    row reading your score, result rows that reread themselves, the coin store and
+    purchase all weapons rows removed, a coin clock that starts again when a save has
+    none, and unequipped starting weapons that stay unequipped.
+  - **Debug mode:** its second set of keys, a tutorial it can finish, and F7 in the
+    window's list of keys.
+  - **Tools:** the build script with its single-exe build, the releaser and its
+    five-to-a-hundred rule, the level and tutorial choosers, the tests folder split into
+    `case` and `interact`, tests that never touch your save or make a sound, and a run
+    loop that keeps time in order.
 - **[tunmi13productions](https://github.com/tunmi13productions)** has fixed and ported
   a great deal of the game:
   - the coin economy, and the order spoken numbers are read in
@@ -443,6 +454,8 @@ Contributors, in the order they joined:
     heals you and the woman zombie
   - reloading and headshots as in the original, with shots that take time to land
   - pausing as often as you like, and pausing when the window loses focus
+  - pausing that pauses the ambience and the music, and holds a level change until you
+    continue
   - the screen reader mode for the menus and the result panel, and Escape as pause
   - debug mode
   - the weapon test range behind the shop's Try button
@@ -451,6 +464,12 @@ Contributors, in the order they joined:
   - stopping recordings from talking over each other
   - removing the ranking, Game Center and restore purchases rows, and quitting from the
     window's close button on any screen
+  - the voice over row saying what it does, the coin row and the earphone warning no
+    longer talking over other rows, and "no coin" said alone
+  - a damaged save kept aside, with the game carrying on from a backup
+  - the sound following your audio device when headphones are unplugged or plugged in
+  - saying aloud why the game could not start, or stopped
+  - the bloopers folder
 
 SixthSense itself is Bitbee's game, from 2013.
 
