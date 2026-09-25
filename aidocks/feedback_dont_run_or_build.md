@@ -10,6 +10,8 @@ metadata:
 
 **Only the tests that match what changed (2026-09-23).** When one or more Python files change and a test script covers them, run only that script or those scripts, not the whole suite. For example, a change to `game/store.py` runs `tests/case/store.py`. Run the full suite only when the dev asks, for example once they have more than five commits that are not pushed, or after the conversation has been compacted. The dev said: "Do not keep running the full test suite over and over again." This replaces the earlier pause of 2026-09-22 ("for the next few commits, do not run tests unless I say so").
 
+**During a batch of fixes, run no tests between the commits** (the dev, 2026-09-24: "Please don't run tests between each commit. Wait untill all of the commits are done before doing the full test suite, and if I give you the go ahead"). Make the batch's commits, then run the full suite once at the end, and only when the dev gives the go-ahead.
+
 **The test suite may be run without asking.** The dev gave this standing permission on 2026-09-22 ("From now on, you are allowed to run test suites"). It covers the files in `tests/`, run one by one as plain scripts. Always run them the safe way ([[project_safe_test_run]]). Since 2026-09-24 the tests keep off the dev's save and are silent by themselves (no speech, no sound, no window), wherever they are run from; the dev's rule is that testing speaks nothing whatsoever. Before that, `APPDATA` had to point at a scratch folder and the null audio driver had to be set by hand.
 
 **Still ask first before running:**
