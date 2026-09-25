@@ -2,6 +2,7 @@
 
 Split the save into save.json for your progress, settings.json for your settings and keys.json for your keys, moving an existing save over by itself.
 Write each weapon's ammo capacity, range, damage and price into save.json when it is bought or equipped, and the three starting weapons' in a new save. Changing them by hand does nothing.
+Add volume settings to settings.json for everything, the level music and the ambience, from 0 to 100 percent, where 100 is the original's mix.
 
 ##Finished.
 
