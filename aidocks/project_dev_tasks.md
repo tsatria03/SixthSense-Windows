@@ -11,7 +11,7 @@ Since 2026-09-23, `todo list.txt` holds only what a player notices ([[feedback_t
 
 ## Open
 
-- From the 2026-09-24 binary recheck: the walk never sets walkXFlag for its 0.6 seconds; DIVERGENCES.md's Input section still says shaking free takes 10 presses; and the DIVERGENCES and PORTING_STATUS lines behind the nine new todo items (the coin row's 2 s and 1 s) are misreadings to correct with those fixes.
+- From the 2026-09-24 binary recheck: the walk never sets walkXFlag for its 0.6 seconds; DIVERGENCES.md's Input section still says shaking free takes 10 presses; (the docs lines behind the nine todo items were corrected with their fixes on 2026-09-24).
 - Bring the docs and notes up to date with the code, from the 2026-09-23 rescan. game/sounds/unused holds 27 files (26 WAV and one bloopers OGG), not the 25 in CLAUDE.md and these notes or the 26 in the README. CLAUDE.md still says the game opens on the splash, where it now opens on the logo, and that only the key bindings screen is synthesised, leaving out the screen reader mode. The README layout leaves out debug.py, stage_1_test.py and ui/focus.py, and CLAUDE.md says Python 3.12 where the README says 3.12 or newer. tests/case/paths.py line 6 and a few notes still use old test_*.py names. project_tests_layout.md opens with 17 files and 270 tests, feedback_changelog.md says unrelease starts at 0, and a finished line below says findings are listed in the todo list's unfinished section.
 - Update the outdated code comment about the zig-zag walks. (The README half was done on 2026-09-23, and the run loop's header about the timers on 2026-09-24.)
 - Add a log file and a crash.txt beside the save, so a failed start can be diagnosed.

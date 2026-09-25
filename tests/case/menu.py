@@ -573,7 +573,7 @@ def test_the_voice_over_row_says_what_choosing_it_does():
 
 
 def test_moving_off_the_coin_row_stops_the_time_to_the_next_coin():
-    """The coin row reads the count, "after", then the minutes 2 s later and the
+    """The coin row reads the count, "after", then the minutes 1.3 s later and the
     seconds after that.  Moving away once "after" has played used to leave the
     minutes and seconds queued, and they were read over the next row."""
     import time as _time
@@ -603,6 +603,38 @@ def test_moving_off_the_coin_row_stops_the_time_to_the_next_coin():
         assert not late, 'the time to the next coin was read over the next row: %r' % played
     finally:
         del app.playSound_Gain_Pos_z_reprats_
+        m.teardown()
+
+
+def test_the_coin_row_keeps_the_originals_pauses():
+    """The count 1.6 s after "number of coins" (0x9bec..0x9c0c), the minutes 1.3 s after
+    "after" (0x5e62..0x5e82) and the seconds 0.8 s after "minutes" (0x5dbc..0x5dd6).
+    The port waited 1.5, 2.0 and 1.0."""
+    from sixthsense.game import app_delegate as A
+    from sixthsense.platform import runloop
+    m = _menu(coins=3)
+    app = m.app
+    app.mode = 1
+    loop = RunLoop.main()
+
+    def queued(selector):
+        now = runloop.clock()
+        return [round(p.due - now, 1) for _d, _s, p in loop._performs
+                if p.selector == selector and not p.cancelled]
+    try:
+        m.selectMenu = 1
+        m.blindModeSelectedMenu()
+        assert queued('readNumberOfCoin') == [1.6], queued('readNumberOfCoin')
+        for tts_type, selector, want in ((3, 'readTimeMin', 1.3), (4, 'readTimeSec', 0.8)):
+            loop.cancelPerform(app)
+            app.Coin = 3
+            app.tts_type = tts_type
+            app.ttsArrayCount = 0
+            app.ttsTimer = loop.scheduledTimer(60.0, app, 'readNumber_', None, True)
+            app.readNumber_()
+            assert queued(selector) == [want], (selector, queued(selector))
+    finally:
+        loop.cancelPerform(app)
         m.teardown()
 
 

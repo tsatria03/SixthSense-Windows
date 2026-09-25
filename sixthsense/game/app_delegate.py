@@ -61,6 +61,12 @@ TTS_MINUTES = 336
 TTS_SECONDS = 337
 TTS_COIN_FULL = 338
 TTS_COIN_AFTER = 339
+#: How long after "after" (339) the minutes are read: 0x5e62..0x5e82, a double whose high
+#: word is 0x3ff4cccc - 1.3 s, a float widened to double.
+READ_MINUTES_DELAY = 1.3
+#: How long after "minutes" (336) the seconds are read: 0x5dbc..0x5dd6, high word
+#: 0x3fe99999 - 0.8 s.
+READ_SECONDS_DELAY = 0.8
 SOUND_NO_COIN = 358
 #: PORT ADDITION: measured - 358 says "no coin" in its first 0.85 s, then after a
 #: pause points to the coin store and the ranking page, which the port does not have.
@@ -271,7 +277,7 @@ class AppDelegate:
             loop = RunLoop.main()
             if self.tts_type == 4:
                 self.playSound_Gain_Pos_z_reprats_(TTS_MINUTES, 0.2, (0.0, 0.0), 0, False)
-                loop.perform(self, 'readTimeSec', None, 1.0)
+                loop.perform(self, 'readTimeSec', None, READ_SECONDS_DELAY)
             elif self.tts_type == 5:
                 self.playSound_Gain_Pos_z_reprats_(TTS_SECONDS, 0.2, (0.0, 0.0), 0, False)
             elif self.tts_type == 3:
@@ -279,7 +285,7 @@ class AppDelegate:
                     self.playSound_Gain_Pos_z_reprats_(TTS_COIN_FULL, 0.2, (0.0, 0.0), 0, False)
                 else:
                     self.playSound_Gain_Pos_z_reprats_(TTS_COIN_AFTER, 0.2, (0.0, 0.0), 0, False)
-                    loop.perform(self, 'readTimeMin', None, 2.0)
+                    loop.perform(self, 'readTimeMin', None, READ_MINUTES_DELAY)
         self.numberBackUp = []
 
     # -[AppDelegate readStop] 0x5ae8
@@ -291,7 +297,7 @@ class AppDelegate:
         self.ttsTimer = None
         self.numberBackUp = []
         # PORT DIVERGENCE: the original (0x5ae8) stops only the digits, so the coin
-        # row's minutes and seconds, queued 2 s and 1 s behind "after" and "minutes",
+        # row's minutes and seconds, queued 1.3 s and 0.8 s behind "after" and "minutes",
         # still came and were read over whatever row you had moved to.  They are
         # cancelled here, and the words already playing are stopped with them.
         loop = RunLoop.main()

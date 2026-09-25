@@ -68,6 +68,8 @@ SOUND_VOICEOVER_OFF = 22
 SOUND_VOICEOVER_ON_BUTTON = 331
 SOUND_VOICEOVER_OFF_BUTTON = 332
 SOUND_COIN_COUNT = 334
+#: How long after "number of coins" the count is read (0x9bec..0x9c0c): 1.6 s.
+READ_COIN_COUNT_DELAY = 1.6
 SOUND_NO_COIN = 358
 SOUND_RANKING_NOTICE = 364
 
@@ -221,8 +223,9 @@ class MainController:
         self.app.playSound_Gain_Pos_z_reprats_(
             self.row_sound(), 0.2, (0.0, 0.0), 0, False)
         if action == 'coin':
-            # -[MainController readNumberOfCoin] 0x97ed reads the count after the name
-            RunLoop.main().perform(self, 'readNumberOfCoin', None, 1.5)
+            # -[MainController readNumberOfCoin] 0x97ed reads the count after the name,
+            # 1.6 s later (0x9bec..0x9c0c: the double's high word is 0x3ff99999)
+            RunLoop.main().perform(self, 'readNumberOfCoin', None, READ_COIN_COUNT_DELAY)
         log.info('menu: %s', action)
 
     # -[MainController readNumberOfCoin] 0x97ed
