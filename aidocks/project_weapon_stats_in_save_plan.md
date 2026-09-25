@@ -19,8 +19,20 @@ metadata:
   - a new save: the grenade, the knife and the colt, beside the block that equips them (`app_delegate.py`, "a fresh install has nothing equipped", 0x52xx). That covers a first start and a save the player deleted.
 - **Never read:** no code reads these keys. A test checks that editing them changes nothing the pages say or the stage uses.
 
+## Decided
+- **The shop's numbers, always** (the dev, 2026-09-25: "go ahead with the shop stats"). Where the shop and the inventory disagree (`aidocks/DIVERGENCES.md`, "The shop and the inventory disagree about the same weapons": the shotgun, M4A1, AK47, MG80 and sword), the keys hold `store.SHOP`'s, the ones `buyAction:` charges, whichever page the weapon was bought or equipped from, so a weapon's keys never change. The knife and the colt, which the shop does not sell, take `inventory.SLOTS`'s. The grenade is the same in both. So, as ammo capacity, range, damage and price:
+  - grenade: the count in hand, 10, 150, 1000
+  - knife: 0, 2, 30, 0 (inventory)
+  - colt: 7, 50, 30, 0 (inventory)
+  - shotgun: 10, 50, 45, 7000
+  - M4A1: 25, 300, 50, 13000
+  - AK47: 30, 300, 50, 15000
+  - MG80: 50, 1500, 80, 45000
+  - Japanese sword: 0, 3, 100, 50000
+
+  Checked on 2026-09-25 against `DetailStoreController` (0x19334..0x19f38) and `DetailInventoryController` (0x27684..0x28622); the Python tables match. None of these is what the stage plays with: that comes from the weapon plists (the shotgun plays at 35 damage and 1000 range), so the keys are a spec sheet on both counts.
+
 ## Still to decide with the dev
-- **Which numbers, where the shop and the inventory disagree.** Their tables differ for the same weapon (`aidocks/DIVERGENCES.md`, "The shop and the inventory disagree about the same weapons"): the shotgun is 10 rounds and 7,000 in the shop, 9 and 50,000 in the inventory, and the M4A1, AK47, MG80 and sword differ too. Either the numbers of the page the weapon was bought or equipped from, or one table for both.
 - **Saves that already own weapons.** As asked, keys are written on buying and equipping; a weapon bought before this change would get its keys the next time it is equipped. Filling them in on the first start was not asked for.
 - **The grenade's ammo capacity** is the count in hand (`GRENADECOUNT`), which changes as grenades are thrown and bought; the page reads the count at that moment.
 
