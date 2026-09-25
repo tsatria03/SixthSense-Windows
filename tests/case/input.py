@@ -379,6 +379,37 @@ def test_bindings_survive_a_round_trip():
     assert c.bindings['lane3'] == DEFAULTS['lane3'], 'reset did not stick'
 
 
+def test_keys_json_is_written_with_the_defaults_on_the_first_start():
+    """tsatria03, 2026-09-25: keys.json is there from the first start, not only once a
+    key is rebound; an action missing from an older file is added; and a file that
+    cannot be read is left alone."""
+    import json
+    folder = tempfile.mkdtemp()
+    path = os.path.join(folder, 'keys.json')
+    KeyMap(path=path)
+    with open(path, encoding='utf-8') as f:
+        written = json.load(f)
+    assert sorted(written) == sorted(DEFAULTS)
+    assert written['lane3'] == [list(b) for b in DEFAULTS['lane3']]
+    # an older file without one action keeps its bindings and gains the missing one
+    del written['reload']
+    written['lane3'] = [['page up']]
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(written, f)
+    km = KeyMap(path=path)
+    assert km.bindings['lane3'] == [('page up',)]
+    with open(path, encoding='utf-8') as f:
+        again = json.load(f)
+    assert again['lane3'] == [['page up']]
+    assert again['reload'] == [list(b) for b in DEFAULTS['reload']]
+    # a damaged file is not replaced by the defaults
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('{"lane3": [["page')
+    KeyMap(path=path)
+    with open(path, encoding='utf-8') as f:
+        assert f.read() == '{"lane3": [["page'
+
+
 # ----------------------------------------------------------- binding screen
 class _Recorder:
     def __init__(self):

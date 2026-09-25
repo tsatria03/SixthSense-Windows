@@ -150,6 +150,14 @@ class KeyMap:
 
     # ---- storage ---------------------------------------------------------
     def load(self):
+        """Read the bindings, and write the file when it is missing or lacks an action.
+
+        PORT ADDITION (tsatria03, 2026-09-25): ``keys.json`` is there from the first
+        start, holding the default bindings, instead of appearing only once a key is
+        rebound.  An action the file does not name yet, one added since it was written,
+        gets its default and is written in too.  A file that cannot be read is left
+        alone, so a player's bindings are never overwritten by the defaults."""
+        saved = {}
         try:
             if os.path.exists(self.path):
                 with open(self.path, 'r', encoding='utf-8') as f:
@@ -159,6 +167,9 @@ class KeyMap:
                         self.bindings[action] = [tuple(b) for b in saved[action] if b]
         except Exception:
             log.exception('could not read %s; using the defaults', self.path)
+            return
+        if not all(action in saved for action in ACTION_IDS):
+            self.save()
 
     def save(self):
         try:

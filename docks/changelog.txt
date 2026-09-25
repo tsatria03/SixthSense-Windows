@@ -1,4 +1,5 @@
 unrelease:
+Your key bindings file, keys.json, is created with the default keys the first time the game starts, instead of only once you change a key. A keys file from an older version gains any action it is missing.
 The game's zip now extracts to a folder called SixthSense-Windows instead of SixthSense. The game inside it is still SixthSense.exe.
 
 26.09.24-2:
