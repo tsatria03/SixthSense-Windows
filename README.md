@@ -424,8 +424,7 @@ Contributors, in the order they joined:
   - **The original, checked again:** the publisher's logo at launch, the story on the
     opening screen's third row (tunmi13productions' idea), "paused" when pausing, the tutorial's reload lesson
     saying its instruction once, the weapon change sound at the original's volume,
-    gunshots and empty clicks placed where the original places them, a grenade scoring
-    every zombie it hurts, a zombie's blow heard in the middle of your head, the coin
+    a grenade scoring every zombie it hurts, a zombie's blow heard in the middle of your head, the coin
     row's pauses, and the menu's missing clicks.
   - **Speech and keys:** speech through Prism for every screen reader and a Windows
     voice. Rebinding keys that works, a reset that asks first, and rolling from one

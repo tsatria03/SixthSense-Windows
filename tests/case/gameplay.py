@@ -190,16 +190,16 @@ def test_a_zombie_hitting_you_is_heard_in_the_middle():
         st.teardown()
 
 
-def test_an_empty_gun_clicks_at_its_lane_and_is_ready_again_at_once():
+def test_an_empty_gun_clicks_down_its_lane_and_is_ready_again_at_once():
     """Each lane's ammo check branches to a block that plays 78 at 0.5, z 40, and clears
-    shotFlag at once.  Lanes 1, 3 and 5 click at their gunshot point; lanes 2 and 4 share
-    0x2f808, lane 2's (-15, 25).  The grenade clicks in the centre (0x2f4e8)."""
+    shotFlag at once.  The grenade clicks in the centre (0x2f4e8).  PORT DIVERGENCE:
+    each lane clicks 40 cm down that lane at z 0, where its shot goes off."""
     app, st = _new_stage()
     played = []
     real = app.playSound_Gain_Pos_z_reprats_
     app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: played.append((n, g, pos, z))
-    want = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (-15.0, 25.0),
-            5: (25.0, 0.0)}
+    want = {lane: ((40.0 * math.cos(math.radians(b)), 40.0 * math.sin(math.radians(b))), 0)
+            for lane, b in LANE.items()}
     d = UserDefaults.standardUserDefaults()
     grenades = d.stringForKey_('GRENADECOUNT')
     was_debug = app.debug
@@ -212,7 +212,9 @@ def test_an_empty_gun_clicks_at_its_lane_and_is_ready_again_at_once():
             played.clear()
             st.shotFlag = False
             st.MovingShot_(LANE[lane])
-            assert (78, 0.5, want[lane], 40) in played, (lane, played)
+            (wx, wy), wz = want[lane]
+            assert any(n == 78 and g == 0.5 and abs(x - wx) < 0.01 and abs(y - wy) < 0.01
+                       and z == wz for n, g, (x, y), z in played), (lane, played)
             assert st.shotFlag is False, 'lane %d: the empty click held the next shot' % lane
         d.setObject_forKey_('0', 'GRENADECOUNT')
         st.gamePlayer.useWepon = 0
@@ -966,17 +968,17 @@ def test_the_weapon_change_sound_is_quiet_and_the_old_one_stops():
         st.teardown()
 
 
-def test_a_shot_is_heard_at_the_originals_point_for_its_lane():
+def test_a_shot_goes_off_down_its_lane():
     """MovingShot: stores each lane's point before the shared call at 0x2fbd2, z 40:
-    (-25, 0), (-15, 25), (0, 25), (15, 25), (25, 0) - partly toward the lane, not down
-    it.  The port had placed shots fully down the lane, much harder to the side."""
+    (-25, 0), (-15, 25), (0, 25), (15, 25), (25, 0).  PORT DIVERGENCE: each shot goes
+    off 40 cm down its lane at z 0, in line with the zombies there."""
     app, st = _new_stage()
     calls = []
     real = app.playSound_Gain_Pos_z_reprats_
     app.playSound_Gain_Pos_z_reprats_ = lambda n, g, pos, z, r: (
         calls.append((n, pos, z)), real(n, g, pos, z, r))[-1]
-    want = {1: (-25.0, 0.0), 2: (-15.0, 25.0), 3: (0.0, 25.0), 4: (15.0, 25.0),
-            5: (25.0, 0.0)}
+    want = {lane: ((40.0 * math.cos(math.radians(b)), 40.0 * math.sin(math.radians(b))), 0)
+            for lane, b in LANE.items()}
     try:
         w = st.weaponSource[st.gamePlayer.useWepon]
         for lane in LANE:
@@ -985,7 +987,9 @@ def test_a_shot_is_heard_at_the_originals_point_for_its_lane():
             st.MovingShot_(LANE[lane])
             shot = [c for c in calls if c[0] == w.ShotSoundNumber]
             assert shot, 'lane %d fired nothing' % lane
-            assert shot[0][1:] == (want[lane], 40), (lane, shot[0])
+            (x, y), z = shot[0][1], shot[0][2]
+            (wx, wy), wz = want[lane]
+            assert abs(x - wx) < 0.01 and abs(y - wy) < 0.01 and z == wz, (lane, shot[0])
     finally:
         del app.playSound_Gain_Pos_z_reprats_
         st.teardown()

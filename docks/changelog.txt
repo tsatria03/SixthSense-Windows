@@ -1,4 +1,5 @@
 unrelease:
+Gunshots and the click of an empty gun are heard down the lane you aim at again, in line with the zombies in that lane, instead of closer to the middle.
 
 26.09.24-1:
 The credits are up to date, and now say what each person has done for the game.

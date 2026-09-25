@@ -122,7 +122,9 @@ block that sets where: lane 1 (0x2f8a4 -> 0x2f9fa), 3 (0x2f756 -> 0x2f952) and 5
 0x2f5d8) both branch to 0x2f808, which stores lane 2's (-15, 25), so an empty gun aimed
 half right clicks half left. The grenade's empty click is in the centre (0x2f4e8).
 **Reproduced** (`EMPTY_CLICK_POS`) on 2026-09-24; the port had centred every click at
-z 0 and held the next shot for the weapon's `ShotTime`.
+z 0 and held the next shot for the weapon's `ShotTime`. **Diverged** later that day at
+the dev's request: every lane now clicks 40 cm down that lane at z 0 (`_lane_pos`), where
+its gunshot goes off, so lane 4 clicks from its own side.
 
 ### The zig-zag walks cannot be reached
 Types whose id ends in 6 to 0 walk the zig-zags (`MovingType` 11..55), but
@@ -327,15 +329,20 @@ Nothing calls it. **Not ported.**
 
 ## Where the port differs on purpose
 
-### A missed swing is heard down its lane
+### Shots, empty clicks and missed swings are heard down their lane
 Gunshots are the original's own: `MovingShot:` gives each lane its own point before the
 one shared call at 0x2fbd2, always at z 40 - lane 1 (-25, 0), 2 (-15, 25), 3 (0, 25),
 4 (15, 25), 5 (25, 0) (0x2f948, 0x2f4a0, 0x2f7f8, 0x2f680, 0x2fbbe) - so a shot pans
 partly toward its lane, and only the grenade is dead centre (`GUN_SHOT_POS`). This entry
 used to say the original fired every shot from the centre and that the port placed them
 down the lane; that was a misreading of the listing, and until 2026-09-24 the port panned
-shots fully down the lane, much harder than the original. A missed swing is still placed
-40 cm out along its lane, at the listener's height (`_lane_pos`), a port choice; where
+shots fully down the lane, much harder than the original. **Diverged again** the same
+day at the dev's request: with the original's points, shots did not line up with the
+zombies in their lane (a far-side shot sat well inside a far-side zombie, and a diagonal
+shot inside a diagonal zombie). So every shot, empty click and missed swing is again
+placed 40 cm out along its lane, at the listener's height (`_lane_pos`), in line with the
+zombies there. `GUN_SHOT_POS` and `EMPTY_CLICK_POS` keep the original's points but are
+not used. For a missed swing this was always a port choice; where
 the original plays it has not been pinned down (its x comes from a value saved before
 0x39c36).
 
