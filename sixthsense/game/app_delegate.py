@@ -52,6 +52,7 @@ from ..platform import volume
 from ..platform.defaults import UserDefaults
 from ..platform.runloop import RunLoop
 from .oal_playback import OalPlayback
+from . import weapon_stats
 from .sound_list_control import SoundListControl
 
 log = logging.getLogger('app')
@@ -354,6 +355,12 @@ class AppDelegate:
                 d.setObject_forKey_('1', key)
             d.synchronize()
             self.useWeapon[0] = self.useWeapon[1] = self.useWeapon[2] = '1'
+
+        # PORT ADDITION (2026-09-25): the stats a weapon's page speaks, written into the
+        # save for every weapon owned or equipped that has none yet, and never read back
+        # (weapon_stats.py).  This runs on every start, after buying and after equipping.
+        if weapon_stats.fill(d, self.haveWeapon, self.useWeapon):
+            d.synchronize()
 
     # ================================================================== music
     # -[AppDelegate BGMusicStart] 0x4ce4 / -[AppDelegate BGMusicStop] 0x4d30

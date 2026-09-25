@@ -315,6 +315,14 @@ each hard-code their own numbers, and they do not match:
 | Japanese sword price | 50000 | 150000 |
 | Japanese sword damage | 100 | 80 |
 
+**PORT ADDITION (tsatria03, 2026-09-25): the save holds a copy of each weapon's numbers
+that nothing reads.** `game/weapon_stats.py` writes `<W>AMMOCAPACITY`, `<W>RANGE`,
+`<W>DAMAGE` and `<W>PRICE` (the grenade without the first, since `GRENADECOUNT` is its
+capacity) for every weapon owned or equipped, each time `weaponHave` runs: on start, after
+buying and after equipping. They are the shop's numbers, the knife's and colt's the
+inventory's. The game reads neither them nor any change a player makes to them, so they
+are there only to be looked at; the original writes no such keys.
+
 The shop's are set at 0x19334..0x19f38, the inventory's at 0x27684..0x28622; the M4A1 and
 AK47 rows were added on 2026-09-25, when a check of the listings against `store.SHOP` and
 `inventory.SLOTS` found them missing here. The shop's are the ones `buyAction:` charges; the

@@ -5,7 +5,9 @@ metadata:
   type: project
 ---
 
-**Status: PLANNED, 2026-09-25.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it writes into `save.json`.
+**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works. Built after [[project_save_split_plan]], since it writes into `save.json`.
+
+**What was built:** `game/weapon_stats.py`: `NAMES` (the eight weapons in slot order, by save name), `stats(name)` (the shop's numbers from `store.SHOP`, else `inventory.SLOTS`; no grenade ammo key) and `fill(defaults, have, use)`, which writes only missing keys for weapons owned or equipped. One call at the end of `AppDelegate.weaponHave`, which already runs on every start, after `buyAction_` and after `equipToggleAction_`, covers all four moments the plan names; the three starting weapons are always owned, so a new save gets theirs on the first start. New `tests/case/weapon_stats.py`, seven tests. Built in the batch with the other two save plans; no test ran until all three were committed (2026-09-25).
 
 **The dev's request:** "You know how when you hover over a weapon, and you see there stats like ammo cap, damage, range, and price? I want those to be set in the file as well. These will do nothing when modified by hand. This makes it so people cannot cheat there saves easyly by modifying weapons that the game's human speech speaks. They will be written when a weapon has been bought and or equipped. For the 3 default weapons, those keys should already be there if the user starts a new game for example. Or if the save gets recreated if the user deletes it, and then starts a new game."
 
