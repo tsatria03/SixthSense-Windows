@@ -9,7 +9,7 @@ The steps, in the order a full release takes them:
 
     1. check      everything is committed and pushed, the GitHub CLI is here and signed in, and the
                   changelog has changes waiting under "unrelease:" - at least 5 of them, and no more
-                  than 100
+                  than 100.  With 1 to 4 it asks whether to release anyway
     2. prepare    VERSION becomes today's date and that day's release number, 26.09.23-1 for the first
                   release on the 23rd of September 2026, -2 for the second, counted from the tags; and the
                   lines under "unrelease:" are filed under that version in docks\\changelog.txt
@@ -52,7 +52,8 @@ TAG_PREFIX = 'V'
 
 #: A release carries at most this many changelog entries, and at least MIN_ENTRIES.
 MAX_ENTRIES = 100
-#: tsatria03, 2026-09-24: a version with fewer entries than this does not qualify.
+#: tsatria03, 2026-09-24: a version with fewer entries than this does not qualify, unless the one
+#: releasing answers Y to releasing anyway (release_anyway).  None at all never releases.
 MIN_ENTRIES = 5
 
 #: Where the GitHub CLI is looked for when it is not on the PATH.
@@ -143,6 +144,18 @@ def release_notes(text: str, version: str) -> str:
     heading = changelog_heading(version)
     lines = next((lines for h, lines in _parse_changelog(text) if h == heading), [])
     return '\n'.join(line.strip() for line in lines)
+
+
+def too_few(count: int) -> str:
+    """What is said when ``count`` entries are under unrelease:, fewer than a release needs."""
+    return ('only %d change(s) are under "%s", and a release needs at least %d.'
+            % (count, UNRELEASE, MIN_ENTRIES))
+
+
+def release_anyway(count: int) -> bool:
+    """The force override (tsatria03, 2026-09-24): with fewer than MIN_ENTRIES waiting, ask whether to
+    release anyway.  Anything but Y keeps the rule."""
+    return ask('Release anyway with %d change(s)?' % count)
 
 
 def read_changelog() -> str:
@@ -325,8 +338,16 @@ def step_check() -> bool:
         problem('%d changes are under "%s", and a release carries no more than %d.'
                 % (len(waiting), UNRELEASE, MAX_ENTRIES))
     elif len(waiting) < MIN_ENTRIES:
-        problem('only %d change(s) are under "%s", and a release needs at least %d.'
-                % (len(waiting), UNRELEASE, MIN_ENTRIES))
+        # Asked only when nothing else is in the way, so a Y is never wasted on a
+        # release that cannot go ahead for another reason.
+        if problems:
+            problem(too_few(len(waiting)))
+        else:
+            say('  ' + too_few(len(waiting)))
+            if release_anyway(len(waiting)):
+                say('  releasing anyway with %d change(s).' % len(waiting))
+            else:
+                problems.append(too_few(len(waiting)))
     else:
         say('  %d change(s) are waiting to be released, which is fine.' % len(waiting))
     if not problems:
@@ -339,19 +360,22 @@ def step_check() -> bool:
     return False
 
 
-def step_prepare():
+def step_prepare(forced=False):
     """Set VERSION to today's release and file the changelog under it.  Returns the version, and what the
-    two files held before, so a failed build can put them back; or None when nothing was done."""
+    two files held before, so a failed build can put them back; or None when nothing was done.
+    ``forced`` means the check has already been told to release with fewer than MIN_ENTRIES, so it is not
+    asked twice."""
     version = next_version(all_tags(), today_stamp())
     text = read_changelog()
     waiting = unreleased_lines(text)
     if not waiting:
         say('nothing is under "%s", so there is nothing to file.' % UNRELEASE)
         return None
-    if len(waiting) < MIN_ENTRIES:
-        say('only %d change(s) are under "%s", and a release needs at least %d, so nothing was filed.'
-            % (len(waiting), UNRELEASE, MIN_ENTRIES))
-        return None
+    if len(waiting) < MIN_ENTRIES and not forced:
+        say(too_few(len(waiting)))
+        if not release_anyway(len(waiting)):
+            say('nothing was filed.')
+            return None
     say('this release will be %s, tagged %s, with %d change(s).'
         % (title_for(version), tag_for(version), len(waiting)))
     if not ask('Set VERSION to %s and file the changelog under it?' % version):
@@ -533,7 +557,8 @@ def full_release() -> None:
     if not step_check():
         return
     say()
-    saved = step_prepare()
+    # The check passed, so any shortfall below MIN_ENTRIES was already answered with Y there.
+    saved = step_prepare(forced=True)
     version = saved[0] if saved else read_version()
     if not version:
         say('there is no version to release.')

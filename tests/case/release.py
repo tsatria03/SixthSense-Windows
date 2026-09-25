@@ -137,21 +137,24 @@ def test_preparing_sets_the_version_and_files_the_changelog_and_a_failed_build_p
     _with_temp_files(test)
 
 
-def _checked(status, changelog):
-    """step_check with git, gh and the changelog faked: what it said, and its answer."""
+def _checked(status, changelog, answer=False):
+    """step_check with git, gh, the changelog and the Y/N answer faked: what it said, and
+    its answer.  Each question asked is added to what it said, marked with "?? "."""
     said = []
-    saved = (releaser.git, releaser.gh_path, releaser.gh, releaser.read_changelog, releaser.say)
+    saved = (releaser.git, releaser.gh_path, releaser.gh, releaser.read_changelog, releaser.say,
+             releaser.ask)
     replies = {'status': (True, status), 'fetch': (True, ''), 'rev-list': (True, '0\t0')}
     releaser.git = lambda *a: replies[a[0]]
     releaser.gh_path = lambda: 'gh'
     releaser.gh = lambda *a: (True, '')
     releaser.read_changelog = lambda: changelog
     releaser.say = lambda text='': said.append(text)
+    releaser.ask = lambda question: said.append('?? ' + question) or answer
     try:
         return said, releaser.step_check()
     finally:
         (releaser.git, releaser.gh_path, releaser.gh, releaser.read_changelog,
-         releaser.say) = saved
+         releaser.say, releaser.ask) = saved
 
 
 def test_the_check_names_its_problems_not_the_waiting_changes():
@@ -168,19 +171,68 @@ def test_the_check_names_its_problems_not_the_waiting_changes():
     assert ready is True and said[-1] == '  everything is ready.', said
 
 
+FOUR = FIVE.replace('A fourth change.\n', '')
+
+
 def test_fewer_than_five_entries_do_not_make_a_release():
     """tsatria03, 2026-09-24: a version needs at least five entries.  Four are refused
-    and nothing is filed or changed."""
+    when the question to release anyway is answered N, and nothing is filed or changed."""
     assert releaser.MIN_ENTRIES == 5
-    four = FIVE.replace('A fourth change.\n', '')
+
+    def test(folder):
+        releaser.ask = lambda question: False
+        releaser.write_text(releaser.VERSION_FILE, '26.09.21-1\n')
+        releaser.write_text(releaser.CHANGELOG, FOUR)
+        assert releaser.step_prepare() is None
+        assert open(releaser.VERSION_FILE, encoding='utf-8').read() == '26.09.21-1\n'
+        assert open(releaser.CHANGELOG, encoding='utf-8').read() == FOUR
+    _with_temp_files(test)
+    said, ready = _checked('', FOUR, answer=False)
+    assert ready is False
+    assert '?? Release anyway with 4 change(s)?' in said, said
+    at = said.index('  the release cannot go ahead until this is fixed:')
+    assert said[at + 1] == ('    1. only 4 change(s) are under "unrelease:", and a release '
+                            'needs at least 5.'), said
+    # said once before the question, and named once more in the verdict, not twice before it
+    assert said.count('  only 4 change(s) are under "unrelease:", and a release needs at least 5.') == 1
+
+
+def test_fewer_than_five_can_be_released_anyway():
+    """tsatria03, 2026-09-24: the force override.  Answering Y to releasing anyway lets
+    the check pass and the prepare step file the four; a full release asks only once."""
+    said, ready = _checked('', FOUR, answer=True)
+    assert ready is True, said
+    assert '  releasing anyway with 4 change(s).' in said, said
+    assert said[-1] == '  everything is ready.', said
 
     def test(folder):
         releaser.write_text(releaser.VERSION_FILE, '26.09.21-1\n')
-        releaser.write_text(releaser.CHANGELOG, four)
-        assert releaser.step_prepare() is None
-        assert open(releaser.VERSION_FILE, encoding='utf-8').read() == '26.09.21-1\n'
-        assert open(releaser.CHANGELOG, encoding='utf-8').read() == four
+        releaser.write_text(releaser.CHANGELOG, FOUR)
+        saved = releaser.step_prepare()
+        assert saved is not None and saved[0] == '26.09.23-2'
+        assert '26.09.23-2:\nThe newest change.' in open(releaser.CHANGELOG, encoding='utf-8').read()
+        # forced, as a full release calls it after the check: no second question
+        releaser.write_text(releaser.CHANGELOG, FOUR)
+        asked = []
+        releaser.ask = lambda question: asked.append(question) or True
+        assert releaser.step_prepare(forced=True) is not None
+        assert not any('anyway' in q for q in asked), asked
     _with_temp_files(test)
+
+
+def test_other_problems_are_not_hidden_behind_the_question():
+    """With another problem in the way, the check does not ask to release anyway, since
+    the release could not go ahead either way; the shortfall is named with the rest."""
+    said, ready = _checked(' M releaser.py', FOUR, answer=True)
+    assert ready is False
+    assert not any(line.startswith('?? ') for line in said), said
+    assert '    2. only 4 change(s) are under "unrelease:", and a release needs at least 5.' in said, said
+
+
+def test_nothing_waiting_is_never_released_anyway():
+    said, ready = _checked('', 'unrelease:\n\n26.09.01-1:\nOld.\n', answer=True)
+    assert ready is False
+    assert not any(line.startswith('?? ') for line in said), said
 
 
 def test_preparing_with_nothing_waiting_does_nothing():
