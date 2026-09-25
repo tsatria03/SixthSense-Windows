@@ -137,6 +137,37 @@ def test_preparing_sets_the_version_and_files_the_changelog_and_a_failed_build_p
     _with_temp_files(test)
 
 
+def _checked(status, changelog):
+    """step_check with git, gh and the changelog faked: what it said, and its answer."""
+    said = []
+    saved = (releaser.git, releaser.gh_path, releaser.gh, releaser.read_changelog, releaser.say)
+    replies = {'status': (True, status), 'fetch': (True, ''), 'rev-list': (True, '0\t0')}
+    releaser.git = lambda *a: replies[a[0]]
+    releaser.gh_path = lambda: 'gh'
+    releaser.gh = lambda *a: (True, '')
+    releaser.read_changelog = lambda: changelog
+    releaser.say = lambda text='': said.append(text)
+    try:
+        return said, releaser.step_check()
+    finally:
+        (releaser.git, releaser.gh_path, releaser.gh, releaser.read_changelog,
+         releaser.say) = saved
+
+
+def test_the_check_names_its_problems_not_the_waiting_changes():
+    """The verdict came straight after "11 change(s) are waiting to be released" and said
+    "the release cannot go ahead until those are fixed", as if the changes were the
+    problem.  It now names each problem again, and the count says it is fine."""
+    said, ready = _checked(' M releaser.py', FIVE)
+    assert ready is False
+    assert '  5 change(s) are waiting to be released, which is fine.' in said, said
+    at = said.index('  the release cannot go ahead until this is fixed:')
+    assert said[at + 1] == '    1. there are changes that are not committed. Commit them first:', said
+    assert not any('those are fixed' in line for line in said)
+    said, ready = _checked('', FIVE)
+    assert ready is True and said[-1] == '  everything is ready.', said
+
+
 def test_fewer_than_five_entries_do_not_make_a_release():
     """tsatria03, 2026-09-24: a version needs at least five entries.  Four are refused
     and nothing is filed or changed."""

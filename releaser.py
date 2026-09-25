@@ -283,55 +283,60 @@ def all_tags() -> list:
 # Each returns True when it did its work, or found it already done, and False when it could not.
 
 def step_check() -> bool:
-    """Everything a release needs before it starts."""
+    """Everything a release needs before it starts.  Each problem is said as it is found
+    and named again at the end, so the verdict never reads as though it were about the
+    line just before it - the count of waiting changes, which is not a problem."""
     say('checking the repository ...')
-    fine = True
+    problems = []
+
+    def problem(text, details=()):
+        say('  ' + text)
+        for line in details:
+            say('    ' + line)
+        problems.append(text)
+
     ok, out = git('status', '--porcelain')
     if not ok:
         say('  git could not be run here: %s' % out)
         return False
     if out:
-        say('  there are changes that are not committed. Commit them first:')
-        for line in out.splitlines():
-            say('    ' + line)
-        fine = False
+        problem('there are changes that are not committed. Commit them first:', out.splitlines())
     git('fetch', 'origin')
     ok, out = git('rev-list', '--left-right', '--count', 'HEAD...@{upstream}')
     if ok:
         ahead, behind = (int(n) for n in out.split())
         if ahead:
-            say('  %d commit(s) are not pushed yet. Push them first.' % ahead)
-            fine = False
+            problem('%d commit(s) are not pushed yet. Push them first.' % ahead)
         if behind:
-            say('  GitHub has %d commit(s) this copy does not. Pull them first.' % behind)
-            fine = False
+            problem('GitHub has %d commit(s) this copy does not. Pull them first.' % behind)
     else:
-        say('  could not compare this branch with GitHub: %s' % out)
-        fine = False
+        problem('could not compare this branch with GitHub: %s' % out)
     if gh_path() is None:
-        say('  the GitHub CLI, gh, was not found. Install it from cli.github.com.')
-        fine = False
+        problem('the GitHub CLI, gh, was not found. Install it from cli.github.com.')
     else:
         ok, out = gh('auth', 'status')
         if not ok:
-            say('  the GitHub CLI is not signed in. Run gh auth login.')
-            fine = False
+            problem('the GitHub CLI is not signed in. Run gh auth login.')
     waiting = unreleased_lines(read_changelog())
     if not waiting:
-        say('  nothing is under "%s" in %s, so there is nothing to release.' % (UNRELEASE, CHANGELOG_GIT))
-        fine = False
+        problem('nothing is under "%s" in %s, so there is nothing to release.'
+                % (UNRELEASE, CHANGELOG_GIT))
     elif len(waiting) > MAX_ENTRIES:
-        say('  %d changes are under "%s", and a release carries no more than %d.'
-            % (len(waiting), UNRELEASE, MAX_ENTRIES))
-        fine = False
+        problem('%d changes are under "%s", and a release carries no more than %d.'
+                % (len(waiting), UNRELEASE, MAX_ENTRIES))
     elif len(waiting) < MIN_ENTRIES:
-        say('  only %d change(s) are under "%s", and a release needs at least %d.'
-            % (len(waiting), UNRELEASE, MIN_ENTRIES))
-        fine = False
+        problem('only %d change(s) are under "%s", and a release needs at least %d.'
+                % (len(waiting), UNRELEASE, MIN_ENTRIES))
     else:
-        say('  %d change(s) are waiting to be released.' % len(waiting))
-    say('  everything is ready.' if fine else '  the release cannot go ahead until those are fixed.')
-    return fine
+        say('  %d change(s) are waiting to be released, which is fine.' % len(waiting))
+    if not problems:
+        say('  everything is ready.')
+        return True
+    say('  the release cannot go ahead until %s fixed:'
+        % ('this is' if len(problems) == 1 else 'these %d are' % len(problems)))
+    for n, text in enumerate(problems, 1):
+        say('    %d. %s' % (n, text))
+    return False
 
 
 def step_prepare():
