@@ -1,10 +1,10 @@
 ##Unfinished.
 
-When you start a game, it should not automaticly add back cold, knife, and grenade weapons to your inventory after pressing tab if you never equipped them in the first place.
 If you have no weapons equipped, it should automaticly equip the first 3 weapons by default.
 
 ##Finished.
 
+Starting a game with the grenade, knife and colt unequipped no longer brings them back when a weapon you bought is equipped, and Tab offers only what you equipped.
 Choosing the Store row, or Start Game with no coin, clicks as in the original.
 The coin row reads your coins and the time until the next one with the original's pauses between its parts.
 The empty magazine click comes from the lane you aimed at, as in the original, and you can click again straight away.
