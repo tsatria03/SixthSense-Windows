@@ -13,10 +13,11 @@ The steps, in the order a full release takes them:
     2. prepare    VERSION becomes today's date and that day's release number, 26.09.23-1 for the first
                   release on the 23rd of September 2026, -2 for the second, counted from the tags; and the
                   lines under "unrelease:" are filed under that version in docks\\changelog.txt
-    3. build      compiler.py builds it into dist\\SixthSense: the folder build, or the single executable
+    3. build      compiler.py builds it into dist\\SixthSense-Windows: the folder build, or the single executable
                   with the sounds and the game's data inside.  If the build fails, VERSION and the
                   changelog go back to how they were
-    4. zip        dist\\SixthSense becomes dist\\SixthSense-Win-<version>.zip - only a build made for this
+    4. zip        dist\\SixthSense-Windows becomes dist\\SixthSense-Win-<version>.zip, which extracts to a
+                  SixthSense-Windows folder - only a build made for this
                   version, so an older build can never go out under the new name
     5. commit     VERSION and docks\\changelog.txt are committed as "Release <version>" and pushed
     6. tag        the commit is tagged V<version>, and the tag is pushed
@@ -173,7 +174,7 @@ def write_text(path: str, text: str) -> None:
 # --- the zip ----------------------------------------------------------------------------------------
 
 #: What the compiler builds, and so what gets zipped.
-BUILD_DIR = os.path.join(HERE, 'dist', NAME)
+BUILD_DIR = compiler.output_dir()
 
 #: How often packaging says how far it has got: after each quarter of the files.
 PACK_STEPS = 4
@@ -185,7 +186,7 @@ def zip_path(version: str) -> str:
 
 
 def built_version(build_dir: str = None) -> str:
-    """The version the build in dist\\SixthSense carries, from the VERSION beside its executable, or ''
+    """The version the build in dist\\SixthSense-Windows carries, from the VERSION beside its executable, or ''
     when there is no build."""
     path = os.path.join(build_dir or BUILD_DIR, 'VERSION')
     try:
@@ -223,7 +224,7 @@ def package(build_dir: str, version: str) -> str:
     marks = {len(files) * step // PACK_STEPS for step in range(1, PACK_STEPS)}
     with zipfile.ZipFile(partial, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
         for count, full in enumerate(files, 1):
-            inside = os.path.join(NAME, os.path.relpath(full, build_dir))
+            inside = os.path.join(compiler.FOLDER, os.path.relpath(full, build_dir))
             zf.write(full, inside.replace(os.sep, '/'))
             if count in marks:
                 say('  %d of %d files packed ...' % (count, len(files)))
@@ -424,7 +425,7 @@ def choose_build():
 
 
 def step_build(saved=None):
-    """compiler.py, building dist\\SixthSense.  After step_prepare, a failed build undoes it.  True when
+    """compiler.py, building dist\\SixthSense-Windows.  After step_prepare, a failed build undoes it.  True when
     it built, False when it failed, None when skipped."""
     flags = choose_build()
     if flags is None:
@@ -446,7 +447,7 @@ def step_build(saved=None):
 
 
 def step_package(version: str) -> bool:
-    """Zip dist\\SixthSense into the release's archive.  Refuses a build made for another version, so an
+    """Zip dist\\SixthSense-Windows into the release's archive.  Refuses a build made for another version, so an
     old build can never go out under a new name."""
     if not os.path.isdir(BUILD_DIR):
         say('there is no build in %s. Build it first.' % BUILD_DIR)

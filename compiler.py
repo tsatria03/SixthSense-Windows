@@ -1,6 +1,6 @@
 """Build SixthSense into an executable with PyInstaller.
 
-It builds the game into dist\\SixthSense, and nothing else: it never zips and never changes the
+It builds the game into dist\\SixthSense-Windows, and nothing else: it never zips and never changes the
 repository.  Setting the version, filing the changelog, zipping, tagging and uploading a release are
 releaser.py's work, and the releaser calls this to do the building.
 
@@ -16,7 +16,7 @@ which still work typed out:
     py compiler.py --no-game      leave the game's data out
     py compiler.py --dry-run      say what a build would do, build nothing
 
-Every build lands in dist\\SixthSense, with the text a player reads beside the executable - the readme,
+Every build lands in dist\\SixthSense-Windows, around SixthSense.exe, with the text a player reads beside the executable - the readme,
 the changelog and the todo list in a docks\\ folder, as in the repository, and VERSION and the license at
 the top - and the third-party licenses in licenses\\.  Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
 
@@ -45,7 +45,10 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+#: The executable's name: SixthSense.exe.
 NAME = 'SixthSense'
+#: The folder a build lands in, and the one a release's zip extracts to (tsatria03, 2026-09-25).
+FOLDER = NAME + '-Windows'
 ENTRY = 'SixthSense.py'
 
 #: what the game cannot run without: the module, and what pip calls it.  pygame, not pygame-ce - the two
@@ -251,8 +254,8 @@ def command(args, data=()) -> list[str]:
         # --console shows the whole traceback
         cmd += ['--windowed']
     if args.onefile or args.embed:
-        # one file lands in dist\SixthSense too, so every build is one folder to zip and nothing else in
-        # dist\ - an older zip, say - is swept into it
+        # one file lands in dist\SixthSense-Windows too, so every build is one folder to zip and nothing
+        # else in dist\ - an older zip, say - is swept into it
         cmd += ['--onefile', '--distpath', output_dir(args)]
     for src, inside in data:
         cmd += ['--add-data', src + os.pathsep + inside]
@@ -262,16 +265,31 @@ def command(args, data=()) -> list[str]:
 
 
 def output_dir(args=None) -> str:
-    """Where the executable lands, and so where everything beside it goes: dist\\SixthSense, whichever
-    kind of build."""
+    """Where the executable lands, and so where everything beside it goes: dist\\SixthSense-Windows,
+    whichever kind of build."""
+    return os.path.join(HERE, 'dist', FOLDER)
+
+
+def pyinstaller_dir() -> str:
+    """Where a folder build's PyInstaller puts it, named after the executable: dist\\SixthSense.  It is
+    moved to output_dir() once built, since PyInstaller names that folder and the executable alike."""
     return os.path.join(HERE, 'dist', NAME)
 
 
 def clear_output(dest_root: str) -> None:
-    """Empty dist\\SixthSense before a build.  A folder build's PyInstaller does this itself, but a
-    one-file build only writes its executable, and would leave an older build's files around it."""
-    if os.path.isdir(dest_root):
-        shutil.rmtree(dest_root)
+    """Empty dist\\SixthSense-Windows before a build, and dist\\SixthSense, where a folder build first
+    lands and where builds went before 2026-09-25.  A one-file build only writes its executable, and would
+    leave an older build's files around it."""
+    for folder in (dest_root, pyinstaller_dir()):
+        if os.path.isdir(folder):
+            shutil.rmtree(folder)
+
+
+def move_folder_build(dest_root: str) -> None:
+    """A folder build is made in dist\\SixthSense; move it to dist\\SixthSense-Windows."""
+    built = pyinstaller_dir()
+    if os.path.normcase(built) != os.path.normcase(dest_root) and os.path.isdir(built):
+        os.replace(built, dest_root)
 
 
 def game_files(src: str) -> list[str]:
@@ -465,6 +483,8 @@ def main(argv=None) -> int:
         say("PyInstaller failed - its own output above says why.")
         return 1
     say('built in %.0f seconds.' % (time.perf_counter() - started))
+    if not (args.onefile or args.embed):
+        move_folder_build(dest_root)
 
     if src is not None and not args.embed:
         copy_game(dest_root)

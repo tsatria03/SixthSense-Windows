@@ -19,7 +19,7 @@ where the original's data is malformed, the port reproduces the malformed result
 To play without installing Python, download the newest release from the
 [latest release page](https://github.com/tsatria03/SixthSense-Windows/releases/latest).
 Each release is one zip, `SixthSense-Win-<version>.zip`. Extract it and run
-`SixthSense.exe` in the `SixthSense` folder it contains. The `docks` folder beside it
+`SixthSense.exe` in the `SixthSense-Windows` folder it contains. The `docks` folder beside it
 holds the player's readme, the changelog and the todo list.
 
 A version is the date of the release and that day's number: `26.09.24-2` is the second
@@ -310,7 +310,7 @@ Building needs PyInstaller (`pip install pyinstaller`); releasing also needs the
 CLI, signed in with `gh auth login`.
 
 `compiler.py` only builds. It never zips and never changes the repository. Everything
-lands in `dist\SixthSense`.
+lands in `dist\SixthSense-Windows`, around `SixthSense.exe`.
 
 - **Folder build:** the game in a folder, with its sounds and data beside the
   executable in `game\`.
@@ -333,8 +333,8 @@ before each one:
    `26.09.23-1`, and the unreleased lines are filed under it in `docks/changelog.txt`.
 3. **Build** with the compiler, as a folder or a single exe. A failed build puts
    `VERSION` and the changelog back.
-4. **Zip** `dist\SixthSense` into `dist\SixthSense-Win-26.09.23-1.zip`. It only zips a
-   build made for this version.
+4. **Zip** `dist\SixthSense-Windows` into `dist\SixthSense-Win-26.09.23-1.zip`, which
+   extracts to a `SixthSense-Windows` folder. It only zips a build made for this version.
 5. **Commit and push** `VERSION` and `docks/changelog.txt` as "Release 26.09.23-1".
 6. **Tag** it `V26.09.23-1`, and push the tag.
 7. **Upload** the zip to GitHub as the release "SixthSense V26.09.23-1", with that

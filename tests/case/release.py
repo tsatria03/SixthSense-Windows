@@ -279,8 +279,10 @@ def test_the_releaser_zips_the_build_under_one_folder():
             leftover = os.path.exists(archive + '.part')
         finally:
             releaser.zip_path = saved
-    assert names == ['SixthSense/SixthSense.exe', 'SixthSense/VERSION',
-                     'SixthSense/docks/todo list.txt', 'SixthSense/game/SoundList.plist']
+    # the zip extracts to a SixthSense-Windows folder (tsatria03, 2026-09-25)
+    assert names == ['SixthSense-Windows/SixthSense.exe', 'SixthSense-Windows/VERSION',
+                     'SixthSense-Windows/docks/todo list.txt',
+                     'SixthSense-Windows/game/SoundList.plist']
     assert not leftover
 
 
@@ -372,7 +374,8 @@ def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
         data = compiler.embedded_data(bundle)
         cmd = compiler.command(_Args(embed=True), data)
     assert '--onefile' in cmd
-    assert cmd[cmd.index('--distpath') + 1] == os.path.join(ROOT, 'dist', 'SixthSense')
+    assert cmd[cmd.index('--distpath') + 1] == os.path.join(ROOT, 'dist', 'SixthSense-Windows')
+    assert cmd[cmd.index('--name') + 1] == 'SixthSense'
     added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
     assert compiler.EMBED_STAGE + os.pathsep + 'game' in added
     assert os.path.join(bundle, 'sounds', 'used') + os.pathsep + 'game/sounds/used' in added
@@ -387,8 +390,33 @@ def test_a_flat_bundle_embeds_its_top_folder_alone():
 
 
 def test_every_build_lands_in_one_folder():
+    """tsatria03, 2026-09-25: the folder is SixthSense-Windows, and the executable inside it
+    is still SixthSense.exe."""
     assert compiler.output_dir(_Args()) == compiler.output_dir(_Args(embed=True)) \
-        == os.path.join(ROOT, 'dist', 'SixthSense')
+        == os.path.join(ROOT, 'dist', 'SixthSense-Windows') == releaser.BUILD_DIR
+
+
+def test_a_folder_build_is_moved_to_the_windows_folder():
+    """PyInstaller names a folder build after the executable, dist\\SixthSense; the compiler
+    moves it to dist\\SixthSense-Windows, and clears both before the next build."""
+    saved = compiler.HERE
+    with tempfile.TemporaryDirectory() as here:
+        compiler.HERE = here
+        try:
+            built = compiler.pyinstaller_dir()
+            dest = compiler.output_dir()
+            assert built == os.path.join(here, 'dist', 'SixthSense')
+            os.makedirs(os.path.join(built, '_internal'))
+            open(os.path.join(built, 'SixthSense.exe'), 'w').close()
+            compiler.move_folder_build(dest)
+            assert not os.path.exists(built)
+            assert os.path.isfile(os.path.join(dest, 'SixthSense.exe'))
+            assert os.path.isdir(os.path.join(dest, '_internal'))
+            os.makedirs(built)
+            compiler.clear_output(dest)
+            assert not os.path.exists(built) and not os.path.exists(dest)
+        finally:
+            compiler.HERE = saved
 
 
 def test_the_stage_holds_only_what_the_game_reads():
