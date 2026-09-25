@@ -1,6 +1,6 @@
 ---
 name: project_sound_organization
-description: "Every sound the game plays lives in game/sounds/used, in folders, under its original file name (a deliberate divergence); since the dev's second sort on 2026-09-24 everything it never plays is in game/sounds/unused, and SoundList.plist entry 290 follows a renamed boss file. How it was built and verified on 2026-09-21, and how the code finds the sounds (lookup rewritten the same day; tests pass and the dev confirmed it in play)."
+description: "Every sound the game plays lives in game/sounds/used, in folders (a deliberate divergence); everything it never plays is in game/sounds/unused; since the dev's third sort on 2026-09-25 the zombies, bosses, monster and characters have one folder each, misnamed sounds are renamed, and SoundList.plist follows them with entry 371 added. How it was built and verified on 2026-09-21, and how the code finds the sounds (lookup rewritten the same day; tests pass and the dev confirmed it in play)."
 metadata:
   node_type: memory
   type: project
@@ -9,7 +9,13 @@ metadata:
 
 **Every sound the game uses lives in `game/sounds/used/`**, in folders, under its original file name. They are no longer in the original bundle's flat folder. With the renamed `SoundList.plist` entry 290 (below), these are the only ways the port departs from the original's data; everything else stays faithful. It is documented in `aidocks/DIVERGENCES.md` under "The sounds are organized into folders" and "One sound list entry is renamed".
 
-## The layout now (the dev's second sort, 2026-09-24, commit `e299647`)
+## The third sort, 2026-09-25 (commit `8fbf9fc`), and the renames
+- **One folder each** for the zombies (`sfx/zombies/normal`), the bosses (`sfx/zombies/bosses`), the monster (`sfx/monsters`) and the characters (`sfx/characters`), under `used/` and `unused/`, with one file per name: the `normalcave1..12` / `normalforest1..12`, `bosscave`/`bossforest`, `monstercave`/`monsterforest` and `charcave`/`charforest` folders are gone. `used/` has 195 files, `unused/` 101, and the blooper clip moved to `game/sounds/bloopers/`, which is outside `paths.SOUND_FOLDERS`, so builds no longer carry it. A build is 441 files: 296 sounds and 145 plists and map layers.
+- **The dev renamed sounds they found misnamed**, by ear, and `SoundList.plist` follows them, with entry 371 added for the bosses' own being-hurt sound: [[project_sound_rename_plan]] has the table. `stage_1_e.MONSTER_SOUNDS[KIND_BOSS]` uses 371 instead of zombie 9's 205.
+- **Checking a sort: compare audio, not bytes.** On 2026-09-25 a byte check called 17 cave and forest pairs "different recordings" and "lost"; their samples were identical and only their WAV headers differed, and both matched the original's file in `user/SixthSenseSounds` (the dev's flat copy of the original 269, read-only) equally. Compare the samples, or against that folder, before calling a recording lost.
+- The dev made two tries at this sort the same day before this one; the notes about them in the session are superseded.
+
+## The second sort, 2026-09-24, commit `e299647` (superseded by the third)
 - **`used/` holds only what the game plays: 236 files under 196 names.** `unused/` holds 126: 125 WAVs and the blooper OGG in `unused/bloopers/`. Every one of the 269 originals is in one folder or the other.
 - **The dev's moves and renames:** the weapon sounds from `sfx/misc` to `sfx/weapons`; zombie 8's approach and push into `normalcave8` and `normalforest8`; "You can skip by using double tab" from `speech/tutorials` to `speech/game`; `zombies_boss_3_cave` and `zombies_boss_3_forest` renamed `zombies_boss_3_coming_cave` and `zombies_boss_3_coming_forest`.
 - **`SoundList.plist` entry 290** (the forest boss's approach, `stage_1_e.py:157`) follows the rename, at the dev's request, or the boss would come in silently. It was rewritten with `plistlib` in binary after checking it re-saves byte for byte, so it is the only change. The cave rename needed nothing: no entry names it.

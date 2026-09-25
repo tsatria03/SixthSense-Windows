@@ -155,7 +155,12 @@ MONSTER_SOUNDS = {
     # thank you; the woman zombie's hit is 274.
     21: ([267], [268], [269], [269], [270]),          # the girl who heals you
     22: ([271], [272], [273], [273], [274]),          # the woman zombie
-    KIND_BOSS: ([286], [290], [205], [289], [288]),   # 0x367ca / 0x36a30, 0x3715e..
+    # PORT DIVERGENCE (tsatria03, 2026-09-25): the original gives the bosses zombie 9
+    # and 10's being-hurt sound, 205 (0x3715e..).  They have their own now, entry 371,
+    # zombies_boss_1_damage, which the port adds to SoundList.plist; it is the same
+    # recording, so a boss sounds as it did, and changing one never changes the other.
+    # Both bosses share it, and the dying and hitting sounds, as in the original.
+    KIND_BOSS: ([286], [290], [371], [289], [288]),   # 0x367ca / 0x36a30, 0x3715e..
 }
 # zombie_8 is the one that grabs you; it needs two more (0x36e96 / 0x36ec4).
 SHAKE_SOUNDS = {8: ([197, 323, 324], [198, 325, 326])}

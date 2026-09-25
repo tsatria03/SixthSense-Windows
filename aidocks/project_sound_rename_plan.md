@@ -5,7 +5,9 @@ metadata:
   type: project
 ---
 
-**Status: PLANNED, 2026-09-25.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
+**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
+
+**What was built:** `game/SoundList.plist` rewritten with `plistlib` in binary, after checking it re-saved byte for byte; 26 entries changed as in the table below and entry 371 added, 372 in all, every other entry untouched. `MONSTER_SOUNDS[KIND_BOSS]` uses `[371]` for being hurt. `tests/case/data.py`: 372 entries, and a new test that each renamed entry names a file in `used/` and the bosses use 371 while zombies 9 and 10 keep 205. data 19, paths 13, monster_sound 8 and gameplay 54 pass, and no test logged a missing sound. DIVERGENCES.md, CLAUDE.md, [[project_sound_organization]] and the changelog follow.
 
 **The dev's third sort** of `game/sounds` (2026-09-25), after two tries the same day: the per-zombie folders (`normalcave1..12`, `normalforest1..12`), the boss, monster and character folders become one folder each (`used/sfx/zombies/normal`, `used/sfx/zombies/bosses`, `used/sfx/monsters`, `used/sfx/characters`, and the same under `unused/`), with one file per name. Sounds they found misnamed in the binary are renamed, by ear:
 - The "woman" monster sounds like a man: `woman_coming_cave_monster1` -> `man_coming_cave_monster`, `woman_coming_forest_Monster` -> `man_coming_forest_Monster`, `woman_like_monster_hit` -> `man_monster_hit`, and its death `man_die` -> `man_monster_die`. (Not the girl who heals you, whose files are `woman_*` in `characters`.)

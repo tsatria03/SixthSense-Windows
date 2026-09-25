@@ -183,8 +183,11 @@ def test_start_positions_are_1000cm():
 
 # ------------------------------------------------------------------ sounds
 def test_sound_list_covers_the_wavs():
+    """The original's 371 entries, and 371, the bosses' being-hurt sound, which the port
+    adds (tsatria03, 2026-09-25)."""
     sl = _sound_list()
-    assert len(sl) == 371
+    assert len(sl) == 372
+    assert sl[371] == 'zombies_boss_1_damage'
     missing = sorted({n for n in sl if paths.path_for_resource(n, 'wav') is None})
     # The stage-select buttons and zombie_5_hit_player were already missing in the
     # bundle; see aidocks/DIVERGENCES.md.
@@ -193,6 +196,28 @@ def test_sound_list_covers_the_wavs():
                          'Endless Mode Button', 'Endless Mode is locked',
                          'zombie_5_hit_player'}
     assert set(missing) == expected_missing, missing
+
+
+def test_the_renamed_sounds_are_what_the_list_names():
+    """tsatria03 renamed sounds found misnamed, and the list follows them
+    (aidocks/project_sound_rename_plan.md); every one names a file the game can play."""
+    sl = _sound_list()
+    want = {120: 'zombie_2_hit_player', 135: 'zombie_3_hit_player',
+            205: 'zombie_9_damage', 208: 'zombie_9_die',
+            271: 'man_coming_cave_monster', 272: 'man_coming_forest_Monster',
+            273: 'man_monster_die', 274: 'man_monster_hit', 289: 'zombies_boss_1_die',
+            292: 'zombies_11_coming_cave', 295: 'zombies_11_coming_forest',
+            304: 'zombies_12_coming_cave', 290: 'zombies_boss_3_coming_forest',
+            371: 'zombies_boss_1_damage'}
+    for n, name in want.items():
+        assert sl[n] == name, (n, sl[n])
+    for n in (120, 135, 205, 208, 271, 272, 273, 274, 289, 290, 371):
+        p = paths.path_for_resource(sl[n], 'wav')
+        assert p and os.sep + 'used' + os.sep in p, (n, sl[n], p)
+    # both bosses are hurt with their own entry now, not zombie 9's
+    from sixthsense.game.stage_1_e import KIND_BOSS
+    assert MONSTER_SOUNDS[KIND_BOSS][2] == [371]
+    assert MONSTER_SOUNDS[9][2] == MONSTER_SOUNDS[10][2] == [205, 206, 207]
 
 
 def test_positional_sounds_are_mono():

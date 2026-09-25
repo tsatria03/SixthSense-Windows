@@ -866,14 +866,42 @@ all in its top folder, still works. `compiler.py` copies both `game/sounds/used/
 `game/sounds/unused/` into a build with their folders, or inside the executable with
 `--embed`.
 
-### One sound list entry is renamed
+### Sound list entries follow the dev's renames, and one is added
 `SoundList.plist` entry 290, the forest boss's approach, is `zombies_boss_3_coming_forest`
 where the original has `zombies_boss_3_forest`. tsatria03 renamed the file on 2026-09-24
 to match the other bosses' approach sounds (`zombies_boss_1_coming_cave`,
 `zombies_boss_1_coming_forest`), and the entry follows it, or the boss would come in
 silently. Its cave twin became `zombies_boss_3_coming_cave`, which no entry names, so it
-needed nothing. It is the only change to the original's plists: the file is still
-binary, and every other byte is the original's.
+needed nothing.
+
+**On 2026-09-25 tsatria03 renamed more sounds they found misnamed in the binary**, by ear,
+in a third sort that gives the zombies, the bosses, the monster and the characters one
+folder each (aidocks/project_sound_rename_plan.md), and 26 more entries follow:
+- **The "woman" monster is a man.** Its sounds are named `woman_*` in the original, but it
+  sounds like a man: `woman_coming_cave_monster1` (271) is `man_coming_cave_monster`,
+  `woman_coming_forest_Monster` (272) `man_coming_forest_Monster`, `woman_like_monster_hit`
+  (274) `man_monster_hit`, and its death `man_die` (273) `man_monster_die`. This is the
+  monster, not the girl who heals you, whose sounds keep their names.
+- **Sounds the original shares between zombies are named for one zombie**, so a zombie can
+  be given a file of its own later: `zombie_2_4_hit_player` (120-122) is
+  `zombie_2_hit_player`, `zombie_3_7_hit_player` (135-137) `zombie_3_hit_player`,
+  `zombie_9_10_damage` (205-207) `zombie_9_damage`, `zombie_9_10_die` (208-210)
+  `zombie_9_die`. Zombies 4, 5, 7 and 10 still play those, as in the original; they have no
+  recordings of their own.
+- **The bosses' death**, `zombies_boss_big_die` (289), is `zombies_boss_1_die`.
+- **Unused:** `zombies_11_walk_cave` and `_forest` (292-297) are `zombies_11_coming_cave`
+  and `_forest`, `zombies_12_coming1` (304-306) `zombies_12_coming_cave`.
+
+**Entry 371 is the port's own**, `zombies_boss_1_damage`, the bosses' being-hurt sound. The
+original gives both bosses zombie 9 and 10's, entry 205 (0x3715e..); the dev copied that
+recording to a boss file of its own, and `MONSTER_SOUNDS[KIND_BOSS]` points at 371, so a
+boss sounds as it did and changing one never changes the other. Boss 3, the forest boss,
+shares boss 1's being-hurt and dying sounds, in both areas, at the dev's word.
+
+No recording changed: every file removed kept its audio under another path, and the cave
+and forest copies dropped had the same samples as the ones kept, differing only in their
+headers. These are the only changes to the original's plists: the file is still binary,
+every other entry is the original's, and entries 0 to 370 keep their numbers.
 
 ### The tutorial is a table, not ten copies
 The original spells each beat out as five methods — `tutorialOne`, `tutorialOneSoundStop`,
