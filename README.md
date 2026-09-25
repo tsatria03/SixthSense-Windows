@@ -312,7 +312,8 @@ with none of this file's developer parts.
 before each one:
 
 1. **Check** that everything is committed and pushed, `gh` is signed in, and the
-   changelog has between 1 and 100 changes under `unrelease:`.
+   changelog has between 5 and 100 changes under `unrelease:`. Fewer than 5 do not make
+   a release.
 2. **Prepare:** `VERSION` becomes today's date and that day's release number, such as
    `26.09.23-1`, and the unreleased lines are filed under it in `docks/changelog.txt`.
 3. **Build** with the compiler, as a folder or a single exe. A failed build puts

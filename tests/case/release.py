@@ -110,10 +110,22 @@ def _with_temp_files(test):
              releaser.today_stamp) = saved
 
 
+#: Five entries: the fewest a release may carry.
+FIVE = ('unrelease:\n'
+        'The newest change.\n'
+        'Another change.\n'
+        'A third change.\n'
+        'A fourth change.\n'
+        'An older change.\n'
+        '\n'
+        '26.09.01-1:\n'
+        'Something released long ago.\n')
+
+
 def test_preparing_sets_the_version_and_files_the_changelog_and_a_failed_build_puts_them_back():
     def test(folder):
         releaser.write_text(releaser.VERSION_FILE, '26.09.21-1\n')
-        releaser.write_text(releaser.CHANGELOG, CHANGELOG)
+        releaser.write_text(releaser.CHANGELOG, FIVE)
         saved = releaser.step_prepare()
         assert saved is not None and saved[0] == '26.09.23-2'
         assert open(releaser.VERSION_FILE, encoding='utf-8').read() == '26.09.23-2\n'
@@ -121,7 +133,22 @@ def test_preparing_sets_the_version_and_files_the_changelog_and_a_failed_build_p
         assert '26.09.23-2:\nThe newest change.' in filed
         releaser.restore(saved)
         assert open(releaser.VERSION_FILE, encoding='utf-8').read() == '26.09.21-1\n'
-        assert open(releaser.CHANGELOG, encoding='utf-8').read() == CHANGELOG
+        assert open(releaser.CHANGELOG, encoding='utf-8').read() == FIVE
+    _with_temp_files(test)
+
+
+def test_fewer_than_five_entries_do_not_make_a_release():
+    """tsatria03, 2026-09-24: a version needs at least five entries.  Four are refused
+    and nothing is filed or changed."""
+    assert releaser.MIN_ENTRIES == 5
+    four = FIVE.replace('A fourth change.\n', '')
+
+    def test(folder):
+        releaser.write_text(releaser.VERSION_FILE, '26.09.21-1\n')
+        releaser.write_text(releaser.CHANGELOG, four)
+        assert releaser.step_prepare() is None
+        assert open(releaser.VERSION_FILE, encoding='utf-8').read() == '26.09.21-1\n'
+        assert open(releaser.CHANGELOG, encoding='utf-8').read() == four
     _with_temp_files(test)
 
 

@@ -8,7 +8,8 @@ the zip included.
 The steps, in the order a full release takes them:
 
     1. check      everything is committed and pushed, the GitHub CLI is here and signed in, and the
-                  changelog has changes waiting under "unrelease:" - no more than 100 of them
+                  changelog has changes waiting under "unrelease:" - at least 5 of them, and no more
+                  than 100
     2. prepare    VERSION becomes today's date and that day's release number, 26.09.23-1 for the first
                   release on the 23rd of September 2026, -2 for the second, counted from the tags; and the
                   lines under "unrelease:" are filed under that version in docks\\changelog.txt
@@ -49,8 +50,10 @@ from compiler import (NAME, UNRELEASE, _parse_changelog, _render_changelog,   # 
 TITLE_PREFIX = NAME + ' V'
 TAG_PREFIX = 'V'
 
-#: A release carries at most this many changelog entries.  Fewer is fine; more is not.
+#: A release carries at most this many changelog entries, and at least MIN_ENTRIES.
 MAX_ENTRIES = 100
+#: tsatria03, 2026-09-24: a version with fewer entries than this does not qualify.
+MIN_ENTRIES = 5
 
 #: Where the GitHub CLI is looked for when it is not on the PATH.
 GH_FALLBACK = r'C:\Program Files\GitHub CLI\gh.exe'
@@ -321,6 +324,10 @@ def step_check() -> bool:
         say('  %d changes are under "%s", and a release carries no more than %d.'
             % (len(waiting), UNRELEASE, MAX_ENTRIES))
         fine = False
+    elif len(waiting) < MIN_ENTRIES:
+        say('  only %d change(s) are under "%s", and a release needs at least %d.'
+            % (len(waiting), UNRELEASE, MIN_ENTRIES))
+        fine = False
     else:
         say('  %d change(s) are waiting to be released.' % len(waiting))
     say('  everything is ready.' if fine else '  the release cannot go ahead until those are fixed.')
@@ -335,6 +342,10 @@ def step_prepare():
     waiting = unreleased_lines(text)
     if not waiting:
         say('nothing is under "%s", so there is nothing to file.' % UNRELEASE)
+        return None
+    if len(waiting) < MIN_ENTRIES:
+        say('only %d change(s) are under "%s", and a release needs at least %d, so nothing was filed.'
+            % (len(waiting), UNRELEASE, MIN_ENTRIES))
         return None
     say('this release will be %s, tagged %s, with %d change(s).'
         % (title_for(version), tag_for(version), len(waiting)))
