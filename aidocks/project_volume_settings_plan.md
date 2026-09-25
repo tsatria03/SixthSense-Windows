@@ -1,6 +1,6 @@
 ---
 name: project_volume_settings_plan
-description: "PLANNED 2026-09-25, not built. settings.json gains MASTERVOLUME, MUSICVOLUME and AMBIENCEVOLUME beside MENUMUSICVOLUME: percentages 0 to 100, 100 the original's mix, set only by editing the file, read on start, written with every default on the first start. Needs [[project_save_split_plan]] first."
+description: "PLANNED 2026-09-25, not built. settings.json gains MASTERVOLUME, LEVELMUSICVOLUME and AMBIENCEVOLUME beside MENUMUSICVOLUME: percentages 0 to 100, 100 the original's mix, set only by editing the file, read on start, written with every default on the first start. Needs [[project_save_split_plan]] first."
 metadata:
   type: project
 ---
@@ -9,12 +9,15 @@ metadata:
 
 **The dev's request:** asked what `settings.json` would hold (`EYEMODE`, `MENUMUSICVOLUME`), they wanted "more modifiable keys, like look at volumes.py". Changed "Only in settings.json", not in the game. They first asked for up to 200%, then: "on second thought, 0 to 100 percent is fine for now."
 
-## The keys, all in `settings.json`
-- **`MASTERVOLUME`:** everything the game plays (`volume.MASTER_DB`'s group, applied in `oal_playback` on every `AL_GAIN`).
-- **`MUSICVOLUME`:** the level music, `bgm_cave` and `bgm_forest`, on top of the binary's 0.02 (0x321d4), and the other level's ambience note at 0.02 (0x32362) is ambience, not this.
-- **`AMBIENCEVOLUME`:** the cave and forest ambience at 0.2 (0x2ddfa), the rain at 0.5 (0x2ddc8), the level change's 0.3 (0x31ce2) and the quiet loop at 0.02 (0x32362).
-- **`MENUMUSICVOLUME`:** already there ([[project_menu_music_volume_plan]]), still set by Page Up and Page Down in the menus as well.
-- `EYEMODE` stays the one non-volume setting.
+## The keys, all in `settings.json`, in this order
+The dev, 2026-09-25: "master volume should go before menu music volume", and the level music's key is named for the level music. `settings.json` is written in this fixed order, not sorted by name (the save's own `synchronize` sorts; this file does not):
+1. **`MASTERVOLUME`:** everything the game plays (`volume.MASTER_DB`'s group, applied in `oal_playback` on every `AL_GAIN`).
+2. **`MENUMUSICVOLUME`:** already there ([[project_menu_music_volume_plan]]), still set by Page Up and Page Down in the menus as well.
+3. **`LEVELMUSICVOLUME`:** the level music, `bgm_cave` and `bgm_forest`, on top of the binary's 0.02 (0x321d4). The other level's ambience note at 0.02 (0x32362) is ambience, not this.
+4. **`AMBIENCEVOLUME`:** the cave and forest ambience at 0.2 (0x2ddfa), the rain at 0.5 (0x2ddc8), the level change's 0.3 (0x31ce2) and the quiet loop at 0.02 (0x32362).
+5. **`EYEMODE`:** voice over, the one setting that is not a volume.
+
+A setting added later goes where it belongs in that list, not at the end by default.
 
 ## How they behave
 - **0 to 100 percent, 100 being the original's mix**, so every default leaves the game sounding as it does now: the binary's gains stay in the code where they are used, and the setting only scales its group. Nothing above 100, so no gain goes past what the binary sets, and OpenAL's cap of 1.0 per source never matters.
