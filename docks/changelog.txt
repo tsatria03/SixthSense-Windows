@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.24-2:
 Gunshots and the click of an empty gun are heard down the lane you aim at again, in line with the zombies in that lane, instead of closer to the middle.
 
 26.09.24-1:
