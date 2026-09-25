@@ -308,11 +308,18 @@ each hard-code their own numbers, and they do not match:
 |---|---|---|
 | Shotgun price | 7000 | 50000 |
 | Shotgun capacity | 10 | 9 |
+| M4A1 price | 13000 | 70000 |
+| M4A1 capacity | 25 | 30 |
+| AK47 price | 15000 | 70000 |
 | MG80 price | 45000 | 10000 |
 | Japanese sword price | 50000 | 150000 |
 | Japanese sword damage | 100 | 80 |
 
-The shop's are the ones `buyAction:` charges; the inventory's are a spec sheet.
+The shop's are set at 0x19334..0x19f38, the inventory's at 0x27684..0x28622; the M4A1 and
+AK47 rows were added on 2026-09-25, when a check of the listings against `store.SHOP` and
+`inventory.SLOTS` found them missing here. The shop's are the ones `buyAction:` charges; the
+inventory's are a spec sheet. Neither page's damage or range is what the stage plays with,
+which comes from each weapon's plist (the shotgun says 45 and 50, and plays at 35 and 1000).
 **Both reproduced as they stand.**
 
 ### The story is in the game and cannot be heard
