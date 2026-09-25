@@ -886,7 +886,14 @@ next one itself.
 preserved; there is no separate run-loop mode.
 
 ### `NSUserDefaults`
-A JSON file in `%APPDATA%\SixthSense\defaults.json`, same keys.
+JSON files in `%APPDATA%\SixthSense`, same keys. The original keeps them all in one plist;
+since 2026-09-25 (tsatria03) the port splits them by key into `save.json`, the progress and
+any key not named as a setting, and `settings.json`, the preferences in
+`defaults.SETTINGS_KEYS` (`MENUMUSICVOLUME`, `EYEMODE`), written in that order rather than
+sorted. The key bindings, which the original does not have, are in `keys.json`. Nothing that
+reads or writes a key knows which file it is in. A `defaults.json` from before the split is
+moved over on the first start without a `save.json`, and kept as `defaults.json.old`; each
+file keeps its own `.bak` and is set aside as `.damaged` when it cannot be read.
 
 ### `arc4random()`
 Python's `random.getrandbits(32)`. The moduli and offsets are the original's, so the

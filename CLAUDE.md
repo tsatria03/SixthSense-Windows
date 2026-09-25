@@ -39,7 +39,7 @@ The game plays the original's own 269 recorded WAVs, which `SoundList.plist` nam
 - **`New File.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games that are kept in it, in the todo list, memory, or code and comments ([[feedback_no_other_games]]). The dev's old NVGT remake of this game used to be there; it was deleted on 2026-09-21 ([[project_nvgt_remake_reference]]).
 
-The save file and the key bindings live in `%APPDATA%\SixthSense\` (`defaults.json`, `keys.json`).
+The save lives in `%APPDATA%\SixthSense\`, in three files since 2026-09-25: `save.json` (progress), `settings.json` (preferences, `defaults.SETTINGS_KEYS`) and `keys.json` (the key bindings). An older `defaults.json` is moved over on the first start and kept as `defaults.json.old` ([[project_save_split_plan]]).
 
 ## Running and building
 

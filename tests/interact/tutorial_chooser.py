@@ -67,9 +67,12 @@ def _own_save():
                         'SixthSense')
     mine = os.path.join(real, 'tutorial_chooser')
     os.makedirs(os.path.join(mine, 'SixthSense'), exist_ok=True)
-    keys = os.path.join(real, 'keys.json')
-    if os.path.exists(keys):
-        shutil.copyfile(keys, os.path.join(mine, 'SixthSense', 'keys.json'))
+    # your key bindings and your settings (the volumes), but never your save; the voice
+    # over question below then sets voice over in the chooser's own settings
+    for name in ('keys.json', 'settings.json'):
+        yours = os.path.join(real, name)
+        if os.path.exists(yours):
+            shutil.copyfile(yours, os.path.join(mine, 'SixthSense', name))
     os.environ['APPDATA'] = mine
 
 

@@ -1,4 +1,5 @@
 unrelease:
+Your save is now three files: save.json for your progress, settings.json for your settings, such as voice over and the menu music volume, and keys.json for your keys. A save from an older version is moved over by itself the first time you start the game, and the old file is kept as defaults.json.old.
 Page Up and Page Down make the menu music louder and quieter in the main menu, the shop and the inventory, from silent to its full volume in steps of ten percent, and the game remembers the volume you chose. With voice over off, your screen reader says the new volume. The music during a game stays as it is.
 Your key bindings file, keys.json, is created with the default keys the first time the game starts, instead of only once you change a key. A keys file from an older version gains any action it is missing.
 The game's zip now extracts to a folder called SixthSense-Windows instead of SixthSense. The game inside it is still SixthSense.exe.

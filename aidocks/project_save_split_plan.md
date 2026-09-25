@@ -5,7 +5,9 @@ metadata:
   type: project
 ---
 
-**Status: PLANNED, 2026-09-25.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works.
+**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]), and in the todo list as unfinished. Mark it finished only once the dev says it works.
+
+**What was built:** `platform/defaults.py` keeps `UserDefaults`' interface over two `_File`s, `save.json` and `settings.json` (`SAVE_FILE`, `SETTINGS_FILE`), chosen by `_file_for(key)`: `SETTINGS_KEYS = ('MENUMUSICVOLUME', 'EYEMODE')`, in the order settings.json is written; the save stays sorted. Each `_File` keeps its `.bak` and sets itself aside as `.damaged`. `_move_old_save` moves a `defaults.json` when there is no `save.json` and renames it `defaults.json.old` (a damaged one goes through `.damaged` and its `.bak` first). `UserDefaults.path` is now `save.json`'s. The choosers copy `settings.json` beside `keys.json`. `tests/case/save.py` moved to the new names and gained seven tests. Built in a batch with the other two save plans; at the dev's word no test ran until all three were committed (2026-09-25).
 
 **The dev's request:** they pointed at an example in the gitignored `user/` folder, a port of another game (never name it, [[feedback_no_other_games]]), which keeps `save.json`, `settings.json` and `keys.json`, routed by key name (its `SplitDefaults`, with a `SETTINGS_KEYS` set and everything else to the save). The dev: "That's exactly what I want. save.json, settings.json, and keys.json."
 

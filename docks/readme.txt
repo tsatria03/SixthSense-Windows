@@ -99,9 +99,10 @@ Choose the voice over row in the main menu to turn it on or off.
 
 Your save
 
-Your progress is saved in defaults.json, and your keys in keys.json.
-Both are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
-If the save is ever damaged, the game keeps it as defaults.json.damaged and carries on from a backup.
+Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
+All three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
+If a save from an older version is there, called defaults.json, the game moves it into the new files by itself and keeps the old one as defaults.json.old.
+If one of the files is ever damaged, the game keeps it with .damaged on the end of its name and carries on from a backup.
 
 Credits
 

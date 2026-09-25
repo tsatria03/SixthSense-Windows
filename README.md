@@ -100,8 +100,12 @@ tutorial first, as the original does; pressing P at its end counts 3, 2, 1 and s
 the real game. Finished once, by either route, Start Game goes straight into the game.
 `--skip-tutorial` writes the key the tutorial writes, if you would rather skip it.
 
-The save file lives in `%APPDATA%\SixthSense\defaults.json` — the `NSUserDefaults`
-keys the original writes, under their own names.
+The save lives in `%APPDATA%\SixthSense`, in three files: `save.json` (progress),
+`settings.json` (voice over and the menu music volume) and `keys.json` (the key
+bindings). The first two hold the `NSUserDefaults` keys the original writes, under their
+own names, split by key; the original kept them all in one plist. A `defaults.json` from
+before the split is moved into the new files on the first start and kept as
+`defaults.json.old`.
 
 ## Controls
 
@@ -286,7 +290,7 @@ python tests/case/monster_sound.py  # zombie sounds read back from OpenAL (audio
 python tests/case/focus.py          # switching away from the window pauses a stage
 python tests/case/window.py         # the window's close button and the screen loop
 python tests/case/release.py        # the releaser's version, changelog and names (builds nothing)
-python tests/case/save.py           # a damaged save is kept and the backup carries on (temp folders only)
+python tests/case/save.py           # save.json and settings.json, the old save moved over, damaged files kept (temp folders only)
 python tests/case/music_memory.py   # changing the music and ambience frees the old files (audio device)
 python tests/case/audio_device.py   # a lost audio device is reopened (fake device, then OpenAL's null driver)
 python tests/case/runloop.py        # timers and delayed calls: once each, in time order, on a fine clock
