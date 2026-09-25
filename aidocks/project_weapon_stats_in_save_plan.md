@@ -12,7 +12,7 @@ metadata:
 **The point:** a player who opens `save.json` sees each weapon's numbers and may try to change them. The game keeps reading its own numbers (`SHOP` in `game/store.py`, `INVENTORY` in `game/inventory.py`, the weapon plists through `WeaponControl`), so a hand edit changes nothing the game plays or says. The keys are written, never read.
 
 ## What it writes
-- **Four keys per weapon**, the four numbers a weapon's page reads aloud (`detail_row_text`: "Ammo capacity", "Effective range", "Damage", "Price"). Named after the weapon's own save key, in the original's style of capitals with no separators: `<W>AMMOCAPACITY`, `<W>RANGE`, `<W>DAMAGE`, `<W>PRICE`, where `<W>` is `GRENADE`, `KNIFE`, `COLT`, `SHOTGUN`, `M4`, `AK47`, `MG80` or `JAPAN` (the keys `GRENADEUSE`, `KNIFEUSE`, ... already use). All go to `save.json`, as progress.
+- **Four keys per weapon (three for the grenade, see Decided)**, the four numbers a weapon's page reads aloud (`detail_row_text`: "Ammo capacity", "Effective range", "Damage", "Price"). Named after the weapon's own save key, in the original's style of capitals with no separators: `<W>AMMOCAPACITY`, `<W>RANGE`, `<W>DAMAGE`, `<W>PRICE`, where `<W>` is `GRENADE`, `KNIFE`, `COLT`, `SHOTGUN`, `M4`, `AK47`, `MG80` or `JAPAN` (the keys `GRENADEUSE`, `KNIFEUSE`, ... already use). All go to `save.json`, as progress.
 - **When:**
   - buying a weapon in the shop (`DetailStoreController`'s buy, `store.py`), grenades included;
   - equipping one in the inventory (`inventory.py`, where a `*USE` key is switched on);
@@ -22,7 +22,7 @@ metadata:
 
 ## Decided
 - **The shop's numbers, always** (the dev, 2026-09-25: "go ahead with the shop stats"). Where the shop and the inventory disagree (`aidocks/DIVERGENCES.md`, "The shop and the inventory disagree about the same weapons": the shotgun, M4A1, AK47, MG80 and sword), the keys hold `store.SHOP`'s, the ones `buyAction:` charges, whichever page the weapon was bought or equipped from, so a weapon's keys never change. The knife and the colt, which the shop does not sell, take `inventory.SLOTS`'s. The grenade is the same in both. So, as ammo capacity, range, damage and price:
-  - grenade: the count in hand, 10, 150, 1000
+  - grenade: no ammo capacity key (see below), 10, 150, 1000
   - knife: 0, 2, 30, 0 (inventory)
   - colt: 7, 50, 30, 0 (inventory)
   - shotgun: 10, 50, 45, 7000
@@ -35,9 +35,9 @@ metadata:
 
 - **Saves that already own weapons are filled in on the start** (the dev, 2026-09-25: "Yes. It should if possible."). When the game starts, every weapon the save owns (`SHOTGUN`, `M4`, `AK47`, `MG80`, `JAPAN`) or has equipped (a `*USE` key at 1) and has no stats keys for yet gets its four, so an older save is complete from the first start after the change. It fills only what is missing, so a later start never rewrites them, and a hand edit stays in the file doing nothing.
 
-## Still to decide with the dev
-- **The grenade's ammo capacity** is the count in hand (`GRENADECOUNT`), which changes as grenades are thrown and bought; the page reads the count at that moment.
+- **The grenade gets three keys, not four** (the dev, 2026-09-25: "Yes."): `GRENADERANGE`, `GRENADEDAMAGE` and `GRENADEPRICE`, and no `GRENADEAMMOCAPACITY`. Its ammo capacity is the count in hand, `GRENADECOUNT`, which the game already keeps in the save and really reads (buying adds one, `store.py`, 0x1c144; throwing takes one, `stage_1_e._throw_grenade`). A copy would either be rewritten on every throw and purchase for nothing, or drift from the real count.
+- **No save protection** (the dev, 2026-09-25: "I do not want the save protection"). Offered: a checksum over the progress keys, so a hand-edited save could be detected. Declined. The progress keys stay plain and trusted, as in the original: `GOLD`, `COIN`, `FIREST`, `GRENADECOUNT`, the owned weapons, `TUTORIAL` and the top scores can all be changed by hand and the game honours them. Don't propose it again unless asked. The stats keys stop only one kind of edit, the numbers a weapon's page speaks.
 
 ## Tests and docs
-- A new test: a new save has the three starting weapons' keys; buying and equipping write a weapon's four; editing them by hand changes nothing the page says or the stage uses.
+- A new test: a new save has the three starting weapons' keys; buying and equipping write a weapon's four (the grenade's three, and never a `GRENADEAMMOCAPACITY`); an existing save that owns weapons gets theirs on the start, and a later start leaves them as they are; editing them by hand changes nothing the page says or the stage uses.
 - `aidocks/DIVERGENCES.md` (a port addition: the original writes no such keys), `platform/defaults.py`'s key list, and a changelog entry.
