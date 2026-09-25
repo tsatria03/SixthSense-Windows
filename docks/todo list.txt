@@ -1,6 +1,6 @@
 ##Unfinished.
 
-Nothing is waiting here right now. New bugs, planned changes and anything still to be decided will be listed here as they come up.
+Split the save into save.json for your progress, settings.json for your settings and keys.json for your keys, moving an existing save over by itself.
 
 ##Finished.
 
