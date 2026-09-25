@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import logging
 
+from .menu_input import menu_music_key
+
 log = logging.getLogger('screen.input')
 
 
@@ -26,6 +28,8 @@ class ScreenInput:
             return
         name = pygame.key.name(event.key)
         s = self.screen
+        if menu_music_key(name, s.app, s.say):
+            return
         if name == 'escape':
             s.goBackAction_()
         elif name == 'f1':

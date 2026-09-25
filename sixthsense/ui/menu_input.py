@@ -11,6 +11,24 @@ import logging
 
 log = logging.getLogger('menu.input')
 
+#: PORT ADDITION (tsatria03, 2026-09-25): the menu music volume keys, and which way each
+#: one steps it.  The menu, the shop and the inventory only; a stage has its own keyboard.
+MENU_MUSIC_KEYS = {'page up': 1, 'page down': -1}
+
+
+def menu_music_key(name, app, say):
+    """Page Up or Page Down on a menu screen: step the menu music's volume.  With voice
+    over off the screen reader says the new volume; with it on nothing is said, since no
+    recording says a percentage, and the music changing is the answer.  Nothing happens
+    where the menu music is not playing, such as the opening screen.  True when ``name``
+    was one of the two keys."""
+    if name not in MENU_MUSIC_KEYS:
+        return False
+    percent = app.change_menu_music_volume(MENU_MUSIC_KEYS[name])
+    if percent is not None and app.screen_reader:
+        say('Music volume %d%%' % percent)
+    return True
+
 
 class MenuInput:
     def __init__(self, menu):
@@ -25,6 +43,8 @@ class MenuInput:
         if event.type != pygame.KEYDOWN:
             return
         name = pygame.key.name(event.key)
+        if menu_music_key(name, self.menu.app, self.menu._say):
+            return
         if name == 'escape':
             self.quit = True
         elif name == 'f1':

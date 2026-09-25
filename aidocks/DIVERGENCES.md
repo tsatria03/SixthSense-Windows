@@ -587,6 +587,18 @@ player alone when it is asked for the file it is already playing, and only takes
 gain and loop setting. The original rebuilds its `AVAudioPlayer` every time and so always
 starts at the top; it has no menu music for this to matter to.
 
+**Page Up and Page Down set its volume** (tsatria03, 2026-09-25), on the main menu, the
+shop and the inventory: 0 to 100% in steps of ten, holding at both ends, where 100% is
+`MENU_MUSIC_DB` as above and never louder. The percentage is squared into the gain
+(`volume.menu_music(percent)`), so the steps sound even. It is saved as
+`MENUMUSICVOLUME` in `defaults.json`, and `BGMusicStart` plays at it. With voice over off
+the screen reader says "Music volume 70%"; with it on nothing is said, since no
+recording says a percentage. The music player also plays the level music and the story's,
+so a press changes the volume only while `bgm_main_menu` is what is playing
+(`AppDelegate.menu_music_playing`); nothing else's gain moves. The original has no menu
+music, so there is nothing of its own this changes. The two keys are fixed on the F1
+screen, like Escape and F1.
+
 ### Every shop and inventory screen says which one it is
 `-[mainStoreController startRead]` (0x1d124) is three lines long and plays one sound, 13
 `back button`; the weapon list, the weapon page and the inventory open the same way. On a

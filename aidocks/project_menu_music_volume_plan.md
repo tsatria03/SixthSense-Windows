@@ -1,11 +1,13 @@
 ---
 name: project_menu_music_volume_plan
-description: "PLANNED 2026-09-25, not built yet. Page Up and Page Down make the menu music (bgm_main_menu) louder and quieter, 0 to 100% in steps of 10, 100% being today's -14 dB; only on the menu screens, never in a game; saved in defaults.json; spoken with voice over off only. The level music, the ambience and the story music stay as they are."
+description: "FINISHED 2026-09-25, confirmed by the dev. Page Up and Page Down make the menu music (bgm_main_menu) louder and quieter, 0 to 100% in steps of 10, 100% being today's -14 dB; only on the menu screens, never in a game; saved in defaults.json; spoken with voice over off only. The level music, the ambience and the story music stay as they are."
 metadata:
   type: project
 ---
 
-**Status: PLANNED, 2026-09-25.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
+**Status: FINISHED, 2026-09-25, confirmed by the dev ("it works").** They asked the same day for the spoken line to be "Music volume 70%", not "Menu music volume 70%", and it is. Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
+
+**What was built:** `volume.MENU_MUSIC_VOLUMES`, `DEFAULT_MENU_MUSIC_VOLUME` and `menu_music(percent)`; in `app_delegate.py`, `MENU_MUSIC_TRACK`, `MENU_MUSIC_KEY`, `menu_music_volume`, `menu_music_playing()` and `change_menu_music_volume(step)`, with `BGMusicStart` playing at the saved level; `menu_music_key()` in `ui/menu_input.py`, called first by `MenuInput` and `ScreenInput`; Page Up and Page Down in `keymap.FIXED`. The opening screen needs no check of its own: the menu music is not playing there, so a press does nothing. `input.py`'s two tests that rebound Page Up now use Insert. New `tests/case/menu_music.py`, 11 of 11, reading the gain back from OpenAL on the null driver; menu 34, volume 7, input 27, store 20, intro 14 and paths 13 still pass. The player readme, README.md, DIVERGENCES.md and the changelog say so.
 
 **The dev's request:** "I know the original game had no way to turn down the menu music, but I want page up/down to be able to turn down the menu music in both screen reader and self voiced modes. The game music can stay as is." They pointed to an example they keep in the gitignored `user/` folder, a port of another game that does the same; read it there, never name it ([[feedback_no_other_games]]). Then: the percentage is spoken "only if the voice over is turned off".
 
@@ -17,7 +19,7 @@ metadata:
 - **The curve:** the percentage is squared before it becomes a gain, as the example does, so each step sounds about as big as the last. In decibels that is `MENU_MUSIC_DB + 40 * log10(percent / 100)`, and 0% is silent (gain 0).
 - **Heard at once:** a press sets the menu music's gain straight away when the music playing is `bgm_main_menu`. The background player is shared with the level music, so it checks which track is playing first and never changes a level's music.
 - **Where the keys work:** the screens the menu music plays under: the main menu (`MenuInput`), and the shop, its weapon list and weapon pages, and the inventory (`ScreenInput`). **Not** the opening screen (no menu music there; the story row has its own music), a stage, the tutorial, the pause and result panel, the weapon test range or the F1 screen. The keys do nothing there.
-- **Spoken:** with voice over off (the screen reader mode), each press says "Menu music volume 70%" through the screen reader, cutting off the line before. With voice over on, nothing is spoken; the music changing is the answer, since no recording says a percentage. At either end a press says the same percentage again with voice over off, and nothing with it on.
+- **Spoken:** with voice over off (the screen reader mode), each press says "Music volume 70%" through the screen reader, cutting off the line before. With voice over on, nothing is spoken; the music changing is the answer, since no recording says a percentage. At either end a press says the same percentage again with voice over off, and nothing with it on.
 - **Saved:** in `defaults.json` under a new key, `MENUMUSICVOLUME`, as a whole number. A missing or unexpected value means 100. Every later start plays the menu music at the saved level, `BGMusicStart` included, and so does coming back from a game.
 
 ## Where it goes

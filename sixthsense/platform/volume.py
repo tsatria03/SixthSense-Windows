@@ -67,6 +67,16 @@ def ambience(g: float) -> float:
     return g * gain(AMBIENCE_DB)
 
 
-def menu_music() -> float:
-    """The menu music's gain, which is ``MENU_MUSIC_DB`` and nothing else."""
-    return gain(MENU_MUSIC_DB)
+#: PORT ADDITION (tsatria03, 2026-09-25): the menu music volume Page Up and Page Down set
+#: on the menu screens, in percent, saved as MENUMUSICVOLUME.  100 is ``MENU_MUSIC_DB`` as
+#: it was, never louder; 0 is silent.
+MENU_MUSIC_VOLUMES = tuple(range(0, 101, 10))
+DEFAULT_MENU_MUSIC_VOLUME = 100
+
+
+def menu_music(percent: int = DEFAULT_MENU_MUSIC_VOLUME) -> float:
+    """The menu music's gain: ``MENU_MUSIC_DB`` at 100%, and below that the percentage
+    squared, so each step of ten sounds about as big as the last - straight percentages
+    barely change anything near the top and drop to nothing in the last step or two.
+    In decibels a step is ``40 * log10(percent / 100)`` under ``MENU_MUSIC_DB``."""
+    return gain(MENU_MUSIC_DB) * (max(0, min(percent, 100)) / 100.0) ** 2

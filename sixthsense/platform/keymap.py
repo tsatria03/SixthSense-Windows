@@ -86,7 +86,10 @@ DEFAULTS = {a[0]: [tuple(b) for b in a[2]] for a in ACTIONS}
 # or into the binding screen without deleting the save.
 # Escape goes back from the shop's screens, pauses a stage, leaves the tutorial and
 # quits only from the main menu.
-FIXED = {'f1': 'Key bindings', 'escape': 'Back, pause or quit'}
+#: Page Up and Page Down set the menu music's volume on the menu screens (ui/menu_input.py,
+#: a PORT ADDITION of 2026-09-25), which read them outside the keymap.
+FIXED = {'f1': 'Key bindings', 'escape': 'Back, pause or quit',
+         'page up': 'Menu music louder', 'page down': 'Menu music quieter'}
 
 # pygame's names are terse and some of them read badly; these are for speech.
 SPOKEN = {

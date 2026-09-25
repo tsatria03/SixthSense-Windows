@@ -127,6 +127,7 @@ chords: hold both keys together.
 | **P** | pause — the original's stop button, which has no key of its own |
 | **F1** | key bindings — see below |
 | **Esc** | pause a stage, and resume it from the pause panel; back to the menu from the tutorial; quit from the menu |
+| **Page Up** / **Page Down** | the menu music louder / quieter, in the menu, the shop and the inventory: 0 to 100% in steps of ten, saved as `MENUMUSICVOLUME`, and said aloud with voice over off. The level music is left alone |
 
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the
@@ -255,7 +256,7 @@ reproducible without the IPA.
 
 `tests/` has two folders:
 
-- **`tests/case/`** holds the tests: 22 plain scripts, each checking one part of the
+- **`tests/case/`** holds the tests: 23 plain scripts, each checking one part of the
   game against the original and printing `ok` or `FAIL` for every check, then a total.
   Run any of them on its own; there is nothing to install beyond what the game needs.
 - **`tests/interact/`** holds two tools you play rather than tests: `level_chooser.py`
@@ -272,6 +273,7 @@ python tests/case/gameplay.py       # a headless playthrough (~35 s, opens the a
 python tests/case/input.py          # the keyboard mapping
 python tests/case/tutorial.py       # the ten tutorial beats
 python tests/case/menu.py           # the menu rows and the coin economy
+python tests/case/menu_music.py     # Page Up and Page Down on the menu music (audio device)
 python tests/case/digits.py         # numbers spoken digit by digit, in the right order
 python tests/case/pause.py          # the pause and result panel
 python tests/case/store.py          # the shop, buying, and the inventory

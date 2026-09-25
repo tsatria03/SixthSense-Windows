@@ -43,6 +43,7 @@ Numbers are spoken digit by digit from the ``zero``..``nine`` WAVs, one per seco
 from __future__ import annotations
 
 import logging
+import os
 import plistlib
 import time
 
@@ -75,6 +76,9 @@ NO_COIN_WORDS_SECONDS = 0.95
 # -[MainController coinTiemrControlStart] 0xbe01 / coinUpTimer 0xc0b1
 COIN_INTERVAL = 1800.0     # seconds per coin - `rsb.w r2, r0, #0x708` at 0xc1ee
 COIN_MAX = 5               # 0xbff6: the timer stops once Coin reaches 5
+#: PORT ADDITION: the menu music, and the save key for its volume (change_menu_music_volume).
+MENU_MUSIC_TRACK = 'bgm_main_menu'
+MENU_MUSIC_KEY = 'MENUMUSICVOLUME'
 
 
 
@@ -360,11 +364,50 @@ class AppDelegate:
         value.  It started at 1.0, which talked over the rows the menu reads aloud."""
         if self.playback:
             self.playback.startBGPlayer_type_soundGain_Loop_(
-                'bgm_main_menu', 'wav', volume.menu_music(), True)
+                MENU_MUSIC_TRACK, 'wav', volume.menu_music(self.menu_music_volume), True)
 
     def BGMusicStop(self):
         if self.playback:
             self.playback.backgroundSoundStop()
+
+    # PORT ADDITION (tsatria03, 2026-09-25): Page Up and Page Down on the menu screens set
+    # the menu music's volume, 0 to 100% in steps of 10, saved as MENUMUSICVOLUME.  Only
+    # the menu music: the level music, the ambience and the story's music keep the
+    # binary's gains.  aidocks/project_menu_music_volume_plan.md has the plan.
+    @property
+    def menu_music_volume(self):
+        """The saved menu music volume in percent; 100 when unset or not one of the steps."""
+        v = UserDefaults.standardUserDefaults().objectForKey_(MENU_MUSIC_KEY)
+        try:
+            v = int(v)
+        except (TypeError, ValueError):
+            return volume.DEFAULT_MENU_MUSIC_VOLUME
+        return v if v in volume.MENU_MUSIC_VOLUMES else volume.DEFAULT_MENU_MUSIC_VOLUME
+
+    def menu_music_playing(self):
+        """Whether the music player is playing the menu music.  The level music plays on
+        the same player, so this is what keeps the keys off it."""
+        bg = getattr(self.playback, 'bgPlayer', None)
+        if bg is None or not bg.path:
+            return False
+        name = os.path.splitext(os.path.basename(bg.path))[0]
+        return name == MENU_MUSIC_TRACK and bg.playing
+
+    def change_menu_music_volume(self, step):
+        """Page Up (+1) or Page Down (-1): the next step of ten, holding at 0 and 100,
+        saved, and heard at once.  Returns the new percentage, or None when the menu
+        music is not playing and nothing changed."""
+        if not self.menu_music_playing():
+            return None
+        steps = volume.MENU_MUSIC_VOLUMES
+        at = steps.index(self.menu_music_volume)
+        percent = steps[min(max(at + step, 0), len(steps) - 1)]
+        d = UserDefaults.standardUserDefaults()
+        d.setInteger_forKey_(percent, MENU_MUSIC_KEY)
+        d.synchronize()
+        # as startBGPlayer sets it, the master knob included
+        self.playback.bgPlayer.set_volume(volume.master(volume.menu_music(percent)))
+        return percent
 
     # ``AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)`` in the original.
     def vibrate(self):

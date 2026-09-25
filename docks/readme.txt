@@ -21,6 +21,10 @@ The main menu has six rows: your coins, the title, Start Game, Tutorial, Store, 
 Up and Down move between the rows, and each row reads itself aloud.
 Enter chooses the row you are on.
 Escape in the main menu quits the game.
+Page Up makes the menu music louder, and Page Down makes it quieter, in the main menu, the shop and the inventory.
+It goes from silent to its full volume in steps of ten percent, and the game remembers where you left it.
+With voice over off, your screen reader says the new volume.
+The music during a game stays as it is.
 
 Coins
 

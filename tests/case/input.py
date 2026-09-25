@@ -371,9 +371,9 @@ def test_holding_the_shake_key_is_one_shake():
 def test_bindings_survive_a_round_trip():
     path = os.path.join(tempfile.mkdtemp(), 'keys.json')
     a = KeyMap(path=path)
-    a.set_binding('lane3', ('page up',))
+    a.set_binding('lane3', ('insert',))
     b = KeyMap(path=path)
-    assert b.bindings['lane3'] == [('page up',)]
+    assert b.bindings['lane3'] == [('insert',)]
     b.reset()
     c = KeyMap(path=path)
     assert c.bindings['lane3'] == DEFAULTS['lane3'], 'reset did not stick'
@@ -393,14 +393,14 @@ def test_keys_json_is_written_with_the_defaults_on_the_first_start():
     assert written['lane3'] == [list(b) for b in DEFAULTS['lane3']]
     # an older file without one action keeps its bindings and gains the missing one
     del written['reload']
-    written['lane3'] = [['page up']]
+    written['lane3'] = [['insert']]
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(written, f)
     km = KeyMap(path=path)
-    assert km.bindings['lane3'] == [('page up',)]
+    assert km.bindings['lane3'] == [('insert',)]
     with open(path, encoding='utf-8') as f:
         again = json.load(f)
-    assert again['lane3'] == [['page up']]
+    assert again['lane3'] == [['insert']]
     assert again['reload'] == [list(b) for b in DEFAULTS['reload']]
     # a damaged file is not replaced by the defaults
     with open(path, 'w', encoding='utf-8') as f:
