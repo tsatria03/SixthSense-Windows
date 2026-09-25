@@ -241,7 +241,7 @@ reproducible without the IPA.
 
 `tests/` has two folders:
 
-- **`tests/case/`** holds the tests: 21 plain scripts, each checking one part of the
+- **`tests/case/`** holds the tests: 22 plain scripts, each checking one part of the
   game against the original and printing `ok` or `FAIL` for every check, then a total.
   Run any of them on its own; there is nothing to install beyond what the game needs.
 - **`tests/interact/`** holds two tools you play rather than tests: `level_chooser.py`
@@ -261,6 +261,7 @@ python tests/case/menu.py           # the menu rows and the coin economy
 python tests/case/digits.py         # numbers spoken digit by digit, in the right order
 python tests/case/pause.py          # the pause and result panel
 python tests/case/store.py          # the shop, buying, and the inventory
+python tests/case/inventory.py      # equipping through the inventory's screens, step by step
 python tests/case/weapon_range.py   # the weapon test range behind the shop's Try button
 python tests/case/intro.py          # the logo, the splash, the warning, the story, skipping
 python tests/case/speech.py         # who speaks what no WAV covers (stand-ins, silent)
