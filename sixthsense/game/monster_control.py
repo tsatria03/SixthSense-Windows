@@ -484,7 +484,15 @@ class MonsterControl:
 
     # -[MonsterControl MonsterDead] 0x12428
     def MonsterDead(self, *_):
-        self.app.stopSoundBufNumber_(self.dieSound)
+        """``dieSoundTime`` after the death: the monster is marked no longer alive.
+
+        It stops nothing.  The raw instructions are ``[self dieSound]`` with the result
+        dropped (0x1243c), then ``[self setMonsterFlag:NO]`` as a tail call (0x12454), so
+        the death sound always plays to its end.  The port used to stop it here, which
+        cut a death short wherever the plist's ``dieSoundTime`` is shorter than the
+        recording: zombie 2's type10 lost two of its 3.56 seconds (tsatria03 heard it,
+        2026-09-25)."""
+        self.monsterFlag = False
 
     # -[MonsterControl StopPlayGame] 0x10ca8
     def StopPlayGame(self):

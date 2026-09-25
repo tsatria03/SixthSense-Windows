@@ -320,6 +320,37 @@ def test_the_woman_zombie_growls_before_she_reaches_you():
         st.teardown()
 
 
+def test_a_death_sound_plays_to_its_end():
+    """tsatria03, 2026-09-25: zombie 2's death was cut short.  -[MonsterControl
+    MonsterDead] (0x12428) only sets monsterFlag to NO; it never stops the death sound.
+    The port stopped it at dieSoundTime, 1.5 s for type10, two seconds before the end of
+    its 3.56 s recording.  The source is still playing after that time, and nothing
+    asked to stop it."""
+    app, st = _new_stage()
+    stopped = []
+    real_stop = app.stopSoundBufNumber_
+    app.stopSoundBufNumber_ = lambda n: (stopped.append(n), real_stop(n))[1]
+    try:
+        st.gameMode = 1
+        st.MonsterInit_(10)                        # zombie 2, type10: dieSoundTime 1.5
+        m = st.MonsterBuffer[0]
+        assert m.dieSoundTime == 1.5, m.dieSoundTime
+        m.HP = 0
+        m.MonsterHitSound_(None)                   # the killing hit: DieMonster
+        note = app.CheckSoundBuf_(m.dieSound)
+        sid = app.playback._sources[note].sourceId
+        stopped.clear()                            # DieMonster stops it before it plays
+        from sixthsense.platform import runloop
+        RunLoop.main().pump(now=runloop.clock() + m.dieSoundTime + 0.1)
+        assert m.dieSound not in stopped, 'MonsterDead stopped the death sound'
+        assert m.monsterFlag is False, 'MonsterDead did not mark the monster dead'
+        state = app.playback.al.source_state(sid)
+        assert state == al.AL_PLAYING, 'the death sound is not playing: state %#x' % state
+    finally:
+        app.stopSoundBufNumber_ = real_stop
+        st.teardown()
+
+
 if __name__ == '__main__':
     fns = [v for k, v in sorted(globals().items()) if k.startswith('test_')]
     bad = 0

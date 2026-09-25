@@ -79,6 +79,17 @@ at the spot the zombie came in, so you could not hear a zombie come closer. The 
 `AL_BUFFER` that follows (0xe59c..0xe5c0) is refused by OpenAL on a playing source, so
 the port leaves it out. **Reproduced.**
 
+### A death sound plays to its end
+`DieMonster` (0x1222c) plays the monster's death sound and performs `MonsterDead` after
+the plist's `dieSoundTime`. `MonsterDead` (0x12428) only reads `dieSound`, dropping the
+result (0x1243c), and calls `setMonsterFlag:NO` (0x12454, a tail call); it stops nothing,
+in the raw instructions. The port stopped the death sound there, which cut it short
+wherever `dieSoundTime` is shorter than the recording: zombie 2's type10 is 1.5 s against
+a 3.56 s recording, so it lost two seconds, and zombies 1, 4, 7, 9 and 10 lost up to
+1.34 s. tsatria03 heard zombie 2's cut on 2026-09-25. **Reproduced** since: every death
+plays in full. `DieMonster` still stops the same sound number first, so a second zombie
+of one kind dying while the first's death still plays can cut it, as in the original.
+
 ### The player breathes once every four seconds
 `MainControl` tries to breathe on every second one-second tick, and `breath:`, which
 lets it breathe again, comes 3.0 s later (0x31964: `movt r5, #0x4008`). So every
