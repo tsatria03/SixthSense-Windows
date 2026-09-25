@@ -4,13 +4,13 @@ Nothing is waiting here right now. New bugs, planned changes and anything still 
 
 ##Finished.
 
+Gunshots and the empty magazine click line up with the zombies in each lane: far left and far right are fully to the side, and the diagonals moved further out, from about a third of the way to the side to about half.
 Starting a game with the grenade, knife and colt unequipped no longer brings them back when a weapon you bought is equipped, and Tab offers only what you equipped.
 Choosing the Store row, or Start Game with no coin, clicks as in the original.
 The coin row reads your coins and the time until the next one with the original's pauses between its parts.
 You can click an empty magazine again straight away, as in the original.
 A zombie hitting you, and the girl thanking you, are heard in the middle of your head, as in the original.
 A grenade adds to the score for every zombie it hurts, as in the original, not only for the ones it kills.
-Gunshots and the empty magazine click are heard down the lane you aim at, in line with the zombies in that lane.
 The weapon change sound is as quiet as in the original, and changing again stops the one before.
 The tutorial's reload lesson says its instruction once, as in the original, instead of repeating it until you reload.
 Pausing says "paused" half a second after the click, as in the original, or through your screen reader with voice over off.
