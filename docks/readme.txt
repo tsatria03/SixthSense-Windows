@@ -101,6 +101,10 @@ Your save
 
 Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
 All three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
+In settings.json you can set four volumes, from 0 for silent to 100, the original's mix.
+MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, and AMBIENCEVOLUME the cave, the forest and the rain.
+Change a number in Notepad, save the file and start the game again to hear it.
+A number the game cannot use counts as 100.
 If a save from an older version is there, called defaults.json, the game moves it into the new files by itself and keeps the old one as defaults.json.old.
 If one of the files is ever damaged, the game keeps it with .damaged on the end of its name and carries on from a backup.
 

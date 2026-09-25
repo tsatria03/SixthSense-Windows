@@ -598,7 +598,9 @@ class Stage_1_E:
         self.gamePlayer.playerYplot = 680               # 0x32302
         self.monsterHPGain = self.monsterHPGain * 1.5   # 0x32314
         note = SOUND_FOREST_AMB if self.gameMode == 1 else SOUND_CAVE_AMB
-        self.app.playSound_Gain_Pos_z_reprats_(note, 0.02, (0.0, 0.0), 0, True)
+        # the ambience volume setting applies to it too, the same as the ambience player;
+        # at its default it is the binary's 0.02 exactly
+        self.app.playSound_Gain_Pos_z_reprats_(note, volume.ambience(0.02), (0.0, 0.0), 0, True)
         self.changeGameMode()
         self.MotionSamplingTimer = RunLoop.main().scheduledTimer(
             1.0, self, 'MainControl', None, True)

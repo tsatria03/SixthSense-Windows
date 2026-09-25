@@ -589,8 +589,17 @@ knobs sit on top of those:
   whole value.
 
 All of them but the last ship at 0.0 dB, which multiplies by exactly 1.0, so the mix as
-shipped is the original's to the bit. They are constants: nothing writes them to the save
-yet, and a settings screen would read its sliders into them.
+shipped is the original's to the bit. They are constants.
+
+**On top of them sit the player's volume settings** (tsatria03, 2026-09-25), in
+`settings.json` and changed only by editing it: `MASTERVOLUME`, `MENUMUSICVOLUME`,
+`LEVELMUSICVOLUME` and `AMBIENCEVOLUME`, whole percentages from 0 to 100, squared into the
+gain (`volume.percent_gain`). 100, the default, multiplies by exactly 1.0, so the mix is
+still the original's until a player turns one down; nothing goes above the binary's own
+gains. `volume.load` reads them on start and writes any that are missing. The ambience
+setting also covers the other level's ambience that `ChangeLevel:` loops at 0.02
+(0x32362), which is played as a sound; the story row's music follows the level music
+setting, since it goes through the same knob.
 
 The music itself stays: tsatria03 put it on the menu deliberately, and said so on
 2026-09-22. A silent menu is what the original has, and it is not what this port wants.
@@ -606,7 +615,8 @@ starts at the top; it has no menu music for this to matter to.
 shop and the inventory: 0 to 100% in steps of ten, holding at both ends, where 100% is
 `MENU_MUSIC_DB` as above and never louder. The percentage is squared into the gain
 (`volume.menu_music(percent)`), so the steps sound even. It is saved as
-`MENUMUSICVOLUME` in `defaults.json`, and `BGMusicStart` plays at it. With voice over off
+`MENUMUSICVOLUME` in `settings.json`, and `BGMusicStart` plays at it (any whole number
+from 0 to 100 since the volume settings; the keys step to the next ten from it). With voice over off
 the screen reader says "Music volume 70%"; with it on nothing is said, since no
 recording says a percentage. The music player also plays the level music and the story's,
 so a press changes the volume only while `bgm_main_menu` is what is playing

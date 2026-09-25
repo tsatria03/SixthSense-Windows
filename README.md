@@ -101,8 +101,11 @@ the real game. Finished once, by either route, Start Game goes straight into the
 `--skip-tutorial` writes the key the tutorial writes, if you would rather skip it.
 
 The save lives in `%APPDATA%\SixthSense`, in three files: `save.json` (progress),
-`settings.json` (voice over and the menu music volume) and `keys.json` (the key
-bindings). The first two hold the `NSUserDefaults` keys the original writes, under their
+`settings.json` (the volumes and voice over) and `keys.json` (the key bindings).
+`settings.json` holds `MASTERVOLUME`, `MENUMUSICVOLUME`, `LEVELMUSICVOLUME` and
+`AMBIENCEVOLUME`, whole percentages from 0 to 100, where 100 is the original's mix; they
+are set only by editing the file (the menu music also by Page Up and Page Down) and read
+on the next start. The first two hold the `NSUserDefaults` keys the original writes, under their
 own names, split by key; the original kept them all in one plist. A `defaults.json` from
 before the split is moved into the new files on the first start and kept as
 `defaults.json.old`.

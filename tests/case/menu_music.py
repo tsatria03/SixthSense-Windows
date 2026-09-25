@@ -180,16 +180,39 @@ def test_the_saved_volume_is_used_the_next_time_the_music_starts():
         _done(m)
 
 
-def test_a_saved_value_that_is_not_a_step_means_full():
-    for bad in ('loud', 55, -10, 250):
+def test_a_saved_value_that_is_not_a_whole_percentage_means_full():
+    """Since 2026-09-25 any whole number from 0 to 100 can be set by hand in
+    settings.json; a word, a fraction, or anything outside 0 to 100 means 100."""
+    for bad in ('loud', 5.5, -10, 250, True):
         m = _menu(saved=bad)
         try:
             assert m.app.menu_music_volume == 100, bad
         finally:
             _done(m)
-    m = _menu(saved='30')                      # a hand-edited save may hold a string
+    for good, want in (('30', 30), (55, 55), (0, 0), (100, 100), (70.0, 70)):
+        m = _menu(saved=good)                  # a hand-edited file may hold a string
+        try:
+            assert m.app.menu_music_volume == want, good
+        finally:
+            _done(m)
+
+
+def test_page_up_and_down_step_to_the_next_ten_from_a_hand_set_value():
+    """55, set by hand, goes up to 60 and down to 50."""
+    m = _menu(saved=55)
     try:
-        assert m.app.menu_music_volume == 30
+        keys = MenuInput(m)
+        _press(keys, 'page up')
+        assert m.app.menu_music_volume == 60
+        _set_saved(55)
+        _press(keys, 'page down')
+        assert m.app.menu_music_volume == 50
+        _set_saved(3)
+        _press(keys, 'page down')
+        assert m.app.menu_music_volume == 0
+        _set_saved(97)
+        _press(keys, 'page up')
+        assert m.app.menu_music_volume == 100
     finally:
         _done(m)
 

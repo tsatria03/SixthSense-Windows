@@ -79,7 +79,7 @@ COIN_INTERVAL = 1800.0     # seconds per coin - `rsb.w r2, r0, #0x708` at 0xc1ee
 COIN_MAX = 5               # 0xbff6: the timer stops once Coin reaches 5
 #: PORT ADDITION: the menu music, and the save key for its volume (change_menu_music_volume).
 MENU_MUSIC_TRACK = 'bgm_main_menu'
-MENU_MUSIC_KEY = 'MENUMUSICVOLUME'
+MENU_MUSIC_KEY = volume.MENU_MUSIC_KEY
 
 
 
@@ -136,6 +136,15 @@ class AppDelegate:
         self.stage = d.intForKey_('STAGE')
         self.mode = self.saved_mode()
         self.CheckVoiceOver = bool(self.mode)
+        # PORT ADDITION (2026-09-25): the volume settings, and settings.json written with
+        # every one at its default, voice over included, so a player sees what they can
+        # change (aidocks/project_volume_settings_plan.md)
+        wrote = volume.load(d)
+        if d.objectForKey_('EYEMODE') is None:
+            d.setObject_forKey_(str(self.mode), 'EYEMODE')
+            wrote = True
+        if wrote:
+            d.synchronize()
         self.weaponHave()
         return True
 
@@ -383,13 +392,9 @@ class AppDelegate:
     # binary's gains.  aidocks/project_menu_music_volume_plan.md has the plan.
     @property
     def menu_music_volume(self):
-        """The saved menu music volume in percent; 100 when unset or not one of the steps."""
-        v = UserDefaults.standardUserDefaults().objectForKey_(MENU_MUSIC_KEY)
-        try:
-            v = int(v)
-        except (TypeError, ValueError):
-            return volume.DEFAULT_MENU_MUSIC_VOLUME
-        return v if v in volume.MENU_MUSIC_VOLUMES else volume.DEFAULT_MENU_MUSIC_VOLUME
+        """The saved menu music volume, any whole percentage from 0 to 100 since it can be
+        set by hand in settings.json; 100 when unset or not one."""
+        return volume.percent(UserDefaults.standardUserDefaults().objectForKey_(MENU_MUSIC_KEY))
 
     def menu_music_playing(self):
         """Whether the music player is playing the menu music.  The level music plays on
@@ -402,13 +407,16 @@ class AppDelegate:
 
     def change_menu_music_volume(self, step):
         """Page Up (+1) or Page Down (-1): the next step of ten, holding at 0 and 100,
-        saved, and heard at once.  Returns the new percentage, or None when the menu
-        music is not playing and nothing changed."""
+        saved, and heard at once.  From a value set by hand between two steps it goes to
+        the nearer step that way: 55 goes up to 60 and down to 50.  Returns the new
+        percentage, or None when the menu music is not playing and nothing changed."""
         if not self.menu_music_playing():
             return None
-        steps = volume.MENU_MUSIC_VOLUMES
-        at = steps.index(self.menu_music_volume)
-        percent = steps[min(max(at + step, 0), len(steps) - 1)]
+        now = self.menu_music_volume
+        if step > 0:
+            percent = min(100, (now // 10 + 1) * 10)
+        else:
+            percent = max(0, (-(-now // 10) - 1) * 10)
         d = UserDefaults.standardUserDefaults()
         d.setInteger_forKey_(percent, MENU_MUSIC_KEY)
         d.synchronize()
