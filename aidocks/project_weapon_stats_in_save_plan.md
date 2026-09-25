@@ -17,6 +17,7 @@ metadata:
   - buying a weapon in the shop (`DetailStoreController`'s buy, `store.py`), grenades included;
   - equipping one in the inventory (`inventory.py`, where a `*USE` key is switched on);
   - a new save: the grenade, the knife and the colt, beside the block that equips them (`app_delegate.py`, "a fresh install has nothing equipped", 0x52xx). That covers a first start and a save the player deleted.
+  - any start: whatever an existing save owns or has equipped and has no keys for (see Decided).
 - **Never read:** no code reads these keys. A test checks that editing them changes nothing the pages say or the stage uses.
 
 ## Decided
@@ -32,8 +33,9 @@ metadata:
 
   Checked on 2026-09-25 against `DetailStoreController` (0x19334..0x19f38) and `DetailInventoryController` (0x27684..0x28622); the Python tables match. None of these is what the stage plays with: that comes from the weapon plists (the shotgun plays at 35 damage and 1000 range), so the keys are a spec sheet on both counts.
 
+- **Saves that already own weapons are filled in on the start** (the dev, 2026-09-25: "Yes. It should if possible."). When the game starts, every weapon the save owns (`SHOTGUN`, `M4`, `AK47`, `MG80`, `JAPAN`) or has equipped (a `*USE` key at 1) and has no stats keys for yet gets its four, so an older save is complete from the first start after the change. It fills only what is missing, so a later start never rewrites them, and a hand edit stays in the file doing nothing.
+
 ## Still to decide with the dev
-- **Saves that already own weapons.** As asked, keys are written on buying and equipping; a weapon bought before this change would get its keys the next time it is equipped. Filling them in on the first start was not asked for.
 - **The grenade's ammo capacity** is the count in hand (`GRENADECOUNT`), which changes as grenades are thrown and bought; the page reads the count at that moment.
 
 ## Tests and docs
