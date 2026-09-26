@@ -1,11 +1,11 @@
 ---
 name: project_sound_rename_plan
-description: "PLANNED 2026-09-25, not built. The dev's third sound sort flattens the zombie, boss, monster and character folders and renames sounds they found misnamed (the 'woman' monster is a man; shared zombie sounds split per zombie). SoundList.plist entries are pointed at the new names, and a new entry 371 gives the bosses their own being-hurt sound. Recorded before any code."
+description: "FINISHED 2026-09-25, confirmed by the dev. The dev's third sound sort flattens the zombie, boss, monster and character folders and renames sounds they found misnamed (the 'woman' monster is a man; shared zombie sounds split per zombie). SoundList.plist entries are pointed at the new names, and a new entry 371 gives the bosses their own being-hurt sound. Recorded before any code."
 metadata:
   type: project
 ---
 
-**Status: BUILT, 2026-09-25, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
+**Status: FINISHED, 2026-09-25, confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Mark it finished only once the dev says it works.
 
 **What was built:** `game/SoundList.plist` rewritten with `plistlib` in binary, after checking it re-saved byte for byte; 26 entries changed as in the table below and entry 371 added, 372 in all, every other entry untouched. `MONSTER_SOUNDS[KIND_BOSS]` uses `[371]` for being hurt. `tests/case/data.py`: 372 entries, and a new test that each renamed entry names a file in `used/` and the bosses use 371 while zombies 9 and 10 keep 205. data 19, paths 13, monster_sound 8 and gameplay 54 pass, and no test logged a missing sound. DIVERGENCES.md, CLAUDE.md, [[project_sound_organization]] and the changelog follow.
 
