@@ -504,4 +504,10 @@ disassembly under `analysis/`, are Bitbee's and are not covered by it.
 
 The third-party pieces keep their own licenses. OpenAL Soft's and NVDA's controller
 client's sit beside their DLLs in `vendor/`, and a build puts them, along with
-Prism's and pygame's, into a `licenses` folder inside the executable.
+Prism's and pygame's, into a `licenses` folder inside the executable. Each can also be
+read online:
+
+- OpenAL Soft, LGPL 2: <https://github.com/kcat/openal-soft/blob/master/COPYING>
+- the NVDA controller client, LGPL 2.1: <https://github.com/nvaccess/nvda/blob/master/extras/controllerClient/license.txt>
+- Prism, MPL 2.0: <https://github.com/ethindp/prism>
+- pygame, LGPL 2.1: <https://github.com/pygame/pygame/blob/main/docs/LGPL.txt>

@@ -118,5 +118,9 @@ tunmi13productions has fixed and added a great deal of it: zombies that move, th
 Licenses
 
 The Windows version's own license is in license.txt, beside the game.
-The licenses of OpenAL Soft, the NVDA controller client, Prism and pygame are included inside the game itself.
+The licenses of OpenAL Soft, the NVDA controller client, Prism and pygame are included inside the game itself, and each can also be read online.
+OpenAL Soft, the sound engine, uses the GNU Library General Public License version 2, at https://github.com/kcat/openal-soft/blob/master/COPYING
+The NVDA controller client, which speaks through NVDA, uses the GNU Lesser General Public License version 2.1, at https://github.com/nvaccess/nvda/blob/master/extras/controllerClient/license.txt
+Prism, which speaks through other screen readers, uses the Mozilla Public License version 2.0, at https://github.com/ethindp/prism
+Pygame, which runs the window and the keyboard, uses the GNU Lesser General Public License version 2.1, at https://github.com/pygame/pygame/blob/main/docs/LGPL.txt
 The game's sounds and data are Bitbee's, and are not covered by those licenses.
