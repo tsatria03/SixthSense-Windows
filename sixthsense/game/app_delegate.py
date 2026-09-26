@@ -412,17 +412,36 @@ class AppDelegate:
         percentage, or None when the menu music is not playing and nothing changed."""
         if not self.menu_music_playing():
             return None
-        now = self.menu_music_volume
-        if step > 0:
-            percent = min(100, (now // 10 + 1) * 10)
-        else:
-            percent = max(0, (-(-now // 10) - 1) * 10)
+        percent = volume.step_percent(self.menu_music_volume, step)
         d = UserDefaults.standardUserDefaults()
         d.setInteger_forKey_(percent, MENU_MUSIC_KEY)
         d.synchronize()
         # as startBGPlayer sets it, the master knob included
         self.playback.bgPlayer.set_volume(volume.master(volume.menu_music(percent)))
         return percent
+
+    # PORT ADDITION (tunmi13productions, 2026-09-26): during play Page Up and Page Down set the
+    # gameplay gain, and with Shift, Control or Alt the weapons, the entities or the
+    # player.  aidocks/project_gameplay_gain_plan.md has the plan.
+    def change_gameplay_volume(self, key, step):
+        """Step ``key`` (``volume.GAMEPLAY_GAIN_KEY`` or one of the three groups) up
+        (+1) or down (-1), save it, and apply it at once to everything playing.
+        Returns the new value, decibels for the gain and a percentage for a group."""
+        if key == volume.GAMEPLAY_GAIN_KEY:
+            value = volume.step_gain_db(volume.gameplay_gain_db, step)
+            volume.gameplay_gain_db = value
+        else:
+            value = volume.step_percent(volume.percents[key], step)
+            volume.percents[key] = value
+        d = UserDefaults.standardUserDefaults()
+        d.setInteger_forKey_(value, key)
+        d.synchronize()
+        if self.playback is not None:
+            if key == volume.GAMEPLAY_GAIN_KEY:
+                self.playback.setGameplayGain_(True)
+            else:
+                self.playback.refreshGains()
+        return value
 
     # ``AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)`` in the original.
     def vibrate(self):

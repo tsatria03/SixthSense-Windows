@@ -39,6 +39,7 @@ from __future__ import annotations
 import logging
 import time
 
+from ..platform import volume
 from ..platform.keymap import CHORD_WINDOW, KeyMap
 
 log = logging.getLogger('input')
@@ -47,6 +48,34 @@ log = logging.getLogger('input')
 # These are the clock positions the tutorial names.
 LANE_ANGLE = {1: 180.0, 2: 123.0, 3: 90.0, 4: 57.0, 5: 0.0}
 LANE_ACTIONS = {'lane1': 1, 'lane2': 2, 'lane3': 3, 'lane4': 4, 'lane5': 5}
+
+#: PORT ADDITION (tunmi13productions, 2026-09-26): Page Up and Page Down during play, on their own
+#: for the gameplay gain and with a modifier for a group.  Fixed, like the menu's.
+#: aidocks/project_gameplay_gain_plan.md has the plan.
+VOLUME_STEP_KEYS = {'page up': 1, 'page down': -1}
+#: (the pygame modifier, its setting, what is said), tried in this order.
+VOLUME_MODIFIERS = (('KMOD_SHIFT', volume.WEAPON_KEY, 'Weapons'),
+                    ('KMOD_CTRL', volume.ENTITY_KEY, 'Entities'),
+                    ('KMOD_ALT', volume.PLAYER_KEY, 'Player'))
+
+
+def gameplay_volume_key(name, mod, stage, pygame):
+    """Page Up or Page Down in play: step the gain, or with Shift, Control or Alt the
+    weapons, the entities or the player, and say the new value in either speech mode,
+    since no recording says it.  True when ``name`` was one of the two keys."""
+    if name not in VOLUME_STEP_KEYS:
+        return False
+    key, what = volume.GAMEPLAY_GAIN_KEY, None
+    for flag, setting, label in VOLUME_MODIFIERS:
+        if mod & getattr(pygame, flag, 0):
+            key, what = setting, label
+            break
+    value = stage.app.change_gameplay_volume(key, VOLUME_STEP_KEYS[name])
+    if what is None:
+        stage._say('Gain %d decibel%s' % (value, '' if value == 1 else 's'))
+    else:
+        stage._say('%s volume %d%%' % (what, value))
+    return True
 
 
 class Input:
@@ -120,6 +149,8 @@ class Input:
             return
         name = pygame.key.name(event.key)
         st = self.stage
+        if gameplay_volume_key(name, getattr(event, 'mod', 0), st, pygame):
+            return
         if name == 'escape':
             self.escape()
         elif name == 'f1':
@@ -164,6 +195,8 @@ class Input:
                 return
             if name == 'f1':
                 self.open_bindings = True
+                return
+            if gameplay_volume_key(name, getattr(event, 'mod', 0), self.stage, pygame):
                 return
             held_already = name in self.keymap.held
             action, pending = self.keymap.press(name)

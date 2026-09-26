@@ -90,6 +90,15 @@ DEFAULTS = {a[0]: [tuple(b) for b in a[2]] for a in ACTIONS}
 #: a PORT ADDITION of 2026-09-25), which read them outside the keymap.
 FIXED = {'f1': 'Key bindings', 'escape': 'Back, pause or quit',
          'page up': 'Menu music louder', 'page down': 'Menu music quieter'}
+#: PORT ADDITION (2026-09-26): what Page Up and Page Down do during play (ui/input.py),
+#: listed on the binding screen beside FIXED.
+FIXED_IN_PLAY = ((('page up',), 'Gain up, in play'), (('page down',), 'Gain down, in play'),
+                 (('shift', 'page up'), 'Weapons louder, in play'),
+                 (('shift', 'page down'), 'Weapons quieter, in play'),
+                 (('control', 'page up'), 'Entities louder, in play'),
+                 (('control', 'page down'), 'Entities quieter, in play'),
+                 (('alt', 'page up'), 'Player louder, in play'),
+                 (('alt', 'page down'), 'Player quieter, in play'))
 
 # pygame's names are terse and some of them read badly; these are for speech.
 SPOKEN = {

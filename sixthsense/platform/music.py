@@ -105,7 +105,7 @@ class MusicPlayer:
             self.al.alSourcei(self.source, al.AL_BUFFER, self.buffer)
             self.al.alSourcei(self.source, al.AL_LOOPING, 1 if loops != 0 else 0)
             self.volume = gain
-            self.al.alSourcef(self.source, al.AL_GAIN, gain)
+            self.al.alSourcef(self.source, al.AL_GAIN, self._heard(gain))
             self.al.alSourcePlay(self.source)
             self.al.alGetError()
         except Exception:
@@ -126,7 +126,14 @@ class MusicPlayer:
     def set_volume(self, gain):
         self.volume = gain
         if self.source:
-            self.al.alSourcef(self.source, al.AL_GAIN, gain)
+            self.al.alSourcef(self.source, al.AL_GAIN, self._heard(gain))
+
+    def _heard(self, gain):
+        """PORT ADDITION (2026-09-26): the gameplay gain raises OpenAL's listener, which
+        these sources sit under too, so it is taken back off here and the music and the
+        ambience sound as they did.  ``volume`` stays the gain the game asked for."""
+        listener = getattr(self.owner, 'listenerGain', 1.0)
+        return gain / listener if listener and listener != 1.0 else gain
 
     @property
     def playing(self):

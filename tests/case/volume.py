@@ -89,8 +89,11 @@ class _Defaults:
 
 def _loaded(**keys):
     saved = dict(volume.percents)
+    was = volume.gameplay_gain_db
     defaults = _Defaults(**keys)
     wrote = volume.load(defaults)
+    volume.gameplay_gain_db, loaded = was, volume.gameplay_gain_db
+    defaults.gain_db = loaded
     return defaults, wrote, saved
 
 
@@ -98,7 +101,10 @@ def test_every_volume_at_100_is_the_original_mix():
     defaults, wrote, saved = _loaded()
     try:
         assert wrote, 'the defaults were not written'
-        assert defaults.d == {k: 100 for k in volume.VOLUME_KEYS}, defaults.d
+        want = {k: 100 for k in volume.VOLUME_KEYS}
+        want[volume.GAMEPLAY_GAIN_KEY] = 0
+        assert defaults.d == want, defaults.d
+        assert volume.gameplay_gain() == 1.0
         assert volume.master(1.0) == 1.0 and volume.master(0.2) == 0.2
         assert volume.music(0.02) == 0.02
         assert volume.ambience(0.2) == 0.2 and volume.ambience(0.5) == 0.5
@@ -109,7 +115,9 @@ def test_every_volume_at_100_is_the_original_mix():
 
 def test_each_volume_moves_only_its_own_group():
     defaults, wrote, saved = _loaded(MASTERVOLUME=100, MENUMUSICVOLUME=100,
-                                     LEVELMUSICVOLUME=50, AMBIENCEVOLUME=0)
+                                     LEVELMUSICVOLUME=50, AMBIENCEVOLUME=0,
+                                     GAMEPLAYGAIN=0, WEAPONVOLUME=100, ENTITYVOLUME=100,
+                                     PLAYERVOLUME=100)
     try:
         assert not wrote, 'a complete file was written again'
         assert abs(volume.music(0.02) - 0.005) < 1e-12, 'half is not a quarter of the gain'
@@ -156,7 +164,29 @@ def test_a_missing_volume_is_added_and_the_rest_kept():
 def test_settings_json_lists_them_in_the_devs_order():
     from sixthsense.platform.defaults import SETTINGS_KEYS
     assert SETTINGS_KEYS == ('MASTERVOLUME', 'MENUMUSICVOLUME', 'LEVELMUSICVOLUME',
-                             'AMBIENCEVOLUME', 'EYEMODE')
+                             'AMBIENCEVOLUME', 'GAMEPLAYGAIN', 'WEAPONVOLUME',
+                             'ENTITYVOLUME', 'PLAYERVOLUME', 'EYEMODE')
+
+
+def test_the_gameplay_gain_is_whole_decibels_from_0_to_6():
+    """6 dB is the cap, a listener gain just under 2.0; anything else counts as 0."""
+    assert volume.gain(volume.MAX_GAMEPLAY_GAIN_DB) <= 2.0
+    for value, want in ((3, 3), ('6', 6), (0, 0), (4.0, 4)):
+        defaults, _wrote, saved = _loaded(GAMEPLAYGAIN=value)
+        volume.percents.update(saved)
+        assert defaults.gain_db == want, value
+    for bad in (7, -1, 2.5, 'loud', True):
+        defaults, _wrote, saved = _loaded(GAMEPLAYGAIN=bad)
+        volume.percents.update(saved)
+        assert defaults.gain_db == 0, bad
+        assert defaults.d['GAMEPLAYGAIN'] == bad, "the player's value was replaced"
+
+
+def test_the_steps():
+    assert [volume.step_gain_db(n, 1) for n in (0, 5, 6)] == [1, 6, 6]
+    assert [volume.step_gain_db(n, -1) for n in (0, 1, 6)] == [0, 0, 5]
+    assert [volume.step_percent(n, 1) for n in (0, 55, 90, 100)] == [10, 60, 100, 100]
+    assert [volume.step_percent(n, -1) for n in (0, 55, 10, 100)] == [0, 50, 0, 90]
 
 
 if __name__ == '__main__':

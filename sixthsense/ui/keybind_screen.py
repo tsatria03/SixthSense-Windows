@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import logging
 
-from ..platform.keymap import FIXED, KeyMap, binding_text, key_text
+from ..platform.keymap import FIXED, FIXED_IN_PLAY, KeyMap, binding_text, key_text
 from ..platform.speech import Speech
 
 log = logging.getLogger('keybind')
@@ -190,6 +190,8 @@ class KeyBindScreen:
         out += ['']
         for name, what in FIXED.items():
             out.append('  %-28s %s (fixed)' % (what, key_text(name)))
+        for binding, what in FIXED_IN_PLAY:
+            out.append('  %-28s %s (fixed)' % (what, binding_text(binding)))
         out += ['', 'Up/Down move   Enter rebind   A add   Delete unbind   R reset (twice)',
                 'Escape or F1 to go back', '']
         if self.capturing:

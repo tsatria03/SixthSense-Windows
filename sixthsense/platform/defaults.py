@@ -59,7 +59,7 @@ OLD_KEPT = OLD_FILE + '.old'
 #: The keys that are settings rather than progress, in the order settings.json lists them
 #: (tsatria03, 2026-09-25).  A setting added later goes where it belongs in this list.
 SETTINGS_KEYS = ('MASTERVOLUME', 'MENUMUSICVOLUME', 'LEVELMUSICVOLUME', 'AMBIENCEVOLUME',
-                 'EYEMODE')
+                 'GAMEPLAYGAIN', 'WEAPONVOLUME', 'ENTITYVOLUME', 'PLAYERVOLUME', 'EYEMODE')
 
 
 def _read(path):

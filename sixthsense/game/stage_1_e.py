@@ -311,6 +311,7 @@ class Stage_1_E:
     # ================================================================ loading
     # -[Stage_1_E viewDidLoad] 0x2c784
     def viewDidLoad(self):
+        self._gameplay_gain_on()
         # Now Loading always plays first, blocking - nothing else here touches
         # audio, including cutting the menu music, until MapInitInBundle actually
         # runs (below), well after Now Loading has had time to finish.
@@ -1446,12 +1447,20 @@ class Stage_1_E:
         self.shakeMonsterTimer = None
 
     # ================================================================== misc
+    def _gameplay_gain_on(self):
+        """PORT ADDITION (2026-09-26): the gameplay gain is heard in play only, from the
+        moment a stage, the tutorial or the test range loads until its teardown."""
+        if self.app.playback is not None:
+            self.app.playback.setGameplayGain_(True)
+
     def teardown(self):
         """Leaving the stage, however it happens - the menu button, Escape, closing
         the window.  UINavigationController tore the whole view down and its sounds
         with it; here the looping footsteps and the two players have to be stopped by
         hand, or they play on under the menu."""
         self.running = False
+        if self.app.playback is not None:
+            self.app.playback.setGameplayGain_(False)   # the menus are as they were
         self._invalidate_shake_timer()
         if self.MotionSamplingTimer is not None and self.MotionSamplingTimer.isValid():
             self.MotionSamplingTimer.invalidate()

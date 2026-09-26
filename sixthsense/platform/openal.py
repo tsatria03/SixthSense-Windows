@@ -62,6 +62,9 @@ ALC_HRTF_SPECIFIER_SOFT = 0x1995
 ALC_TRUE = 1
 ALC_FALSE = 0
 
+# ALC_SOFT_output_limiter
+ALC_OUTPUT_LIMITER_SOFT = 0x199A
+
 # ALC_EXT_disconnect
 ALC_CONNECTED = 0x313
 
@@ -115,6 +118,7 @@ _SIGNATURES = [
     ('alListenerf', None, [c_int, c_float]),
     ('alListener3f', None, [c_int, c_float, c_float, c_float]),
     ('alListenerfv', None, [c_int, POINTER(c_float)]),
+    ('alGetListenerf', None, [c_int, POINTER(c_float)]),
 ]
 
 
@@ -168,6 +172,11 @@ class AL:
         attrs = [ALC_MONO_SOURCES, 160, ALC_STEREO_SOURCES, 8]
         if self.alcIsExtensionPresent(self.device, b'ALC_SOFT_HRTF'):
             attrs += [ALC_HRTF_SOFT, ALC_FALSE]
+        # PORT ADDITION (2026-09-26): the gameplay gain can take the mix past full scale,
+        # and the limiter squeezes those peaks instead of clipping them.  It is OpenAL
+        # Soft's default already; asking for it keeps it on whatever a config file says.
+        if self.alcIsExtensionPresent(self.device, b'ALC_SOFT_output_limiter'):
+            attrs += [ALC_OUTPUT_LIMITER_SOFT, ALC_TRUE]
         attrs.append(0)
         arr = (c_int * len(attrs))(*attrs)
         self._attrs = arr                                   # kept for reopen
@@ -338,6 +347,12 @@ class AL:
     def source_float(self, sid: int, param: int) -> float:
         v = c_float(0.0)
         self.alGetSourcef(sid, param, byref(v))
+        return v.value
+
+    def listener_float(self, param: int) -> float:
+        """Not in the original; lets the tests read back the listener's gain."""
+        v = c_float(0.0)
+        self.alGetListenerf(param, byref(v))
         return v.value
 
     def check(self, where: str = '') -> None:

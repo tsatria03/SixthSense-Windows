@@ -63,17 +63,19 @@ MAX_SOURCES = 122       # oalPlayback._sources[122]
 
 
 class _Buffer:
-    __slots__ = ('filename', 'bufferId', 'channels', 'rate')
+    __slots__ = ('filename', 'bufferId', 'channels', 'rate', 'group')
 
     def __init__(self):
         self.filename = None
         self.bufferId = 0
         self.channels = 0
         self.rate = 0
+        self.group = None           # PORT ADDITION: volume.group_of, for its setting
 
 
 class _Source:
-    __slots__ = ('sourceId', 'noteIndex', 'queued', 'time', 'sourcePos', 'isPlaying')
+    __slots__ = ('sourceId', 'noteIndex', 'queued', 'time', 'sourcePos', 'isPlaying',
+                 'gain')
 
     def __init__(self):
         self.sourceId = 0
@@ -82,6 +84,8 @@ class _Source:
         self.time = 0.0
         self.sourcePos = (0.0, 0.0)
         self.isPlaying = False
+        self.gain = None            # PORT ADDITION: the gain the game asked for, kept so
+                                    # a volume change can be applied to it while it plays
 
 
 #: PORT DIVERGENCE: stereo sounds the game plays at a monster's position.  OpenAL
@@ -140,6 +144,7 @@ class OalPlayback:
         self.sourceNumber = 0
         self.listenerPos = (0.0, 0.0)
         self.listenerRotation = 0.0
+        self.listenerGain = 1.0             # PORT ADDITION: the gameplay gain, when on
         self.loopNotes = False
         self.isPlaying = False
         self.wasInterrupted = False
@@ -200,6 +205,7 @@ class OalPlayback:
             self.al.delete_buffer(b.bufferId)
             b.bufferId = 0
             b.filename = None
+            b.group = None
 
     def initBufferOne_FileName_Type_(self, index, filename, filetype):
         """-[oalPlayback initBufferOne:FileName:Type:] 0xdc80"""
@@ -215,6 +221,7 @@ class OalPlayback:
         fmt, pcm, rate, ch = _load_wav(path, filename)
         b.bufferId = self.al.gen_buffer()
         b.filename = filename
+        b.group = volume.group_of(filename, path)
         b.channels = ch
         b.rate = rate
         self.al.buffer_data(b.bufferId, fmt, pcm, rate)
@@ -300,9 +307,10 @@ class OalPlayback:
         A.alSourcei(sid, al.AL_LOOPING, 1 if repeats else 0)
         A.alSourcef(sid, al.AL_REFERENCE_DISTANCE, reference_distance)
         A.alSourcef(sid, al.AL_MAX_DISTANCE, max_distance)
-        # PORT ADDITION: the master knob, applied here because this is where AL_GAIN is
-        # set.  At 0 dB it multiplies by exactly 1.0 (platform/volume.py).
-        A.alSourcef(sid, al.AL_GAIN, volume.master(gain))
+        # PORT ADDITION: the master knob and the sound's group, applied here because this
+        # is where AL_GAIN is set.  At rest they multiply by exactly 1.0 (_gain).
+        s.gain = gain
+        A.alSourcef(sid, al.AL_GAIN, self._gain(note, gain))
         A.alSourcef(sid, al.AL_CONE_OUTER_ANGLE, 1.0)
         if inner_cone:
             A.alSourcef(sid, al.AL_CONE_INNER_ANGLE, 1.0)
@@ -373,7 +381,8 @@ class OalPlayback:
             s.sourcePos = (float(pos[0]), float(pos[1]))
             self.al.source_fv(s.sourceId, al.AL_POSITION,
                               (float(pos[0]), 40.0, float(pos[1])))   # 0xe56a: 40.0
-            self.al.alSourcef(s.sourceId, al.AL_GAIN, volume.master(gain))
+            s.gain = gain
+            self.al.alSourcef(s.sourceId, al.AL_GAIN, self._gain(note, gain))
             # 0xe59c..0xe5c0 then rebinds AL_BUFFER, which OpenAL refuses on a playing
             # source, so it changes nothing and is left out.
             self.al.alGetError()
@@ -437,6 +446,47 @@ class OalPlayback:
             return False
         s = self._sources[note]
         return bool(s.sourceId) and self.al.source_state(s.sourceId) == al.AL_PLAYING
+
+    # ---- the volume settings (PORT ADDITION) ------------------------------
+    def _gain(self, note, gain):
+        """What ``AL_GAIN`` is set to for ``gain`` on ``note``: the master volume, the
+        sound's group, and for the music and ambience notes the gameplay gain taken
+        back off, so it raises the sounds and leaves those where they were.  At every
+        setting's default it is ``gain`` exactly."""
+        b = self._buffers[note] if 0 <= note < MAX_BUFFERS else None
+        group = b.group if b is not None and b.bufferId else None
+        g = volume.master(gain) * volume.group_gain(group)
+        if group == volume.BACKDROP and self.listenerGain != 1.0:
+            g /= self.listenerGain
+        return g
+
+    def setListenerGain_(self, g):
+        """OpenAL's listener gain, which comes after the mix and may pass 1.0.  The
+        original never sets it, so it is 1.0 everywhere but in play."""
+        self.listenerGain = float(g)
+        if self._initialized:
+            self.al.alListenerf(al.AL_GAIN, self.listenerGain)
+            self.al.alGetError()
+        self.refreshGains()
+
+    def setGameplayGain_(self, on):
+        """The stage, the tutorial and the test range turn the gameplay gain on as they
+        load and off as they are torn down (aidocks/project_gameplay_gain_plan.md)."""
+        self.setListenerGain_(volume.gameplay_gain() if on else 1.0)
+
+    def refreshGains(self):
+        """Apply the volume settings again to every sound, the ones playing included:
+        a looping breath or footstep would otherwise keep the old volume until it was
+        started again."""
+        if not self._initialized:
+            return
+        for i in range(self.sourceNumber):
+            s = self._sources[i]
+            if s.sourceId and s.gain is not None:
+                self.al.alSourcef(s.sourceId, al.AL_GAIN, self._gain(i, s.gain))
+        self.al.alGetError()
+        self.bgPlayer.set_volume(self.bgPlayer.volume)
+        self.ambPlayer.set_volume(self.ambPlayer.volume)
 
     # ---- listener --------------------------------------------------------
     def setListenerPos_(self, pos):

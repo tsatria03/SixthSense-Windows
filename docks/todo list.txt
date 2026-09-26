@@ -4,6 +4,7 @@ Nothing is waiting here right now. New bugs, planned changes and anything still 
 
 ##Finished.
 
+During a game, Page Up and Page Down set the gain, and with Shift, Control or Alt the weapons, the entities and the player volumes.
 The knife and the sword play only their own hit sound, without a gun's hit sound under it.
 A zombie's death sound plays to its end, as in the original, instead of sometimes being cut off, most of all the second zombie's.
 settings.json has volumes for everything, the menu music, the level music and the ambience, from 0 to 100 percent, where 100 is the original's mix.

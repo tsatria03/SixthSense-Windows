@@ -647,6 +647,22 @@ so a press changes the volume only while `bgm_main_menu` is what is playing
 music, so there is nothing of its own this changes. The two keys are fixed on the F1
 screen, like Escape and F1.
 
+**During play there is a gain and three group volumes** (tunmi13productions, 2026-09-26;
+`aidocks/project_gameplay_gain_plan.md`). `GAMEPLAYGAIN`, 0 to 6 dB, sets OpenAL's
+listener gain, which the original never touches; it is on from a stage's, the tutorial's
+or the test range's `viewDidLoad` to its `teardown`, and 1.0 everywhere else. It raises
+every source by the same amount, so the balance between them is the binary's; past full
+scale OpenAL Soft's output limiter, asked for explicitly, squeezes the peaks. The music
+and ambience players and the notes whose file is `bgm_*` or the rain divide their gain by
+it, so they are heard as before. `WEAPONVOLUME`, `ENTITYVOLUME` and `PLAYERVOLUME` are
+percentages like the others, squared, 100 exactly the binary's; `volume.group_of` sorts a
+sound by its folder (`sfx/weapons`; `sfx/zombies`, `sfx/monsters`, `sfx/characters`) or
+its name (`player_*`; a weapon's hit, `weapon_*_att1` and `2`, counts as an entity, since
+it is the zombie being struck) as its buffer loads, and `oal_playback` applies it with the master
+volume. Each source keeps the gain the game asked for, so a change reaches sounds already
+playing. Page Up and Page Down in play step the gain by 1 dB, and with Shift, Control or
+Alt a group by ten; each press is saved and said in both speech modes.
+
 ### Every shop and inventory screen says which one it is
 `-[mainStoreController startRead]` (0x1d124) is three lines long and plays one sound, 13
 `back button`; the weapon list, the weapon page and the inventory open the same way. On a

@@ -79,6 +79,7 @@ class Stage_1_TEST(Stage_1_E):
     # ================================================================ loading
     # -[Stage_1_TEST viewDidLoad] 0x40468
     def viewDidLoad(self):
+        self._gameplay_gain_on()
         self.app.playSound_Gain_Pos_z_reprats_(
             SOUND_NOW_LOADING, 0.2, (0.0, 0.0), 0, False)          # 0x41082
         self.isTutorial = 1                                         # 0x409c2
