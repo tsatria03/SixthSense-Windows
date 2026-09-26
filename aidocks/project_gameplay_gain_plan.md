@@ -1,11 +1,21 @@
 ---
 name: project_gameplay_gain_plan
-description: "PLANNED 2026-09-26. A gameplay gain of 0 to 6 dB (listener gain up to 2.0) that raises every sound during play without changing the balance, plus weapons, entities and player volumes (0 to 100) to change the balance. Page Up and Page Down with modifiers during play, saved in settings.json, spoken in both modes."
+description: "BUILT 2026-09-26, not yet confirmed by the dev. A gameplay gain of 0 to 6 dB (listener gain up to 2.0) that raises every sound during play without changing the balance, plus weapons, entities and player volumes (0 to 100) to change the balance. Page Up and Page Down with modifiers during play, saved in settings.json, spoken in both modes."
 metadata:
   type: project
 ---
 
-**Status: planned, 2026-09-26.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Builds on [[project_volume_knobs]] and [[project_volume_settings_plan]].
+**Status: built, 2026-09-26, not yet confirmed by the dev.** Agreed with the dev, recorded before any code ([[feedback_record_plans_first]]). Builds on [[project_volume_knobs]] and [[project_volume_settings_plan]].
+
+**What was built:**
+- `platform/volume.py`: `GAMEPLAY_GAIN_KEY`, `WEAPON_KEY`, `ENTITY_KEY`, `PLAYER_KEY` (the three groups joined `VOLUME_KEYS`), `gameplay_gain_db`, `valid_gain_db`, `step_gain_db`, `step_percent` (now shared with the menu music), `group_of`, `group_gain`, `gameplay_gain`. `load` reads and writes `GAMEPLAYGAIN` too.
+- `game/oal_playback.py`: each buffer's `group`, each source's requested `gain`; `_gain` applies master, group, and for BACKDROP divides by `listenerGain`; `setListenerGain_`, `setGameplayGain_`, `refreshGains`. `platform/music.py`: `_heard` divides the players' gain by the listener gain.
+- `platform/openal.py`: `alGetListenerf`, `listener_float`, and `ALC_OUTPUT_LIMITER_SOFT` asked for on open.
+- `Stage_1_E.viewDidLoad` and `Stage_1_TEST.viewDidLoad` call `_gameplay_gain_on`; `Stage_1_E.teardown` turns it off (the tutorial inherits both).
+- `AppDelegate.change_gameplay_volume(key, step)` steps, saves and applies. `ui/input.py`: `gameplay_volume_key`, in play and on the pause panel. `keymap.FIXED_IN_PLAY`, listed on the F1 screen's visual list.
+- Note: `volume.gain(6)` is 1.995, just under the 2.0 cap.
+- Tests: new `tests/case/gameplay_volume.py` (7); `tests/case/volume.py` 14 (two new, two updated for the new keys). The covering files all passed on 2026-09-26: volume, gameplay_volume, menu_music, input, monster_sound, music_memory, audio_device, save, paths, weapon_range, gameplay, tutorial, pause, menu, intro, store, window, data, weapon_stats.
+- Docs: readme.txt ("Volume during a game", "Your save"), README.md, DIVERGENCES.md, changelog, todo list (unfinished).
 
 **The dev's request:** "is there possibly a way to increase game volume without affecting zombies overall? ... I could crank up, say, gameplay volume or something, so I can hear the zombies better. but without messing with zombie volumes and screwing them up. sort of like a gain knob". Then: "should we make individual volumes then? weapons volume, zombie volume, that sort?"
 
@@ -23,7 +33,8 @@ metadata:
 
 ## The group volumes
 0 to 100 percent, 10 a step by key, any whole number by hand, squared into the gain like the other volumes; 100, the default, is the binary's mix. Only down, because of the 1.0 cap; the gain is the way up (turning weapons down and the gain up makes the zombies louder than the guns).
-- **Weapons:** `sfx/weapons/` (fire, reload, the empty click, the knives' draw and swing).
+- **Weapons:** `sfx/weapons/` (fire, reload, the empty click, the knives' draw and swing), but not the hits.
+- **The hits count as entities** (the dev, 2026-09-26: "I don't think gun impacts/headshots should be affected by weapon volume. after all, the zombie is being hit"): `weapon_gun_att1` (a gun's hit), `weapon_gun_att2` (a gun's kill), and the knife's and the sword's `_att1` and `_att2`. The headshot callout, `headshot_4`, is speech and follows only the gain.
 - **Entities:** `sfx/zombies/normal/`, `sfx/zombies/bosses/`, `sfx/monsters/` and `sfx/characters/` (the zombies' and the monster's steps, growls, attacks, being hurt and deaths, and the woman). The dev, 2026-09-26: "I say we group characters and zombies into a single thing, like entities".
 - **Player:** `player_breath_1` to `3`, `player_damage` and `player_die` (in `sfx/misc/`).
 - Everything else (`warring`, `ui_select`, the speech) has no group and follows only the master volume and the gain.
