@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.25-1:
 The licenses of OpenAL Soft, the NVDA controller client, Prism and pygame are inside the game itself, instead of in a licenses folder beside it. The game's own license.txt is still beside it.
 The knife and the sword no longer play a gun's hit sound under their own when they hit a zombie.
 A zombie's death sound plays to its end, as in the original, instead of being cut off early. The second zombie could lose two seconds of it.
