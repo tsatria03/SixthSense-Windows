@@ -18,7 +18,9 @@ which still work typed out:
 
 Every build lands in dist\\SixthSense-Windows, around SixthSense.exe, with the text a player reads beside the executable - the readme,
 the changelog and the todo list in a docks\\ folder, as in the repository, and VERSION and the license at
-the top - and the third-party licenses in licenses\\.  Those are never put inside it.  That folder is what releaser.py zips into dist\\SixthSense-Win-<VERSION>.zip.
+the top.  Those are never put inside it.  The third-party licenses go inside the executable, as
+licenses\\, whichever kind of build (since 2026-09-25).  That folder is what releaser.py zips into
+dist\\SixthSense-Win-<VERSION>.zip.
 
 The port and the vendored DLLs always go inside the build.  In the folder build the game's own files do
 not: the plists and the three map layers are copied next to the executable, into game\\, and the sounds
@@ -59,7 +61,7 @@ PLAY_PACKAGES = (('pygame', 'pygame'), ('prism', 'prismatoid'))
 BINARIES = (('vendor/openal/soft_oal.dll', 'vendor/openal'),    # the audio engine itself
             ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'))
 #: The licenses of the two DLLs in vendor\, which sit beside them: the folder each goes to under licenses\
-#: in a build, and the files.  Prism's and pygame's are not kept here - they come out of the installed
+#: inside the executable, and the files.  Prism's and pygame's are not kept here - they come out of the installed
 #: packages when the build runs (license_files()), so they always match what was bundled.
 VENDOR_LICENSES = (('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/license-pffft.txt')),
                    ('nvda-controller-client', ('vendor/nvda/license.txt',)))
@@ -74,7 +76,7 @@ GAME_FILES = ('*.wav', '*.plist', 'g_CH1_E', 'a_CH1_E.txt', 's_CH1_E.txt')
 #: extension, which is the convention on GitHub but means Windows asks what to open it with, so it ships
 #: as a .txt.  The todo list holds only what a player notices, which is why it can ship.  The documents a
 #: player reads live in docks\ in the repository, and go into a docks\ folder beside the executable, as
-#: they are laid out here; VERSION and the license stay at the top, the license beside licenses\.
+#: they are laid out here; VERSION and the license stay at the top.
 DOCKS = 'docks'
 CHANGELOG = os.path.join(DOCKS, 'changelog.txt')
 #: The player's readme is plain text of its own, not README.md, which is for developers and would be
@@ -209,6 +211,9 @@ def prism_native_modules() -> list[str]:
 #: Where --embed gathers the game's top-folder files - the plists and the map layers - so PyInstaller can
 #: take them as one folder.  Adding them one by one would run past Windows' limit on a command line.
 EMBED_STAGE = os.path.join(HERE, 'build', 'embed', 'game')
+#: Where every build gathers the third-party licenses, which go inside the executable as licenses\
+#: (tsatria03, 2026-09-25); only the port's own license.txt stays beside it.
+LICENSES_STAGE = os.path.join(HERE, 'build', 'embed', 'licenses')
 
 
 def embedded_data(src: str) -> list[tuple[str, str]]:
@@ -259,6 +264,8 @@ def command(args, data=()) -> list[str]:
         cmd += ['--onefile', '--distpath', output_dir(args)]
     for src, inside in data:
         cmd += ['--add-data', src + os.pathsep + inside]
+    # the third-party licenses go inside, whichever kind of build (stage_licenses fills the folder)
+    cmd += ['--add-data', LICENSES_STAGE + os.pathsep + 'licenses']
     if args.clean:
         cmd += ['--clean']
     return cmd + [ENTRY]
@@ -390,9 +397,13 @@ def license_files() -> list[tuple[str, str]]:
     return found
 
 
-def copy_licenses(dest_root: str) -> None:
-    """The third-party licenses, into licenses\\ beside the executable."""
-    dest = os.path.join(dest_root, 'licenses')
+def stage_licenses(dest: str = None) -> int:
+    """The third-party licenses, gathered fresh into LICENSES_STAGE for PyInstaller to put inside the
+    executable as licenses\\ (since 2026-09-25; before, they sat beside it).  Returns how many."""
+    dest = dest or LICENSES_STAGE
+    if os.path.isdir(dest):
+        shutil.rmtree(dest)
+    os.makedirs(dest)
     copied = 0
     for rel, src in license_files():
         if not src or not os.path.isfile(src):
@@ -402,8 +413,9 @@ def copy_licenses(dest_root: str) -> None:
         os.makedirs(os.path.dirname(target), exist_ok=True)
         shutil.copy2(src, target)
         copied += 1
-    say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - are in %s.'
-        % (copied, dest))
+    say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - go inside the '
+        'executable, as licenses%s.' % (copied, os.sep))
+    return copied
 
 
 def main(argv=None) -> int:
@@ -465,8 +477,8 @@ def main(argv=None) -> int:
                    '' if os.path.isfile(os.path.join(HERE, name)) else ' - but it is not here'))
         licenses = license_files()
         absent = [rel for rel, lic in licenses if not lic or not os.path.isfile(lic)]
-        say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - would go into '
-            'licenses%s beside the executable' % (len(licenses) - len(absent), os.sep))
+        say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - would go inside '
+            'the executable, as licenses%s' % (len(licenses) - len(absent), os.sep))
         for rel in absent:
             say('  but the license %s is not here' % rel)
         for warning in release_warnings(os.path.join(HERE, CHANGELOG)):
@@ -477,6 +489,7 @@ def main(argv=None) -> int:
         names = stage_embedded(src)
         say("the game's data goes inside the executable: %s."
             % data_summary(names + sound_files(src)))
+    stage_licenses()
     clear_output(dest_root)
     started = time.perf_counter()
     if subprocess.run(cmd).returncode != 0:
@@ -489,7 +502,6 @@ def main(argv=None) -> int:
     if src is not None and not args.embed:
         copy_game(dest_root)
     copy_side_files(dest_root)
-    copy_licenses(dest_root)
     strip_shipped_changelog(dest_root)
 
     for warning in release_warnings(os.path.join(dest_root, CHANGELOG)):

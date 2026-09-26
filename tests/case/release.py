@@ -362,9 +362,32 @@ def test_the_players_readme_has_no_markdown():
 
 
 def test_a_folder_build_puts_nothing_of_the_games_inside():
+    """Nothing of the game's own goes inside a folder build; only the third-party licenses
+    do (tsatria03, 2026-09-25)."""
     cmd = compiler.command(_Args())
-    assert '--onefile' not in cmd and '--add-data' not in cmd
+    assert '--onefile' not in cmd
+    added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
+    assert added == [compiler.LICENSES_STAGE + os.pathsep + 'licenses'], added
     assert cmd[-1] == compiler.ENTRY
+
+
+def test_the_third_party_licenses_go_inside_and_license_txt_stays_beside():
+    """tsatria03, 2026-09-25: the licenses of OpenAL Soft, the NVDA client, Prism and pygame
+    go inside the executable; the port's own license.txt stays beside it, and nothing is
+    copied into a licenses folder beside it any more."""
+    for flags in ({}, {'embed': True}, {'onefile': True}):
+        cmd = compiler.command(_Args(**flags))
+        added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
+        assert compiler.LICENSES_STAGE + os.pathsep + 'licenses' in added, (flags, added)
+    assert not hasattr(compiler, 'copy_licenses')
+    assert ('LICENSE', 'license.txt') in compiler.SIDE_FILES
+    with tempfile.TemporaryDirectory() as folder:
+        stage = os.path.join(folder, 'licenses')
+        copied = compiler.stage_licenses(stage)
+        found = [os.path.relpath(os.path.join(d, f), stage).replace(os.sep, '/')
+                 for d, _s, fs in os.walk(stage) for f in fs]
+    assert copied == len(found) and copied > 0, found
+    assert 'openal-soft/license.txt' in found and 'nvda-controller-client/license.txt' in found
 
 
 def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
@@ -380,8 +403,10 @@ def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
     assert compiler.EMBED_STAGE + os.pathsep + 'game' in added
     assert os.path.join(bundle, 'sounds', 'used') + os.pathsep + 'game/sounds/used' in added
     assert os.path.join(bundle, 'sounds', 'unused') + os.pathsep + 'game/sounds/unused' in added
-    # the text a player reads is never among what goes inside
-    assert not any('changelog' in a or 'todo' in a or 'license' in a.lower() for a in added)
+    # the text a player reads is never among what goes inside; only the third-party
+    # licenses are (since 2026-09-25), never the port's own license.txt
+    assert not any('changelog' in a or 'todo' in a or 'license.txt' in a.lower() for a in added)
+    assert compiler.LICENSES_STAGE + os.pathsep + 'licenses' in added
 
 
 def test_a_flat_bundle_embeds_its_top_folder_alone():

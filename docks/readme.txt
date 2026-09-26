@@ -118,5 +118,5 @@ tunmi13productions has fixed and added a great deal of it: zombies that move, th
 Licenses
 
 The Windows version's own license is in license.txt, beside the game.
-The licenses of OpenAL Soft, the NVDA controller client, Prism and pygame are in the licenses folder.
+The licenses of OpenAL Soft, the NVDA controller client, Prism and pygame are included inside the game itself.
 The game's sounds and data are Bitbee's, and are not covered by those licenses.

@@ -328,8 +328,9 @@ lands in `dist\SixthSense-Windows`, around `SixthSense.exe`.
   It unpacks them at every launch, so it starts a few seconds slower.
 
 Either way, the readme, the changelog and the todo list go in a `docks` folder beside
-the executable, as in the repository, and `VERSION`, the license and the third-party
-licenses sit beside it too, where a player can open them. `docks/readme.txt` is the player's own readme: plain text, one sentence a line,
+the executable, as in the repository, and `VERSION` and the license sit beside it too,
+where a player can open them. The third-party licenses go inside the executable, in a
+`licenses` folder. `docks/readme.txt` is the player's own readme: plain text, one sentence a line,
 with none of this file's developer parts.
 
 `releaser.py` does the rest. Its full release goes through each step and asks Y or N
@@ -502,5 +503,5 @@ The port's code is in `LICENSE`. Everything under `game/`, and the binary and
 disassembly under `analysis/`, are Bitbee's and are not covered by it.
 
 The third-party pieces keep their own licenses. OpenAL Soft's and NVDA's controller
-client's sit beside their DLLs in `vendor/`, and a build copies them, along with
-Prism's and pygame's, into a `licenses` folder beside the game.
+client's sit beside their DLLs in `vendor/`, and a build puts them, along with
+Prism's and pygame's, into a `licenses` folder inside the executable.
