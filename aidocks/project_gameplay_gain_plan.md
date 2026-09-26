@@ -1,6 +1,6 @@
 ---
 name: project_gameplay_gain_plan
-description: "PLANNED 2026-09-26. A gameplay gain of 0 to 6 dB (listener gain up to 2.0) that raises every sound during play without changing the balance, plus weapons, zombies and player volumes (0 to 100) to change the balance. Page Up and Page Down with modifiers during play, saved in settings.json, spoken in both modes."
+description: "PLANNED 2026-09-26. A gameplay gain of 0 to 6 dB (listener gain up to 2.0) that raises every sound during play without changing the balance, plus weapons, entities and player volumes (0 to 100) to change the balance. Page Up and Page Down with modifiers during play, saved in settings.json, spoken in both modes."
 metadata:
   type: project
 ---
@@ -24,9 +24,9 @@ metadata:
 ## The group volumes
 0 to 100 percent, 10 a step by key, any whole number by hand, squared into the gain like the other volumes; 100, the default, is the binary's mix. Only down, because of the 1.0 cap; the gain is the way up (turning weapons down and the gain up makes the zombies louder than the guns).
 - **Weapons:** `sfx/weapons/` (fire, reload, the empty click, the knives' draw and swing).
-- **Zombies:** `sfx/zombies/normal/`, `sfx/zombies/bosses/` and `sfx/monsters/` (steps, growls, attacks, being hurt, deaths).
+- **Entities:** `sfx/zombies/normal/`, `sfx/zombies/bosses/`, `sfx/monsters/` and `sfx/characters/` (the zombies' and the monster's steps, growls, attacks, being hurt and deaths, and the woman). The dev, 2026-09-26: "I say we group characters and zombies into a single thing, like entities".
 - **Player:** `player_breath_1` to `3`, `player_damage` and `player_die` (in `sfx/misc/`).
-- Everything else (the woman in `sfx/characters/`, `warring`, `ui_select`, the speech) has no group and follows only the master volume and the gain.
+- Everything else (`warring`, `ui_select`, the speech) has no group and follows only the master volume and the gain.
 - A sound's group is decided from its file's folder or name when its buffer is loaded, and applied in `oal_playback` beside `volume.master`, so no caller has to remember it.
 - A change applies at once to sounds already playing (the breathing, a zombie's loop), so each source keeps the gain the game asked for and has the knobs reapplied.
 
@@ -34,12 +34,12 @@ metadata:
 Fixed, not rebindable, like the menu music's; the F1 screen lists them. On the menu screens Page Up and Page Down stay the menu music.
 - **Page Up / Page Down:** the gain, 1 dB.
 - **Shift + Page Up / Page Down:** weapons, 10%.
-- **Control + Page Up / Page Down:** zombies, 10%.
+- **Control + Page Up / Page Down:** entities, 10%.
 - **Alt + Page Up / Page Down:** player, 10%.
-- Each press is saved to `settings.json` at once and spoken in both speech modes, since there is no recording for it: "Gain 3 decibels", "Zombies 70 percent". At the end of the range it says the value again.
+- Each press is saved to `settings.json` at once and spoken in both speech modes, since there is no recording for it: "Gain 3 decibels", "Entities 70 percent". At the end of the range it says the value again.
 
 ## settings.json
-New keys after `AMBIENCEVOLUME` and before `EYEMODE`: `GAMEPLAYGAIN` (0 to 6, anything else counts as 0), `WEAPONVOLUME`, `ZOMBIEVOLUME`, `PLAYERVOLUME` (0 to 100, anything else counts as 100). Written with their defaults on the first start, like the others.
+New keys after `AMBIENCEVOLUME` and before `EYEMODE`: `GAMEPLAYGAIN` (0 to 6, anything else counts as 0), `WEAPONVOLUME`, `ENTITYVOLUME`, `PLAYERVOLUME` (0 to 100, anything else counts as 100). Written with their defaults on the first start, like the others.
 
 ## Tests and docs
 - `tests/case/volume.py`: defaults leave every gain exactly the binary's; each group moves only its own sounds; the gain sets the listener and leaves music and ambience as they were; bad values fall back; the keys step, hold at the ends and save.
