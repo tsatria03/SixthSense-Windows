@@ -382,7 +382,8 @@ the original plays it has not been pinned down (its x comes from a value saved b
 
 ### A blade's hit makes no gun impact
 `-[MonsterControl MonsterHitSound:]` (0x120d4) is the one "a zombie was hit" routine for
-every weapon, and plays sound 56, `gun_att_sound_1`, in both its branches whatever the
+every weapon, and plays sound 56, `gun_att_sound_1` (renamed `weapon_gun_att1` the same
+day), in both its branches whatever the
 weapon (0x1217a, 0x12208). `MonsterDamageKnife` calls it (0x39af0) after the blade's own
 `att1` or `att2`, so in the original a knife or sword blow made a gun's hit sound under its
 own. tsatria03 (2026-09-25): it "literally sounds like it would play for guns only".
@@ -391,7 +392,8 @@ its own hit sound and the zombie's; guns, the grenade and the zombies killed at 
 end keep the impact.
 
 ### The bullet striking a zombie is heard where the zombie is
-`gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
+`gun_att_sound_1` (56, `weapon_gun_att1` since 2026-09-25) is a stereo file, and OpenAL
+never places stereo sounds, so the
 original played it in the middle of your head even though it passes the zombie's
 position. `oal_playback.MONO_AT_LOAD` folds it to mono as it loads; the file is not
 changed. The headshot announcement, `headshot_4` (330), is stereo too and is left that
@@ -897,7 +899,7 @@ needed nothing.
 
 **On 2026-09-25 tsatria03 renamed more sounds they found misnamed in the binary**, by ear,
 in a third sort that gives the zombies, the bosses, the monster and the characters one
-folder each (aidocks/project_sound_rename_plan.md), and 26 more entries follow:
+folder each (aidocks/project_sound_rename_plan.md), and 34 more entries follow:
 - **The "woman" monster is a man.** Its sounds are named `woman_*` in the original, but it
   sounds like a man: `woman_coming_cave_monster1` (271) is `man_coming_cave_monster`,
   `woman_coming_forest_Monster` (272) `man_coming_forest_Monster`, `woman_like_monster_hit`
@@ -912,6 +914,26 @@ folder each (aidocks/project_sound_rename_plan.md), and 26 more entries follow:
 - **The bosses' death**, `zombies_boss_big_die` (289), is `zombies_boss_1_die`.
 - **Unused:** `zombies_11_walk_cave` and `_forest` (292-297) are `zombies_11_coming_cave`
   and `_forest`, `zombies_12_coming1` (304-306) `zombies_12_coming_cave`.
+- **The weapons, for what they do in play** (later the same day):
+  - `gun_att_sound_1` (56) is `weapon_gun_att1`: the hit on a zombie. It is not a
+    gunshot: `MonsterHitSound:` plays it on every hit (0x1217a, 0x12208), where the
+    zombie is. Since the same day only guns, the grenade and a level's end play it, not
+    the blades (see "A blade's hit makes no gun impact").
+  - `weapon_head_shot` (79) is `weapon_gun_att2`: a gun's kill. The original's name is
+    wrong: `MonsterDamage` plays it only when the hit leaves the zombie at 0 HP or less
+    (0x3a7fc, then 0x3a83a), headshot or not, and never for a blade. The headshot's own
+    sound is 330, `headshot_4`, the spoken announcement. So a gun's `att1` is its hit
+    and its `att2` its kill, as a blade's `att2` is its hit and its `att1` its kill.
+  - `weapon_grenade` (57), `weapon_knife` (58), `weapon_m4_att` (65) and
+    `weapon_japen_knife` (71) are `weapon_grenade_fire`, `weapon_knife_fire`,
+    `weapon_m4_fire` and `weapon_japen_knife_fire`: each weapon firing or swinging.
+  - `weapon_nonbullets` (78) is `weapon_gun_nonbullets`, the empty click, and
+    `weapon_japen_knife_start` (329) is `weapon_japen_knife_draw`, the sword drawn.
+  - The original's own `weapon_m4_fire`, a 2.2 s stereo recording no entry plays, is
+    `weapon_m4a_fire` in `unused/`, so it no longer shares a name with the M4's shot.
+  - `oal_playback.MONO_AT_LOAD`, which folds the hit to mono so it is heard at the
+    zombie, names it `weapon_gun_att1`; with the old name it would have gone back to
+    stereo, in the middle of your head.
 
 **Entry 371 is the port's own**, `zombies_boss_1_damage`, the bosses' being-hurt sound. The
 original gives both bosses zombie 9 and 10's, entry 205 (0x3715e..); the dev copied that

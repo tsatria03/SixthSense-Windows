@@ -208,10 +208,16 @@ def test_the_renamed_sounds_are_what_the_list_names():
             273: 'man_monster_die', 274: 'man_monster_hit', 289: 'zombies_boss_1_die',
             292: 'zombies_11_coming_cave', 295: 'zombies_11_coming_forest',
             304: 'zombies_12_coming_cave', 290: 'zombies_boss_3_coming_forest',
-            371: 'zombies_boss_1_damage'}
+            371: 'zombies_boss_1_damage',
+            # the weapons, renamed for what they do (2026-09-25)
+            56: 'weapon_gun_att1', 57: 'weapon_grenade_fire', 58: 'weapon_knife_fire',
+            65: 'weapon_m4_fire', 71: 'weapon_japen_knife_fire',
+            78: 'weapon_gun_nonbullets', 79: 'weapon_gun_att2',
+            329: 'weapon_japen_knife_draw'}
     for n, name in want.items():
         assert sl[n] == name, (n, sl[n])
-    for n in (120, 135, 205, 208, 271, 272, 273, 274, 289, 290, 371):
+    for n in (120, 135, 205, 208, 271, 272, 273, 274, 289, 290, 371,
+              56, 57, 58, 65, 71, 78, 79, 329):
         p = paths.path_for_resource(sl[n], 'wav')
         assert p and os.sep + 'used' + os.sep in p, (n, sl[n], p)
     # both bosses are hurt with their own entry now, not zombie 9's

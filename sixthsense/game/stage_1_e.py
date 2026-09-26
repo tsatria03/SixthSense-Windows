@@ -166,8 +166,9 @@ MONSTER_SOUNDS = {
 SHAKE_SOUNDS = {8: ([197, 323, 324], [198, 325, 326])}
 
 SOUND_HEADSHOT = 330        # headshot_4
-#: 0x3a83a plays this on the hit that kills, headshot or not.  SoundList names it
-#: weapon_head_shot; what it actually marks is the kill.
+#: 0x3a83a plays this on a gun's hit that kills, headshot or not (0x3a7fc: only when
+#: HP is 0 or less).  The original names it weapon_head_shot; what it marks is the
+#: kill, and tsatria03 renamed it weapon_gun_att2 (2026-09-25).
 SOUND_KILL = 79
 SOUND_PLAYER_DAMAGE = 83
 SOUND_PLAYER_DIE = 84
@@ -189,7 +190,7 @@ SHOT_TRAVEL = 0.5
 
 #: 0x31964: how long ``brearhFlag`` stays up after a breath.
 BREATH_HOLD = 3.0
-SOUND_SWORD_START = 329     # weapon_japen_knife_start, 0x35ec0
+SOUND_SWORD_START = 329     # weapon_japen_knife_draw (the original's _start), 0x35ec0
 #: What ChangeLevel: loops at 0.02 as a note (0x32362): 88, bgm_cave_amb, going into
 #: the forest, and 87, bgm_forest_amb, going into the cave - the other level's.
 SOUND_FOREST_AMB = 87
@@ -1026,7 +1027,7 @@ class Stage_1_E:
             m.MonsterHitSound_(None)                            # 0x3a7e4
             if m.HP <= 0:
                 # 0x3a83a: a killing hit plays 79 at 1.0, where the monster was.
-                # SoundList calls it weapon_head_shot, but this is the kill, headshot or
+                # weapon_gun_att2 (the original's weapon_head_shot): the kill, headshot or
                 # not - the headshot's own sound (330) went out above.
                 self.app.playSound_Gain_Pos_z_reprats_(
                     SOUND_KILL, 1.0, m.Pos, 40, False)

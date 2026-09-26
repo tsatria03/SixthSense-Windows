@@ -453,7 +453,7 @@ class MonsterControl:
 
     # -[MonsterControl MonsterHitSoundDealloc] 0x12090
     def MonsterHitSoundDealloc(self, *_):
-        self.app.stopSoundBufNumber_(56)          # gun_att_sound_1
+        self.app.stopSoundBufNumber_(56)          # weapon_gun_att1, the hit
         self.app.stopSoundBufNumber_(self.hitSound)
 
     # -[MonsterControl MonsterHitSound:] 0x120d4
@@ -462,7 +462,7 @@ class MonsterControl:
         sound; at 0 it plays the impact and dies.
 
         PORT DIVERGENCE (tsatria03, 2026-09-25): ``impact=False`` leaves out the impact,
-        56, ``gun_att_sound_1``, for the knife and the sword.  The original plays it on
+        56, ``weapon_gun_att1``, for the knife and the sword.  The original plays it on
         every hit whatever the weapon (0x1217a, 0x12208), so a blade made a gun's hit
         sound under its own; the blade's att1 or att2 is its hit sound now."""
         # 0x12110: the impact uses playerHitSoundGain * 2.5

@@ -89,7 +89,7 @@ class _Source:
 #: which is how the original heard them too.  They are folded to mono as they load,
 #: so they sound where the monster is.  The files themselves are not changed.
 MONO_AT_LOAD = frozenset({
-    'gun_att_sound_1',          # 56, the bullet striking a zombie
+    'weapon_gun_att1',          # 56, a hit on a zombie (gun_att_sound_1 in the original)
 })
 
 
