@@ -4,6 +4,7 @@ Nothing is waiting here right now. New bugs, planned changes and anything still 
 
 ##Finished.
 
+The knife and the sword play only their own hit sound, without a gun's hit sound under it.
 A zombie's death sound plays to its end, as in the original, instead of sometimes being cut off, most of all the second zombie's.
 settings.json has volumes for everything, the menu music, the level music and the ambience, from 0 to 100 percent, where 100 is the original's mix.
 Each weapon's ammo capacity, range, damage and price are written into save.json when it is bought or equipped, and the three starting weapons' in a new save. Changing them by hand does nothing.

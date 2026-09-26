@@ -380,6 +380,16 @@ not used. For a missed swing this was always a port choice; where
 the original plays it has not been pinned down (its x comes from a value saved before
 0x39c36).
 
+### A blade's hit makes no gun impact
+`-[MonsterControl MonsterHitSound:]` (0x120d4) is the one "a zombie was hit" routine for
+every weapon, and plays sound 56, `gun_att_sound_1`, in both its branches whatever the
+weapon (0x1217a, 0x12208). `MonsterDamageKnife` calls it (0x39af0) after the blade's own
+`att1` or `att2`, so in the original a knife or sword blow made a gun's hit sound under its
+own. tsatria03 (2026-09-25): it "literally sounds like it would play for guns only".
+**Diverged:** the knife and the sword call it with `impact=False`, so a blade plays only
+its own hit sound and the zombie's; guns, the grenade and the zombies killed at a level's
+end keep the impact.
+
 ### The bullet striking a zombie is heard where the zombie is
 `gun_att_sound_1` (56) is a stereo file, and OpenAL never places stereo sounds, so the
 original played it in the middle of your head even though it passes the zombie's

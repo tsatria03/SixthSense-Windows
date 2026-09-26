@@ -1,4 +1,5 @@
 unrelease:
+The knife and the sword no longer play a gun's hit sound under their own when they hit a zombie.
 A zombie's death sound plays to its end, as in the original, instead of being cut off early. The second zombie could lose two seconds of it.
 The game's sounds are sorted again, with one folder each for the zombies, the bosses, the monster and the characters, and sounds that were misnamed are renamed, such as the monster that sounds like a man. Every sound plays as before.
 settings.json has four volumes you can change by hand, from 0 for silent to 100, the original's mix: everything, the menu music, the music during a game, and the ambience. The game reads them when it starts, and a number it cannot use counts as 100. The menu music volume can now be any whole number, and Page Up and Page Down step to the next ten from it.

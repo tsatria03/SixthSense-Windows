@@ -457,17 +457,22 @@ class MonsterControl:
         self.app.stopSoundBufNumber_(self.hitSound)
 
     # -[MonsterControl MonsterHitSound:] 0x120d4
-    def MonsterHitSound_(self, timer=None):
+    def MonsterHitSound_(self, timer=None, impact=True):
         """Taking a hit.  Above 0 HP it plays the impact plus the monster's damage
-        sound; at 0 it plays the impact and dies."""
+        sound; at 0 it plays the impact and dies.
+
+        PORT DIVERGENCE (tsatria03, 2026-09-25): ``impact=False`` leaves out the impact,
+        56, ``gun_att_sound_1``, for the knife and the sword.  The original plays it on
+        every hit whatever the weapon (0x1217a, 0x12208), so a blade made a gun's hit
+        sound under its own; the blade's att1 or att2 is its hit sound now."""
         # 0x12110: the impact uses playerHitSoundGain * 2.5
         gain = self.playerHitSoundGain * 2.5
-        if self.HP >= 1:
+        if impact:
             self.app.playSound_Gain_Pos_z_reprats_(56, gain, self.Pos, 40, False)
+        if self.HP >= 1:
             self.app.playSound_Gain_Pos_z_reprats_(
                 self.hitSound, self.hitSoundGain, self.Pos, 40, False)
         else:
-            self.app.playSound_Gain_Pos_z_reprats_(56, gain, self.Pos, 40, False)
             self.DieMonster()
 
     # -[MonsterControl DieMonster] 0x1222c

@@ -827,6 +827,28 @@ def _swing(st, lane, useWepon=1):
     _run(RunLoop.main(), 0.3)
 
 
+def test_a_gun_hit_still_plays_the_impact():
+    """The impact, 56, gun_att_sound_1, stays on every gun hit (0x1217a, 0x12208); only
+    the knife and the sword leave it out."""
+    app, st = _new_stage()
+    played = []
+    real = app.playSound_Gain_Pos_z_reprats_
+    app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    try:
+        st.MonsterInit_(3)
+        m = st.MonsterBuffer[0]
+        m.HP = 1000
+        played.clear()
+        m.MonsterHitSound_(None)                     # what a gun's hit calls
+        assert 56 in played and m.hitSound in played, played
+        played.clear()
+        m.MonsterHitSound_(None, impact=False)       # what a blade's hit calls
+        assert 56 not in played and m.hitSound in played, played
+    finally:
+        del app.playSound_Gain_Pos_z_reprats_
+        st.teardown()
+
+
 def test_the_knife_never_doubles_and_sounds_each_outcome():
     """MonsterDamageKnife 0x392fc: plain Damage even in a headshot window; att2 on a
     hit that leaves it standing, att1 on the kill, the swish only on a miss."""
@@ -845,11 +867,14 @@ def test_the_knife_never_doubles_and_sounds_each_outcome():
         _swing(st, 3)
         assert m.HP == knife.Damage * 2, 'the knife did %d' % (knife.Damage * 3 - m.HP)
         assert knife.att2SoundNumber in played and knife.ShotSoundNumber not in played
+        # PORT DIVERGENCE (tsatria03, 2026-09-25): no gun impact, 56, under a blade
+        assert 56 not in played, 'the knife played the gun impact'
         played.clear()
         m.HP = knife.Damage
         _swing(st, 3)
         assert m not in st.MonsterBuffer
         assert knife.att1SoundNumber in played, played
+        assert 56 not in played, 'the killing blow played the gun impact'
         played.clear()
         _swing(st, 1)
         assert knife.ShotSoundNumber in played, played

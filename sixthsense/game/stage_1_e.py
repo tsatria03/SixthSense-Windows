@@ -1096,7 +1096,9 @@ class Stage_1_E:
             self.app.playSound_Gain_Pos_z_reprats_(
                 sound, weapon.att1SoundGain, m.Pos, 40, False)
             self.gamePlayer.gunEggCountShot += 1
-            m.MonsterHitSound_(None)
+            # PORT DIVERGENCE: no gun impact (56) under a blade's own hit sound; the
+            # original plays it for every weapon (0x39af0 -> 0x1217a / 0x12208)
+            m.MonsterHitSound_(None, impact=False)
             if m.HP <= 0:
                 self._monster_killed(m)
         RunLoop.main().perform(self, 'stopShot_', None, weapon.ShotTime)
