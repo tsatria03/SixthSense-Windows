@@ -1,11 +1,11 @@
 ---
 name: project_sound_trims_plan
-description: "PLANNED 2026-09-27. A per-sound gain table (trims in dB) that evens out the original's badly matched recordings, applied to the samples as each WAV loads, so the files and the binary's gains stay untouched. Sounds are levelled within families (zombie growls with zombie growls, speech with speech), never against the whole game."
+description: "BEING BUILT 2026-09-27. A per-sound gain table (trims in dB) that evens out the original's badly matched recordings, applied to the samples as each WAV loads, so the files and the binary's gains stay untouched. Sounds are levelled within families (zombie growls with zombie growls, speech with speech), never against the whole game."
 metadata:
   type: project
 ---
 
-**Status: planned, waiting for the go-ahead.** Asked for by tsatria03 on 2026-09-27 ("go with the per-sound gain table, write the plan first"), after finding that files "all sound mismatched in volume" and that "adding volume knobs will not negate the issue". Recorded before any code ([[feedback_record_plans_first]]). Builds on [[project_volume_knobs]] and [[project_gameplay_gain_plan]].
+**Status: being built (2026-09-27).** Asked for by tsatria03 on 2026-09-27 ("go with the per-sound gain table, write the plan first"), after finding that files "all sound mismatched in volume" and that "adding volume knobs will not negate the issue". Recorded before any code ([[feedback_record_plans_first]]). Builds on [[project_volume_knobs]] and [[project_gameplay_gain_plan]].
 
 ## What was found (2026-09-27)
 - The port reads every WAV with Python's `wave` module (`game/oal_playback.py` `_load_wav`, `platform/music.py` `_load`). `soundfile` is not used. All 198 files in `used/` are 16-bit PCM (44,100 Hz, and five at 22,050 Hz), which `wave` hands over byte for byte, so the reader changes nothing.
@@ -61,8 +61,7 @@ metadata:
 ## Settled on 2026-09-27
 - Weapons firing is levelled; the breathing, being hurt and dying are left alone; there is a debug key, F8 (above). The rest of the families are the first sort as written, and the dev can still move a file once they hear it.
 
-## Still open
-- Is the family median the right target, or should a family be brought to its loudest member (fewer cuts, more boosts, where the headroom allows)?
+- **The target is the family median** (tsatria03, 2026-09-27: "let's start with the median first. if no improvement, we can go with option 2"). If the dev hears no improvement, the fallback is each family's loudest member, as far as each file's headroom allows; the tool keeps the target as one setting so that is a one-line change.
 
 ## Commits
 The plan goes in as its own commit, local only; the code follows once the dev has tested it by ear; both are pushed together ([[feedback_record_plans_first]]).
