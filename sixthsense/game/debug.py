@@ -10,6 +10,8 @@ out by ear.  They are keymap actions, so the F1 screen lists and rebinds them:
     Shift+F5    choose what F5 spawns
     F6          hold every zombie where it is, or let them walk again
     F7          let zombies that reach you hit you, still for no heart, or die again
+    F8          turn the sound trims off or on (platform/sound_trims.py), to hear them
+                against the files as they are; this one works in the tutorial too
     F11         say where each zombie is
 
 Debug mode also hands you every weapon on Tab and Shift+Tab, bought or not, and no
@@ -59,6 +61,9 @@ def _in_tutorial(st):
 
 def perform(st, action, lane):
     """Run one ``debug_`` action; ``lane`` is the lane last attacked, 1..5."""
+    if action == 'debug_sound_trims':
+        toggle_sound_trims(st)
+        return
     if _in_tutorial(st):
         return
     if (action in ('debug_next_level', 'debug_next_section')
@@ -157,6 +162,14 @@ def toggle_freeze(st):
     for m in st.MonsterBuffer:
         m.frozen = st.monstersFrozen
     st._say('Zombies hold still.' if st.monstersFrozen else 'Zombies walk again.')
+
+
+def toggle_sound_trims(st):
+    """Flip the per-file trims that even out the recordings, and reload what they
+    change (``oalPlayback.setSoundTrims_``)."""
+    from ..platform import volume
+    st.app.playback.setSoundTrims_(not volume.SOUND_TRIMS_ON)
+    st._say('Sound trims on.' if volume.SOUND_TRIMS_ON else 'Sound trims off.')
 
 
 def toggle_hits(st):

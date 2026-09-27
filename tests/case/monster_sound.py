@@ -22,6 +22,7 @@ from sixthsense.game.monster_control import (WOMAN_GROWL,         # noqa: E402
                                              ZIGZAG_ANGLE)
 from sixthsense.game.stage_1_e import Stage_1_E                 # noqa: E402
 from sixthsense.platform import openal as al                    # noqa: E402
+from sixthsense.platform import sound_trims                     # noqa: E402
 from sixthsense.platform.defaults import UserDefaults           # noqa: E402
 from sixthsense.platform.runloop import RunLoop                 # noqa: E402
 
@@ -205,7 +206,8 @@ def test_the_bullet_hit_is_heard_where_the_zombie_is():
 
 def test_the_headshot_announcement_is_centred():
     """headshot_4 (330) is stereo, and OpenAL never places a stereo sound, so the
-    announcement is heard in the centre at 0.1 wherever the zombie is (0x3a24a)."""
+    announcement is heard in the centre wherever the zombie is, at 0.2, level with every
+    spoken row (a PORT DIVERGENCE of 2026-09-27; the binary's 0.1 is at 0x3a24a)."""
     app, st = _new_stage()
     loop = RunLoop.main()
     st.MonsterInit_(1)                      # lane 1, hard left, far out
@@ -232,7 +234,15 @@ def test_the_headshot_announcement_is_centred():
         sid = pb._sources[note].sourceId
         assert pb._buffers[note].channels == 2, 'the announcement was made mono'
         gain = pb.al.source_float(sid, al.AL_GAIN)
-        assert abs(gain - 0.1) < 1e-6, 'the announcement is at %.3f' % gain
+        # 0.2, times the file's own trim (platform/sound_trims.py)
+        want = S1E.HEADSHOT_CALL_GAIN * sound_trims.gain('headshot_4')
+        assert S1E.HEADSHOT_CALL_GAIN == 0.2
+        assert abs(gain - want) < 1e-6, 'the announcement is at %.3f, not %.3f' % (gain, want)
+        # the gun's hit fades as the zombie does (a PORT DIVERGENCE of 2026-09-27):
+        # the zombie's own 100 and 1600, not playSound:'s 40 and 800
+        hit = pb._sources[app.CheckSoundBuf_(56)].sourceId
+        assert pb.al.source_float(hit, al.AL_REFERENCE_DISTANCE) == 100.0
+        assert pb.al.source_float(hit, al.AL_MAX_DISTANCE) == 1600.0
     finally:
         st.teardown()
 

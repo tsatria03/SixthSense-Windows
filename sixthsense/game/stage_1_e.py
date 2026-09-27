@@ -166,6 +166,9 @@ MONSTER_SOUNDS = {
 SHAKE_SOUNDS = {8: ([197, 323, 324], [198, 325, 326])}
 
 SOUND_HEADSHOT = 330        # headshot_4
+#: PORT DIVERGENCE (tunmi13productions, 2026-09-27): the headshot call at 0.2, level with every
+#: spoken row; the binary plays it at 0.1 (0x3a24a).
+HEADSHOT_CALL_GAIN = 0.2
 #: 0x3a83a plays this on a gun's hit that kills, headshot or not (0x3a7fc: only when
 #: HP is 0 or less).  The original names it weapon_head_shot; what it marks is the
 #: kill, and tsatria03 renamed it weapon_gun_att2 (2026-09-25).
@@ -1019,9 +1022,10 @@ class Stage_1_E:
                     self.gamePlayer.HeadShotCount += 1
                 # 0x3a24a: 0.1 at the monster's Pos, z 40.  headshot_4 is stereo, and
                 # OpenAL never places a stereo sound, so the announcement is heard
-                # in the centre at 0.1, however far off the zombie is.
+                # in the centre, however far off the zombie is.  PORT DIVERGENCE
+                # (tunmi13productions, 2026-09-27): at 0.2, level with every spoken row.
                 self.app.playSound_Gain_Pos_z_reprats_(
-                    SOUND_HEADSHOT, 0.1, m.Pos, 40, False)
+                    SOUND_HEADSHOT, HEADSHOT_CALL_GAIN, m.Pos, 40, False)
             else:
                 m.HP -= weapon.Damage                           # 0x3a796
             self.gamePlayer.gunEggCountShot += 1                # 0x3a7cc
@@ -1030,8 +1034,7 @@ class Stage_1_E:
                 # 0x3a83a: a killing hit plays 79 at 1.0, where the monster was.
                 # weapon_gun_att2 (the original's weapon_head_shot): the kill, headshot or
                 # not - the headshot's own sound (330) went out above.
-                self.app.playSound_Gain_Pos_z_reprats_(
-                    SOUND_KILL, 1.0, m.Pos, 40, False)
+                self.app.playHitSound_Gain_Pos_z_(SOUND_KILL, 1.0, m.Pos, 40)
                 self._monster_killed(m)
         else:
             # the grenade hits every live monster (0x3a4f0..0x3a562), and for each one:
@@ -1095,8 +1098,8 @@ class Stage_1_E:
         else:
             m.HP -= weapon.Damage                               # 0x39a18
             sound = weapon.att2SoundNumber if m.HP > 0 else weapon.att1SoundNumber
-            self.app.playSound_Gain_Pos_z_reprats_(
-                sound, weapon.att1SoundGain, m.Pos, 40, False)
+            # PORT DIVERGENCE: at the monster's own distances (playHitSound)
+            self.app.playHitSound_Gain_Pos_z_(sound, weapon.att1SoundGain, m.Pos, 40)
             self.gamePlayer.gunEggCountShot += 1
             # PORT DIVERGENCE: no gun impact (56) under a blade's own hit sound; the
             # original plays it for every weapon (0x39af0 -> 0x1217a / 0x12208)

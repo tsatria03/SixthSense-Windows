@@ -29,6 +29,9 @@ from sixthsense.ui.menu_input import MenuInput                   # noqa: E402
 from sixthsense.ui.screen_input import ScreenInput               # noqa: E402
 
 FULL = volume.gain(volume.MENU_MUSIC_DB)
+# These check the menu music's setting alone, so the per-file trims are off here;
+# tests/case/sound_trims.py checks the trims, the menu music's included.
+volume.SOUND_TRIMS_ON = False
 
 
 class _Recorder:

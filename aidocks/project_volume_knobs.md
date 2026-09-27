@@ -16,6 +16,7 @@ metadata:
   - `master()`, `music()`, `ambience()` and `menu_music()` are what callers use.
 - **`MASTER_DB` is applied in `oal_playback`**, at every place `AL_GAIN` is set (`_configure`, `startSound_Postion_soundGain_`, and both music players), so it covers sound effects, the recorded speech and music without any caller remembering it.
 - **The group trims are applied at the call site**, because only the caller knows what kind of sound it is starting: `stage_1_e.MapInitInBundle` and `continueAction_` (ambience and rain), the action-cell-10 branch in `MainControl` and `intro.shakeDevice` (music), `app_delegate.BGMusicStart` (the menu music).
+- **Since 2026-09-27** each file also has a trim that brings it to one loudness, -12 LUFS, the music and the ambience included, on `AL_GAIN`, with every sound source's `AL_MAX_GAIN` raised to 4.0 so a boost passes 1.0 ([[project_sound_trims_plan]]).
 - **Since 2026-09-26** there is also a gameplay gain on OpenAL's listener and weapons, entities and player group volumes, applied in `oal_playback` by each sound's group ([[project_gameplay_gain_plan]]).
 - **`tests/case/volume.py`** has 7 tests: the scale, the round trip, the knobs at rest passing the binary's values through untouched, one knob moving only what it owns, and the menu music never louder than a spoken row (0.2). `tests/case/menu.py` checks `BGMusicStart` uses `volume.menu_music()`.
 

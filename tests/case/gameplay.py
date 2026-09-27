@@ -834,6 +834,9 @@ def test_a_gun_hit_still_plays_the_impact():
     played = []
     real = app.playSound_Gain_Pos_z_reprats_
     app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    # a hit goes through playHitSound (a PORT DIVERGENCE of 2026-09-27)
+    real_hit = app.playHitSound_Gain_Pos_z_
+    app.playHitSound_Gain_Pos_z_ = lambda n, *a: (played.append(n), real_hit(n, *a))[-1]
     try:
         st.MonsterInit_(3)
         m = st.MonsterBuffer[0]
@@ -846,6 +849,7 @@ def test_a_gun_hit_still_plays_the_impact():
         assert 56 not in played and m.hitSound in played, played
     finally:
         del app.playSound_Gain_Pos_z_reprats_
+        del app.playHitSound_Gain_Pos_z_
         st.teardown()
 
 
@@ -856,6 +860,9 @@ def test_the_knife_never_doubles_and_sounds_each_outcome():
     played = []
     real = app.playSound_Gain_Pos_z_reprats_
     app.playSound_Gain_Pos_z_reprats_ = lambda n, *a: (played.append(n), real(n, *a))[-1]
+    # a hit goes through playHitSound (a PORT DIVERGENCE of 2026-09-27)
+    real_hit = app.playHitSound_Gain_Pos_z_
+    app.playHitSound_Gain_Pos_z_ = lambda n, *a: (played.append(n), real_hit(n, *a))[-1]
     try:
         knife = st.weaponSource[1]
         st.MonsterInit_(3)
@@ -881,6 +888,7 @@ def test_the_knife_never_doubles_and_sounds_each_outcome():
         assert knife.att1SoundNumber not in played and knife.att2SoundNumber not in played
     finally:
         del app.playSound_Gain_Pos_z_reprats_
+        del app.playHitSound_Gain_Pos_z_
         st.teardown()
 
 

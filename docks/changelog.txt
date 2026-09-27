@@ -1,4 +1,7 @@
 unrelease:
+The headshot call is as loud as the other spoken words.
+A weapon hitting a far-off zombie is as loud as the zombie itself, instead of fading away under your own gun.
+Every sound in the game, the music and the ambience included, is evened out to the same loudness, so no recording is much louder or quieter than the rest.
 During a game, Page Up and Page Down turn the gain up and down, from 0 to 6 decibels, making every sound louder together without changing the balance between them, while the music and the ambience stay as they are. Shift, Control or Alt with Page Up or Page Down turn the weapons, the entities (the zombies, the bosses, the monster and the woman) or your own sounds down or back up in steps of ten percent; a weapon hitting a zombie counts with the entities. Each press says the new setting and is saved in settings.json.
 
 26.09.25-1:

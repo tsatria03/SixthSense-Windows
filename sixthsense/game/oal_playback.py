@@ -53,7 +53,7 @@ import wave
 
 from .. import paths
 from ..platform import openal as al
-from ..platform import volume
+from ..platform import sound_trims, volume
 from ..platform.music import MusicPlayer
 
 log = logging.getLogger('oal')
@@ -262,6 +262,8 @@ class OalPlayback:
         if s.sourceId:
             self.al.delete_source(s.sourceId)
         s.sourceId = self.al.gen_source()
+        # PORT ADDITION: room above 1.0, so a sound_trims boost is heard (_gain)
+        self.al.alSourcef(s.sourceId, al.AL_MAX_GAIN, sound_trims.MAX_GAIN)
         s.noteIndex = index
         s.isPlaying = False
         s.queued = False
@@ -450,12 +452,17 @@ class OalPlayback:
     # ---- the volume settings (PORT ADDITION) ------------------------------
     def _gain(self, note, gain):
         """What ``AL_GAIN`` is set to for ``gain`` on ``note``: the master volume, the
-        sound's group, and for the music and ambience notes the gameplay gain taken
-        back off, so it raises the sounds and leaves those where they were.  At every
-        setting's default it is ``gain`` exactly."""
+        sound's group, the file's trim from ``sound_trims``, and for the music and
+        ambience notes the gameplay gain taken back off, so it raises the sounds and
+        leaves those where they were.  The settings' part is capped at 1.0 before the
+        trim, as OpenAL capped it before the sources' ``AL_MAX_GAIN`` was raised.  At
+        every setting's default, on a file with no trim, it is ``gain`` exactly."""
         b = self._buffers[note] if 0 <= note < MAX_BUFFERS else None
-        group = b.group if b is not None and b.bufferId else None
-        g = volume.master(gain) * volume.group_gain(group)
+        loaded = b is not None and b.bufferId
+        group = b.group if loaded else None
+        g = min(volume.master(gain) * volume.group_gain(group), 1.0)
+        if loaded:
+            g *= sound_trims.gain(b.filename)
         if group == volume.BACKDROP and self.listenerGain != 1.0:
             g /= self.listenerGain
         return g
@@ -487,6 +494,12 @@ class OalPlayback:
         self.al.alGetError()
         self.bgPlayer.set_volume(self.bgPlayer.volume)
         self.ambPlayer.set_volume(self.ambPlayer.volume)
+
+    def setSoundTrims_(self, on):
+        """PORT ADDITION: turn the ``sound_trims`` on or off for every sound, the playing
+        ones included, for F8 in debug mode."""
+        volume.SOUND_TRIMS_ON = bool(on)
+        self.refreshGains()
 
     # ---- listener --------------------------------------------------------
     def setListenerPos_(self, pos):

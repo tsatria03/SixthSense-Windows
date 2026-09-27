@@ -17,7 +17,7 @@ metadata:
 - Tests: new `tests/case/gameplay_volume.py` (7); `tests/case/volume.py` 14 (two new, two updated for the new keys). The covering files all passed on 2026-09-26: volume, gameplay_volume, menu_music, input, monster_sound, music_memory, audio_device, save, paths, weapon_range, gameplay, tutorial, pause, menu, intro, store, window, data, weapon_stats.
 - Docs: readme.txt ("Volume during a game", "Your save"), README.md, DIVERGENCES.md, changelog, todo list (unfinished).
 
-**Declined the same day:** a per-gun trim to even out the guns' recordings (the shotgun's fire is about 3 dB louder than the AK's, measured; every gun fires at the 1.0 cap, so only the loud ones could come down): "adding per gun volume would make things complex". Also not done: letting entities go to 150%.
+**Superseded on 2026-09-27:** the recordings, the guns' included, are now levelled to one loudness by [[project_sound_trims_plan]], a fixed table no player sees, so the guns are even without a per-gun setting. **Declined the same day:** a per-gun trim to even out the guns' recordings (the shotgun's fire is about 3 dB louder than the AK's, measured; every gun fires at the 1.0 cap, so only the loud ones could come down): "adding per gun volume would make things complex". Also not done: letting entities go to 150%.
 
 **The dev's request:** "is there possibly a way to increase game volume without affecting zombies overall? ... I could crank up, say, gameplay volume or something, so I can hear the zombies better. but without messing with zombie volumes and screwing them up. sort of like a gain knob". Then: "should we make individual volumes then? weapons volume, zombie volume, that sort?"
 

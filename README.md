@@ -90,10 +90,10 @@ options: `--no-window` (headless), `--game DIR` (another copy of the bundle), `-
 you cannot die, and no kill, headshot, score or gold counts. A stage says "Debug mode"
 as it starts. Tab reaches every weapon, bought or not, and no gun or grenade runs out.
 Starting or restarting a game needs no coin and spends none.
-Seven keys are added, which the F1 screen lists and rebinds: F2 next section of the
+Eight keys are added, which the F1 screen lists and rebinds: F2 next section of the
 corridor, Shift+F2 next level (after 8, back to 1), F5 spawn a zombie in the lane you
 last attacked, Shift+F5 choose what F5 spawns, F6 hold the zombies in place, F7 let
-zombies hit you without taking a heart, F11 say where they are.
+zombies hit you without taking a heart, F8 turn the sound trims off or on, F11 say where they are.
 
 Until you have finished the tutorial once, Start Game spends a coin and takes you to the
 tutorial first, as the original does; pressing P at its end counts 3, 2, 1 and starts

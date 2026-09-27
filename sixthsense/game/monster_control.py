@@ -468,7 +468,8 @@ class MonsterControl:
         # 0x12110: the impact uses playerHitSoundGain * 2.5
         gain = self.playerHitSoundGain * 2.5
         if impact:
-            self.app.playSound_Gain_Pos_z_reprats_(56, gain, self.Pos, 40, False)
+            # PORT DIVERGENCE: at the monster's own distances (playHitSound)
+            self.app.playHitSound_Gain_Pos_z_(56, gain, self.Pos, 40)
         if self.HP >= 1:
             self.app.playSound_Gain_Pos_z_reprats_(
                 self.hitSound, self.hitSoundGain, self.Pos, 40, False)

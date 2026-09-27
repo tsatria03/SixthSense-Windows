@@ -47,8 +47,9 @@ in the stage, the tutorial and the test range, as well as by hand:
                        hit on one, since that is the zombie being struck
     PLAYERVOLUME       your breathing, being hurt and dying
 
-The three groups are percentages like the rest and only turn down, since a source's gain
-stops at 1.0 and a gunshot is there already; the gain is the way up.  ``group_of`` sorts
+The three groups are percentages like the rest and only turn down, since the settings'
+part of a source's gain is capped at 1.0 (``oal_playback._gain``) and a gunshot is there
+already; the gain is the way up.  ``group_of`` sorts
 a sound into its group as its buffer loads, and ``oal_playback`` applies it.
 """
 from __future__ import annotations
@@ -67,6 +68,9 @@ AMBIENCE_DB = 0.0
 #: value of its own to sit on top of.  -14 dB is a gain of 0.1995, the 0.2 the dev picked
 #: by ear on 2026-09-22, and the same loudness the menu's own rows are read at.
 MENU_MUSIC_DB = -14.0
+#: The per-file trims that even out the recordings (platform/sound_trims.py).  F8 flips
+#: this in debug mode, for hearing them against the files as they are; it is never saved.
+SOUND_TRIMS_ON = True
 
 
 def gain(db: float) -> float:

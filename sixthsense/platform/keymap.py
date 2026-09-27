@@ -75,6 +75,7 @@ ACTIONS = (
     ('debug_freeze', 'Debug: hold zombies in place', (('f6',),)),
     ('debug_hits', 'Debug: let zombies hit you, without taking a heart', (('f7',),)),
     ('debug_monsters', 'Debug: say where the zombies are', (('f11',),)),
+    ('debug_sound_trims', 'Debug: turn the sound trims off or on', (('f8',),)),
 )
 
 ACTION_IDS = [a[0] for a in ACTIONS]

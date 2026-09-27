@@ -14,7 +14,7 @@ from sixthsense.game.app_delegate import AppDelegate             # noqa: E402
 from sixthsense.game.main_controller import (COIN_INTERVAL, COIN_MAX,  # noqa: E402
                                              ROWS, MainController)
 from sixthsense.platform import openal as al                     # noqa: E402
-from sixthsense.platform import volume                           # noqa: E402
+from sixthsense.platform import sound_trims, volume              # noqa: E402
 from sixthsense.platform.defaults import UserDefaults            # noqa: E402
 from sixthsense.platform.music import MusicPlayer                # noqa: E402
 from sixthsense.platform.runloop import RunLoop                  # noqa: E402
@@ -149,7 +149,9 @@ def test_the_menu_music_carries_on_when_the_menu_comes_back():
     player.play(song, 0.1, -1)                    # the menu comes back
     assert ('stop',) not in owner.al.calls, 'the same file was stopped and rewound'
     assert ('play',) not in owner.al.calls, 'the same file was restarted'
-    assert ('gain', 0.1) in owner.al.calls, 'the new gain was not applied'
+    # the gain asked for, times the file's own trim (platform/sound_trims.py)
+    assert ('gain', 0.1 * sound_trims.gain('bgm_main_menu')) in owner.al.calls, \
+        'the new gain was not applied'
     assert player.volume == 0.1
 
     owner.al.calls.clear()

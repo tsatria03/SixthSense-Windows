@@ -82,14 +82,19 @@ def _app():
 
 
 class _Saved:
-    """Every volume setting as it was, put back afterwards."""
+    """Every volume setting as it was, put back afterwards.  The per-file trims are held
+    off meanwhile, so the gains checked are the settings' alone; tests/case/sound_trims.py
+    checks the trims."""
 
     def __enter__(self):
         self.percents = dict(volume.percents)
         self.db = volume.gameplay_gain_db
+        self.trims = volume.SOUND_TRIMS_ON
+        volume.SOUND_TRIMS_ON = False
         return self
 
     def __exit__(self, *exc):
+        volume.SOUND_TRIMS_ON = self.trims
         volume.percents.update(self.percents)
         volume.gameplay_gain_db = self.db
         app = _app()

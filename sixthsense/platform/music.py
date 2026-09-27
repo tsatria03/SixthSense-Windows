@@ -19,9 +19,11 @@ is looking.
 from __future__ import annotations
 
 import logging
+import os
 import wave
 
 from . import openal as al
+from . import sound_trims
 
 log = logging.getLogger('music')
 
@@ -55,6 +57,8 @@ class MusicPlayer:
             self.al.alSourcei(self.source, al.AL_SOURCE_RELATIVE, 1)
             self.al.alSource3f(self.source, al.AL_POSITION, 0.0, 0.0, 0.0)
             self.al.alSourcef(self.source, al.AL_ROLLOFF_FACTOR, 0.0)
+            # PORT ADDITION: room above 1.0, so a sound_trims boost is heard (_heard)
+            self.al.alSourcef(self.source, al.AL_MAX_GAIN, sound_trims.MAX_GAIN)
 
     def _drop_buffer(self):
         """Let go of the file that is loaded, in the order OpenAL insists on: stop the
@@ -131,7 +135,15 @@ class MusicPlayer:
     def _heard(self, gain):
         """PORT ADDITION (2026-09-26): the gameplay gain raises OpenAL's listener, which
         these sources sit under too, so it is taken back off here and the music and the
-        ambience sound as they did.  ``volume`` stays the gain the game asked for."""
+        ambience sound as they did.  ``volume`` stays the gain the game asked for.
+
+        PORT ADDITION (2026-09-27): the playing file's ``sound_trims`` trim too, after the
+        game's gain is capped at 1.0 as OpenAL capped it before ``AL_MAX_GAIN`` was
+        raised.  With no trim it is the gain exactly."""
+        if self.path:
+            trim = sound_trims.gain(os.path.splitext(os.path.basename(self.path))[0])
+            if trim != 1.0:
+                gain = min(gain, 1.0) * trim
         listener = getattr(self.owner, 'listenerGain', 1.0)
         return gain / listener if listener and listener != 1.0 else gain
 

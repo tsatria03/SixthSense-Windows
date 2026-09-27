@@ -239,6 +239,17 @@ class AppDelegate:
         self.playback.queueNote_gain_sourcePos_defaultZ_repeats_(i, gain, pos, z, repeats)
         self.playback.startSound_Postion_(i, pos)
 
+    def playHitSound_Gain_Pos_z_(self, num, gain, pos, z):
+        """PORT DIVERGENCE (tunmi13productions, 2026-09-27): a weapon's hit on a monster, queued
+        with the monster's own distances (``MonsterQueueNote:``, reference 100, maximum
+        1600) instead of ``playSound:``'s 40 and 800, so it fades as the monster does
+        rather than 2.5 times sooner.  The original plays every hit through
+        ``playSound:`` (0x6658); aidocks/project_sound_trims_plan.md has why."""
+        i = self.playSoundBufNumber_(num)
+        if self.aSoundBufControlData[i].bIsPlaying:
+            self.playback.stopSound_(i)
+        self.playback.MonsterQueueNote_gain_sourcePos_defaultZ_repeats_(i, gain, pos, z, False)
+        self.playback.startSound_Postion_(i, pos)
     def playNoCoin_(self, gain):
         """DIVERGENCE: 358 is stopped in the pause after its first two words, so only
         "no coin" is heard. The WAV itself is left whole."""
