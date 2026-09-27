@@ -35,7 +35,8 @@ metadata:
 - **Weapon hits**: `weapon_gun_att1`, `weapon_gun_att2` and the knives' and the sword's `_att1` and `_att2`.
 - **Speech**: everything in `speech/` except the logo, so the menus, the numbers, the game's callouts, the weapon names and the tutorial all sit at one loudness. This matters most for the numbers, which are read one after another.
 - **Left alone (no trim)**, because their loudness is probably intended or they have nothing to be compared with: the music and the ambience (`bgm_*`, `effect_forest_rainng`), `player_breath_1` to `3` (quietest first, perhaps on purpose, as the player tires), `player_damage`, `player_die`, `ui_select`, `warring`, `woman_thank_u_kiss` and the logo `bitbee_1`. So `platform/music.py` is not changed at all.
-- Note: the dev declined a per-gun trim on 2026-09-26 ("adding per gun volume would make things complex"). That was a player setting per gun. This is a fixed table that no player sees, but it does even the guns out (the shotgun is about 3 dB louder than the AK), so the dev decides whether "weapons firing" stays a family.
+- **Weapons firing stays a family** (tsatria03, 2026-09-27: "level the weapon firing"). The per-gun volume declined on 2026-09-26 was a player setting; this is a fixed table no player sees, and it evens the guns out (the shotgun is about 3 dB louder than the AK).
+- **The breathing, being hurt and dying stay untouched** (tsatria03, 2026-09-27: "leave the breathing and dying alone").
 
 ## What is built
 - **`sixthsense/platform/sound_trims.py`**: two dicts.
@@ -45,21 +46,23 @@ metadata:
   - A Python module rather than a JSON file, so PyInstaller bundles it with no change to `compiler.py`.
 - **`tools/sound_trims.py`**: measures every file in `game/sounds/used/`, sorts them into the families, and rewrites only `MEASURED`. It prints a plain list, one line per file, with its family, loudness, peak and trim, for reading with NVDA. It needs no new package: the K-weighting filters are two biquads written out in Python. It makes no sound.
 - **`game/oal_playback.py`**: `_load_wav` applies `sound_trims.trim_db(name)` to the samples.
-- **A switch to hear the difference**: `volume.SOUND_TRIMS_ON = True`, a constant; at False every file loads untouched. See the open questions for a debug key instead.
+- **A switch to hear the difference**: `volume.SOUND_TRIMS_ON = True`, a constant; at False every file loads untouched.
+- **A debug key to compare by ear** (tsatria03, 2026-09-27: "make a debug key"): **F8**, free among the debug keys (F2, Shift+F2, F5, Shift+F5, F6, F7, F11). Only with `--debug`, like the others: a keymap action in `game/debug.py`, rebindable, and listed on the F1 screen only in debug mode. It flips `SOUND_TRIMS_ON` and reloads every buffer that is loaded, so the next sound played is heard the other way; it says "Sound trims off" or "Sound trims on" in both speech modes. A sound already playing, such as a zombie's loop, is stopped and started again from the reloaded buffer, since OpenAL cannot swap a playing buffer. The flip lasts until the game closes and is never saved.
 - **Tests**, `tests/case/sound_trims.py`, silent like the rest ([[project_safe_test_run]]):
   - every trimmed name is a file that exists in `used/`;
   - no trim raises its file's peak above -1 dBFS;
   - a file with no trim loads bit for bit as it is on disk;
   - a trimmed file loads scaled by the right amount, and clamped at full scale;
   - `BY_EAR` wins over `MEASURED`;
-  - with `SOUND_TRIMS_ON` False, nothing changes.
-- **Docs**: `aidocks/DIVERGENCES.md` (a new entry: the port levels the recordings, the files stay the original's), [[project_volume_knobs]] (a pointer here), a changelog line, and a line in `docks/readme.txt` only if the dev wants players told.
+  - with `SOUND_TRIMS_ON` False, nothing changes;
+  - F8 flips the switch, reloads the loaded buffers and speaks, and does nothing without `--debug`.
+- **Docs**: the F8 line in `game/debug.py`'s docstring and in CLAUDE.md's `--debug` list, `aidocks/DIVERGENCES.md` (a new entry: the port levels the recordings, the files stay the original's), [[project_volume_knobs]] (a pointer here), a changelog line, and a line in `docks/readme.txt` only if the dev wants players told.
 
-## Open questions for the dev
-1. Are the families right? In particular, should the weapons' firing be levelled, given the per-gun decision of 2026-09-26?
-2. Should the breathing, `player_damage` and `player_die` stay untouched?
-3. A switch to compare: only the constant, or also a `--debug` key (Shift+F6, say) that turns the trims off and on and reloads the sounds, for listening side by side?
-4. Is the family median the right target, or should a family be brought to its loudest member (fewer cuts, more boosts, where the headroom allows)?
+## Settled on 2026-09-27
+- Weapons firing is levelled; the breathing, being hurt and dying are left alone; there is a debug key, F8 (above). The rest of the families are the first sort as written, and the dev can still move a file once they hear it.
+
+## Still open
+- Is the family median the right target, or should a family be brought to its loudest member (fewer cuts, more boosts, where the headroom allows)?
 
 ## Commits
 The plan goes in as its own commit, local only; the code follows once the dev has tested it by ear; both are pushed together ([[feedback_record_plans_first]]).
