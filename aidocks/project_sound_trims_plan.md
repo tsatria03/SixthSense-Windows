@@ -18,8 +18,11 @@ metadata:
 
 ## The design
 - **A table of trims, in dB, one per sound file**, keyed by file name without `.wav`, the way `SoundList.plist` names them. 0 dB, or a file that is not in the table, means untouched.
-- **Applied to the samples as the file loads**, in `_load_wav`, after the `MONO_AT_LOAD` fold: each 16-bit sample is multiplied by `volume.gain(trim)` and clamped to the 16-bit range. A file with no trim is passed through without being touched, so it stays bit for bit what it was.
-  - Why at load and not on `AL_GAIN`: a source's gain stops at 1.0, and gunshots, the zombies' loops and others already play at 1.0, so a trim there could only turn sounds down. At load, a quiet file can come up too.
+- **A cut goes on `AL_GAIN`, a boost on the samples** (changed 2026-09-27, before any code, once the cost was measured):
+  - A cut (a trim below 0) multiplies the sound's `AL_GAIN` in `oal_playback._gain`, beside the master and group volumes. It costs nothing, is exact, and never runs into the 1.0 cap, since it only lowers.
+  - A boost (a trim above 0) cannot go on `AL_GAIN`: a source's gain stops at 1.0, and gunshots, the zombies' loops and others already play at 1.0. So it is applied to the samples in `_load_wav`, after the `MONO_AT_LOAD` fold: each 16-bit sample is multiplied by `volume.gain(trim)`, and clamped only if the file's peak would pass full scale (only possible from a `BY_EAR` trim, since the tool leaves headroom).
+  - Why not every trim on the samples: sounds load when first played, and scaling in Python takes about 0.19 s per million samples (measured 2026-09-27), so a tutorial line of 1.5 MB would start about 0.15 s late, and "As the ozone" about half a second. A boosted file's samples are therefore kept in memory by name the first time, and every later load of it is instant.
+  - A file with no trim, or with a cut, loads bit for bit as it is on disk.
   - Every gain the game plays stays the binary's own value, and every knob and setting still sits on top as it does now. The sound files on disk are never changed ("don't move, rename, convert or delete sound files").
 - **Levelled within families, not across the whole game.** The binary's gains already set the balance between kinds of sound (a gunshot at 1.0, a spoken row at 0.2, the breathing at 0.5), and levelling everything to one loudness would undo that. Instead, each file is brought to its family's median loudness, so a family's typical sound stays where it is and only its outliers move.
 - **Loudness is measured as integrated loudness (LUFS, ITU-R BS.1770)**: K-weighted and gated, so silence and short clicks don't skew it. This matches what the ear hears more closely than peak or plain RMS. The measuring is done once, offline, by a tool (below), and never while the game runs.
@@ -45,14 +48,15 @@ metadata:
   - `trim_db(name)` returns the one that applies, or 0.0.
   - A Python module rather than a JSON file, so PyInstaller bundles it with no change to `compiler.py`.
 - **`tools/sound_trims.py`**: measures every file in `game/sounds/used/`, sorts them into the families, and rewrites only `MEASURED`. It prints a plain list, one line per file, with its family, loudness, peak and trim, for reading with NVDA. It needs no new package: the K-weighting filters are two biquads written out in Python. It makes no sound.
-- **`game/oal_playback.py`**: `_load_wav` applies `sound_trims.trim_db(name)` to the samples.
+- **`game/oal_playback.py`**: `_gain` applies a cut; `_load_wav` applies a boost to the samples and keeps them by name. Each buffer records its trim.
 - **A switch to hear the difference**: `volume.SOUND_TRIMS_ON = True`, a constant; at False every file loads untouched.
-- **A debug key to compare by ear** (tsatria03, 2026-09-27: "make a debug key"): **F8**, free among the debug keys (F2, Shift+F2, F5, Shift+F5, F6, F7, F11). Only with `--debug`, like the others: a keymap action in `game/debug.py`, rebindable, and listed on the F1 screen only in debug mode. It flips `SOUND_TRIMS_ON` and reloads every buffer that is loaded, so the next sound played is heard the other way; it says "Sound trims off" or "Sound trims on" in both speech modes. A sound already playing, such as a zombie's loop, is stopped and started again from the reloaded buffer, since OpenAL cannot swap a playing buffer. The flip lasts until the game closes and is never saved.
+- **A debug key to compare by ear** (tsatria03, 2026-09-27: "make a debug key"): **F8**, free among the debug keys (F2, Shift+F2, F5, Shift+F5, F6, F7, F11). Only with `--debug`, like the others: a keymap action in `game/debug.py`, rebindable, and listed on the F1 screen only in debug mode. It flips `SOUND_TRIMS_ON`, applies the cuts again to every sound (the playing ones included, through `refreshGains`), and reloads every loaded buffer that has a boost, so the next sound played is heard the other way; it says "Sound trims off" or "Sound trims on" in both speech modes. A boosted sound already playing, such as a zombie's loop, is stopped and started again from the reloaded buffer where it was, since OpenAL cannot swap a playing buffer. The flip lasts until the game closes and is never saved.
 - **Tests**, `tests/case/sound_trims.py`, silent like the rest ([[project_safe_test_run]]):
   - every trimmed name is a file that exists in `used/`;
   - no trim raises its file's peak above -1 dBFS;
   - a file with no trim loads bit for bit as it is on disk;
-  - a trimmed file loads scaled by the right amount, and clamped at full scale;
+  - a file with a cut loads untouched and plays at its gain times the cut;
+  - a boosted file loads scaled by the right amount, is clamped at full scale only when it must be, and is scaled once however often it loads;
   - `BY_EAR` wins over `MEASURED`;
   - with `SOUND_TRIMS_ON` False, nothing changes;
   - F8 flips the switch, reloads the loaded buffers and speaks, and does nothing without `--debug`.
