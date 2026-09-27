@@ -4,6 +4,7 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 
 ## Reference documents (not memory notes)
 - [Porting status](PORTING_STATUS.md), [Divergences](DIVERGENCES.md) and [Game structure](GAME_STRUCTURE.md): the three developer references, moved here from `docs/` by the dev on 2026-09-23. What is ported, where the port differs from the original, and the game's mechanism as read from the binary.
+- [Building and releasing](BUILD_AND_RELEASE.md): the steps for compiler.py and releaser.py, what each menu choice does, what is needed first (Python 3.12 or newer, PyInstaller, gh) and what to do when a release stops partway. Written 2026-09-27 at tunmi13productions' asking.
 - The player documents, `changelog.txt` and `todo list.txt`, live in the repo's `docks/` folder since the same day; the compiler ships them from there.
 
 ## Project: what the port is and how to work on it
