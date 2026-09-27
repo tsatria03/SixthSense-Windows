@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.27-1:
 The headshot call is as loud as the other spoken words.
 A weapon hitting a far-off zombie is as loud as the zombie itself, instead of fading away under your own gun.
 Every sound in the game, the music and the ambience included, is evened out to the same loudness, so no recording is much louder or quieter than the rest.
