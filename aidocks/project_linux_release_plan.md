@@ -1,11 +1,11 @@
 ---
 name: project_linux_release_plan
-description: "BUILT 2026-09-28, not yet confirmed. releaser.py releases the Linux build too: each system packs its own build (SixthSense-Win-<v>.zip, SixthSense-Linux-<v>.tar.gz), and one release carries both, the second system adding its archive to the release the first made. Never replaces an asset."
+description: "FINISHED 2026-09-28, confirmed by tunmi13productions with release 26.09.28-2. releaser.py releases the Linux build too: each system packs its own build (SixthSense-Win-<v>.zip, SixthSense-Linux-<v>.tar.gz), and one release carries both, the second system adding its archive to the release the first made. Never replaces an asset."
 metadata:
   type: project
 ---
 
-**Status: built 2026-09-28, not yet confirmed by tunmi13productions; waiting on a real release from both systems.** Committed and pushed before it was confirmed, as an exception to the plans-first rule, by the dev's choice ("option 1", 2026-09-28): the releaser's check refuses to release until everything is committed and pushed, so it could not be tested any other way. Tests: release 36 pass, with gh, git and the network faked. Asked for by tunmi13productions: "fix the releaser too", after [[project_linux_build_plan]] (finished the same day). Builds on [[project_release_tooling_plan]].
+**Status: FINISHED 2026-09-28, confirmed by tunmi13productions** ("yes, mark it finished"). Release SixthSense V26.09.28-2 carries both archives: SixthSense-Win-26.09.28-2.zip (119.5 MB) and SixthSense-Linux-26.09.28-2.tar.gz (116.5 MB, a one-file build made in WSL, the same size on GitHub as in dist). The build that seemed not to open a sound device afterwards was WSLg's PulseAudio wedged by two game copies stopped with Ctrl+Z, not the build: a silent OpenAL open-and-close failed with and without the build's libraries, and both opened after `wsl --shutdown`; the dev then found the build "works like a charm". Committed and pushed before it was confirmed, as an exception to the plans-first rule, by the dev's choice ("option 1", 2026-09-28): the releaser's check refuses to release until everything is committed and pushed, so it could not be tested any other way. Tests: release 36 pass, with gh, git and the network faked. Asked for by tunmi13productions: "fix the releaser too", after [[project_linux_build_plan]] (finished the same day). Builds on [[project_release_tooling_plan]].
 
 ## Found first
 - PyInstaller builds only for the system it runs on, so one release needs two runs: one on Windows, one in WSL. The releaser only knew Windows: the zip name `SixthSense-Win-<version>.zip`, and an upload step that stops when the GitHub release already exists.
