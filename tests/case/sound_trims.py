@@ -97,6 +97,15 @@ def test_every_sound_is_brought_to_one_level():
                  'effect_forest_rainng', 'bitbee_1', 'weapon_gun_att1', 'five'):
         assert name in sound_trims.MEASURED, '%s is not levelled' % name
 
+def test_the_bosses_approach_stands_out():
+    """tunmi13productions, 2026-09-28: levelling had cut both bosses' approach loops, 286
+    and 290, under the mix; they are boosted 3 dB instead."""
+    with _Trims():
+        for name in ('zombies_boss_1_coming_cave', 'zombies_boss_3_coming_forest'):
+            assert sound_trims.MEASURED[name] < 0, name
+            assert sound_trims.trim_db(name) == 3.0, name
+
+
 def test_no_boost_is_past_the_cap():
     top = max(list(sound_trims.MEASURED.values()) + list(sound_trims.BY_EAR.values()))
     assert top <= tool.MAX_BOOST_DB, top

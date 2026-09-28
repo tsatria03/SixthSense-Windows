@@ -1,11 +1,11 @@
 ---
 name: project_boss_loudness_plan
-description: "PLANNED 2026-09-28. The levelling cut the two bosses' approach loops 5 and 6 dB, leaving them level with the zombies and under the mix; BY_EAR now boosts both 3 dB instead, putting the boss back where it stood in the mix."
+description: "FINISHED 2026-09-28, confirmed by tunmi13productions. The levelling cut the two bosses' approach loops 5 and 6 dB, leaving them level with the zombies and under the mix; BY_EAR now boosts both 3 dB instead, putting the boss back where it stood in the mix."
 metadata:
   type: project
 ---
 
-**Status: planned 2026-09-28.** Follows [[project_sound_trims_plan]].
+**Status: FINISHED 2026-09-28, confirmed by tunmi13productions** ("it's perfect now"). Tests: sound_trims 11 pass. Follows [[project_sound_trims_plan]].
 
 ## What was found
 The dev, 2026-09-28: "I think we broke the volume of the boss by doing what we did. now it's very, very quiet."

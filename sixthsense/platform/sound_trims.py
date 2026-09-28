@@ -24,6 +24,10 @@ from . import volume
 MAX_GAIN = 4.0
 #: The dev's own trims, by file name without ``.wav``.  These win over MEASURED.
 BY_EAR: dict[str, float] = {
+    # The bosses' approach, the loudest loops, put back over the mix instead of cut 5 and
+    # 6 dB (tunmi13productions, 2026-09-28; aidocks/project_boss_loudness_plan.md).
+    'zombies_boss_1_coming_cave': 3.0,
+    'zombies_boss_3_coming_forest': 3.0,
 }
 
 # The block between these two lines is rewritten by tools/sound_trims.py.

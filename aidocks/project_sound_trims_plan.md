@@ -56,3 +56,6 @@ The dev, on the third design: "it's improved a lot, ut why are the weapon hit so
 
 ## Commits
 The plan went in as its own commits, local only; the code follows once the dev has tested it by ear and it is marked finished; then all of it is pushed together ([[feedback_record_plans_first]]).
+
+## Follow-up
+- 2026-09-28: the levelling left the bosses too quiet, so `BY_EAR` boosts their two approach loops 3 dB ([[project_boss_loudness_plan]]).

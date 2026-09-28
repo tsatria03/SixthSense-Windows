@@ -1,4 +1,5 @@
 unrelease:
+The bosses are loud again as they come for you, instead of being evened out to the zombies' level.
 
 26.09.27-1:
 The headshot call is as loud as the other spoken words.
