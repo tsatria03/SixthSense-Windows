@@ -30,6 +30,11 @@ BY_EAR: dict[str, float] = {
     # 6 dB (tunmi13productions, 2026-09-28; aidocks/project_boss_loudness_plan.md).
     'zombies_boss_1_coming_cave': 3.0,
     'zombies_boss_3_coming_forest': 3.0,
+    # The woman who heals you, as recorded: her thank you boosted 11 dB was far too loud
+    # (tunmi13productions, 2026-09-28: "I honeslty don't think we need to boost her").
+    'woman_coming_cave': 0.0,
+    'woman_die': 0.0,
+    'woman_thank_u_kiss': 0.0,
 }
 
 # The block between these two lines is rewritten by tools/sound_trims.py.

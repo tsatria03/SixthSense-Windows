@@ -1,4 +1,5 @@
 unrelease:
+The woman who heals you plays as she was recorded, so her thank you is no longer much louder than everything else.
 The zombies, the bosses, the monster and the woman are never turned down to even out the sounds, so the loud ones, such as the loudest zombies breathing as they come, are as loud as the original made them.
 The zombies, the bosses, the monster and the woman are always at full volume, since they are what you listen for, so Control with Page Up or Page Down no longer turns them down, and settings.json no longer has ENTITYVOLUME.
 The bosses are loud again as they come for you, instead of being evened out to the zombies' level.

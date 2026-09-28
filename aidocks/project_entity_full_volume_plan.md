@@ -7,6 +7,8 @@ metadata:
 
 **Status: FINISHED 2026-09-28, confirmed by tunmi13productions** ("they're good"). The tool now gives 176 trims, 3 cuts (the gun hit, the shotgun, the headshot call) and 173 boosts; the 16 entity cuts are gone. Tests pass: sound_trims 12, volume 14, gameplay_volume 8, save 12, input 27, window 10, monster_sound 9, gameplay 55. Follows [[project_sound_trims_plan]], [[project_boss_loudness_plan]] and [[project_gameplay_gain_plan]].
 
+**Changed 2026-09-28, after it was confirmed:** the woman who heals you is not boosted either. The dev: "I honeslty don't think we need to boost her. I noticed her thank you was a lot louder" (it was +11 dB). `BY_EAR` holds `woman_coming_cave`, `woman_die` and `woman_thank_u_kiss` at 0, so all four of her recordings play as recorded; the monster keeps its boosts. Tests: sound_trims 13 pass.
+
 ## Why
 tunmi13productions, 2026-09-28, with friends: "why on earth would you want to turn down the volume of zombies? especially since you're listening for them? it's like saying I'm going to turn down the volume of someone yelling about an emergency." Then: "make zombie volume default 100. it should be 100. then remove ozmbie volume adjustment. that way it still sticks."
 

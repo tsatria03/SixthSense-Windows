@@ -105,6 +105,14 @@ def test_the_bosses_approach_stands_out():
             assert sound_trims.trim_db(name) == 3.0, name
 
 
+def test_the_woman_plays_as_recorded():
+    """tunmi13productions, 2026-09-28: her thank you, boosted 11 dB, was a lot louder."""
+    with _Trims():
+        for name in ('woman_coming_cave', 'woman_coming_forest', 'woman_die',
+                     'woman_thank_u_kiss'):
+            assert sound_trims.gain(name) == 1.0, name
+
+
 def test_no_zombie_boss_monster_or_woman_sound_is_ever_cut():
     """tunmi13productions, 2026-09-28: they are what you listen for, so levelling only boosts
     them.  Zombie 10's approach, at -5.5 LUFS, would be cut 6.5 dB."""
