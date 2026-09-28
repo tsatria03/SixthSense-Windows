@@ -13,19 +13,26 @@ The steps, in the order a full release takes them:
     2. prepare    VERSION becomes today's date and that day's release number, 26.09.23-1 for the first
                   release on the 23rd of September 2026, -2 for the second, counted from the tags; and the
                   lines under "unrelease:" are filed under that version in docks\\changelog.txt
-    3. build      compiler.py builds it into dist\\SixthSense-Windows: the folder build, or the single executable
-                  with the sounds and the game's data inside.  If the build fails, VERSION and the
-                  changelog go back to how they were
-    4. zip        dist\\SixthSense-Windows becomes dist\\SixthSense-Win-<version>.zip, which extracts to a
-                  SixthSense-Windows folder - only a build made for this
+    3. build      compiler.py builds it into dist\\SixthSense-Windows, or dist/SixthSense-Linux on Linux: the
+                  folder build, or the single executable with the sounds and the game's data inside.  If
+                  the build fails, VERSION and the changelog go back to how they were
+    4. zip        the build becomes dist\\SixthSense-Win-<version>.zip, or SixthSense-Linux-<version>.zip,
+                  which extracts to a folder of the same name as the build's - only a build made for this
                   version, so an older build can never go out under the new name
     5. commit     VERSION and docks\\changelog.txt are committed as "Release <version>" and pushed
     6. tag        the commit is tagged V<version>, and the tag is pushed
     7. upload     the zip goes up to GitHub as the release "SixthSense V<version>", with that version's
-                  changelog lines as its notes
+                  changelog lines as its notes; if that release is already there, the zip is added to it
 
 A step you answer N to is skipped, and the ones after it still ask; each checks for itself that what it
-needs is there.  Nothing here ever moves or deletes a tag or a release that already exists.
+needs is there.  Nothing here ever moves or deletes a tag or a release that already exists, or replaces a
+file already on one.
+
+One release carries the Windows and the Linux build (tunmi13productions, 2026-09-28;
+aidocks/project_linux_release_plan.md).  PyInstaller builds only for the system it runs on, so the full
+release runs on one, and then "Add this system's build to the release" on the other builds, zips and adds
+its zip to the same release.  On Linux, WSL included, the GitHub CLI has to be installed and signed in
+there too.
 """
 from __future__ import annotations
 
@@ -36,6 +43,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tarfile
 import time
 import zipfile
 
@@ -57,7 +65,7 @@ MAX_ENTRIES = 100
 #: releasing answers Y to releasing anyway (release_anyway).  None at all never releases.
 MIN_ENTRIES = 5
 
-#: Where the GitHub CLI is looked for when it is not on the PATH.
+#: Where the GitHub CLI is looked for on Windows when it is not on the PATH.
 GH_FALLBACK = r'C:\Program Files\GitHub CLI\gh.exe'
 #: The dev's shared tools file, which may name gh.
 TOOLS_INI = os.path.join(os.path.expanduser('~'), '.game_tools', 'tools.ini')
@@ -180,14 +188,22 @@ BUILD_DIR = compiler.output_dir()
 PACK_STEPS = 4
 
 
+def zip_name(version: str, system: dict = None) -> str:
+    """The archive's file name for ``version`` on this system, or ``system`` from compiler.SYSTEMS:
+    SixthSense-Win-26.09.28-1.zip, SixthSense-Linux-26.09.28-1.tar.gz.  It is called the zip here, as
+    the Windows one always was."""
+    system = system or compiler.SYSTEM
+    return '%s-%s-%s.%s' % (NAME, system['zip'], version, system['archive'])
+
+
 def zip_path(version: str) -> str:
     """Where package() writes the zip for ``version``."""
-    return os.path.join(HERE, 'dist', '%s-Win-%s.zip' % (NAME, version))
+    return os.path.join(HERE, 'dist', zip_name(version))
 
 
 def built_version(build_dir: str = None) -> str:
-    """The version the build in dist\\SixthSense-Windows carries, from the VERSION beside its executable, or ''
-    when there is no build."""
+    """The version the build in dist\\SixthSense-Windows (or -Linux) carries, from the VERSION beside its
+    executable, or '' when there is no build."""
     path = os.path.join(build_dir or BUILD_DIR, 'VERSION')
     try:
         with open(path, encoding='utf-8') as fh:
@@ -197,9 +213,11 @@ def built_version(build_dir: str = None) -> str:
 
 
 def package(build_dir: str, version: str) -> str:
-    """Zip the built folder into the archive a release is made of.
+    """Pack the built folder into the archive a release is made of: a zip, or for Linux a gzipped tar.
 
-    A zip rather than a rar or a 7z because Windows opens a zip by itself, with nothing installed.
+    A zip rather than a rar or a 7z because Windows opens a zip by itself, with nothing installed.  The
+    Linux build goes in a .tar.gz instead (tunmi13productions, 2026-09-28): every Linux has tar, and a tar
+    keeps the executable bit and PyInstaller's symbolic links, whatever extracts it.
     Everything sits under one folder inside the archive, so extracting it gives a player a folder rather
     than a heap of files in their Downloads.
 
@@ -213,24 +231,36 @@ def package(build_dir: str, version: str) -> str:
     for old in (archive, partial):
         if os.path.isfile(old):
             os.remove(old)
+    tar = archive.endswith('.tar.gz')
+    what = 'archive' if tar else 'zip'
     files = []
     for dirpath, dirs, names in os.walk(build_dir):
         dirs.sort()
+        # a link to a folder is not walked into; a tar keeps it as the link it is, and a zip skips it
+        files += [os.path.join(dirpath, d) for d in dirs if tar and os.path.islink(os.path.join(dirpath, d))]
         files += [os.path.join(dirpath, filename) for filename in sorted(names)]
-    say('zipping %d files into %s.' % (len(files), os.path.basename(archive)))
-    say('this can take a minute - leave this window open until it says the zip is done.')
+    say('packing %d files into %s.' % (len(files), os.path.basename(archive)))
+    say('this can take a minute - leave this window open until it says the %s is done.' % what)
     started = time.perf_counter()
     # a line after each quarter, so a long silence never looks like the end
     marks = {len(files) * step // PACK_STEPS for step in range(1, PACK_STEPS)}
-    with zipfile.ZipFile(partial, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+    if tar:
+        box = tarfile.open(partial, 'w:gz', compresslevel=6)
+
+        def put(full, inside):
+            box.add(full, inside, recursive=False)          # a link stays a link
+    else:
+        box = zipfile.ZipFile(partial, 'w', zipfile.ZIP_DEFLATED, compresslevel=6)
+        put = box.write
+    with box:
         for count, full in enumerate(files, 1):
             inside = os.path.join(compiler.FOLDER, os.path.relpath(full, build_dir))
-            zf.write(full, inside.replace(os.sep, '/'))
+            put(full, inside.replace(os.sep, '/'))
             if count in marks:
                 say('  %d of %d files packed ...' % (count, len(files)))
     os.replace(partial, archive)
-    say('the zip is done: %d files, %.0f MB, in %.0f seconds.'
-        % (len(files), os.path.getsize(archive) / (1 << 20), time.perf_counter() - started))
+    say('the %s is done: %d files, %.0f MB, in %.0f seconds.'
+        % (what, len(files), os.path.getsize(archive) / (1 << 20), time.perf_counter() - started))
     return archive
 
 
@@ -276,6 +306,14 @@ def gh(*args, capture=True):
     proc = subprocess.run([exe] + list(args), cwd=HERE, capture_output=capture, text=True)
     out = ((proc.stdout or '') + (proc.stderr or '')).strip() if capture else ''
     return proc.returncode == 0, out
+
+
+def release_assets(tag: str):
+    """The file names on the GitHub release for ``tag``, or None when they cannot be read."""
+    ok, out = gh('release', 'view', tag, '--json', 'assets', '--jq', '.assets[].name')
+    if not ok:
+        return None
+    return [line.strip() for line in out.splitlines() if line.strip()]
 
 
 def all_tags() -> list:
@@ -425,8 +463,8 @@ def choose_build():
 
 
 def step_build(saved=None):
-    """compiler.py, building dist\\SixthSense-Windows.  After step_prepare, a failed build undoes it.  True when
-    it built, False when it failed, None when skipped."""
+    """compiler.py, building dist\\SixthSense-Windows, or -Linux on Linux.  After step_prepare, a failed
+    build undoes it.  True when it built, False when it failed, None when skipped."""
     flags = choose_build()
     if flags is None:
         say('skipped the build.')
@@ -447,8 +485,8 @@ def step_build(saved=None):
 
 
 def step_package(version: str) -> bool:
-    """Zip dist\\SixthSense-Windows into the release's archive.  Refuses a build made for another version, so an
-    old build can never go out under a new name."""
+    """Zip this system's build into the release's archive.  Refuses a build made for another version, so
+    an old build can never go out under a new name."""
     if not os.path.isdir(BUILD_DIR):
         say('there is no build in %s. Build it first.' % BUILD_DIR)
         return False
@@ -514,8 +552,34 @@ def step_tag(version: str) -> bool:
     return True
 
 
+def add_to_release(tag: str, archive: str) -> bool:
+    """Add this system's zip to the GitHub release already made for ``tag``, unless a file of that name is
+    on it; nothing on a release is ever replaced."""
+    name = os.path.basename(archive)
+    assets = release_assets(tag)
+    if assets is None:
+        say('the files on the release %s could not be read.' % tag)
+        return False
+    if name in assets:
+        say('the release %s already has %s, so it is left as it is.' % (tag, name))
+        return True
+    say('the release %s is on GitHub without %s (%.0f MB).'
+        % (tag, name, os.path.getsize(archive) / (1 << 20)))
+    if not ask('Add it to the release?'):
+        say('skipped.')
+        return False
+    say('uploading - this can take a few minutes for a zip this size. Leave this window open.')
+    ok, _out = gh('release', 'upload', tag, archive, capture=False)
+    if not ok:
+        say('the upload failed. What gh said is above.')
+        return False
+    say('%s is on the release %s.' % (name, tag))
+    return True
+
+
 def step_upload(version: str) -> bool:
-    """The GitHub release, with the zip and that version's changelog lines."""
+    """The GitHub release, with the zip and that version's changelog lines; or, when the release is already
+    there (made on the other system), this system's zip added to it."""
     tag, title = tag_for(version), title_for(version)
     archive = find_zip(version)
     if archive is None:
@@ -526,8 +590,7 @@ def step_upload(version: str) -> bool:
         return False
     ok, _out = gh('release', 'view', tag)
     if ok:
-        say('GitHub already has a release for %s, so it is left as it is.' % tag)
-        return True
+        return add_to_release(tag, archive)
     notes = release_notes(read_changelog(), version)
     if not notes:
         say('the changelog has nothing under %s, so the release notes would be empty.'
@@ -551,6 +614,43 @@ def step_upload(version: str) -> bool:
         return False
     say('the release %s is on GitHub.' % title)
     return True
+
+
+def step_add_build() -> None:
+    """The second system's half of a release: build, zip and add this system's zip to the release already
+    made for VERSION.  It files nothing, commits nothing and tags nothing, so it needs the tag and the
+    release on GitHub, and the working copy committed and pushed, as the first system left them."""
+    version = read_version()
+    if not version:
+        say('there is no VERSION, so there is no release to add to.')
+        return
+    tag = tag_for(version)
+    say('adding the %s build to the release %s.' % (compiler.SYSTEM['folder'], title_for(version)))
+    ok, out = git('status', '--porcelain')
+    if not ok or out:
+        say('commit everything first, so the build is made from what was released.')
+        return
+    if tag not in all_tags():
+        say('the tag %s does not exist. Make the release first, with the full release.' % tag)
+        return
+    if gh_path() is None:
+        say('the GitHub CLI, gh, was not found. Install it and run gh auth login.')
+        return
+    ok, _out = gh('release', 'view', tag)
+    if not ok:
+        say('GitHub has no release %s yet. Make it first, with the full release.' % tag)
+        return
+    if zip_name(version) in (release_assets(tag) or []):
+        say('the release %s already has %s.' % (tag, zip_name(version)))
+        return
+    say()
+    if step_build() is not True:
+        return
+    say()
+    if step_package(version) is not True:
+        return
+    say()
+    add_to_release(tag, zip_path(version))
 
 
 def full_release() -> None:
@@ -591,6 +691,8 @@ MENU = (
     ('Commit and push the version and changelog', lambda: step_commit(read_version())),
     ('Tag the release', lambda: step_tag(read_version())),
     ('Upload the release to GitHub', lambda: step_upload(read_version())),
+    ("Add this system's build to the release: build, zip and add it, for a release made on the other "
+     'system', step_add_build),
 )
 
 

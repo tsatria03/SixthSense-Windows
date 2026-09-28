@@ -57,6 +57,10 @@ ENTRY = 'SixthSense.py'
 #: build is made on Windows and a Linux one on Linux, in WSL or not.  Each system has:
 #:     folder     what the build folder is called after SixthSense-, and so the one a release extracts to
 #:     exe        the executable's file name
+#:     zip        what releaser.py calls the system in the archive's name: SixthSense-Win-<version>.zip
+#:     archive    what releaser.py packs the build into: a zip for Windows, which opens one with nothing
+#:                installed; a gzipped tar for Linux, which every Linux can open, keeping the executable
+#:                bit and symbolic links (tunmi13productions, 2026-09-28)
 #:     binaries   the vendored libraries that go inside the build, and the folder each goes to there
 #:     licenses   their licenses, which sit beside them in vendor/: the folder each goes to under licenses/
 #:                inside the executable, and the files.  Prism's and pygame's are not kept here - they come
@@ -65,12 +69,12 @@ ENTRY = 'SixthSense.py'
 #: The NVDA controller client is a Windows DLL, so the Linux build leaves it out; Prism speaks there.
 _OPENAL_LICENSES = ('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/license-pffft.txt'))
 SYSTEMS = {
-    'win32': dict(folder='Windows', exe=NAME + '.exe',
+    'win32': dict(folder='Windows', exe=NAME + '.exe', zip='Win', archive='zip',
                   binaries=(('vendor/openal/soft_oal.dll', 'vendor/openal'),      # the audio engine itself
                             ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda')),
                   licenses=(_OPENAL_LICENSES,
                             ('nvda-controller-client', ('vendor/nvda/license.txt',)))),
-    'linux': dict(folder='Linux', exe=NAME,
+    'linux': dict(folder='Linux', exe=NAME, zip='Linux', archive='tar.gz',
                   binaries=(('vendor/openal/libopenal.so.1', 'vendor/openal'),),
                   licenses=(_OPENAL_LICENSES,)),
 }

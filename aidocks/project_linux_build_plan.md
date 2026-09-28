@@ -21,3 +21,5 @@ metadata:
 4. **Commit `libopenal.so.1`,** covered by `vendor/openal/license.txt`.
 5. **Not in this plan:** the releaser (its zip name `SixthSense-Win-<version>.zip`, the `gh.exe` path, the upload). It keeps working on Windows; a Linux release is its own step later.
 - **Tests:** `release.py` for the compiler table, `paths.py` for the save folder and the library, both by faking the system rather than running on Linux. **Docs:** README, CLAUDE.md, [[project_compiler_py]], and a changelog line.
+
+**Followed by** [[project_linux_release_plan]], 2026-09-28: the releaser releases the Linux build too.

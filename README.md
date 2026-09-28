@@ -18,8 +18,11 @@ where the original's data is malformed, the port reproduces the malformed result
 
 To play without installing Python, download the newest release from the
 [latest release page](https://github.com/tsatria03/SixthSense-Windows/releases/latest).
-Each release is one zip, `SixthSense-Win-<version>.zip`. Extract it and run
-`SixthSense.exe` in the `SixthSense-Windows` folder it contains. The `docks` folder beside it
+Each release has a zip for Windows, `SixthSense-Win-<version>.zip`. Extract it and run
+`SixthSense.exe` in the `SixthSense-Windows` folder it contains. From 2026-09-28 a release
+can also carry `SixthSense-Linux-<version>.tar.gz`: extract it with
+`tar xzf SixthSense-Linux-<version>.tar.gz`, or your archive manager, and run
+`SixthSense` in the `SixthSense-Linux` folder. The `docks` folder beside it
 holds the player's readme, the changelog and the todo list.
 
 A version is the date of the release and that day's number: `26.09.24-2` is the second
@@ -330,7 +333,7 @@ CLI, signed in with `gh auth login`.
 lands in `dist\SixthSense-Windows`, around `SixthSense.exe`. Run on Linux, WSL included, it
 builds a Linux game instead, in `dist/SixthSense-Linux` around `SixthSense`, with OpenAL
 Soft's Linux library and no NVDA client; PyInstaller only builds for the system it runs
-on. `releaser.py` still releases the Windows build only.
+on. `releaser.py` releases both, one system at a time (below).
 
 - **Folder build:** the game in a folder, with its sounds and data beside the
   executable in `game\`.
@@ -359,9 +362,19 @@ before each one:
 5. **Commit and push** `VERSION` and `docks/changelog.txt` as "Release 26.09.23-1".
 6. **Tag** it `V26.09.23-1`, and push the tag.
 7. **Upload** the zip to GitHub as the release "SixthSense V26.09.23-1", with that
-   version's changelog lines as its notes.
+   version's changelog lines as its notes. If the release is already there, the zip is
+   added to it.
 
-It never moves or replaces a tag or a release that already exists.
+It never moves or replaces a tag, a release, or a file already on a release.
+
+One release carries both builds: `SixthSense-Win-<version>.zip`, and
+`SixthSense-Linux-<version>.tar.gz`, which extracts to a `SixthSense-Linux` folder; a
+tar keeps the executable runnable and every Linux can open it. Since
+PyInstaller only builds for the system it runs on, make the release on one system with
+the full release, then on the other choose **Add this system's build to the release**:
+it builds, zips and adds that zip to the same release, and files, commits and tags
+nothing. On Linux, WSL included, install the GitHub CLI there too (`sudo apt install gh`)
+and sign it in with `gh auth login`.
 
 ### Starting at any level
 

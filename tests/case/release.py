@@ -254,6 +254,55 @@ def test_the_zip_is_named_for_the_version():
     assert releaser.find_zip('00.00.00-0') is None
 
 
+def test_each_system_has_its_own_zip():
+    """tunmi13productions, 2026-09-28: one release carries both builds, each in its own zip."""
+    assert releaser.zip_name('26.09.28-1', compiler.SYSTEMS['win32']) == 'SixthSense-Win-26.09.28-1.zip'
+    assert releaser.zip_name('26.09.28-1', compiler.SYSTEMS['linux']) == 'SixthSense-Linux-26.09.28-1.tar.gz'
+    assert releaser.zip_name('26.09.28-1') == 'SixthSense-Win-26.09.28-1.zip'     # the tests run on Windows
+
+
+class _Release:
+    """Stands in for gh and the question, for adding a zip to a release already made."""
+
+    def __init__(self, assets, answer=True, upload_ok=True):
+        self.assets, self.answer, self.upload_ok = assets, answer, upload_ok
+        self.uploaded = []
+        self.saved = (releaser.release_assets, releaser.ask, releaser.gh)
+
+    def __enter__(self):
+        releaser.release_assets = lambda tag: None if self.assets is None else list(self.assets)
+        releaser.ask = lambda question: self.answer
+
+        def gh(*args, capture=True):
+            assert args[:2] == ('release', 'upload') and '--clobber' not in args, args
+            self.uploaded.append(os.path.basename(args[3]))
+            return self.upload_ok, ''
+        releaser.gh = gh
+        return self
+
+    def __exit__(self, *exc):
+        releaser.release_assets, releaser.ask, releaser.gh = self.saved
+        return False
+
+
+def test_the_second_system_adds_its_zip_to_the_release_and_replaces_nothing():
+    with tempfile.TemporaryDirectory() as folder:
+        archive = os.path.join(folder, 'SixthSense-Linux-26.09.28-1.tar.gz')
+        open(archive, 'wb').close()
+        with _Release(['SixthSense-Win-26.09.28-1.zip']) as r:
+            assert releaser.add_to_release('V26.09.28-1', archive) is True
+        assert r.uploaded == ['SixthSense-Linux-26.09.28-1.tar.gz']
+        with _Release(['SixthSense-Win-26.09.28-1.zip', 'SixthSense-Linux-26.09.28-1.tar.gz']) as r:
+            assert releaser.add_to_release('V26.09.28-1', archive) is True
+        assert r.uploaded == [], 'a zip already on the release was uploaded again'
+        with _Release(['SixthSense-Win-26.09.28-1.zip'], answer=False) as r:
+            assert releaser.add_to_release('V26.09.28-1', archive) is False
+        assert r.uploaded == []
+        with _Release(None) as r:
+            assert releaser.add_to_release('V26.09.28-1', archive) is False
+        assert r.uploaded == []
+
+
 def _fake_build(folder, version):
     build = os.path.join(folder, 'SixthSense')
     os.makedirs(os.path.join(build, 'game'))
@@ -283,6 +332,28 @@ def test_the_releaser_zips_the_build_under_one_folder():
     assert names == ['SixthSense-Windows/SixthSense.exe', 'SixthSense-Windows/VERSION',
                      'SixthSense-Windows/docks/todo list.txt',
                      'SixthSense-Windows/game/SoundList.plist']
+    assert not leftover
+
+
+def test_the_linux_build_is_a_tar_gz_that_extracts_to_a_linux_folder():
+    """tunmi13productions, 2026-09-28: a gzipped tar, which every Linux opens, under one SixthSense-Linux
+    folder, like the Windows zip."""
+    import tarfile
+    saved = (releaser.zip_path, compiler.FOLDER)
+    with tempfile.TemporaryDirectory() as folder:
+        build = _fake_build(folder, '26.09.28-1')
+        releaser.zip_path = lambda version: os.path.join(folder, 'SixthSense-Linux-%s.tar.gz' % version)
+        compiler.FOLDER = 'SixthSense-Linux'
+        try:
+            archive = releaser.package(build, '26.09.28-1')
+            with tarfile.open(archive, 'r:gz') as tf:
+                names = sorted(tf.getnames())
+            leftover = os.path.exists(archive + '.part')
+        finally:
+            releaser.zip_path, compiler.FOLDER = saved
+    assert names == ['SixthSense-Linux/SixthSense.exe', 'SixthSense-Linux/VERSION',
+                     'SixthSense-Linux/docks/todo list.txt',
+                     'SixthSense-Linux/game/SoundList.plist'], names
     assert not leftover
 
 

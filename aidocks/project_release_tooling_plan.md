@@ -49,3 +49,5 @@ A numbered menu like the compiler's: "Full release", plus each step on its own. 
 ## Related rules made the same day
 - A release aims for 50 to 100 changelog entries, can go out with fewer, and never holds more than 100 ([[feedback_changelog]]).
 - Debug mode is developer-facing and never goes in the changelog or the todo list ([[project_dev_tasks]]).
+
+**Changed 2026-09-28:** one release carries the Windows build as a zip and the Linux build as a .tar.gz, each packed on its own system; the second adds its archive to the release ([[project_linux_release_plan]]).
