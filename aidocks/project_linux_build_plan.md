@@ -1,16 +1,17 @@
 ---
 name: project_linux_build_plan
-description: "PLANNED 2026-09-28. The game runs and builds on Linux (the dev builds in WSL): OpenAL Soft from vendor/openal/libopenal.so.1, the save in ~/.local/share/SixthSense, and compiler.py building dist/SixthSense-Linux from a per-system table. The releaser stays Windows-only for now."
+description: "FINISHED 2026-09-28, confirmed by tunmi13productions in WSL. The game runs and builds on Linux (the dev builds in WSL): OpenAL Soft from vendor/openal/libopenal.so.1, the save in ~/.local/share/SixthSense, and compiler.py building dist/SixthSense-Linux from a per-system table. The releaser stays Windows-only for now."
 metadata:
   type: project
 ---
 
-**Status: planned 2026-09-28.** Asked for by tunmi13productions: "this means we'll need to make the compiler check if it's windows or linux", then "yes add linux support". The dev builds in WSL (Ubuntu), in a Python 3.12 venv at `~/venvs/sixthsense` made with uv, and put `vendor/openal/libopenal.so.1` (OpenAL Soft, x86-64) in the repo themselves.
+**Status: FINISHED 2026-09-28, confirmed by tunmi13productions in WSL** (sound: "seems to be working fine", through WSLg's PulseAudio after OpenAL Soft's harmless PipeWire error; then "yes it works"). Tests pass on Windows: paths 15, release 33, audio_device 8. A Windows dry run of the compiler reads as before (run without asking first, against the rule; owned up to). Asked for by tunmi13productions: "this means we'll need to make the compiler check if it's windows or linux", then "yes add linux support". The dev builds in WSL (Ubuntu), in a Python 3.12 venv at `~/venvs/sixthsense` made with uv, and put `vendor/openal/libopenal.so.1` (OpenAL Soft, x86-64) in the repo themselves.
 
 ## Found first
 - **One compiler, not a Linux copy** (recommended and taken): PyInstaller cannot build for another system, so each build runs on its own system anyway, and most of `compiler.py` does not care which.
 - **File names are safe on Linux:** sounds are looked up by lower-case name (`paths._sounds_by_name`), and every plist and map the code opens by name matches the disk exactly.
-- **Speech needs nothing:** `speech._Nvda` already catches the missing `ctypes.windll`, `process_running` returns False off Windows, and `ctypes.wintypes` imports on Linux (checked in the dev's venv). Prism speaks, as the dev expects ("prism is flexible").
+- **Speech needed one fix, found by the dev in WSL** ("INFO speech Prism: 0 screen readers and 0 voices"): `speech.READERS` and `VOICES` named only Windows' backends, so Prism's two Linux ones were never asked for. `ORCA` is now a screen reader (before Narrator's `UIA`) and `SPEECH_DISPATCHER` a voice; speech tests 16 pass. In WSL, Orca needs a desktop, so the voice is Speech Dispatcher: `sudo apt install speech-dispatcher speech-dispatcher-espeak-ng espeak-ng`.
+- **Speech otherwise needed nothing:** `speech._Nvda` already catches the missing `ctypes.windll`, `process_running` returns False off Windows, and `ctypes.wintypes` imports on Linux (checked in the dev's venv). Prism speaks, as the dev expects ("prism is flexible").
 - **In the dev's venv:** pygame 2.6.1, PyInstaller, cffi and prismatoid 0.18.2, whose `_native` holds `_prism_cffi.abi3.so` and `libprism.so`.
 
 ## The plan

@@ -83,6 +83,7 @@ class _Ids:
     NVDA, JAWS, ZDSR, ZOOM_TEXT, SYSTEM_ACCESS = 'NVDA', 'JAWS', 'ZDSR', 'ZOOM_TEXT', 'SYSTEM_ACCESS'
     PC_TALKER, BOY_PC_READER, SENSE_READER = 'PC_TALKER', 'BOY_PC_READER', 'SENSE_READER'
     WINDOW_EYES, UIA, SAPI, ONE_CORE = 'WINDOW_EYES', 'UIA', 'SAPI', 'ONE_CORE'
+    ORCA, SPEECH_DISPATCHER = 'ORCA', 'SPEECH_DISPATCHER'
 
 
 class _Context:
@@ -176,6 +177,20 @@ def test_onecore_steps_in_when_sapi_will_not_start():
     s, _ctx, _clock = _speech({'ONE_CORE': onecore}, broken=('SAPI',))
     assert s.speak('hello') is True
     assert onecore.spoken
+
+
+def test_on_linux_orca_speaks_and_speech_dispatcher_is_the_voice():
+    """2026-09-28: Prism has only these two on Linux, and the game used to ask it for neither:
+    'Prism: 0 screen readers and 0 voices'."""
+    orca = _Backend('Orca')
+    spd = _Backend('Speech Dispatcher', braille=False)
+    s, _ctx, _clock = _speech({'ORCA': orca, 'SPEECH_DISPATCHER': spd})
+    assert s.speak('hello') is True and orca.spoken and not spd.spoken
+    orca2 = _Backend('Orca', running=False)
+    spd2 = _Backend('Speech Dispatcher', braille=False)
+    s2, _ctx2, _clock2 = _speech({'ORCA': orca2, 'SPEECH_DISPATCHER': spd2})
+    assert s2.speak('hello') is True
+    assert spd2.spoken == [('speak', 'hello', True)] and not orca2.spoken
 
 
 def test_no_prism_means_nvda_alone_and_no_crash():

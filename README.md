@@ -32,7 +32,7 @@ can go in a fresh folder and carries on from your progress.
 
 ## Requirements
 
-To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or later, and two packages:
+To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or later, or on 64-bit Linux (WSL included), and two packages:
 
     pip install -r requirements.txt
 
@@ -43,8 +43,12 @@ To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or late
 
 Everything else is the standard library — the audio is OpenAL Soft through `ctypes`,
 and the WAVs, plists and map files are read with `wave` and `plistlib`. OpenAL Soft
-(`vendor/openal/soft_oal.dll`) ships with the repository, so there is nothing to install
-for it and no system OpenAL is used.
+(`vendor/openal/soft_oal.dll`, and `vendor/openal/libopenal.so.1` for Linux) ships with the
+repository, so there is nothing to install for it. On Linux, if the vendored library is
+missing, the system's own `libopenal.so.1` is used (`libopenal1` on Debian and Ubuntu).
+On Linux the save is in `~/.local/share/SixthSense` (or `$XDG_DATA_HOME/SixthSense`)
+instead of `%APPDATA%\SixthSense`, and the NVDA client, being Windows-only, is skipped:
+Prism speaks instead.
 
 `vendor/nvda/nvdaControllerClient64.dll` ships too, so NVDA can speak what no recording
 covers: the key-binding screen and a few messages. With voice over on, the main menu's
@@ -323,7 +327,10 @@ Building needs PyInstaller (`pip install pyinstaller`); releasing also needs the
 CLI, signed in with `gh auth login`.
 
 `compiler.py` only builds. It never zips and never changes the repository. Everything
-lands in `dist\SixthSense-Windows`, around `SixthSense.exe`.
+lands in `dist\SixthSense-Windows`, around `SixthSense.exe`. Run on Linux, WSL included, it
+builds a Linux game instead, in `dist/SixthSense-Linux` around `SixthSense`, with OpenAL
+Soft's Linux library and no NVDA client; PyInstaller only builds for the system it runs
+on. `releaser.py` still releases the Windows build only.
 
 - **Folder build:** the game in a folder, with its sounds and data beside the
   executable in `game\`.

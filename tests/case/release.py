@@ -421,6 +421,28 @@ def test_every_build_lands_in_one_folder():
         == os.path.join(ROOT, 'dist', 'SixthSense-Windows') == releaser.BUILD_DIR
 
 
+def test_each_system_builds_its_own_folder_with_its_own_libraries():
+    """tunmi13productions, 2026-09-28: the same compiler builds on Linux, into SixthSense-Linux, around an
+    executable with no .exe, with OpenAL Soft's Linux library and no NVDA client."""
+    assert compiler.system_key('win32') == 'win32'
+    assert compiler.system_key('linux') == compiler.system_key('linux2') == 'linux'
+    assert compiler.system_key('darwin') is None
+    win, linux = compiler.SYSTEMS['win32'], compiler.SYSTEMS['linux']
+    assert (win['folder'], win['exe']) == ('Windows', 'SixthSense.exe')
+    assert (linux['folder'], linux['exe']) == ('Linux', 'SixthSense')
+    assert [src for src, _ in linux['binaries']] == ['vendor/openal/libopenal.so.1']
+    assert not any('nvda' in src for src, _ in linux['binaries'])
+    assert not any(folder == 'nvda-controller-client' for folder, _ in linux['licenses'])
+    for system in (win, linux):
+        for src, _ in system['binaries']:
+            assert os.path.isfile(os.path.join(ROOT, src)), src
+        for _folder, files in system['licenses']:
+            for src in files:
+                assert os.path.isfile(os.path.join(ROOT, src)), src
+    # on Windows, where the tests run, the build is the Windows one, as it always was
+    assert compiler.SYSTEM is win and compiler.FOLDER == 'SixthSense-Windows'
+
+
 def test_a_folder_build_is_moved_to_the_windows_folder():
     """PyInstaller names a folder build after the executable, dist\\SixthSense; the compiler
     moves it to dist\\SixthSense-Windows, and clears both before the next build."""

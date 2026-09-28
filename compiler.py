@@ -1,6 +1,6 @@
 """Build SixthSense into an executable with PyInstaller.
 
-It builds the game into dist\\SixthSense-Windows, and nothing else: it never zips and never changes the
+It builds the game into dist\\SixthSense-Windows on Windows, or dist/SixthSense-Linux on Linux, and nothing else: it never zips and never changes the
 repository.  Setting the version, filing the changelog, zipping, tagging and uploading a release are
 releaser.py's work, and the releaser calls this to do the building.
 
@@ -37,6 +37,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import importlib.machinery
 import importlib.metadata
 import importlib.util
 import os
@@ -47,24 +48,55 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-#: The executable's name: SixthSense.exe.
+#: The executable's name, before the system's own ending: SixthSense.exe on Windows, SixthSense on Linux.
 NAME = 'SixthSense'
-#: The folder a build lands in, and the one a release's zip extracts to (tsatria03, 2026-09-25).
-FOLDER = NAME + '-Windows'
 ENTRY = 'SixthSense.py'
+
+#: What differs between the systems a build can be made on (tunmi13productions, 2026-09-28;
+#: aidocks/project_linux_build_plan.md).  PyInstaller only builds for the system it runs on, so a Windows
+#: build is made on Windows and a Linux one on Linux, in WSL or not.  Each system has:
+#:     folder     what the build folder is called after SixthSense-, and so the one a release extracts to
+#:     exe        the executable's file name
+#:     binaries   the vendored libraries that go inside the build, and the folder each goes to there
+#:     licenses   their licenses, which sit beside them in vendor/: the folder each goes to under licenses/
+#:                inside the executable, and the files.  Prism's and pygame's are not kept here - they come
+#:                out of the installed packages when the build runs (license_files()), so they always match
+#:                what was bundled.
+#: The NVDA controller client is a Windows DLL, so the Linux build leaves it out; Prism speaks there.
+_OPENAL_LICENSES = ('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/license-pffft.txt'))
+SYSTEMS = {
+    'win32': dict(folder='Windows', exe=NAME + '.exe',
+                  binaries=(('vendor/openal/soft_oal.dll', 'vendor/openal'),      # the audio engine itself
+                            ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda')),
+                  licenses=(_OPENAL_LICENSES,
+                            ('nvda-controller-client', ('vendor/nvda/license.txt',)))),
+    'linux': dict(folder='Linux', exe=NAME,
+                  binaries=(('vendor/openal/libopenal.so.1', 'vendor/openal'),),
+                  licenses=(_OPENAL_LICENSES,)),
+}
+
+
+def system_key(platform: str = sys.platform) -> str | None:
+    """The SYSTEMS entry for ``platform`` - sys.platform is 'linux' on every Linux, WSL included - or None
+    for a system with no build."""
+    if platform == 'win32':
+        return 'win32'
+    return 'linux' if platform.startswith('linux') else None
+
+
+#: The table for the system this runs on; Windows' where there is no build, so the names below still read
+#: sensibly while problems_now() says why nothing can be built.
+SYSTEM = SYSTEMS[system_key() or 'win32']
+#: The folder a build lands in, and the one a release's zip extracts to (tsatria03, 2026-09-25).
+FOLDER = NAME + '-' + SYSTEM['folder']
 
 #: what the game cannot run without: the module, and what pip calls it.  pygame, not pygame-ce - the two
 #: cannot be installed side by side, and the port is written against pygame.  prismatoid is Prism, which
 #: platform/speech.py speaks through for every screen reader but NVDA, and for the SAPI voice.  The game
 #: starts without it, but then only an NVDA player hears the key-bindings screen, so no build leaves it out.
 PLAY_PACKAGES = (('pygame', 'pygame'), ('prism', 'prismatoid'))
-BINARIES = (('vendor/openal/soft_oal.dll', 'vendor/openal'),    # the audio engine itself
-            ('vendor/nvda/nvdaControllerClient64.dll', 'vendor/nvda'))
-#: The licenses of the two DLLs in vendor\, which sit beside them: the folder each goes to under licenses\
-#: inside the executable, and the files.  Prism's and pygame's are not kept here - they come out of the installed
-#: packages when the build runs (license_files()), so they always match what was bundled.
-VENDOR_LICENSES = (('openal-soft', ('vendor/openal/license.txt', 'vendor/openal/license-pffft.txt')),
-                   ('nvda-controller-client', ('vendor/nvda/license.txt',)))
+BINARIES = SYSTEM['binaries']
+VENDOR_LICENSES = SYSTEM['licenses']
 #: What the game reads from its bundle's top folder: the binary plists (the sound list, the monster tables,
 #: the weapon tables) and the three map layers.  The rest of the app - the iOS executable and its code
 #: signature, the nibs, the images, the Facebook SDK - is never opened, and has no business in a release.
@@ -181,10 +213,10 @@ def release_warnings(changelog: str) -> list:
 def problems_now() -> list[str]:
     """Everything that would stop the build, in plain words."""
     found = []
-    if sys.platform != 'win32':
-        found.append('this builds a Windows executable, so it has to run on Windows')
+    if system_key() is None:
+        found.append('this builds on Windows or Linux, and this is %s' % sys.platform)
     if sys.maxsize <= 2 ** 32:
-        found.append('use 64-bit Python: the vendored OpenAL Soft and NVDA DLLs are 64-bit')
+        found.append('use 64-bit Python: the vendored libraries are 64-bit')
     if importlib.util.find_spec('PyInstaller') is None:
         found.append('PyInstaller is not installed in this Python: pip install pyinstaller')
     absent = [pip for mod, pip in PLAY_PACKAGES if importlib.util.find_spec(mod) is None]
@@ -198,14 +230,16 @@ def problems_now() -> list[str]:
 
 
 def prism_native_modules() -> list[str]:
-    """Prism's compiled Python module in its prism\\_native folder, which --collect-all leaves behind."""
+    """Prism's compiled Python module in its prism\\_native folder, which --collect-all leaves behind: a .pyd
+    on Windows, a .so on Linux, whatever this Python names its compiled modules."""
     spec = importlib.util.find_spec('prism')
     if spec is None or not spec.submodule_search_locations:
         return []
     folder = os.path.join(list(spec.submodule_search_locations)[0], '_native')
     if not os.path.isdir(folder):
         return []
-    return sorted(os.path.join(folder, name) for name in os.listdir(folder) if name.endswith('.pyd'))
+    suffixes = tuple(importlib.machinery.EXTENSION_SUFFIXES)
+    return sorted(os.path.join(folder, name) for name in os.listdir(folder) if name.endswith(suffixes))
 
 
 #: Where --embed gathers the game's top-folder files - the plists and the map layers - so PyInstaller can
@@ -397,6 +431,13 @@ def license_files() -> list[tuple[str, str]]:
     return found
 
 
+def licensed_names() -> str:
+    """Whose licenses this system's build carries, in words."""
+    vendored = [{'openal-soft': 'OpenAL Soft', 'nvda-controller-client': 'the NVDA controller client'}
+                .get(folder, folder) for folder, _files in VENDOR_LICENSES]
+    return ', '.join(vendored + ['Prism']) + ' and pygame'
+
+
 def stage_licenses(dest: str = None) -> int:
     """The third-party licenses, gathered fresh into LICENSES_STAGE for PyInstaller to put inside the
     executable as licenses\\ (since 2026-09-25; before, they sat beside it).  Returns how many."""
@@ -413,8 +454,8 @@ def stage_licenses(dest: str = None) -> int:
         os.makedirs(os.path.dirname(target), exist_ok=True)
         shutil.copy2(src, target)
         copied += 1
-    say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - go inside the '
-        'executable, as licenses%s.' % (copied, os.sep))
+    say('%d license files - %s - go inside the executable, as licenses%s.'
+        % (copied, licensed_names(), os.sep))
     return copied
 
 
@@ -477,8 +518,8 @@ def main(argv=None) -> int:
                    '' if os.path.isfile(os.path.join(HERE, name)) else ' - but it is not here'))
         licenses = license_files()
         absent = [rel for rel, lic in licenses if not lic or not os.path.isfile(lic)]
-        say('%d license files - OpenAL Soft, the NVDA controller client, Prism and pygame - would go inside '
-            'the executable, as licenses%s' % (len(licenses) - len(absent), os.sep))
+        say('%d license files - %s - would go inside the executable, as licenses%s'
+            % (len(licenses) - len(absent), licensed_names(), os.sep))
         for rel in absent:
             say('  but the license %s is not here' % rel)
         for warning in release_warnings(os.path.join(HERE, CHANGELOG)):
@@ -507,7 +548,7 @@ def main(argv=None) -> int:
     for warning in release_warnings(os.path.join(dest_root, CHANGELOG)):
         say('before releasing: ' + warning)
 
-    exe = os.path.join(dest_root, NAME + '.exe')
+    exe = os.path.join(dest_root, SYSTEM['exe'])
     say()
     say('the game is %s' % exe)
     say("the folder around it is what releaser.py zips, and the game's own files in it are Bitbee's.")

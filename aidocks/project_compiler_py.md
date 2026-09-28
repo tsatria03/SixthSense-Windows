@@ -91,3 +91,5 @@ A release is made only with `releaser.py`, which runs the compiler itself after 
 - The game data goes beside the exe, in `dist/SixthSense/game`, which is `EXE_DIR/game`.
 
 **How to apply:** Keep `compiler.py`'s structure and prose style (the menu, the flags, the spoken messages). Compare against the reference script in `user/` when bringing features across.
+
+**Changed 2026-09-28:** it also builds on Linux (the dev builds in WSL), into `dist/SixthSense-Linux`, from a table by system, `SYSTEMS` ([[project_linux_build_plan]]).

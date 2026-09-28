@@ -39,12 +39,15 @@ log = logging.getLogger('speech')
 #: the order they are tried.  NVDA is first only as a backstop, for when its own client
 #: above cannot load.  Narrator is last: Prism reaches it through UI Automation, which says
 #: it is ready whether or not Narrator is running, so the game asks Windows instead.
+#: Orca is Linux's (2026-09-28, aidocks/project_linux_build_plan.md); Prism has each only on
+#: its own system, so the rest are simply not found there.
 READERS = ('NVDA', 'JAWS', 'ZDSR', 'ZOOM_TEXT', 'SYSTEM_ACCESS', 'PC_TALKER',
-           'BOY_PC_READER', 'SENSE_READER', 'WINDOW_EYES', 'UIA')
+           'BOY_PC_READER', 'SENSE_READER', 'WINDOW_EYES', 'ORCA', 'UIA')
 NARRATOR = 'UIA'
 NARRATOR_EXE = 'narrator.exe'
-#: The plain voices, for a player with no screen reader running.
-VOICES = ('SAPI', 'ONE_CORE')
+#: The plain voices, for a player with no screen reader running: Windows' two, and Speech
+#: Dispatcher on Linux.
+VOICES = ('SAPI', 'ONE_CORE', 'SPEECH_DISPATCHER')
 #: Set to 1 by the tests: nothing is ever spoken or cut off, and neither NVDA's client nor
 #: Prism is loaded.  The game itself never sets it.
 SILENT_ENV = 'SIXTHSENSE_SILENT'

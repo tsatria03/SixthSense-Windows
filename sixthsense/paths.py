@@ -19,8 +19,9 @@ belongs to one of the files that are not the original's own.
 Because the top folder comes first, an untouched original bundle still works: its WAVs are
 all found where the original found them.
 
-The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense``, or
-wherever ``SIXTHSENSE_USER_DIR`` points, which the tests use.
+The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense`` on
+Windows, ``~/.local/share/SixthSense`` on Linux, or wherever ``SIXTHSENSE_USER_DIR`` points,
+which the tests use.
 
 ``--game PATH`` (or ``SIXTHSENSE_GAME``) points somewhere else: another copy of the
 bundle, or a folder holding ``Payload/sixsense.app``.
@@ -39,7 +40,11 @@ else:
     EXE_DIR = ROOT
 
 VENDOR = os.path.join(ROOT, 'vendor')
-OPENAL_DLL = os.path.join(VENDOR, 'openal', 'soft_oal.dll')
+WINDOWS = sys.platform == 'win32'
+#: OpenAL Soft: soft_oal.dll on Windows, libopenal.so.1 on Linux (2026-09-28,
+#: aidocks/project_linux_build_plan.md).
+OPENAL_LIB_NAME = 'soft_oal.dll' if WINDOWS else 'libopenal.so.1'
+OPENAL_DLL = os.path.join(VENDOR, 'openal', OPENAL_LIB_NAME)
 NVDA_DLL = os.path.join(VENDOR, 'nvda', 'nvdaControllerClient64.dll')
 
 # The thin armv7 slice, for tools/.  Not needed to play.
@@ -170,13 +175,22 @@ def path_for_resource(name: str, ext: str | None = None) -> str | None:
     return _sounds_by_name().get(filename.lower())
 
 
+def save_base() -> str:
+    """The folder the save's own folder goes in: ``%APPDATA%`` on Windows, and elsewhere
+    ``$XDG_DATA_HOME``, which is ``~/.local/share`` when unset."""
+    if WINDOWS:
+        return os.environ.get('APPDATA') or os.path.expanduser('~')
+    return (os.environ.get('XDG_DATA_HOME')
+            or os.path.join(os.path.expanduser('~'), '.local', 'share'))
+
+
 def user_dir() -> str:
-    """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSense``, or the
-    folder ``SIXTHSENSE_USER_DIR`` names.  The tests set that to a throwaway folder, so
-    they never read or write the real save."""
+    """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSense``, or on
+    Linux ``$XDG_DATA_HOME/SixthSense`` (``~/.local/share/SixthSense``), or the folder
+    ``SIXTHSENSE_USER_DIR`` names.  The tests set that to a throwaway folder, so they never
+    read or write the real save."""
     p = os.environ.get(USER_DIR_ENV)
     if not p:
-        base = os.environ.get('APPDATA') or os.path.expanduser('~')
-        p = os.path.join(base, 'SixthSense')
+        p = os.path.join(save_base(), 'SixthSense')
     os.makedirs(p, exist_ok=True)
     return p

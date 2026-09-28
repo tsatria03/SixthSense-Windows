@@ -113,6 +113,7 @@ Your save
 
 Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
 All three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
+On Linux, they are in the SixthSense folder in ~/.local/share instead.
 In settings.json you can set six volumes, from 0 for silent to 100, the original's mix.
 MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, AMBIENCEVOLUME the cave, the forest and the rain, WEAPONVOLUME the weapons, and PLAYERVOLUME your own sounds.
 GAMEPLAYGAIN is the gain during a game, from 0 to 6 decibels, where 0 is the original's mix; a number it cannot use counts as 0.

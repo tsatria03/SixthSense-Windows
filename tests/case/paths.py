@@ -179,6 +179,37 @@ def test_the_save_goes_where_sixthsense_user_dir_points():
         shutil.rmtree(top, ignore_errors=True)
 
 
+def test_on_linux_the_save_goes_in_the_users_data_folder():
+    """2026-09-28: $XDG_DATA_HOME/SixthSense, which is ~/.local/share/SixthSense when unset."""
+    keys = (paths.USER_DIR_ENV, 'XDG_DATA_HOME')
+    old = {k: os.environ.get(k) for k in keys}
+    was = paths.WINDOWS
+    top = tempfile.mkdtemp()
+    try:
+        os.environ.pop(paths.USER_DIR_ENV, None)
+        paths.WINDOWS = False
+        os.environ['XDG_DATA_HOME'] = top
+        assert paths.user_dir() == os.path.join(top, 'SixthSense')
+        os.environ.pop('XDG_DATA_HOME')
+        assert paths.save_base() == os.path.join(os.path.expanduser('~'), '.local', 'share')
+    finally:
+        paths.WINDOWS = was
+        for k, v in old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+        shutil.rmtree(top, ignore_errors=True)
+
+
+def test_openal_is_the_systems_own_library():
+    """soft_oal.dll on Windows and libopenal.so.1 on Linux, both kept in vendor/openal."""
+    assert paths.OPENAL_LIB_NAME == ('soft_oal.dll' if sys.platform == 'win32' else 'libopenal.so.1')
+    assert os.path.basename(paths.OPENAL_DLL) == paths.OPENAL_LIB_NAME
+    for name in ('soft_oal.dll', 'libopenal.so.1'):
+        assert os.path.isfile(os.path.join(paths.VENDOR, 'openal', name)), name
+
+
 def test_every_test_file_keeps_off_the_real_save():
     """Each test file imports _scratch_save before the game, so none can write the real save,
     whichever shell runs it."""

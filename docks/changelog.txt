@@ -1,4 +1,5 @@
 unrelease:
+The game can now be built and played on Linux, WSL included, with its save in ~/.local/share/SixthSense.
 
 26.09.28-1:
 The woman who heals you no longer thanks you loudly enough to wake the other zombies. Out of every change in this update, she is the only one who got a whole commit to herself, when she could easily have shared one with the other volume changes. Yes, one woman, one commit. She earned it.
