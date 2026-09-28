@@ -1,4 +1,6 @@
 unrelease:
+
+26.09.28-2:
 The game can now be built and played on Linux, WSL included, with its save in ~/.local/share/SixthSense.
 
 26.09.28-1:
