@@ -1,11 +1,11 @@
 ---
 name: project_entity_full_volume_plan
-description: "PLANNED 2026-09-28. The zombies, bosses, monster and woman always play at full volume: the entity volume setting (Control+Page Up/Down, ENTITYVOLUME) is removed, and the sound trims never cut an entity sound, only boost."
+description: "FINISHED 2026-09-28, confirmed by tunmi13productions. The zombies, bosses, monster and woman always play at full volume: the entity volume setting (Control+Page Up/Down, ENTITYVOLUME) is removed, and the sound trims never cut an entity sound, only boost."
 metadata:
   type: project
 ---
 
-**Status: planned 2026-09-28.** Follows [[project_sound_trims_plan]], [[project_boss_loudness_plan]] and [[project_gameplay_gain_plan]].
+**Status: FINISHED 2026-09-28, confirmed by tunmi13productions** ("they're good"). The tool now gives 176 trims, 3 cuts (the gun hit, the shotgun, the headshot call) and 173 boosts; the 16 entity cuts are gone. Tests pass: sound_trims 12, volume 14, gameplay_volume 8, save 12, input 27, window 10, monster_sound 9, gameplay 55. Follows [[project_sound_trims_plan]], [[project_boss_loudness_plan]] and [[project_gameplay_gain_plan]].
 
 ## Why
 tunmi13productions, 2026-09-28, with friends: "why on earth would you want to turn down the volume of zombies? especially since you're listening for them? it's like saying I'm going to turn down the volume of someone yelling about an emergency." Then: "make zombie volume default 100. it should be 100. then remove ozmbie volume adjustment. that way it still sticks."

@@ -59,3 +59,4 @@ The plan went in as its own commits, local only; the code follows once the dev h
 
 ## Follow-up
 - 2026-09-28: the levelling left the bosses too quiet, so `BY_EAR` boosts their two approach loops 3 dB ([[project_boss_loudness_plan]]).
+- 2026-09-28: the zombies, bosses, monster and woman are never cut, only boosted ([[project_entity_full_volume_plan]]).

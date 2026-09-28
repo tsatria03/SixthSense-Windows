@@ -3,8 +3,10 @@
 The original's WAVs were never levelled against each other: the zombies' loops peak at
 full scale while a zombie's death can sit many decibels under the one before it.  Every
 file the game plays, the music and the ambience included, is brought here to one
-loudness, -12 LUFS, as far as a 12 dB boost goes; the binary's gains then set the mix on
-top, as they always have.  The files on disk are never changed.
+loudness, -12 LUFS, as far as a 12 dB boost goes, except that the zombies, the bosses, the
+monster and the woman are never cut, only boosted, since the player listens for them
+(tunmi13productions, 2026-09-28); the binary's gains then set the mix on top, as they always
+have.  The files on disk are never changed.
 aidocks/project_sound_trims_plan.md has why.
 
     MEASURED    written by tools/sound_trims.py, never by hand
@@ -35,7 +37,6 @@ BY_EAR: dict[str, float] = {
 MEASURED: dict[str, float] = {
     # sfx/characters
     'woman_coming_cave': 2.0,
-    'woman_coming_forest': -3.5,
     'woman_die': 1.0,
     'woman_thank_u_kiss': 11.0,
     # sfx/misc
@@ -79,20 +80,11 @@ MEASURED: dict[str, float] = {
     'weapon_shotgun_fire': -0.5,
     'weapon_shotgun_reload': 12.0,
     # sfx/zombies/bosses
-    'zombies_boss_1_coming_cave': -5.0,
-    'zombies_boss_1_coming_forest': -3.0,
     'zombies_boss_1_damage': 11.5,
-    'zombies_boss_1_die': -0.5,
-    'zombies_boss_1_hit_player': -3.0,
-    'zombies_boss_3_coming_cave': -6.0,
-    'zombies_boss_3_coming_forest': -6.0,
     # sfx/zombies/normal
-    'zombie_10_coming_cave': -6.5,
-    'zombie_10_coming_forest': -7.0,
     'zombie_10_hit_player': 3.5,
     'zombie_1_coming_cave': 1.0,
     'zombie_1_coming_forest': 5.5,
-    'zombie_1_damage': -0.5,
     'zombie_1_die': 9.0,
     'zombie_1_hit_player': 3.5,
     'zombie_2_coming_cave': 3.0,
@@ -102,7 +94,6 @@ MEASURED: dict[str, float] = {
     'zombie_2_hit_player': 9.0,
     'zombie_3_coming_cave': 1.5,
     'zombie_3_coming_forest': 2.5,
-    'zombie_3_damage': -2.5,
     'zombie_3_die': 7.0,
     'zombie_3_hit_player': 6.0,
     'zombie_4_coming_cave': 6.0,
@@ -110,7 +101,6 @@ MEASURED: dict[str, float] = {
     'zombie_4_damage': 5.0,
     'zombie_4_die': 11.5,
     'zombie_5_coming_forest': 2.5,
-    'zombie_5_damage': -2.0,
     'zombie_5_die': 12.0,
     'zombie_6_coming_cave': 7.0,
     'zombie_6_coming_forest': 9.0,
@@ -124,15 +114,11 @@ MEASURED: dict[str, float] = {
     'zombie_8_approach': 5.0,
     'zombie_8_coming_cave': 12.0,
     'zombie_8_coming_forest': 10.0,
-    'zombie_8_damage': -2.0,
     'zombie_8_die': 7.5,
     'zombie_8_hit_player': 7.5,
     'zombie_8_push': 1.0,
-    'zombie_9_coming_cave': -5.5,
-    'zombie_9_coming_forest': -4.0,
     'zombie_9_damage': 11.5,
     'zombie_9_die': 7.5,
-    'zombie_9_hit_player': -3.0,
     # speech/game
     'As the ozone': 5.5,
     'Now Loading': 4.0,

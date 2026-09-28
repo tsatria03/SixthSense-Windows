@@ -3,7 +3,7 @@
 Reads each WAV in ``game/sounds/used/``, measures its integrated loudness (ITU-R BS.1770:
 K-weighted, 400 ms blocks, gated at -70 LUFS and 10 LU under the mean) and its sample
 peak, and gives it the trim that brings it to ``TARGET_LUFS``, a boost no more than
-``MAX_BOOST_DB``.  Then it rewrites the ``MEASURED`` block of
+``MAX_BOOST_DB``, and never a cut in ``NEVER_CUT``.  Then it rewrites the ``MEASURED`` block of
 ``sixthsense/platform/sound_trims.py``; ``BY_EAR`` is never touched.
 aidocks/project_sound_trims_plan.md has why.
 
@@ -37,6 +37,10 @@ TARGET_LUFS = -12.0
 MAX_BOOST_DB = 12.0
 #: Trims are rounded to this, and a smaller one is left out.
 STEP_DB = 0.5
+#: The folders under used/ whose sounds are only ever boosted: the zombies, the bosses,
+#: the monster and the woman, which the player listens for (tunmi13productions, 2026-09-28;
+#: aidocks/project_entity_full_volume_plan.md).
+NEVER_CUT = ('sfx/zombies', 'sfx/monsters', 'sfx/characters')
 
 
 def read(path, name):
@@ -133,18 +137,20 @@ def measure():
     return out
 
 
-def trim_for(level):
-    """The trim that brings ``level`` to ``TARGET_LUFS``, or 0.0 for silence or one
-    under ``STEP_DB``."""
+def trim_for(level, folder=''):
+    """The trim that brings ``level`` to ``TARGET_LUFS``, or 0.0 for silence, one under
+    ``STEP_DB``, or a cut in a ``NEVER_CUT`` folder."""
     if level == float('-inf'):
         return 0.0
     t = min(MAX_BOOST_DB, round((TARGET_LUFS - level) / STEP_DB) * STEP_DB)
+    if t < 0 and (folder + '/').startswith(tuple(f + '/' for f in NEVER_CUT)):
+        return 0.0
     return t if abs(t) >= STEP_DB else 0.0
 
 
 def trims(rows):
     """{name: trim} for every file whose trim is not 0."""
-    return {r[0]: trim_for(r[2]) for r in rows if trim_for(r[2])}
+    return {r[0]: trim_for(r[2], r[1]) for r in rows if trim_for(r[2], r[1])}
 
 
 def write(result, rows):

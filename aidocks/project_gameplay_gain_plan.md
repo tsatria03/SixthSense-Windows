@@ -57,3 +57,5 @@ New keys after `AMBIENCEVOLUME` and before `EYEMODE`: `GAMEPLAYGAIN` (0 to 6, an
 ## Tests and docs
 - `tests/case/volume.py`: defaults leave every gain exactly the binary's; each group moves only its own sounds; the gain sets the listener and leaves music and ambience as they were; bad values fall back; the keys step, hold at the ends and save.
 - `docks/readme.txt` (the keys and the settings), `README.md`, `aidocks/DIVERGENCES.md` (the volume knobs entry), `project_volume_knobs.md`, the F1 screen's fixed keys, and a changelog line.
+
+**Changed 2026-09-28:** the entities' volume (`ENTITYVOLUME`, Control) was removed; they are always at full volume ([[project_entity_full_volume_plan]]).

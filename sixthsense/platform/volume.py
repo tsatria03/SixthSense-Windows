@@ -35,7 +35,7 @@ step sounds about as big as the last.  ``load`` reads them when the game starts 
 any that are missing, so settings.json shows every one; an edit takes effect on the next
 start.
 
-During play there are four more (tunmi13productions, 2026-09-26;
+During play there are three more (tunmi13productions, 2026-09-26;
 aidocks/project_gameplay_gain_plan.md), which Page Up and Page Down with a modifier set
 in the stage, the tutorial and the test range, as well as by hand:
 
@@ -43,11 +43,14 @@ in the stage, the tutorial and the test range, as well as by hand:
                        recorded speech louder together, the balance between them kept;
                        the music and the ambience are held where they were
     WEAPONVOLUME       the weapons, sfx/weapons, but not their hits
-    ENTITYVOLUME       the zombies, the bosses, the monster and the woman, and a weapon's
-                       hit on one, since that is the zombie being struck
     PLAYERVOLUME       your breathing, being hurt and dying
 
-The three groups are percentages like the rest and only turn down, since the settings'
+The entities (the zombies, the bosses, the monster and the woman, and a weapon's hit on
+one) had a setting too, ENTITYVOLUME, until tunmi13productions removed it on 2026-09-28:
+they are what the player listens for, so they always play at full volume
+(aidocks/project_entity_full_volume_plan.md).
+
+The two groups are percentages like the rest and only turn down, since the settings'
 part of a source's gain is capped at 1.0 (``oal_playback._gain``) and a gunshot is there
 already; the gain is the way up.  ``group_of`` sorts
 a sound into its group as its buffer loads, and ``oal_playback`` applies it.
@@ -93,11 +96,10 @@ LEVEL_MUSIC_KEY = 'LEVELMUSICVOLUME'
 AMBIENCE_KEY = 'AMBIENCEVOLUME'
 GAMEPLAY_GAIN_KEY = 'GAMEPLAYGAIN'
 WEAPON_KEY = 'WEAPONVOLUME'
-ENTITY_KEY = 'ENTITYVOLUME'
 PLAYER_KEY = 'PLAYERVOLUME'
 #: The percentages; ``GAMEPLAYGAIN`` is decibels and kept apart.
 VOLUME_KEYS = (MASTER_KEY, MENU_MUSIC_KEY, LEVEL_MUSIC_KEY, AMBIENCE_KEY,
-               WEAPON_KEY, ENTITY_KEY, PLAYER_KEY)
+               WEAPON_KEY, PLAYER_KEY)
 
 #: The steps Page Up and Page Down move the menu music by; any whole number from 0 to 100
 #: can be set by hand.  100 is the original's mix (MENU_MUSIC_DB for the menu music), never
@@ -219,7 +221,8 @@ WEAPONS = 'weapons'
 ENTITIES = 'entities'
 PLAYER = 'player'
 BACKDROP = 'backdrop'
-GROUP_KEY = {WEAPONS: WEAPON_KEY, ENTITIES: ENTITY_KEY, PLAYER: PLAYER_KEY}
+#: The entities have no setting: they are always at full volume.
+GROUP_KEY = {WEAPONS: WEAPON_KEY, PLAYER: PLAYER_KEY}
 
 #: The folders under game/sounds whose sounds belong to a group.  speech/weapons is the
 #: shop naming a weapon, not a weapon, so the folder is matched with sfx in front.
@@ -248,8 +251,8 @@ def group_of(name, path=None):
 
 
 def group_gain(group) -> float:
-    """What a group's setting multiplies its sounds by: 1.0 at 100, and for a sound in no
-    group."""
+    """What a group's setting multiplies its sounds by: 1.0 at 100, for the entities,
+    and for a sound in no group."""
     key = GROUP_KEY.get(group)
     return 1.0 if key is None else percent_gain(percents[key])
 

@@ -59,7 +59,11 @@ OLD_KEPT = OLD_FILE + '.old'
 #: The keys that are settings rather than progress, in the order settings.json lists them
 #: (tsatria03, 2026-09-25).  A setting added later goes where it belongs in this list.
 SETTINGS_KEYS = ('MASTERVOLUME', 'MENUMUSICVOLUME', 'LEVELMUSICVOLUME', 'AMBIENCEVOLUME',
-                 'GAMEPLAYGAIN', 'WEAPONVOLUME', 'ENTITYVOLUME', 'PLAYERVOLUME', 'EYEMODE')
+                 'GAMEPLAYGAIN', 'WEAPONVOLUME', 'PLAYERVOLUME', 'EYEMODE')
+#: Keys the game no longer reads, dropped from both files when the save is opened, so an
+#: old value cannot linger there.  ENTITYVOLUME went on 2026-09-28: the zombies are always
+#: at full volume (aidocks/project_entity_full_volume_plan.md).
+RETIRED_KEYS = ('ENTITYVOLUME',)
 
 
 def _read(path):
@@ -144,7 +148,11 @@ class UserDefaults:
             # the settings the old file held, where settings.json does not have them yet
             for key, value in moved.items():
                 self._file_for(key).d.setdefault(key, value)
-        if moved is not None or self.save.recovered or self.settings.recovered:
+        retired = False
+        for f in (self.save, self.settings):
+            for key in RETIRED_KEYS:
+                retired = f.d.pop(key, None) is not None or retired
+        if moved is not None or self.save.recovered or self.settings.recovered or retired:
             self.synchronize()      # or the next launch finds no save at all
 
     def _move_old_save(self, folder):

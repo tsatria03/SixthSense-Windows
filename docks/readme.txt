@@ -63,9 +63,9 @@ Page Up and Page Down turn the gain up and down, from 0 to 6 decibels, one decib
 The gain makes every sound and voice in the game louder together, so the zombies keep the same balance and you can still tell near from far.
 The music and the ambience stay as they are.
 Shift with Page Up or Page Down turns the weapons up or down, in steps of ten percent.
-Control with Page Up or Page Down does the same for the entities: the zombies, the bosses, the monster and the woman, and the sound of your weapon hitting them.
 Alt with Page Up or Page Down does the same for your own breathing, being hurt and dying.
-These three only go down from their full volume, which is the original's mix, so to make the zombies stand out, turn the weapons down and the gain up.
+These two only go down from their full volume, which is the original's mix, so to make the zombies stand out, turn the weapons down and the gain up.
+The zombies, the bosses, the monster and the woman are always at full volume, since they are what you listen for.
 Each press says the new setting, and the game remembers it.
 
 Changing the keys
@@ -113,8 +113,8 @@ Your save
 
 Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
 All three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
-In settings.json you can set seven volumes, from 0 for silent to 100, the original's mix.
-MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, AMBIENCEVOLUME the cave, the forest and the rain, WEAPONVOLUME the weapons, ENTITYVOLUME the zombies and the others you meet, and PLAYERVOLUME your own sounds.
+In settings.json you can set six volumes, from 0 for silent to 100, the original's mix.
+MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, AMBIENCEVOLUME the cave, the forest and the rain, WEAPONVOLUME the weapons, and PLAYERVOLUME your own sounds.
 GAMEPLAYGAIN is the gain during a game, from 0 to 6 decibels, where 0 is the original's mix; a number it cannot use counts as 0.
 Change a number in Notepad, save the file and start the game again to hear it.
 A number the game cannot use counts as 100.

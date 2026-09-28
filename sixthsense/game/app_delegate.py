@@ -432,10 +432,10 @@ class AppDelegate:
         return percent
 
     # PORT ADDITION (tunmi13productions, 2026-09-26): during play Page Up and Page Down set the
-    # gameplay gain, and with Shift, Control or Alt the weapons, the entities or the
-    # player.  aidocks/project_gameplay_gain_plan.md has the plan.
+    # gameplay gain, and with Shift or Alt the weapons or the player (Control set the
+    # entities until 2026-09-28).  aidocks/project_gameplay_gain_plan.md has the plan.
     def change_gameplay_volume(self, key, step):
-        """Step ``key`` (``volume.GAMEPLAY_GAIN_KEY`` or one of the three groups) up
+        """Step ``key`` (``volume.GAMEPLAY_GAIN_KEY`` or one of the two groups) up
         (+1) or down (-1), save it, and apply it at once to everything playing.
         Returns the new value, decibels for the gain and a percentage for a group."""
         if key == volume.GAMEPLAY_GAIN_KEY:

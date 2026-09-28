@@ -96,8 +96,6 @@ FIXED = {'f1': 'Key bindings', 'escape': 'Back, pause or quit',
 FIXED_IN_PLAY = ((('page up',), 'Gain up, in play'), (('page down',), 'Gain down, in play'),
                  (('shift', 'page up'), 'Weapons louder, in play'),
                  (('shift', 'page down'), 'Weapons quieter, in play'),
-                 (('control', 'page up'), 'Entities louder, in play'),
-                 (('control', 'page down'), 'Entities quieter, in play'),
                  (('alt', 'page up'), 'Player louder, in play'),
                  (('alt', 'page down'), 'Player quieter, in play'))
 

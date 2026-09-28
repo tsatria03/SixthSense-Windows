@@ -168,7 +168,6 @@ def test_a_group_moves_only_its_own_sounds_and_the_ones_playing():
         _load_sounds(pb)
         try:
             for key, group in ((volume.WEAPON_KEY, volume.WEAPONS),
-                               (volume.ENTITY_KEY, volume.ENTITIES),
                                (volume.PLAYER_KEY, volume.PLAYER)):
                 volume.percents[key] = 50
                 pb.refreshGains()
@@ -219,10 +218,10 @@ def test_the_steps_hold_at_the_ends_and_are_saved():
         got = [app.change_gameplay_volume(volume.GAMEPLAY_GAIN_KEY, 1) for _ in range(7)]
         assert got == [1, 2, 3, 4, 5, 6, 6], got
         assert d.intForKey_(volume.GAMEPLAY_GAIN_KEY) == 6
-        volume.percents[volume.ENTITY_KEY] = 55
-        assert app.change_gameplay_volume(volume.ENTITY_KEY, 1) == 60
-        assert app.change_gameplay_volume(volume.ENTITY_KEY, -1) == 50
-        assert d.intForKey_(volume.ENTITY_KEY) == 50
+        volume.percents[volume.PLAYER_KEY] = 55
+        assert app.change_gameplay_volume(volume.PLAYER_KEY, 1) == 60
+        assert app.change_gameplay_volume(volume.PLAYER_KEY, -1) == 50
+        assert d.intForKey_(volume.PLAYER_KEY) == 50
         volume.percents[volume.WEAPON_KEY] = 100
         assert app.change_gameplay_volume(volume.WEAPON_KEY, 1) == 100
 
@@ -240,9 +239,10 @@ def test_the_keys_in_play_and_what_they_say():
                           ('page down', _Pygame.KMOD_CTRL),
                           ('page down', _Pygame.KMOD_ALT)):
             inp.handle(_Key(name, mod), _Pygame)
+        # Control set the entities until 2026-09-28; now it does nothing at all
         assert st.said == ['Gain 1 decibel', 'Gain 2 decibels', 'Gain 1 decibel',
-                           'Weapons volume 90%', 'Entities volume 90%',
-                           'Player volume 90%'], st.said
+                           'Weapons volume 90%', 'Player volume 90%'], st.said
+        assert volume.gameplay_gain_db == 1
         # ...on the pause panel too
         st.gameState = 1
         inp.handle(_Key('page up', 0), _Pygame)
@@ -252,7 +252,28 @@ def test_the_keys_in_play_and_what_they_say():
 
 def test_the_binding_screen_lists_the_keys_in_play():
     labels = [what for _b, what in FIXED_IN_PLAY]
-    assert len(labels) == 8 and all(label.endswith('in play') for label in labels)
+    assert len(labels) == 6 and all(label.endswith('in play') for label in labels)
+    assert not any('Entities' in label for label in labels)
+
+
+def test_the_entities_are_always_at_full_volume():
+    """tunmi13productions, 2026-09-28: the zombies are what you listen for, so they have no
+    setting; every other group turned right down leaves them where they were."""
+    assert 'ENTITYVOLUME' not in volume.VOLUME_KEYS
+    assert volume.ENTITIES not in volume.GROUP_KEY
+    app = _app()
+    pb = app.playback
+    with _Saved():
+        for key in volume.VOLUME_KEYS:
+            volume.percents[key] = 0 if key in (volume.WEAPON_KEY, volume.PLAYER_KEY) else 100
+        assert volume.group_gain(volume.ENTITIES) == 1.0
+        _load_sounds(pb)
+        try:
+            for note, (name, group) in SOUNDS.items():
+                if group == volume.ENTITIES:
+                    assert abs(_heard(pb, note) - 0.5) < 1e-6, (name, _heard(pb, note))
+        finally:
+            _free(pb)
 
 
 if __name__ == '__main__':

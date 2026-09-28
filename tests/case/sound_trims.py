@@ -102,8 +102,24 @@ def test_the_bosses_approach_stands_out():
     and 290, under the mix; they are boosted 3 dB instead."""
     with _Trims():
         for name in ('zombies_boss_1_coming_cave', 'zombies_boss_3_coming_forest'):
-            assert sound_trims.MEASURED[name] < 0, name
             assert sound_trims.trim_db(name) == 3.0, name
+
+
+def test_no_zombie_boss_monster_or_woman_sound_is_ever_cut():
+    """tunmi13productions, 2026-09-28: they are what you listen for, so levelling only boosts
+    them.  Zombie 10's approach, at -5.5 LUFS, would be cut 6.5 dB."""
+    assert tool.trim_for(-5.5, 'sfx/zombies/normal') == 0.0
+    assert tool.trim_for(-5.5, 'sfx/monsters') == 0.0
+    assert tool.trim_for(-5.5, 'sfx/characters') == 0.0
+    assert tool.trim_for(-5.5, 'sfx/weapons') == -6.5
+    assert tool.trim_for(-20.0, 'sfx/zombies/bosses') == 8.0
+    with _Trims():
+        for _d, _s, files in os.walk(USED):
+            for f in files:
+                name = os.path.splitext(f)[0]
+                path = paths.path_for_resource(name, 'wav')
+                if volume.group_of(name, path) == volume.ENTITIES and '/sfx/weapons/' not in                         path.replace(os.sep, '/'):
+                    assert sound_trims.trim_db(name) >= 0, name
 
 
 def test_no_boost_is_past_the_cap():

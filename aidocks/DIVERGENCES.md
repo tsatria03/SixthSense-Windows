@@ -648,23 +648,28 @@ so a press changes the volume only while `bgm_main_menu` is what is playing
 music, so there is nothing of its own this changes. The two keys are fixed on the F1
 screen, like Escape and F1.
 
-**During play there is a gain and three group volumes** (tunmi13productions, 2026-09-26;
+**During play there is a gain and two group volumes** (tunmi13productions, 2026-09-26;
 `aidocks/project_gameplay_gain_plan.md`). `GAMEPLAYGAIN`, 0 to 6 dB, sets OpenAL's
 listener gain, which the original never touches; it is on from a stage's, the tutorial's
 or the test range's `viewDidLoad` to its `teardown`, and 1.0 everywhere else. It raises
 every source by the same amount, so the balance between them is the binary's; past full
 scale OpenAL Soft's output limiter, asked for explicitly, squeezes the peaks. The music
 and ambience players and the notes whose file is `bgm_*` or the rain divide their gain by
-it, so they are heard as before. `WEAPONVOLUME`, `ENTITYVOLUME` and `PLAYERVOLUME` are
+it, so they are heard as before. `WEAPONVOLUME` and `PLAYERVOLUME` are
 percentages like the others, squared, 100 exactly the binary's; `volume.group_of` sorts a
 sound by its folder (`sfx/weapons`; `sfx/zombies`, `sfx/monsters`, `sfx/characters`) or
 its name (`player_*`; a weapon's hit, `weapon_*_att1` and `2`, counts as an entity, since
 it is the zombie being struck) as its buffer loads, and `oal_playback` applies it with the master
 volume. Each source keeps the gain the game asked for, so a change reaches sounds already
-playing. Page Up and Page Down in play step the gain by 1 dB, and with Shift, Control or
-Alt a group by ten; each press is saved and said in both speech modes.
+playing. Page Up and Page Down in play step the gain by 1 dB, and with Shift or Alt a
+group by ten; each press is saved and said in both speech modes. The entities (the
+zombies, the bosses, the monster, the woman, and a weapon's hit on one) had a volume too,
+`ENTITYVOLUME` on Control, until tunmi13productions removed it on 2026-09-28
+(`aidocks/project_entity_full_volume_plan.md`): they are what the player listens for, so
+they are always at full volume, Control with Page Up or Page Down does nothing, and an old
+`ENTITYVOLUME` is dropped from settings.json (`defaults.RETIRED_KEYS`).
 
-**Every recording is levelled to one loudness** (tunmi13productions, 2026-09-27; `aidocks/project_sound_trims_plan.md`). The original's WAVs were never matched: the zombies' loops sit at about -5 LUFS, the gun's hit at -9.5, a spoken number near -18, the cave ambience at -53. `sixthsense/platform/sound_trims.py` holds a trim in decibels per file, which `tools/sound_trims.py` measures (ITU-R BS.1770 loudness) to bring every file the game plays, the music, the ambience and the breathing included, to -12 LUFS, a boost being at most 12 dB, so a few very quiet files (the cave ambience, the breathing, the rain) come up 12 dB and stop short. The binary's gains then set the mix on top, as they always did. Every trim multiplies `AL_GAIN`, in `oal_playback._gain` and in the music and ambience players' `_heard`, after the game's own gain is capped at 1.0 as OpenAL capped it before; every source's `AL_MAX_GAIN` is raised to 4.0 (`sound_trims.MAX_GAIN`), which the original never sets, so a boost passes 1.0, and the output limiter holds the peaks. The files on disk are the original's and load bit for bit; `volume.SOUND_TRIMS_ON`, or F8 in debug mode, turns it all off. The two bosses' approach loops, `zombies_boss_1_coming_cave` and `zombies_boss_3_coming_forest`, are the exception (tunmi13productions, 2026-09-28; `aidocks/project_boss_loudness_plan.md`): levelling cut them 5 and 6 dB and left the boss level with the zombies, so `BY_EAR` boosts both 3 dB instead, keeping the boss above the mix as the recordings had it.
+**Every recording is levelled to one loudness** (tunmi13productions, 2026-09-27; `aidocks/project_sound_trims_plan.md`). The original's WAVs were never matched: the zombies' loops sit at about -5 LUFS, the gun's hit at -9.5, a spoken number near -18, the cave ambience at -53. `sixthsense/platform/sound_trims.py` holds a trim in decibels per file, which `tools/sound_trims.py` measures (ITU-R BS.1770 loudness) to bring every file the game plays, the music, the ambience and the breathing included, to -12 LUFS, a boost being at most 12 dB, so a few very quiet files (the cave ambience, the breathing, the rain) come up 12 dB and stop short. The binary's gains then set the mix on top, as they always did. Every trim multiplies `AL_GAIN`, in `oal_playback._gain` and in the music and ambience players' `_heard`, after the game's own gain is capped at 1.0 as OpenAL capped it before; every source's `AL_MAX_GAIN` is raised to 4.0 (`sound_trims.MAX_GAIN`), which the original never sets, so a boost passes 1.0, and the output limiter holds the peaks. The files on disk are the original's and load bit for bit; `volume.SOUND_TRIMS_ON`, or F8 in debug mode, turns it all off. No sound under `sfx/zombies`, `sfx/monsters` or `sfx/characters` is ever cut, only boosted (tunmi13productions, 2026-09-28; `aidocks/project_entity_full_volume_plan.md`): they are what the player listens for, so a loud one such as zombie 10's approach plays as recorded (`tools/sound_trims.NEVER_CUT`). The two bosses' approach loops, `zombies_boss_1_coming_cave` and `zombies_boss_3_coming_forest`, are the exception (tunmi13productions, 2026-09-28; `aidocks/project_boss_loudness_plan.md`): levelling cut them 5 and 6 dB and left the boss level with the zombies, so `BY_EAR` boosts both 3 dB instead, keeping the boss above the mix as the recordings had it.
 
 **A weapon's hit fades as the zombie does, and the headshot call is louder** (tunmi13productions, 2026-09-27). The original queues a zombie's own sounds through `MonsterQueueNote:` (0xe188), reference distance 100 and maximum 1600, but every hit on it through `playSound:` (0x6658) and `queueNote:` (0xe028), 40 and 800, so past 100 a hit was always about 8 dB under the zombie it landed on. The gun's impact (56, `MonsterHitSound:` 0x12110), its killing hit (79, 0x3a83a) and the blades' `att1` and `att2` (0x39a46) now go through `AppDelegate.playHitSound_Gain_Pos_z_`, which uses `MonsterQueueNote:`; their gains and positions are the binary's. The headshot call, `headshot_4` (330), plays at 0.2 (`Stage_1_E.HEADSHOT_CALL_GAIN`), level with every spoken row, instead of 0.1 (0x3a24a). The impact still asks for 2.5 (0x12110) and still gets 1.0, as it always did.
 

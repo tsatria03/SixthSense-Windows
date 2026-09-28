@@ -103,10 +103,10 @@ the real game. Finished once, by either route, Start Game goes straight into the
 The save lives in `%APPDATA%\SixthSense`, in three files: `save.json` (progress),
 `settings.json` (the volumes and voice over) and `keys.json` (the key bindings).
 `settings.json` holds `MASTERVOLUME`, `MENUMUSICVOLUME`, `LEVELMUSICVOLUME`,
-`AMBIENCEVOLUME`, `WEAPONVOLUME`, `ENTITYVOLUME` and `PLAYERVOLUME`, whole percentages
+`AMBIENCEVOLUME`, `WEAPONVOLUME` and `PLAYERVOLUME`, whole percentages
 from 0 to 100, where 100 is the original's mix, and `GAMEPLAYGAIN`, whole decibels from 0
 to 6, where 0 is; they are read on the next start, and the menu music, the gain and the
-three groups are also set by Page Up and Page Down. The first two hold the `NSUserDefaults` keys the original writes, under their
+two groups are also set by Page Up and Page Down. The first two hold the `NSUserDefaults` keys the original writes, under their
 own names, split by key; the original kept them all in one plist. A `defaults.json` from
 before the split is moved into the new files on the first start and kept as
 `defaults.json.old`.
@@ -136,7 +136,7 @@ chords: hold both keys together.
 | **F1** | key bindings — see below |
 | **Esc** | pause a stage, and resume it from the pause panel; back to the menu from the tutorial; quit from the menu |
 | **Page Up** / **Page Down** | the menu music louder / quieter, in the menu, the shop and the inventory: 0 to 100% in steps of ten, saved as `MENUMUSICVOLUME`, and said aloud with voice over off. The level music is left alone |
-| **Page Up** / **Page Down** in play | the gameplay gain, 0 to 6 dB on OpenAL's listener: every sound effect and the recorded speech louder together, the music and ambience held where they were. With **Shift**, **Ctrl** or **Alt**: the weapons, the entities (zombies, bosses, the monster, the woman) or the player, 0 to 100% in tens. Saved in `settings.json` and said aloud in both speech modes |
+| **Page Up** / **Page Down** in play | the gameplay gain, 0 to 6 dB on OpenAL's listener: every sound effect and the recorded speech louder together, the music and ambience held where they were. With **Shift** or **Alt**: the weapons or the player, 0 to 100% in tens. The entities (zombies, bosses, the monster, the woman) are always at full volume, and **Ctrl** with these keys does nothing. Saved in `settings.json` and said aloud in both speech modes |
 
 When the pause or result panel is up, the keyboard belongs to it: **Up** and **Down**
 walk its rows, **Enter** chooses. The same goes for the menu, the shop and the

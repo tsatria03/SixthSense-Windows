@@ -137,6 +137,18 @@ def test_settings_json_is_written_in_its_own_order():
         assert sorted(order, key=text.index) == order, text
 
 
+def test_the_old_entity_volume_is_dropped():
+    """ENTITYVOLUME went on 2026-09-28; a lowered one from before is taken out of the file,
+    and the settings beside it are kept."""
+    with _Folder() as f:
+        f.write('save.json', json.dumps({'GOLD': '7'}))
+        f.write('settings.json', json.dumps({'MASTERVOLUME': 80, 'ENTITYVOLUME': 20}))
+        d = UserDefaults()
+        assert d.objectForKey_('ENTITYVOLUME') is None
+        assert f.read('settings.json') == {'MASTERVOLUME': 80}
+        assert f.read() == {'GOLD': '7'}
+
+
 def test_an_old_defaults_json_is_moved_over_and_kept():
     with _Folder() as f:
         f.write('defaults.json', json.dumps({'GOLD': '7000', 'COIN': '3', 'M4': '1',

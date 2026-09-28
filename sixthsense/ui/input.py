@@ -55,16 +55,20 @@ LANE_ACTIONS = {'lane1': 1, 'lane2': 2, 'lane3': 3, 'lane4': 4, 'lane5': 5}
 VOLUME_STEP_KEYS = {'page up': 1, 'page down': -1}
 #: (the pygame modifier, its setting, what is said), tried in this order.
 VOLUME_MODIFIERS = (('KMOD_SHIFT', volume.WEAPON_KEY, 'Weapons'),
-                    ('KMOD_CTRL', volume.ENTITY_KEY, 'Entities'),
                     ('KMOD_ALT', volume.PLAYER_KEY, 'Player'))
+#: Control set the entities until tunmi13productions removed that on 2026-09-28; they are
+#: always at full volume, and Control with either key now does nothing.
+IGNORED_MODIFIER = 'KMOD_CTRL'
 
 
 def gameplay_volume_key(name, mod, stage, pygame):
-    """Page Up or Page Down in play: step the gain, or with Shift, Control or Alt the
-    weapons, the entities or the player, and say the new value in either speech mode,
-    since no recording says it.  True when ``name`` was one of the two keys."""
+    """Page Up or Page Down in play: step the gain, or with Shift or Alt the weapons or
+    the player, and say the new value in either speech mode, since no recording says it.
+    True when ``name`` was one of the two keys."""
     if name not in VOLUME_STEP_KEYS:
         return False
+    if mod & getattr(pygame, IGNORED_MODIFIER, 0):
+        return True
     key, what = volume.GAMEPLAY_GAIN_KEY, None
     for flag, setting, label in VOLUME_MODIFIERS:
         if mod & getattr(pygame, flag, 0):

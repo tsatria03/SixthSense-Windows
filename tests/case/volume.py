@@ -116,8 +116,7 @@ def test_every_volume_at_100_is_the_original_mix():
 def test_each_volume_moves_only_its_own_group():
     defaults, wrote, saved = _loaded(MASTERVOLUME=100, MENUMUSICVOLUME=100,
                                      LEVELMUSICVOLUME=50, AMBIENCEVOLUME=0,
-                                     GAMEPLAYGAIN=0, WEAPONVOLUME=100, ENTITYVOLUME=100,
-                                     PLAYERVOLUME=100)
+                                     GAMEPLAYGAIN=0, WEAPONVOLUME=100, PLAYERVOLUME=100)
     try:
         assert not wrote, 'a complete file was written again'
         assert abs(volume.music(0.02) - 0.005) < 1e-12, 'half is not a quarter of the gain'
@@ -165,7 +164,7 @@ def test_settings_json_lists_them_in_the_devs_order():
     from sixthsense.platform.defaults import SETTINGS_KEYS
     assert SETTINGS_KEYS == ('MASTERVOLUME', 'MENUMUSICVOLUME', 'LEVELMUSICVOLUME',
                              'AMBIENCEVOLUME', 'GAMEPLAYGAIN', 'WEAPONVOLUME',
-                             'ENTITYVOLUME', 'PLAYERVOLUME', 'EYEMODE')
+                             'PLAYERVOLUME', 'EYEMODE')
 
 
 def test_the_gameplay_gain_is_whole_decibels_from_0_to_6():
