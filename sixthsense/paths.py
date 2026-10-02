@@ -20,7 +20,8 @@ Because the top folder comes first, an untouched original bundle still works: it
 all found where the original found them.
 
 The port never writes to ``game/``.  The save file lives in ``%APPDATA%\\SixthSense`` on
-Windows, ``~/.local/share/SixthSense`` on Linux, or wherever ``SIXTHSENSE_USER_DIR`` points,
+Windows, ``~/.local/share/SixthSense`` on Linux, ``~/Library/Application Support/SixthSense``
+on macOS, or wherever ``SIXTHSENSE_USER_DIR`` points,
 which the tests use.
 
 ``--game PATH`` (or ``SIXTHSENSE_GAME``) points somewhere else: another copy of the
@@ -41,9 +42,15 @@ else:
 
 VENDOR = os.path.join(ROOT, 'vendor')
 WINDOWS = sys.platform == 'win32'
-#: OpenAL Soft: soft_oal.dll on Windows, libopenal.so.1 on Linux (2026-09-28,
-#: aidocks/project_linux_build_plan.md).
-OPENAL_LIB_NAME = 'soft_oal.dll' if WINDOWS else 'libopenal.so.1'
+MACOS = sys.platform == 'darwin'
+#: PORT ADDITION: macOS uses the source-built universal2 Big Sur library (2026-10-02,
+#: aidocks/project_macos_runtime_plan.md); Windows and Linux keep their own binaries.
+def openal_lib_name(platform: str) -> str:
+    return {'win32': 'soft_oal.dll', 'darwin': 'libopenal.1.dylib'}.get(
+        platform, 'libopenal.so.1')
+
+
+OPENAL_LIB_NAME = openal_lib_name(sys.platform)
 OPENAL_DLL = os.path.join(VENDOR, 'openal', OPENAL_LIB_NAME)
 NVDA_DLL = os.path.join(VENDOR, 'nvda', 'nvdaControllerClient64.dll')
 
@@ -176,17 +183,19 @@ def path_for_resource(name: str, ext: str | None = None) -> str | None:
 
 
 def save_base() -> str:
-    """The folder the save's own folder goes in: ``%APPDATA%`` on Windows, and elsewhere
-    ``$XDG_DATA_HOME``, which is ``~/.local/share`` when unset."""
+    """The save's parent: APPDATA, macOS Application Support, or Linux XDG data."""
     if WINDOWS:
         return os.environ.get('APPDATA') or os.path.expanduser('~')
+    if MACOS:
+        return os.path.join(os.path.expanduser('~'), 'Library', 'Application Support')
     return (os.environ.get('XDG_DATA_HOME')
             or os.path.join(os.path.expanduser('~'), '.local', 'share'))
 
 
 def user_dir() -> str:
     """Where ``NSUserDefaults`` and the save game live: ``%APPDATA%\\SixthSense``, or on
-    Linux ``$XDG_DATA_HOME/SixthSense`` (``~/.local/share/SixthSense``), or the folder
+    Linux ``$XDG_DATA_HOME/SixthSense`` (``~/.local/share/SixthSense``), on macOS
+    ``~/Library/Application Support/SixthSense``, or the folder
     ``SIXTHSENSE_USER_DIR`` names.  The tests set that to a throwaway folder, so they never
     read or write the real save."""
     p = os.environ.get(USER_DIR_ENV)

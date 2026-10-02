@@ -127,6 +127,21 @@ def test_a_deleted_source_is_not_started_again():
     assert a.state[1] == 'stopped'
 
 
+def test_missing_macos_library_does_not_fall_back_to_another_openal():
+    from unittest.mock import patch
+    with patch.object(openal.paths, 'WINDOWS', False), \
+            patch.object(openal.paths, 'MACOS', True), \
+            patch('os.path.exists', return_value=False), \
+            patch.object(openal.ctypes, 'CDLL') as load:
+        try:
+            openal.AL()
+        except openal.OpenALError:
+            pass
+        else:
+            raise AssertionError('missing bundled macOS library was accepted')
+        load.assert_not_called()
+
+
 def test_the_real_library_can_check_and_reopen():
     a = openal.AL()
     a.open()

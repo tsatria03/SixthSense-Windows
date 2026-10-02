@@ -10,6 +10,9 @@ The game says so itself when it starts.
 
 Starting the game
 
+macOS builds require macOS 11 or newer, or a newer version if specified by the build.
+On macOS, copy SixthSense.app to Applications or another folder and open it in Finder.
+
 When the game opens, it plays Bitbee's logo, then the opening screen.
 Enter skips the logo, and Escape goes straight to the main menu.
 The opening screen has three rows: the welcome, how to skip, and the game's story.
@@ -75,7 +78,7 @@ Up and Down move through the actions, and Enter changes the key for the one you 
 A adds a second key, and Delete removes a key.
 Press R twice to put every key back as it was.
 Escape or F1 goes back, and neither of those two keys can be changed, so there is always a way out.
-The key bindings screen speaks through your screen reader, or through a Windows voice if none is running.
+The key bindings screen speaks through your screen reader, or through a system voice if none is running.
 
 How to play
 
@@ -112,12 +115,13 @@ Choose the voice over row in the main menu to turn it on or off.
 Your save
 
 Your progress is saved in save.json, your settings, such as voice over and the menu music volume, in settings.json, and your keys in keys.json.
-All three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
-On Linux, they are in the SixthSense folder in ~/.local/share instead.
+On Windows, all three are in the SixthSense folder in your AppData Roaming folder, which you can open by typing %APPDATA%\SixthSense into the Windows Run box.
+On Linux, they are in ~/.local/share/SixthSense, or $XDG_DATA_HOME/SixthSense when set.
+On macOS, they are in ~/Library/Application Support/SixthSense.
 In settings.json you can set six volumes, from 0 for silent to 100, the original's mix.
 MASTERVOLUME is everything, MENUMUSICVOLUME the menu music, LEVELMUSICVOLUME the music during a game, AMBIENCEVOLUME the cave, the forest and the rain, WEAPONVOLUME the weapons, and PLAYERVOLUME your own sounds.
 GAMEPLAYGAIN is the gain during a game, from 0 to 6 decibels, where 0 is the original's mix; a number it cannot use counts as 0.
-Change a number in Notepad, save the file and start the game again to hear it.
+Change a number in a text editor, save the file and start the game again to hear it.
 A number the game cannot use counts as 100.
 If a save from an older version is there, called defaults.json, the game moves it into the new files by itself and keeps the old one as defaults.json.old.
 If one of the files is ever damaged, the game keeps it with .damaged on the end of its name and carries on from a backup.

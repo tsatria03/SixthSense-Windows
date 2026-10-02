@@ -1,6 +1,7 @@
 """Build SixthSense into an executable with PyInstaller.
 
-It builds the game into dist\\SixthSense-Windows on Windows, or dist/SixthSense-Linux on Linux, and nothing else: it never zips and never changes the
+It builds into dist/SixthSense-Windows, dist/SixthSense-Linux or dist/SixthSense-macOS
+for the current system, and nothing else: it never zips and never changes the
 repository.  Setting the version, filing the changelog, zipping, tagging and uploading a release are
 releaser.py's work, and the releaser calls this to do the building.
 
@@ -32,6 +33,9 @@ Nothing else in the original app bundle is copied: the game never opens any of i
 There is no --test yet.  A test build would start the game and read its log; SixthSense does not write a
 log, or a crash.txt, so there is nothing for a test run to read.  A windowed build that fails says
 why aloud, in one line; build with --console to see the whole traceback.
+
+macOS builds are self-contained .app bundles for the build Python's architecture; --console keeps
+the console-folder format for debugging.
 """
 from __future__ import annotations
 
@@ -41,6 +45,7 @@ import importlib.machinery
 import importlib.metadata
 import importlib.util
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -77,14 +82,19 @@ SYSTEMS = {
     'linux': dict(folder='Linux', exe=NAME, zip='Linux', archive='tar.gz',
                   binaries=(('vendor/openal/libopenal.so.1', 'vendor/openal'),),
                   licenses=(_OPENAL_LICENSES,)),
+    # Native-architecture app.
+    'darwin': dict(folder='macOS', exe=NAME, zip='macOS-' + platform.machine(), archive='tar.gz',
+                   binaries=(('vendor/openal/libopenal.1.dylib', 'vendor/openal'),),
+                   licenses=(('openal-soft', _OPENAL_LICENSES[1] +
+                              ('vendor/openal/license-fmt.txt', 'vendor/openal/license-gsl.txt')),)),
 }
 
 
 def system_key(platform: str = sys.platform) -> str | None:
     """The SYSTEMS entry for ``platform`` - sys.platform is 'linux' on every Linux, WSL included - or None
     for a system with no build."""
-    if platform == 'win32':
-        return 'win32'
+    if platform in ('win32', 'darwin'):
+        return platform
     return 'linux' if platform.startswith('linux') else None
 
 
@@ -218,7 +228,7 @@ def problems_now() -> list[str]:
     """Everything that would stop the build, in plain words."""
     found = []
     if system_key() is None:
-        found.append('this builds on Windows or Linux, and this is %s' % sys.platform)
+        found.append('this builds on Windows, Linux or macOS, and this is %s' % sys.platform)
     if sys.maxsize <= 2 ** 32:
         found.append('use 64-bit Python: the vendored libraries are 64-bit')
     if importlib.util.find_spec('PyInstaller') is None:
@@ -252,6 +262,11 @@ EMBED_STAGE = os.path.join(HERE, 'build', 'embed', 'game')
 #: Where every build gathers the third-party licenses, which go inside the executable as licenses\
 #: (tsatria03, 2026-09-25); only the port's own license.txt stays beside it.
 LICENSES_STAGE = os.path.join(HERE, 'build', 'embed', 'licenses')
+APP_DOCS_STAGE = os.path.join(HERE, 'build', 'embed', 'app-docs')
+
+
+def app_bundle(args) -> bool:
+    return system_key() == 'darwin' and not args.console
 
 
 def embedded_data(src: str) -> list[tuple[str, str]]:
@@ -283,6 +298,8 @@ def stage_embedded(src: str) -> list[str]:
 def command(args, data=()) -> list[str]:
     """The PyInstaller command line.  ``data`` is what --embed adds inside the executable."""
     cmd = [sys.executable, '-m', 'PyInstaller', '--noconfirm', '--noupx', '--name', NAME]
+    if system_key() == 'darwin':
+        cmd += ['--target-arch', platform.machine()]
     for src, dest in BINARIES:
         cmd += ['--add-binary', src + os.pathsep + dest]
     # Prism is imported only once NVDA is found not to be running, so it is named outright rather than left
@@ -296,7 +313,11 @@ def command(args, data=()) -> list[str]:
         # no console window beside the game's own.  A failure is said aloud in one line;
         # --console shows the whole traceback
         cmd += ['--windowed']
-    if args.onefile or args.embed:
+    if app_bundle(args):
+        cmd += ['--osx-bundle-identifier', 'org.sixthsense.port',
+                '--add-data', APP_DOCS_STAGE + os.pathsep + '.']
+    # An onedir .app is one copyable item in Finder without unpacking at launch.
+    if (args.onefile or args.embed) and not app_bundle(args):
         # one file lands in dist\SixthSense-Windows too, so every build is one folder to zip and nothing
         # else in dist\ - an older zip, say - is swept into it
         cmd += ['--onefile', '--distpath', output_dir(args)]
@@ -325,7 +346,10 @@ def clear_output(dest_root: str) -> None:
     """Empty dist\\SixthSense-Windows before a build, and dist\\SixthSense, where a folder build first
     lands and where builds went before 2026-09-25.  A one-file build only writes its executable, and would
     leave an older build's files around it."""
-    for folder in (dest_root, pyinstaller_dir()):
+    folders = [dest_root, pyinstaller_dir()]
+    if system_key() == 'darwin':
+        folders.append(pyinstaller_dir() + '.app')
+    for folder in folders:
         if os.path.isdir(folder):
             shutil.rmtree(folder)
 
@@ -335,6 +359,14 @@ def move_folder_build(dest_root: str) -> None:
     built = pyinstaller_dir()
     if os.path.normcase(built) != os.path.normcase(dest_root) and os.path.isdir(built):
         os.replace(built, dest_root)
+
+
+def move_app_build(dest_root: str) -> str:
+    """Move PyInstaller's finished app without changing its contents or signature."""
+    os.makedirs(dest_root, exist_ok=True)
+    target = os.path.join(dest_root, NAME + '.app')
+    os.replace(pyinstaller_dir() + '.app', target)
+    return target
 
 
 def game_files(src: str) -> list[str]:
@@ -489,6 +521,9 @@ def main(argv=None) -> int:
         say()
 
     dest_root = output_dir(args)
+    bundle = app_bundle(args)
+    if bundle and (args.onefile or args.embed):
+        say('macOS app bundles use onedir; --console enables the single-executable options.')
     src = None
     if not args.no_game:
         from sixthsense import paths
@@ -501,7 +536,8 @@ def main(argv=None) -> int:
         if not args.dry_run:
             return 2
 
-    data = embedded_data(src) if args.embed and src else []
+    data_inside = args.embed or bundle
+    data = embedded_data(src) if data_inside and src else []
     cmd = command(args, data)
     say('running: python ' + ' '.join(cmd[1:]))
     if args.dry_run:
@@ -509,7 +545,7 @@ def main(argv=None) -> int:
             say("the game's data would be left out.")
         elif src is None:
             say("the game's data was not found, so none would be copied.")
-        elif args.embed:
+        elif data_inside:
             say("the game's data would go inside the executable, from %s: %s, and nothing else from the "
                 'app bundle' % (src, data_summary(game_files(src) + sound_files(src))))
         else:
@@ -530,17 +566,31 @@ def main(argv=None) -> int:
             say('before releasing: ' + warning)
         return 0
 
-    if args.embed:
+    if data_inside and src:
         names = stage_embedded(src)
         say("the game's data goes inside the executable: %s."
             % data_summary(names + sound_files(src)))
     stage_licenses()
+    if bundle:
+        if os.path.isdir(APP_DOCS_STAGE):
+            shutil.rmtree(APP_DOCS_STAGE)
+        os.makedirs(APP_DOCS_STAGE)
+        copy_side_files(APP_DOCS_STAGE)
+        strip_shipped_changelog(APP_DOCS_STAGE)
     clear_output(dest_root)
     started = time.perf_counter()
     if subprocess.run(cmd).returncode != 0:
         say("PyInstaller failed - its own output above says why.")
         return 1
     say('built in %.0f seconds.' % (time.perf_counter() - started))
+    if bundle:
+        try:
+            app_path = move_app_build(dest_root)
+        except OSError as error:
+            say('the app could not be finalized: %s' % error)
+            return 1
+        say('the game is %s; copy this app on its own.' % app_path)
+        return 0
     if not (args.onefile or args.embed):
         move_folder_build(dest_root)
 
@@ -573,6 +623,15 @@ MENU = (
     ("Build without the game's data", ['--no-game']),
     ('Show what a build would do, without building anything', ['--dry-run']),
 )
+if system_key() == 'darwin':
+    MENU = (
+        ('App build: a self-contained SixthSense.app to copy and open in Finder', []),
+        ('Clean app build: empty PyInstaller caches first', ['--clean']),
+        ('Console folder build for debugging', ['--console']),
+        ('Console single executable with game data inside', ['--console', '--embed']),
+        ("App build without the game's data", ['--no-game']),
+        ('Show what an app build would do without building', ['--dry-run']),
+    )
 
 
 def menu() -> list | None:

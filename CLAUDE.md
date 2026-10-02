@@ -63,6 +63,8 @@ This needs 64-bit Python 3.12 or newer, pygame and `prismatoid` (Prism). Without
 
 ## Where the detail lives
 
+- **macOS runtime** (11+, universal OpenAL, Prism speech and Application Support saves): [[project_macos_runtime_plan]]. **Native-architecture app builds** and console debugging builds: [[project_macos_build_plan]].
+
 - **The current state, the known bugs, the three todo-list root causes, open decisions and the fix order**: [[project_evaluation_2026_09]].
 - **Reading the binary correctly**: [[project_binary_analysis_notes]].
 - **The screen reader mode** (the voice over row off means the screen reader speaks the game's words; built for the menus and the result panel; the tutorial stays recorded): [[project_screen_reader_mode]].

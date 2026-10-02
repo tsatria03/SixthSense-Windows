@@ -129,9 +129,9 @@ class AL:
     def __init__(self, dll_path: str | None = None):
         path = dll_path or paths.OPENAL_DLL
         if not os.path.exists(path):
-            if dll_path or paths.WINDOWS:
+            if dll_path or paths.WINDOWS or paths.MACOS:
                 raise OpenALError('OpenAL Soft not found: %s' % path)
-            path = paths.OPENAL_LIB_NAME    # off Windows, the system's own copy, by name
+            path = paths.OPENAL_LIB_NAME    # Linux: the system's own copy, by name
         if hasattr(os, 'add_dll_directory'):
             try:
                 os.add_dll_directory(os.path.dirname(os.path.abspath(path)))

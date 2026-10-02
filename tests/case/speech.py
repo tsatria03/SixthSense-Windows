@@ -84,6 +84,7 @@ class _Ids:
     PC_TALKER, BOY_PC_READER, SENSE_READER = 'PC_TALKER', 'BOY_PC_READER', 'SENSE_READER'
     WINDOW_EYES, UIA, SAPI, ONE_CORE = 'WINDOW_EYES', 'UIA', 'SAPI', 'ONE_CORE'
     ORCA, SPEECH_DISPATCHER = 'ORCA', 'SPEECH_DISPATCHER'
+    VOICE_OVER, AV_SPEECH = 'VOICE_OVER', 'AV_SPEECH'
 
 
 class _Context:
@@ -191,6 +192,18 @@ def test_on_linux_orca_speaks_and_speech_dispatcher_is_the_voice():
     s2, _ctx2, _clock2 = _speech({'ORCA': orca2, 'SPEECH_DISPATCHER': spd2})
     assert s2.speak('hello') is True
     assert spd2.spoken == [('speak', 'hello', True)] and not orca2.spoken
+
+
+def test_on_macos_voiceover_speaks_and_avspeech_is_the_voice():
+    reader = _Backend('VoiceOver')
+    voice = _Backend('AVSpeech', braille=False)
+    s, _ctx, _clock = _speech({'VOICE_OVER': reader, 'AV_SPEECH': voice})
+    assert s.speak('hello') is True
+    assert reader.spoken == [('output', 'hello', True)] and not voice.spoken
+    fallback = _Backend('AVSpeech', braille=False)
+    s2, _ctx, _clock = _speech({'AV_SPEECH': fallback})
+    assert s2.speak('hello') is True
+    assert fallback.spoken == [('speak', 'hello', True)]
 
 
 def test_no_prism_means_nvda_alone_and_no_crash():

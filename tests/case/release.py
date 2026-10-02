@@ -250,7 +250,7 @@ def test_preparing_with_nothing_waiting_does_nothing():
 
 def test_the_zip_is_named_for_the_version():
     assert releaser.zip_path('26.09.23-1') == os.path.join(
-        ROOT, 'dist', 'SixthSense-Win-26.09.23-1.zip')
+        ROOT, 'dist', releaser.zip_name('26.09.23-1'))
     assert releaser.find_zip('00.00.00-0') is None
 
 
@@ -258,7 +258,7 @@ def test_each_system_has_its_own_zip():
     """tunmi13productions, 2026-09-28: one release carries both builds, each in its own zip."""
     assert releaser.zip_name('26.09.28-1', compiler.SYSTEMS['win32']) == 'SixthSense-Win-26.09.28-1.zip'
     assert releaser.zip_name('26.09.28-1', compiler.SYSTEMS['linux']) == 'SixthSense-Linux-26.09.28-1.tar.gz'
-    assert releaser.zip_name('26.09.28-1') == 'SixthSense-Win-26.09.28-1.zip'     # the tests run on Windows
+    assert releaser.zip_name('26.09.28-1') == releaser.zip_name('26.09.28-1', compiler.SYSTEM)
 
 
 class _Release:
@@ -328,10 +328,9 @@ def test_the_releaser_zips_the_build_under_one_folder():
             leftover = os.path.exists(archive + '.part')
         finally:
             releaser.zip_path = saved
-    # the zip extracts to a SixthSense-Windows folder (tsatria03, 2026-09-25)
-    assert names == ['SixthSense-Windows/SixthSense.exe', 'SixthSense-Windows/VERSION',
-                     'SixthSense-Windows/docks/todo list.txt',
-                     'SixthSense-Windows/game/SoundList.plist']
+    # The archive extracts to the current system's build folder.
+    assert names == [compiler.FOLDER + '/' + name for name in
+                     ('SixthSense.exe', 'VERSION', 'docks/todo list.txt', 'game/SoundList.plist')]
     assert not leftover
 
 
@@ -435,7 +434,7 @@ def test_the_players_readme_has_no_markdown():
 def test_a_folder_build_puts_nothing_of_the_games_inside():
     """Nothing of the game's own goes inside a folder build; only the third-party licenses
     do (tsatria03, 2026-09-25)."""
-    cmd = compiler.command(_Args())
+    cmd = compiler.command(_Args(console=True))
     assert '--onefile' not in cmd
     added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
     assert added == [compiler.LICENSES_STAGE + os.pathsep + 'licenses'], added
@@ -458,7 +457,8 @@ def test_the_third_party_licenses_go_inside_and_license_txt_stays_beside():
         found = [os.path.relpath(os.path.join(d, f), stage).replace(os.sep, '/')
                  for d, _s, fs in os.walk(stage) for f in fs]
     assert copied == len(found) and copied > 0, found
-    assert 'openal-soft/license.txt' in found and 'nvda-controller-client/license.txt' in found
+    assert 'openal-soft/license.txt' in found
+    assert ('nvda-controller-client/license.txt' in found) == (compiler.system_key() == 'win32')
 
 
 def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
@@ -466,9 +466,9 @@ def test_embedding_puts_the_sounds_and_the_data_inside_one_executable():
         os.makedirs(os.path.join(bundle, 'sounds', 'used', 'sfx'))
         os.makedirs(os.path.join(bundle, 'sounds', 'unused', 'sfx'))
         data = compiler.embedded_data(bundle)
-        cmd = compiler.command(_Args(embed=True), data)
+        cmd = compiler.command(_Args(embed=True, console=True), data)
     assert '--onefile' in cmd
-    assert cmd[cmd.index('--distpath') + 1] == os.path.join(ROOT, 'dist', 'SixthSense-Windows')
+    assert cmd[cmd.index('--distpath') + 1] == compiler.output_dir()
     assert cmd[cmd.index('--name') + 1] == 'SixthSense'
     added = [cmd[i + 1] for i, part in enumerate(cmd) if part == '--add-data']
     assert compiler.EMBED_STAGE + os.pathsep + 'game' in added
@@ -489,7 +489,7 @@ def test_every_build_lands_in_one_folder():
     """tsatria03, 2026-09-25: the folder is SixthSense-Windows, and the executable inside it
     is still SixthSense.exe."""
     assert compiler.output_dir(_Args()) == compiler.output_dir(_Args(embed=True)) \
-        == os.path.join(ROOT, 'dist', 'SixthSense-Windows') == releaser.BUILD_DIR
+        == os.path.join(ROOT, 'dist', compiler.FOLDER) == releaser.BUILD_DIR
 
 
 def test_each_system_builds_its_own_folder_with_its_own_libraries():
@@ -497,21 +497,39 @@ def test_each_system_builds_its_own_folder_with_its_own_libraries():
     executable with no .exe, with OpenAL Soft's Linux library and no NVDA client."""
     assert compiler.system_key('win32') == 'win32'
     assert compiler.system_key('linux') == compiler.system_key('linux2') == 'linux'
-    assert compiler.system_key('darwin') is None
+    assert compiler.system_key('darwin') == 'darwin'
     win, linux = compiler.SYSTEMS['win32'], compiler.SYSTEMS['linux']
     assert (win['folder'], win['exe']) == ('Windows', 'SixthSense.exe')
     assert (linux['folder'], linux['exe']) == ('Linux', 'SixthSense')
     assert [src for src, _ in linux['binaries']] == ['vendor/openal/libopenal.so.1']
     assert not any('nvda' in src for src, _ in linux['binaries'])
     assert not any(folder == 'nvda-controller-client' for folder, _ in linux['licenses'])
-    for system in (win, linux):
+    for system in (win, linux, compiler.SYSTEMS['darwin']):
         for src, _ in system['binaries']:
             assert os.path.isfile(os.path.join(ROOT, src)), src
         for _folder, files in system['licenses']:
             for src in files:
                 assert os.path.isfile(os.path.join(ROOT, src)), src
-    # on Windows, where the tests run, the build is the Windows one, as it always was
-    assert compiler.SYSTEM is win and compiler.FOLDER == 'SixthSense-Windows'
+    assert compiler.SYSTEM is compiler.SYSTEMS[compiler.system_key()]
+    assert compiler.FOLDER == 'SixthSense-' + compiler.SYSTEM['folder']
+
+
+def test_macos_builds_a_copyable_native_app():
+    from unittest.mock import patch
+    with patch.object(compiler, 'system_key', return_value='darwin'):
+        for arch in ('arm64', 'x86_64'):
+            with patch.object(compiler.platform, 'machine', return_value=arch):
+                for flags in ({}, {'console': True}, {'embed': True}, {'onefile': True}):
+                    cmd = compiler.command(_Args(**flags))
+                    assert cmd[cmd.index('--target-arch') + 1] == arch
+                    assert ('--windowed' in cmd) == (not flags.get('console', False))
+                    if not flags.get('console', False):
+                        assert '--onefile' not in cmd
+                        assert compiler.APP_DOCS_STAGE + os.pathsep + '.' in cmd
+    for system in ('win32', 'linux'):
+        with patch.object(compiler, 'system_key', return_value=system):
+            assert '--target-arch' not in compiler.command(_Args())
+            assert '--windowed' in compiler.command(_Args())
 
 
 def test_a_folder_build_is_moved_to_the_windows_folder():

@@ -7,6 +7,8 @@ The `[[name]]` links in `CLAUDE.md` and across these memories resolve to `aidock
 - The player documents, `changelog.txt` and `todo list.txt`, live in the repo's `docks/` folder since the same day; the compiler ships them from there.
 
 ## Project: what the port is and how to work on it
+- [macOS builds](project_macos_build_plan.md): native-architecture app packaging, build command and checks.
+- [macOS runtime](project_macos_runtime_plan.md): universal OpenAL, macOS 11 target, Prism speech and Application Support saves.
 - [Python only](project_python_only.md): the port is written entirely in Python (pygame, OpenAL Soft through ctypes, NVDA or SAPI).
 - [compiler.py](project_compiler_py.md): the build script was adapted to Sixth Sense on 2026-09-21. The dev's console build works (confirmed 2026-09-22), and its zip holds all 643 files. Since 2026-09-23 it only builds, and releaser.py does the zipping ([[project_release_tooling_plan]]). It copies only the game files it needs: the plists and maps from the top folder, and `game/sounds/used/` with its folders (507 since the second sound sort, with `unused/` in builds too; 474 before). --test and readme.html were left out until the game writes a log and has a README.
 - [Release tooling plan](project_release_tooling_plan.md): FINISHED 2026-09-23, confirmed by the dev. compiler.py only builds `dist\SixthSense-Windows` (since 2026-09-25), as a folder or, with `--embed`, one exe holding the sounds and data (the docs, todo list included, stay beside it). releaser.py sets the date version, files the changelog, builds with the compiler, zips, commits, tags V<version> and uploads the zip to GitHub as "SixthSense V<version>". The dev makes every release with it.
