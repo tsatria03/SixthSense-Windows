@@ -14,6 +14,7 @@ Before every line, the first of these that can speak says it:
                  Access, PC-Talker, Boy PC Reader, Sense Reader, Window-Eyes, and Narrator
     a voice      SAPI 5 through Prism, or Windows' OneCore voices if SAPI will not start,
                  for a player with no screen reader running at all
+    Linux/macOS  Orca or Speech Dispatcher; VoiceOver or AVSpeech, through Prism
     nothing      if none of them can speak; the game still works, it just says nothing
 
 NVDA keeps a client of its own because asking it "are you running?" before every line is
@@ -39,15 +40,15 @@ log = logging.getLogger('speech')
 #: the order they are tried.  NVDA is first only as a backstop, for when its own client
 #: above cannot load.  Narrator is last: Prism reaches it through UI Automation, which says
 #: it is ready whether or not Narrator is running, so the game asks Windows instead.
-#: Orca is Linux's (2026-09-28, aidocks/project_linux_build_plan.md); Prism has each only on
-#: its own system, so the rest are simply not found there.
+#: Orca is Linux's; VoiceOver is macOS's (2026-10-02,
+#: aidocks/project_macos_runtime_plan.md). Prism has each only on its own system.
 READERS = ('NVDA', 'JAWS', 'ZDSR', 'ZOOM_TEXT', 'SYSTEM_ACCESS', 'PC_TALKER',
-           'BOY_PC_READER', 'SENSE_READER', 'WINDOW_EYES', 'ORCA', 'UIA')
+           'BOY_PC_READER', 'SENSE_READER', 'WINDOW_EYES', 'ORCA', 'VOICE_OVER', 'UIA')
 NARRATOR = 'UIA'
 NARRATOR_EXE = 'narrator.exe'
 #: The plain voices, for a player with no screen reader running: Windows' two, and Speech
-#: Dispatcher on Linux.
-VOICES = ('SAPI', 'ONE_CORE', 'SPEECH_DISPATCHER')
+#: Dispatcher on Linux, and AVSpeech on macOS.
+VOICES = ('SAPI', 'ONE_CORE', 'SPEECH_DISPATCHER', 'AV_SPEECH')
 #: Set to 1 by the tests: nothing is ever spoken or cut off, and neither NVDA's client nor
 #: Prism is loaded.  The game itself never sets it.
 SILENT_ENV = 'SIXTHSENSE_SILENT'

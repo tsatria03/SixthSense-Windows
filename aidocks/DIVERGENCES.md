@@ -455,6 +455,16 @@ It also adds eight keymap actions, which only match, and only show on the F1 scr
 
 ## Where the port necessarily differs
 
+### macOS runtime
+PORT ADDITION (2026-10-02): the Python port can
+select a bundled source-built universal2 OpenAL Soft 1.25.2 dylib on macOS Big Sur 11 or newer,
+instead of the original iOS OpenAL framework. Synthesized speech tries Prism's
+VoiceOver backend first, then AVSpeech. Existing recorded speech and gameplay
+are unchanged. `compiler.py` builds a self-contained native-architecture `SixthSense.app` in
+`dist/SixthSense-macOS`. `--console`
+keeps a console-folder build for debugging. Intel source and packaged builds
+were checked with silent gameplay under Rosetta, not on actual Intel hardware.
+
 ### Input
 There is no touchscreen and no accelerometer, and the port is keyboard-only — no
 mouse. The pan gesture becomes the keys **A Q W E D**, laid out as the arc the five
@@ -1001,6 +1011,10 @@ next one itself.
 preserved; there is no separate run-loop mode.
 
 ### `NSUserDefaults`
+On Linux the port uses `$XDG_DATA_HOME/SixthSense` (default `~/.local/share/SixthSense`).
+On macOS it uses `~/Library/Application Support/SixthSense` (2026-10-02,
+`project_macos_runtime_plan.md`). `SIXTHSENSE_USER_DIR` overrides
+all three systems for isolated tests and interactive tools.
 JSON files in `%APPDATA%\SixthSense`, same keys. The original keeps them all in one plist;
 since 2026-09-25 (tsatria03) the port splits them by key into `save.json`, the progress and
 any key not named as a setting, and `settings.json`, the preferences in

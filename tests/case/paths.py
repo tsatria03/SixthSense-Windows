@@ -162,15 +162,18 @@ def test_pointing_somewhere_else_forgets_the_old_sounds():
 def test_the_save_goes_where_sixthsense_user_dir_points():
     """The tests' way off the real save; without it, the save is in %APPDATA%\\SixthSense."""
     old_dir, old_appdata = os.environ.get(paths.USER_DIR_ENV), os.environ.get('APPDATA')
+    was = paths.WINDOWS
     top = tempfile.mkdtemp()
     try:
         mine = os.path.join(top, 'mine')
         os.environ[paths.USER_DIR_ENV] = mine
         assert paths.user_dir() == mine and os.path.isdir(mine)
         os.environ.pop(paths.USER_DIR_ENV)
+        paths.WINDOWS = True
         os.environ['APPDATA'] = top
         assert paths.user_dir() == os.path.join(top, 'SixthSense')
     finally:
+        paths.WINDOWS = was
         for key, old in ((paths.USER_DIR_ENV, old_dir), ('APPDATA', old_appdata)):
             if old is None:
                 os.environ.pop(key, None)
@@ -183,17 +186,18 @@ def test_on_linux_the_save_goes_in_the_users_data_folder():
     """2026-09-28: $XDG_DATA_HOME/SixthSense, which is ~/.local/share/SixthSense when unset."""
     keys = (paths.USER_DIR_ENV, 'XDG_DATA_HOME')
     old = {k: os.environ.get(k) for k in keys}
-    was = paths.WINDOWS
+    was = paths.WINDOWS, paths.MACOS
     top = tempfile.mkdtemp()
     try:
         os.environ.pop(paths.USER_DIR_ENV, None)
         paths.WINDOWS = False
+        paths.MACOS = False
         os.environ['XDG_DATA_HOME'] = top
         assert paths.user_dir() == os.path.join(top, 'SixthSense')
         os.environ.pop('XDG_DATA_HOME')
         assert paths.save_base() == os.path.join(os.path.expanduser('~'), '.local', 'share')
     finally:
-        paths.WINDOWS = was
+        paths.WINDOWS, paths.MACOS = was
         for k, v in old.items():
             if v is None:
                 os.environ.pop(k, None)
@@ -203,11 +207,26 @@ def test_on_linux_the_save_goes_in_the_users_data_folder():
 
 
 def test_openal_is_the_systems_own_library():
-    """soft_oal.dll on Windows and libopenal.so.1 on Linux, both kept in vendor/openal."""
-    assert paths.OPENAL_LIB_NAME == ('soft_oal.dll' if sys.platform == 'win32' else 'libopenal.so.1')
+    """Each platform loads its own bundled binary, not another system's library."""
+    names = {'win32': 'soft_oal.dll', 'linux': 'libopenal.so.1', 'darwin': 'libopenal.1.dylib'}
+    for platform, name in names.items():
+        assert paths.openal_lib_name(platform) == name
+    assert paths.OPENAL_LIB_NAME == paths.openal_lib_name(sys.platform)
     assert os.path.basename(paths.OPENAL_DLL) == paths.OPENAL_LIB_NAME
-    for name in ('soft_oal.dll', 'libopenal.so.1'):
+    for name in names.values():
         assert os.path.isfile(os.path.join(paths.VENDOR, 'openal', name)), name
+
+
+def test_on_macos_the_save_goes_in_application_support():
+    from unittest.mock import patch
+    with tempfile.TemporaryDirectory() as top:
+        with patch.object(paths, 'WINDOWS', False), patch.object(paths, 'MACOS', True), \
+                patch('os.path.expanduser', return_value=top), \
+                patch.dict(os.environ, {'XDG_DATA_HOME': os.path.join(top, 'xdg')}):
+            assert paths.user_dir() == _scratch_save.FOLDER, 'save override was ignored'
+            os.environ.pop(paths.USER_DIR_ENV)
+            expected = os.path.join(top, 'Library', 'Application Support', 'SixthSense')
+            assert paths.user_dir() == expected and os.path.isdir(expected)
 
 
 def test_every_test_file_keeps_off_the_real_save():

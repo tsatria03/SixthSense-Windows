@@ -35,7 +35,8 @@ can go in a fresh folder and carries on from your progress.
 
 ## Requirements
 
-To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or later, or on 64-bit Linux (WSL included), and two packages:
+To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or later,
+64-bit Linux (WSL included), or macOS 11 or later, and two packages:
 
     pip install -r requirements.txt
 
@@ -46,12 +47,18 @@ To run it from source instead: 64-bit Python 3.12 or newer on Windows 10 or late
 
 Everything else is the standard library — the audio is OpenAL Soft through `ctypes`,
 and the WAVs, plists and map files are read with `wave` and `plistlib`. OpenAL Soft
-(`vendor/openal/soft_oal.dll`, and `vendor/openal/libopenal.so.1` for Linux) ships with the
-repository, so there is nothing to install for it. On Linux, if the vendored library is
+(`vendor/openal/soft_oal.dll`, `vendor/openal/libopenal.so.1` for Linux, and
+`vendor/openal/libopenal.1.dylib` for macOS) ships with the repository, so there is
+nothing to install for it. On Linux, if the vendored library is
 missing, the system's own `libopenal.so.1` is used (`libopenal1` on Debian and Ubuntu).
 On Linux the save is in `~/.local/share/SixthSense` (or `$XDG_DATA_HOME/SixthSense`)
 instead of `%APPDATA%\SixthSense`, and the NVDA client, being Windows-only, is skipped:
 Prism speaks instead.
+
+On macOS the save is in `~/Library/Application Support/SixthSense`, and Prism
+speaks through VoiceOver, or a native voice when no screen reader is running.
+The bundled OpenAL Soft is universal: source runs need Python and packages for
+the Mac's own architecture, Apple Silicon or Intel.
 
 `vendor/nvda/nvdaControllerClient64.dll` ships too, so NVDA can speak what no recording
 covers: the key-binding screen and a few messages. With voice over on, the main menu's
@@ -335,6 +342,8 @@ builds a Linux game instead, in `dist/SixthSense-Linux` around `SixthSense`, wit
 Soft's Linux library and no NVDA client; PyInstaller only builds for the system it runs
 on. `releaser.py` releases both, one system at a time (below).
 
+On Windows and Linux, the build can be:
+
 - **Folder build:** the game in a folder, with its sounds and data beside the
   executable in `game\`.
 - **Single exe** (`--embed`): the sounds and the game's data inside one executable.
@@ -345,6 +354,15 @@ the executable, as in the repository, and `VERSION` and the license sit beside i
 where a player can open them. The third-party licenses go inside the executable, in a
 `licenses` folder. `docks/readme.txt` is the player's own readme: plain text, one sentence a line,
 with none of this file's developer parts.
+
+On macOS it builds `dist/SixthSense-macOS/SixthSense.app`, with
+the data, dependencies and documents inside: copy the app on its own and open
+it in Finder. The app targets the build Python's architecture, ARM64 or Intel.
+`--console` keeps a console-folder build instead; otherwise
+`--embed` and `--onefile` still build an app without self-extraction. For a distributable build that
+keeps the macOS 11 minimum, use uv-managed Python for the target architecture:
+
+    uv run --managed-python --python 3.13 --with-requirements requirements.txt --with pyinstaller python compiler.py --clean
 
 `releaser.py` does the rest. Its full release goes through each step and asks Y or N
 before each one:
